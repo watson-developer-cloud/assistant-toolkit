@@ -1,1 +1,1 @@
-# assistant-lifecycle-management
+# Watson Assistant Toolkit
