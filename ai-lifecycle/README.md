@@ -1,1 +1,1 @@
-# Assistant AI Lifecycle
+# AI Lifecycle
