@@ -1,1 +1,1 @@
-# Watson Assistant AI Lifecycle
+# Watson Assistant Toolkit
