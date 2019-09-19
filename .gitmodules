@@ -1,0 +1,3 @@
+[submodule "ai-lifecycle/assistant-dialog-skill-analysis"]
+	path = ai-lifecycle/assistant-dialog-skill-analysis
+	url = git@github.com:watson-developer-cloud/assistant-dialog-skill-analysis.git
