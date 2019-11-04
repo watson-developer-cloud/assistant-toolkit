@@ -6,9 +6,8 @@ We want to help you build unique conversational experiences which work seamlessl
 ## AI Journey
 The journey has six phases. The phases are repeated to form an iterative process that you follow to build, manage, and incrementally improve your assistant
 
-
-The six phases are illustrated in Figure 1
-
+The six phases are illustrated in the figure below
+![Phases of the AI Lifecycle](https://github.com/watson-developer-cloud/assistant-toolkit/blob/master/ai-lifecycle/AILifecycle.png "Phases of the AI Lifecycle")
 
 ## Phase 1: Create and update training data
 
