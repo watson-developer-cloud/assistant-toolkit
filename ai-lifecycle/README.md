@@ -5,7 +5,7 @@ We want to help you build unique conversational experiences which work seamlessl
 
 We believe that if we can help you leverage all of the capabilities available within Watson Assistant, you will be able to build highly effective AI solutions for your business. To that end, experts from the Watson Assistant team have compiled a set of guidelines that are covered in this lifecycle document. The guidelines incorporate expertise that the team has gained from real world engagements with clients from around the world. We hope it helps you to discover ways to get the most out of your own AI implementation.
  
-## Phases of the AI Lifecycle
+## Phases of the AI lifecycle
 The AI lifecycle has six phases. The phases are repeated to form an iterative process that you follow to build, manage, and incrementally improve your assistant
 
 The six phases are illustrated in the figure below
