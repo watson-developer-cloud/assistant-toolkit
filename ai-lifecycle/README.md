@@ -1,7 +1,9 @@
 # AI Lifecycle
 
 ## Introduction
-We want to help you build unique conversational experiences which work seamlessly with your end users. We want to help get your projects off the ground quickly, and build virtual conversational assistants which impact the KPIs you care about most. We believe that if we can help you leverage all of the capabilities available within Watson Assistant, you will be able to build highly effective AI solutions for your business. To that end, experts from the Watson Assistant team have compiled a set of guidelines that are covered in this journey document. The guidelines incorporate expertise that the team has gained from real world engagements with clients from around the world. We hope it helps you to discover ways to get the most out of your own AI implementation.
+We want to help you build unique conversational experiences which work seamlessly with your end users. We want to help get your projects off the ground quickly, and build virtual conversational assistants which impact the KPIs you care about most.
+
+We believe that if we can help you leverage all of the capabilities available within Watson Assistant, you will be able to build highly effective AI solutions for your business. To that end, experts from the Watson Assistant team have compiled a set of guidelines that are covered in this journey document. The guidelines incorporate expertise that the team has gained from real world engagements with clients from around the world. We hope it helps you to discover ways to get the most out of your own AI implementation.
  
 ## AI Journey
 The journey has six phases. The phases are repeated to form an iterative process that you follow to build, manage, and incrementally improve your assistant
@@ -14,8 +16,9 @@ The six phases are illustrated in the figure below
 
 In this phase of the journey, you create an assistant or update an existing assistant. If this is the first time you are to improve it you should check out the getting started guide to familiarize yourself with the [product documentation](https://cloud.ibm.com/docs/services/assistant). 
 
+By following the process mentioned in the [development process guide](https://cloud.ibm.com/docs/services/assistant?topic=assistant-dev-process), you can convert the issues for which end users reach out to a contact center, into a business use case in which an assistant works in sync with a human agent. Using the "Try It Out" panel, you can then test your assistant. Submit utterances that represent reasons for contacting support and see whether you assistant returns the correct intent. 
 
-By following the process mentioned in the [development process guide](https://cloud.ibm.com/docs/services/assistant?topic=assistant-dev-process), you can convert the issues for which end users reach out to a contact center into a business use case in which an assistant works in sync with a human agent. Using the "Try It Out" panel, you can then test your assistant. Submit utterances that represent reasons for contacting support and see whether you assistant returns the correct intent. In this phase, it's normal for some utterances to be mapped to the correct intents while others may incorrectly map to a different intent. The next phase of this journey introduces additional tools that can help you improve on the initial design of your virtual assistant. 
+In this phase, it's normal for some utterances to be mapped to the correct intents while others may incorrectly map to a different intent. The next phase of this journey introduces additional tools that can help you improve on the initial design of your virtual assistant. 
 
 
 ## Phase 2: Analyze train and test data
