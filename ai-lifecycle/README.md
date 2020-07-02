@@ -56,14 +56,17 @@ As an output of the Measure notebook, you can also generate a subset of problema
 
 ## Phase 5: Analyze effectiveness and coverage
 
+With measurements of your live system in hand, you can focus on understanding the patterns that lead to low performance. If you decide to improve the Coverage measurement, you’ll want to use the [Intent Recommendations](https://cloud.ibm.com/docs/services/assistant?topic=assistant-intent-recommendations) feature in Watson Assistant, which uses your logs to help you create new intents or expand existing intents with more training examples. 
 
-After you perform an assessment using the guidance in the notebook, the [Analyze Effectiveness Notebook](https://github.com/watson-developer-cloud/assistant-improve-recommendations-notebook)  uses actual conversations from your logs to help you understand relative performance of each intent and entity as well as the confusion between your intents. The notebook also summarizes dialog problems. This information helps you prioritize the next steps of your improvement effort.
+If you turn your attention to improve the Effectiveness measurement, you can choose to either analyze the quality of intent and entity detection using the [Analyze Effectiveness Notebook](https://github.com/watson-developer-cloud/assistant-improve-recommendations-notebook) or focus instead on the quality of your dialog flows using the [Dialog Flow Analysis Notebook](https://github.com/watson-developer-cloud/assistant-dialog-flow-analysis). 
+
+This analysis phase helps you prioritize the next steps of your improvement effort.
 
 
 ## Phase 6: Improve via recommendations
 
 
-In this phase of the lifecycle, you make further improvements to your virtual assistant based on either the log analysis provided by the Assistant Effectiveness Notebook or based on the insights provided by the Dialog Skill Analysis Notebook. These improvements can include resolving intent conflicts seen in your data, adding training to imprecise intents, or combining confused intents into a single intent and distinguishing using entities.  As you update your training, you'll start Phase 1 of the next iteration of your AI lifecycle.
+In this phase of the lifecycle, you make further improvements to your virtual assistant based on the log analysis provided by the Assistant Effectiveness Notebook or the Dialog Flow Analysis Notebook, or the insights provided by the Dialog Skill Analysis Notebook. These improvements can include resolving intent conflicts seen in your data, adding training to imprecise intents, or combining confused intents into a single intent and distinguishing using entities.  As you update your training, you'll start Phase 1 of the next iteration of your AI lifecycle.
 
 
 ## In Conclusion
