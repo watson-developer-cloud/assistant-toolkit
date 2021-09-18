@@ -16,6 +16,14 @@ In this folder you will find the following:
 - A single instance of Watson Assistant. Go [here](https://cloud.ibm.com/catalog/services/watson-assistant) to get started.
 - The above 5 files contained in this repo. 
 
+## Message flow
+This sequence diagram illustrates the basic overall flow of messages as they move between the pre and post webhooks and the three Assistants during a single conversation:
+<p align="center">
+  <img src="../multi-assist-sequence-diagram.png">
+</p>
+The conversation shown here starts with the Primary Assistant and is then re-directed to the Secondary Assistant 2 where it stays for two conversation turns and then moves to Secondary Assistant 3 after no intent match is found at Secondary Assistant 2.
+
+
 ## Setup Instructions
 Follow these steps to deploy this sample after you've cloned this repository to your local drive.
 
