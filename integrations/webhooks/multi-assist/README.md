@@ -45,7 +45,7 @@ Follow these steps to deploy this sample after you've cloned this repository to 
 
 ### Configure the Primary Assistant webhooks
 10. Obtain the URLs that point to your pre-webhook and post-webhook flows running inside Node-RED. If you are using an IBM cloud instance of Node-RED this URL will be a combination of the root URL you use to access your Node-RED instance (the panel where you edit your flows) appended with either /multi-assist-pre-webhook or /multi-assist-post-webhook.
-11. Next go into the Primary Assistant "Settings" and setup these two webhooks. Note that the secrete is currently being ignored so you can set these to any value you wish. 
+11. Next go into the Primary Assistant "Settings" and setup these two webhooks. Note that the secret is currently being ignored so you can set these to any value you wish. 
 
 ### Configure a channel integration for testing
 12. This sample will work with any of the channel integrations but it was originally developed for the Phone channel. You can add a channel integration to your Primary Assistant by opening your Primary Assistant and then selecting the channel you wish to add from the Integrations section of the Assistant panel.
