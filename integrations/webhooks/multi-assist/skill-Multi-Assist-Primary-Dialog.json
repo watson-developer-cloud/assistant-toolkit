@@ -1,0 +1,187 @@
+{
+  "intents": [
+    {
+      "intent": "Payment",
+      "examples": [
+        {
+          "text": "I want to make a payment"
+        },
+        {
+          "text": "Payment"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Support",
+      "examples": [
+        {
+          "text": "Give me support"
+        },
+        {
+          "text": "I want support"
+        },
+        {
+          "text": "Support"
+        }
+      ],
+      "description": ""
+    }
+  ],
+  "entities": [],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    }
+  },
+  "dialog_nodes": [
+    {
+      "type": "standard",
+      "title": "Anything else",
+      "output": {
+        "generic": [
+          {
+            "title": "To better help you please tell me which of these options best addresses your needs.",
+            "options": [
+              {
+                "label": "Support",
+                "value": {
+                  "input": {
+                    "text": "Support"
+                  }
+                }
+              },
+              {
+                "label": "Payments",
+                "value": {
+                  "input": {
+                    "text": "Payments"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "context": {
+        "vgwAction": {
+          "command": "vgwActSetTTSConfig",
+          "parameters": {
+            "config": {
+              "voice": "en-US_EmilyV3Voice"
+            }
+          }
+        }
+      },
+      "conditions": "anything_else",
+      "dialog_node": "Anything else",
+      "previous_sibling": "node_6_1630425421313",
+      "disambiguation_opt_out": true
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Ok, transferring you to support."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "context": {
+        "multi_assist_url": "https://api.us-east.assistant.watson.cloud.ibm.com/instances/xxxxxxxx-yyyy-zzzz-aaaa-bbbbbbbbbbbb/v2/assistants/xxxxxxxx-yyyy-zzzz-aaaa-bbbbbbbbbbbb/sessions"
+      },
+      "conditions": "#Support",
+      "dialog_node": "node_1_1630425243139",
+      "previous_sibling": "Welcome"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Ok, transferring you to payments."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "context": {
+        "multi_assist_url": "https://api.us-east.assistant.watson.cloud.ibm.com/instances/xxxxxxxx-yyyy-zzzz-aaaa-bbbbbbbbbbbb/v2/assistants/xxxxxxxx-yyyy-zzzz-aaaa-bbbbbbbbbbbb/sessions"
+      },
+      "conditions": "#Payment",
+      "dialog_node": "node_6_1630425421313",
+      "previous_sibling": "node_1_1630425243139"
+    },
+    {
+      "type": "standard",
+      "title": "Welcome",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hi, you've reached Bank of the Future. "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "context": {
+        "vgwAction": {
+          "command": "vgwActSetTTSConfig",
+          "parameters": {
+            "config": {
+              "voice": "en-US_EmilyV3Voice"
+            }
+          }
+        }
+      },
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "Anything else"
+      },
+      "conditions": "welcome",
+      "dialog_node": "Welcome"
+    }
+  ],
+  "counterexamples": [],
+  "system_settings": {
+    "off_topic": {
+      "enabled": true
+    },
+    "disambiguation": {
+      "prompt": "Did you mean:",
+      "enabled": true,
+      "randomize": true,
+      "max_suggestions": 5,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "None of the above"
+    },
+    "human_agent_assist": {
+      "prompt": "Did you mean:"
+    },
+    "intent_classification": {
+      "training_backend_version": "v2"
+    },
+    "spelling_auto_correct": true
+  },
+  "learning_opt_out": false,
+  "name": "Multi-Assist Primary Dialog",
+  "language": "en",
+  "description": ""
+}
