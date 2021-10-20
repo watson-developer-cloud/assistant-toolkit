@@ -81,11 +81,11 @@ You can now customize this sample to support whatever use case you need. Assumin
 
 ## Converting the Node-RED samples to run on a different runtime
 
-Its very likely that for production deployments you may wish to convert the Node-RED samples to run on some other runtime. To make this easier here are a several of examples of messages that can be returned from both a pre and post webhook. Note the difference between returning a message response from a pre-webhook vs. a message request.
+Its very likely that for production deployments you may wish to convert the Node-RED samples to run on some other runtime. To make this easier here are several of examples of messages that can be returned from both a pre and post webhook. Note that the next section shows the difference between returning a message response vs. a message request from a pre-webhook, which is the new feature described in the blog related to this code sample.
 
 ### Pre-webhook message response
 
-Note that there is no root "payload" object when a respones is returned from the pre-webhook instead of a request.
+Please note that there is no root "payload" object when a response is returned from the pre-webhook instead of a request.
 
 ```json
 {
