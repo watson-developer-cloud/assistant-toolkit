@@ -213,7 +213,7 @@ Please note that there is no root "payload" object when a response is returned f
 			"skills": {
 				"main skill": {
 					"user_defined": {
-						"multi_assist_url": "https://api.us-east.assistant.watson.cloud.ibm.com/instances/920dfdd7-fff9-4840-ac91-6cacfe609b37/v2/assistants/609cbbcf-bbb2-4903-b5e1-aad940870277/sessions",
+						"multi_assist_url": "https://api.us-east.assistant.watson.cloud.ibm.com/instances/xxxxxxx-fff9-4840-ac91-6cacfe609b37/v2/assistants/xxxxxxxx-bbb2-4903-b5e1-aad940870277/sessions",
 						"multi_assist_session_id": "8b9a44a4-eb21-4c4d-bbc6-6550d475a137",
 						...
 					},
