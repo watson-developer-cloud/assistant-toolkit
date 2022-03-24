@@ -14,11 +14,10 @@ The API reference for MetaWeather is at [https://www.metaweather.com/api/](https
 
 MetaWeather does not use any API keys.
 
-You can use the `openapi-spec.json` specification file to recreate the three endpoints listed above. Or you can you upload the `wa-actions.json` file into your Watson Assistant actions; this will upload three actions:
+You can use the `metaweather.openapi.json` specification file to recreate the three endpoints listed above. Or you can you upload the `metaweather.actions.json` file into your Watson Assistant actions; this will upload three actions:
 
 - Search the current weather of a location using a location name.
 - Search the current weather of a location using a Where-On-Earth-ID.
 - Search the past weather of a location using a date and a Where-On-Earth-ID.
 
 If you want to know the Where-On-Earth-ID of a particular location, simply use the first action to query using the location name. The Where-On-Earth-ID of the location will be returned to you.
-
