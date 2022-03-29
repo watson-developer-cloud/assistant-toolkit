@@ -18,10 +18,10 @@ More starter kits will be added in the future.
     - [HubSpot](./starter-kits/hubspot/)
 1. [Create a Working Custom Extension](#getting-started)
 1. [Supported Features](#supported-features)
-
+1. [How to Contribute](./docs/CONTRIBUTING.md)
 
 ## Getting Started
-This guide is for using a **starter kit** for your custom extension. For our full official documentation, visit [Building a Custom Extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension). 
+This guide is for using a **starter kit** for your custom extension. For our full docs on how to create and customize extensions, visit [Building a Custom Extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension). 
 
 1. Select a starter kit for your custom extension. 
 1. Navigate to the appropriate directory and download the OpenAPI spec (ending in `.openapi.json`) and actions skill (ending in `.skill.json`). 
@@ -33,7 +33,10 @@ This guide is for using a **starter kit** for your custom extension. For our ful
     - Upload the OpenAPI file from Step 2 and click `Next` > `Finish`. You should now see your extension created in the `Extensions` section of the catalog.
 1. Link your extension to the uploaded skill. There are two ways you can do this: <br>
     - [Method 1](#method-1-best-for-simple-actions-skills) - best for simple actions skills.
-    - [Method 2](#method-2-best-for-lengthy-actions-skills) - best for lengthy actions skills. 
+    - [Method 2](#method-2-best-for-lengthy-actions-skills) - best for lengthy actions skills. <br>
+    ```
+    Note: we will soon be automatically linking your extension to the uploaded skill, so sit tight for updates on a more streamlined experience.
+    ```
 1. You now have a working extension! Go to the **Preview** page and send any message supported by the uploaded actions skill to test it out.
 
 Feel free to modify the skill and response variables to get a better grasp of how to use extensions. If you're ready to see more complex features and Auth usage, you can move on to [Advanced Usage](./docs/ADVANCED_USAGE.md).
@@ -41,8 +44,8 @@ Feel free to modify the skill and response variables to get a better grasp of ho
 ## Supported Features
 Details on the full features and limitations are described in our official documentation page: https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#build-custom-extension-openapi-file
 
-## Linking your extension to an actions skill
-### **Method 1**: best for simple actions skills.
+## Linking your Extension to an Actions Skill
+### **Method 1**: For simple actions skills
 1. Upload your actions skill.
     - Navigate to the **Actions** page in Watson Assistant.
     - Click the cog icon on the top right corner.
@@ -50,9 +53,9 @@ Details on the full features and limitations are described in our official docum
 1. Link your extension to your skill.
     - Navigate back to **Actions** and select the action you would like to add the extension to.
     - Find the step(s) that have `Use an extension` as the step result. You should see an alert on these steps, showing that the extension needs to be linked.
-    - Select `Edit Extension` and choose your extension, and reselect the operation and its respective parameters, mimicking the parameters of the initial (errored) configuration.
-    - `Save`.            
-### **Method 2**: best for lengthy actions skills.
+    - Select `Edit Extension` and choose your extension, and reselect the operation and its respective parameters based on what is listed in the `Using this Starter Kit` section of the extension specific README.
+    - Click `Save`.            
+### **Method 2**: For lengthy actions skills
 1. Obtain the id for your created extension.
     - From the **Integrations** page, open the dev tools tab (shortcuts: `CMD + OPTIONS + i` for Mac, `CTRL + SHIFT + j` for Linux/Windows) and click on the `Network` tab.
     - Find your extension under `Extensions` and click `Add +` > `Confirm`.
