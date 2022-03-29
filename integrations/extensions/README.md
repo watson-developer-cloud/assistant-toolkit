@@ -10,7 +10,10 @@ Each starter kit includes:
 - An actions skill JSON file that uses the extension created from the OpenAPI spec. You can import this file into an assistant and then edit these actions to access the extension you create.
 - A README containing API specific instructions on how to set up the extension.
 
-More starter kits will be added in the future.
+### How to Use This Repository
+To help you get familiarized, we're providing and maintaining **two** starter kits to be used as tutorials: `HubSpot` and `MetaWeather`. The **basic** path will help you get your first custom extension started. Then, you can move on to the **advanced** path for more complex OpenAPI specs and actions skills that showcase the full capabilities of extensions, and can use as a reference to build your own specs and skills.
+
+Our other starter kits focus on showcasing and inspiring creating various custom extensions - use these as a spring board to create cool extensions, and refer back to the tutorial starter kits to learn how to configure more complex extensions.
 
 ## Jump to...
 1. [All Available Starter Kits](./starter-kits/)
@@ -23,7 +26,7 @@ More starter kits will be added in the future.
 ## Getting Started
 This guide is for using a **starter kit** for your custom extension. For our full docs on how to create and customize extensions, visit [Building a Custom Extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension). 
 
-1. Select a starter kit for your custom extension. 
+1. Select a starter kit for your custom extension. We recommend you start with [MetaWeather basic](./starter-kits/metaweather/basic) if this is your first custom extension.
 1. Navigate to the appropriate directory and download the OpenAPI spec (ending in `.openapi.json`) and actions skill (ending in `.skill.json`). 
 1. Create an extension.
     - Go to your Watson Assistant instance.
@@ -39,10 +42,7 @@ This guide is for using a **starter kit** for your custom extension. For our ful
     ```
 1. You now have a working extension! Go to the **Preview** page and send any message supported by the uploaded actions skill to test it out.
 
-Feel free to modify the skill and response variables to get a better grasp of how to use extensions. If you're ready to see more complex features and Auth usage, you can move on to [Advanced Usage](./docs/ADVANCED_USAGE.md).
-
-## Supported Features
-Details on the full features and limitations are described in our official documentation page: https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#build-custom-extension-openapi-file
+Feel free to modify the skill and response variables to get a better grasp of how to use extensions. If you're ready to see more complex OpenAPI specs, features, and Auth usage, you can move on to [Advanced Usage](./docs/ADVANCED_USAGE.md).
 
 ## Linking your Extension to an Actions Skill
 ### **Method 1**: For simple actions skills
