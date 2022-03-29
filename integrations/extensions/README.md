@@ -11,7 +11,9 @@ Each starter kit includes:
 - A README containing API specific instructions on how to set up the extension.
 
 ### How to Use This Repository
-To help you get familiarized, we're providing and maintaining **two** starter kits to be used as tutorials: `HubSpot` and `MetaWeather`. The **basic** path will help you get your first custom extension started. Then, you can move on to the **advanced** path for more complex OpenAPI specs and actions skills that showcase the full capabilities of extensions, and can use as a reference to build your own specs and skills.
+This guide is for using a **starter kit** for your custom extension. For our full docs on how to create and customize extensions, visit [Building a Custom Extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension). 
+
+We're providing and maintaining **two** starter kits to be used as tutorials: `HubSpot` and `MetaWeather`. The **basic** path will help you get your first custom extension started. Then, you can move on to the **advanced** path for more complex OpenAPI specs and actions skills that showcase the full capabilities of extensions, and can use as a reference to build your own specs and skills.
 
 Our other starter kits focus on showcasing and inspiring creating various custom extensions - use these as a spring board to create cool extensions, and refer back to the tutorial starter kits to learn how to configure more complex extensions.
 
@@ -19,14 +21,12 @@ Our other starter kits focus on showcasing and inspiring creating various custom
 1. [All Available Starter Kits](./starter-kits/)
     - [MetaWeather](./starter-kits/metaweather/)
     - [HubSpot](./starter-kits/hubspot/)
-1. [Create a Working Custom Extension](#getting-started)
-1. [Supported Features](#supported-features)
+1. [Create a Custom Extension](#getting-started)
 1. [How to Contribute](./docs/CONTRIBUTING.md)
 
 ## Getting Started
-This guide is for using a **starter kit** for your custom extension. For our full docs on how to create and customize extensions, visit [Building a Custom Extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension). 
-
-1. Select a starter kit for your custom extension. We recommend you start with [MetaWeather basic](./starter-kits/metaweather/basic) if this is your first custom extension.
+1. Select a starter kit for your custom extension.
+    - We recommend you start with [MetaWeather basic](./starter-kits/metaweather/basic) if this is your first custom extension.
 1. Navigate to the appropriate directory and download the OpenAPI spec (ending in `.openapi.json`) and actions skill (ending in `.skill.json`). 
 1. Create an extension.
     - Go to your Watson Assistant instance.
@@ -34,6 +34,8 @@ This guide is for using a **starter kit** for your custom extension. For our ful
     - Click `Build custom extension` > `Next`
     - Give your extension a name and a description, then hit `Next`.
     - Upload the OpenAPI file from Step 2 and click `Next` > `Finish`. You should now see your extension created in the `Extensions` section of the catalog.
+    <br><br>
+    ![create-an-extension](./assets/create-an-extension.gif)
 1. Link your extension to the uploaded skill. There are two ways you can do this: <br>
     - [Method 1](#method-1-best-for-simple-actions-skills) - best for simple actions skills.
     - [Method 2](#method-2-best-for-lengthy-actions-skills) - best for lengthy actions skills. <br>
@@ -61,11 +63,17 @@ Feel free to modify the skill and response variables to get a better grasp of ho
     - Find your extension under `Extensions` and click `Add +` > `Confirm`.
     - In the **dev tools** tab, click on the request starting with a uuid - i.e. `00671ee7-26e6-43ec-9783-51a9f80bbcf3`. Go to the `Preview` tab and look for the field `config`  > `catalog_item_id`. **Copy this value - this is your extension's id**. You can now close the dev tools tab.
     - Click through the default settings, then click `Finish` and `Close`. You should now see a green check mark next to your extension, indicating that you successfully added your catalog item to your assistant.
+    <br><br>
+    ![add-extension-get-id](./assets/add-extension-get-id.gif)
 1. Modify your actions skill.
     - Open the `{selected_extension}.skill.json` file in a text editor.
     - Search on `catalog_item_id` and replace all uuid values with your extension id from the previous step.
     - Save the file.
+    <br><br>
+    ![modify-skill](./assets/modify-skill.gif)
 1. Upload your modified actions skill.
     - Navigate to the Actions tab in Watson Assistant.
     - Click the cog icon on the top right corner.
     - Select your actions skill file from the previous step, and click `Upload`.
+     <br><br>
+    ![upload-skill](./assets/upload-skill.gif)
