@@ -78,3 +78,149 @@ You can now customize this sample to support whatever use case you need. Assumin
 2. The **multi_assist_url** context variables that point to those secondary skills.
 3. Intent training for the intents that point to your secondary skills.
 4. Modify the anything_else nodes in your secondary skills to include this context variable: **multi_assist_no_match**.
+
+## Converting the Node-RED samples to run on a different runtime
+
+Its very likely that for production deployments you may wish to convert the Node-RED samples to run on some other runtime. To make this easier here are several examples of messages that can be returned from both a pre and post webhook. Note that the next section shows the difference between returning a message response vs. a message request from a pre-webhook, which is the new feature described in the blog related to this code sample.
+
+### Pre-webhook message response
+
+Please note that there is no root "payload" object when a response is returned from the pre-webhook instead of a request.
+
+```json
+{
+	"output": {
+		"intents": [{
+			"intent": "OnlineBanking",
+			"confidence": 0.28619351983070374
+		}],
+		"entities": [],
+		"generic": [{
+			"response_type": "text",
+			"text": "Please describe the issue you are having."
+		}]
+	},
+	"user_id": "88c38df9ea94edc55eb9467fc3fef707",
+	"context": {
+		"global": {
+      "session_id": "b263cb6f-0d62-4b01-a28e-1743ff54d28d",
+			"system": {
+				...
+			}
+		},
+		"skills": {
+			"main skill": {
+				"user_defined": {
+					"multi_assist_url": "https://api.us-east.assistant.watson.cloud.ibm.com/instances/xxxxxxx-fff9-4840-ac91-6cacfe609b37/v2/assistants/xxxxxxxx-bbb2-4903-b5e1-aad940870277/sessions",
+					"multi_assist_session_id": "80a8f8a6-a853-4edc-97ba-bf31f6b219ad",
+          ...
+				},
+				"system": {}
+			}
+		},
+		"integrations": {
+			"voice_telephony": {
+				"private": {
+					...
+				},
+				"sip_call_id": "54670605_117221660@10.190.42.210",
+				"assistant_phone_number": "+12024172419"
+			}
+		}
+	}
+}
+```
+
+### Pre-webhook message request
+
+```json
+{
+	"payload": {
+		"input": {
+			"message_type": "text",
+			"text": "support",
+			"source": {
+				"type": "user",
+				"id": "88c38df9ea94edc55eb9467fc3fef707"
+			},
+			"options": {
+				"suggestion_only": false,
+				"return_context": true
+			},
+			"integrations": {
+				"voice_telephony": {
+					"speech_to_text_result": {
+						...
+					},
+					"is_dtmf": false,
+					"barge_in_occurred": true
+				}
+			}
+		},
+		"context": {
+			"global": {
+				"system": {
+					"user_id": "88c38df9ea94edc55eb9467fc3fef707",
+					"session_start_time": "2021-10-20T19:35:27.052Z",
+					"state": "..."
+				},
+				"session_id": "b263cb6f-0d62-4b01-a28e-1743ff54d28d"
+			},
+			"integrations": {
+				"voice_telephony": {
+					"sip_call_id": "2398068_134177627@10.213.75.14",
+					"assistant_phone_number": "+12024172419",
+					"private": {
+						...
+					}
+				}
+			},
+			"skills": {
+				"main skill": {
+					"user_defined": {
+						...
+						"multi_assist_orig_session_id": "b263cb6f-0d62-4b01-a28e-1743ff54d28d"
+					},
+					"system": {}
+				}
+			}
+		}
+	}
+}
+```
+
+### Post-webhook message response
+
+```json
+{
+	"payload": {
+		"output": {
+			"intents": [],
+			"entities": [],
+			"generic": [{
+				"response_type": "text",
+				"text": "Hello. You've reached support. How can I help you?"
+			}]
+		},
+		"user_id": "88c38df9ea94edc55eb9467fc3fef707",
+		"context": {
+			"global": {
+				"system": {
+					...
+				},
+				"session_id": "b263cb6f-0d62-4b01-a28e-1743ff54d28d"
+			},
+			"skills": {
+				"main skill": {
+					"user_defined": {
+						"multi_assist_url": "https://api.us-east.assistant.watson.cloud.ibm.com/instances/xxxxxxx-fff9-4840-ac91-6cacfe609b37/v2/assistants/xxxxxxxx-bbb2-4903-b5e1-aad940870277/sessions",
+						"multi_assist_session_id": "8b9a44a4-eb21-4c4d-bbc6-6550d475a137",
+						...
+					},
+					"system": {}
+				}
+			}
+		}
+	}
+}
+```
