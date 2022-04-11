@@ -20,27 +20,29 @@ You can use the `metaweather.advanced.openapi.json` specification file to recrea
 To get started with using the OpenAPI spec, you can you upload the `metaweather.advanced.actions.json` file into your Watson Assistant actions; this will upload three actions:
 
 - **Action 1**. Search the current weather of a location using a location name.
+    ```
+    Operation 1: Location Search
+    Parameters:
+        - query = 1. Sure thing! What is the name ...
 
-    **Operation 1**: `Location Search`
-    - Parameters:
-        - `query`: `1. Sure thing! What is the name ...`
-
-    **Operation 2**: `Location`
-    - Parameters:
-        - `woeid`: `location_item_0_woeid`
-
+    Operation 2: Location
+    Parameters:
+        - woeid: location_item_0_woeid
+    ```
 - **Action 2**. Search the current weather of a location using a Where-On-Earth-ID.
-    - Operation: `Location`
-    - Parameters:
-        - `woeid`: `1. Great! What is the WOE-ID ...`
-
+    ```
+    Operation: Location
+    Parameters:
+        - woeid: 1. Great! What is the WOE-ID ...
+    ```
 - **Action 3**. Search the past weather of a location using a date and a Where-On-Earth-ID.
-    - Operation: `Location Day`
-    - Parameters:
-        - `woeid`: `1. OK, I can help with that. What is your ...`
-        - `year`: `year`
-        - `month`: `month`
-
+    ```
+    Operation: Location Day
+    Parameters:
+        - woeid: 1. OK, I can help with that. What is your ...
+        - year: year
+        - month: month
+    ```
 If you want to know the Where-On-Earth-ID of a particular location, simply use the first action to query using the location name. The Where-On-Earth-ID of the location will be returned to you.
 
 ## Example Usage
