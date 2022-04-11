@@ -1,25 +1,26 @@
-
+# HubSpot Custom Extension
 
 ## Background
+HubSpot provides an API which allows for ticket creation, amongst other business functions.
 
-When it comes to being developer friendly, Hubspot is great.
-Their public API documentation publishes an OpenAPI doc and offers a Postman collection:  https://developers.hubspot.com/docs/api/crm/tickets.
+HubSpot also offers a free version, which makes it great place to start for proof-of-concepts, testing, etc. which would also allow you to upgrade your account/product as needed.
 
-In addition, Hubspot provides an endpoint that lists all the OpenAPIs of their product, https://api.hubspot.com/api-catalog-public/v1/apis?_ga=2.141533746.1208547948.1639927461-1206602246.1639927461.  
+This example starter kit offers support for the following API endpoints:
+    - 
+    - 
+    -   
 
-If you need only one for ticketing, you can find it here:  https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/objects/tickets.
-
-There is also a free version of Hubspot which makes Hubspot a great place to start for proofs of concept, testing, etc that allows you to upgrade your account as needed.
+Hubspot has a fantastic public API documentation, in which they publish an OpenAPI doc as well as a Postman collection: https://developers.hubspot.com/docs/api/crm/tickets. The full documentation for their API endpoints can be found [here](https://api.hubspot.com/api-catalog-public/v1/apis?_ga=2.141533746.1208547948.1639927461-1206602246.1639927461). For ticket specific APIs, you can find them [here](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/objects/tickets).
 
 
-## Obtaining an API key
-To call the Hubspot API, you will need an API key.
+## Pre-Req: Getting Auth Keys
+To call the HubSpot API, you will need an API key.
 
 Click on Settings (the cog wheel icon) at the top right of the page, then click `Integrations` in the left menu to open a drop-down, and select `Api Key` from the drop-down menu.
 
 There you can create a new API key or access your existing API keys.  You can also see a log of API calls using each API key, which is helpful to debug API calls sent from your assistants that do not produce the expected outcome in Hubspot or in your assistants.
 
-## Using this starter kit
+## Using this Starter Kit
 
 This starter kit expects five parameters when creating a ticket: 
 - Subject
