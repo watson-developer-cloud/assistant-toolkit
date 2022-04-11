@@ -3,10 +3,10 @@
   "type": "dialog",
   "valid": true,
   "status": "Available",
-  "created": "2022-03-21T21:27:52.664Z",
-  "updated": "2022-03-21T22:42:53.117Z",
+  "created": "2022-03-22T18:53:36.185Z",
+  "updated": "2022-04-11T13:49:05.275Z",
   "language": "en",
-  "skill_id": "cb7e983f-0c23-4358-8fed-8d9c7f8b4dba",
+  "skill_id": "ed72deb5-0861-40a5-9595-20e9ea2831c3",
   "workspace": {
     "actions": [
       {
@@ -40,7 +40,7 @@
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "catalog_item_id": "18d2304a-4114-4194-8f53-1bf00a0facea"
+                  "catalog_item_id": "5244f702-ec65-420b-a3ed-d15dd05e8e62"
                 },
                 "request_mapping": {
                   "query": [
@@ -236,7 +236,7 @@
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "catalog_item_id": "18d2304a-4114-4194-8f53-1bf00a0facea"
+                  "catalog_item_id": "5244f702-ec65-420b-a3ed-d15dd05e8e62"
                 },
                 "request_mapping": {
                   "path": [
@@ -343,6 +343,10 @@
             "data_type": "any"
           },
           {
+            "variable": "step_666_result_1",
+            "data_type": "any"
+          },
+          {
             "variable": "step_779_result_1",
             "data_type": "any"
           },
@@ -365,9 +369,196 @@
           {
             "variable": "step_969_result_1",
             "data_type": "any"
+          },
+          {
+            "variable": "step_991_result_1",
+            "data_type": "any"
           }
         ],
         "next_action": "fallback",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_666",
+            "output": {
+              "generic": [
+                {
+                  "values": [],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "action": "action_9093",
+                "parameters": null,
+                "result_variable": "step_666_result_1"
+              }
+            },
+            "variable": "step_666",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_783"
+                },
+                {
+                  "value": "Yeah!",
+                  "from_entity": "entity_6914"
+                }
+              ]
+            },
+            "next_step": "step_991"
+          },
+          {
+            "step": "step_783",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Sure. Do you have a WOE-ID for the location you're looking for? If you don't know what a WOE-ID is, feel free to say no."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                },
+                {
+                  "options": [
+                    {
+                      "label": "Yeah!",
+                      "value": {
+                        "input": {
+                          "text": "Yeah!"
+                        }
+                      }
+                    },
+                    {
+                      "label": "Nope",
+                      "value": {
+                        "input": {
+                          "text": "Nope"
+                        }
+                      }
+                    }
+                  ],
+                  "response_type": "option",
+                  "repeat_on_reprompt": true
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text": "I didn't catch that. Select a valid option:"
+                        }
+                      ],
+                      "response_type": "text"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "entity": "entity_6914",
+              "max_tries": 3
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_783",
+            "next_step": "step_666"
+          },
+          {
+            "step": "step_991",
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "action": "action_11045",
+                "parameters": null,
+                "result_variable": "step_991_result_1"
+              }
+            },
+            "variable": "step_991",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_783"
+                },
+                {
+                  "value": "Nope",
+                  "from_entity": "entity_6914"
+                }
+              ]
+            }
+          }
+        ],
+        "title": "I want to check the weather.",
+        "action": "action_35632",
+        "handlers": [],
+        "condition": {
+          "intent": "action_35632_intent_37238"
+        },
+        "variables": [
+          {
+            "title": "No response",
+            "variable": "step_666",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_666_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Sure. Do you have a WOE-ID for the location you're looking for? ",
+            "variable": "step_783",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_991",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_991_result_1",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_46482",
         "topic_switch": {
           "allowed_from": true,
           "allowed_into": true
@@ -621,7 +812,7 @@
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "catalog_item_id": "18d2304a-4114-4194-8f53-1bf00a0facea"
+                  "catalog_item_id": "3e2d5986-2668-470c-b787-4d43ca274f0d"
                 },
                 "request_mapping": {
                   "path": [
@@ -1013,7 +1204,7 @@
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "catalog_item_id": "18d2304a-4114-4194-8f53-1bf00a0facea"
+                  "catalog_item_id": "3e2d5986-2668-470c-b787-4d43ca274f0d"
                 },
                 "request_mapping": {
                   "path": [
@@ -1443,7 +1634,7 @@
             "data_type": "any"
           }
         ],
-        "next_action": "action_46482",
+        "next_action": "action_35632",
         "disambiguation_opt_out": true
       }
     ],
@@ -1456,6 +1647,29 @@
           },
           {
             "text": "Weather without WOE-ID"
+          }
+        ]
+      },
+      {
+        "intent": "action_35632_intent_37238",
+        "examples": [
+          {
+            "text": "Can you tell me the weather of a specific location?"
+          },
+          {
+            "text": "Current weather"
+          },
+          {
+            "text": "I want to check the weather."
+          },
+          {
+            "text": "Weather information"
+          },
+          {
+            "text": "Weather please."
+          },
+          {
+            "text": "What's the weather today?"
           }
         ]
       },
@@ -1504,6 +1718,22 @@
       }
     ],
     "entities": [
+      {
+        "entity": "entity_6914",
+        "values": [
+          {
+            "type": "synonyms",
+            "value": "Nope",
+            "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "Yeah!",
+            "synonyms": []
+          }
+        ],
+        "fuzzy_match": true
+      },
       {
         "entity": "sys-date",
         "values": []
@@ -1634,8 +1864,8 @@
     "learning_opt_out": true
   },
   "description": "created for assistant 4bd35064-38e3-408a-9363-1fd029574975",
-  "assistant_id": "4bd35064-38e3-408a-9363-1fd029574975",
-  "workspace_id": "cb7e983f-0c23-4358-8fed-8d9c7f8b4dba",
+  "assistant_id": "e0aad320-e44f-403a-9497-3a6b57dfa795",
+  "workspace_id": "ed72deb5-0861-40a5-9595-20e9ea2831c3",
   "dialog_settings": {
     "actions": true
   },
