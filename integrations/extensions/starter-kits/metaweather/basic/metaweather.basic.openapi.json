@@ -1,0 +1,134 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "0.0.0",
+    "title": "MetaWeather API",
+    "description": "MetaWeather provides an API that delivers JSON over HTTPS for access to our data.",
+    "contact": {
+      "url": "https://www.metaweather.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://www.metaweather.com"
+    }
+  ],
+  "paths": {
+    "/api/location/{woeid}/": {
+      "summary": "Location",
+      "get": {
+        "summary": "Location",
+        "parameters": [
+          {
+            "name": "woeid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful retrieval of location weather",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Location"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Failed to retrieve information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Location": {
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "location_type": {
+            "type": "string",
+            "description": "City|Region / State / Province|Country|Continent"
+          },
+          "latt_long": {
+            "type": "string",
+            "pattern": "^[0-9]+([0-9]+)?,[0-9]+([0-9]+)?$"
+          },
+          "time": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Time in location"
+          },
+          "sun_rise": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "sun_set": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "timezone_name": {
+            "type": "string"
+          },
+          "consolidated_weather": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Weather"
+            }
+          }
+        }
+      },
+      "Weather": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Internal identifier for the forecast"
+          },
+          "weather_state_name": {
+            "type": "string",
+            "enum": [
+              "Snow",
+              "Sleet",
+              "Hail",
+              "Thunderstorm",
+              "Heavy Rain",
+              "Light Rain",
+              "Showers",
+              "Heavy Cloud",
+              "Light Cloud",
+              "Clear"
+            ],
+            "description": "Text description of the weather state"
+          },
+          "wind_speed": {
+            "type": "number",
+            "description": "In mph"
+          },
+          "the_temp": {
+            "type": "integer",
+            "description": "In centigrade"
+          } 
+        }
+      }
+    }
+  }
+}
