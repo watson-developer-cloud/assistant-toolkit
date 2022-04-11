@@ -21,6 +21,9 @@ Our other starter kits focus on showcasing and inspiring creating various custom
 1. [All Available Starter Kits](./starter-kits/)
     - [MetaWeather](./starter-kits/metaweather/)
     - [HubSpot](./starter-kits/hubspot/)
+    - [Zendesk](./starter-kits/zendesk/)
+    - [MailChimp](./starter-kits/mailchimp/)
+    - [Spotify](./starter-kits/spotify/)
 1. [Create a Custom Extension](#getting-started)
 1. [How to Contribute](./docs/CONTRIBUTING.md)
 

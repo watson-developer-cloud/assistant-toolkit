@@ -47,4 +47,5 @@ If you want to know the Where-On-Earth-ID of a particular location, simply use t
 
 ## Example Usage
 Using this action, a typical conversation may look like this:<br>
+
 ![metaweather-convo](./assets/metaweather-convo.png)
