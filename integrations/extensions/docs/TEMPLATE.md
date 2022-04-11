@@ -29,6 +29,7 @@ Should include, at minimum:
 - Itemized list of actions provided in skill
     - Description of each action
     - Which extension operation/parameters are used, with corresponding variable names used by the skill
+- A screenshot of a typical conversation that utilizes this skill/spec
 - Any notes or limitations, known issues
 ```
 

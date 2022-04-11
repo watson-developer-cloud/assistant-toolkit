@@ -35,7 +35,7 @@ Our other starter kits focus on showcasing and inspiring creating various custom
     - Give your extension a name and a description, then hit `Next`.
     - Upload the OpenAPI file from Step 2 and click `Next` > `Finish`. You should now see your extension created in the `Extensions` section of the catalog.
     <br><br>
-    ![create-an-extension](./assets/create-an-extension.gif)
+    ![create-extension](./assets/create-extension.gif)
 1. Link your extension to the uploaded skill. There are two ways you can do this: <br>
     - [Method 1](#method-1-best-for-simple-actions-skills) - best for simple actions skills.
     - [Method 2](#method-2-best-for-lengthy-actions-skills) - best for lengthy actions skills. <br>
@@ -76,4 +76,4 @@ Feel free to modify the skill and response variables to get a better grasp of ho
     - Click the cog icon on the top right corner.
     - Select your actions skill file from the previous step, and click `Upload`.
      <br><br>
-    ![upload-skill](./assets/upload-skill.gif)
+    ![add-skill](./assets/add-skill.gif)
