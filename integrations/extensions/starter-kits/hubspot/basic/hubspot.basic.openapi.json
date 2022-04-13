@@ -2,7 +2,7 @@
   "openapi" : "3.0.3",
   "info" : {
     "title" : "Hubspot Ticketing",
-    "contact" : { },
+    "contact" : {},
     "version" : "1"
   },
   "servers" : [ {
@@ -13,43 +13,10 @@
     "ApiKeyAuth" : [ ]
   } ],
   "paths" : {
-    "/crm/v3/objects/profile" : {
-      "post" : {
-        "summary" : "Get user profile",
-        "description" : "Get profile",
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/objects_tickets_body"
-              },
-              "example" : {
-                "request" : {
-                  "subject" : "Mitch's profile",
-                  "profile_id" : 1234
-                }
-              }
-            }
-          }
-        },
-        "responses" : {
-          "200" : {
-            "description" : "success",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/crm/v3/objects/tickets" : {
       "post" : {
-        "summary" : "Create a ticket for disputes",
-        "description" : "Create Ticket",
+        "summary" : "Create Ticket",
+        "description" : "Create a ticket for disputes",
         "requestBody" : {
           "content" : {
             "application/json" : {
@@ -58,9 +25,9 @@
               },
               "example" : {
                 "request" : {
-                  "subject" : "Mitch's First Ticket",
+                  "subject" : "Gandalf's First Ticket",
                   "charge_amount" : "100",
-                  "charge_name" : "WalMart",
+                  "charge_name" : "Walmart",
                   "purchase_date" : "2020-05-08",
                   "hs_pipeline_stage" : "1"
                 }
@@ -70,7 +37,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "success",
+            "description" : "Success",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -108,7 +75,7 @@
         "properties" : {
           "subject" : {
             "type" : "string",
-            "example" : "Mitchs Dispute Ticket"
+            "example" : "Gimley's Dispute Ticket"
           },
           "charge_name" : {
             "type" : "string",
