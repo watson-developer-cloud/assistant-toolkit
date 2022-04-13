@@ -25,10 +25,10 @@
               },
               "example" : {
                 "request" : {
-                  "subject" : "Gandalf's First Ticket",
+                  "subject" : "Gandalf's First Angry Ticket",
                   "charge_amount" : "100",
-                  "charge_name" : "Walmart",
-                  "purchase_date" : "2020-05-08",
+                  "charge_name" : "fakeretail.com",
+                  "charge_date" : "2020-05-08",
                   "hs_pipeline_stage" : "1"
                 }
               }
@@ -70,7 +70,7 @@
         }
       },
       "crmv3objectstickets_request" : {
-        "required" : [ "charge_amount", "charge_name", "purchase_date", "subject", "hs_pipeline_stage" ],
+        "required" : [ "charge_amount", "charge_name", "charge_date", "subject", "hs_pipeline_stage" ],
         "type" : "object",
         "properties" : {
           "subject" : {
@@ -85,7 +85,7 @@
             "type" : "string",
             "example" : 100
           },
-          "purchase_date" : {
+          "charge_date" : {
             "type" : "string",
             "example" : "2020-05-08"
           },

@@ -8,6 +8,10 @@ This example starter kit offers support for the following HubSpot API endpoints:
 
 Hubspot has a fantastic public API documentation that is very custom extensions friendly - [their docs](https://developers.hubspot.com/docs/api/crm/tickets) provide an OpenAPI doc as well as a Postman collection. The full documentation for their API endpoints can be found [here](https://api.hubspot.com/api-catalog-public/v1/apis?_ga=2.141533746.1208547948.1639927461-1206602246.1639927461). For their ticketing specific APIs, find them [here](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/objects/tickets).
 
+## Basic vs Advanced
+
+This readme showcases the `basic` path, which implements single yet useful API call for ticket creation. If you are new to custom extensions, we recommend you start there. The `advanced` folder contains a kit with more advanced functionality, which you can use as a springboard for complex custom extensions that is tailored to your project's use cases.  
+
 ## Pre-Req 1: Getting Auth Keys
 To call the HubSpot API, you will need an API key. To obtain this key:
 
@@ -48,18 +52,22 @@ For helpful information on how to modify and use the skills/OpenAPI specificatio
 
 The following actions are provided in this starter kit. When configuring your extension, the fields below should be populated accordingly for the skill to be fully functional.
 
-- Action 1: Create a ticket for disputes
+- Action 1: I want to dispute a charge.
     ```
     Operation: Create Ticket
     Parameters:
       - properties.subject: subject
       - properties.hs_pipeline_stage: hs_pipeline_stage
-      - properties.charge_name: 1. What is the name of ...
+      - properties.charge_name: 1. Sure, we can help you ...
       - properties.charge_amount: 2. How much was the charge ...
       - properties.charge_date:  3. What was the date?
     ```
 
-    **Note**: `subject` and `hs_pipeline_stage` exist by default in HubSpot's ticketing schema. The `hs_pipeline_stage` field in the API corresponds to the `Ticket status` of a HubSpot ticket; we recommend submitting a value of `1` for the `hs_pipeline_stage` field, which will set the `Ticket status` to `New`.  The `subject` field in the API corresponds to the `Ticket name` of a HubSpot ticket.
+    **Note**: `subject` and `hs_pipeline_stage` exist by default in HubSpot's ticketing schema -- the provided skill adds default values in **Step 4**. The `hs_pipeline_stage` field in the API corresponds to the `Ticket status` of a HubSpot ticket; we recommend submitting a value of `1` for the `hs_pipeline_stage` field, which will set the `Ticket status` to `New`.  The `subject` field in the API corresponds to the `Ticket name` of a HubSpot ticket.
 
 ## Example Usage
+A conversation to create a dispute ticket using the provided spec and skill would look like:
+
 ![hubspot-convo](./assets/hubspot-convo.png)
+
+Free free to contribute to this starter kit, or add other starter kits by following these [contribution guidelines](../../docs/CONTRIBUTING.md).
