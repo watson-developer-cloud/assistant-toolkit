@@ -1,0 +1,369 @@
+{
+    "openapi" : "3.0.3",
+    "info" : {
+      "title" : "Hubspot Ticketing Advanced",
+      "version" : "v3"
+    },
+    "servers" : [ {
+      "url" : "https://api.hubapi.com",
+      "description" : "Your hubspot support server"
+    } ],
+    "security" : [ {
+      "ApiKeyAuth" : [ ]
+    } ],
+    "paths" : {
+      "/crm/v3/objects/tickets" : {
+        "post" : {
+          "summary" : "Create Ticket",
+          "description" : "Create a ticket for disputes",
+          "requestBody" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TicketsInput"
+                },
+                "example" : {
+                  "request" : {
+                    "subject" : "Gandalf's First Angry Ticket",
+                    "charge_amount" : "100",
+                    "charge_name" : "fakeretail.com",
+                    "charge_date" : "2020-05-08",
+                    "hs_pipeline_stage" : "1"
+                  }
+                }
+              }
+            }
+          },
+          "responses" : {
+            "200" : {
+              "description" : "Success",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/SimplePublicObject"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "get" : {
+          "summary" : "List Tickets",
+          "description" : "Read a page of tickets. Control what is returned via the `properties` query param.",
+          "parameters" : [ {
+            "name" : "limit",
+            "in" : "query",
+            "description" : "The maximum number of results to display per page.",
+            "required" : false,
+            "style" : "form",
+            "explode" : true,
+            "schema" : {
+              "type" : "integer",
+              "format" : "int32",
+              "default" : 3
+            }
+          }, {
+            "name" : "after",
+            "in" : "query",
+            "description" : "The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.",
+            "required" : false,
+            "style" : "form",
+            "explode" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "properties",
+            "in" : "query",
+            "description" : "A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.",
+            "required" : false,
+            "style" : "form",
+            "explode" : true,
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          }, {
+            "name" : "propertiesWithHistory",
+            "in" : "query",
+            "description" : "A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. Usage of this parameter will reduce the maximum number of objects that can be read by a single request.",
+            "required" : false,
+            "style" : "form",
+            "explode" : true,
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          }, {
+            "name" : "associations",
+            "in" : "query",
+            "description" : "A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.",
+            "required" : false,
+            "style" : "form",
+            "explode" : true,
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          }, {
+            "name" : "archived",
+            "in" : "query",
+            "description" : "Whether to return only results that have been archived.",
+            "required" : false,
+            "style" : "form",
+            "explode" : true,
+            "schema" : {
+              "type" : "boolean",
+              "default" : false
+            }
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "Success",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/CollectionResponseSimplePublicObjectForwardPaging"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/crm/v3/objects/tickets/{ticketId}" : {
+        "get" : {
+          "summary" : "Get Ticket Info",
+          "description" : "Read an Object identified by `{ticketId}`. `{ticketId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.",
+          "parameters" : [ {
+            "name" : "ticketId",
+            "in" : "path",
+            "required" : true,
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }, {
+            "name" : "properties",
+            "in" : "query",
+            "description" : "A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.",
+            "required" : false,
+            "style" : "form",
+            "explode" : true,
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          }, {
+            "name" : "propertiesWithHistory",
+            "in" : "query",
+            "description" : "A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored.",
+            "required" : false,
+            "style" : "form",
+            "explode" : true,
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          }, {
+            "name" : "associations",
+            "in" : "query",
+            "description" : "A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.",
+            "required" : false,
+            "style" : "form",
+            "explode" : true,
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          }, {
+            "name" : "archived",
+            "in" : "query",
+            "description" : "Whether to return only results that have been archived.",
+            "required" : false,
+            "style" : "form",
+            "explode" : true,
+            "schema" : {
+              "type" : "boolean",
+              "default" : false
+            }
+          }, {
+            "name" : "idProperty",
+            "in" : "query",
+            "description" : "The name of a property whose values are unique for this object type",
+            "required" : false,
+            "style" : "form",
+            "explode" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "Success",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/SimplePublicObject"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete" : {
+          "summary" : "Archive Ticket",
+          "description" : "Move an Object identified by `{ticketId}` to the recycling bin.",
+          "parameters" : [ {
+            "name" : "ticketId",
+            "in" : "path",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "204" : {
+              "description" : "No content",
+              "content" : { }
+            }
+          }
+        }
+      }
+    },
+    "components" : {
+      "schemas" : {
+        "TicketsInput" : {
+          "type" : "object",
+          "properties" : {
+            "properties" : {
+              "$ref" : "#/components/schemas/TicketsRequestObjectProperties"
+            }
+          }
+        },
+        "TicketsRequestObjectProperties" : {
+          "required" : [ "charge_amount", "charge_name", "charge_date", "subject", "hs_pipeline_stage" ],
+          "type" : "object",
+          "properties" : {
+            "subject" : {
+              "type" : "string",
+              "example" : "Gimley's Dispute Ticket"
+            },
+            "charge_name" : {
+              "type" : "string",
+              "example" : "WalMart"
+            },
+            "charge_amount" : {
+              "type" : "string",
+              "example" : 100
+            },
+            "charge_date" : {
+              "type" : "string",
+              "example" : "2020-05-08"
+            },
+            "hs_pipeline_stage" : {
+              "type" : "string",
+              "example" : "1"
+            }
+          }
+        },
+        "SimplePublicObject" : {
+          "type" : "object",
+          "properties" : {
+            "id" : {
+              "type" : "string"
+            },
+            "properties" : {
+              "$ref" : "#/components/schemas/ResponseCustomProperties"
+            },
+            "createdAt" : {
+              "type" : "string",
+              "format" : "date-time"
+            },
+            "updatedAt" : {
+              "type" : "string",
+              "format" : "date-time"
+            },
+            "archived" : {
+              "type" : "boolean"
+            },
+            "archivedAt" : {
+              "type" : "string",
+              "format" : "date-time"
+            }
+          }
+        },
+        "ResponseCustomProperties" : {
+          "type" : "object",
+          "properties" : {
+            "hs_pipeline_stage" : {
+              "type" : "string",
+              "description" : "Pipeline status"
+            },
+            "hs_lastmodifieddate" : {
+              "type" : "string",
+              "description" : "Update date"
+            }
+          }
+        },
+        "CollectionResponseSimplePublicObjectForwardPaging" : {
+          "type" : "object",
+          "properties" : {
+            "results" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/SimplePublicObject"
+              }
+            },
+            "paging" : {
+              "$ref" : "#/components/schemas/ForwardPaging"
+            }
+          }
+        },
+        "ForwardPaging" : {
+          "type" : "object",
+          "properties" : {
+            "next" : {
+              "$ref" : "#/components/schemas/NextPage"
+            }
+          }
+        },
+        "NextPage" : {
+          "required" : [ "after" ],
+          "type" : "object",
+          "properties" : {
+            "after" : {
+              "type" : "string"
+            },
+            "link" : {
+              "type" : "string"
+            }
+          },
+          "example" : {
+            "after" : "NTI1Cg%3D%3D",
+            "link" : "?after=NTI1Cg%3D%3D"
+          }
+        }
+      },
+      "securitySchemes" : {
+        "ApiKeyAuth" : {
+          "type" : "apiKey",
+          "name" : "hapikey",
+          "in" : "query"
+        }
+      }
+    }
+  }

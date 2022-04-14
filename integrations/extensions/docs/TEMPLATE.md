@@ -1,4 +1,4 @@
-# `[Name of Extension]`
+# [Name of Extension]
 
 ## Background
 ```
@@ -20,7 +20,7 @@ Should include, at minimum:
 - Link to Auth reference page for this API
 ```
 
-**Example:** <br> [HubSpot](../starter-kits/hubspot/README.md#obtaining-an-api-key)
+**Example:** <br> [HubSpot](../starter-kits/hubspot/README.md#pre-req:-getting-auth-keys)
 
 
 ## Using this Starter Kit

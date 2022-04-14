@@ -1,12 +1,12 @@
 {
-  "name": "Mitch",
+  "name": "HubSpot Ticketing",
   "type": "dialog",
   "valid": true,
   "status": "Available",
-  "created": "2022-03-08T20:40:37.125Z",
-  "updated": "2022-03-09T21:03:26.888Z",
+  "created": "2022-02-22T17:31:10.386Z",
+  "updated": "2022-04-13T20:10:48.975Z",
   "language": "en",
-  "skill_id": "86a72a42-29e4-4c5b-b2ae-a4b94ca67b28",
+  "skill_id": "04cc0a51-531b-43dc-9723-80c0b1ebb54a",
   "workspace": {
     "actions": [
       {
@@ -21,7 +21,7 @@
                       "text_expression": {
                         "concat": [
                           {
-                            "scalar": "What is the name of the business you are disputing?"
+                            "scalar": "Sure, we can help you create a ticket for that. What is the name of the business you are disputing?"
                           }
                         ]
                       }
@@ -168,6 +168,36 @@
             "next_step": "step_612"
           },
           {
+            "step": "step_901",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Hmm.. We weren't able to create that ticket. Sorry!"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_901",
+            "condition": {
+              "expression": "${step_902_result_1}.status != 200"
+            }
+          },
+          {
             "step": "step_902",
             "output": {
               "generic": [
@@ -188,6 +218,22 @@
                 }
               ]
             },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "\"Charge Dispute Ticket\""
+                  },
+                  "skill_variable": "subject"
+                },
+                {
+                  "value": {
+                    "expression": "\"1\""
+                  },
+                  "skill_variable": "hs_pipeline_stage"
+                }
+              ]
+            },
             "handlers": [],
             "resolver": {
               "type": "callout",
@@ -196,7 +242,7 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "catalog_item_id": "b147b455-b889-4e09-923c-0006d89a545b"
+                  "catalog_item_id": "f37c87bb-43ac-463c-9bb5-7b13bb04df9f"
                 },
                 "request_mapping": {
                   "body": [
@@ -205,6 +251,12 @@
                         "skill_variable": "subject"
                       },
                       "parameter": "properties.subject"
+                    },
+                    {
+                      "value": {
+                        "variable": "step_612"
+                      },
+                      "parameter": "properties.charge_date"
                     },
                     {
                       "value": {
@@ -217,12 +269,6 @@
                         "variable": "step_718"
                       },
                       "parameter": "properties.charge_amount"
-                    },
-                    {
-                      "value": {
-                        "variable": "step_612"
-                      },
-                      "parameter": "properties.purchase_date"
                     },
                     {
                       "value": {
@@ -248,11 +294,14 @@
                       "text_expression": {
                         "concat": [
                           {
-                            "scalar": "Your ticket number is "
+                            "scalar": "Done! Your ticket has been created with ticket number: "
                           },
                           {
                             "variable": "step_902_result_1",
                             "variable_path": "body.properties.hs_ticket_id"
+                          },
+                          {
+                            "scalar": "."
                           }
                         ]
                       }
@@ -267,7 +316,11 @@
             "resolver": {
               "type": "end_action"
             },
-            "variable": "step_989"
+            "variable": "step_989",
+            "condition": {
+              "expression": "${step_902_result_1}.status == 200"
+            },
+            "next_step": "step_901"
           }
         ],
         "title": "I want to dispute a charge",
@@ -278,7 +331,7 @@
         },
         "variables": [
           {
-            "title": "What is the name of the business you are disputing?",
+            "title": "Sure, we can help you create a ticket for that. What is the name",
             "variable": "step_372",
             "data_type": "any"
           },
@@ -291,6 +344,11 @@
             "title": "How much was the charge for?",
             "variable": "step_718",
             "data_type": "number"
+          },
+          {
+            "title": "Hmm.. We weren't able to create that ticket. Sorry!",
+            "variable": "step_901",
+            "data_type": "any"
           },
           {
             "title": "Please wait while I file a ticket for you...",
@@ -306,7 +364,7 @@
             "data_type": "any"
           },
           {
-            "title": "Your ticket number is {variable}",
+            "title": "Done! Your ticket has been created with ticket number: {variable",
             "variable": "step_989",
             "data_type": "any"
           }
@@ -617,7 +675,22 @@
         "intent": "action_10481_intent_41951",
         "examples": [
           {
-            "text": "I want to dispute a charge"
+            "text": "Charge dispute."
+          },
+          {
+            "text": "Charge dispute ticket please"
+          },
+          {
+            "text": "I've been charged the incorrect amount."
+          },
+          {
+            "text": "I've been charged with something I didn't purchase."
+          },
+          {
+            "text": "I want to dispute a charge."
+          },
+          {
+            "text": "I want to open a charge dispute ticket."
           }
         ]
       },
@@ -710,8 +783,8 @@
     "learning_opt_out": true
   },
   "description": "created for assistant 1afaf69c-8cc4-4821-8b87-003bd45e86fb",
-  "assistant_id": "1afaf69c-8cc4-4821-8b87-003bd45e86fb",
-  "workspace_id": "86a72a42-29e4-4c5b-b2ae-a4b94ca67b28",
+  "assistant_id": "2ec38a22-098a-404a-9c6c-ccb01905198f",
+  "workspace_id": "04cc0a51-531b-43dc-9723-80c0b1ebb54a",
   "dialog_settings": {
     "actions": true
   },
