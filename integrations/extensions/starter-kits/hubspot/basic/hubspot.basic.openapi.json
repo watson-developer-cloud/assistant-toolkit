@@ -2,8 +2,7 @@
   "openapi" : "3.0.3",
   "info" : {
     "title" : "Hubspot Ticketing",
-    "contact" : {},
-    "version" : "1"
+    "version" : "v3"
   },
   "servers" : [ {
     "url" : "https://api.hubapi.com",
@@ -60,15 +59,6 @@
           }
         }
       },
-      "inline_response_200_properties" : {
-        "type" : "object",
-        "properties" : {
-          "hs_ticket_id" : {
-            "type" : "string",
-            "description" : "Ticket ID"
-          }
-        }
-      },
       "crmv3objectstickets_request" : {
         "required" : [ "charge_amount", "charge_name", "charge_date", "subject", "hs_pipeline_stage" ],
         "type" : "object",
@@ -100,6 +90,15 @@
         "properties" : {
           "properties" : {
             "$ref" : "#/components/schemas/inline_response_200_properties"
+          }
+        }
+      },
+      "inline_response_200_properties" : {
+        "type" : "object",
+        "properties" : {
+          "hs_ticket_id" : {
+            "type" : "string",
+            "description" : "Ticket ID"
           }
         }
       }
