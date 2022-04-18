@@ -8,7 +8,7 @@ Should include, at minimum:
 - Link to official API reference page
 ```
 
-**Example:** [MetaWeather](../starter-kits/metaweather/README.md#background)
+**Example:** <br> [MetaWeather](../starter-kits/metaweather/README.md#background)
 
 ## Pre-Req: Getting Auth Keys
 Remove this section if the API does not require authentication.

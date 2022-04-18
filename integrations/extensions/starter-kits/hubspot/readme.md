@@ -1,6 +1,7 @@
 # HubSpot Custom Extension
 
-## Background
+![HubSpot](./assets/hubspot-logo.svg)
+
 HubSpot provides an API which allows for ticket creation, feedback submission, and quotes, amongst other business functions. HubSpot also offers a free version, which makes it great place to start for proof-of-concepts, testing, etc. with the option of upgrading your account/product as needed.
 
 This example starter kit offers support for the following HubSpot API endpoints:
@@ -60,7 +61,7 @@ For helpful information on how to modify and use the skills/OpenAPI specificatio
 
 The following actions are provided in this starter kit. When configuring your extension, the fields below should be populated accordingly for the skill to be fully functional.
 
-- Action 1 (basic + advanced): I want to dispute a charge.
+- **Action 1**. (basic + advanced) I want to dispute a charge.
     ```
     Operation: Create Ticket
     Parameters:
@@ -73,14 +74,14 @@ The following actions are provided in this starter kit. When configuring your ex
 
     **Note**: `subject` and `hs_pipeline_stage` exist by default in HubSpot's ticketing schema -- the provided skill adds default values in **Step 4**. The `hs_pipeline_stage` field in the API corresponds to the `Ticket status` of a HubSpot ticket; we recommend submitting a value of `1` for the `hs_pipeline_stage` field, which will set the `Ticket status` to `New`.  The `subject` field in the API corresponds to the `Ticket name` of a HubSpot ticket.
 
-- Action 2 (advanced): Can I see my tickets?
+- **Action 2**. (advanced) Can I see my tickets?
     ```
     Operation: List Tickets
     Parameters:
       - None
     ```
 
-- Action 3 (advanced): I want to check my ticket status.<br>
+- **Action 3**. (advanced) I want to check my ticket status.<br>
     Note that you will have to also configure action `Can I see my tickets?` above, since it is used as a subaction within this action.
     ```
     Operation: Get Ticket Info
@@ -88,7 +89,7 @@ The following actions are provided in this starter kit. When configuring your ex
       - ticketId: ticketId
     ```
 
-- Action 4 (advanced): I want to delete my ticket.
+- **Action 4**. (advanced) I want to delete my ticket.
     ```
     Operation: Archive Ticket
     Parameters:
@@ -96,7 +97,7 @@ The following actions are provided in this starter kit. When configuring your ex
     ```
 
 ## Example Usage
-A conversation with this starter kit could look like the following. Note that the second example is only supported via the `advanced` spec and skill.
+A conversation using this starter kit could look like the following. Note that the second example is only supported via the `advanced` spec and skill.
 
 ![create-ticket](./assets/create-ticket.gif)
 ![check-ticket-status](./assets/check-ticket-status.gif)
