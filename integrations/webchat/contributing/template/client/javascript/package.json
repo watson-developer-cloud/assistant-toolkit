@@ -1,0 +1,10 @@
+{
+  "name": "watson-assistant-web-chat-toolkit-example",
+  "version": "0.1.0",
+  "scripts": {
+    "start": "http-server --port 3000 --proxy http://localhost:3001"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.0"
+  }
+}

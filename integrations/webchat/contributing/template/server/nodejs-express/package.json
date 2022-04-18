@@ -1,0 +1,12 @@
+{
+  "name": "watson-assistant-web-chat-toolkit-example",
+  "version": "0.1.0",
+  "scripts": {
+    "start": "node ./server.js"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3"
+  }
+}
