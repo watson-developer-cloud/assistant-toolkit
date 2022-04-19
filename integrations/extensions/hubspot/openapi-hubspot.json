@@ -1,0 +1,190 @@
+{
+  "openapi" : "3.0.3",
+  "info" : {
+    "title" : "Hubspot Ticketing",
+    "contact" : { },
+    "version" : "2.0"
+  },
+  "servers" : [ {
+    "url" : "https://staging.hubapi.com",
+    "description" : "Mock staging support server"
+  }, {
+    "url" : "https://api.hubapi.com",
+    "description" : "Your hubspot support server"
+  } ],
+  "security" : [ {
+    "ApiKeyAuth" : [ ]
+  } ],
+  "paths" : {
+    "/crm/v3/objects/contacts/{contactId}" : {
+      "get" : {
+        "summary" : "Get a user by ID",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "contactId",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true,
+          "description" : "Numeric ID of the user to get"
+        }, {
+          "in" : "query",
+          "name" : "properties",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : false,
+          "description" : "Comma separated list of properties you want returned"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/contacts_response_200"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/crm/v3/objects/tickets" : {
+      "post" : {
+        "summary" : "Create a ticket for disputes",
+        "description" : "Create Ticket",
+        "requestBody" : {
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/objects_tickets_body"
+              },
+              "example" : {
+                "request" : {
+                  "subject" : "Emilias First Ticket",
+                  "hs_pipeline_stage" : "1",
+                  "charge_amount" : "100",
+                  "charge_name" : "WalMart",
+                  "purchase_date" : "2022-01-19"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ticket_response_200"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "contacts_response_200" : {
+        "type" : "object",
+        "properties" : {
+          "properties" : {
+            "$ref" : "#/components/schemas/contacts_response_200_properties"
+          }
+        }
+      },
+      "contacts_response_200_properties" : {
+        "type" : "object",
+        "properties" : {
+          "createdate" : {
+            "type" : "string",
+            "description" : "Date contact was added"
+          },
+          "email" : {
+            "type" : "string",
+            "description" : "User's email address"
+          },
+          "firstname" : {
+            "type" : "string",
+            "description" : "User's first name"
+          },
+          "hs_object_id" : {
+            "type" : "string",
+            "description" : "User's hubspot ID"
+          },
+          "lastname" : {
+            "type" : "string",
+            "description" : "User's last name"
+          },
+          "membership_status" : {
+            "type" : "string",
+            "description" : "the status of user's membership, bronze silver or gold"
+          }
+        }
+      },
+      "objects_tickets_body" : {
+        "type" : "object",
+        "properties" : {
+          "properties" : {
+            "$ref" : "#/components/schemas/crmv3objectstickets_request"
+          }
+        }
+      },
+      "crmv3objectstickets_request" : {
+        "required" : [ "charge_amount", "charge_name", "purchase_date", "subject", "hs_pipeline_stage" ],
+        "type" : "object",
+        "properties" : {
+          "subject" : {
+            "type" : "string",
+            "example" : "Mitchs Dispute Ticket"
+          },
+          "hs_pipeline_stage" : {
+            "type" : "string",
+            "example" : "1"
+          },
+          "charge_name" : {
+            "type" : "string",
+            "example" : "WalMart"
+          },
+          "charge_amount" : {
+            "type" : "string",
+            "example" : "100"
+          },
+          "purchase_date" : {
+            "type" : "string",
+            "example" : "2020-05-08"
+          }
+        }
+      },
+      "ticket_response_200" : {
+        "type" : "object",
+        "properties" : {
+          "properties" : {
+            "$ref" : "#/components/schemas/ticket_response_200_properties"
+          }
+        }
+      },
+      "ticket_response_200_properties" : {
+        "type" : "object",
+        "properties" : {
+          "hs_ticket_id" : {
+            "type" : "string",
+            "description" : "Ticket ID"
+          }
+        }
+      }
+    },
+    "securitySchemes" : {
+      "ApiKeyAuth" : {
+        "type" : "apiKey",
+        "name" : "hapikey",
+        "in" : "query"
+      }
+    }
+  }
+}
