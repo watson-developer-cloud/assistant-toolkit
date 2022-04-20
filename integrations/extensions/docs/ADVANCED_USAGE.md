@@ -9,12 +9,12 @@ In [Getting Started](../README.md#getting-started), we used simple OpenAPI specs
 These topics will help you expand and exercise various capabilities of custom extensions, and hopefully will inspire more creative ways to use Watson Assistant through extensions.
 
 ## Configuring Auth
-When you click `Add +` in order to add your extension to your assistant, you will prompted to choose a server and an authentication method as well as the credentials.
+When you click `Add +` in order to add your extension to your assistant, you will be prompted to choose a server and an authentication method as well as the credentials.
 
 <img src="../assets/auth-settings.png" alt="auth-settings" style="height:500px;"/>
 
 ### Authentication Type
-Our support for types of authentication are specified in our official documentation [here](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#build-custom-extension-openapi-file). Depending on which auth method you specify, you will need to fill out different fields. No Authentication is the default value.
+Our support for types of authentication are specified in our official documentation [here](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#build-custom-extension-openapi-file). Depending on which auth method you specify, you will need to fill out different fields. No Authentication is the default setting.
 
 In order to use authentication types, you will need to add a `securitySchemes` object into your OpenAPI specification at the root level, similar to the following:
 ```
@@ -25,9 +25,9 @@ In order to use authentication types, you will need to add a `securitySchemes` o
                 "scheme": "bearer"
             },
             "basicAuth": {
-				"type": "http",
-				"scheme": "basic"
-			}
+                "type": "http",
+                "scheme": "basic"
+            }
         }
     },
 ```
@@ -38,18 +38,18 @@ You can specify multiple servers in your OpenAPI spec. This may be necessary for
 
 To add server variables in your OpenAPI spec, you can write something similar to:
 ```
-	"servers": [
-		{
-			"url": "https://{subdomain}.zendesk.com",
-			"description": "Your zendesk support server",
-			"variables": {
-				"subdomain": {
-					"default": "fill_here",
-					"description": "The domain provided for you by Zendesk."
-				}
-			}
-		}
-	],
+    "servers": [
+        {
+            "url": "https://{subdomain}.zendesk.com",
+            "description": "Your zendesk support server",
+            "variables": {
+                "subdomain": {
+                    "default": "fill_here",
+                    "description": "The domain provided for you by Zendesk."
+                }
+            }
+        }
+    ],
 ```
 Then, the respective fillable fields will render as an option in your `Authentication` setup step.
 

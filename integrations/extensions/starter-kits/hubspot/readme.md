@@ -14,6 +14,7 @@ Advanced:
 - GET List Tickets
 - GET Get Ticket Info
 - DELETE Archive Ticket
+- GET Get Contact by ID
 
 HubSpot has a fantastic public API documentation that is very custom extensions friendly - [their docs](https://developers.hubspot.com/docs/api/crm/tickets) provide an OpenAPI doc as well as a Postman collection. The full documentation for their API endpoints can be found [here](https://api.hubspot.com/api-catalog-public/v1/apis?_ga=2.141533746.1208547948.1639927461-1206602246.1639927461). For their ticketing specific APIs, find them [here](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/objects/tickets).
 
@@ -29,7 +30,7 @@ To call the HubSpot API, you will need an API key. To obtain this key:
 1. If you do not already have one, `Create key`. Copy the API key and save for future steps. **Note:** You can also see a log of API calls using each key, which is helpful to debug API calls sent from your assistants that do not produce the expected outcome in HubSpot or in your assistants.
 
 ## Pre-Req 2: Adding Custom Properties in HubSpot
-This starter kit focuses on the *ticketing system* of HubSpot. In order to use the provided JSON skill out of the box, you will need to create some custom properties - `charge_name`, `charge_amount`, and `charge_date` - within your HubSpot account.
+This starter kit focuses on the *ticketing system* of HubSpot. In order to use the provided JSON skill out of the box, you will need to create some custom properties - `charge_name`, `charge_amount`, `charge_date`, and `membership_status` - within your HubSpot account.
 
 1. Navigate to `Settings` (the cog wheel icon) at the top right of the page, then click `Objects` in the left menu to open a drop-down, and select `Tickets`.
 
@@ -51,6 +52,12 @@ This starter kit focuses on the *ticketing system* of HubSpot. In order to use t
     and
     - Label: `charge_date`
     - Field type: `Date picker`
+
+    and:
+    - Object type: `Contact`
+    - Group: `Contact activity`
+    - Label: `membership_status`
+    - Field type: `Single-line text`
 
 ### When moving beyond this starter kit... 
 In most cases you will want to customize these fields for your own POC or use case. You will need to access HubSpot and create your own custom properties as described in the above steps, as well as update the OpenAPI spec (the `.openapi.json` file) to expect your own custom properties. You should update the required parameters in the `$ref` for the request object. Then, edit the steps in your assistant's actions skill to match the expected parameters.
@@ -94,6 +101,13 @@ The following actions are provided in this starter kit. When configuring your ex
     Operation: Archive Ticket
     Parameters:
       - ticketId: 1. Ok! What's the ID of the ...
+    ```
+
+- **Action 5**. (advanced) I want to get contact information.
+    ```
+    Operation: Get Contact by ID
+    Parameters:
+      - contactId: 1. Sure thing! What's the contact ID ...
     ```
 
 ## Example Usage

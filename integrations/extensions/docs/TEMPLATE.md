@@ -8,9 +8,10 @@ Should include, at minimum:
 - Link to official API reference page
 ```
 
-**Example:** <br> [MetaWeather](../starter-kits/metaweather/README.md#background)
+**Example:** <br> [MetaWeather](../starter-kits/metaweather/README.md)
 
-## Pre-Req: Getting Auth Keys
+## Pre-Requisite Steps
+### Auth Info
 Remove this section if the API does not require authentication.
 ```
 Should include, at minimum:
@@ -20,7 +21,16 @@ Should include, at minimum:
 - Link to Auth reference page for this API
 ```
 
-**Example:** <br> [HubSpot](../starter-kits/hubspot/README.md#pre-req:-getting-auth-keys)
+### Other Setup Info
+Remove this section if no other setup is required.
+```
+Should include, at minimum:
+- Step-by-step guide on how to setup the extension, on the extension/account side
+- Any special custom variables you may have used in the starter kit
+- Screenshots/GIFs (optional)
+```
+
+**Example:** <br> [HubSpot](../starter-kits/hubspot/README.md#pre-req-1:-getting-auth-keys)
 
 
 ## Using this Starter Kit

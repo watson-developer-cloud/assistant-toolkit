@@ -1,12 +1,12 @@
 {
   "name": "HubSpot Advanced Actions Skill",
-  "type": "dialog",
+  "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2022-02-22T17:31:10.386Z",
-  "updated": "2022-04-14T22:34:38.898Z",
+  "created": "2022-04-20T19:20:04.037Z",
+  "updated": "2022-04-20T19:39:16.590Z",
   "language": "en",
-  "skill_id": "04cc0a51-531b-43dc-9723-80c0b1ebb54a",
+  "skill_id": "7cf844da-84ae-4c09-94c7-a3a083dc17cb",
   "workspace": {
     "actions": [
       {
@@ -242,7 +242,7 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "catalog_item_id": "363645cb-46b1-4fc4-85c0-97837ec4e4c0"
+                  "catalog_item_id": "0dc71364-1727-4e0d-ae0d-68fd9de24d91"
                 },
                 "request_mapping": {
                   "body": [
@@ -360,6 +360,10 @@
             "title": "How much was the charge for?",
             "variable": "step_718",
             "data_type": "number"
+          },
+          {
+            "variable": "step_888_result_1",
+            "data_type": "any"
           },
           {
             "title": "Hmm.. We weren't able to create that ticket. Sorry!",
@@ -567,6 +571,255 @@
           }
         ],
         "next_action": "action_42308",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_579",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Hmm.. I couldn't find any information on that contact ID. Sorry!"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_579",
+            "condition": {
+              "expression": "${step_888_result_1}.status != 200"
+            }
+          },
+          {
+            "step": "step_674",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Here's the information for contact "
+                          },
+                          {
+                            "variable": "step_904"
+                          },
+                          {
+                            "scalar": ":\nName: "
+                          },
+                          {
+                            "variable": "step_888_result_1",
+                            "variable_path": "body.properties.firstname"
+                          },
+                          {
+                            "scalar": " "
+                          },
+                          {
+                            "variable": "step_888_result_1",
+                            "variable_path": "body.properties.lastname"
+                          },
+                          {
+                            "scalar": "  \nEmail: "
+                          },
+                          {
+                            "variable": "step_888_result_1",
+                            "variable_path": "body.properties.email"
+                          },
+                          {
+                            "scalar": "  \nMembership Status: "
+                          },
+                          {
+                            "variable": "step_888_result_1",
+                            "variable_path": "body.properties.membership_status"
+                          },
+                          {
+                            "scalar": " \nHope this helped!"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_674",
+            "condition": {
+              "and": [
+                {
+                  "exists": {
+                    "variable": "step_904"
+                  }
+                },
+                {
+                  "expression": "${step_888_result_1}.status == 200"
+                }
+              ]
+            },
+            "next_step": "step_579"
+          },
+          {
+            "step": "step_888",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Got it. Give me a second while I look up contact "
+                          },
+                          {
+                            "variable": "step_904"
+                          },
+                          {
+                            "scalar": "..."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "\"membership_status,createdate,email,firstname,lastname,hs_object_id\""
+                  },
+                  "skill_variable": "query_properties"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/crm/v3/objects/contacts/{contactId}",
+                "type": "integration_interaction",
+                "method": "GET",
+                "internal": {
+                  "catalog_item_id": "97a2494f-3832-4ff4-9b1e-600dc46fae3e"
+                },
+                "request_mapping": {
+                  "path": [
+                    {
+                      "value": {
+                        "variable": "step_904"
+                      },
+                      "parameter": "contactId"
+                    }
+                  ],
+                  "query": [
+                    {
+                      "value": {
+                        "skill_variable": "query_properties"
+                      },
+                      "parameter": "properties"
+                    }
+                  ]
+                },
+                "result_variable": "step_888_result_1"
+              }
+            },
+            "variable": "step_888",
+            "next_step": "step_674"
+          },
+          {
+            "step": "step_904",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Sure thing! What's the contact ID you want to look up?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "question": {
+              "free_text": true,
+              "only_populate_when_prompted": true
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_904",
+            "next_step": "step_888"
+          }
+        ],
+        "title": "I want to get contact information.",
+        "action": "action_29562",
+        "handlers": [],
+        "condition": {
+          "intent": "action_29562_intent_49352"
+        },
+        "variables": [
+          {
+            "title": "Hmm.. I couldn't find any information on that contact ID. Sorry!",
+            "variable": "step_579",
+            "data_type": "any"
+          },
+          {
+            "title": "Here's the information for contact {variable}: Name: {variable} ",
+            "variable": "step_674",
+            "data_type": "any"
+          },
+          {
+            "title": "Got it. Give me a second while I look up contact {variable}...",
+            "variable": "step_888",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_888_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Sure thing! What's the contact ID you want to look up?",
+            "variable": "step_904",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_5876",
         "topic_switch": {
           "allowed_from": true,
           "allowed_into": true
@@ -1455,6 +1708,16 @@
                 "internal": {
                   "catalog_item_id": "f85242b3-4e23-41c0-8d81-a348f2c815e2"
                 },
+                "request_mapping": {
+                  "query": [
+                    {
+                      "value": {
+                        "expression": "3"
+                      },
+                      "parameter": "limit"
+                    }
+                  ]
+                },
                 "result_variable": "step_418_result_1"
               }
             },
@@ -1788,6 +2051,10 @@
             "data_type": "any"
           },
           {
+            "variable": "step_888_result_1",
+            "data_type": "any"
+          },
+          {
             "title": "Ticket {variable}: {variable}",
             "variable": "step_991",
             "data_type": "any"
@@ -2090,7 +2357,7 @@
             "data_type": "any"
           }
         ],
-        "next_action": "action_5876",
+        "next_action": "action_29562",
         "disambiguation_opt_out": true
       }
     ],
@@ -2135,6 +2402,29 @@
           },
           {
             "text": "I want to delete my ticket."
+          }
+        ]
+      },
+      {
+        "intent": "action_29562_intent_49352",
+        "examples": [
+          {
+            "text": "Contact info"
+          },
+          {
+            "text": "Get a contact"
+          },
+          {
+            "text": "Get a profile"
+          },
+          {
+            "text": "I want to get contact information."
+          },
+          {
+            "text": "Profile information"
+          },
+          {
+            "text": "User information"
           }
         ]
       },
@@ -2243,6 +2533,15 @@
         }
       },
       {
+        "title": "query_properties",
+        "variable": "query_properties",
+        "data_type": "any",
+        "description": "",
+        "initial_value": {
+          "scalar": "\"membership_status,createdate,email,firstname,lastname,hs_object_id\""
+        }
+      },
+      {
         "title": "subject",
         "variable": "subject",
         "data_type": "any",
@@ -2258,12 +2557,6 @@
         "description": "ID of ticket being queried"
       },
       {
-        "title": "ticketStatus",
-        "variable": "ticketStatus",
-        "data_type": "any",
-        "description": "Interpreted status of ticket."
-      },
-      {
         "title": "ticketObject1",
         "variable": "ticketObject1",
         "data_type": "any",
@@ -2276,16 +2569,16 @@
         "description": "ID of first ticket object."
       },
       {
-        "title": "ticketObject1_properties",
-        "variable": "ticketObject1_properties",
-        "data_type": "any",
-        "description": "Properties of first ticket object."
-      },
-      {
         "title": "ticketObject1_name",
         "variable": "ticketObject1_name",
         "data_type": "any",
         "description": "Name of first ticket object."
+      },
+      {
+        "title": "ticketObject1_properties",
+        "variable": "ticketObject1_properties",
+        "data_type": "any",
+        "description": "Properties of first ticket object."
       },
       {
         "title": "ticketObject2",
@@ -2300,16 +2593,16 @@
         "description": "ID of second ticket object."
       },
       {
-        "title": "ticketObject2_properties",
-        "variable": "ticketObject2_properties",
-        "data_type": "any",
-        "description": "Properties of second ticket object."
-      },
-      {
         "title": "ticketObject2_name",
         "variable": "ticketObject2_name",
         "data_type": "any",
         "description": "Name of second ticket object."
+      },
+      {
+        "title": "ticketObject2_properties",
+        "variable": "ticketObject2_properties",
+        "data_type": "any",
+        "description": "Properties of second ticket object."
       },
       {
         "title": "ticketObject3",
@@ -2324,16 +2617,22 @@
         "description": "ID of third ticket object."
       },
       {
+        "title": "ticketObject3_name",
+        "variable": "ticketObject3_name",
+        "data_type": "any",
+        "description": "Name of third ticket object."
+      },
+      {
         "title": "ticketObject3_properties",
         "variable": "ticketObject3_properties",
         "data_type": "any",
         "description": "Properties of third ticket object."
       },
       {
-        "title": "ticketObject3_name",
-        "variable": "ticketObject3_name",
+        "title": "ticketStatus",
+        "variable": "ticketStatus",
         "data_type": "any",
-        "description": "Name of third ticket object."
+        "description": "Interpreted status of ticket."
       }
     ],
     "data_types": [],
@@ -2367,10 +2666,8 @@
     "learning_opt_out": true
   },
   "description": "created for assistant 1afaf69c-8cc4-4821-8b87-003bd45e86fb",
-  "assistant_id": "2ec38a22-098a-404a-9c6c-ccb01905198f",
-  "workspace_id": "04cc0a51-531b-43dc-9723-80c0b1ebb54a",
-  "dialog_settings": {
-    "actions": true
-  },
+  "assistant_id": "c51da48f-ae4c-4c22-88b9-f23d3067bdc8",
+  "workspace_id": "7cf844da-84ae-4c09-94c7-a3a083dc17cb",
+  "dialog_settings": {},
   "next_snapshot_version": "1"
 }
