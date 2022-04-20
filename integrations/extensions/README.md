@@ -23,6 +23,7 @@ Our other starter kits focus on showcasing and inspiring creating various custom
     - [HubSpot](./starter-kits/hubspot/)
     - [Zendesk](./starter-kits/zendesk/)
     - [Spotify](./starter-kits/spotify/)
+    - [IBM App Connect](./starter-kits/appconnect/)
 1. [Create a Custom Extension](#getting-started)
 1. [How to Contribute](./docs/CONTRIBUTING.md)
 
