@@ -28,7 +28,7 @@ Anonymously opened tickets are supported by the API - *but* the features availab
 
 1. Under `+ Add`, navigate to `New` > `User`
 1. Enter the user's `Name` and `Email`, with User type `End user`. Click `Add`.
-  **NOTE**: You will want to take note of the end user email - this is needed later for the authentication header.
+  **NOTE**: If you're planning to use verified end users, you will need to use this email later.
 1. On the newly created user, find the email on the left hand menu, and open the dropdown. Click `Verify email`.
 1. Go to `Security Settings` for the user.
 1. Click the `reset` button next to the password. This will sent an email to the user to set the password for the account.
