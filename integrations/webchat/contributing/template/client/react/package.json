@@ -1,6 +1,6 @@
 {
   "name": "watson-assistant-web-chat-toolkit-example",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "proxy": "http://localhost:3001",
   "dependencies": {
     "@ibm-watson/assistant-web-chat-react": "^1.0.1",

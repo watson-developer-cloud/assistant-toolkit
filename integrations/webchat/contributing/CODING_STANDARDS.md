@@ -1,11 +1,6 @@
 # Coding Standards
 
-To ensure a consistent coding style across the repo, we will enforce a relatively strict standard. We are using 
-ESLint and Prettier to enforce most of the coding standards on the repo. Please ensure you have ESLint enabled in 
-whatever editor you are using. You can also run the linter using `npm run lint` in the root directory. However, 
-there are a number of items that are not covered by those tools and need to be enforced manually. Those rules are 
-noted below. The base of our standard is the [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript) 
-but there are a few deviations.
+To ensure a consistent coding style across the repo, we will enforce a relatively strict standard. We are using ESLint and Prettier to enforce most of the coding standards on the repo. Please ensure you have ESLint enabled in whatever editor you are using. You can also run the linter using `npm run lint` in the root `webchat` directory. However, there are a number of items that are not covered by those tools and need to be enforced manually. Those rules are noted below. The base of our standard is the [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript) but there are a few deviations.
 
 You should install the [ESLint plugin]((https://github.com/Microsoft/vscode-eslint)) for VSCode. For IntelliJ IDEA or
 WebStorm, the plugin is installed by default but is disabled and simply needs to be enabled.

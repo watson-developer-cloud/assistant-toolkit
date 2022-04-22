@@ -21,7 +21,9 @@
     "prettier": "^2.6.2"
   },
   "prettier": {
-    "singleQuote": true
+    "singleQuote": true,
+    "printWidth": 120,
+    "trailingComma": "all"
   },
   "eslintConfig": {
     "extends": [

@@ -23,11 +23,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-// TODO: Set any custom routes needed here.
 // The routes needed by the application.
-const apiRouter = require('./routes/api');
+const createJWTRouter = require('./routes/createJWT');
 
-app.use('/api/', apiRouter);
+app.use('/createJWT/', createJWTRouter);
 
 // Catch 404 and forward to error handler
 app.use(function (req, res, next) {
