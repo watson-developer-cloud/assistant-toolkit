@@ -49,7 +49,7 @@ Spotify uses the OAuth Authorization Code flow and **Bearer Authentication** for
 The details of this entire setup process is well-documented here: https://developer.spotify.com/documentation/web-api/quick-start/.
 
 ## Using this Starter Kit
-Upload the provided OpenAPI spec as a custom extension, and add your token to the Auth section when prompted, and you should be able to start using the Spotify API within your assistant and actions skill.
+Upload the provided OpenAPI spec as a custom extension, and add your token to the Auth section when prompted. After upload, the actions should be configured to use the fields below for the skill to be fully functional. Follow the instructions [here](../../README.md#configuring-your-actions-skill-to-use-an-extension) and note the information below to do this.
 
 - **Action 1.** I want to create a playlist.
     ```

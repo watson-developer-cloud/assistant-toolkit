@@ -39,9 +39,13 @@ Our other starter kits focus on showcasing and inspiring creating various custom
     - Upload the OpenAPI file from Step 2 and click `Next` > `Finish`. You should now see your extension created in the `Extensions` section of the catalog.
     <br><br>
     ![create-extension](./assets/create-extension.gif)
-1. Link your extension to the uploaded skill. There are two ways you can do this: <br>
+1. Add your extension to your assistant.
+    - Find your extension under `Extensions` and click `Add +` > `Confirm`.
+    - This will take you through Authentication configuration. *If you selected a starter kit with Auth*, find the `Pre-Req` section(s) within the starter kit specific README on how to obtain any keys. Otherwise, simply leave the Auth method as `No authentication`, click through and hit `Finish`, then exit.
+    - You should now see a green check mark next to your successfully added extension!
+1. Finally, configure your actions skill to use the added extension. There are two ways you can do this: <br>
     - [Method 1](#method-1-best-for-simple-actions-skills) - best for simple actions skills.
-    - [Method 2](#method-2-best-for-lengthy-actions-skills) - best for lengthy actions skills. <br>
+    - [Method 2](#method-2-best-for-lengthy-actions-skills) - best for lengthy actions skills (recommended for advanced only). <br>
     ```
     Note: we will soon be automatically linking your extension to the uploaded skill, so sit tight for updates on a more streamlined experience.
     ```
@@ -49,10 +53,10 @@ Our other starter kits focus on showcasing and inspiring creating various custom
 
 Feel free to modify the skill and response variables to get a better grasp of how to use extensions. If you're ready to see more complex OpenAPI specs, features, and Auth usage, you can move on to [Advanced Usage](./docs/ADVANCED_USAGE.md).
 
-## Linking your Extension to an Actions Skill
+## Configuring Your Actions Skill to use an Extension
 ### **Method 1**: For simple actions skills
 1. Upload your actions skill.
-    - Navigate to the **Actions** page in Watson Assistant.
+    - Navigate to the **Actions** tab in Watson Assistant.
     - Click the cog icon on the top right corner.
     - Select your actions skill file from the previous step, and click `Upload`.
 1. Link your extension to your skill.
@@ -61,22 +65,19 @@ Feel free to modify the skill and response variables to get a better grasp of ho
     - Select `Edit Extension` and choose your extension, and reselect the operation and its respective parameters based on what is listed in the `Using this Starter Kit` section of the extension specific README.
     - Click `Save`.            
 ### **Method 2**: For lengthy actions skills
-1. Obtain the id for your created extension.
+1. Obtain the ID for your created extension.
     - From the **Integrations** page, open the dev tools tab (shortcuts: `CMD + OPTIONS + i` for Mac, `CTRL + SHIFT + j` for Linux/Windows) and click on the `Network` tab.
-    - Find your extension under `Extensions` and click `Add +` > `Confirm`.
-    - In the **dev tools** tab, click on the request starting with a uuid - i.e. `00671ee7-26e6-43ec-9783-51a9f80bbcf3`. Go to the `Preview` tab and look for the field `config`  > `catalog_item_id`. **Copy this value - this is your extension's id**. You can now close the dev tools tab.
-    - Click through the default settings, then click `Finish` and `Close`. You should now see a green check mark next to your extension, indicating that you successfully added your catalog item to your assistant.
+    - Find your extension under `Extensions` and click `Open` > `Confirm`.
+    - In the **dev tools** tab, click on the request starting with a uuid - i.e. `00671ee7-26e6-43ec-9783-51a9f80bbcf3`. Go to the `Preview` tab and look for the field `config`  > `catalog_item_id`. **Copy this value - this is your extension's ID**. You can now close the dev tools tab.
     <br><br>
     ![add-extension-get-id](./assets/add-extension-get-id.gif)
 1. Modify your actions skill.
     - Open the `{selected_extension}.skill.json` file in a text editor.
-    - Search on `catalog_item_id` and replace all uuid values with your extension id from the previous step.
+    - Search on `catalog_item_id` and replace all uuid values with your extension ID from the previous step.
     - Save the file.
     <br><br>
     ![modify-skill](./assets/modify-skill.gif)
 1. Upload your modified actions skill.
-    - Navigate to the Actions tab in Watson Assistant.
+    - Navigate to the **Actions** tab in Watson Assistant.
     - Click the cog icon on the top right corner.
     - Select your actions skill file from the previous step, and click `Upload`.
-     <br><br>
-    ![add-skill](./assets/add-skill.gif)

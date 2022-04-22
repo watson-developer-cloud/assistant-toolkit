@@ -18,7 +18,7 @@ In the `advanced` spec/actions folder, we include more complicated OpenAPI conce
 ## Using this Starter Kit
 You can use the `metaweather.advanced.openapi.json` specification file to recreate the three endpoints listed above. Using the `basic` files will have limit you to using the `Location` operation, but is simpler. We recommend this for anyone who is using OpenAPI and/or actions for the first time. 
 
-To get started with using the OpenAPI spec, you can you upload the `metaweather.advanced.actions.json` file into your Watson Assistant actions; this will upload three actions:
+To get started with using the OpenAPI spec, you can you upload the `metaweather.advanced.actions.json` file into your Watson Assistant actions. After upload, the actions should be configured to use the fields below for the skill to be fully functional. Follow the instructions [here](../../README.md#configuring-your-actions-skill-to-use-an-extension) and note the information below to do this.
 
 - **Action 1** (basic + advanced). I want to check the weather and have a WOE-ID.
     ```

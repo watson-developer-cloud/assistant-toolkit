@@ -38,7 +38,7 @@ This account will now be able to add and update their ticket using their email a
 ![Add Valid User](./assets/add-valid-user.gif)<br>
 
 ## Using this Starter Kit
-Upload the provided OpenAPI spec as a custom extension, and add your token to the Auth section when prompted, and you should be able to start using the Zendesk Support API within your assistant and actions skill.
+Upload the provided OpenAPI spec as a custom extension, and add your token to the Auth section when prompted. After upload, the actions should be configured to use the fields below for the skill to be fully functional. Follow the instructions [here](../../README.md#configuring-your-actions-skill-to-use-an-extension) and note the information below to do this.
 
 - **Action 1.** Create a ticket.
     ```

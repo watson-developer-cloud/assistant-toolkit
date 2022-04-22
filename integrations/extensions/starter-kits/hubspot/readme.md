@@ -66,7 +66,7 @@ For helpful information on how to modify and use the skills/OpenAPI specificatio
 
 ## Using this Starter Kit
 
-The following actions are provided in this starter kit. When configuring your extension, the fields below should be populated accordingly for the skill to be fully functional.
+The following actions are provided in this starter kit. After upload, the actions should be configured to use the fields below for the skill to be fully functional. Follow the instructions [here](../../README.md#configuring-your-actions-skill-to-use-an-extension) and note the information below to do this.
 
 - **Action 1**. (basic + advanced) I want to dispute a charge.
     ```
