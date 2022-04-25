@@ -21,7 +21,7 @@ Our other starter kits focus on showcasing and inspiring creating various custom
 1. [All Available Starter Kits](./starter-kits/)
     - [MetaWeather](./starter-kits/metaweather/)
     - [HubSpot](./starter-kits/hubspot/)
-    - [Zendesk](./starter-kits/zendesk/)
+    - [Zendesk Support](./starter-kits/zendesk-support/)
     - [Spotify](./starter-kits/spotify/)
     - [IBM App Connect](./starter-kits/appconnect/)
 1. [Create a Custom Extension](#getting-started)
