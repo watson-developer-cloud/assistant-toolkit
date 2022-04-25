@@ -1,7 +1,5 @@
 # MetaWeather Custom Extension
 
-![MetaWeather](./assets/metaweather-logo.svg)
-
 MetaWeather is a simple API for querying location weather data. The API supports three use cases:
 
 - GET Location Search: Search for a location by a name (string) OR a lattitude and longitude value. This resturns a Where-On-Earth-ID (woeid).

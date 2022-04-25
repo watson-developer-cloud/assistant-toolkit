@@ -1,7 +1,5 @@
 # IBM App Connect Custom Extension
 
-<img src="./assets/appconnect-logo.png" alt="appconnect-logo" style="height:135px;"/>
-
 IBM App Connect is an Integration Platform as a Service (or iPaaS) product that enables rapid integration with a wide range of cloud services. You can read all about IBM App Connect [here](https://www.ibm.com/cloud/app-connect).
 
 ## Pre-Req: Setting Up

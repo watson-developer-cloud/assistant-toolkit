@@ -1,7 +1,5 @@
 # Zendesk Support Custom Extension
 
-![Zendesk](./assets/zendesk-logo.png)
-
 Zendesk is a business tool for facilitating effective customer service, managing teams, and monitoring associated metrics.
 
 In this starter kit, we have the following API endpoints implemented for use:

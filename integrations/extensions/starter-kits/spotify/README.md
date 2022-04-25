@@ -1,7 +1,5 @@
 # Spotify Custom Extension
 
-![Spotify](./assets/spotify-logo.png)
-
 Spotify is a popular music and podcast streaming service that allows for many operations such as music exploration, auditory trait analysis info, music organization, playback, etc. Among the various functionalities that the public API provides, the provided OpenAPI specification currently covers the following calls:
 
 - GET Get User Profile

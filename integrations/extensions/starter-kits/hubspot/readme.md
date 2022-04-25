@@ -1,7 +1,5 @@
 # HubSpot Custom Extension
 
-![HubSpot](./assets/hubspot-logo.svg)
-
 HubSpot provides an API which allows for ticket creation, feedback submission, and quotes, amongst other business functions. HubSpot also offers a free version, which makes it great place to start for proof-of-concepts, testing, etc. with the option of upgrading your account/product as needed.
 
 This example starter kit offers support for the following HubSpot API endpoints:
