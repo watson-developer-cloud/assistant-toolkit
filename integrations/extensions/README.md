@@ -51,7 +51,7 @@ Our other starter kits focus on showcasing and inspiring creating various custom
     ```
 1. You now have a working extension! Go to the **Preview** page and send any message supported by the uploaded actions skill to test it out.
 
-Feel free to modify the skill and response variables to get a better grasp of how to use extensions. If you're ready to see more complex OpenAPI specs, features, and Auth usage, you can move on to [Advanced Usage](./docs/ADVANCED_USAGE.md).
+Feel free to modify the skill and response variables to get a better grasp of how to use extensions. If you're ready to see more complex OpenAPI specs, features, such as security, you can move on to [Advanced Usage](./docs/ADVANCED_USAGE.md).
 
 ## Configuring Your Actions Skill to use an Extension
 ### **Method 1**: For simple actions skills
