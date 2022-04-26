@@ -4,7 +4,7 @@
 
 Welcome to Watson Assistant Custom Extensions starter kits!
 
-Custom extensions eliminate the need to create a proxy or a middleware layer between your assistant and other APIs by connecting REST API calls to your skill from within your assistant build. Moreover, all of your individual custom extensions are *easily trackable* via our integrations catalog, and you can work with them in the same way you work with variables when building your bot. In short, this feature combines the flexibility and power of integrating with APIs, with a significantly improved ease-of-use for developer and content authors alike.
+Custom extensions eliminate the need to create a proxy or a middleware layer between your assistant and other APIs by connecting REST API calls to your skill from within your assistant build. Moreover, all of your custom extensions are organized for ease of access via our integrations catalog, and you can work with them in the same way you work with variables when building your bot. In short, this feature combines the flexibility and power of integrating with APIs, with a significantly improved ease-of-use for developer and content authors alike.
 
 These starter kits provide everything you need to create assistants that use custom extensions to access external REST APIs. Each include:
 
