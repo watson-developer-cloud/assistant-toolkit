@@ -1,0 +1,76 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Ticket-ZmZ0MV",
+    "version" : "2.0.0-oas3"
+  },
+  "paths" : {
+    "/Ticket" : {
+      "post" : {
+        "tags" : [ "Ticket" ],
+        "summary" : "Create a new instance of the model and persist it into the data source.",
+        "operationId" : "Ticket.create",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Ticket"
+              }
+            }
+          },
+          "description" : "Model instance data"
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Request was successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Ticket"
+                }
+              }
+            }
+          }
+        },
+        "deprecated" : false
+      }
+    }
+  },
+  "security" : [ {
+    "client_id" : [ ]
+  } ],
+  "tags" : [ {
+    "name" : "Ticket"
+  } ],
+  "servers" : [ {
+    "url" : "https://service.us.apiconnect.ibmcloud.com/gws/apigateway/api/b229db817c67ec22ab6f8a66cc5a45f46d032295cc737bd9503122e288d8f1c0/ZmZ0MV"
+  } ],
+  "components" : {
+    "securitySchemes" : {
+      "client_id" : {
+        "type" : "apiKey",
+        "in" : "header",
+        "name" : "X-IBM-Client-Id",
+        "x-key-type" : "clientId"
+      }
+    },
+    "schemas" : {
+      "Ticket" : {
+        "description" : "",
+        "properties" : {
+          "ticket_id" : {
+            "type" : "string"
+          },
+          "user_name" : {
+            "type" : "string"
+          },
+          "issue_details" : {
+            "type" : "string"
+          }
+        },
+        "required" : [ "ticket_id" ],
+        "additionalProperties" : false
+      }
+    }
+  }
+}

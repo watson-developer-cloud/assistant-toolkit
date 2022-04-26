@@ -1,0 +1,634 @@
+{
+  "name": "AppConnect-Actions-Demo",
+  "type": "dialog",
+  "valid": true,
+  "status": "Available",
+  "created": "2022-04-07T20:19:28.979Z",
+  "updated": "2022-04-07T20:32:54.250Z",
+  "language": "en",
+  "skill_id": "a9f33f71-5036-45a2-a1d2-78c7020ea49d",
+  "workspace": {
+    "actions": [
+      {
+        "steps": [
+          {
+            "step": "step_209",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "What is your issue?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "question": {
+              "free_text": true,
+              "only_populate_when_prompted": true
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_209",
+            "next_step": "step_587"
+          },
+          {
+            "step": "step_230",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "You ticket number is "
+                          },
+                          {
+                            "variable": "step_587_result_2",
+                            "variable_path": "body.ticket_id"
+                          },
+                          {
+                            "scalar": " . What else can I help you with?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_230"
+          },
+          {
+            "step": "step_318",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Please tell me your name."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "question": {
+              "free_text": true,
+              "only_populate_when_prompted": true
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_318",
+            "next_step": "step_209"
+          },
+          {
+            "step": "step_587",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Hold on while I create your ticket."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/Ticket",
+                "type": "integration_interaction",
+                "method": "POST",
+                "internal": {
+                  "catalog_item_id": "ecd8a7c9-1d0c-4b43-8c61-b2c05d3bf92c"
+                },
+                "request_mapping": {
+                  "body": [
+                    {
+                      "value": {
+                        "expression": "(new java.util.Random().nextInt(2147483647)).toString()"
+                      },
+                      "parameter": "ticket_id"
+                    },
+                    {
+                      "value": {
+                        "variable": "step_318"
+                      },
+                      "parameter": "user_name"
+                    },
+                    {
+                      "value": {
+                        "variable": "step_209"
+                      },
+                      "parameter": "issue_details"
+                    }
+                  ]
+                },
+                "result_variable": "step_587_result_2"
+              }
+            },
+            "variable": "step_587",
+            "condition": {
+              "and": [
+                {
+                  "exists": {
+                    "variable": "step_209"
+                  }
+                },
+                {
+                  "exists": {
+                    "variable": "step_318"
+                  }
+                }
+              ]
+            },
+            "next_step": "step_230"
+          }
+        ],
+        "title": "I want to open a ticket",
+        "action": "action_39397",
+        "handlers": [],
+        "condition": {
+          "intent": "action_39397_intent_35390"
+        },
+        "variables": [
+          {
+            "title": "What is your issue?",
+            "variable": "step_209",
+            "data_type": "any"
+          },
+          {
+            "title": "You ticket number is {variable} . What else can I help you with?",
+            "variable": "step_230",
+            "data_type": "any"
+          },
+          {
+            "title": "Please tell me your name.",
+            "variable": "step_318",
+            "data_type": "any"
+          },
+          {
+            "title": "Hold on while I create your ticket.",
+            "variable": "step_587",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_587_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_587_result_2",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "fallback",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_001",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "I'm afraid I don't understand. Please rephrase your question."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_001",
+            "condition": {
+              "lte": [
+                {
+                  "system_variable": "no_action_matches_count"
+                },
+                {
+                  "scalar": 3
+                }
+              ]
+            },
+            "next_step": "step_002"
+          },
+          {
+            "step": "step_002",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": ""
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "action": "fallback",
+                "parameters": null,
+                "result_variable": "step_002_result_1"
+              }
+            },
+            "variable": "step_002",
+            "condition": {
+              "gt": [
+                {
+                  "system_variable": "no_action_matches_count"
+                },
+                {
+                  "scalar": 3
+                }
+              ]
+            }
+          }
+        ],
+        "title": "No action matches",
+        "action": "anything_else",
+        "handlers": [],
+        "condition": {
+          "expression": "anything_else"
+        },
+        "variables": [
+          {
+            "title": "I am afraid I do not understand what you are asking, please re-p",
+            "variable": "step_001",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_002",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_002_result_1",
+            "data_type": "any"
+          }
+        ],
+        "disambiguation_opt_out": true
+      },
+      {
+        "steps": [
+          {
+            "step": "step_001",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "I'm afraid I don't understand. I can connect you to an agent."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
+                },
+                "message_to_human_agent": ""
+              }
+            },
+            "variable": "step_001",
+            "condition": {
+              "eq": [
+                {
+                  "system_variable": "fallback_reason"
+                },
+                {
+                  "scalar": "Step validation failed"
+                }
+              ]
+            },
+            "next_step": "step_002"
+          },
+          {
+            "step": "step_002",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "Sorry I couldn't assist you. I will connect you to an agent right away."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
+                },
+                "message_to_human_agent": ""
+              }
+            },
+            "variable": "step_002",
+            "condition": {
+              "eq": [
+                {
+                  "system_variable": "fallback_reason"
+                },
+                {
+                  "scalar": "Agent requested"
+                }
+              ]
+            },
+            "next_step": "step_003"
+          },
+          {
+            "step": "step_003",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "I am afraid I do not understand what you are asking, let me connect you to an agent."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
+                },
+                "message_to_human_agent": ""
+              }
+            },
+            "variable": "step_003",
+            "condition": {
+              "eq": [
+                {
+                  "system_variable": "fallback_reason"
+                },
+                {
+                  "scalar": "No action matches"
+                }
+              ]
+            }
+          }
+        ],
+        "title": "Fallback",
+        "action": "fallback",
+        "handlers": [],
+        "condition": {
+          "intent": "fallback_connect_to_agent"
+        },
+        "variables": [
+          {
+            "title": "I'm afraid I don't understand. I can connect you to an agent.",
+            "variable": "step_001",
+            "data_type": "any"
+          },
+          {
+            "title": "Sorry I couldn't assist you. I will connect you to an agent righ",
+            "variable": "step_002",
+            "data_type": "any"
+          },
+          {
+            "title": "I am afraid I do not understand what you are asking, let me conn",
+            "variable": "step_003",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "anything_else",
+        "disambiguation_opt_out": true
+      },
+      {
+        "steps": [
+          {
+            "step": "step_001",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "Welcome, how can I assist you?"
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                },
+                {
+                  "channels": [
+                    {
+                      "channel": "voice_telephony"
+                    }
+                  ],
+                  "command_info": {
+                    "type": "configure",
+                    "parameters": {
+                      "update_strategy": "merge",
+                      "narrowband_recognize": {
+                        "background_audio_suppression": 0.95
+                      }
+                    }
+                  },
+                  "response_type": "speech_to_text"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_001"
+          }
+        ],
+        "title": "Greet customer",
+        "action": "welcome",
+        "handlers": [],
+        "condition": {
+          "expression": "welcome"
+        },
+        "variables": [
+          {
+            "variable": "step_001",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_39397",
+        "disambiguation_opt_out": true
+      }
+    ],
+    "intents": [
+      {
+        "intent": "action_39397_intent_35390",
+        "examples": [
+          {
+            "text": "I want to open a ticket"
+          }
+        ]
+      },
+      {
+        "intent": "fallback_connect_to_agent",
+        "examples": [
+          {
+            "text": "Agent help"
+          },
+          {
+            "text": "Call agent"
+          },
+          {
+            "text": "Can I connect to an agent?"
+          },
+          {
+            "text": "I would like to speak to a human"
+          },
+          {
+            "text": "I would like to speak to someone"
+          }
+        ],
+        "description": "Please transfer me to an agent"
+      }
+    ],
+    "entities": [
+      {
+        "entity": "sys-number",
+        "values": []
+      }
+    ],
+    "metadata": {
+      "api_version": {
+        "major_version": "v2",
+        "minor_version": "2018-11-08"
+      }
+    },
+    "variables": [
+      {
+        "title": "response_body",
+        "variable": "response_body",
+        "data_type": "any",
+        "description": "",
+        "initial_value": {
+          "scalar": "no error"
+        }
+      }
+    ],
+    "data_types": [],
+    "counterexamples": [],
+    "system_settings": {
+      "topic_switch": {
+        "enabled": true,
+        "messages": {
+          "confirm_return": {
+            "text": "Return to previous topic?"
+          },
+          "confirm_switch": {
+            "text": "Switch from the current topic?"
+          }
+        },
+        "question_steps_threshold": 2
+      },
+      "disambiguation": {
+        "prompt": "Did you mean:",
+        "enabled": true,
+        "randomize": true,
+        "max_suggestions": 5,
+        "suggestion_text_policy": "title",
+        "none_of_the_above_prompt": "None of the above"
+      },
+      "intent_classification": {
+        "training_backend_version": "v2"
+      },
+      "spelling_auto_correct": true
+    },
+    "learning_opt_out": true
+  },
+  "description": "",
+  "assistant_id": "601ea8a9-7dd7-452e-9c07-bbc1a5ecdfb8",
+  "workspace_id": "a9f33f71-5036-45a2-a1d2-78c7020ea49d",
+  "dialog_settings": {
+    "actions": true
+  },
+  "next_snapshot_version": "1"
+}

@@ -1,0 +1,1491 @@
+{
+  "name": "Zendesk Support Skill",
+  "type": "dialog",
+  "valid": true,
+  "status": "Available",
+  "created": "2022-04-14T23:44:02.713Z",
+  "updated": "2022-04-20T00:25:38.179Z",
+  "language": "en",
+  "skill_id": "9a7dc1c2-553f-493c-9523-40eeee5233c0",
+  "workspace": {
+    "actions": [
+      {
+        "steps": [
+          {
+            "step": "step_129",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Yeah, of course! May I ask for your name?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "question": {
+              "free_text": true,
+              "only_populate_when_prompted": true
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_129",
+            "next_step": "step_332"
+          },
+          {
+            "step": "step_332",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Hey, "
+                          },
+                          {
+                            "variable": "step_129"
+                          },
+                          {
+                            "scalar": ". Can I also ask for your email? We use it to get back to you with updates."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "question": {
+              "free_text": true,
+              "only_populate_when_prompted": true
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_332",
+            "next_step": "step_397"
+          },
+          {
+            "step": "step_397",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Thanks! Alright, in just a few words (we'll ask for details after this), what is the problem you're facing?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "question": {
+              "free_text": true,
+              "only_populate_when_prompted": true
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_397",
+            "next_step": "step_972"
+          },
+          {
+            "step": "step_880",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Done. Your ticket ID is "
+                          },
+                          {
+                            "variable": "ticket_result",
+                            "variable_path": "body.request.id"
+                          },
+                          {
+                            "scalar": ", and you can check out the ticket here: "
+                          },
+                          {
+                            "variable": "ticket_result",
+                            "variable_path": "body.request.url"
+                          },
+                          {
+                            "scalar": "\n\n<br />\n\n\n\nYou should keep the ticket ID handy, because you'll need it in order to update any information on your ticket. Hope this helped!"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_880"
+          },
+          {
+            "step": "step_972",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Sorry to hear that. Can you describe the problem in a bit more detail?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "question": {
+              "free_text": true,
+              "only_populate_when_prompted": true
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_972",
+            "next_step": "step_982"
+          },
+          {
+            "step": "step_982",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Ok, got it. Give me a second while I create your ticket..."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/api/v2/requests.json",
+                "type": "integration_interaction",
+                "method": "POST",
+                "internal": {
+                  "catalog_item_id": "b166041f-67b2-4c1a-8557-1d9ef3bc30ba"
+                },
+                "request_mapping": {
+                  "body": [
+                    {
+                      "value": {
+                        "variable": "step_972"
+                      },
+                      "parameter": "request.comment.body"
+                    },
+                    {
+                      "value": {
+                        "variable": "step_397"
+                      },
+                      "parameter": "request.subject"
+                    },
+                    {
+                      "value": {
+                        "variable": "step_129"
+                      },
+                      "parameter": "request.requester.name"
+                    },
+                    {
+                      "value": {
+                        "variable": "step_332"
+                      },
+                      "parameter": "request.requester.email"
+                    }
+                  ]
+                },
+                "result_variable": "ticket_result"
+              }
+            },
+            "variable": "step_982",
+            "next_step": "step_880"
+          }
+        ],
+        "title": "Create a ticket.",
+        "action": "action_21342",
+        "handlers": [],
+        "condition": {
+          "intent": "action_21342_intent_26351"
+        },
+        "variables": [
+          {
+            "variable": "step_124_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Yeah, of course! May I ask for your name?",
+            "variable": "step_129",
+            "data_type": "any"
+          },
+          {
+            "title": "Hey, {variable}. Can I also ask for your email? We use it to get",
+            "variable": "step_332",
+            "data_type": "any"
+          },
+          {
+            "title": "Thanks! Alright, in just a few words (we'll ask for details afte",
+            "variable": "step_397",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_418_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_579_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_640_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Done. Your ticket ID is {variable}, and you can check out the ti",
+            "variable": "step_880",
+            "data_type": "any"
+          },
+          {
+            "title": "Sorry to hear that. Can you describe the problem in a bit more d",
+            "variable": "step_972",
+            "data_type": "any"
+          },
+          {
+            "title": "Ok, got it. Give me a second while I create your ticket...",
+            "variable": "step_982",
+            "data_type": "any"
+          },
+          {
+            "title": "aggregated variable",
+            "variable": "ticket_number",
+            "data_type": "any"
+          },
+          {
+            "title": "result of our integration",
+            "variable": "ticket_result",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "fallback",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_156",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Ok. looks like you have "
+                          },
+                          {
+                            "variable": "step_393_result_1",
+                            "variable_path": "body.count"
+                          },
+                          {
+                            "scalar": " on file. Here is the information: "
+                          },
+                          {
+                            "variable": "step_393_result_1",
+                            "variable_path": "body.requests"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_156",
+            "condition": {
+              "gt": [
+                {
+                  "variable": "step_393_result_1",
+                  "variable_path": "body.count"
+                },
+                {
+                  "scalar": 0
+                }
+              ]
+            },
+            "next_step": "step_702"
+          },
+          {
+            "step": "step_393",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Cool, I can help with that. One sec while I get that information.."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/api/v2/requests.json",
+                "type": "integration_interaction",
+                "method": "GET",
+                "internal": {
+                  "catalog_item_id": "b166041f-67b2-4c1a-8557-1d9ef3bc30ba"
+                },
+                "result_variable": "step_393_result_1"
+              }
+            },
+            "variable": "step_393",
+            "next_step": "step_156"
+          },
+          {
+            "step": "step_530",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Hmm.. I couldn't find any tickets for you. Are you sure you've opened a ticket with us before?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_530",
+            "condition": {
+              "and": [
+                {
+                  "not": {
+                    "exists": {
+                      "variable": "step_393_result_1",
+                      "variable_path": "body.count"
+                    }
+                  }
+                },
+                {
+                  "eq": [
+                    {
+                      "variable": "step_393_result_1",
+                      "variable_path": "body.count"
+                    },
+                    {
+                      "scalar": 0
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "step": "step_702",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "If you want to look at more of your tickets, you can see them here - "
+                          },
+                          {
+                            "variable": "step_393_result_1",
+                            "variable_path": "body.next_page"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_702",
+            "condition": {
+              "exists": {
+                "variable": "step_393_result_1",
+                "variable_path": "body.next_page"
+              }
+            },
+            "next_step": "step_530"
+          }
+        ],
+        "title": "Get all my tickets.",
+        "action": "action_23485",
+        "handlers": [],
+        "condition": {
+          "intent": "action_23485_intent_18872"
+        },
+        "variables": [
+          {
+            "title": "Ok. looks like you have {variable} on file. Here is the informat",
+            "variable": "step_156",
+            "data_type": "any"
+          },
+          {
+            "title": "Cool, I can help with that. One sec while I get that information",
+            "variable": "step_393",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_393_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Hmm.. I couldn't find any tickets for you. Are you sure you've o",
+            "variable": "step_530",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_568_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "If you want to look at more of your tickets, you can see them he",
+            "variable": "step_702",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_2442",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_254",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Done! Your ticket has successfully been updated with the new information you provided."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_254"
+          },
+          {
+            "step": "step_613",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Of course, let's get your ticket updated. What was the ticket number?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "question": {
+              "free_text": true,
+              "only_populate_when_prompted": true
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_613",
+            "next_step": "step_767"
+          },
+          {
+            "step": "step_726",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Alright. I'll get your ticket updated in no time - sit tight for one second.."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/api/v2/requests/{id}.json",
+                "type": "integration_interaction",
+                "method": "PUT",
+                "internal": {
+                  "catalog_item_id": "b166041f-67b2-4c1a-8557-1d9ef3bc30ba"
+                },
+                "request_mapping": {
+                  "body": [
+                    {
+                      "value": {
+                        "variable": "step_767"
+                      },
+                      "parameter": "request.comment.body"
+                    }
+                  ],
+                  "path": [
+                    {
+                      "value": {
+                        "variable": "step_613"
+                      },
+                      "parameter": "id"
+                    }
+                  ]
+                },
+                "result_variable": "step_726_result_1"
+              }
+            },
+            "variable": "step_726",
+            "next_step": "step_254"
+          },
+          {
+            "step": "step_767",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "So your ticket id is "
+                          },
+                          {
+                            "variable": "step_613"
+                          },
+                          {
+                            "scalar": ", got it. I can add any information you'd like to add to your ticket as a comment. What are the details you would you like to add?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "question": {
+              "free_text": true,
+              "only_populate_when_prompted": true
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_767",
+            "next_step": "step_726"
+          }
+        ],
+        "title": "Update ticket for a given id.",
+        "action": "action_2442",
+        "handlers": [],
+        "condition": {
+          "intent": "action_2442_intent_7952"
+        },
+        "variables": [
+          {
+            "title": "Done! Your ticket has successfully been updated with the new inf",
+            "variable": "step_254",
+            "data_type": "any"
+          },
+          {
+            "title": "Of course, let's get your ticket updated. What was the ticket nu",
+            "variable": "step_613",
+            "data_type": "any"
+          },
+          {
+            "title": "Alright. I'll get your ticket updated in no time - sit tight for",
+            "variable": "step_726",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_726_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "So your ticket id is {variable}, got it. I can add any informati",
+            "variable": "step_767",
+            "data_type": "any"
+          },
+          {
+            "variable": "ticket_result",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_21342",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_168",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Here are your first few comments:\n\n<br />\n\n\n\n"
+                          },
+                          {
+                            "variable": "step_568_result_1",
+                            "variable_path": "body.comments"
+                          },
+                          {
+                            "scalar": "<br />"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_168",
+            "condition": {
+              "and": [
+                {
+                  "exists": {
+                    "variable": "step_568_result_1",
+                    "variable_path": "body.count"
+                  }
+                },
+                {
+                  "gt": [
+                    {
+                      "variable": "step_568_result_1",
+                      "variable_path": "body.count"
+                    },
+                    {
+                      "scalar": 0
+                    }
+                  ]
+                }
+              ]
+            },
+            "next_step": "step_513"
+          },
+          {
+            "step": "step_217",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Hmm... We couldn't find any comments on your ticket. Sorry!"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_217",
+            "condition": {
+              "or": [
+                {
+                  "eq": [
+                    {
+                      "variable": "step_568_result_1",
+                      "variable_path": "body.count"
+                    },
+                    {
+                      "scalar": 0
+                    }
+                  ]
+                },
+                {
+                  "not": {
+                    "exists": {
+                      "variable": "step_568_result_1",
+                      "variable_path": "body.count"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "step": "step_241",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Of course. What's the ticket ID?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "question": {
+              "free_text": true,
+              "only_populate_when_prompted": true
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_241",
+            "next_step": "step_568"
+          },
+          {
+            "step": "step_513",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "To see more comments, you can check them out here: "
+                          },
+                          {
+                            "variable": "step_568_result_1",
+                            "variable_path": "body.next_page"
+                          },
+                          {
+                            "scalar": ". Hope this helped!"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_513",
+            "condition": {
+              "and": [
+                {
+                  "exists": {
+                    "variable": "step_568_result_1",
+                    "variable_path": "body.next_page"
+                  }
+                },
+                {
+                  "exists": {
+                    "variable": "step_568_result_1",
+                    "variable_path": "body.count"
+                  }
+                }
+              ]
+            },
+            "next_step": "step_217"
+          },
+          {
+            "step": "step_568",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Got it. Let me get those comments for you..."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/api/v2/requests/{id}/comments.json",
+                "type": "integration_interaction",
+                "method": "GET",
+                "internal": {
+                  "catalog_item_id": "b166041f-67b2-4c1a-8557-1d9ef3bc30ba"
+                },
+                "request_mapping": {
+                  "path": [
+                    {
+                      "value": {
+                        "variable": "step_241"
+                      },
+                      "parameter": "id"
+                    }
+                  ]
+                },
+                "result_variable": "step_568_result_1"
+              }
+            },
+            "variable": "step_568",
+            "condition": {
+              "exists": {
+                "variable": "step_241"
+              }
+            },
+            "next_step": "step_168"
+          }
+        ],
+        "title": "Get comments on a specific ticket.",
+        "action": "action_33161",
+        "handlers": [],
+        "condition": {
+          "intent": "action_33161_intent_4518"
+        },
+        "variables": [
+          {
+            "title": "Here are your first few comments: <br /> {variable}<br />",
+            "variable": "step_168",
+            "data_type": "any"
+          },
+          {
+            "title": "Hmm... We couldn't find any comments on your ticket. Sorry!",
+            "variable": "step_217",
+            "data_type": "any"
+          },
+          {
+            "title": "Of course. What's the ticket ID?",
+            "variable": "step_241",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_393_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "To see more comments, you can check them out here: {variable}. H",
+            "variable": "step_513",
+            "data_type": "any"
+          },
+          {
+            "title": "Got it. Let me get those comments for you...",
+            "variable": "step_568",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_568_result_1",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_23485",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_001",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "I'm afraid I don't understand. Please rephrase your question."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_001",
+            "condition": {
+              "lte": [
+                {
+                  "system_variable": "no_action_matches_count"
+                },
+                {
+                  "scalar": 3
+                }
+              ]
+            },
+            "next_step": "step_002"
+          },
+          {
+            "step": "step_002",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": ""
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "action": "fallback",
+                "parameters": null,
+                "result_variable": "step_002_result_1"
+              }
+            },
+            "variable": "step_002",
+            "condition": {
+              "gt": [
+                {
+                  "system_variable": "no_action_matches_count"
+                },
+                {
+                  "scalar": 3
+                }
+              ]
+            }
+          }
+        ],
+        "title": "No action matches",
+        "action": "anything_else",
+        "handlers": [],
+        "condition": {
+          "expression": "anything_else"
+        },
+        "variables": [
+          {
+            "title": "I am afraid I do not understand what you are asking, please re-p",
+            "variable": "step_001",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_002",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_002_result_1",
+            "data_type": "any"
+          }
+        ],
+        "disambiguation_opt_out": true
+      },
+      {
+        "steps": [
+          {
+            "step": "step_001",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "I'm afraid I don't understand. I can connect you to an agent."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
+                },
+                "message_to_human_agent": ""
+              }
+            },
+            "variable": "step_001",
+            "condition": {
+              "eq": [
+                {
+                  "system_variable": "fallback_reason"
+                },
+                {
+                  "scalar": "Step validation failed"
+                }
+              ]
+            },
+            "next_step": "step_002"
+          },
+          {
+            "step": "step_002",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "Sorry I couldn't assist you. I will connect you to an agent right away."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
+                },
+                "message_to_human_agent": ""
+              }
+            },
+            "variable": "step_002",
+            "condition": {
+              "eq": [
+                {
+                  "system_variable": "fallback_reason"
+                },
+                {
+                  "scalar": "Agent requested"
+                }
+              ]
+            },
+            "next_step": "step_003"
+          },
+          {
+            "step": "step_003",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "I am afraid I do not understand what you are asking, let me connect you to an agent."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
+                },
+                "message_to_human_agent": ""
+              }
+            },
+            "variable": "step_003",
+            "condition": {
+              "eq": [
+                {
+                  "system_variable": "fallback_reason"
+                },
+                {
+                  "scalar": "No action matches"
+                }
+              ]
+            }
+          }
+        ],
+        "title": "Fallback",
+        "action": "fallback",
+        "handlers": [],
+        "condition": {
+          "intent": "fallback_connect_to_agent"
+        },
+        "variables": [
+          {
+            "title": "I'm afraid I don't understand. I can connect you to an agent.",
+            "variable": "step_001",
+            "data_type": "any"
+          },
+          {
+            "title": "Sorry I couldn't assist you. I will connect you to an agent righ",
+            "variable": "step_002",
+            "data_type": "any"
+          },
+          {
+            "title": "I am afraid I do not understand what you are asking, let me conn",
+            "variable": "step_003",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "anything_else",
+        "disambiguation_opt_out": true
+      },
+      {
+        "steps": [
+          {
+            "step": "step_001",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "Welcome, how can I assist you?"
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_001"
+          }
+        ],
+        "title": "Greet customer",
+        "action": "welcome",
+        "handlers": [],
+        "condition": {
+          "expression": "welcome"
+        },
+        "variables": [
+          {
+            "variable": "step_001",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_33161",
+        "disambiguation_opt_out": true
+      }
+    ],
+    "intents": [
+      {
+        "intent": "action_21342_intent_26351",
+        "examples": [
+          {
+            "text": "can I create a ticket"
+          },
+          {
+            "text": "can I open a ticket"
+          },
+          {
+            "text": "Create Ticket"
+          },
+          {
+            "text": "help pls"
+          },
+          {
+            "text": "I need help"
+          },
+          {
+            "text": "pls get me someone"
+          }
+        ]
+      },
+      {
+        "intent": "action_23485_intent_18872",
+        "examples": [
+          {
+            "text": "can i see my tickets"
+          },
+          {
+            "text": "Get all my tickets."
+          },
+          {
+            "text": "Get all tickets"
+          },
+          {
+            "text": "get tickets"
+          },
+          {
+            "text": "I want to see my tickets"
+          },
+          {
+            "text": "list my tickets"
+          },
+          {
+            "text": "Which tickets do i have?"
+          }
+        ]
+      },
+      {
+        "intent": "action_2442_intent_7952",
+        "examples": [
+          {
+            "text": "can I update my ticket"
+          },
+          {
+            "text": "here is my ticket id... can I reopen it"
+          },
+          {
+            "text": "Hey I just have new info"
+          },
+          {
+            "text": "I have found out new info"
+          },
+          {
+            "text": "need to tell you something about my ticket"
+          },
+          {
+            "text": "Update Ticket"
+          }
+        ]
+      },
+      {
+        "intent": "action_33161_intent_4518",
+        "examples": [
+          {
+            "text": "Can I get my ticket comments?"
+          },
+          {
+            "text": "Check comment history on ticket."
+          },
+          {
+            "text": "Get comments on a specific ticket."
+          },
+          {
+            "text": "Retrieve ticket comments"
+          }
+        ]
+      },
+      {
+        "intent": "fallback_connect_to_agent",
+        "examples": [
+          {
+            "text": "Agent help"
+          },
+          {
+            "text": "Call agent"
+          },
+          {
+            "text": "Can I connect to an agent?"
+          },
+          {
+            "text": "I would like to speak to a human"
+          },
+          {
+            "text": "I would like to speak to someone"
+          }
+        ],
+        "description": "Please transfer me to an agent"
+      }
+    ],
+    "entities": [],
+    "metadata": {
+      "api_version": {
+        "major_version": "v2",
+        "minor_version": "2018-11-08"
+      }
+    },
+    "variables": [],
+    "data_types": [],
+    "counterexamples": [],
+    "system_settings": {
+      "topic_switch": {
+        "enabled": true,
+        "messages": {
+          "confirm_return": {
+            "text": "Return to previous topic?"
+          },
+          "confirm_switch": {
+            "text": "Switch from the current topic?"
+          }
+        },
+        "question_steps_threshold": 2
+      },
+      "disambiguation": {
+        "prompt": "Did you mean:",
+        "enabled": true,
+        "randomize": true,
+        "max_suggestions": 5,
+        "suggestion_text_policy": "title",
+        "none_of_the_above_prompt": "None of the above"
+      },
+      "intent_classification": {
+        "training_backend_version": "v2"
+      },
+      "spelling_auto_correct": true
+    },
+    "learning_opt_out": true
+  },
+  "description": "",
+  "assistant_id": "f5aff655-fc37-40f5-aeb5-5642ff19c8d1",
+  "workspace_id": "9a7dc1c2-553f-493c-9523-40eeee5233c0",
+  "dialog_settings": {
+    "actions": true
+  },
+  "next_snapshot_version": "1"
+}
