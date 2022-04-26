@@ -79,7 +79,7 @@ Feel free to modify the skill and response variables to get a better grasp of ho
     - Open the `{selected_extension}.skill.json` file in a text editor.
     - Search on `catalog_item_id` and replace all uuid values with your extension ID from the previous step.
     - Save the file.
-    <br>
+
     **Important Note**: If you have multiple custom extensions, make sure you replace the correct `catalog_item_id` for each respective action.
     <br>
     ![modify-skill](./assets/modify-skill.gif)
