@@ -10,8 +10,7 @@ These topics will help you expand and exercise various capabilities of custom ex
 
 Some notes before you get started:
 
-- **Pro Tip**: [swagger.io](https://swagger.io/specification/) provides a easy-to-use interface, equipped with great documentation, for building and exporting OpenAPI specifications. Their SwaggerHub tool may prove extremely useful, 
-especially if you are building out many API calls.
+- **Pro Tip**: [swagger.io](https://swagger.io/specification/) provides a easy-to-use interface, equipped with great documentation, for building and exporting OpenAPI specifications. Their SwaggerHub tool may prove extremely useful, especially if you are building out many API calls.
 - **Limitations**: Our current list of OpenAPI support limitations can be found [here](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#build-custom-extension-openapi-file).
 
 
@@ -53,7 +52,7 @@ These data objects, or schemas, can be stored in the root level of the OpenAPI s
 ```
 for your `content` body.
 
-Note that relative references are currently not supported.
+Note that relative references are currently [not supported](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#build-custom-extension-openapi-file).
 
 ### Servers and Server Variables
 You can specify multiple servers in your OpenAPI spec. This may be necessary for some use cases, i.e where there are multiple base URLs that you want to interact with within an API. Server variables can also be specified, where the designated variable can be replaced with the value you enter into this `Authentication` section.
@@ -109,7 +108,7 @@ To create and set a session variable:
         Detailed documentation on expressions can be found on our official documentation [here](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-expressions).
 
 ## Linking Multiple Extensions
-You are not limited to one extension per action nor assistant! You can add **multiple** extensions to a action, or across multiple actions within the same assistant (using [session variables](#parameters-variables-and-complex-actions)), and essentially mix APIs in order to create a completely custom workflow.
+You are not limited to one extension per action nor assistant! You can add **multiple** extensions to an action, or across multiple actions within the same assistant (using [session variables](#parameters-variables-and-complex-actions)), and essentially mix APIs in order to create a completely custom workflow.
 
 For illustration purposes, let's say a customer wanted to be able to link their HubSpot ticket information into their newly created Zendesk ticket, since their HubSpot ticket contained relevant information. Then, within the same assistant, you can create a sequence where:
 
