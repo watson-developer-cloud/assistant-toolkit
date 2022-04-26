@@ -10,6 +10,8 @@ In this starter kit, we have the following API endpoints implemented for use:
 
 Zendesk Support uses `Requests API` to manage tickets - you can find the documentation [here](https://developer.zendesk.com/api-reference/ticketing/tickets/ticket-requests).
 
+**IMPORTANT NOTE**: We do not yet support dynamic username population (which will allow different users to post information on the ticket). This means that this starter kit should currently be used for demo purposes only, since the ticketing operations will only be able to be performed in the perspective of a single user for whom the security credentals have been configured.
+
 ## Pre-Req: Getting Auth Keys and Configuring Your Server
 Zendesk requires you to have authentication in order to have fully functioning API endpoints. You will also need ensure a few settings are enabled in order to allow these API calls.
 
@@ -18,7 +20,8 @@ Zendesk requires you to have authentication in order to have fully functioning A
 1. Under `Settings`:
     - To enable username/password auth, toggle `Password access` to `Enabled`. (Not recommended)
     - To enable API token authentication (API Key), toggle `Token access` to `Enabled`, and click `Add API token`. Note that you will need to append `/token` to the end of your username (email) if you are using this option. (Recommended)
-1. You will now be able to use `{your_email}/token` and the generated `API token` to hit Zendesk's API. You should use these credentials when adding your custom extension to your assistant.
+1. You will now be able to use `{your_email}/token` and the generated `API token` to hit Zendesk's API, where `your_email` is the email of your verified (or unverified) user. You should use these credentials when adding your custom extension to your assistant.
+
 ![Create API Key](./assets/create-api-key.gif)<br>
 
 ## (Semi-Optional) Add End Users

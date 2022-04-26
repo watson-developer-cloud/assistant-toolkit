@@ -2,20 +2,24 @@
 
 ## Introducing Extensions :tada:
 
-These starter kits provide everything you need to create assistants that use custom extensions to access external services using REST APIs.
+Welcome to Watson Assistant Custom Extensions starter kits!
 
-Each starter kit includes:
+Custom extensions eliminate the need to create a proxy or a middleware layer between your assistant and other APIs by connecting REST API calls to your skill from within your assistant build. Moreover, all of your individual custom extensions are *easily trackable* via our integrations catalog, and you can work with them in the same way you work with variables when building your bot. In short, this feature combines the flexibility and power of integrating with APIs, with a significantly improved ease-of-use for developer and content authors alike.
+
+These starter kits provide everything you need to create assistants that use custom extensions to access external REST APIs. Each include:
 
 - A valid OpenAPI 3.0 specification describing the REST API of a third-party service. These OpenAPI documents have been tested and validated with Watson Assistant.
 - An actions skill JSON file that uses the extension created from the OpenAPI spec. You can import this file into an assistant and then edit these actions to access the extension you create.
 - A README containing API specific instructions on how to set up the extension.
 
+For our full docs on how to create and customize extensions, visit [Building a Custom Extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension).
+
 ### How to Use This Repository
-This guide is for using a **starter kit** for your custom extension. For our full docs on how to create and customize extensions, visit [Building a Custom Extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension). 
+These starter kits are here as a reference for you to build your own specs and skills, act as a spring board for demos or POCs, and overall make the learning process easier.
 
-We're providing and maintaining **two** starter kits to be used as tutorials: `HubSpot` and `MetaWeather`. The **basic** path will help you get your first custom extension started. Then, you can move on to the **advanced** path for more complex OpenAPI specs and actions skills that showcase the full capabilities of extensions, and can use as a reference to build your own specs and skills.
+In that vein, we're providing and maintaining **two** main "tutorial" starter kits: `HubSpot` and `MetaWeather`. The files under the **basic** folder will help you get your first custom extension started, quick and simple. Once you've familiarized yourself, the **advanced** files provide examples for more complex OpenAPI specs and actions skills that showcase the full capabilities of extensions.
 
-Our other starter kits focus on showcasing and inspiring creating various custom extensions - use these as a spring board to create cool extensions, and refer back to the tutorial starter kits to learn how to configure more complex extensions.
+Then we have our **additional starter kits**. These focus on showcasing the breadth of custom extensions &mdash; use these as inspiration, further examples, or starting points to build out cool extensions.
 
 ## Jump to...
 1. [All Available Starter Kits](./starter-kits/)
@@ -66,7 +70,7 @@ Feel free to modify the skill and response variables to get a better grasp of ho
     - Click `Save`.            
 ### **Method 2**: For lengthy actions skills
 1. Obtain the ID for your created extension.
-    - From the **Integrations** page, open the dev tools tab (shortcuts: `CMD + OPTIONS + i` for Mac, `CTRL + SHIFT + j` for Linux/Windows) and click on the `Network` tab.
+    - From the **Integrations** page, open the Developer Tools tab (usually available under your browser menu) and click on the `Network` tab.
     - Find your extension under `Extensions` and click `Open` > `Confirm`.
     - In the **dev tools** tab, click on the request starting with a uuid - i.e. `00671ee7-26e6-43ec-9783-51a9f80bbcf3`. Go to the `Preview` tab and look for the field `config`  > `catalog_item_id`. **Copy this value - this is your extension's ID**. You can now close the dev tools tab.
     <br><br>
@@ -75,7 +79,9 @@ Feel free to modify the skill and response variables to get a better grasp of ho
     - Open the `{selected_extension}.skill.json` file in a text editor.
     - Search on `catalog_item_id` and replace all uuid values with your extension ID from the previous step.
     - Save the file.
-    <br><br>
+    <br>
+    **Important Note**: If you have mulitple custom extensions, make sure you replace the correct `catalog_item_id` for each respective action.
+    <br>
     ![modify-skill](./assets/modify-skill.gif)
 1. Upload your modified actions skill.
     - Navigate to the **Actions** tab in Watson Assistant.

@@ -60,7 +60,7 @@ This starter kit focuses on the *ticketing system* of HubSpot. In order to use t
 ### When moving beyond this starter kit... 
 In most cases you will want to customize these fields for your own POC or use case. You will need to access HubSpot and create your own custom properties as described in the above steps, as well as update the OpenAPI spec (the `.openapi.json` file) to expect your own custom properties. You should update the required parameters in the `$ref` for the request object. Then, edit the steps in your assistant's actions skill to match the expected parameters.
 
-For helpful information on how to modify and use the skills/OpenAPI specifications, take a look at [../../docs/ADVANCED_USAGE.md](../../docs/ADVANCED_USAGE.md).
+For helpful information on how to easily modify and use the skills/OpenAPI specifications, take a look at [Advanced Usage](../../docs/ADVANCED_USAGE.md) (hint: `swagger.io` is your friend).
 
 ## Using this Starter Kit
 
@@ -77,7 +77,7 @@ The following actions are provided in this starter kit. After upload, the action
       - properties.charge_date:  3. What was the date?
     ```
 
-    **Note**: `subject` and `hs_pipeline_stage` exist by default in HubSpot's ticketing schema -- the provided skill adds default values in **Step 4**. The `hs_pipeline_stage` field in the API corresponds to the `Ticket status` of a HubSpot ticket; we recommend submitting a value of `1` for the `hs_pipeline_stage` field, which will set the `Ticket status` to `New`.  The `subject` field in the API corresponds to the `Ticket name` of a HubSpot ticket.
+    **Note**: `subject` and `hs_pipeline_stage` exist by default in HubSpot's ticketing schema - the provided skill adds default values in `Step 4`. The `hs_pipeline_stage` field in the API corresponds to the `Ticket status` of a HubSpot ticket; we recommend submitting a value of `1` for the `hs_pipeline_stage` field, which will set the `Ticket status` to `New`.  The `subject` field in the API corresponds to the `Ticket name` of a HubSpot ticket.
 
 - **Action 2**. (advanced) Can I see my tickets?
     ```
