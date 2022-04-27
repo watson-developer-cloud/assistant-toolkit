@@ -27,6 +27,7 @@ Then we have our **additional starter kits**. These focus on showcasing the brea
     - [HubSpot](./starter-kits/hubspot/)
     - [Zendesk Support](./starter-kits/zendesk-support/)
     - [Spotify](./starter-kits/spotify/)
+    - [Service Now](./starter-kits/servicenow/)
     - [IBM App Connect](./starter-kits/appconnect/)
 1. [Create a Custom Extension](#getting-started)
 1. [How to Contribute](./docs/CONTRIBUTING.md)
