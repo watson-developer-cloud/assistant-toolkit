@@ -70,7 +70,7 @@
                       "text_expression": {
                         "concat": [
                           {
-                            "scalar": "Sure, we can help you create an incident for that. Which situation describe best describe your situation?"
+                            "scalar": "Sure, we can help you create an incident for that. Which situation best describes your situation?"
                           }
                         ]
                       }
