@@ -29,6 +29,7 @@ Then we have our **additional starter kits**. These focus on showcasing the brea
     - [Spotify](./starter-kits/spotify/)
     - [Service Now](./starter-kits/servicenow/)
     - [IBM App Connect](./starter-kits/appconnect/)
+    - [ Mailchimp Campaign Management](./starter-kits/mailchimp/)
 1. [Create a Custom Extension](#getting-started)
 1. [How to Contribute](./docs/CONTRIBUTING.md)
 
