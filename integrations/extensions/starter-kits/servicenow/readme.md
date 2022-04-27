@@ -35,9 +35,10 @@ An easy way to test you have made the proper changes within ServiceNow is to use
 
 ## Using this Starter Kit
 
-Upload the provided OpenAPI spec as a custom extension, and 
-1. Add `admin` as username and the password you just edited as `password`.
-2. Replace the default instance name with yours.
+Upload the provided OpenAPI spec as a custom extension, add the extension to your assistant, and then in the `Authentication` configuration step:
+1. For Authentication type, select `Basic auth`.
+1. Add `admin` as the Username and the password you just edited as `password`.
+1. Replace the default `instance` server variable with your own.
 
 After upload, the actions should be configured to use the fields below for the skill to be fully functional. Follow the instructions [here](../../README.md#configuring-your-actions-skill-to-use-an-extension) and note the information below to do this.
 
