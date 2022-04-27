@@ -20,12 +20,12 @@ The API requires authentication. To obtain the credentials login to your Develop
 2. On the filter, type in `User` and go to `System Security`->`Users and Groups`. 
 3. Under `UserID`, search for `admin`. This should look similar to: <br>
 ![configure-user](../servicenow/assets/ConfigureUser.png)
-Now,
- - Change the email to your personal email 
- - Check the `Passwords needs reset` box
- - Click on `Update`
- - Logout
- - Try to Login, you should be offered to provide a new password, remember it as it wil be used alongside your username (`admin`) as means to do Basic Authentication.
+Click on the `admin` search result, then:
+   - Change the email to your personal email 
+   - Check the `Password needs reset` box
+   - Click on `Update`
+   - Logout
+   - Try to log in with username `admin`. You should see an error banner and be offered reset your password through a link. Set a new password and remember it, as it will be used alongside your username (`admin`) for your Basic Authentication security configuration.
 
 If you encounter any trouble, follow this [guideline](https://docs.servicenow.com/en-US/bundle/sandiego-platform-administration/page/administer/security/reference/change-default-credentials.html).
 
