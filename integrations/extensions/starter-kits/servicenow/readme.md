@@ -6,7 +6,7 @@
 ServiceNow is a cloud-based software platform for IT Service Management (ITSM) which helps to automate IT Business Management.
 It has a variety of functionalities, however this extension will focus on Incident management, specifically creating an Incident.
 
-Our focus would be on [ServiceNow Table API](https://developer.servicenow.com/dev.do#!/reference/api/sandiego/rest/c_TableAPI) and specifically on using `POST /now/table/{tableName}` where `tableName` is `incident`.
+This starter kit focuses on the [ServiceNow Table API](https://developer.servicenow.com/dev.do#!/reference/api/sandiego/rest/c_TableAPI), and specifically on using `POST /now/table/{tableName}` where `tableName` is `incident`.
 
 This extension is also described in the following [blog](update link).
 
