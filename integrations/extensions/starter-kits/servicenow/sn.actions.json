@@ -82,10 +82,10 @@
                 {
                   "options": [
                     {
-                      "label": "I'm experiencing an Outage",
+                      "label": "I'm experiencing an outage",
                       "value": {
                         "input": {
-                          "text": "I'm experiencing an Outage"
+                          "text": "I'm experiencing an outage"
                         }
                       }
                     },
