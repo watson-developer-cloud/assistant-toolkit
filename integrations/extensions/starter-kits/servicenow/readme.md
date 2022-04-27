@@ -18,8 +18,8 @@ The API requires authentication. To obtain the credentials login to your Develop
 
 1. At the top menu bar click on `All`
 2. On the filter, type in `User` and go to `System Security`->`Users and Groups`. 
-3. Search for `admin` under `UserID` 
-It should look similar to ![this](../servicenow/assets/ConfigureUser.png)
+3. Under `UserID`, search for `admin`. This should look similar to: <br>
+![configure-user](../servicenow/assets/ConfigureUser.png)
 Now,
  - Change the email to your personal email 
  - Check the `Passwords needs reset` box
