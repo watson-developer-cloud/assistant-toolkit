@@ -8,7 +8,7 @@ It has a variety of functionalities, however this extension will focus on Incide
 
 Our focus would be on [ServiceNow Table API](https://developer.servicenow.com/dev.do#!/reference/api/sandiego/rest/c_TableAPI) and specifically on using `POST /now/table/{tableName}` where `tableName` is `incident`.
 
-This Extension is also described in the following [blog](update link).
+This extension is also described in the following [blog](update link).
 
 ## Pre-Requisite Steps
 
