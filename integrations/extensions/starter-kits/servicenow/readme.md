@@ -29,12 +29,9 @@ Click on the `admin` search result, then:
 
 If you encounter any trouble, follow these [guidelines](https://docs.servicenow.com/en-US/bundle/sandiego-platform-administration/page/administer/security/reference/change-default-credentials.html).
 
- Tip: ServiceNow might as you for your current password. To find it, go to your login avatar to access your account and click `Manage Instance Password`. You wlll see there your current password.
+**Tip**: ServiceNow might ask you for your current password. To find it, go to your login avatar to access your account and click `Manage Instance Password`. You wlll see your current password there.
 
-
-A nice way to test you have made the proper changes is to use this [Postman collection](../servicenow/assets/sn.postman.json) and call the API.
-please don't forget to change the instance name in the hostname.
-
+An easy way to test you have made the proper changes within ServiceNow is to use this [Postman collection](../servicenow/assets/sn.postman.json) and call the API. Don't forget to **change the instance name** in the hostname.
 
 ## Using this Starter Kit
 
