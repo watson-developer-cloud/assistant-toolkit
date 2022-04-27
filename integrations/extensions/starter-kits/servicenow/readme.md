@@ -14,7 +14,7 @@ This extension is also described in the following [blog](update link).
 
 An instance is required to use ServiceNow APIs. Luckily, ServiceNow offers a Personal Developer Instance, well-suited for testing and demos. Follow the instructions [here](https://developer.servicenow.com/dev.do#!/learn/learning-plans/rome/new_to_servicenow/app_store_learnv2_buildmyfirstapp_rome_personal_developer_instances) to create an account and provision a Personal Developer Instance.
 ### Auth Info
-The API requires authentication. To obtain the credentials login to your Developer Instance, and follow the following steps:
+The ServiceNow API requires authentication. To obtain the login credentials to your Developer Instance, follow the following steps:
 
 1. At the top menu bar click on `All`
 2. On the filter, type in `User` and go to `System Security`->`Users and Groups`. 
