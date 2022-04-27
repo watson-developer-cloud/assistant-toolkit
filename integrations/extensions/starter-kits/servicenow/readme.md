@@ -57,5 +57,4 @@ After upload, the actions should be configured to use the fields below for the s
 ## Example Usage
 A conversation using this starter kit could look like the following:<br>
 ![create incident](./assets/sn.conversation_1_50.png)
-```
 
