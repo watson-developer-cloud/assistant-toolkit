@@ -27,7 +27,7 @@ Click on the `admin` search result, then:
    - Logout
    - Try to log in with username `admin`. You should see an error banner and be offered reset your password through a link. Set a new password and remember it, as it will be used alongside your username (`admin`) for your Basic Authentication security configuration.
 
-If you encounter any trouble, follow this [guideline](https://docs.servicenow.com/en-US/bundle/sandiego-platform-administration/page/administer/security/reference/change-default-credentials.html).
+If you encounter any trouble, follow these [guidelines](https://docs.servicenow.com/en-US/bundle/sandiego-platform-administration/page/administer/security/reference/change-default-credentials.html).
 
  Tip: ServiceNow might as you for your current password. To find it, go to your login avatar to access your account and click `Manage Instance Password`. You wlll see there your current password.
 
