@@ -49,7 +49,6 @@ After upload, the actions should be configured to use the fields below for the s
       - urgency: urgency
       - assignment_group: assignment_group
       - short_description: 1. Sure, we can help you create an inciden...
-
     ```
 ## Example Usage
 A conversation using this starter kit could look like the following:<br>
