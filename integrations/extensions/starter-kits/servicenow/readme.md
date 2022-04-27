@@ -1,4 +1,4 @@
-# [ServiceNow Incident Report]
+# ServiceNow Incident Report
 
 ## Background
 
