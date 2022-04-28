@@ -1,0 +1,906 @@
+{
+  "name": "Service Now Actions Skill",
+  "type": "dialog",
+  "valid": true,
+  "status": "Available",
+  "created": "2022-04-26T12:38:18.966Z",
+  "updated": "2022-04-27T09:17:31.472Z",
+  "language": "en",
+  "skill_id": "59e9f9cc-2745-48ce-87eb-73819aedffaa",
+  "workspace": {
+    "actions": [
+      {
+        "steps": [
+          {
+            "step": "step_258",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "We are sorry to hear you are experiencing slow internet connection, this will be taken care of in the next couple of hours"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "3"
+                  },
+                  "skill_variable": "urgency"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_258",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_372"
+                },
+                {
+                  "value": "My network is slow",
+                  "from_entity": "entity_3376"
+                }
+              ]
+            },
+            "next_step": "step_601"
+          },
+          {
+            "step": "step_372",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Sure, we can help you create an incident for that. Which situation best describes your situation?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                },
+                {
+                  "options": [
+                    {
+                      "label": "I'm experiencing an outage",
+                      "value": {
+                        "input": {
+                          "text": "I'm experiencing an outage"
+                        }
+                      }
+                    },
+                    {
+                      "label": "My network is slow",
+                      "value": {
+                        "input": {
+                          "text": "My network is slow"
+                        }
+                      }
+                    },
+                    {
+                      "label": "My network disconnects",
+                      "value": {
+                        "input": {
+                          "text": "My network disconnects"
+                        }
+                      }
+                    }
+                  ],
+                  "response_type": "option",
+                  "repeat_on_reprompt": true
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text": "I didn't catch that. Select a valid option:"
+                        }
+                      ],
+                      "response_type": "text"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "entity": "entity_3376",
+              "max_tries": 3
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_372",
+            "next_step": "step_612"
+          },
+          {
+            "step": "step_601",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Network disconnects are horrible, this will be taken care of with in an hour"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "2"
+                  },
+                  "skill_variable": "urgency"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_601",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_372"
+                },
+                {
+                  "value": "My network disconnects",
+                  "from_entity": "entity_3376"
+                }
+              ]
+            },
+            "next_step": "step_902"
+          },
+          {
+            "step": "step_612",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "We take outages very seriously and therefore the incident will be addressed within the next 30 minutes"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "1"
+                  },
+                  "skill_variable": "urgency"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_612",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_372"
+                },
+                {
+                  "value": "I'm experiencing an outage",
+                  "from_entity": "entity_3376"
+                }
+              ]
+            },
+            "next_step": "step_258"
+          },
+          {
+            "step": "step_901",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Hmm.. We weren't able to create that incident report. Sorry!"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_901",
+            "condition": {
+              "expression": "${step_902_result_1}.status != 200"
+            }
+          },
+          {
+            "step": "step_902",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Please wait while I file an incident report  for you.."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/api/now/table/incident",
+                "type": "integration_interaction",
+                "method": "POST",
+                "internal": {
+                  "catalog_item_id": "0ecbd0fa-c6ce-4b71-ba14-6e45f1bd7ab8"
+                },
+                "request_mapping": {
+                  "body": [
+                    {
+                      "value": {
+                        "skill_variable": "urgency"
+                      },
+                      "parameter": "impact"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "urgency"
+                      },
+                      "parameter": "urgency"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "assignment_group"
+                      },
+                      "parameter": "assignment_group"
+                    },
+                    {
+                      "value": {
+                        "variable": "step_372"
+                      },
+                      "parameter": "short_description"
+                    }
+                  ]
+                },
+                "result_variable": "step_902_result_1"
+              }
+            },
+            "variable": "step_902",
+            "next_step": "step_989"
+          },
+          {
+            "step": "step_989",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Done! Your incident report has been created with incident number: "
+                          },
+                          {
+                            "variable": "step_902_result_1",
+                            "variable_path": "body.result.number"
+                          },
+                          {
+                            "scalar": "."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_989",
+            "condition": {
+              "expression": "${step_902_result_1}.status == 200"
+            },
+            "next_step": "step_901"
+          }
+        ],
+        "title": "I want to report a problem",
+        "action": "action_10481",
+        "handlers": [],
+        "condition": {
+          "intent": "action_10481_intent_41951"
+        },
+        "variables": [
+          {
+            "title": "We are sorry to hear you are experiencing slow internet connecti",
+            "variable": "step_258",
+            "data_type": "any"
+          },
+          {
+            "title": "Sure, we can help you create an incident for that. Which situati",
+            "variable": "step_372",
+            "data_type": "any"
+          },
+          {
+            "title": "Network disconnects are horrible, this will be taken care of wit",
+            "variable": "step_601",
+            "data_type": "any"
+          },
+          {
+            "title": "We take outages very seriously and therefore the incident will b",
+            "variable": "step_612",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_850_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Hmm.. We weren't able to create that incident report. Sorry!",
+            "variable": "step_901",
+            "data_type": "any"
+          },
+          {
+            "title": "Please wait while I file an incident report for you..",
+            "variable": "step_902",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_902_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_902_result_2",
+            "data_type": "any"
+          },
+          {
+            "title": "Done! Your incident report has been created with incident number",
+            "variable": "step_989",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "fallback",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_001",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "I'm afraid I don't understand. Please rephrase your question."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_001",
+            "condition": {
+              "lte": [
+                {
+                  "system_variable": "no_action_matches_count"
+                },
+                {
+                  "scalar": 3
+                }
+              ]
+            },
+            "next_step": "step_002"
+          },
+          {
+            "step": "step_002",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": ""
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "action": "fallback",
+                "parameters": null,
+                "result_variable": "step_002_result_1"
+              }
+            },
+            "variable": "step_002",
+            "condition": {
+              "gt": [
+                {
+                  "system_variable": "no_action_matches_count"
+                },
+                {
+                  "scalar": 3
+                }
+              ]
+            }
+          }
+        ],
+        "title": "No action matches",
+        "action": "anything_else",
+        "handlers": [],
+        "condition": {
+          "expression": "anything_else"
+        },
+        "variables": [
+          {
+            "title": "I am afraid I do not understand what you are asking, please re-p",
+            "variable": "step_001",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_002",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_002_result_1",
+            "data_type": "any"
+          }
+        ],
+        "disambiguation_opt_out": true
+      },
+      {
+        "steps": [
+          {
+            "step": "step_001",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "I'm afraid I don't understand. I can connect you to an agent."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
+                },
+                "message_to_human_agent": ""
+              }
+            },
+            "variable": "step_001",
+            "condition": {
+              "eq": [
+                {
+                  "system_variable": "fallback_reason"
+                },
+                {
+                  "scalar": "Step validation failed"
+                }
+              ]
+            },
+            "next_step": "step_002"
+          },
+          {
+            "step": "step_002",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "Sorry I couldn't assist you. I will connect you to an agent right away."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
+                },
+                "message_to_human_agent": ""
+              }
+            },
+            "variable": "step_002",
+            "condition": {
+              "eq": [
+                {
+                  "system_variable": "fallback_reason"
+                },
+                {
+                  "scalar": "Agent requested"
+                }
+              ]
+            },
+            "next_step": "step_003"
+          },
+          {
+            "step": "step_003",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "I am afraid I do not understand what you are asking, let me connect you to an agent."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
+                },
+                "message_to_human_agent": ""
+              }
+            },
+            "variable": "step_003",
+            "condition": {
+              "eq": [
+                {
+                  "system_variable": "fallback_reason"
+                },
+                {
+                  "scalar": "No action matches"
+                }
+              ]
+            }
+          }
+        ],
+        "title": "Fallback",
+        "action": "fallback",
+        "handlers": [],
+        "condition": {
+          "intent": "fallback_connect_to_agent"
+        },
+        "variables": [
+          {
+            "title": "I'm afraid I don't understand. I can connect you to an agent.",
+            "variable": "step_001",
+            "data_type": "any"
+          },
+          {
+            "title": "Sorry I couldn't assist you. I will connect you to an agent righ",
+            "variable": "step_002",
+            "data_type": "any"
+          },
+          {
+            "title": "I am afraid I do not understand what you are asking, let me conn",
+            "variable": "step_003",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "anything_else",
+        "disambiguation_opt_out": true
+      },
+      {
+        "steps": [
+          {
+            "step": "step_001",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "Welcome, how can I assist you?"
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_001"
+          }
+        ],
+        "title": "Greet customer",
+        "action": "welcome",
+        "handlers": [],
+        "condition": {
+          "expression": "welcome"
+        },
+        "variables": [
+          {
+            "variable": "step_001",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_10481",
+        "disambiguation_opt_out": true
+      }
+    ],
+    "intents": [
+      {
+        "intent": "action_10481_intent_41951",
+        "examples": [
+          {
+            "text": "how do I open an incident"
+          },
+          {
+            "text": "I have a problem"
+          },
+          {
+            "text": "I want to report a problem"
+          },
+          {
+            "text": "my printer isn't working"
+          },
+          {
+            "text": "please help me"
+          }
+        ]
+      },
+      {
+        "intent": "fallback_connect_to_agent",
+        "examples": [
+          {
+            "text": "Agent help"
+          },
+          {
+            "text": "Call agent"
+          },
+          {
+            "text": "Can I connect to an agent?"
+          },
+          {
+            "text": "I would like to speak to a human"
+          },
+          {
+            "text": "I would like to speak to someone"
+          }
+        ],
+        "description": "Please transfer me to an agent"
+      }
+    ],
+    "entities": [
+      {
+        "entity": "entity_3376",
+        "values": [
+          {
+            "type": "synonyms",
+            "value": "I'm experiencing an Outage",
+            "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "My network disconnects",
+            "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "My network is slow",
+            "synonyms": []
+          }
+        ],
+        "fuzzy_match": true
+      },
+      {
+        "entity": "sys-date",
+        "values": []
+      },
+      {
+        "entity": "sys-number",
+        "values": []
+      },
+      {
+        "entity": "sys-yes-no",
+        "values": [
+          {
+            "type": "synonyms",
+            "value": "No",
+            "synonyms": [
+              "nay",
+              "negative",
+              "nope",
+              "not"
+            ]
+          },
+          {
+            "type": "synonyms",
+            "value": "Yes",
+            "synonyms": [
+              "positive",
+              "sure",
+              "yea",
+              "yeah",
+              "yup"
+            ]
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "api_version": {
+        "major_version": "v2",
+        "minor_version": "2018-11-08"
+      }
+    },
+    "variables": [
+      {
+        "title": "assignment_group",
+        "variable": "assignment_group",
+        "data_type": "string",
+        "description": "",
+        "initial_value": {
+          "scalar": "287ebd7da9fe198100f92cc8d1d2154e"
+        }
+      },
+      {
+        "title": "urgency",
+        "variable": "urgency",
+        "data_type": "number",
+        "description": ""
+      }
+    ],
+    "data_types": [],
+    "counterexamples": [],
+    "system_settings": {
+      "topic_switch": {
+        "enabled": true,
+        "messages": {
+          "confirm_return": {
+            "text": "Return to previous topic?"
+          },
+          "confirm_switch": {
+            "text": "Switch from the current topic?"
+          }
+        },
+        "question_steps_threshold": 2
+      },
+      "disambiguation": {
+        "prompt": "Did you mean:",
+        "enabled": true,
+        "randomize": true,
+        "max_suggestions": 5,
+        "suggestion_text_policy": "title",
+        "none_of_the_above_prompt": "None of the above"
+      },
+      "intent_classification": {
+        "training_backend_version": "v2"
+      },
+      "spelling_auto_correct": true
+    },
+    "learning_opt_out": true
+  },
+  "description": "created for assistant 1afaf69c-8cc4-4821-8b87-003bd45e86fb",
+  "assistant_id": "5cd47828-0a3c-4dd6-bbbc-4d17cdcca3f0",
+  "workspace_id": "59e9f9cc-2745-48ce-87eb-73819aedffaa",
+  "dialog_settings": {
+    "actions": true
+  },
+  "next_snapshot_version": "1"
+}

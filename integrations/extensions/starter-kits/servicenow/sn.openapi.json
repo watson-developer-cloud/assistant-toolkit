@@ -1,0 +1,684 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "ServiceNow Blog",
+    "version": "1.0.0",
+    "contact": {}
+  },
+  "servers": [
+    {
+      "url": "https://{instance}.service-now.com",
+      "variables": {
+        "instance": {
+          "default": "dev93773",
+          "description": "Your PDI name"
+        }
+      }
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "basicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    }
+  },
+  "security": [
+    {
+      "basicAuth": []
+    }
+  ],
+  "paths": {
+    "/api/now/table/incident": {
+      "post": {
+        "summary": "Create Incident",
+        "description": "Create an incident with customer provided info.",
+        "operationId": "httpsdev93773ServiceNowComApiNowTableIncident",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "assignment_group": {
+                    "type": "string",
+                    "example": "287ebd7da9fe198100f92cc8d1d2154e"
+                  },
+                  "impact": {
+                    "type": "string",
+                    "example": "2"
+                  },
+                  "short_description": {
+                    "type": "string",
+                    "example": "Unable to connect to office wifi"
+                  },
+                  "urgency": {
+                    "type": "string",
+                    "example": "2"
+                  }
+                }
+              },
+              "example": {
+                "assignment_group": "287ebd7da9fe198100f92cc8d1d2154e",
+                "impact": "2",
+                "short_description": "Unable to connect to office wifi",
+                "urgency": "2"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "example": "no-cache,no-store,must-revalidate,max-age=-1"
+                }
+              },
+              "Content-Encoding": {
+                "schema": {
+                  "type": "string",
+                  "example": "gzip"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Thu, 14 Apr 2022 13:52:11 GMT"
+                }
+              },
+              "Expires": {
+                "schema": {
+                  "type": "string",
+                  "example": "0"
+                }
+              },
+              "Location": {
+                "schema": {
+                  "type": "string",
+                  "example": "https://dev93773.service-now.com/api/now/table/incident/993e19ea1bfe8110309b4196bc4bcb54"
+                }
+              },
+              "Pragma": {
+                "schema": {
+                  "type": "string",
+                  "example": "no-store,no-cache"
+                }
+              },
+              "Server": {
+                "schema": {
+                  "type": "string",
+                  "example": "ServiceNow"
+                }
+              },
+              "Server-Timing": {
+                "schema": {
+                  "type": "string",
+                  "example": "sem_wait;dur=0, sesh_wait;dur=0"
+                }
+              },
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string",
+                  "example": "glide_session_store=153E19221BBE8110309B4196BC4BCB34; Max-Age=1800; Expires=Thu, 14-Apr-2022 14:22:09 GMT; Path=/; HttpOnly;Secure"
+                }
+              },
+              "Strict-Transport-Security": {
+                "schema": {
+                  "type": "string",
+                  "example": "max-age=63072000; includeSubDomains"
+                }
+              },
+              "Transfer-Encoding": {
+                "schema": {
+                  "type": "string",
+                  "example": "chunked"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "example": "nosniff"
+                }
+              },
+              "X-Is-Logged-In": {
+                "schema": {
+                  "type": "string",
+                  "example": "true"
+                }
+              },
+              "X-Transaction-ID": {
+                "schema": {
+                  "type": "string",
+                  "example": "593e19221bbe"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "active": {
+                          "type": "string",
+                          "example": "true"
+                        },
+                        "activity_due": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "additional_assignee_list": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "approval": {
+                          "type": "string",
+                          "example": "not requested"
+                        },
+                        "approval_history": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "approval_set": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "assigned_to": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "assignment_group": {
+                          "type": "object",
+                          "properties": {
+                            "link": {
+                              "type": "string",
+                              "example": "https://dev93773.service-now.com/api/now/table/sys_user_group/287ebd7da9fe198100f92cc8d1d2154e"
+                            },
+                            "value": {
+                              "type": "string",
+                              "example": "287ebd7da9fe198100f92cc8d1d2154e"
+                            }
+                          }
+                        },
+                        "business_duration": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "business_impact": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "business_service": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "business_stc": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "calendar_duration": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "calendar_stc": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "caller_id": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "category": {
+                          "type": "string",
+                          "example": "inquiry"
+                        },
+                        "cause": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "caused_by": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "child_incidents": {
+                          "type": "string",
+                          "example": "0"
+                        },
+                        "close_code": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "close_notes": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "closed_at": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "closed_by": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "cmdb_ci": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "comments": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "comments_and_work_notes": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "company": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "contact_type": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "contract": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "correlation_display": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "correlation_id": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "delivery_plan": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "delivery_task": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "description": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "due_date": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "escalation": {
+                          "type": "string",
+                          "example": "0"
+                        },
+                        "expected_start": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "follow_up": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "group_list": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "hold_reason": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "impact": {
+                          "type": "string",
+                          "example": "2"
+                        },
+                        "incident_state": {
+                          "type": "string",
+                          "example": "1"
+                        },
+                        "knowledge": {
+                          "type": "string",
+                          "example": "false"
+                        },
+                        "location": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "made_sla": {
+                          "type": "string",
+                          "example": "true"
+                        },
+                        "notify": {
+                          "type": "string",
+                          "example": "1"
+                        },
+                        "number": {
+                          "type": "string",
+                          "example": "INC0010003"
+                        },
+                        "opened_at": {
+                          "type": "string",
+                          "example": "2022-04-14 13:52:09"
+                        },
+                        "opened_by": {
+                          "type": "object",
+                          "properties": {
+                            "link": {
+                              "type": "string",
+                              "example": "https://dev93773.service-now.com/api/now/table/sys_user/6816f79cc0a8016401c5a33be04be441"
+                            },
+                            "value": {
+                              "type": "string",
+                              "example": "6816f79cc0a8016401c5a33be04be441"
+                            }
+                          }
+                        },
+                        "order": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "origin_id": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "origin_table": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "parent": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "parent_incident": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "priority": {
+                          "type": "string",
+                          "example": "3"
+                        },
+                        "problem_id": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "reassignment_count": {
+                          "type": "string",
+                          "example": "0"
+                        },
+                        "reopen_count": {
+                          "type": "string",
+                          "example": "0"
+                        },
+                        "reopened_by": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "reopened_time": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "resolved_at": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "resolved_by": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "rfc": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "route_reason": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "service_offering": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "severity": {
+                          "type": "string",
+                          "example": "3"
+                        },
+                        "short_description": {
+                          "type": "string",
+                          "example": "Unable to connect to office wifi"
+                        },
+                        "sla_due": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "state": {
+                          "type": "string",
+                          "example": "1"
+                        },
+                        "subcategory": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "sys_class_name": {
+                          "type": "string",
+                          "example": "incident"
+                        },
+                        "sys_created_by": {
+                          "type": "string",
+                          "example": "admin"
+                        },
+                        "sys_created_on": {
+                          "type": "string",
+                          "example": "2022-04-14 13:52:09"
+                        },
+                        "sys_domain": {
+                          "type": "object",
+                          "properties": {
+                            "link": {
+                              "type": "string",
+                              "example": "https://dev93773.service-now.com/api/now/table/sys_user_group/global"
+                            },
+                            "value": {
+                              "type": "string",
+                              "example": "global"
+                            }
+                          }
+                        },
+                        "sys_domain_path": {
+                          "type": "string",
+                          "example": "/"
+                        },
+                        "sys_id": {
+                          "type": "string",
+                          "example": "993e19ea1bfe8110309b4196bc4bcb54"
+                        },
+                        "sys_mod_count": {
+                          "type": "string",
+                          "example": "0"
+                        },
+                        "sys_tags": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "sys_updated_by": {
+                          "type": "string",
+                          "example": "admin"
+                        },
+                        "sys_updated_on": {
+                          "type": "string",
+                          "example": "2022-04-14 13:52:09"
+                        },
+                        "task_effective_number": {
+                          "type": "string",
+                          "example": "INC0010003"
+                        },
+                        "time_worked": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "universal_request": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "upon_approval": {
+                          "type": "string",
+                          "example": "proceed"
+                        },
+                        "upon_reject": {
+                          "type": "string",
+                          "example": "cancel"
+                        },
+                        "urgency": {
+                          "type": "string",
+                          "example": "2"
+                        },
+                        "user_input": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "watch_list": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "work_end": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "work_notes": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "work_notes_list": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "work_start": {
+                          "type": "string",
+                          "example": ""
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "https://dev93773.service-now.com/api/now/table/incident": {
+                    "value": {
+                      "result": {
+                        "active": "true",
+                        "activity_due": "",
+                        "additional_assignee_list": "",
+                        "approval": "not requested",
+                        "approval_history": "",
+                        "approval_set": "",
+                        "assigned_to": "",
+                        "assignment_group": {
+                          "link": "https://dev93773.service-now.com/api/now/table/sys_user_group/287ebd7da9fe198100f92cc8d1d2154e",
+                          "value": "287ebd7da9fe198100f92cc8d1d2154e"
+                        },
+                        "business_duration": "",
+                        "business_impact": "",
+                        "business_service": "",
+                        "business_stc": "",
+                        "calendar_duration": "",
+                        "calendar_stc": "",
+                        "caller_id": "",
+                        "category": "inquiry",
+                        "cause": "",
+                        "caused_by": "",
+                        "child_incidents": "0",
+                        "close_code": "",
+                        "close_notes": "",
+                        "closed_at": "",
+                        "closed_by": "",
+                        "cmdb_ci": "",
+                        "comments": "",
+                        "comments_and_work_notes": "",
+                        "company": "",
+                        "contact_type": "",
+                        "contract": "",
+                        "correlation_display": "",
+                        "correlation_id": "",
+                        "delivery_plan": "",
+                        "delivery_task": "",
+                        "description": "",
+                        "due_date": "",
+                        "escalation": "0",
+                        "expected_start": "",
+                        "follow_up": "",
+                        "group_list": "",
+                        "hold_reason": "",
+                        "impact": "2",
+                        "incident_state": "1",
+                        "knowledge": "false",
+                        "location": "",
+                        "made_sla": "true",
+                        "notify": "1",
+                        "number": "INC0010003",
+                        "opened_at": "2022-04-14 13:52:09",
+                        "opened_by": {
+                          "link": "https://dev93773.service-now.com/api/now/table/sys_user/6816f79cc0a8016401c5a33be04be441",
+                          "value": "6816f79cc0a8016401c5a33be04be441"
+                        },
+                        "order": "",
+                        "origin_id": "",
+                        "origin_table": "",
+                        "parent": "",
+                        "parent_incident": "",
+                        "priority": "3",
+                        "problem_id": "",
+                        "reassignment_count": "0",
+                        "reopen_count": "0",
+                        "reopened_by": "",
+                        "reopened_time": "",
+                        "resolved_at": "",
+                        "resolved_by": "",
+                        "rfc": "",
+                        "route_reason": "",
+                        "service_offering": "",
+                        "severity": "3",
+                        "short_description": "Unable to connect to office wifi",
+                        "sla_due": "",
+                        "state": "1",
+                        "subcategory": "",
+                        "sys_class_name": "incident",
+                        "sys_created_by": "admin",
+                        "sys_created_on": "2022-04-14 13:52:09",
+                        "sys_domain": {
+                          "link": "https://dev93773.service-now.com/api/now/table/sys_user_group/global",
+                          "value": "global"
+                        },
+                        "sys_domain_path": "/",
+                        "sys_id": "993e19ea1bfe8110309b4196bc4bcb54",
+                        "sys_mod_count": "0",
+                        "sys_tags": "",
+                        "sys_updated_by": "admin",
+                        "sys_updated_on": "2022-04-14 13:52:09",
+                        "task_effective_number": "INC0010003",
+                        "time_worked": "",
+                        "universal_request": "",
+                        "upon_approval": "proceed",
+                        "upon_reject": "cancel",
+                        "urgency": "2",
+                        "user_input": "",
+                        "watch_list": "",
+                        "work_end": "",
+                        "work_notes": "",
+                        "work_notes_list": "",
+                        "work_start": ""
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": []
+}
