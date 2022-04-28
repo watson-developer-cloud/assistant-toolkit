@@ -32,8 +32,8 @@
   "paths": {
     "/api/now/table/incident": {
       "post": {
-        "summary": "https://dev93773.service-now.com/api/now/table/incident",
-        "description": "https://dev93773.service-now.com/api/now/table/incident",
+        "summary": "Create Incident",
+        "description": "Create an incident with customer provided info.",
         "operationId": "httpsdev93773ServiceNowComApiNowTableIncident",
         "requestBody": {
           "content": {
@@ -70,7 +70,7 @@
         },
         "responses": {
           "201": {
-            "description": "https://dev93773.service-now.com/api/now/table/incident",
+            "description": "Successful operation",
             "headers": {
               "Cache-Control": {
                 "schema": {
