@@ -3,7 +3,12 @@
 TODO: Links
 This code is for extending the Watson Assistant web chat. If you are new to developing with web chat, please start with the [Getting Started tutorial](https://ibm.com). The code in this folder is commented with links and references to the web chat APIs used.
 
-The code in this folder will cover how to extend Watson Assistant web chat to be able to set context variables to be sent to the assistant.
+This example demonstrates how to set variables using context so those variables are available within an action.
+
+It demonstrates:
+
+- How to use a [**pre:send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#presend) event handler to set a context variable when a message is sent.
+- How to use a variable in an action.
 
 **For a full walk through of how this code works, please visit [the tutorial page](https://TODO.ibm.com) in the Watson Assistant documentation.**
 

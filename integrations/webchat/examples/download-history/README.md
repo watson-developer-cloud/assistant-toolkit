@@ -3,7 +3,15 @@
 TODO: Links
 This code is for extending the Watson Assistant web chat. If you are new to developing with web chat, please start with the [Getting Started tutorial](https://ibm.com). The code in this folder is commented with links and references to the web chat APIs used.
 
-The code in this folder will cover how to extend Watson Assistant web chat to be able to add a "Download history" option to the header overflow menu that when clicked will download the history to the user's browser.
+This example demonstrates how to capture the conversation history and provide an option for the user to download it. It will add a custom menu option to the web chat header for the user to do this.
+
+It demonstrates:
+
+- How to use the [**pre:receive**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#prereceive) and [**pre:send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#presend) event handlers to capture the messages that are sent to and received from the assistant.
+- How to use a [**history:begin**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#historybegin) event handler to capture messages that were loaded from session history.
+- How to use the [**updateCustomMenuOptions**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#updatecustommenuoptions) instance function to add a "Download history" option to the header.
+- How to convert [**Watson Assistant messages**](https://cloud.ibm.com/apidocs/assistant/assistant-v2#message) into a text format that can be downloaded.
+- How to use the built-in `Blob` and `URL` objects to construct a downloadable link.
 
 **For a full walk through of how this code works, please visit [the tutorial page](https://TODO.ibm.com) in the Watson Assistant documentation.**
 
