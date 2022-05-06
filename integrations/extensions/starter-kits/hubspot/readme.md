@@ -121,6 +121,6 @@ A conversation using this starter kit could look like the following. Note that t
 
 ![create-ticket](./assets/create-ticket.gif)
 ![check-ticket-status](./assets/check-ticket-status.gif)
-![appointment](./assets/appointment.gif)
+![hello-appointment](./assets/hello-appointment.gif)
 
 Free free to contribute to this starter kit, or add other starter kits by following these [contribution guidelines](../../docs/CONTRIBUTING.md).
