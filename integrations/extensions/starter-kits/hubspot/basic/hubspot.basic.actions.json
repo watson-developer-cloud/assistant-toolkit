@@ -1,12 +1,12 @@
 {
-  "name": "HubSpot Ticketing Actions Skill",
-  "type": "dialog",
+  "name": "HubSpot Advanced Actions Skill",
+  "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2022-02-22T17:31:10.386Z",
-  "updated": "2022-04-13T20:10:48.975Z",
+  "created": "2022-04-20T19:20:04.037Z",
+  "updated": "2022-05-06T19:36:12.787Z",
   "language": "en",
-  "skill_id": "04cc0a51-531b-43dc-9723-80c0b1ebb54a",
+  "skill_id": "7cf844da-84ae-4c09-94c7-a3a083dc17cb",
   "workspace": {
     "actions": [
       {
@@ -222,7 +222,7 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "\"Charge Dispute Ticket\""
+                    "expression": "${step_372}"
                   },
                   "skill_variable": "subject"
                 },
@@ -242,7 +242,7 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "catalog_item_id": "f37c87bb-43ac-463c-9bb5-7b13bb04df9f"
+                  "catalog_item_id": "0dc71364-1727-4e0d-ae0d-68fd9de24d91"
                 },
                 "request_mapping": {
                   "body": [
@@ -298,10 +298,10 @@
                           },
                           {
                             "variable": "step_902_result_1",
-                            "variable_path": "body.properties.hs_ticket_id"
+                            "variable_path": "body.id"
                           },
                           {
-                            "scalar": "."
+                            "scalar": " ."
                           }
                         ]
                       }
@@ -323,7 +323,7 @@
             "next_step": "step_901"
           }
         ],
-        "title": "I want to dispute a charge",
+        "title": "I want to dispute a charge.",
         "action": "action_10481",
         "handlers": [],
         "condition": {
@@ -331,8 +331,20 @@
         },
         "variables": [
           {
+            "variable": "step_124_result_1",
+            "data_type": "any"
+          },
+          {
             "title": "Sure, we can help you create a ticket for that. What is the name",
             "variable": "step_372",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_418_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_579_result_1",
             "data_type": "any"
           },
           {
@@ -341,9 +353,17 @@
             "data_type": "date"
           },
           {
+            "variable": "step_640_result_1",
+            "data_type": "any"
+          },
+          {
             "title": "How much was the charge for?",
             "variable": "step_718",
             "data_type": "number"
+          },
+          {
+            "variable": "step_888_result_1",
+            "data_type": "any"
           },
           {
             "title": "Hmm.. We weren't able to create that ticket. Sorry!",
@@ -370,6 +390,759 @@
           }
         ],
         "next_action": "fallback",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_380",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Thank you! I'll send you an email confirmation now."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_380",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_923"
+                },
+                {
+                  "scalar": "yes"
+                }
+              ]
+            },
+            "next_step": "step_872"
+          },
+          {
+            "step": "step_433",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Would you like a confirmation email for the appointment?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                },
+                {
+                  "options": [
+                    {
+                      "label": "Yes",
+                      "value": {
+                        "input": {
+                          "text": "Yes"
+                        }
+                      }
+                    },
+                    {
+                      "label": "No",
+                      "value": {
+                        "input": {
+                          "text": "No"
+                        }
+                      }
+                    }
+                  ],
+                  "response_type": "option",
+                  "repeat_on_reprompt": true
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text": "I'm sorry, I did not catch that, please restate your response."
+                        }
+                      ],
+                      "response_type": "text"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "entity": "sys-yes-no",
+              "max_tries": 3
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_433",
+            "next_step": "step_923"
+          },
+          {
+            "step": "step_579",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Hmm.. I couldn't find any information on that contact ID. Sorry!"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_579",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_888_result_1",
+                  "variable_path": "success"
+                },
+                {
+                  "scalar": false
+                }
+              ]
+            },
+            "next_step": "step_990"
+          },
+          {
+            "step": "step_580",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Now that I got your profile, I can book that appointment you asked for."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_580",
+            "condition": {
+              "and": [
+                {
+                  "exists": {
+                    "skill_variable": "Membership"
+                  }
+                },
+                {
+                  "expression": "${Membership} != \"Gold\""
+                }
+              ]
+            },
+            "next_step": "step_433"
+          },
+          {
+            "step": "step_674",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Welcome "
+                          },
+                          {
+                            "skill_variable": "HubSpot_First_Name"
+                          },
+                          {
+                            "scalar": "."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "variable": "step_888_result_1",
+                    "variable_path": "body.properties.firstname"
+                  },
+                  "skill_variable": "HubSpot_First_Name"
+                },
+                {
+                  "value": {
+                    "variable": "step_888_result_1",
+                    "variable_path": "body.properties.lastname"
+                  },
+                  "skill_variable": "HubSpot_Last_Name"
+                },
+                {
+                  "value": {
+                    "variable": "step_888_result_1",
+                    "variable_path": "body.properties.membership_status"
+                  },
+                  "skill_variable": "Membership"
+                },
+                {
+                  "value": {
+                    "variable": "step_888_result_1",
+                    "variable_path": "body.properties.email"
+                  },
+                  "skill_variable": "HubSpot_Email"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_674",
+            "condition": {
+              "and": [
+                {
+                  "exists": {
+                    "variable": "step_888_result_1",
+                    "variable_path": "body.properties.firstname"
+                  }
+                },
+                {
+                  "eq": [
+                    {
+                      "variable": "step_888_result_1",
+                      "variable_path": "success"
+                    },
+                    {
+                      "scalar": true
+                    }
+                  ]
+                }
+              ]
+            },
+            "next_step": "step_579"
+          },
+          {
+            "step": "step_752",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Is there anything else I can help you with today?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                },
+                {
+                  "options": [
+                    {
+                      "label": "Yes, I have more questions.",
+                      "value": {
+                        "input": {
+                          "text": "Yes, I have more questions."
+                        }
+                      }
+                    },
+                    {
+                      "label": "Nope! I'm all set.",
+                      "value": {
+                        "input": {
+                          "text": "Nope! I'm all set."
+                        }
+                      }
+                    }
+                  ],
+                  "response_type": "option",
+                  "repeat_on_reprompt": true
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text": "I didn't catch that. Select a valid option:"
+                        }
+                      ],
+                      "response_type": "text"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "entity": "entity_24427",
+              "max_tries": 3
+            },
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_752"
+          },
+          {
+            "step": "step_872",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Alright, not an email person, I see."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_872",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_433"
+                },
+                {
+                  "scalar": "no"
+                }
+              ]
+            },
+            "next_step": "step_752"
+          },
+          {
+            "step": "step_888",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "One second while I look up your profile..."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "\"membership_status,createdate,email,firstname,lastname,hs_object_id\""
+                  },
+                  "skill_variable": "query_properties"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/crm/v3/objects/contacts/{contactId}",
+                "type": "integration_interaction",
+                "method": "GET",
+                "internal": {
+                  "catalog_item_id": "97a2494f-3832-4ff4-9b1e-600dc46fae3e"
+                },
+                "request_mapping": {
+                  "path": [
+                    {
+                      "value": {
+                        "variable": "step_904"
+                      },
+                      "parameter": "contactId"
+                    }
+                  ],
+                  "query": [
+                    {
+                      "value": {
+                        "skill_variable": "query_properties"
+                      },
+                      "parameter": "properties"
+                    }
+                  ]
+                },
+                "result_variable": "step_888_result_1"
+              }
+            },
+            "variable": "step_888",
+            "next_step": "step_674"
+          },
+          {
+            "step": "step_904",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Hi! Please tell me your customer ID so that I can look up your profile before we begin."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text": "I'm sorry, I did not catch that, please restate your response."
+                        }
+                      ],
+                      "response_type": "text"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "entity": "entity_40958",
+              "max_tries": 3
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_904",
+            "next_step": "step_888"
+          },
+          {
+            "step": "step_923",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Got it. Can you please confirm that your email address is "
+                          },
+                          {
+                            "skill_variable": "HubSpot_Email"
+                          },
+                          {
+                            "scalar": "?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                },
+                {
+                  "options": [
+                    {
+                      "label": "Yes",
+                      "value": {
+                        "input": {
+                          "text": "Yes"
+                        }
+                      }
+                    },
+                    {
+                      "label": "No",
+                      "value": {
+                        "input": {
+                          "text": "No"
+                        }
+                      }
+                    }
+                  ],
+                  "response_type": "option",
+                  "repeat_on_reprompt": true
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text": "I'm sorry, I did not catch that, please restate your response."
+                        }
+                      ],
+                      "response_type": "text"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "entity": "sys-yes-no",
+              "max_tries": 3
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_923",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_433"
+                },
+                {
+                  "scalar": "yes"
+                }
+              ]
+            },
+            "next_step": "step_380"
+          },
+          {
+            "step": "step_990",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Thanks for being a Gold member! Now that I have your profile, let's get that appointment booked for you."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_990",
+            "condition": {
+              "and": [
+                {
+                  "exists": {
+                    "skill_variable": "Membership"
+                  }
+                },
+                {
+                  "expression": "${Membership} == \"Gold\""
+                }
+              ]
+            },
+            "next_step": "step_580"
+          }
+        ],
+        "title": "I want to book an appointment.",
+        "action": "action_29562",
+        "handlers": [],
+        "condition": {
+          "intent": "action_29562_intent_49352"
+        },
+        "variables": [
+          {
+            "title": "Thank you! I'll send you an email confirmation now.",
+            "variable": "step_380",
+            "data_type": "any"
+          },
+          {
+            "title": "Would you like a confirmation email for the appointment?",
+            "variable": "step_433",
+            "data_type": "yes_no"
+          },
+          {
+            "title": "Hmm.. I couldn't find any information on that contact ID. Sorry!",
+            "variable": "step_579",
+            "data_type": "any"
+          },
+          {
+            "title": "Now that I got your profile, I can book that appointment you ask",
+            "variable": "step_580",
+            "data_type": "any"
+          },
+          {
+            "title": "Welcome {variable}.",
+            "variable": "step_674",
+            "data_type": "any"
+          },
+          {
+            "title": "Is there anything else I can help you with today?",
+            "variable": "step_752",
+            "data_type": "any"
+          },
+          {
+            "title": "Alright, not an email person, I see.",
+            "variable": "step_872",
+            "data_type": "any"
+          },
+          {
+            "title": "One second while I look up your profile...",
+            "variable": "step_888",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_888_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Hi! Please tell me your customer ID so that I can look up your p",
+            "variable": "step_904",
+            "data_type": "any"
+          },
+          {
+            "title": "Got it. Can you please confirm that your email address is {varia",
+            "variable": "step_923",
+            "data_type": "yes_no"
+          },
+          {
+            "title": "Thanks for being a Gold member! Now that I have your profile, le",
+            "variable": "step_990",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_10481",
         "topic_switch": {
           "allowed_from": true,
           "allowed_into": true
@@ -666,7 +1439,7 @@
             "data_type": "any"
           }
         ],
-        "next_action": "action_10481",
+        "next_action": "action_29562",
         "disambiguation_opt_out": true
       }
     ],
@@ -695,6 +1468,29 @@
         ]
       },
       {
+        "intent": "action_29562_intent_49352",
+        "examples": [
+          {
+            "text": "Appointment please"
+          },
+          {
+            "text": "Book an appointment"
+          },
+          {
+            "text": "Hello!"
+          },
+          {
+            "text": "Hey, I need some help getting an appointment"
+          },
+          {
+            "text": "Hi, I need some help."
+          },
+          {
+            "text": "I want to book an appointment."
+          }
+        ]
+      },
+      {
         "intent": "fallback_connect_to_agent",
         "examples": [
           {
@@ -718,12 +1514,67 @@
     ],
     "entities": [
       {
+        "entity": "entity_24427",
+        "values": [
+          {
+            "type": "synonyms",
+            "value": "Nope! I'm all set.",
+            "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "Yes, I have more questions.",
+            "synonyms": []
+          }
+        ],
+        "fuzzy_match": true
+      },
+      {
+        "entity": "entity_40958",
+        "values": [
+          {
+            "type": "patterns",
+            "value": "Regular_expression",
+            "patterns": [
+              "[0-9]+"
+            ]
+          }
+        ],
+        "fuzzy_match": true
+      },
+      {
         "entity": "sys-date",
         "values": []
       },
       {
         "entity": "sys-number",
         "values": []
+      },
+      {
+        "entity": "sys-yes-no",
+        "values": [
+          {
+            "type": "synonyms",
+            "value": "No",
+            "synonyms": [
+              "nay",
+              "negative",
+              "nope",
+              "not"
+            ]
+          },
+          {
+            "type": "synonyms",
+            "value": "Yes",
+            "synonyms": [
+              "positive",
+              "sure",
+              "yea",
+              "yeah",
+              "yup"
+            ]
+          }
+        ]
       }
     ],
     "metadata": {
@@ -743,13 +1594,136 @@
         }
       },
       {
+        "title": "HubSpot Email",
+        "variable": "HubSpot_Email",
+        "data_type": "any",
+        "description": "",
+        "initial_value": {
+          "scalar": "something@example.com"
+        }
+      },
+      {
+        "title": "HubSpot First Name",
+        "variable": "HubSpot_First_Name",
+        "data_type": "any",
+        "description": "",
+        "default_value": {
+          "scalar": "Your First Name"
+        }
+      },
+      {
+        "title": "HubSpot Last Name",
+        "variable": "HubSpot_Last_Name",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "Membership",
+        "variable": "Membership",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "query_properties",
+        "variable": "query_properties",
+        "data_type": "any",
+        "description": "",
+        "initial_value": {
+          "scalar": "\"membership_status,createdate,email,firstname,lastname,hs_object_id\""
+        }
+      },
+      {
         "title": "subject",
         "variable": "subject",
         "data_type": "any",
         "description": "",
         "initial_value": {
-          "scalar": "Dispute"
+          "scalar": "Charge Dispute"
         }
+      },
+      {
+        "title": "ticketId",
+        "variable": "ticketId",
+        "data_type": "number",
+        "description": "ID of ticket being queried"
+      },
+      {
+        "title": "ticketObject1",
+        "variable": "ticketObject1",
+        "data_type": "any",
+        "description": "First ticket result."
+      },
+      {
+        "title": "ticketObject1_id",
+        "variable": "ticketObject1_id",
+        "data_type": "any",
+        "description": "ID of first ticket object."
+      },
+      {
+        "title": "ticketObject1_name",
+        "variable": "ticketObject1_name",
+        "data_type": "any",
+        "description": "Name of first ticket object."
+      },
+      {
+        "title": "ticketObject1_properties",
+        "variable": "ticketObject1_properties",
+        "data_type": "any",
+        "description": "Properties of first ticket object."
+      },
+      {
+        "title": "ticketObject2",
+        "variable": "ticketObject2",
+        "data_type": "any",
+        "description": "Second ticket result."
+      },
+      {
+        "title": "ticketObject2_id",
+        "variable": "ticketObject2_id",
+        "data_type": "any",
+        "description": "ID of second ticket object."
+      },
+      {
+        "title": "ticketObject2_name",
+        "variable": "ticketObject2_name",
+        "data_type": "any",
+        "description": "Name of second ticket object."
+      },
+      {
+        "title": "ticketObject2_properties",
+        "variable": "ticketObject2_properties",
+        "data_type": "any",
+        "description": "Properties of second ticket object."
+      },
+      {
+        "title": "ticketObject3",
+        "variable": "ticketObject3",
+        "data_type": "any",
+        "description": "Third ticket result."
+      },
+      {
+        "title": "ticketObject3_id",
+        "variable": "ticketObject3_id",
+        "data_type": "any",
+        "description": "ID of third ticket object."
+      },
+      {
+        "title": "ticketObject3_name",
+        "variable": "ticketObject3_name",
+        "data_type": "any",
+        "description": "Name of third ticket object."
+      },
+      {
+        "title": "ticketObject3_properties",
+        "variable": "ticketObject3_properties",
+        "data_type": "any",
+        "description": "Properties of third ticket object."
+      },
+      {
+        "title": "ticketStatus",
+        "variable": "ticketStatus",
+        "data_type": "any",
+        "description": "Interpreted status of ticket."
       }
     ],
     "data_types": [],
@@ -783,10 +1757,8 @@
     "learning_opt_out": true
   },
   "description": "created for assistant 1afaf69c-8cc4-4821-8b87-003bd45e86fb",
-  "assistant_id": "2ec38a22-098a-404a-9c6c-ccb01905198f",
-  "workspace_id": "04cc0a51-531b-43dc-9723-80c0b1ebb54a",
-  "dialog_settings": {
-    "actions": true
-  },
+  "assistant_id": "c51da48f-ae4c-4c22-88b9-f23d3067bdc8",
+  "workspace_id": "7cf844da-84ae-4c09-94c7-a3a083dc17cb",
+  "dialog_settings": {},
   "next_snapshot_version": "1"
 }
