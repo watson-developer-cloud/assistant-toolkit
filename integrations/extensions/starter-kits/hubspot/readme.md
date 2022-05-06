@@ -5,7 +5,6 @@ HubSpot provides an API which allows for ticket creation, feedback submission, a
 This example starter kit offers support for the following HubSpot API endpoints:
 
 Basic:
-- POST Create Ticket
 - GET Get Contact by ID
 
 Advanced:
@@ -19,7 +18,7 @@ HubSpot has a fantastic public API documentation that is very custom extensions 
 
 ## Basic vs Advanced
 
-The `basic` path kit implements a single yet useful API call for ticket creation. If you are new to custom extensions, we recommend you start there to get an idea on how to use custom extensions with skills. The `advanced` folder contains a kit with more advanced functionality, which you can use as a creative springboard for complex use cases.
+The `basic` path kit implements a single yet useful API call for retrieving contact information. If you are new to custom extensions, we recommend you start there to get an idea on how to use custom extensions with skills. The `advanced` folder contains a kit with more advanced functionality, which you can use as a creative springboard for complex use cases.
 
 ## Pre-Req 1: Getting Auth Keys
 To call the HubSpot API, you will need an API key. To obtain this key:
@@ -67,7 +66,22 @@ For helpful information on how to easily modify and use the skills/OpenAPI speci
 
 The following actions are provided in this starter kit. After upload, the actions should be configured to use the fields below for the skill to be fully functional. Follow the instructions [here](../../README.md#configuring-your-actions-skill-to-use-an-extension) and note the information below to do this.
 
-- **Action 1**. (basic + advanced) I want to dispute a charge.
+- **Action 1**. (basic + advanced) Greet customer.<br>
+    ```
+    Operation: Get Contact by ID
+    Parameters:
+      - contactId: 1. Hi! Please tell me your customer ID ...
+      - properties: query_properties
+    ```
+
+- **Action 2**. (basic + advanced) I want to book an appointment.<br>
+    This action does not use an extension - it is included to demonstrate the flow of session variables after using Action 1.
+    ```
+    Operation: N/A
+    Parameters: N/A
+    ```
+
+- **Action 3**. (advanced) I want to dispute a charge.
     ```
     Operation: Create Ticket
     Parameters:
@@ -80,23 +94,14 @@ The following actions are provided in this starter kit. After upload, the action
 
     **Note**: `subject` and `hs_pipeline_stage` exist by default in HubSpot's ticketing schema - the provided skill adds default values in `Step 4`. The `hs_pipeline_stage` field in the API corresponds to the `Ticket status` of a HubSpot ticket; we recommend submitting a value of `1` for the `hs_pipeline_stage` field, which will set the `Ticket status` to `New`.  The `subject` field in the API corresponds to the `Ticket name` of a HubSpot ticket.
 
-- **Action 2**. (basic + advanced) I want to book an appointment.<br>
-  This action gathers information needed to book an appointment (does not book the appointment itself - this would require another extension)
-    ```
-    Operation: Get Contact by ID
-    Parameters:
-      - contactId: 1. Hi! Please tell me your customer ID ...
-      - properties: query_properties
-    ```
-
-- **Action 3**. (advanced) Can I see my tickets?
+- **Action 4**. (advanced) Can I see my tickets?
     ```
     Operation: List Tickets
     Parameters:
       - None
     ```
 
-- **Action 4**. (advanced) I want to check my ticket status.<br>
+- **Action 5**. (advanced) I want to check my ticket status.<br>
     Note that you will have to also configure action `Can I see my tickets?` above, since it is used as a subaction within this action.
     ```
     Operation: Get Ticket Info
@@ -104,7 +109,7 @@ The following actions are provided in this starter kit. After upload, the action
       - ticketId: ticketId
     ```
 
-- **Action 5**. (advanced) I want to delete my ticket.
+- **Action 6**. (advanced) I want to delete my ticket.
     ```
     Operation: Archive Ticket
     Parameters:
