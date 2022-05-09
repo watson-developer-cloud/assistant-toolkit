@@ -18,7 +18,7 @@ HubSpot has a fantastic public API documentation that is very custom extensions 
 
 ## Basic vs Advanced
 
-The `basic` path kit implements a single yet useful API call for retrieving contact information. If you are new to custom extensions, we recommend you start there to get an idea on how to use custom extensions with skills. The `advanced` folder contains a kit with more advanced functionality, which you can use as a creative springboard for complex use cases.
+The `basic` kit implements a single yet useful API call for retrieving contact information. If you are new to custom extensions, we recommend you start there to get an idea on how to use custom extensions with skills. The `advanced` folder contains a kit with more advanced functionality, which you can use as a creative springboard for complex use cases.
 
 ## Pre-Req 1: Getting Auth Keys
 To call the HubSpot API, you will need an API key. To obtain this key:
@@ -119,8 +119,8 @@ The following actions are provided in this starter kit. After upload, the action
 ## Example Usage
 A conversation using this starter kit could look like the following. Note that the second example is only supported via the `advanced` spec and skill.
 
+![hello-appointment](./assets/hello-appointment.gif)
 ![create-ticket](./assets/create-ticket.gif)
 ![check-ticket-status](./assets/check-ticket-status.gif)
-![hello-appointment](./assets/hello-appointment.gif)
 
 Free free to contribute to this starter kit, or add other starter kits by following these [contribution guidelines](../../docs/CONTRIBUTING.md).
