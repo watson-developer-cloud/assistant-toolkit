@@ -12,35 +12,38 @@
     "ApiKeyAuth" : [ ]
   } ],
   "paths" : {
-    "/crm/v3/objects/tickets" : {
-      "post" : {
-        "summary" : "Create Ticket",
-        "description" : "Create a ticket for disputes",
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/objects_tickets_body"
-              },
-              "example" : {
-                "request" : {
-                  "subject" : "Gandalf's First Angry Ticket",
-                  "charge_amount" : "100",
-                  "charge_name" : "fakeretail.com",
-                  "charge_date" : "2020-05-08",
-                  "hs_pipeline_stage" : "1"
-                }
-              }
-            }
+    "/crm/v3/objects/contacts/{contactId}" : {
+      "get" : {
+        "summary" : "Get Contact by ID",
+        "description" : "Get contact information by ID",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "contactId",
+            "schema" : {
+              "type" : "string"
+            },
+            "required" : true,
+            "description" : "Numeric ID of the user"
+          },
+          {
+            "in" : "query",
+            "name" : "properties",
+            "schema" : {
+              "type" : "string",
+              "default" : "membership_status,createdate,email,firstname,lastname,hs_object_id"
+            },
+            "required" : false,
+            "description" : "Comma separated list of properties to return"
           }
-        },
+        ],
         "responses" : {
           "200" : {
             "description" : "Success",
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200"
+                  "$ref" : "#/components/schemas/ContactsResponse"
                 }
               }
             }
@@ -51,54 +54,40 @@
   },
   "components" : {
     "schemas" : {
-      "objects_tickets_body" : {
+      "ContactsResponse" : {
         "type" : "object",
         "properties" : {
           "properties" : {
-            "$ref" : "#/components/schemas/crmv3objectstickets_request"
+            "$ref" : "#/components/schemas/ContactsResponseProperties"
           }
         }
       },
-      "crmv3objectstickets_request" : {
-        "required" : [ "charge_amount", "charge_name", "charge_date", "subject", "hs_pipeline_stage" ],
+      "ContactsResponseProperties" : {
         "type" : "object",
         "properties" : {
-          "subject" : {
+          "createdate" : {
             "type" : "string",
-            "example" : "Gimley's Dispute Ticket"
+            "description" : "Date contact was added"
           },
-          "charge_name" : {
+          "email" : {
             "type" : "string",
-            "example" : "WalMart"
+            "description" : "User's email address"
           },
-          "charge_amount" : {
+          "firstname" : {
             "type" : "string",
-            "example" : 100
+            "description" : "User's first name"
           },
-          "charge_date" : {
+          "hs_object_id" : {
             "type" : "string",
-            "example" : "2020-05-08"
+            "description" : "User's hubspot ID"
           },
-          "hs_pipeline_stage" : {
+          "lastname" : {
             "type" : "string",
-            "example" : "1"
-          }
-        }
-      },
-      "inline_response_200" : {
-        "type" : "object",
-        "properties" : {
-          "properties" : {
-            "$ref" : "#/components/schemas/inline_response_200_properties"
-          }
-        }
-      },
-      "inline_response_200_properties" : {
-        "type" : "object",
-        "properties" : {
-          "hs_ticket_id" : {
+            "description" : "User's last name"
+          },
+          "membership_status" : {
             "type" : "string",
-            "description" : "Ticket ID"
+            "description" : "Custom property - the status of user's membership, bronze silver or gold"
           }
         }
       }

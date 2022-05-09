@@ -84,6 +84,7 @@ Feel free to modify the skill and response variables to get a better grasp of ho
     **Important Note**: If you have multiple custom extensions, make sure you replace the correct `catalog_item_id` for each respective action.
     <br>
     ![modify-skill](./assets/modify-skill.gif)
+
 1. Upload your modified actions skill.
     - Navigate to the **Actions** tab in Watson Assistant.
     - Click the cog icon on the top right corner.
