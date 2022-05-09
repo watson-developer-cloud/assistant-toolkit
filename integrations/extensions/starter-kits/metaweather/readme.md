@@ -47,8 +47,17 @@ To get started with using the OpenAPI spec, you can upload the `metaweather.adva
     ```
 If you want to know the Where-On-Earth-ID of a particular location, simply use the first action to query using the location name. The Where-On-Earth-ID of the location will be returned to you.
 
-### Advanced: Blog Spec
-There is [a Medium blog](https://linktoblog) published regarding using this starter kit. The `metaweather-zendesk.blog.actions.json` is a two extension example skill that is highlighted and used in the blog. To configure this spec, you should use the below operations and parameters.
+### Example Usage
+A conversation using this starter kit could look like the following:<br>
+
+![get-weather](./assets/get-weather.gif)
+
+Free free to contribute to this starter kit, or add other starter kits by following these [contribution guidelines](../../docs/CONTRIBUTING.md).
+
+## Even More Advanced: Using the MetaWeather Extension with Another Extension
+Going one step further, extensions are not limited to one per skill -- you can use multiple custom extensions in a skill and even in an action! 
+
+We have published a [Medium blog](https://linktoblog) that showcases this capability. The `metaweather-zendesk.blog.actions.json` found in the `advanced` folder is a two extension example skill that is used in the blog. To configure this spec, you should use the below operations and parameters.
 
 Here, we assume that you named your MetaWeather extension `MetaWeather` and your Zendesk Support extension `Zendesk`:
 
@@ -76,12 +85,6 @@ Here, we assume that you named your MetaWeather extension `MetaWeather` and your
       - request.requester.email: 2. How about your email?
     ```
 
-## Example Usage
-A conversation using this starter kit could look like the following:<br>
-
-![get-weather](./assets/get-weather.gif)
-
-The blog skill will result in a conversation like the following:
+### Example Usage
+A conversation using this two extension skill could look like the following:<br>
 ![weather-cancellation](./assets/weather-cancellation.gif)
-
-Free free to contribute to this starter kit, or add other starter kits by following these [contribution guidelines](../../docs/CONTRIBUTING.md).

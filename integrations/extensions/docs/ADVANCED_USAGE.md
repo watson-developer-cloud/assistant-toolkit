@@ -117,4 +117,6 @@ For illustration purposes, let's say a customer wanted to be able to link their 
 1. User selects which ticket ID to add to Zendesk ticket.
 1. The selected HubSpot ticket information is added into Zendesk ticket as a comment.
 
+For better illustration on how to implement something like this, a MetaWeather and Zendesk skill is included and can be found [here](../starter-kits/metaweather/readme.md#even-more-advanced-using-the-metaweather-extension-with-another-extension) in the starter kit. 
+
 There are endless combinations that you can create with extensions, in order to provide customers a personalized help experience. So get creative!
