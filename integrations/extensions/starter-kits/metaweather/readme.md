@@ -81,4 +81,7 @@ A conversation using this starter kit could look like the following:<br>
 
 ![get-weather](./assets/get-weather.gif)
 
+The blog skill will result in a conversation like the following:
+![weather-cancellation](./assets/weather-cancellation.gif)
+
 Free free to contribute to this starter kit, or add other starter kits by following these [contribution guidelines](../../docs/CONTRIBUTING.md).
