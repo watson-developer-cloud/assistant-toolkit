@@ -43,8 +43,38 @@ To get started with using the OpenAPI spec, you can upload the `metaweather.adva
       - woeid: 1. OK, I can help with that. What is your ...
       - year: year
       - month: month
+      - date: date
     ```
 If you want to know the Where-On-Earth-ID of a particular location, simply use the first action to query using the location name. The Where-On-Earth-ID of the location will be returned to you.
+
+### Advanced: Blog Spec
+There is [a Medium blog](https://linktoblog) published regarding using this starter kit. The `metaweather-zendesk.blog.actions.json` is a two extension example skill that is highlighted and used in the blog. To configure this spec, you should use the below operations and parameters.
+
+Here, we assume that you named your MetaWeather extension `MetaWeather` and your Zendesk Support extension `Zendesk`:
+
+- **Action 1** (blog). I want to create a ticket due to weather.
+    ```
+    Extension 1: MetaWeather
+    Operation 1: Location Search
+    Parameters:
+      - query: 1. Sure thing! What is the name ...
+
+    Extension 2: MetaWeather
+    Operation 2: Location Day
+    Parameters:
+      - woeid: location_item_0_woeid
+      - year: year
+      - month: month
+      - date: date
+
+    Extension 3: Zendesk
+    Operation 3: Create Ticket
+    Parameters:
+      - request.subject: ticket_subject
+      - request.comment.body: ticket_request_body
+      - request.requester.name: 1. Sure thing. Can I ask for your name?
+      - request.requester.email: 2. How about your email?
+    ```
 
 ## Example Usage
 A conversation using this starter kit could look like the following:<br>

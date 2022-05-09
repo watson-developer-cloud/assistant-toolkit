@@ -1,0 +1,1391 @@
+{
+  "name": "MetaWeather Advanced Actions Skill",
+  "type": "action",
+  "valid": true,
+  "status": "Available",
+  "created": "2022-04-27T15:05:50.068Z",
+  "updated": "2022-05-09T03:30:47.446Z",
+  "language": "en",
+  "skill_id": "457cdafc-316d-45a2-a7ab-bd455d14810a",
+  "workspace": {
+    "actions": [
+      {
+        "steps": [
+          {
+            "step": "step_166",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Hmm... something went wrong with creating your ticket. We might have to try again later. Sorry!"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_166",
+            "condition": {
+              "expression": "${step_634_result_1.status} != 200"
+            },
+            "next_step": "step_380"
+          },
+          {
+            "step": "step_236",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Sure thing. Can I ask for your name?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "question": {
+              "free_text": true,
+              "only_populate_when_prompted": true
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_236",
+            "next_step": "step_908"
+          },
+          {
+            "step": "step_380",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Ok! Thank you for using our services, please feel free to ask for anything else you need help with."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_380",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_687"
+                },
+                {
+                  "scalar": "no"
+                }
+              ]
+            }
+          },
+          {
+            "step": "step_450",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Lastly, what's the date of your scheduled event?\n\n<br />\n\n\n\nPlease note: we only allow cancellations based on weather just a few days in advance due to forecasting accuracy, so if your event is more than 5 days away, we will not be able to open a cancellation ticket for you just yet."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                },
+                {
+                  "response_type": "date"
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text": "I'm sorry, I did not catch that, please restate your response."
+                        }
+                      ],
+                      "response_type": "text"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "entity": "sys-date",
+              "max_tries": 3
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_450",
+            "next_step": "step_700"
+          },
+          {
+            "step": "step_478",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Done! Your ticket has been created, with ID number "
+                          },
+                          {
+                            "variable": "step_634_result_1",
+                            "variable_path": "body.request.id"
+                          },
+                          {
+                            "scalar": ". Keep this ID handy to check the status of your ticket!"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_478",
+            "condition": {
+              "expression": "${step_634_result_1.status} == 200 "
+            },
+            "next_step": "step_166"
+          },
+          {
+            "step": "step_634",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Ok, let's create that ticket for you. The following information will be included in your ticket:\n\n<br />\n\n\n\n\n\n"
+                          },
+                          {
+                            "skill_variable": "ticket_request_body"
+                          },
+                          {
+                            "scalar": "\n\n<br />\n\n\n\nOne moment please..."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "\"Event Cancellation Request - Bad Weather\""
+                  },
+                  "skill_variable": "ticket_subject"
+                },
+                {
+                  "value": {
+                    "expression": "\"Date: \".append(${step_450}.value).append(\"\\nLocation: \").append(${step_667}).append(\"\\nWeather: \").append(${weather_item_0_status}).append(\"\\nTemperature: \").append(${weather_item_0_temperature}).append(\"\\nWind Speeds: \").append(${weather_item_0_wind_speed})"
+                  },
+                  "skill_variable": "ticket_request_body"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/api/v2/requests.json",
+                "type": "integration_interaction",
+                "method": "POST",
+                "internal": {
+                  "catalog_item_id": "e2e163c8-2deb-4b84-b4ee-18cd22e8c871"
+                },
+                "request_mapping": {
+                  "body": [
+                    {
+                      "value": {
+                        "skill_variable": "ticket_subject"
+                      },
+                      "parameter": "request.subject"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "ticket_request_body"
+                      },
+                      "parameter": "request.comment.body"
+                    },
+                    {
+                      "value": {
+                        "variable": "step_236"
+                      },
+                      "parameter": "request.requester.name"
+                    },
+                    {
+                      "value": {
+                        "variable": "step_908"
+                      },
+                      "parameter": "request.requester.email"
+                    }
+                  ]
+                },
+                "result_variable": "step_634_result_1"
+              }
+            },
+            "variable": "step_634",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_687"
+                },
+                {
+                  "scalar": "yes"
+                }
+              ]
+            },
+            "next_step": "step_478"
+          },
+          {
+            "step": "step_667",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Got it. What's the location of your event? A city name will suffice."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "question": {
+              "free_text": true,
+              "only_populate_when_prompted": true
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_667",
+            "next_step": "step_450"
+          },
+          {
+            "step": "step_687",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Alright, according to our sources, it looks like the weather on "
+                          },
+                          {
+                            "variable": "step_450"
+                          },
+                          {
+                            "scalar": " in "
+                          },
+                          {
+                            "variable": "step_667"
+                          },
+                          {
+                            "scalar": " is going to be "
+                          },
+                          {
+                            "skill_variable": "weather_item_0_status"
+                          },
+                          {
+                            "scalar": ".\n\n<br />\n\n\n\nWe handle weather-related cancellations on a case-by-case basis, so please note that these conditions may or may not qualify for a refund of your deposit. Would you like to continue with creating your ticket?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                },
+                {
+                  "options": [
+                    {
+                      "label": "Yes",
+                      "value": {
+                        "input": {
+                          "text": "Yes"
+                        }
+                      }
+                    },
+                    {
+                      "label": "No",
+                      "value": {
+                        "input": {
+                          "text": "No"
+                        }
+                      }
+                    }
+                  ],
+                  "response_type": "option",
+                  "repeat_on_reprompt": true
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${step_740_result_1}.body"
+                  },
+                  "skill_variable": "weather_items"
+                },
+                {
+                  "value": {
+                    "expression": "${weather_items}.get(0)"
+                  },
+                  "skill_variable": "weather_item_0"
+                },
+                {
+                  "value": {
+                    "expression": "${weather_item_0}.weather_state_name"
+                  },
+                  "skill_variable": "weather_item_0_status"
+                },
+                {
+                  "value": {
+                    "expression": "${weather_item_0}.the_temp"
+                  },
+                  "skill_variable": "weather_item_0_temperature"
+                },
+                {
+                  "value": {
+                    "expression": "${weather_item_0}.wind_speed"
+                  },
+                  "skill_variable": "weather_item_0_wind_speed"
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text": "I'm sorry, I did not catch that, please restate your response."
+                        }
+                      ],
+                      "response_type": "text"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "entity": "sys-yes-no",
+              "max_tries": 3
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_687",
+            "condition": {
+              "expression": "${step_740_result_1.status} == 200"
+            },
+            "next_step": "step_634"
+          },
+          {
+            "step": "step_700",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "That date is too far in the future for us to create a weather cancellation request. Please come back within 5 days of your event, so that we can make a decision based on accurate weather predictions."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_700",
+            "condition": {
+              "gt": [
+                {
+                  "variable": "step_450"
+                },
+                {
+                  "add": [
+                    {
+                      "system_variable": "current_date"
+                    },
+                    {
+                      "duration": {
+                        "days": 5
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "next_step": "step_791"
+          },
+          {
+            "step": "step_740",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Found your city info, now looking up weather prediction data.."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${step_791_result_1}.body"
+                  },
+                  "skill_variable": "extension_response"
+                },
+                {
+                  "value": {
+                    "expression": "${extension_response}.get(0)"
+                  },
+                  "skill_variable": "location_item_0"
+                },
+                {
+                  "value": {
+                    "expression": "${location_item_0}.woeid"
+                  },
+                  "skill_variable": "location_item_0_woeid"
+                },
+                {
+                  "value": {
+                    "expression": "${step_450}.reformatDateTime('yyyy')"
+                  },
+                  "skill_variable": "year"
+                },
+                {
+                  "value": {
+                    "expression": "${step_450}.reformatDateTime('MM')"
+                  },
+                  "skill_variable": "month"
+                },
+                {
+                  "value": {
+                    "expression": "${step_450}.reformatDateTime('dd')"
+                  },
+                  "skill_variable": "date"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/api/location/{woeid}/{year}/{month}/{date}",
+                "type": "integration_interaction",
+                "method": "GET",
+                "internal": {
+                  "catalog_item_id": "726b0361-bc3f-475f-ac07-8807f265bae9"
+                },
+                "request_mapping": {
+                  "path": [
+                    {
+                      "value": {
+                        "skill_variable": "location_item_0_woeid"
+                      },
+                      "parameter": "woeid"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "year"
+                      },
+                      "parameter": "year"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "month"
+                      },
+                      "parameter": "month"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "date"
+                      },
+                      "parameter": "date"
+                    }
+                  ]
+                },
+                "result_variable": "step_740_result_1"
+              }
+            },
+            "variable": "step_740",
+            "condition": {
+              "expression": "${step_791_result_1}.status == 200"
+            },
+            "next_step": "step_687"
+          },
+          {
+            "step": "step_791",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Ok, that's all the information we needed. Please hold while we check the weather information for your event.."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/api/location/search/",
+                "type": "integration_interaction",
+                "method": "GET",
+                "internal": {
+                  "catalog_item_id": "726b0361-bc3f-475f-ac07-8807f265bae9"
+                },
+                "request_mapping": {
+                  "query": [
+                    {
+                      "value": {
+                        "variable": "step_667"
+                      },
+                      "parameter": "query"
+                    }
+                  ]
+                },
+                "result_variable": "step_791_result_1"
+              }
+            },
+            "variable": "step_791",
+            "next_step": "step_740"
+          },
+          {
+            "step": "step_908",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "How about your email?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text": "Hmm.. doesn't look like that's a valid email. Try again?"
+                        }
+                      ],
+                      "response_type": "text"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "entity": "entity_8503",
+              "max_tries": 3
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_908",
+            "condition": {
+              "exists": {
+                "variable": "step_236"
+              }
+            },
+            "next_step": "step_667"
+          }
+        ],
+        "title": "I want to create a ticket due to weather.",
+        "action": "action_45263",
+        "handlers": [],
+        "condition": {
+          "intent": "action_45263_intent_34720"
+        },
+        "variables": [
+          {
+            "title": "Hmm... something went wrong with creating your ticket. We might ",
+            "variable": "step_166",
+            "data_type": "any"
+          },
+          {
+            "title": "Sure thing. Can I ask for your name?",
+            "variable": "step_236",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_261_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Ok! Thank you for using our services, please feel free to ask fo",
+            "variable": "step_380",
+            "data_type": "any"
+          },
+          {
+            "title": "Lastly, what's the date of your scheduled event? <br /> Please n",
+            "variable": "step_450",
+            "data_type": "date"
+          },
+          {
+            "title": "Done! Your ticket has been created, with ID number {variable}. K",
+            "variable": "step_478",
+            "data_type": "any"
+          },
+          {
+            "title": "Ok, let's create that ticket for you. The following information ",
+            "variable": "step_634",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_634_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Got it. What's the location of your event? A city name will suff",
+            "variable": "step_667",
+            "data_type": "any"
+          },
+          {
+            "title": "Alright, according to our sources, it looks like the weather on ",
+            "variable": "step_687",
+            "data_type": "yes_no"
+          },
+          {
+            "title": "That date is too far in the future for us to create a weather ca",
+            "variable": "step_700",
+            "data_type": "any"
+          },
+          {
+            "title": "Found your city info, now looking up weather prediction data..",
+            "variable": "step_740",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_740_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Ok, that's all the information we needed. Please hold while we c",
+            "variable": "step_791",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_791_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_798_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "How about your email?",
+            "variable": "step_908",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "fallback",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_001",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "I'm afraid I don't understand. Please rephrase your question."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_001",
+            "condition": {
+              "lte": [
+                {
+                  "system_variable": "no_action_matches_count"
+                },
+                {
+                  "scalar": 3
+                }
+              ]
+            },
+            "next_step": "step_002"
+          },
+          {
+            "step": "step_002",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": ""
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "action": "fallback",
+                "parameters": null,
+                "result_variable": "step_002_result_1"
+              }
+            },
+            "variable": "step_002",
+            "condition": {
+              "gt": [
+                {
+                  "system_variable": "no_action_matches_count"
+                },
+                {
+                  "scalar": 3
+                }
+              ]
+            }
+          }
+        ],
+        "title": "No action matches",
+        "action": "anything_else",
+        "handlers": [],
+        "condition": {
+          "expression": "anything_else"
+        },
+        "variables": [
+          {
+            "title": "I am afraid I do not understand what you are asking, please re-p",
+            "variable": "step_001",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_002",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_002_result_1",
+            "data_type": "any"
+          }
+        ],
+        "disambiguation_opt_out": true
+      },
+      {
+        "steps": [
+          {
+            "step": "step_001",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "I'm afraid I don't understand. I can connect you to an agent."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
+                },
+                "message_to_human_agent": ""
+              }
+            },
+            "variable": "step_001",
+            "condition": {
+              "eq": [
+                {
+                  "system_variable": "fallback_reason"
+                },
+                {
+                  "scalar": "Step validation failed"
+                }
+              ]
+            },
+            "next_step": "step_002"
+          },
+          {
+            "step": "step_002",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "Sorry I couldn't assist you. I will connect you to an agent right away."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
+                },
+                "message_to_human_agent": ""
+              }
+            },
+            "variable": "step_002",
+            "condition": {
+              "eq": [
+                {
+                  "system_variable": "fallback_reason"
+                },
+                {
+                  "scalar": "Agent requested"
+                }
+              ]
+            },
+            "next_step": "step_003"
+          },
+          {
+            "step": "step_003",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "I am afraid I do not understand what you are asking, let me connect you to an agent."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
+                },
+                "message_to_human_agent": ""
+              }
+            },
+            "variable": "step_003",
+            "condition": {
+              "eq": [
+                {
+                  "system_variable": "fallback_reason"
+                },
+                {
+                  "scalar": "No action matches"
+                }
+              ]
+            }
+          }
+        ],
+        "title": "Fallback",
+        "action": "fallback",
+        "handlers": [],
+        "condition": {
+          "intent": "fallback_connect_to_agent"
+        },
+        "variables": [
+          {
+            "title": "I'm afraid I don't understand. I can connect you to an agent.",
+            "variable": "step_001",
+            "data_type": "any"
+          },
+          {
+            "title": "Sorry I couldn't assist you. I will connect you to an agent righ",
+            "variable": "step_002",
+            "data_type": "any"
+          },
+          {
+            "title": "I am afraid I do not understand what you are asking, let me conn",
+            "variable": "step_003",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "anything_else",
+        "disambiguation_opt_out": true
+      },
+      {
+        "steps": [
+          {
+            "step": "step_001",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "Welcome, how can I assist you?"
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_001"
+          }
+        ],
+        "title": "Greet customer",
+        "action": "welcome",
+        "handlers": [],
+        "condition": {
+          "expression": "welcome"
+        },
+        "variables": [
+          {
+            "variable": "step_001",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_45263",
+        "disambiguation_opt_out": true
+      }
+    ],
+    "intents": [
+      {
+        "intent": "action_45263_intent_34720",
+        "examples": [
+          {
+            "text": "Bad weather cancellation"
+          },
+          {
+            "text": "Cancellation due to weather"
+          },
+          {
+            "text": "I want to create a ticket due to the weather."
+          },
+          {
+            "text": "Weather ticket"
+          }
+        ]
+      },
+      {
+        "intent": "fallback_connect_to_agent",
+        "examples": [
+          {
+            "text": "Agent help"
+          },
+          {
+            "text": "Call agent"
+          },
+          {
+            "text": "Can I connect to an agent?"
+          },
+          {
+            "text": "I would like to speak to a human"
+          },
+          {
+            "text": "I would like to speak to someone"
+          }
+        ],
+        "description": "Please transfer me to an agent"
+      }
+    ],
+    "entities": [
+      {
+        "entity": "entity_8503",
+        "values": [
+          {
+            "type": "patterns",
+            "value": "Email",
+            "patterns": [
+              "\\b(?:[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\\.)+[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[A-Za-z0-9-]*[A-Za-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])\\b"
+            ]
+          }
+        ],
+        "fuzzy_match": true
+      },
+      {
+        "entity": "sys-date",
+        "values": []
+      },
+      {
+        "entity": "sys-number",
+        "values": []
+      },
+      {
+        "entity": "sys-time",
+        "values": []
+      },
+      {
+        "entity": "sys-yes-no",
+        "values": [
+          {
+            "type": "synonyms",
+            "value": "No",
+            "synonyms": [
+              "nay",
+              "negative",
+              "nope",
+              "not"
+            ]
+          },
+          {
+            "type": "synonyms",
+            "value": "Yes",
+            "synonyms": [
+              "positive",
+              "sure",
+              "yea",
+              "yeah",
+              "yup"
+            ]
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "api_version": {
+        "major_version": "v2",
+        "minor_version": "2018-11-08"
+      }
+    },
+    "variables": [
+      {
+        "title": "date",
+        "variable": "date",
+        "data_type": "number",
+        "description": ""
+      },
+      {
+        "title": "extension_response",
+        "variable": "extension_response",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "extension_status",
+        "variable": "extension_status",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "location_item_0",
+        "variable": "location_item_0",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "location_item_0_woeid",
+        "variable": "location_item_0_woeid",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "location_items",
+        "variable": "location_items",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "month",
+        "variable": "month",
+        "data_type": "number",
+        "description": ""
+      },
+      {
+        "title": "populated_request_body",
+        "variable": "populated_request_body",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "ticket_body",
+        "variable": "ticket_body",
+        "data_type": "any",
+        "description": "Ticket body information.",
+        "initial_value": {
+          "scalar": "Weather does not look great."
+        }
+      },
+      {
+        "title": "ticket_request_body",
+        "variable": "ticket_request_body",
+        "data_type": "string",
+        "description": "Request body for weather ticket.",
+        "initial_value": {
+          "scalar": "\"Weather is bad!\""
+        }
+      },
+      {
+        "title": "ticket_subject",
+        "variable": "ticket_subject",
+        "data_type": "any",
+        "description": "Ticket subject information.",
+        "initial_value": {
+          "scalar": "Event Cancellation - Bad Weather"
+        }
+      },
+      {
+        "title": "weather_item_0",
+        "variable": "weather_item_0",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "weather_item_0_status",
+        "variable": "weather_item_0_status",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "weather_item_0_temperature",
+        "variable": "weather_item_0_temperature",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "weather_item_0_wind_speed",
+        "variable": "weather_item_0_wind_speed",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "weather_items",
+        "variable": "weather_items",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "year",
+        "variable": "year",
+        "data_type": "number",
+        "description": ""
+      }
+    ],
+    "data_types": [],
+    "counterexamples": [],
+    "system_settings": {
+      "topic_switch": {
+        "enabled": true,
+        "messages": {
+          "confirm_return": {
+            "text": "Return to previous topic?"
+          },
+          "confirm_switch": {
+            "text": "Switch from the current topic?"
+          }
+        },
+        "question_steps_threshold": 2
+      },
+      "disambiguation": {
+        "prompt": "Did you mean:",
+        "enabled": true,
+        "randomize": true,
+        "max_suggestions": 5,
+        "suggestion_text_policy": "title",
+        "none_of_the_above_prompt": "None of the above"
+      },
+      "intent_classification": {
+        "training_backend_version": "v2"
+      },
+      "spelling_auto_correct": true
+    },
+    "learning_opt_out": true
+  },
+  "description": "created for assistant 4bd35064-38e3-408a-9363-1fd029574975",
+  "assistant_id": "bcec7eef-273f-4d10-94ff-6a79549352c8",
+  "workspace_id": "457cdafc-316d-45a2-a7ab-bd455d14810a",
+  "dialog_settings": {},
+  "next_snapshot_version": "1"
+}
