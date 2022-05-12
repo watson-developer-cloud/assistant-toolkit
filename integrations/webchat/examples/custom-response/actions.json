@@ -1,18 +1,18 @@
 {
-  "name": "Example - Shared",
+  "name": "MetaWeather Advanced Actions Skill",
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2022-04-28T18:26:56.876Z",
-  "updated": "2022-05-09T15:04:16.086Z",
+  "created": "2022-04-21T13:39:39.443Z",
+  "updated": "2022-05-04T19:05:55.190Z",
   "language": "en",
-  "skill_id": "cb023a9d-0938-4610-a227-17b2f7c515d3",
+  "skill_id": "118d01f0-589d-4086-8830-7ebd3f514004",
   "workspace": {
     "actions": [
       {
         "steps": [
           {
-            "step": "step_596",
+            "step": "step_375",
             "output": {
               "generic": [
                 {
@@ -21,7 +21,7 @@
                       "text_expression": {
                         "concat": [
                           {
-                            "scalar": "Lendyr is a leader in providing credit cards designed to suit your needs."
+                            "scalar": "Searching..."
                           }
                         ]
                       }
@@ -34,71 +34,276 @@
             },
             "handlers": [],
             "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/api/location/search/",
+                "type": "integration_interaction",
+                "method": "GET",
+                "internal": {
+                  "catalog_item_id": "ce91ac45-87f8-40ab-a79b-162aacc7b49d"
+                },
+                "request_mapping": {
+                  "query": [
+                    {
+                      "value": {
+                        "variable": "step_618"
+                      },
+                      "parameter": "query"
+                    }
+                  ]
+                },
+                "result_variable": "step_375_result_1"
+              }
+            },
+            "variable": "step_375",
+            "condition": {
+              "exists": {
+                "variable": "step_618"
+              }
+            },
+            "next_step": "step_593"
+          },
+          {
+            "step": "step_521",
+            "output": {
+              "generic": [
+                {
+                  "response_type": "user_defined"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${step_593_result_1}.status"
+                  },
+                  "skill_variable": "extension_status"
+                },
+                {
+                  "value": {
+                    "expression": "${step_593_result_1}.body"
+                  },
+                  "skill_variable": "extension_response"
+                },
+                {
+                  "value": {
+                    "expression": "${step_593_result_1}.body.consolidated_weather"
+                  },
+                  "skill_variable": "weather_items"
+                },
+                {
+                  "value": {
+                    "expression": "${weather_items}.get(0)"
+                  },
+                  "skill_variable": "weather_item_0"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_521",
+            "condition": {
+              "and": [
+                {
+                  "exists": {
+                    "variable": "step_618"
+                  }
+                },
+                {
+                  "expression": "${step_375_result_1}.status == 200"
+                },
+                {
+                  "expression": "${step_593_result_1}.status == 200"
+                }
+              ]
+            }
+          },
+          {
+            "step": "step_593",
+            "output": {
+              "generic": [
+                {
+                  "values": [],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${step_375_result_1}.status"
+                  },
+                  "skill_variable": "extension_status"
+                },
+                {
+                  "value": {
+                    "expression": "${step_375_result_1}.body"
+                  },
+                  "skill_variable": "extension_response"
+                },
+                {
+                  "value": {
+                    "expression": "${extension_response}.get(0)"
+                  },
+                  "skill_variable": "location_item_0"
+                },
+                {
+                  "value": {
+                    "expression": "${location_item_0}.woeid"
+                  },
+                  "skill_variable": "location_item_0_woeid"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/api/location/{woeid}/",
+                "type": "integration_interaction",
+                "method": "GET",
+                "internal": {
+                  "catalog_item_id": "ce91ac45-87f8-40ab-a79b-162aacc7b49d"
+                },
+                "request_mapping": {
+                  "path": [
+                    {
+                      "value": {
+                        "skill_variable": "location_item_0_woeid"
+                      },
+                      "parameter": "woeid"
+                    }
+                  ]
+                },
+                "result_variable": "step_593_result_1"
+              }
+            },
+            "variable": "step_593",
+            "condition": {
+              "and": [
+                {
+                  "exists": {
+                    "variable": "step_618"
+                  }
+                },
+                {
+                  "expression": "${step_375_result_1}.status == 200"
+                }
+              ]
+            },
+            "next_step": "step_521"
+          },
+          {
+            "step": "step_618",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Sure thing! What is the name of the location you want to search for?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "question": {
+              "free_text": true,
+              "only_populate_when_prompted": true
+            },
+            "resolver": {
               "type": "continue"
             },
-            "variable": "step_596"
+            "variable": "step_618",
+            "next_step": "step_375"
           }
         ],
-        "title": "Credit cards",
-        "action": "action_20416",
+        "title": "I want to check the weather (and do not have a WOE-ID).",
+        "action": "action_11045",
         "handlers": [],
         "condition": {
-          "intent": "action_20416_intent_39637"
+          "intent": "action_11045_intent_38447"
         },
         "variables": [
           {
-            "title": "Lendyr is a leader in providing credit cards designed to suit yo",
-            "variable": "step_596",
+            "variable": "step_250_result_1",
             "data_type": "any"
-          }
-        ],
-        "next_action": "action_45316",
-        "topic_switch": {
-          "allowed_from": true,
-          "allowed_into": true
-        },
-        "disambiguation_opt_out": false
-      },
-      {
-        "steps": [
+          },
           {
-            "step": "step_277",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "I'm doing great teaching people how to use Watson Assistant! (okay, that was sappy)"
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "continue"
-            },
-            "variable": "step_277"
-          }
-        ],
-        "title": "How are you?",
-        "action": "action_45316",
-        "handlers": [],
-        "condition": {
-          "intent": "action_45316_intent_34481"
-        },
-        "variables": [
+            "title": "Searching...",
+            "variable": "step_375",
+            "data_type": "any"
+          },
           {
-            "title": "I'm doing great teaching people how to use Watson Assistant! (ok",
-            "variable": "step_277",
+            "variable": "step_375_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_458_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_521",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_593",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_593_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Sure thing! What is the name of the location you want to search ",
+            "variable": "step_618",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_666_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_779_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_790_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_835_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_853_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_946_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_969_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_991_result_1",
             "data_type": "any"
           }
         ],
@@ -372,13 +577,7 @@
                 {
                   "values": [
                     {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "Hello there! I'm limited in what I know but you can ask me how I'm doing or ask me about credit cards!"
-                          }
-                        ]
-                      }
+                      "text": "Welcome, how can I assist you?"
                     }
                   ],
                   "response_type": "text",
@@ -401,41 +600,26 @@
         },
         "variables": [
           {
-            "title": "Hello there! I'm limited in what I know but you can ask me how I",
             "variable": "step_001",
             "data_type": "any"
           }
         ],
-        "next_action": "action_20416",
+        "next_action": "action_11045",
         "disambiguation_opt_out": true
       }
     ],
     "intents": [
       {
-        "intent": "action_20416_intent_39637",
+        "intent": "action_11045_intent_38447",
         "examples": [
           {
-            "text": "Credit cards"
-          }
-        ]
-      },
-      {
-        "intent": "action_45316_intent_34481",
-        "examples": [
-          {
-            "text": "How are you?"
+            "text": "I want to check the weather (and do not have a WOE-ID)."
           },
           {
-            "text": "How are you doing?"
+            "text": "Weather without WOE-ID"
           },
           {
-            "text": "How do you feel?"
-          },
-          {
-            "text": "How's it going?"
-          },
-          {
-            "text": "What's up?"
+            "text": "What is the weather?"
           }
         ]
       },
@@ -461,14 +645,70 @@
         "description": "Please transfer me to an agent"
       }
     ],
-    "entities": [],
+    "entities": [
+      {
+        "entity": "sys-date",
+        "values": []
+      },
+      {
+        "entity": "sys-number",
+        "values": []
+      },
+      {
+        "entity": "sys-time",
+        "values": []
+      }
+    ],
     "metadata": {
       "api_version": {
         "major_version": "v2",
         "minor_version": "2018-11-08"
       }
     },
-    "variables": [],
+    "variables": [
+      {
+        "title": "extension_response",
+        "variable": "extension_response",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "extension_status",
+        "variable": "extension_status",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "location_item_0",
+        "variable": "location_item_0",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "location_item_0_woeid",
+        "variable": "location_item_0_woeid",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "location_items",
+        "variable": "location_items",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "weather_item_0",
+        "variable": "weather_item_0",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "weather_items",
+        "variable": "weather_items",
+        "data_type": "any",
+        "description": ""
+      }
+    ],
     "data_types": [],
     "counterexamples": [],
     "system_settings": {
@@ -497,11 +737,11 @@
       },
       "spelling_auto_correct": true
     },
-    "learning_opt_out": false
+    "learning_opt_out": true
   },
-  "description": "created for assistant 62609ccf-0913-4424-a40e-8f9028ee2c16",
-  "assistant_id": "62609ccf-0913-4424-a40e-8f9028ee2c16",
-  "workspace_id": "cb023a9d-0938-4610-a227-17b2f7c515d3",
+  "description": "created for assistant 4bd35064-38e3-408a-9363-1fd029574975",
+  "assistant_id": "fff1b396-6b69-4277-977f-79fb1122e853",
+  "workspace_id": "118d01f0-589d-4086-8830-7ebd3f514004",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }

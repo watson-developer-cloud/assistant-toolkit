@@ -46,6 +46,4 @@ function doDownload() {
 instance.updateCustomMenuOptions('bot', [{ text: 'Download history', handler: doDownload }]);
 ```
 
-For a complete working example see: [link](www.ibm.com).
-
-TODO: Fill out this file with instructions that can be copied to the main Watson Assistant docs. Once that has been done, then delete this file.
+For complete working code see [the example in our GitHub repository](https://github.com/watson-developer-cloud/assistant-toolkit/tree/master/integrations/webchat/examples/download-history).

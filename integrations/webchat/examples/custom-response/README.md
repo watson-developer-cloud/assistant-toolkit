@@ -3,7 +3,15 @@
 TODO: Links
 This code is for extending the Watson Assistant web chat. If you are new to developing with web chat, please start with the [Getting Started tutorial](https://ibm.com). The code in this folder is commented with links and references to the web chat APIs used.
 
-The code in this folder will cover how to extend Watson Assistant web chat to be able to display a custom response from values returned by an extension.
+This example demonstrates how to use a custom response to render a custom UI widget of a card displaying information about the weather at a location provided by the user. The weather information is retrieved using an extension and the data is stored as action variables.
+
+It demonstrates:
+
+- How to use a custom extension to fetch weather data from a 3rd party service.
+- How to assign data from the extension response to action variables.
+- How to return a custom response (`user_defined`) from an action.
+- How to use a [**customResponse**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#customresponse) event handler to display a custom weather card.
+- How to access action variables in a custom response.
 
 **For a full walk through of how this code works, please visit [the tutorial page](https://TODO.ibm.com) in the Watson Assistant documentation.**
 

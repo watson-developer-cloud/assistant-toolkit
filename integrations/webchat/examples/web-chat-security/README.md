@@ -3,7 +3,15 @@
 TODO: Links
 This code is for extending the Watson Assistant web chat. If you are new to developing with web chat, please start with the [Getting Started tutorial](https://ibm.com). The code in this folder is commented with links and references to the web chat APIs used.
 
-The code in this folder will cover how to enable the security feature for Watson Assistant web chat.
+This example demonstrates how to enable security with web chat. It will show how to create a JWT that can be used to securely authorize a webpage to access your web chat.
+
+It demonstrates:
+
+- How to generate public and private keys that are required for creating JWTs.
+- How to use a NodeJS Express server for creating a JWT from your private key.
+- How to use an [**identityTokenExpired**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#identityexpired) event handler to request a new JWT from your server.
+- How to set the user ID used by web chat.
+- How to encrypt a payload in a JWT so that secret information can be sent to the assistant.
 
 **For a full walk through of how this code works, please visit [the tutorial page](https://TODO.ibm.com) in the Watson Assistant documentation.**
 
@@ -24,14 +32,14 @@ openssl rsa -in jwtRS256.key -pubout -outform PEM -out jwtRS256.key.pub
 
 ### Running the Server
 
-The server is required for creating the JWTs that are required to enable security.
+The server is required for creating the JWTs that are required to enable security. It serves requests from `http://localhost:3001/createJWT`.
+
+The important code for this example can be found in [createJWT.js](server/nodejs-express/routes/createJWT.js).
 
 1. `cd server/nodejs-express`
 2. `npm install`
 3. `npm run start`
 4. The server will be available at `http://localhost:3001`.
-
-To view the code, start from [server/nodejs-express/server.js](server/nodejs-express/server.js)
 
 ## Setting up your own assistant
 

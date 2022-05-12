@@ -2,8 +2,13 @@ const express = require('express');
 
 const router = express.Router();
 
-router.get('/', function (request, response, next) {
+/**
+ * This function implements the API route.
+ */
+function api(request, response, next) {
   response.json({ message: 'Hello World' });
-});
+}
+
+router.get('/', api);
 
 module.exports = router;
