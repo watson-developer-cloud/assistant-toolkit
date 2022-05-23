@@ -52,6 +52,49 @@
       font-size: 12px;
       line-height: 16px;
     }
+
+    #WACContainer.WACContainer .WeatherContainer__Toggle {
+      position: relative;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background: none;
+    }
+
+    #WACContainer.WACContainer .WeatherContainer__ToggleOuter {
+      width: 36px;
+      height: 18px;
+      background-color: #009d9a;
+      border-radius: 12px;
+    }
+
+    #WACContainer.WACContainer .WeatherContainer__ToggleInner {
+      position: absolute;
+      top: 3px;
+      width: 12px;
+      height: 12px;
+      background-color: #ffffff;
+      border-radius: 9px;
+    }
+
+    #WACContainer.WACContainer .WeatherContainer__TempSelector--C .WeatherContainer__ToggleInner {
+      left: 3px;
+    }
+
+    #WACContainer.WACContainer .WeatherContainer__TempSelector--F .WeatherContainer__ToggleInner {
+      right: 3px;
+    }
+
+    #WACContainer.WACContainer .WeatherContainer__TempSelector {
+      padding-left: 16px;
+      display: flex;
+    }
+
+    #WACContainer.WACContainer .WeatherContainer__Toggle {
+      cursor: pointer;
+      margin-left: 6px;
+      margin-right: 6px;
+    }
   </style>
 </head>
 <body>
@@ -60,33 +103,113 @@
      * This function is called when a custom response should be rendered in web chat. This will use the data inside the
      * message to render custom content - in this case a simple weather card.
      */
-    function customResponseHandler(event) {
+    function customResponseHandler(event, instance) {
       const { fullMessage, element } = event.data;
+
+      // Check to see if we stored the selected temperature display in session history from before (by calling
+      // updateHistoryUserDefined). If not, the default is celsius.
+      let selectedTemperature = fullMessage.history?.user_defined?.selectedTemperature || 'C';
 
       // These are the variables that are set inside the action that uses the extension to ask for the weather.
       const variables = fullMessage.context.skills['actions skill'].skill_variables;
       const { weather_item_0, location_item_0 } = variables;
       const city = location_item_0.title;
 
-      const currentTemperature = weather_item_0.the_temp;
-      const minTemperature = weather_item_0.min_temp;
-      const maxTemperature = weather_item_0.max_temp;
+      const currentTemperature = Math.round(weather_item_0.the_temp);
+      const minTemperature = Math.round(weather_item_0.min_temp);
+      const maxTemperature = Math.round(weather_item_0.max_temp);
 
+      /**
+       * This inner function will update this custom response to display the correct temperatures based on whether or
+       * not celsius or fahrenheit is the currently selecting temperature display. Because this is an inner function,
+       * it will only apply to this custom response and not any other custom responses we may have.
+       */
+      function updateTemperatures() {
+        const celsius = selectedTemperature === 'C';
+
+        const toggleElement = element.querySelector('.WeatherContainer__TempSelector');
+        toggleElement.classList.remove('WeatherContainer__TempSelector--C');
+        toggleElement.classList.remove('WeatherContainer__TempSelector--F');
+        toggleElement.classList.add(`WeatherContainer__TempSelector--${selectedTemperature}`);
+
+        const currentElement = element.querySelector('.WeatherContainer__CurrentTemperature');
+        const maxElement = element.querySelector('.WeatherContainer__MaxTemperature');
+        const minElement = element.querySelector('.WeatherContainer__MinTemperature');
+
+        currentElement.innerHTML = celsius ? `${currentTemperature}°C` : `${toFahrenheit(currentTemperature)}°F`;
+        maxElement.innerHTML = `${celsius ? maxTemperature : toFahrenheit(maxTemperature)}° High`;
+        minElement.innerHTML = `${celsius ? minTemperature : toFahrenheit(minTemperature)}° Low`;
+      }
+
+      /**
+       * This inner function will toggle the temperature display for this response between celsius and fahrenheit.
+       */
+      function toggleTemperatures() {
+        selectedTemperature = selectedTemperature === 'F' ? 'C' : 'F';
+        // When the temperature display is toggled, we want to save the state in session history. The
+        // updateHistoryUserDefined function will do that and store the data we are passing on the
+        // "history.user_defined" object. Note that this function has a limit of 20 calls per message.
+        instance.updateHistoryUserDefined(fullMessage.id, { selectedTemperature });
+        updateTemperatures();
+      }
+
+      // You can use innerHTML to set all of the HTML for the custom response like below. You can also use
+      // document.createElement and element.appendChild to create the individual elements one at a time.
       element.innerHTML = `
         <div class="WeatherContainer">
           <div class="WeatherContainer__City">${city}</div>
           <div class="WeatherContainer__TemperatureText">Current temperature</div>
           <div class="WeatherContainer__Temperature">
-            <div class="WeatherContainer__CurrentTemperature">${Math.round(currentTemperature)}°C</div>
+            <div class="WeatherContainer__CurrentTemperature"></div>
             <div class="WeatherContainer__MinMaxTemperature">
-              <div>${Math.round(maxTemperature)}° High</div>
-              <div>${Math.round(minTemperature)}° Low</div>
+              <div class="WeatherContainer__MaxTemperature"></div>
+              <div class="WeatherContainer__MinTemperature"></div>
+            </div>
+            <div class="WeatherContainer__TempSelector ${selectedTemperature === 'C' ? 'WeatherContainer__TempSelector--C' : 'WeatherContainer__TempSelector--F'}">
+              C°
+              <button class="WeatherContainer__Toggle" type="button">
+                <div class="WeatherContainer__ToggleOuter"></div>
+                <div class="WeatherContainer__ToggleInner"></div>
+              </button>
+              F°
             </div>
           </div>
           <div class="WeatherContainer__ProvidedBy">Data provided by <a href="metaweather.com">MetaWeather.com</a></div>
         </div>
         <br/>
       `;
+
+      // Find the button we defined in the HTML above so we can attach a click listener to it. Note we are looking for
+      // the button from within "element" and not the entire "document" to make sure we find the button in this
+      // specific response and not some other custom response we may have.
+      element.querySelector('.WeatherContainer__Toggle').addEventListener('click', toggleTemperatures);
+
+      updateTemperatures();
+    }
+
+    /**
+     * A simple utility function to convert from celsius to fahrenheit.
+     */
+    function toFahrenheit(celsius) {
+      return Math.round((celsius * 9 / 5) + 32);
+    }
+
+    // TODO: Remove
+    function preReceiveHandler(event) {
+      const message = event.data;
+
+      if (message.output.generic) {
+        message.context.skills['actions skill'].skill_variables = {
+          weather_item_0: {
+            the_temp: 20,
+            min_temp: 10,
+            max_temp: 30
+          }, location_item_0: {title: 'Austin'}
+        }
+        message.output.generic.forEach(messageItem => {
+          messageItem.response_type = 'user_defined';
+        })
+      }
     }
 
     /**
@@ -98,6 +221,9 @@
       // about our events.
       instance.on({ type: 'customResponse', handler: customResponseHandler });
       instance.render();
+
+      // TODO: Remove
+      instance.on({ type: 'pre:receive', handler: preReceiveHandler });
     }
 
     // A web chat configuration options object as documented at

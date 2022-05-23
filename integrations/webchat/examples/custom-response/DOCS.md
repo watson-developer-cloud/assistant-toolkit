@@ -28,4 +28,9 @@ function customResponseHandler(event) {
 }
 ```
 
+6. To save the state of a custom response in session history as the user interacts with it, call the `updateHistoryUserDefined` instance function. Note there is a limit of 20 calls per message for this function.
+```javascript
+instance.updateHistoryUserDefined(fullMessage.id, { selectedTemperature });
+```
+
 For complete working code see [the example in our GitHub repository](https://github.com/watson-developer-cloud/assistant-toolkit/tree/master/integrations/webchat/examples/custom-response).
