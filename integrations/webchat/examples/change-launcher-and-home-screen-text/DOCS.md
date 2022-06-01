@@ -1,4 +1,4 @@
-To change the launcher or home screen texts based on the current page the user is visiting or another client condition, follow these steps.
+To change the launcher or home screen text elements based on the current page the user is visiting or another client condition, follow these steps.
 
 1. The first step is to determine what page the user is on. How this is done can vary a lot by application and you can customize this however is appropriate for your application but a simple mechanism is to check for a URL parameter.
 
@@ -23,7 +23,7 @@ if (page === 'cards') {
 instance.updateLauncherGreetingMessage("I see you're interested in credit cards! Let me know if I can help.");
 ```
 
-4. To change the texts presented on the home screen, use the `updateHomeScreenConfig` instance function. This will change the greeting text, ensure that the home screen is enabled so it can be shown, and change the three buttons that appear on the home screen. This will override any home screen that may be set from the web chat integration setup page in Watson Assistant.
+4. To change the text elements presented on the home screen, use the `updateHomeScreenConfig` instance function. This will change the greeting text, ensure that the home screen is enabled so it can be shown, and change the three buttons that appear on the home screen. This will override any home screen that may be set from the web chat integration setup page in Watson Assistant.
 ```javascript
 instance.updateHomeScreenConfig({
   is_on: true,
