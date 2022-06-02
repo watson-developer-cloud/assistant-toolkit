@@ -9,6 +9,7 @@ TODO: Should steps 1 and 2 (which are about using an extension to assign action 
 {
   "generic": [
     {
+      "user_defined": {},
       "response_type": "user_defined"
     }
   ]

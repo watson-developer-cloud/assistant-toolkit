@@ -69,9 +69,17 @@
      * This function will be called when the user clicks on one of the buttons.
      */
     function onClick(messageItem, button, fullMessage, itemIndex) {
+      // Send a message to the assistant with the label of the button. You can also add "{ silent: true }" as the second
+      // argument if you don't want this message to appear as a "sent" bubble from the user. See
+      // https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods for more
+      // information about the instance functions.
       webChatInstance.send({ input: { text: messageItem.label }});
+
+      // Make the button appear
       button.classList.add('CardButton--selected');
 
+      // Send an update event to the assistant. This will update session history for this message so it remembers what
+      // button was clicked.
       webChatInstance.updateHistoryUserDefined(fullMessage.id, { selectedIndex: itemIndex });
     }
 
@@ -91,7 +99,7 @@
         // This "selectedIndex" value is something we set in session history when the user clicks the button. Checking
         // it here means we can reload the selected state for the button even after the user reloads the page and
         // the conversation is loaded from history.
-        if (fullMessage.history?.user_defined?.selectedIndex === index) {
+        if (fullMessage.history && fullMessage.history.user_defined && fullMessage.history.user_defined.selectedIndex === index) {
           button.classList.add('CardButton--selected');
         }
         button.addEventListener('click', () => onClick(messageItem, button, fullMessage, index));

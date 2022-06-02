@@ -25,22 +25,22 @@ app.use(cookieParser());
 
 // The routes needed by the application.
 const createJWTRouter = require('./routes/createJWT');
+const authenticateRouter = require('./routes/authenticate');
 
 app.use('/createJWT/', createJWTRouter);
+app.use('/authenticate/', authenticateRouter);
 
-// Catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
+app.use(express.static('static'));
+
+// Send a 404 response if no handler was found.
+app.use(function (request, response) {
+  response.status(404).send();
 });
 
-// Error handler
+// Error handler.
 app.use(function (error, request, response, next) {
-  // set locals, only providing error in development
-  response.locals.message = error.message;
-  response.locals.error = request.app.get('env') === 'development' ? error : {};
-
-  // render an error
-  response.status({ error });
+  console.error('An error occurred', error);
+  response.status(500).send();
 });
 
 // Get port from environment and store in Express.
@@ -82,4 +82,5 @@ function onError(error) {
  */
 function onListening() {
   console.log(`Listening on ${server.address().port}`);
+  console.log(`Open http://localhost:${server.address().port}/index.html in your browser to view the example.`);
 }

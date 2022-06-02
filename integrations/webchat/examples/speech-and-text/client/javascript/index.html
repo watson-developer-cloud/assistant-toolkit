@@ -8,7 +8,7 @@
   find more details about this library here: https://github.com/watson-developer-cloud/speech-javascript-sdk. You can
   download a copy of this library for your own site or use a package manager like npm to install it. -->
   <script src="watson-speech.min.js"></script>
-  <link rel="stylesheet" href="../../../../carbon/carbon-components.min.css">
+  <link rel="stylesheet" href="../../../../common/carbon-components.min.css">
 
   <style>
     #WACContainer.WACContainer .RecordButton.bx--btn {
@@ -76,7 +76,7 @@
 
       stream.on('data', function (data) {
         console.log('Received SpeechToText data', data)
-        if (data.results[0]?.final) {
+        if (data.results[0] && data.results[0].final) {
           stream.stop();
           currentStream = null;
           console.log('Stopped listening');
@@ -98,7 +98,9 @@
      * This function is called when we wish to stop recording speech.
      */
     function onStopRecord() {
-      currentStream?.stop();
+      if (currentStream) {
+        currentStream.stop();
+      }
       currentStream = null;
     }
 

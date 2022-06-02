@@ -13,7 +13,7 @@
       // tutorial, we are just hard-coding the user name to "Cade". The code below also ensures that if there are already
       // other context values in the message, that we will leave them alone. Also, this code only runs for the initial
       // welcome message, but you could set the variable on any message that is sent to the assistant.
-      if (event.data.input?.text === '') {
+      if (event.data.input && event.data.input.text === '') {
         // Make sure these objects exist but don't override them if they already do.
         event.data.context.skills['actions skill'] = event.data.context.skills['actions skill'] || {};
         event.data.context.skills['actions skill'].skill_variables = event.data.context.skills['actions skill'].skill_variables || {};

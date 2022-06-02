@@ -2,7 +2,7 @@ This will cover how to extend Watson Assistant web chat to be able to use the Wa
 
 These steps assume that you have already created a Watson Speech service instance.
 
-These example also require access to the watson speech SDK. Information about the SDK can be found [here](https://github.com/watson-developer-cloud/speech-javascript-sdk). You can also read more about [Watson Text to Speech](https://www.ibm.com/cloud/watson-text-to-speech) and [Watson Speech to Text](https://www.ibm.com/cloud/watson-speech-to-text).
+This example requires access to the [Watson Speech SDK](https://github.com/watson-developer-cloud/speech-javascript-sdk). You can also read more about [Watson Text to Speech](https://www.ibm.com/cloud/watson-text-to-speech) and [Watson Speech to Text](https://www.ibm.com/cloud/watson-speech-to-text).
 
 If you are using a simple HTML file, you can download the SDK from the link above and include it using a `<script>` tag.
 ```html
@@ -56,7 +56,7 @@ function onStartRecord() {
     objectMode: true,
   });
   stream.on('data', function (data) {
-    if (data.results[0]?.final) {
+    if (data.results[0] && data.results[0].final) {
       stream.stop();
       currentStream = null;
       setButtonState(false);
@@ -70,7 +70,9 @@ function onStartRecord() {
 3. Add functions that can respond to button clicks.
 ```javascript
 function onStopRecord() {
-  currentStream?.stop();
+  if (currentStream) {
+    currentStream.stop();
+  }
   currentStream = null;
 }
 

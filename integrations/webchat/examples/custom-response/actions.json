@@ -4,7 +4,7 @@
   "valid": true,
   "status": "Available",
   "created": "2022-04-21T13:39:39.443Z",
-  "updated": "2022-05-24T14:38:47.817Z",
+  "updated": "2022-06-29T14:38:18.017Z",
   "language": "en",
   "skill_id": "118d01f0-589d-4086-8830-7ebd3f514004",
   "workspace": {
@@ -146,7 +146,9 @@
             "output": {
               "generic": [
                 {
-                  "user_defined": {},
+                  "user_defined": {
+                    "user_defined_type": "weather_card"
+                  },
                   "response_type": "user_defined"
                 }
               ]

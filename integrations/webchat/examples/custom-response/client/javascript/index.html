@@ -15,10 +15,36 @@
       line-height: 18px;
     }
 
+    #WACContainer.WACContainer .WeatherContainer__Header {
+      display: flex;
+    }
+
     #WACContainer.WACContainer .WeatherContainer__City {
       color: #004144;
       font-size: 20px;
       line-height: 28px;
+      flex: 1;
+    }
+
+    #WACContainer.WACContainer .WeatherContainer__Selector {
+      width: 32px;
+      height: 32px;
+      margin: 0;
+      padding: 0;
+      outline: none;
+      background: none;
+      border: 0;
+      font-weight: 600;
+    }
+
+    #WACContainer.WACContainer .WeatherContainer__Selector:not(disabled) {
+      cursor: pointer;
+    }
+
+    #WACContainer.WACContainer .WeatherContainer__Selector:disabled {
+      background-color: #009d9a;
+      color: #ffffff;
+      cursor: default;
     }
 
     #WACContainer.WACContainer .WeatherContainer__TemperatureText {
@@ -52,49 +78,6 @@
       font-size: 12px;
       line-height: 16px;
     }
-
-    #WACContainer.WACContainer .WeatherContainer__Toggle {
-      position: relative;
-      border: 0;
-      padding: 0;
-      margin: 0;
-      background: none;
-    }
-
-    #WACContainer.WACContainer .WeatherContainer__ToggleOuter {
-      width: 36px;
-      height: 18px;
-      background-color: #009d9a;
-      border-radius: 12px;
-    }
-
-    #WACContainer.WACContainer .WeatherContainer__ToggleInner {
-      position: absolute;
-      top: 3px;
-      width: 12px;
-      height: 12px;
-      background-color: #ffffff;
-      border-radius: 9px;
-    }
-
-    #WACContainer.WACContainer .WeatherContainer__TempSelector--C .WeatherContainer__ToggleInner {
-      left: 3px;
-    }
-
-    #WACContainer.WACContainer .WeatherContainer__TempSelector--F .WeatherContainer__ToggleInner {
-      right: 3px;
-    }
-
-    #WACContainer.WACContainer .WeatherContainer__TempSelector {
-      padding-left: 16px;
-      display: flex;
-    }
-
-    #WACContainer.WACContainer .WeatherContainer__Toggle {
-      cursor: pointer;
-      margin-left: 6px;
-      margin-right: 6px;
-    }
   </style>
 </head>
 <body>
@@ -103,12 +86,12 @@
      * This function is called when a custom response should be rendered in web chat. This will use the data inside the
      * message to render custom content - in this case a simple weather card.
      */
-    function customResponseHandler(event, instance) {
+    function weatherCardResponseHandler(event, instance) {
       const { fullMessage, element } = event.data;
 
       // Check to see if we stored the selected temperature display in session history from before (by calling
       // updateHistoryUserDefined). If not, the default is celsius.
-      let selectedTemperature = fullMessage.history?.user_defined?.selectedTemperature || 'C';
+      let selectedTemperature = (fullMessage.history && fullMessage.history.user_defined && fullMessage.history.user_defined.selectedTemperature) || 'C';
 
       // These are the variables that are set inside the action that uses the extension to ask for the weather.
       const variables = fullMessage.context.skills['actions skill'].skill_variables;
@@ -127,10 +110,8 @@
       function updateTemperatures() {
         const celsius = selectedTemperature === 'C';
 
-        const toggleElement = element.querySelector('.WeatherContainer__TempSelector');
-        toggleElement.classList.remove('WeatherContainer__TempSelector--C');
-        toggleElement.classList.remove('WeatherContainer__TempSelector--F');
-        toggleElement.classList.add(`WeatherContainer__TempSelector--${selectedTemperature}`);
+        element.querySelector('.WeatherContainer__CSelector').disabled = celsius
+        element.querySelector('.WeatherContainer__FSelector').disabled = !celsius;
 
         const currentElement = element.querySelector('.WeatherContainer__CurrentTemperature');
         const maxElement = element.querySelector('.WeatherContainer__MaxTemperature');
@@ -157,7 +138,11 @@
       // document.createElement and element.appendChild to create the individual elements one at a time.
       element.innerHTML = `
         <div class="WeatherContainer">
-          <div class="WeatherContainer__City">${city}</div>
+          <div class="WeatherContainer__Header">
+            <div class="WeatherContainer__City">${city}</div>
+            <button type="button" class="WeatherContainer__Selector WeatherContainer__CSelector">C°</button>
+            <button type="button" class="WeatherContainer__Selector WeatherContainer__FSelector">F°</button>
+          </div>
           <div class="WeatherContainer__TemperatureText">Current temperature</div>
           <div class="WeatherContainer__Temperature">
             <div class="WeatherContainer__CurrentTemperature"></div>
@@ -165,24 +150,17 @@
               <div class="WeatherContainer__MaxTemperature"></div>
               <div class="WeatherContainer__MinTemperature"></div>
             </div>
-            <div class="WeatherContainer__TempSelector ${selectedTemperature === 'C' ? 'WeatherContainer__TempSelector--C' : 'WeatherContainer__TempSelector--F'}">
-              C°
-              <button class="WeatherContainer__Toggle" type="button">
-                <div class="WeatherContainer__ToggleOuter"></div>
-                <div class="WeatherContainer__ToggleInner"></div>
-              </button>
-              F°
-            </div>
           </div>
           <div class="WeatherContainer__ProvidedBy">Data provided by <a href="metaweather.com">MetaWeather.com</a></div>
         </div>
         <br/>
       `;
 
-      // Find the button we defined in the HTML above so we can attach a click listener to it. Note we are looking for
-      // the button from within "element" and not the entire "document" to make sure we find the button in this
+      // Find the buttons we defined in the HTML above so we can attach a click listener to them. Note we are looking for
+      // the buttons from within "element" and not the entire "document" to make sure we find the buttons in this
       // specific response and not some other custom response we may have.
-      element.querySelector('.WeatherContainer__Toggle').addEventListener('click', toggleTemperatures);
+      element.querySelector('.WeatherContainer__CSelector').addEventListener('click', toggleTemperatures);
+      element.querySelector('.WeatherContainer__FSelector').addEventListener('click', toggleTemperatures);
 
       updateTemperatures();
     }
@@ -194,7 +172,7 @@
       return Math.round((celsius * 9 / 5) + 32);
     }
 
-    // TODO: Remove
+    // TODO: The extension is not currently working so we need this to fake the response.
     function preReceiveHandler(event) {
       const message = event.data;
 
@@ -208,6 +186,9 @@
         }
         message.output.generic.forEach(messageItem => {
           messageItem.response_type = 'user_defined';
+          messageItem.user_defined = {
+            user_defined_type: 'weather_card'
+          };
         })
       }
     }
@@ -219,10 +200,20 @@
       // Listen for the customResponse event that will allow us to create content for the custom response when one is
       // received. See https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#summary for more
       // about our events.
-      instance.on({ type: 'customResponse', handler: customResponseHandler });
+      instance.on({
+        type: 'customResponse',
+        handler: (event, instance) => {
+          // The "user_defined_type" property is just an example. It is not required or you can use any other property
+          // or condition you want here. This makes it easier to handle different response types if you have more than
+          // one custom response type.
+          if (event.data.message.user_defined && event.data.message.user_defined.user_defined_type === 'weather_card') {
+            weatherCardResponseHandler(event, instance);
+          }
+        },
+      });
       instance.render();
 
-      // TODO: Remove
+      // TODO: Remove The extension is not currently working so we need this to fake the response.
       instance.on({ type: 'pre:receive', handler: preReceiveHandler });
     }
 
