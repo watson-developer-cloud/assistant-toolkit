@@ -1,6 +1,9 @@
 {
   "name": "watson-assistant-web-chat-toolkit-example",
   "version": "1.0.0",
+  "engines": {
+    "node": "^16.15.1"
+  },
   "scripts": {
     "start": "node ./server.js"
   },
@@ -10,6 +13,7 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "jsonwebtoken": "^8.5.1",
-    "node-rsa": "^1.1.1"
+    "node-rsa": "^1.1.1",
+    "uuid": "^8.3.2"
   }
 }

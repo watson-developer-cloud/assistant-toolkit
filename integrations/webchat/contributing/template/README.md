@@ -1,6 +1,6 @@
-# TODO: XXXXXXX for Watson Assistant web chat
+# TODO: X for Watson Assistant web chat
 
-This code is for extending the Watson Assistant web chat. If you are new to developing with web chat, please start with the [Getting Started tutorial](https://ibm.com). The code in this folder is commented with links and references to the web chat APIs used.
+This code is for extending the Watson Assistant web chat. If you are new to developing with web chat, please start with the [web chat development overview](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-customize). The code in this folder is commented with links and references to the web chat APIs used.
 
 TODO: Fill in the content below with a brief description of what this example does. Also create a list of each feature or technology that the example with demonstrate and include links to the documentation where appropriate. Also copy this content to the README.md file one folder up that is the index file for the entire examples folder.
 
@@ -10,7 +10,7 @@ It demonstrates:
 
 TODO
 
-**For a full walk through of how this code works, please visit [the tutorial page](https://TODO.ibm.com) in the Watson Assistant documentation.**
+**For a full walk through of how this code works, please visit [the tutorial page](https://cloud.ibm.com/docs/watson-assistant?topic=TODO) in the Watson Assistant documentation.**
 
 ## Running the Code
 

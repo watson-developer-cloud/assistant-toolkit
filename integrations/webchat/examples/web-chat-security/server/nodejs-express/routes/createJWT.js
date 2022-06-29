@@ -3,6 +3,7 @@ const RSA = require('node-rsa');
 const jwtLib = require('jsonwebtoken');
 const express = require('express');
 const path = require('path');
+const { v4: uuid } = require('uuid');
 
 const router = express.Router();
 
@@ -23,31 +24,41 @@ const PRIVATE_KEY = fs.readFileSync(path.join(__dirname, '../keys/jwtRS256.key')
 // inside of the JWT.
 const IBM_PUBLIC_KEY = fs.readFileSync(path.join(__dirname, '../keys/ibmPublic.key.pub'));
 
+// A time period of 45 days in milliseconds.
+const TIME_45_DAYS = 1000 * 60 * 60 * 24 * 45;
+
 /**
- * Generates a signed JWT. This example hardcodes information about the user the JWT represents but in a real production
- * environment, the server environment should have access to information about an authenticated user. Usually this is
- * accomplished by having the user login to the site and then storing a token in a cookie. That cookie can be used to
- * look up the user's profile. You can access the cookie from the request object that is available from the Express
- * application and passed in here.
+ * Generates a signed JWT. The JWT used here will always be assigned a user ID using the given anonymous user ID. If
+ * the user is authenticated and we have session info, then info about the user will also be added to the JWT. We
+ * always use the anonymous user ID even if the user is authenticated because Watson Assistant doesn't allow you to
+ * change the user ID in the middle of a session.
  */
-function createJWT() {
+function createJWTString(anonymousUserID, sessionInfo) {
   // This is the content of the JWT. You would normally look up the user information from a user profile.
   const jwtContent = {
     // This is the subject of the JWT which will be the ID of the user.
-    sub: 'some_user_id',
+    sub: anonymousUserID,
     // This object is optional and contains any data you wish to include as part of the JWT. This data will be
     // encrypted using IBM's public key so it will not be visible to your users. Watson Assistant will decrypt this
     // data and make it available to use in your assistant.
     user_payload: {
-      name: 'Someone',
-      email: 'someone@lendyr-demo.ibm.com',
       custom_message: 'This is a secret, encrypted message!',
+      name: 'Anonymous',
+      custom_user_id: anonymousUserID,
     },
   };
 
-  // Encrypt the user payload. This is optional.
+  // If the user is authenticated, then add the user's real info to the JWT.
+  if (sessionInfo) {
+    jwtContent.user_payload.name = sessionInfo.userName;
+    jwtContent.user_payload.custom_user_id = sessionInfo.customUserID;
+  }
+
+  console.log('Generating a JWT with info', jwtContent);
+
+  // Encrypt the user payload.
   const rsaKey = new RSA(IBM_PUBLIC_KEY);
-  jwtContent.user_payload = rsaKey.encrypt(jwtContent.user_payload, ['base64']);
+  jwtContent.user_payload = rsaKey.encrypt(jwtContent.user_payload, 'base64');
 
   // Now sign the jwt content to make the actual jwt. We are giving this a very short expiration time (10 seconds)
   // to demonstrate the web chat capability of fetching a new token when it expires. In a production environment,
@@ -60,8 +71,51 @@ function createJWT() {
   return jwtString;
 }
 
-router.get('/', function (request, response) {
-  response.send(createJWT());
-});
+/**
+ * Gets or sets the anonymous user ID cookie. This will also ensure that an existing cookie is updated with a new 45
+ * day expiration time.
+ */
+function getOrSetAnonymousID(request, response) {
+  let anonymousID = request.cookies['ANONYMOUS-USER-ID'];
+  if (!anonymousID) {
+    // If we don't already have an anonymous user ID, then create one. Normally you would want to use a full UUID,
+    // but for the sake of this example we are going to shorten it to just five characters to make them easier to read.
+    anonymousID = `anon-${uuid().substr(0, 5)}`;
+  }
+
+  // Here we set the value of the cookie and give it an expiration date of 45 days. We do this even if we already
+  // have an ID to make sure that we update the expiration date to a new 45 days.
+  response.cookie('ANONYMOUS-USER-ID', anonymousID, {
+    expires: new Date(Date.now() + TIME_45_DAYS),
+    httpOnly: true,
+  });
+
+  return anonymousID;
+}
+
+/**
+ * Returns the session info for an authenticated user.
+ */
+function getSessionInfo(request) {
+  // Normally the cookie would contain a session token that we would use to look up the user's info from something
+  // like a database. But for the sake of simplicity in this example the session cookie directly contains the user's
+  // info.
+  const sessionInfo = request.cookies.SESSION_INFO;
+  if (sessionInfo) {
+    return JSON.parse(sessionInfo);
+  }
+  return null;
+}
+
+/**
+ * Handles the createJWT request.
+ */
+function createJWT(request, response) {
+  const anonymousUserID = getOrSetAnonymousID(request, response);
+  const sessionInfo = getSessionInfo(request);
+  response.send(createJWTString(anonymousUserID, sessionInfo));
+}
+
+router.get('/', createJWT);
 
 module.exports = router;

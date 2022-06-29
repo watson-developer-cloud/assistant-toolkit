@@ -6,7 +6,7 @@ To set the value of a variable follow these steps:
 ```javascript
 function preSendHandler(event) {
   // Only do this on messages that request the welcome message.
-  if (event.data.input?.text === '') {
+  if (event.data.input && event.data.input.text === '') {
     event.data.context.skills['actions skill'] = event.data.context.skills['actions skill'] || {};
     event.data.context.skills['actions skill'].skill_variables = event.data.context.skills['actions skill'].skill_variables || {};
     event.data.context.skills['actions skill'].skill_variables.User_Name = 'Cade';

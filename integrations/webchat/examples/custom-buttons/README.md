@@ -1,6 +1,6 @@
 # Custom buttons for Watson Assistant web chat
 
-This code is for extending the Watson Assistant web chat. If you are new to developing with web chat, please start with the [Getting Started tutorial](https://ibm.com). The code in this folder is commented with links and references to the web chat APIs used.
+This code is for extending the Watson Assistant web chat. If you are new to developing with web chat, please start with the [web chat development overview](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-develop). The code in this folder is commented with links and references to the web chat APIs used.
 
 This example demonstrates how to use a custom response to change the appearance of the buttons that are displayed when the assistant returns and options response.
 
@@ -12,7 +12,7 @@ It demonstrates:
 - How to use the [**updateHistoryUserDefined**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#updateHistoryUserDefined) instance function to record which button was clicked in session history so it will be remembered when web chat is reloaded.
 - How to use data stored in session history to change how a custom response is displayed when web chat is reloaded.
 
-**For a full walk through of how this code works, please visit [the tutorial page](https://TODO.ibm.com) in the Watson Assistant documentation.**
+**For a full walk through of how this code works, please visit [the tutorial page](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-develop-custom-buttons) in the Watson Assistant documentation.**
 
 ## Running the Code
 

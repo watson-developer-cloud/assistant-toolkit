@@ -1,6 +1,6 @@
 # Watson Speech and Text for Watson Assistant web chat
 
-This code is for extending the Watson Assistant web chat. If you are new to developing with web chat, please start with the [Getting Started tutorial](https://ibm.com). The code in this folder is commented with links and references to the web chat APIs used.
+This code is for extending the Watson Assistant web chat. If you are new to developing with web chat, please start with the [web chat development overview](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-develop). The code in this folder is commented with links and references to the web chat APIs used.
 
 This example demonstrates how to use the Watson Speech services to convert speech to text and text to speech. It will show how to get web chat to speak the text that it receives from the assistant and how to use a record button to listen to a user for speech that will be converted to text and sent to the assistant from web chat.
 
@@ -13,7 +13,7 @@ It demonstrates:
 - How to use the [**Watson Speech JS SDK**](https://github.com/watson-developer-cloud/speech-javascript-sdk) To convert the recorded speech to text.
 - How to use the [**send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#send) instance function to send the converted text to the assistant.
 
-**For a full walk through of how this code works, please visit [the tutorial page](https://TODO.ibm.com) in the Watson Assistant documentation.**
+**For a full walk through of how this code works, please visit [the tutorial page](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-overview) in the Watson Assistant documentation.**
 
 ## Running the Code
 

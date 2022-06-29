@@ -4,7 +4,7 @@
   "valid": true,
   "status": "Available",
   "created": "2022-04-27T20:33:05.107Z",
-  "updated": "2022-04-28T17:55:08.186Z",
+  "updated": "2022-06-03T19:37:32.987Z",
   "language": "en",
   "skill_id": "cfa0fe67-4d49-4830-be33-f5dd8272416d",
   "workspace": {
@@ -24,7 +24,13 @@
                             "scalar": "I decrypted the data sent to me. It's not secret anymore! Here it is: "
                           },
                           {
-                            "skill_variable": "Encrypted_User_Payload"
+                            "skill_variable": "Encrypted_Message"
+                          },
+                          {
+                            "scalar": "\n\n<br/>\n\nYour real user ID is "
+                          },
+                          {
+                            "skill_variable": "Custom_User_ID"
                           }
                         ]
                       }
@@ -39,9 +45,15 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "${system_integrations.chat.private.user_payload}"
+                    "expression": "${system_integrations.chat.private.user_payload}.custom_message"
                   },
-                  "skill_variable": "Encrypted_User_Payload"
+                  "skill_variable": "Encrypted_Message"
+                },
+                {
+                  "value": {
+                    "expression": "${system_integrations.chat.private.user_payload}.custom_user_id"
+                  },
+                  "skill_variable": "Custom_User_ID"
                 }
               ]
             },
@@ -54,6 +66,7 @@
         ],
         "title": "Send something secure",
         "action": "action_33408",
+        "boosts": [],
         "handlers": [],
         "condition": {
           "intent": "action_33408_intent_41118"
@@ -145,6 +158,7 @@
         ],
         "title": "No action matches",
         "action": "anything_else",
+        "boosts": [],
         "handlers": [],
         "condition": {
           "expression": "anything_else"
@@ -302,6 +316,7 @@
         ],
         "title": "Fallback",
         "action": "fallback",
+        "boosts": [],
         "handlers": [],
         "condition": {
           "intent": "fallback_connect_to_agent"
@@ -352,6 +367,7 @@
         ],
         "title": "Greet customer",
         "action": "welcome",
+        "boosts": [],
         "handlers": [],
         "condition": {
           "expression": "welcome"
@@ -406,8 +422,14 @@
     },
     "variables": [
       {
-        "title": "Encrypted User Payload",
-        "variable": "Encrypted_User_Payload",
+        "title": "Custom User ID",
+        "variable": "Custom_User_ID",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "Encrypted Message",
+        "variable": "Encrypted_Message",
         "data_type": "any",
         "description": ""
       }

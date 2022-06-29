@@ -7,6 +7,9 @@
     "lint:fix": "eslint \"./{examples,contributing}/**/*.{js,jsx}\" --fix",
     "lint:fix:dryrun": "eslint \"./{examples,contributing}/**/*.{js,jsx}\" --fix-dry-run"
   },
+  "engines": {
+    "node": "^16.15.1"
+  },
   "devDependencies": {
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-base": "^15.0.0",

@@ -15,7 +15,7 @@ instance.once({ type: 'pre:send', handler: preSendHandler});
 
 ```javascript
 function preSendHandler(event) {
-  if (event.data.input?.text === '') {
+  if (event.data.input && event.data.input.text === '') {
     if (page === 'cards') {
       event.data.input.text = 'Credit Cards';
     }

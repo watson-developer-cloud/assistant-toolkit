@@ -57,14 +57,14 @@
       Welcome to Lendyr!
 
       <div class="Link">
-        Click <a href="?page=cards">here</a> to view our credit cards!
+        View our <a href="?page=cards">credit cards</a>!
       </div>
     </div>
     <div id="Page__CreditCards">
       Lendyr provides a number of credit cards with varying features.
 
       <div class="Link">
-        Click <a href="?page=home">here</a> to return to our home page.
+        Return to our <a href="?page=home">home page</a>.
       </div>
     </div>
   </div>
@@ -85,7 +85,7 @@
      */
     function preSendHandler(event) {
       // If the text is empty than that means this is a request for the greeting message.
-      if (event.data.input?.text === '') {
+      if (event.data.input && event.data.input.text === '') {
         if (page === 'cards') {
           // If we are on the credit card page, then change the requested text to a different message that will trigger
           // a different action instead of the default greeting message.
