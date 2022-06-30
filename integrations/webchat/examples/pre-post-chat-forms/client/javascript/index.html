@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pre and post-chat forms - Watson Assistant web chat toolkit</title>
+  <link rel="stylesheet" href="../../../../common/carbon-components.min.css">
+
+  <style>
+    .RestartContent {
+      padding: 16px;
+    }
+
+    #WACContainer.WACContainer .HostElement {
+      height: 100%;
+    }
+
+    #WACContainer.WACContainer .ChatForm {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    #WACContainer.WACContainer .ChatForm__Upper {
+      padding: 16px;
+      flex: 1;
+    }
+
+    #WACContainer.WACContainer .ChatForm__Title {
+      margin-top: 80px;
+      font-size: 32px;
+      line-height: 48px;
+    }
+
+    #WACContainer.WACContainer .ChatForm__TitleText {
+    }
+
+    #WACContainer.WACContainer .ChatForm__TitleBar {
+      display: inline-block;
+      width: 3px;
+      height: 23px;
+      background-color: #004144;
+      border-radius: 3px;
+    }
+
+    #WACContainer.WACContainer .PreChatForm__ButtonContainer {
+      width: 100%;
+      display: flex;
+    }
+
+    #WACContainer.WACContainer .PreChatForm__ButtonContainer button {
+      width: 50%;
+    }
+
+    #WACContainer.WACContainer .PostChatForm__RatingButtonsContainer {
+      display: flex;
+    }
+
+    #WACContainer.WACContainer #PostChatForm__FeedbackField {
+      padding: 8px;
+      height: 80px;
+    }
+
+    #WACContainer.WACContainer button.PostChatForm__RatingButton svg {
+      fill: currentColor;
+    }
+
+    #WACContainer.WACContainer button.PostChatForm__RatingButton  {
+      padding: 0;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      color: #161616;
+      justify-content: center;
+    }
+
+    #WACContainer.WACContainer button.PostChatForm__RatingButton--selected:hover,
+    #WACContainer.WACContainer button.PostChatForm__RatingButton--selected  {
+      color: #ffffff;
+      background-color: #004144;
+    }
+
+    #WACContainer.WACContainer .PostChatForm__FeedbackOptional  {
+      margin-top: 32px;
+      margin-bottom: 16px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="RestartContent">
+    <p>Click this button to clear session information and restart the example.</p>
+    <button id="RestartButton">Restart</button>
+  </div>
+
+  <script>
+    // This is the resolve function for resolving the promises returned by our open and close event handlers. Those
+    // promises will remain unresolved while the pre-chat or post-chat forms are being displayed and they will only be
+    // resolved once those forms are closed. Web chat will wait for each promise to be resolved before completing the
+    // open or close event.
+    let promiseResolve;
+
+    // The name that the user entered into the pre-chat form. We will save this so we can send it when the first message
+    // is sent. We also save this in session storage so it'll be available if the user reloads the page and starts a
+    // new Watson Assistant session.
+    let fullName = sessionStorage.getItem('FULL_NAME');
+
+    // This indicates if the user has sent a (non-welcome) message to the assistant. We use this so we only show the
+    // post-chat form if the user has actually interacted with the assistant.
+    let hasSentMessage = false;
+    
+    // The current value of the selected rating from the post-chat form.
+    let selectedRating;
+
+    document.getElementById('RestartButton').addEventListener('click', () => {
+      sessionStorage.clear();
+      window.location.reload();
+    });
+
+    /**
+     * This function is called during the opening process for web chat.
+     */
+    function windowOpenHandler(event, instance) {
+      if (!fullName) {
+        // Return a Promise which web chat will wait for before completing the opening process. Our custom code will
+        // resolve this problem after the user completes the pre-chat form. If they click cancel, we can use the event
+        // provided here to cancel the open and close web chat.
+        return new Promise((resolve) => {
+          promiseResolve = resolve;
+          createOpenPanel(event, instance);
+        });
+      }
+    }
+
+    /**
+     * This function is called before web chat begins the closing process.
+     */
+    function preCloseHandler(event, instance) {
+      if (hasSentMessage && !sessionStorage.getItem('POST_CHAT_SHOWN')) {
+        // Set a session variable so we don't show this form again.
+        sessionStorage.setItem('POST_CHAT_SHOWN', 'true')
+
+        // Return a Promise which web chat will wait for before completing the closing process. Our custom code will
+        // resolve this problem after the user completes the post-chat form. You could include a cancel button in the
+        // form if you wanted to allow the user to go back without actually closing web chat. But this example just
+        // lets the user optionally provide feedback.
+        return new Promise((resolve) => {
+          promiseResolve = resolve;
+          createClosePanel(event, instance);
+        });
+      }
+    }
+
+    /**
+     * Creates the content to display in the pre-chat/open form.
+     */
+    function createOpenPanel(event, instance) {
+      const customPanel = instance.customPanels.getPanel();
+      const { hostElement } = customPanel;
+
+      hostElement.classList.add('HostElement');
+      hostElement.innerHTML = `
+        <div class="PreChatForm ChatForm">
+          <div class="ChatForm__Upper">
+            <div class="ChatForm__Title">
+              <div class="ChatForm__TitleBar"></div>
+              <span class="ChatForm__TitleText">Let's get started.</span>
+            </div>
+            <div class="bx--form-item bx--text-input-wrapper">
+              <label for="PreChatForm__NameField" class="bx--label">Your name</label>
+              <div class="bx--text-input__field-outer-wrapper">
+                <div class="bx--text-input__field-wrapper">
+                  <input id="PreChatForm__NameField" type="text" class="bx--text-input" placeholder="Required">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="PreChatForm__ButtonContainer">
+            <button type="button" id="PreChatForm__CancelButton" class="bx--btn bx--btn--secondary">Cancel</button>
+            <button type="button" id="PreChatForm__OkButton" class="bx--btn bx--btn--primary" disabled>Start chat</button>
+          </div>
+        </div>
+      `;
+
+      const cancelButton = hostElement.querySelector('#PreChatForm__CancelButton')
+      const okButton = hostElement.querySelector('#PreChatForm__OkButton')
+      const nameField = hostElement.querySelector('#PreChatForm__NameField')
+
+      nameField.addEventListener('input', () => {
+        const value = nameField.value.trim();
+        okButton.disabled = !value;
+      })
+
+      cancelButton.addEventListener('click', () => {
+        // Close the custom panel.
+        const customPanel = instance.customPanels.getPanel();
+        customPanel.close();
+
+        // Cancel the open event so web chat will close again.
+        event.cancelOpen = true;
+
+        // Resolve the promise that web chat is waiting for to complete the handler.
+        promiseResolve();
+      });
+
+      okButton.addEventListener('click', () => {
+        // Close the custom panel.
+        const customPanel = instance.customPanels.getPanel();
+        customPanel.close();
+
+        // Grab the name the user entered so we can use it later.
+        fullName = nameField.value.trim();
+
+        // Save the full name in session storage. This will allow us to preserve this value in the event that the page
+        // is reloaded and a new session with Watson Assistant is started.
+        sessionStorage.setItem('FULL_NAME', fullName);
+
+        // Resolve the promise that web chat is waiting for to complete the handler.
+        promiseResolve();
+      });
+
+      // And then open the panel.
+      customPanel.open({ hidePanelHeader: true, disableAnimation: true });
+    }
+
+    /**
+     * Creates the content to display in the post-chat/close form.
+     */
+    function createClosePanel(event, instance) {
+      const customPanel = instance.customPanels.getPanel();
+      const { hostElement } = customPanel;
+
+      hostElement.classList.add('HostElement');
+      hostElement.innerHTML = `
+        <div class="PostChatForm ChatForm">
+          <div class="ChatForm__Upper">
+            <div class="ChatForm__Title">
+              <span class="ChatForm__TitleText">See you next time.<br/>How did we do?</span>
+            </div>
+            <div class="PostChatForm__RatingButtonsContainer">
+              <button class="PostChatForm__RatingButton bx--btn bx--btn--ghost" data-rating="happy" type="button">
+                <svg width="32" height="32" viewBox="0 0 32 32">
+                  <path d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Z"></path>
+                  <path
+                      d="M11.5 11A2.5 2.5 0 1014 13.5 2.48 2.48 0 0011.5 11zM20.5 11A2.5 2.5 0 1023 13.5 2.48 2.48 0 0020.5 11zM16 24a8 8 0 006.85-3.89l-1.71-1a6 6 0 01-10.28 0l-1.71 1A8 8 0 0016 24z"></path>
+                </svg>
+              </button>
+              <button class="PostChatForm__RatingButton bx--btn bx--btn--ghost" data-rating="neutral" type="button">
+                <svg width="32" height="32" viewBox="0 0 32 32">
+                  <path d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Z"></path>
+                  <path
+                      d="M11.5 11A2.5 2.5 0 1014 13.5 2.5 2.5 0 0011.5 11zM20.5 11A2.5 2.5 0 1023 13.5 2.5 2.5 0 0020.5 11zM10 20H22V22H10z"></path>
+                </svg>
+              </button>
+              <button class="PostChatForm__RatingButton bx--btn bx--btn--ghost" data-rating="sad" type="button">
+                <svg width="32" height="32" viewBox="0 0 32 32">
+                  <path d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Z"></path>
+                  <path
+                      d="M11.5 11A2.5 2.5 0 1014 13.5 2.5 2.5 0 0011.5 11zM20.5 11A2.5 2.5 0 1023 13.5 2.5 2.5 0 0020.5 11zM16 19a8 8 0 00-6.85 3.89l1.71 1a6 6 0 0110.28 0l1.71-1A8 8 0 0016 19z"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="PostChatForm__FeedbackOptional">
+              If you have any more additional feedback, please write them here. (optional)
+            </div>
+            <div class="bx--form-item bx--text-input-wrapper">
+              <div class="bx--text-input__field-outer-wrapper">
+                <div class="bx--text-input__field-wrapper">
+                  <textarea id="PostChatForm__FeedbackField" class="bx--text-input"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="PreChatForm__ButtonContainer">
+            <button type="button" id="PostChatForm__CancelButton" class="bx--btn bx--btn--secondary">Close</button>
+            <button type="button" id="PostChatForm__OkButton" class="bx--btn bx--btn--primary" disabled>Submit feedback</button>
+          </div>
+        </div>
+      `;
+
+      const cancelButton = hostElement.querySelector('#PostChatForm__CancelButton')
+      const okButton = hostElement.querySelector('#PostChatForm__OkButton')
+      const feedbackField = hostElement.querySelector('#PostChatForm__FeedbackField')
+
+      /**
+       * This function is called when the user clicks one of the rating buttons. It will mark that rating as selected.
+       */
+      function ratingButtonClick(event) {
+        selectedRating = event.currentTarget.getAttribute('data-rating');
+
+        const ratingButtons = hostElement.querySelectorAll('[data-rating]');
+        ratingButtons.forEach(button => {
+          const buttonRating = button.getAttribute('data-rating');
+          button.classList.remove('PostChatForm__RatingButton--selected');
+          if (buttonRating === selectedRating) {
+            button.classList.add('PostChatForm__RatingButton--selected');
+          }
+        });
+
+        okButton.disabled = false;
+      }
+
+      const ratingButtons = hostElement.querySelectorAll('[data-rating]');
+      ratingButtons.forEach(button => {
+        button.addEventListener('click', ratingButtonClick);
+      });
+
+      feedbackField.addEventListener('input', () => {
+        const value = feedbackField.value.trim();
+      })
+
+      cancelButton.addEventListener('click', () => {
+        // Close the custom panel.
+        const customPanel = instance.customPanels.getPanel();
+        customPanel.close();
+
+        // Resolve the promise that web chat is waiting for to complete the handler.
+        promiseResolve();
+      });
+
+      okButton.addEventListener('click', () => {
+        // Close the custom panel.
+        const customPanel = instance.customPanels.getPanel();
+        customPanel.close();
+
+        // Grab the feedback that was entered.
+        const feedback = feedbackField.value.trim();
+
+        // Here you would send the feedback to whatever system is appropriate for your application. If you want to send
+        // the information to Watson Assistant, you can use the web chat "instance.send" function. Or you can call an
+        // endpoint of your own to save this information.
+        console.log(`The user selected a rating of "${selectedRating}" and optional feedback "${feedback}".`);
+
+        // Resolve the promise that web chat is waiting for to complete the handler.
+        promiseResolve();
+      });
+
+      // And then open the panel.
+      customPanel.open({ hidePanelHeader: true, disableAnimation: true });
+
+      // Make sure the close button gets focus to we don't bias the rating selection.
+      setTimeout(() => {
+        cancelButton.focus();
+      });
+    }
+
+    /**
+     * This handler is called before web chat sends a message to the assistant. We will use this to send the name the
+     * user entered when the welcome node is requested.
+     */
+    function preSendHandler(event) {
+      // This code only runs for the initial welcome message, but you could set the variable on any message that is sent
+      // to the assistant.
+      if (event.data.input && event.data.input.text === '') {
+        // Make sure these objects exist but don't override them if they already do.
+        event.data.context.skills['actions skill'] = event.data.context.skills['actions skill'] || {};
+        event.data.context.skills['actions skill'].skill_variables = event.data.context.skills['actions skill'].skill_variables || {};
+
+        // Set the name that was previously entered by the user.
+        event.data.context.skills['actions skill'].skill_variables.User_Name = fullName;
+      } else {
+        // Set this flag for a non-welcome message so we can now show the post-chat form if the user closes the web
+        // chat.
+        hasSentMessage = true;
+      }
+    }
+
+    /**
+     * This is the function that is called when the web chat code has been loaded and it is ready to be rendered.
+     */
+    function onLoad(instance) {
+      // Add listeners that will use a custom panel to display custom content when web chat is opened or closed. You
+      // can use window:close instead of window:pre:close but window:pre:close gives you the option of including a
+      // cancel button to allow the user to keep web chat open. You can also use the agent start and end chat events
+      // to accomplish the same thing when users are interacting with a human agent from a service desk.
+      instance.on({ type: 'window:open', handler: windowOpenHandler });
+      instance.on({ type: 'window:pre:close', handler: preCloseHandler });
+      // This listener will be used to send the information gathered in the pre-chat form to the assistant.
+      instance.on({ type: 'pre:send', handler: preSendHandler });
+      instance.render();
+    }
+
+    // This is the standard web chat configuration object. You can modify these values with the embed code for your
+    // own assistant if you wish to try this example with your assistant. You can find the documentation for this at
+    // https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-configuration#configurationobject.
+    window.watsonAssistantChatOptions = {
+      integrationID: "a03df684-bee7-42d3-8d87-1db9c8e51bec",
+      region: "us-south",
+      serviceInstanceID: "9a3613d2-3ce6-4928-8eb6-4d659d87ae68",
+      onLoad: onLoad,
+    };
+    setTimeout(function(){const t=document.createElement('script');t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";document.head.appendChild(t);});
+  </script>
+
+</body>
+</html>

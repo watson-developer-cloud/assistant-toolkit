@@ -41,13 +41,13 @@ Then we have our **additional starter kits**. These focus on showcasing the brea
     - Go to your Watson Assistant instance.
     - Navigate to the **Integrations** page.
     - Click `Build custom extension` > `Next`
-    - Give your extension a name and a description, then hit `Next`.
+    - Give your extension a name and a description, then press `Next`.
     - Upload the OpenAPI file from Step 2 and click `Next` > `Finish`. You should now see your extension created in the `Extensions` section of the catalog.
     <br><br>
     ![create-extension](./assets/create-extension.gif)
 1. Add your extension to your assistant.
     - Find your extension under `Extensions` and click `Add +` > `Confirm`.
-    - This will take you through Authentication configuration. *If you selected a starter kit with Auth*, find the `Pre-Req` section(s) within the starter kit specific README on how to obtain any keys. Otherwise, simply leave the Auth method as `No authentication`, click through and hit `Finish`, then exit.
+    - This will take you through Authentication configuration. *If you selected a starter kit with Auth*, find the `Pre-Req` section(s) within the starter kit specific README on how to obtain any keys. Otherwise, simply leave the Auth method as `No authentication`, click through and press `Finish`, then exit.
     - You should now see a green check mark next to your successfully added extension!
 1. Finally, configure your actions skill to use the added extension. There are two ways you can do this: <br>
     - [Method 1](#method-1-best-for-simple-actions-skills) - best for simple actions skills.

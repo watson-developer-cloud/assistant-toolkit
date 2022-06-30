@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Deep linking - Watson Assistant web chat toolkit</title>
+
+  <style>
+    html, body {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .Page__Email #Page__Home,
+    .Page__Home #Page__Email {
+      display: none;
+    }
+
+    .Body {
+      padding: 16px;
+      flex: 1;
+    }
+
+    .Page__Email .Body {
+      background-color: #6f6f6f;
+    }
+
+    .Header {
+      background-color: #d9fbfb;
+      height: 78px;
+    }
+
+    .Page__Email .Header {
+      background-color: #004144;
+    }
+
+    .Header__Name {
+      color: #08bdba;
+      font-weight: 600;
+      font-size: 32px;
+      padding-left: 32px;
+      padding-top: 16px;
+    }
+
+    .Page__Email .Header__Name {
+      color: #ffffff;
+    }
+
+    .Link {
+      padding-top: 16px;
+    }
+
+    .EmailContent__Content {
+      width: 100%;
+      max-width: 1208px;
+      max-height: 786px;
+      margin: auto;
+    }
+
+    .EmailContent__Title {
+      font-size: 28px;
+      line-height: 38px;
+      font-weight: 400;
+      color: #ffffff;
+      margin-bottom: 24px;
+    }
+
+    .EmailContent__Email {
+      background-color: #ffffff;
+      height: 100%;
+      width: 100%;
+      max-width: 1037px;
+      opacity: 0.9;
+      border-radius: 8px;
+    }
+
+    .EmailContent__EmailHeader {
+      padding: 24px;
+      row-gap: 14px;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .EmailContent__BrandEmailContainer {
+      display: flex;
+      align-items: center;
+      width: fit-content;
+      margin-bottom: 12px;
+    }
+
+    .EmailContent__BrandName {
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 28px;
+      margin-right: 12px;
+    }
+
+    .EmailContent__ToUserEmail,
+    .EmailContent__BrandEmail {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 22px;
+      color: #525252;
+    }
+
+    .EmailContent__ToUserEmail {
+      line-height: 24px;
+    }
+
+    .EmailContent__EmailBody {
+      padding: 24px;
+    }
+
+    .EmailContent__EmailText {
+      font-size: 14px;
+      line-height: 24px;
+      font-weight: 400;
+      color: #262626;
+    }
+
+    .EmailContent__DeepLink {
+      color: #007D79;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+<!-- We're going to include the HTML for both pages below but only show one of them based on the "page" URL parameter. -->
+<div class="Header">
+  <div class="Header__Name">lendyr</div>
+</div>
+<div class="Body">
+  <div id="Page__Home">
+    Welcome to Lendyr!
+
+    <div class="Link">
+      <p>
+        View a <a href="?page=email">sample email</a> page that contains a link to web chat.
+      </p>
+      <p>
+        On that page, click the link in the email that says HERE to return to this page and have web chat automatically
+        open to the topic about paying bills.
+      </p>
+    </div>
+  </div>
+  <div id="Page__Email">
+    <div class="EmailContent__Content">
+      <div class="EmailContent__Title">Your E-Mail</div>
+      <div class="EmailContent__Email">
+        <div class="EmailContent__EmailHeader">
+          <div class="EmailContent__BrandEmailContainer">
+            <span class="EmailContent__BrandName">Lendyr</span>
+            <span class="EmailContent__BrandEmail">|&nbsp;&nbsp;&nbsp;lendyr@lendyr.com</span>
+          </div>
+          <span class="EmailContent__ToUserEmail">To: cade@example.com</span>
+        </div>
+        <div class="EmailContent__EmailBody">
+          <div class="EmailContent__EmailTextContainer">
+            <div class="EmailContent__EmailText">
+              Hi Cade,
+              <br/>
+              <br/>
+              Just a reminder that your bill is due in 5 days.
+              <a class="EmailContent__DeepLink" href="?page=home&wa_lid=b50">Pay your bill</a>.
+              <br/>
+              <br/>
+              Your favorite bank,
+              <br/>
+              Lendyr
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Figure out what page the user is currently visiting. This is just so we can display an example email page along
+  // side the main page for this example.
+  const page = new URLSearchParams(window.location.search).get('page');
+
+  // Make the correct example page visible.
+  document.documentElement.classList.add(page === 'home' ? 'Page__Home' : 'Page__Email');
+
+  // Don't display web chat on the example email page.
+  if (page !== 'email') {
+    // This is the standard web chat configuration object. You can modify these values with the embed code for your
+    // own assistant if you wish to try this example with your assistant. You can find the documentation for this at
+    // https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-configuration#configurationobject.
+    window.watsonAssistantChatOptions = {
+      integrationID: "07b05ae0-7e2e-47d1-a309-d0f5b9915ac5",
+      region: "us-south",
+      serviceInstanceID: "9a3613d2-3ce6-4928-8eb6-4d659d87ae68",
+      // This is the configuration that determines what web chat does when it sees a link id. In this case, if web chat
+      // sees a link ID of "b50", it will open web chat and send the message "Pay my bill" to the assistant. The IDs
+      // can be whatever you want but it's a good idea to avoid IDs that are obvious for what they do to avoid customers
+      // trying to change them.
+      pageLinkConfig: {
+        linkIDs: {
+          'b50': {
+            text: 'Pay my bill'
+          },
+        }
+      },
+      onLoad: instance => {
+        instance.render()
+      },
+    };
+
+    setTimeout(function () {
+      const t = document.createElement('script');
+      t.src = "https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";
+      document.head.appendChild(t);
+    });
+  }
+</script>
+</body>
+</html>

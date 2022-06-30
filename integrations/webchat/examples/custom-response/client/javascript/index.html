@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Extension with custom response - Watson Assistant web chat toolkit</title>
+
+  <style>
+    #WACContainer.WACContainer .WeatherContainer {
+      background-color: #ffffff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      padding: 16px;
+      font-size: 14px;
+      line-height: 18px;
+    }
+
+    #WACContainer.WACContainer .WeatherContainer__Header {
+      display: flex;
+    }
+
+    #WACContainer.WACContainer .WeatherContainer__City {
+      color: #004144;
+      font-size: 20px;
+      line-height: 28px;
+      flex: 1;
+    }
+
+    #WACContainer.WACContainer .WeatherContainer__Selector {
+      width: 32px;
+      height: 32px;
+      margin: 0;
+      padding: 0;
+      outline: none;
+      background: none;
+      border: 0;
+      font-weight: 600;
+    }
+
+    #WACContainer.WACContainer .WeatherContainer__Selector:not(disabled) {
+      cursor: pointer;
+    }
+
+    #WACContainer.WACContainer .WeatherContainer__Selector:disabled {
+      background-color: #009d9a;
+      color: #ffffff;
+      cursor: default;
+    }
+
+    #WACContainer.WACContainer .WeatherContainer__TemperatureText {
+      color: #4d5358;
+    }
+
+    #WACContainer.WACContainer .WeatherContainer__Temperature {
+      padding-top: 8px;
+      display: flex;
+      align-items: center;
+    }
+
+    #WACContainer.WACContainer .WeatherContainer__CurrentTemperature {
+      font-size: 42px;
+      line-height: 50px;
+      color: #009d9a;
+    }
+
+    #WACContainer.WACContainer .WeatherContainer__MinMaxTemperature {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 20px;
+      color: #004144;
+      padding-left: 16px;
+    }
+
+    #WACContainer.WACContainer .WeatherContainer .WeatherContainer__ProvidedBy a,
+    #WACContainer.WACContainer .WeatherContainer .WeatherContainer__ProvidedBy a:visited,
+    #WACContainer.WACContainer .WeatherContainer__ProvidedBy {
+      color: #a8a8a8;
+      font-size: 12px;
+      line-height: 16px;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    /**
+     * This function is called when a custom response should be rendered in web chat. This will use the data inside the
+     * message to render custom content - in this case a simple weather card.
+     */
+    function weatherCardResponseHandler(event, instance) {
+      const { fullMessage, element } = event.data;
+
+      // Check to see if we stored the selected temperature display in session history from before (by calling
+      // updateHistoryUserDefined). If not, the default is celsius.
+      let selectedTemperature = (fullMessage.history && fullMessage.history.user_defined && fullMessage.history.user_defined.selectedTemperature) || 'C';
+
+      // These are the variables that are set inside the action that uses the extension to ask for the weather.
+      const variables = fullMessage.context.skills['actions skill'].skill_variables;
+      const { weather_item_0, location_item_0 } = variables;
+      const city = location_item_0.title;
+
+      const currentTemperature = Math.round(weather_item_0.the_temp);
+      const minTemperature = Math.round(weather_item_0.min_temp);
+      const maxTemperature = Math.round(weather_item_0.max_temp);
+
+      /**
+       * This inner function will update this custom response to display the correct temperatures based on whether or
+       * not celsius or fahrenheit is the currently selecting temperature display. Because this is an inner function,
+       * it will only apply to this custom response and not any other custom responses we may have.
+       */
+      function updateTemperatures() {
+        const celsius = selectedTemperature === 'C';
+
+        element.querySelector('.WeatherContainer__CSelector').disabled = celsius
+        element.querySelector('.WeatherContainer__FSelector').disabled = !celsius;
+
+        const currentElement = element.querySelector('.WeatherContainer__CurrentTemperature');
+        const maxElement = element.querySelector('.WeatherContainer__MaxTemperature');
+        const minElement = element.querySelector('.WeatherContainer__MinTemperature');
+
+        currentElement.innerHTML = celsius ? `${currentTemperature}°C` : `${toFahrenheit(currentTemperature)}°F`;
+        maxElement.innerHTML = `${celsius ? maxTemperature : toFahrenheit(maxTemperature)}° High`;
+        minElement.innerHTML = `${celsius ? minTemperature : toFahrenheit(minTemperature)}° Low`;
+      }
+
+      /**
+       * This inner function will toggle the temperature display for this response between celsius and fahrenheit.
+       */
+      function toggleTemperatures() {
+        selectedTemperature = selectedTemperature === 'F' ? 'C' : 'F';
+        // When the temperature display is toggled, we want to save the state in session history. The
+        // updateHistoryUserDefined function will do that and store the data we are passing on the
+        // "history.user_defined" object. Note that this function has a limit of 20 calls per message.
+        instance.updateHistoryUserDefined(fullMessage.id, { selectedTemperature });
+        updateTemperatures();
+      }
+
+      // You can use innerHTML to set all of the HTML for the custom response like below. You can also use
+      // document.createElement and element.appendChild to create the individual elements one at a time.
+      element.innerHTML = `
+        <div class="WeatherContainer">
+          <div class="WeatherContainer__Header">
+            <div class="WeatherContainer__City">${city}</div>
+            <button type="button" class="WeatherContainer__Selector WeatherContainer__CSelector">C°</button>
+            <button type="button" class="WeatherContainer__Selector WeatherContainer__FSelector">F°</button>
+          </div>
+          <div class="WeatherContainer__TemperatureText">Current temperature</div>
+          <div class="WeatherContainer__Temperature">
+            <div class="WeatherContainer__CurrentTemperature"></div>
+            <div class="WeatherContainer__MinMaxTemperature">
+              <div class="WeatherContainer__MaxTemperature"></div>
+              <div class="WeatherContainer__MinTemperature"></div>
+            </div>
+          </div>
+          <div class="WeatherContainer__ProvidedBy">Data provided by <a href="metaweather.com">MetaWeather.com</a></div>
+        </div>
+        <br/>
+      `;
+
+      // Find the buttons we defined in the HTML above so we can attach a click listener to them. Note we are looking for
+      // the buttons from within "element" and not the entire "document" to make sure we find the buttons in this
+      // specific response and not some other custom response we may have.
+      element.querySelector('.WeatherContainer__CSelector').addEventListener('click', toggleTemperatures);
+      element.querySelector('.WeatherContainer__FSelector').addEventListener('click', toggleTemperatures);
+
+      updateTemperatures();
+    }
+
+    /**
+     * A simple utility function to convert from celsius to fahrenheit.
+     */
+    function toFahrenheit(celsius) {
+      return Math.round((celsius * 9 / 5) + 32);
+    }
+
+    // TODO: The extension is not currently working so we need this to fake the response.
+    function preReceiveHandler(event) {
+      const message = event.data;
+
+      if (message.output.generic) {
+        message.context.skills['actions skill'].skill_variables = {
+          weather_item_0: {
+            the_temp: 20,
+            min_temp: 10,
+            max_temp: 30
+          }, location_item_0: {title: 'Austin'}
+        }
+        message.output.generic.forEach(messageItem => {
+          messageItem.response_type = 'user_defined';
+          messageItem.user_defined = {
+            user_defined_type: 'weather_card'
+          };
+        })
+      }
+    }
+
+    /**
+     * This is the function that is called when the web chat code has been loaded and it is ready to be rendered.
+     */
+    function onLoad(instance) {
+      // Listen for the customResponse event that will allow us to create content for the custom response when one is
+      // received. See https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#summary for more
+      // about our events.
+      instance.on({
+        type: 'customResponse',
+        handler: (event, instance) => {
+          // The "user_defined_type" property is just an example. It is not required or you can use any other property
+          // or condition you want here. This makes it easier to handle different response types if you have more than
+          // one custom response type.
+          if (event.data.message.user_defined && event.data.message.user_defined.user_defined_type === 'weather_card') {
+            weatherCardResponseHandler(event, instance);
+          }
+        },
+      });
+      instance.render();
+
+      // TODO: Remove The extension is not currently working so we need this to fake the response.
+      instance.on({ type: 'pre:receive', handler: preReceiveHandler });
+    }
+
+    // A web chat configuration options object as documented at
+    // https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-configuration#configurationobject.
+    window.watsonAssistantChatOptions = {
+      integrationID: "23336f00-e47c-4ac0-846e-0889579445bf",
+      region: "us-south",
+      serviceInstanceID: "9a3613d2-3ce6-4928-8eb6-4d659d87ae68",
+      onLoad: onLoad,
+    };
+    setTimeout(function(){const t=document.createElement('script');t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";document.head.appendChild(t);});
+  </script>
+</body>
+</html>

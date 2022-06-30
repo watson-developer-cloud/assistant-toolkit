@@ -20,7 +20,7 @@ Zendesk requires you to have authentication in order to have fully functioning A
 1. Under `Settings`:
     - To enable username/password auth, toggle `Password access` to `Enabled`. (Not recommended)
     - To enable API token authentication (API Key), toggle `Token access` to `Enabled`, and click `Add API token`. Note that you will need to append `/token` to the end of your username (email) if you are using this option. (Recommended)
-1. You will now be able to use `{your_email}/token` and the generated `API token` to hit Zendesk's API, where `your_email` is the email of your verified (or unverified) user. You should use these credentials when adding your custom extension to your assistant.
+1. You will now be able to use `{your_email}/token` and the generated `API token` to access Zendesk's API, where `your_email` is the email of your verified (or unverified) user. You should use these credentials when adding your custom extension to your assistant.
 
 ![Create API Key](./assets/create-api-key.gif)<br>
 
