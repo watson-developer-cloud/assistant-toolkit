@@ -1,3 +1,5 @@
+Note: This document is in a temporary location until this content is moved into the [main Watson Assistant documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-overview) tutorials section.
+
 To send the information to the assistant from your web application you can set the value of variables in message context whenever a message is sent to the assistant. In this example we will be setting the name of your user so you can display a customized welcome message with the user's name in it. You could also use this to set other pieces of information about your user that could be used by your assistant. This can be used at any point in time to update any variable used by your assistant.
 
 To set the value of a variable follow these steps:

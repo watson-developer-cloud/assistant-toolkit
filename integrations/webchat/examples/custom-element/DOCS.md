@@ -1,3 +1,5 @@
+Note: This document is in a temporary location until this content is moved into the [main Watson Assistant documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-overview) tutorials section.
+
 To use a custom element to change the size or position of web chat, follow the steps below.
 
 Web chat uses the custom element you provide as the host location for web chat. It places both the main web chat window and the launcher element in this one host (if you are not using a custom launcher). When you use a custom element, web chat assumes that you will take control of showing and hiding the element when it is opened or closed. This allows you the opportunity to apply additional effects to the process such as animating in or out the element. Because the built-in launcher is also contained inside the custom element, you will need to show and hide the main window only using the `WACWidget` class name.

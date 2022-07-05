@@ -1,3 +1,5 @@
+Note: This document is in a temporary location until this content is moved into the [main Watson Assistant documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-overview) tutorials section.
+
 This will cover how to extend Watson Assistant web chat to be able to use the Watson Speech service to convert speech to text and text to speech.
 
 These steps assume that you have already created a Watson Speech service instance.

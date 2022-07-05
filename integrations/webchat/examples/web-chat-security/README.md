@@ -1,5 +1,7 @@
 # Enabling security for Watson Assistant web chat
 
+**For a full walk through of how this code works, please visit [the tutorial page](DOCS.md) in the Watson Assistant documentation.**
+
 This code is for extending the Watson Assistant web chat. If you are new to developing with web chat, please start with the [web chat development overview](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-develop). The code in this folder is commented with links and references to the web chat APIs used.
 
 This example demonstrates how to enable security with web chat. It will show how to create a JWT that can be used to securely authorize a webpage to access your web chat. It also demonstrates how to use a new JWT for the use case when a user logs into to a site in the middle of a Watson Assistant chat session as well as how to send the user's ID to Watson Assistant so it can be used in an action or an extension.
@@ -15,8 +17,6 @@ It demonstrates:
 - How to use a custom variable to change the user ID in the middle of a session.
 
 The server code for generating a JWT can be found in [createJWT.js](server/nodejs-express/routes/createJWT.js). The web chat code that uses the JWT can be found in [index.html](server/nodejs-express/static/index.html).
-
-**For a full walk through of how this code works, please visit [the tutorial page](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-overview) in the Watson Assistant documentation.**
 
 ## Running the Code
 

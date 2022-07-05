@@ -1,5 +1,7 @@
 # Custom elements for Watson Assistant web chat
 
+**For a full walk through of how this code works, please visit [the tutorial page](DOCS.md) in the Watson Assistant documentation.**
+
 This code is for extending the Watson Assistant web chat. If you are new to developing with web chat, please start with the [web chat development overview](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-develop). The code in this folder is commented with links and references to the web chat APIs used.
 
 ## Custom elements
@@ -12,8 +14,6 @@ It demonstrates:
 - How to use a [**window:close**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#windowclose) event handler to hide the main web chat window when web chat is closed.
 - How to use the [**element**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-configuration#configurationobject) configuration property to specify which custom element to use.
 - How to apply custom animation to the entrance and exit of web chat.
-
-**For a full walk through of how this code works, please visit [the tutorial page](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-overview) in the Watson Assistant documentation.**
 
 ## Running the Code
 

@@ -1,3 +1,5 @@
+Note: This document is in a temporary location until this content is moved into the [main Watson Assistant documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-overview) tutorials section.
+
 The existing docs (https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-security) cover explanations for how to set up security but there's a few tweaks we should make:
 
 1. We should probably move that architecture diagram much lower. It is pretty intimidating if that is the first thing you see and those details are probably not things that most of our customers need to worry about.
