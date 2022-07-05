@@ -1,3 +1,5 @@
+Note: This document is in a temporary location until this content is moved into the [main Watson Assistant documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-overview) tutorials section.
+
 To display information from an extension in a custom response, follow these steps.
 
 TODO: Should steps 1 and 2 (which are about using an extension to assign action variables) be separated as a seperate tutorial from steps 3+ (which are about using a custom response to show action variables)?

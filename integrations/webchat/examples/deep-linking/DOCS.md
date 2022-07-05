@@ -1,3 +1,5 @@
+Note: This document is in a temporary location until this content is moved into the [main Watson Assistant documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-overview) tutorials section.
+
 To create a link to a page that will open web chat to a specific topic, follow these steps.
 
 1. Define the messages you want web chat to send that will trigger the specific topics configured in your assistant and give each one a unique identifier. This identifier is what will appear in the link you give to your customers. It's a good idea to avoid IDs that are obvious for what they do to avoid customers trying to change them.

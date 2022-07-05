@@ -1,5 +1,7 @@
 # Change launcher and home screen text for Watson Assistant web chat
 
+**For a full walk through of how this code works, please visit [the tutorial page](DOCS.md) in the Watson Assistant documentation.**
+
 This code is for extending the Watson Assistant web chat. If you are new to developing with web chat, please start with the [web chat development overview](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-develop). The code in this folder is commented with links and references to the web chat APIs used.
 
 This example uses the current page that the user is on to customize the content that appears in the launcher as well as the home screen.
@@ -9,8 +11,6 @@ It demonstrates:
 - How to determine what page the user is on and how to use a condition for customizing the launcher and home screen.
 - How to use [**updateLauncherGreetingMessage**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#updateLauncherGreetingMessage) to change the text that is displayed in the launcher.
 - How to use [**updateHomeScreenConfig**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#homescreen) to change the greeting text as well as the starter buttons that are displayed on the home screen.
-
-**For a full walk through of how this code works, please visit [the tutorial page](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-overview) in the Watson Assistant documentation.**
 
 ## Running the Code
 

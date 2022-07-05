@@ -1,3 +1,5 @@
+Note: This document is in a temporary location until this content is moved into the [main Watson Assistant documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-overview) tutorials section.
+
 To use a custom response to display a content carousel, follow the steps below.
 
 1. Add a step to your action that returns a `user_defined` response. Use the JSON editor to send the following response. This embeds the carousel data inside the `user_defined` object, but you could also put the data into skill variables that can be accessed by web chat from the context object.

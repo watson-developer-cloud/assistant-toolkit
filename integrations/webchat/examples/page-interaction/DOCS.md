@@ -1,3 +1,5 @@
+Note: This document is in a temporary location until this content is moved into the [main Watson Assistant documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-overview) tutorials section.
+
 To interact with the host page using a custom response, follow the steps below.
 
 1. Register a listener for the custom response event. When web chat receives a `user_defined` response from the assistant, it will fire this event.

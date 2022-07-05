@@ -1,3 +1,5 @@
+Note: This document is in a temporary location until this content is moved into the [main Watson Assistant documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-overview) tutorials section.
+
 To change the greeting action used by the assistant follow these steps.
 
 1. The first step is to determine what page the user is on. How this is done can vary a lot by application and you can customize this however is appropriate for your application but a simple mechanism is to check for a URL parameter.

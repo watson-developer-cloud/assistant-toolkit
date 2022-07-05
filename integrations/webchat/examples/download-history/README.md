@@ -1,5 +1,7 @@
 # Download history for Watson Assistant web chat
 
+**For a full walk through of how this code works, please visit [the tutorial page](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-develop-download-transcript) in the Watson Assistant documentation.**
+
 This code is for extending the Watson Assistant web chat. If you are new to developing with web chat, please start with the [web chat development overview](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-develop). The code in this folder is commented with links and references to the web chat APIs used.
 
 This example demonstrates how to capture the conversation history for both Watson Assistant and for conversation with a human agent at a service desk and provide an option for the user to download them. It will add a custom menu option to the web chat header for the user to do this.
@@ -12,8 +14,6 @@ It demonstrates:
 - How to use the [**updateCustomMenuOptions**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#updatecustommenuoptions) instance function to add a "Download history" option to the header.
 - How to convert [**Watson Assistant messages**](https://cloud.ibm.com/apidocs/assistant/assistant-v2#message) into a text format that can be downloaded.
 - How to use the built-in `Blob` and `URL` objects to construct a downloadable link.
-
-**For a full walk through of how this code works, please visit [the tutorial page](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-develop-download-transcript) in the Watson Assistant documentation.**
 
 ## Running the Code
 

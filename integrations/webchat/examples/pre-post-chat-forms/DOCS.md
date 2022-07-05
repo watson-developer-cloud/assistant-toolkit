@@ -1,3 +1,5 @@
+Note: This document is in a temporary location until this content is moved into the [main Watson Assistant documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-overview) tutorials section.
+
 To display a custom form using a custom panel in web chat when the user opens or closes web chat, follow the steps below. When web chat is opened or closed it will fire an event that you can listen for. Inside a handler for these events, you can use the custom panels feature of web chat to display a panel with custom content for your users. If you want your custom panel to pause the opening or closing process of web chat (for example if you want to gather information from the user before triggering the greeting message in your action), then your handler will need to return a promise that is only resolved when the user completes your form and you close the custom panel.
 
 These steps demonstrate how to create a pre-chat form but the same steps can be used for creating a post-chat form, you just need to listen to the `window:pre:close` event instead of the `window:open` event.
