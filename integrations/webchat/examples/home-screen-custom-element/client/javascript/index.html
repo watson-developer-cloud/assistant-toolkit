@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Home screen with custom element - Watson Assistant web chat toolkit</title>
-  <link rel="stylesheet" href="../../../../common/carbon-components.min.css">
 
   <style>
     #WACContainer.WACContainer .HSArticles {
@@ -69,6 +68,8 @@
       link.href = href;
       link.target = '_blank'
       link.classList.add('HSContainer__Link');
+      // All IBM Carbon class names (https://v10.carbondesignsystem.com/) are automatically available for use inside of web chat and will inherit theming
+      // values you have set on web chat.
       link.classList.add('bx--link');
       link.innerHTML = `<span class="HSContainer__LinkIcon">${icon}</span>${label}`;
       return link;
