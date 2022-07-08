@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Pre and post-chat forms - Watson Assistant web chat toolkit</title>
-  <link rel="stylesheet" href="../../../../common/carbon-components.min.css">
 
   <style>
     .RestartContent {
@@ -160,6 +159,8 @@
       const { hostElement } = customPanel;
 
       hostElement.classList.add('HostElement');
+      // All IBM Carbon class names (those pre-pended with bx-- in the block below, see: https://v10.carbondesignsystem.com/) are automatically available for use inside of web chat and will inherit theming
+      // values you have set on web chat.
       hostElement.innerHTML = `
         <div class="PreChatForm ChatForm">
           <div class="ChatForm__Upper">

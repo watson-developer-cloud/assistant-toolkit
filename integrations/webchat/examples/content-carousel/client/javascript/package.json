@@ -10,7 +10,6 @@
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.5.0",
-    "carbon-components": "^10.56.0",
     "parcel": "^2.4.1"
   },
   "dependencies": {

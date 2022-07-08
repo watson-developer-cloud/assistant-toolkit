@@ -1,7 +1,3 @@
-// This allows us to use the CSS from Carbon for styling our buttons.
-@import 'node_modules/carbon-components/scss/components/button/button';
-@import 'node_modules/carbon-components/scss/components/tile/tile';
-
 // Swiper comes with its own styles, but those styles by themselves will be blocked by the reset styling of web chat.
 // To use Swiper from within web chat, all of its styles need to be prefixed with "#WACContainer.WACContainer". This
 // imports all of the Swiper styles and puts them under the web chat styles. You can also alternatively use web
@@ -25,6 +21,8 @@
   max-width: 240px;
 }
 
+// All Carbon styles like .bx--tile or .bx--button are already available for use in web chat and will inherit any 
+// theming properties you have set.
 #WACContainer.WACContainer .bx--tile.Carousel__Card {
   border-radius: 12px;
   overflow: hidden;
