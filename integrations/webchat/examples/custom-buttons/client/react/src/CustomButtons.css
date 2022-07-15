@@ -1,0 +1,14 @@
+#WACContainer.WACContainer .CustomButtons .CustomButton {
+  margin-bottom: 8px;
+}
+
+#WACContainer.WACContainer .CustomButtons button.CustomButton--selected {
+  opacity: 0.5;
+  background-color: #004144;
+  color: #ffffff;
+}
+
+#WACContainer.WACContainer .CustomButton:hover:not(.CustomButton--selected):not(:disabled) {
+  opacity: 0.5;
+  cursor: pointer;
+}

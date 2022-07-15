@@ -1,0 +1,129 @@
+// Swiper comes with its own styles, but those styles by themselves will be blocked by the reset styling of web chat.
+// To use Swiper from within web chat, all of its styles need to be prefixed with "#WACContainer.WACContainer". This
+// imports all of the Swiper styles and puts them under the web chat styles. You can also alternatively use web
+// components to isolate the styling of your custom response but you will lose any styling inherited from web chat if
+// you do that.
+#WACContainer.WACContainer {
+  @import 'node_modules/swiper/swiper';
+}
+
+#WACContainer.WACContainer .swiper {
+  width: 100%;
+}
+
+#WACContainer.WACContainer .swiper-slide {
+  padding-top: 3px;
+  padding-bottom: 10px;
+}
+
+#WACContainer.WACContainer .swiper-slide,
+#WACContainer.WACContainer .swiper-slide > * {
+  max-width: 240px;
+}
+
+// All Carbon styles like .bx--tile or .bx--button are already available for use in web chat and will inherit any
+// theming properties you have set.
+#WACContainer.WACContainer .bx--tile.Carousel__Card {
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 0;
+  box-shadow: 0 1px 4px 0 #c5c2c2;
+}
+
+#WACContainer.WACContainer .Carousel__CardImage {
+  // Without this, an extra space at the bottom of the image gets applied.
+  display: block;
+  width: 100%;
+}
+
+#WACContainer.WACContainer .Carousel__CardText {
+  padding: 16px;
+}
+
+#WACContainer.WACContainer .Carousel__CardTitle {
+  color: #004144;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22px;
+  margin-bottom: 8px;
+}
+
+#WACContainer.WACContainer .Carousel__CardDescription {
+  color: #4d5358;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+#WACContainer.WACContainer .Carousel__Card .bx--btn.Carousel__CardButton {
+  width: 100%;
+  height: 32px;
+  justify-content: center;
+  color: #ffffff;
+}
+
+#WACContainer.WACContainer .Carousel__Card .bx--btn.Carousel__CardButton:last-child {
+  border-radius: 0 0 12px 12px;
+}
+
+#WACContainer.WACContainer .Carousel__Card .Carousel__CardButton,
+#WACContainer.WACContainer .Carousel__Card .Carousel__CardButton:hover {
+  text-decoration: none;
+}
+
+#WACContainer.WACContainer button.Carousel__NavigationButton,
+#WACContainer.WACContainer .Carousel__BulletContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#WACContainer.WACContainer .Carousel__Navigation .bx--btn,
+#WACContainer.WACContainer .swiper .bx--btn {
+  min-height: unset;
+  min-width: unset;
+  padding: unset;
+}
+
+#WACContainer.WACContainer .Carousel__Navigation {
+  display: flex;
+  width: fit-content;
+  margin: 12px auto auto;
+}
+
+#WACContainer.WACContainer button.Carousel__NavigationButton {
+  height: 32px;
+  width: 32px;
+  padding: 0;
+}
+
+#WACContainer.WACContainer button.Carousel__NavigationButton > svg {
+  user-select: none;
+  pointer-events: none;
+  fill: #161616;
+}
+
+#WACContainer.WACContainer .Carousel__BulletContainer {
+  padding-right: 8px;
+  padding-left: 8px;
+}
+
+#WACContainer.WACContainer .Carousel__Bullet {
+  cursor: pointer;
+  height: 8px;
+  width: 8px;
+  margin-left: 4px;
+  margin-right: 4px;
+  border-radius: 4px;
+  background-color: #c6c6c6;
+  padding: 0;
+  outline: none;
+}
+
+#WACContainer.WACContainer .Carousel__Bullet:focus {
+  box-shadow: none;
+}
+
+#WACContainer.WACContainer .Carousel__Bullet--selected {
+  background-color: #393939;
+}

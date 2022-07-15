@@ -81,7 +81,7 @@ function createSlides(slidesContainer, message, webChatInstance) {
         <a href="https://www.ibm.com" class="Carousel__CardButton bx--btn bx--btn--primary" target="_blank">
           View more details
         </a>
-        <!-- This button will send a message to the assisstant and web chat will respond with more info. -->
+        <!-- This button will send a message to the assistant and web chat will respond with more info. -->
         <button type="button" class="Carousel__CardButton Carousel__CardButtonMessage bx--btn bx--btn--primary">
           Tell me more about this
         </button>

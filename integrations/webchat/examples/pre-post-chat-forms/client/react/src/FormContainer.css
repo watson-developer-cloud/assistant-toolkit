@@ -1,0 +1,76 @@
+#WACContainer.WACContainer .HostElement {
+  height: 100%;
+}
+
+#WACContainer.WACContainer .ChatForm {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+#WACContainer.WACContainer .ChatForm__Upper {
+  padding: 16px;
+  flex: 1;
+}
+
+#WACContainer.WACContainer .ChatForm__Title {
+  margin-top: 80px;
+  font-size: 32px;
+  line-height: 48px;
+}
+
+#WACContainer.WACContainer .ChatForm__TitleBar {
+  display: inline-block;
+  width: 3px;
+  height: 23px;
+  background-color: #004144;
+  border-radius: 3px;
+  margin-right: 13px;
+}
+
+#WACContainer.WACContainer .PreChatForm__ButtonContainer {
+  width: 100%;
+  display: flex;
+}
+
+#WACContainer.WACContainer .PreChatForm__ButtonContainer button {
+  width: 50%;
+}
+
+#WACContainer.WACContainer .PostChatForm__RatingButtonsContainer {
+  display: flex;
+}
+
+#WACContainer.WACContainer #PostChatForm__FeedbackField {
+  padding: 8px;
+  height: 80px;
+}
+
+#WACContainer.WACContainer button.PostChatForm__RatingButton svg {
+  fill: currentColor;
+}
+
+#WACContainer.WACContainer button.PostChatForm__RatingButton  {
+  padding: 0;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  color: #161616;
+  justify-content: center;
+}
+
+#WACContainer.WACContainer button.PostChatForm__RatingButton--selected:hover,
+#WACContainer.WACContainer button.PostChatForm__RatingButton--selected  {
+  color: #ffffff;
+  background-color: #004144;
+}
+
+#WACContainer.WACContainer .PostChatForm .bx--form {
+  height: 100%;
+}
+
+#WACContainer.WACContainer .PostChatForm .bx--form-item label {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  font-size: 16px;
+}

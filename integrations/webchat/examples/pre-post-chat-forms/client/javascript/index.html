@@ -31,9 +31,6 @@
       line-height: 48px;
     }
 
-    #WACContainer.WACContainer .ChatForm__TitleText {
-    }
-
     #WACContainer.WACContainer .ChatForm__TitleBar {
       display: inline-block;
       width: 3px;
@@ -159,8 +156,8 @@
       const { hostElement } = customPanel;
 
       hostElement.classList.add('HostElement');
-      // All IBM Carbon class names (those pre-pended with bx-- in the block below, see: https://v10.carbondesignsystem.com/) are automatically available for use inside of web chat and will inherit theming
-      // values you have set on web chat.
+      // All IBM Carbon class names (those pre-pended with bx-- in the block below, see: https://v10.carbondesignsystem.com/)
+      // are automatically available for use inside of web chat and will inherit theming values you have set on web chat.
       hostElement.innerHTML = `
         <div class="PreChatForm ChatForm">
           <div class="ChatForm__Upper">
@@ -169,7 +166,7 @@
               <span class="ChatForm__TitleText">Let's get started.</span>
             </div>
             <div class="bx--form-item bx--text-input-wrapper">
-              <label for="PreChatForm__NameField" class="bx--label">Your name</label>
+              <label for="PreChatForm__NameField" class="bx--label">Please enter your name</label>
               <div class="bx--text-input__field-outer-wrapper">
                 <div class="bx--text-input__field-wrapper">
                   <input id="PreChatForm__NameField" type="text" class="bx--text-input" placeholder="Required">

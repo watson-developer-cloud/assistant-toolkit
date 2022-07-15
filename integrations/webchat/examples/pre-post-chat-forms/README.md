@@ -22,6 +22,16 @@ It demonstrates:
 3. Type "Say something" to send a message to the assistant (the post-chat form in this example is only displayed if the user has sent a message to the assistant).
 4. Close web chat and fill out the post-chat form that is displayed.
 
+### Running the React Example
+
+1. `cd client/react`
+2. `npm install`
+3. `npm run start`
+4. Open a web browser to `localhost:3000`
+5. Open web chat and fill out the pre-chat form that is displayed. The name you enter will be displayed as part of the greeting message.
+6. Type "Say something" to send a message to the assistant (the post-chat form in this example is only displayed if the user has sent a message to the assistant).
+7. Close web chat and fill out the post-chat form that is displayed.
+
 ## Setting up your own assistant
 
 This example is configured to use an existing assistant set up for common use by anyone running this example. If you want to set up your own assistant, you'll need to perform the following steps.

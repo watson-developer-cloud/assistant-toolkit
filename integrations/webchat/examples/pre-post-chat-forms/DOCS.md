@@ -4,6 +4,8 @@ To display a custom form using a custom panel in web chat when the user opens or
 
 These steps demonstrate how to create a pre-chat form but the same steps can be used for creating a post-chat form, you just need to listen to the `window:pre:close` event instead of the `window:open` event.
 
+# JavaScript
+
 1. Register a listener that will call your handler when web chat is opened.
 ```javascript
 instance.on({ type: 'window:open', handler: windowOpenHandler });
@@ -41,5 +43,91 @@ function createOpenPanel(event, instance) {
 }
 
 ```
+
+# React
+
+For the React version, use the `WebChatContainer` component from the `assistant-web-chat-react` library that renders web chat for you and provides access to the web chat instance object that you will need for displaying custom panels.
+
+This will render a container for the pre-chat form once the web chat instance is ready.
+
+```javascript
+function App() {
+  const [instance, setInstance] = useState(null);
+  return (
+    <>
+      <WebChatContainer config={config} onBeforeRender={setInstance} />
+      {instance && <FormContainer instance={instance} />}
+    </>
+  );
+}
+```
+
+Then create a container that will manage the custom panel. This container will listen for window open events that will cause the custom panel to open and display the pre-chat form.
+
+```javascript
+function FormContainer({ instance }) {
+  // We store the Promise that is created when the custom panel is opened. This Promise should be resolved whent the
+  // panel is closed.
+  const promiseResolveRef = useRef();
+  const [isPanelOpen, setIsPanelOpen] = useState(false);
+
+  useEffect(() => {
+    instance.on({ type: 'window:open', handler: windowOpenHandler });
+    return () => {
+      instance.off({ type: 'window:open', handler: windowOpenHandler });
+    };
+  }, [instance]);
+
+  const changePanelOpen = useCallback(
+    (newPanelOpen) => {
+      setIsPanelOpen(newPanelOpen);
+      const customPanel = instance.customPanels.getPanel();
+      if (newPanelOpen) {
+        customPanel.open({ hidePanelHeader: true, disableAnimation: true });
+      } else {
+        if (promiseResolveRef.current) {
+          promiseResolveRef.current();
+          promiseResolveRef.current = null;
+        }
+        customPanel.close();
+      }
+    },
+    [instance],
+  );
+
+  useEffect(() => {
+    const customPanel = instance.customPanels.getPanel();
+    if (isPanelOpen) {
+      customPanel.open({ hidePanelHeader: true, disableAnimation: true });
+    } else {
+      // If there is a promise waiting for the custom panel to close, then resolve it now.
+      if (promiseResolveRef.current) {
+        promiseResolveRef.current();
+        promiseResolveRef.current = null;
+      }
+      customPanel.close();
+    }
+  }, [isPanelOpen, instance]);
+
+  function windowOpenHandler() {
+    return new Promise((resolve) => {
+      promiseResolveRef.current = resolve;
+      changePanelOpen('pre-chat');
+    });
+  }
+
+  return (
+    <CustomPanelPortal hostElement={instance.customPanels.getPanel().hostElement}>
+      {isPanelOpen && <PreChatForm changePanelOpen={changePanelOpen} />}
+    </CustomPanelPortal>
+  );
+}
+
+function CustomPanelPortal({ hostElement, children }) {
+  return ReactDOM.createPortal(children, hostElement);
+}
+```
+
+Refer to the linked example to see more details about how to create the actual pre-chat form as well as how to take the data from the form and pass it to the assistant when the user sends a message.
 
 For complete working code see [the example in our GitHub repository](https://github.com/watson-developer-cloud/assistant-toolkit/tree/master/integrations/webchat/examples/pre-post-chat-forms).
