@@ -137,6 +137,17 @@ It demonstrates:
 - How to use a [**pre:send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#presend) event handler to set a context variable when a message is sent.
 - How to use a variable in an action.
 
+## [Sharing location](set-context/README.md)
+
+This example demonstrates how to share the user's geographic location with the assistant and use that info to display an I-frame of a Google map for the nearest IBM office.
+
+It demonstrates:
+
+- How to use the [**receive**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#receive) event handlers to identify messages from the assistant that should trigger an action by the browser.
+- How to use the [**send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#send) instance function to send messages to the assistant and how to set context/skill variables.
+- How to use the browser's built-in geolocation functionality to obtain the user's current location.
+- How to use a variable in an action.
+
 ## [Speech and text](speech-and-text/README.md)
 
 This example demonstrates how to use the Watson Speech services to convert speech to text and text to speech. It will show how to get web chat to speak the text that it receives from the assistant and how to use a record button to listen to a user for speech that will be converted to text and sent to the assistant from web chat.
