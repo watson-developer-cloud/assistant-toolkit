@@ -1,0 +1,174 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Zendesk Search Articles",
+    "description": "Zendesk Search Articles unofficial partial spec from IBM.  We made this by running the API and observing the behavior.  There is a detailed documentation of the full API at https://developer.zendesk.com/api-reference/help_center/help-center-api/search/#search-articles that you may want to use to add more functionality to this spec.  This spec is a minimal starting point that can handle some basic use cases.",
+    "version": "1.0"
+  },
+  "servers": [
+		{
+			"url": "https://{subdomain}.zendesk.com",
+			"description": "The selected server for your Zendesk account",
+			"variables": {
+				"subdomain": {
+					"default": "fill_here",
+					"description": "The domain for your Zendesk account"
+				}
+			}
+		}
+	],
+  "paths": {
+    "/api/v2/help_center/articles/search": {
+      "get": {
+        "security": [
+          {
+            "basic": []
+          }
+        ],
+        "description": "Search Articles",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "help"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Article search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "next_page": {
+                      "type": "string"
+                    },
+                    "previous_page": {
+                      "type": "string"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "page_count": {
+                      "type": "integer"
+                    },
+                    "per_page": {
+                      "type": "integer"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string"
+                          },
+                          "id": {
+                            "type": "integer"
+                          },
+                          "author_id": {
+                            "type": "integer"
+                          },
+                          "html_url": {
+                            "type": "string"
+                          },
+                          "comments_disabled": {
+                            "type": "boolean"
+                          },
+                          "draft": {
+                            "type": "boolean"
+                          },
+                          "promoted": {
+                            "type": "boolean"
+                          },
+                          "position": {
+                            "type": "integer"
+                          },
+                          "vote_sum": {
+                            "type": "integer"
+                          },
+                          "vote_count": {
+                            "type": "integer"
+                          },
+                          "section_id": {
+                            "type": "integer"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "source_locale": {
+                            "type": "string"
+                          },
+                          "locale": {
+                            "type": "string"
+                          },
+                          "outdated": {
+                            "type": "boolean"
+                          },
+                          "outdated_locales": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "edited_at": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "updated_at": {
+                            "type": "string"
+                          },
+                          "label_names": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "user_segment_id": {
+                            "type": "integer"
+                          },
+                          "permission_group_id": {
+                            "type": "integer"
+                          },
+                          "body": {
+                            "type": "string"
+                          },
+                          "snippet": {
+                            "type": "string"
+                          },
+                          "result_type": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "basic": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    }
+  }
+}
