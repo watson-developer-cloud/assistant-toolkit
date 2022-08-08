@@ -39,6 +39,14 @@ If you want to add this starter kit to an _existing_ assistant, you cannot use t
   - Click the fX button to add a variable and add new session variable `query_text` and select "Expression" type and then put `input.text` or `input.original_text` as the expression.  The former will employ spelling correction to fix any detected spelling errors before sending the query, which can be helpful but it can also be counterproductive if your documents include specialized terminology that is not in our dictionary (such as product names).  On the other hand, we've seen some undiagnosed reliability issues with `input.original_text` so be sure to test carefully if you use `input.original_text` and consider switching to `input.text` if you find that the `query_text` variable is not being set correctly (which will be easy to detect if you complete the next step).
   - Optional: In "Assistant says", put `Searching for: ${query_text}`
   - In "And then", select "Use an extension", select the extension you made back in step 2, and select the search endpoint and set the `query` paramter to the `query_text` session variable.
+
+![Add query step](./assets/add-query-step.gif)<br>
+
+- Click "New Step" and change "without conditions" to "with conditions" and select "Ran successfully" is "false".  Also set "And then" to "End the action".  Then add the following to the "Assistant says":
+Sorry.  The search failed!  Please try again another time.
+
+![Add search failed step](./assets/search-failed-step.gif)<br>
+
 - Still in the "Search" action, add a "New Step".  In the new step:
   - In "Assistant says" hit `$` and select "Ran Successfully" and then click on `</>` in the upper right of that box to see the full JSON for the response.  In there, you should see a field called `variable` with a value that looks something like `step_123_result_1`.  Copy that value.
   - Click "abc" in the upper right and delete the variable in "Assistant says" (we only put it there to copy the variable name).
@@ -55,25 +63,37 @@ title2 = ${step_123_result_1}.body.results.get(2).title
 snippet2 = ${step_123_result_1}.body.results.get(2).snippet
 ```
 - Change "without conditions" to "with conditions" and select "true" for "Ran successfully"
-- Click "New Step" and change "without conditions" to "with conditions" and select "Ran successfully" is "false".  Also set "And then" to "End the action".  Then add the following to the "Assistant says":
-Sorry.  The search failed!  Please try again another time.
+
+![Map variables to results](./assets/map-variables-step.gif)<br>
+
 - Click "New Step" and change "without conditions" to "with conditions" and select "Ran successfully" is "true" and "link0" is not "defined".  Also set "And then" to "End the action".  Then add the following to the "Assistant says":
 No search results were found for query "${query_text}"
+
+![No results were found](./assets/no-results-step.gif)<br>
+
 - Click "New Step" and also change "without conditions" to "with conditions" and select "Ran successfully" is "true" and "link0" is "defined".  Then add the following to the "Assistant says":
+
 ```
 <a href="${link0}" target="_blank">${title0}</a>
 ${snippet0}
 ```
+
+![Create first result snippet](./assets/create-snippet-1.gif)<br>
+
 - Click "New Step" and change "without conditions" to "with conditions" and select "Ran successfully" is "true" and "link1" is "defined".  Then add the following to the "Assistant says":
+
 ```
 <a href="${link1}" target="_blank">${title1}</a>
 ${snippet1}
 ```
+
 - Click "New Step" and change "without conditions" to "with conditions" and select select "Ran successfully" is "true" and "link2" is "defined".  For this step, set "And then" to "End the action".  Then add the following to the "Assistant says":
+
 ```
 <a href="${link2}" target="_blank">${title2}</a>
 ${snippet2}
 ```
+
 - Close the action editor (by clicking X in the upper right)
 - Go to "Actions" > "Set by assistant" > "No action matches" and remove all the steps from the action.  Add in a new step.  Under "And then" select "Go to another action" and select "Search" and click "End this action after the subaction is completed".
 - You may also want to go to "Actions" > "Set by assistant" > "Fallback" and do the same thing as in the previous step.  Note, however, that this will prevent your assistant from escalating to a human agent when a customer asks to connect to a human agent (which is part of the default behavior for "Fallback") so only do this if you do not have your bot connected to a human agent chat service.  For more details on connecting to human agents within Watson Assistant see [our documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-human-agent) and [blog post](https://medium.com/ibm-watson/bring-your-own-service-desk-to-watson-assistant-b39bc920075c).
