@@ -40,7 +40,7 @@ If you want to add this starter kit to an _existing_ assistant, you cannot use t
 
 - Download the OpenAPI specification in this starter kit.
 - Use the OpenAPI specification to [build a custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension).
-- [Add the extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension) using the credentials you obtained in the first step above.
+- [Add the extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension) using the API key you obtained in the first step above.
 - Go to `Variables > Created by you` and add `query_text`, `result_items` `link0`, `link1`, `link2`, `title0`, `title1`, `title2`, `snippet0`,`snippet1`, and `snippet2`.
 - Create a new action and put "Search" in "What does your customer say to start this interaction?".  Add step 1:
   - Click the fX button to add a variable and add new session variable `query_text` and select "Expression" type and then put `input.text` or `input.original_text` as the expression.  The former will employ spelling correction to fix any detected spelling errors before sending the query, which can be helpful but it can also be counterproductive if your documents include specialized terminology that is not in our dictionary (such as product names).  On the other hand, we've seen some undiagnosed reliability issues with `input.original_text` so be sure to test carefully if you use `input.original_text` and consider switching to `input.text` if you find that the `query_text` variable is not being set correctly (which will be easy to detect if you complete the next step).
