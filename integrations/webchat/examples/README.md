@@ -161,6 +161,14 @@ It demonstrates:
 - How to use the [**Watson Speech JS SDK**](https://github.com/watson-developer-cloud/speech-javascript-sdk) To convert the recorded speech to text.
 - How to use the [**send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#send) instance function to send the converted text to the assistant.
 
+## [Using Carbon](using-carbon/README.md)
+
+This example demonstrates how to use the Carbon Design System with web chat. There is both a vanilla JavaScript example using web components and a React example.
+
+It demonstrates:
+
+- How to use a [**customResponse**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#customresponse) event handler to render an accordion using Carbon.
+
 ## [Web chat security](web-chat-security/README.md)
 
 This example demonstrates how to enable security with web chat. It will show how to create a JWT that can be used to securely authorize a webpage to access your web chat. It also demonstrates how to use a new JWT for the use case when a user logs into to a site in the middle of a Watson Assistant chat session as well as how to send the user's ID to Watson Assistant so it can be used in an action or an extension.
@@ -174,3 +182,4 @@ It demonstrates:
 - How to set the user ID used by web chat.
 - How to encrypt a payload in a JWT so that secret information can be sent to the assistant.
 - How to use a custom variable to change the user ID in the middle of a session.
+
