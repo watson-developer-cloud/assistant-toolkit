@@ -38,7 +38,9 @@ function FormContainer({ instance }) {
     // Add listeners that will use a custom panel to display custom content when web chat is opened or closed. You
     // can use window:close instead of window:pre:close but window:pre:close gives you the option of including a
     // cancel button to allow the user to keep web chat open. You can also use the agent start and end chat events
-    // to accomplish the same thing when users are interacting with a human agent from a service desk.
+    // to accomplish the same thing when users are interacting with a human agent from a service desk. Using
+    // "window:open" allows us to display a custom panel after the web chat window has been opened; with
+    // "window:pre:open" web chat will not be open yet and you can't show a custom panel if web chat is closed.
     instance.on({ type: 'window:open', handler: windowOpenHandler });
     instance.on({ type: 'window:pre:close', handler: preCloseHandler });
     // This listener will be used to send the information gathered in the pre-chat form to the assistant.
@@ -53,28 +55,11 @@ function FormContainer({ instance }) {
     };
   }, [instance]);
 
-  // When the current panel/form being shown changes, open or close the custom panel.
-  const changePanel = useCallback(
-    (newPanel) => {
-      setCurrentPanel(newPanel);
-      const customPanel = instance.customPanels.getPanel();
-      if (newPanel) {
-        customPanel.open({ hidePanelHeader: true, disableAnimation: true });
-      } else {
-        // If there is a promise waiting for the custom panel to close, then resolve it now.
-        if (promiseResolveRef.current) {
-          promiseResolveRef.current();
-          promiseResolveRef.current = null;
-        }
-        customPanel.close();
-      }
-    },
-    [instance],
-  );
-
-  useEffect(() => {
+  // Update the state of the custom panel based on the "newCurrentPanel" value. It will open or close it as necessary as
+  // well as resolve the open promise if there is one.
+  function handleCurrentPanel(newCurrentPanel) {
     const customPanel = instance.customPanels.getPanel();
-    if (currentPanel) {
+    if (newCurrentPanel) {
       customPanel.open({ hidePanelHeader: true, disableAnimation: true });
     } else {
       // If there is a promise waiting for the custom panel to close, then resolve it now.
@@ -84,6 +69,18 @@ function FormContainer({ instance }) {
       }
       customPanel.close();
     }
+  }
+
+  // When the current panel/form being shown changes, open or close the custom panel.
+  function changePanel(newPanel) {
+    setCurrentPanel(newPanel);
+    handleCurrentPanel(newPanel);
+  }
+
+  // This useEffect will detect when the custom panel changes state and it will open or close it as necessary as
+  // well as resolve the open promise if there is one.
+  useEffect(() => {
+    handleCurrentPanel(currentPanel);
   }, [currentPanel, instance]);
 
   /**
@@ -95,7 +92,7 @@ function FormContainer({ instance }) {
       windowOpenEvent.current = event;
 
       // Return a Promise which web chat will wait for before completing the opening process. Our custom code will
-      // resolve this problem after the user completes the pre-chat form. If they click cancel, we can use the event
+      // resolve this Promise after the user completes the pre-chat form. If they click cancel, we can use the event
       // provided here to cancel the open and close web chat.
       return new Promise((resolve) => {
         promiseResolveRef.current = resolve;
@@ -114,7 +111,7 @@ function FormContainer({ instance }) {
       sessionStorage.setItem('POST_CHAT_SHOWN', 'true');
 
       // Return a Promise which web chat will wait for before completing the closing process. Our custom code will
-      // resolve this problem after the user completes the post-chat form. You could include a cancel button in the
+      // resolve this Promise after the user completes the post-chat form. You could include a cancel button in the
       // form if you wanted to allow the user to go back without actually closing web chat. But this example just
       // lets the user optionally provide feedback.
       return new Promise((resolve) => {
@@ -159,7 +156,7 @@ function FormContainer({ instance }) {
   }, []);
 
   const onPreChatCancel = useCallback(() => {
-    // Cancel the open even which will cause web chat to close.
+    // Cancel the open event which will cause web chat to close.
     if (windowOpenEvent.current) {
       windowOpenEvent.current.cancelOpen = true;
       windowOpenEvent.current = null;

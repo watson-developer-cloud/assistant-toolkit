@@ -54,7 +54,7 @@ function PostChatForm({ onSubmit, onCancel }) {
           <TextArea
             className="PostChatForm__FeedbackOptional"
             id="feedback-text"
-            labelText="If you have any more additional feedback, please write them here. (optional)"
+            labelText="If you have any more additional feedback, please write it here. (optional)"
             onChange={onChange}
             rows={3}
           />

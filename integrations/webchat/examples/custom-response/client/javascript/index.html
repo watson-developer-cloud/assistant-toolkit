@@ -6,190 +6,196 @@
   <title>Extension with custom response - Watson Assistant web chat toolkit</title>
 
   <style>
-    #WACContainer.WACContainer .WeatherContainer {
+    #WACContainer.WACContainer .CurrencyCard {
       background-color: #ffffff;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
       border-radius: 8px;
       padding: 16px;
-      font-size: 14px;
-      line-height: 18px;
+      margin-bottom: 8px;
     }
 
-    #WACContainer.WACContainer .WeatherContainer__Header {
-      display: flex;
-    }
-
-    #WACContainer.WACContainer .WeatherContainer__City {
-      color: #004144;
+    #WACContainer.WACContainer .CurrencyCard p {
       font-size: 20px;
       line-height: 28px;
-      flex: 1;
     }
 
-    #WACContainer.WACContainer .WeatherContainer__Selector {
-      width: 32px;
-      height: 32px;
-      margin: 0;
-      padding: 0;
-      outline: none;
-      background: none;
-      border: 0;
-      font-weight: 600;
+    #WACContainer.WACContainer .CurrencyCard__ResultInput {
+      color: #525252;
+      font-size: 18px;
+      line-height: 30px;
     }
 
-    #WACContainer.WACContainer .WeatherContainer__Selector:not(disabled) {
+    #WACContainer.WACContainer .CurrencyCard__ResultOutput {
+      font-size: 30px;
+      line-height: 42px;
+    }
+
+    #WACContainer.WACContainer .CurrencyCard__CurrencyButtons {
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+
+    #WACContainer.WACContainer button.CurrencyCard__CurrencyButton {
+      background-color: #82f3f1;
       cursor: pointer;
-    }
-
-    #WACContainer.WACContainer .WeatherContainer__Selector:disabled {
-      background-color: #009d9a;
-      color: #ffffff;
-      cursor: default;
-    }
-
-    #WACContainer.WACContainer .WeatherContainer__TemperatureText {
-      color: #4d5358;
-    }
-
-    #WACContainer.WACContainer .WeatherContainer__Temperature {
-      padding-top: 8px;
-      display: flex;
-      align-items: center;
-    }
-
-    #WACContainer.WACContainer .WeatherContainer__CurrentTemperature {
-      font-size: 42px;
-      line-height: 50px;
-      color: #009d9a;
-    }
-
-    #WACContainer.WACContainer .WeatherContainer__MinMaxTemperature {
-      font-size: 14px;
-      font-weight: 600;
-      line-height: 20px;
       color: #004144;
-      padding-left: 16px;
     }
 
-    #WACContainer.WACContainer .WeatherContainer .WeatherContainer__ProvidedBy a,
-    #WACContainer.WACContainer .WeatherContainer .WeatherContainer__ProvidedBy a:visited,
-    #WACContainer.WACContainer .WeatherContainer__ProvidedBy {
-      color: #a8a8a8;
-      font-size: 12px;
-      line-height: 16px;
+    #WACContainer.WACContainer button.CurrencyCard__CurrencyButton--selected {
+      background-color: #004144;
+      color: #ffffff;
+    }
+
+    #WACContainer.WACContainer .CurrencyCard__AmountInput.bx--text-input {
+      background-color: #f4f4f4;
+    }
+
+    #WACContainer.WACContainer .bx--text-input-wrapper p {
+      font-size: 14px;
+      color: #525252;
+    }
+
+    #WACContainer.WACContainer .bx--text-input-wrapper {
+      margin-top: 8px;
+    }
+
+    #WACContainer.WACContainer .CurrencyCard__ExchangeButtonContainer {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    #WACContainer.WACContainer button.CurrencyCard__ExchangeButton {
+      margin-top: 24px;
     }
   </style>
 </head>
 <body>
   <script>
     /**
-     * This function is called when a custom response should be rendered in web chat. This will use the data inside the
-     * message to render custom content - in this case a simple weather card.
+     * This function is called to render the custom response that asks for input from the user about the currency and
+     * amount they wish to exchange.
      */
-    function weatherCardResponseHandler(event, instance) {
-      const { fullMessage, element } = event.data;
+    function currencyInputHandler(event, instance) {
+      const { element } = event.data;
 
-      // Check to see if we stored the selected temperature display in session history from before (by calling
-      // updateHistoryUserDefined). If not, the default is celsius.
-      let selectedTemperature = (fullMessage.history && fullMessage.history.user_defined && fullMessage.history.user_defined.selectedTemperature) || 'C';
+      let selectedCurrency;
+      let exchangeClicked = false;
 
-      // These are the variables that are set inside the action that uses the extension to ask for the weather.
-      const variables = fullMessage.context.skills['actions skill'].skill_variables;
-      const { weather_item_0, location_item_0 } = variables;
-      const city = location_item_0.title;
-
-      const currentTemperature = Math.round(weather_item_0.the_temp);
-      const minTemperature = Math.round(weather_item_0.min_temp);
-      const maxTemperature = Math.round(weather_item_0.max_temp);
-
-      /**
-       * This inner function will update this custom response to display the correct temperatures based on whether or
-       * not celsius or fahrenheit is the currently selecting temperature display. Because this is an inner function,
-       * it will only apply to this custom response and not any other custom responses we may have.
-       */
-      function updateTemperatures() {
-        const celsius = selectedTemperature === 'C';
-
-        element.querySelector('.WeatherContainer__CSelector').disabled = celsius
-        element.querySelector('.WeatherContainer__FSelector').disabled = !celsius;
-
-        const currentElement = element.querySelector('.WeatherContainer__CurrentTemperature');
-        const maxElement = element.querySelector('.WeatherContainer__MaxTemperature');
-        const minElement = element.querySelector('.WeatherContainer__MinTemperature');
-
-        currentElement.innerHTML = celsius ? `${currentTemperature}°C` : `${toFahrenheit(currentTemperature)}°F`;
-        maxElement.innerHTML = `${celsius ? maxTemperature : toFahrenheit(maxTemperature)}° High`;
-        minElement.innerHTML = `${celsius ? minTemperature : toFahrenheit(minTemperature)}° Low`;
-      }
-
-      /**
-       * This inner function will toggle the temperature display for this response between celsius and fahrenheit.
-       */
-      function toggleTemperatures() {
-        selectedTemperature = selectedTemperature === 'F' ? 'C' : 'F';
-        // When the temperature display is toggled, we want to save the state in session history. The
-        // updateHistoryUserDefined function will do that and store the data we are passing on the
-        // "history.user_defined" object. Note that this function has a limit of 20 calls per message.
-        instance.updateHistoryUserDefined(fullMessage.id, { selectedTemperature });
-        updateTemperatures();
-      }
-
-      // You can use innerHTML to set all of the HTML for the custom response like below. You can also use
-      // document.createElement and element.appendChild to create the individual elements one at a time.
       element.innerHTML = `
-        <div class="WeatherContainer">
-          <div class="WeatherContainer__Header">
-            <div class="WeatherContainer__City">${city}</div>
-            <button type="button" class="WeatherContainer__Selector WeatherContainer__CSelector">C°</button>
-            <button type="button" class="WeatherContainer__Selector WeatherContainer__FSelector">F°</button>
+        <div class="CurrencyCard">
+          <p>What currency would you like to exchange from?</p>
+          <div class="CurrencyCard__CurrencyButtons">
+            <button type="button" class="CurrencyCard__CurrencyButton bx--tag" data-currency="eur">${currencyLabel('eur')}</button>
+            <button type="button" class="CurrencyCard__CurrencyButton bx--tag" data-currency="gbp">${currencyLabel('gbp')}</button>
+            <button type="button" class="CurrencyCard__CurrencyButton bx--tag" data-currency="usd">${currencyLabel('usd')}</button>
+            <button type="button" class="CurrencyCard__CurrencyButton bx--tag" data-currency="jpy">${currencyLabel('jpy')}</button>
           </div>
-          <div class="WeatherContainer__TemperatureText">Current temperature</div>
-          <div class="WeatherContainer__Temperature">
-            <div class="WeatherContainer__CurrentTemperature"></div>
-            <div class="WeatherContainer__MinMaxTemperature">
-              <div class="WeatherContainer__MaxTemperature"></div>
-              <div class="WeatherContainer__MinTemperature"></div>
+          <div class="bx--form-item bx--text-input-wrapper">
+          <p>Choose an amount</p>
+            <div class="bx--text-input__field-outer-wrapper">
+              <div class="bx--text-input__field-wrapper">
+                <input type="text" class="CurrencyCard__AmountInput bx--text-input">
+              </div>
             </div>
           </div>
-          <div class="WeatherContainer__ProvidedBy">Data provided by <a href="metaweather.com">MetaWeather.com</a></div>
+          <div class="CurrencyCard__ExchangeButtonContainer">
+            <button type="button" class="CurrencyCard__ExchangeButton bx--btn bx--btn--primary" disabled>Exchange</button>
+          </div>
         </div>
-        <br/>
       `;
 
-      // Find the buttons we defined in the HTML above so we can attach a click listener to them. Note we are looking for
-      // the buttons from within "element" and not the entire "document" to make sure we find the buttons in this
-      // specific response and not some other custom response we may have.
-      element.querySelector('.WeatherContainer__CSelector').addEventListener('click', toggleTemperatures);
-      element.querySelector('.WeatherContainer__FSelector').addEventListener('click', toggleTemperatures);
+      const currencyButtons = element.querySelectorAll('.CurrencyCard__CurrencyButton');
+      const exchangeButton = element.querySelector('.CurrencyCard__ExchangeButton');
+      const amountInput = element.querySelector('.CurrencyCard__AmountInput');
 
-      updateTemperatures();
+      currencyButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          selectedCurrency = button.getAttribute('data-currency');
+          updateInputs();
+        })
+      });
+
+      function updateInputs() {
+        currencyButtons.forEach(button => {
+          if (button.getAttribute('data-currency') === selectedCurrency) {
+            button.classList.add('CurrencyCard__CurrencyButton--selected');
+          } else {
+            button.classList.remove('CurrencyCard__CurrencyButton--selected');
+          }
+        });
+
+        const amount = element.querySelector('.CurrencyCard__AmountInput').value;
+        exchangeButton.disabled = !selectedCurrency || !amount || !Number(amount) || exchangeClicked;
+      }
+
+      amountInput.addEventListener('input', updateInputs);
+
+      exchangeButton.addEventListener('click', () => {
+        exchangeClicked = true;
+
+        updateInputs();
+
+        // Send a message to the assistant using a well-known phrase it will recognize which should trigger the action
+        // that will perform the exchange conversion. The input currency and amount are stored in context variables
+        // that the action will read. The action will place the resulting values into output context variables.
+        const amount = element.querySelector('.CurrencyCard__AmountInput').value;
+        const message = {
+          context: {
+            skills: {
+              'actions skill': {
+                skill_variables: {
+                  'input_amount': Number(amount),
+                  'input_currency': selectedCurrency,
+                },
+              },
+            },
+          },
+          input: {
+            // This is the text the assistant will see.
+            text: `DO_EXCHANGE_CALCULATION`,
+          },
+          history: {
+            // This is the label the user will see.
+            label: `What is ${amount} ${currencyLabel(selectedCurrency)} in złoty?`,
+          }
+        };
+        instance.send(message);
+      });
     }
 
     /**
-     * A simple utility function to convert from celsius to fahrenheit.
+     * This function is called to render the custom response that displays the results from the previous custom
+     * response.
      */
-    function toFahrenheit(celsius) {
-      return Math.round((celsius * 9 / 5) + 32);
+    function currencyOutputHandler(event) {
+      const { element, fullMessage } = event.data;
+
+      const inputCurrency = fullMessage.context.skills['actions skill'].skill_variables.input_currency;
+      const inputAmount = fullMessage.context.skills['actions skill'].skill_variables.input_amount;
+      const outputAmount = fullMessage.context.skills['actions skill'].skill_variables.output_amount;
+
+      element.innerHTML = `
+        <div class="CurrencyCard">
+          <div class="CurrencyCard__ResultInput">
+            ${inputAmount} ${currencyLabel(inputCurrency)} equals
+          </div>
+          <div class="CurrencyCard__ResultOutput">
+            ${outputAmount} zł
+          </div>
+          <div class="CurrencyCard__ResultDivider"></div>
+        </div>
+      `;
     }
 
-    // TODO: The extension is not currently working so we need this to fake the response.
-    function preReceiveHandler(event) {
-      const message = event.data;
-
-      if (message.output.generic) {
-        message.context.skills['actions skill'].skill_variables = {
-          weather_item_0: {
-            the_temp: 20,
-            min_temp: 10,
-            max_temp: 30
-          }, location_item_0: {title: 'Austin'}
-        }
-        message.output.generic.forEach(messageItem => {
-          messageItem.response_type = 'user_defined';
-          messageItem.user_defined = {
-            user_defined_type: 'weather_card'
-          };
-        })
+    /**
+     * Returns a label for the given currency.
+     */
+    function currencyLabel(currency) {
+      switch (currency) {
+        case 'eur': return '€ Euro';
+        case 'gbp': return '£ Pound';
+        case 'usd': return '$ USD';
+        case 'jpy': return '¥ Yen';
       }
     }
 
@@ -203,18 +209,17 @@
       instance.on({
         type: 'customResponse',
         handler: (event, instance) => {
-          // The "user_defined_type" property is just an example. It is not required or you can use any other property
-          // or condition you want here. This makes it easier to handle different response types if you have more than
+          // The "user_defined_type" property is just an example; it is not required. You can use any other property or
+          // condition you want here. This makes it easier to handle different response types if you have more than
           // one custom response type.
-          if (event.data.message.user_defined && event.data.message.user_defined.user_defined_type === 'weather_card') {
-            weatherCardResponseHandler(event, instance);
+          if (event.data.message.user_defined && event.data.message.user_defined.user_defined_type === 'currency_exchange_input') {
+            currencyInputHandler(event, instance);
+          } else if (event.data.message.user_defined && event.data.message.user_defined.user_defined_type === 'currency_exchange_output') {
+            currencyOutputHandler(event, instance);
           }
         },
       });
       instance.render();
-
-      // TODO: Remove The extension is not currently working so we need this to fake the response.
-      instance.on({ type: 'pre:receive', handler: preReceiveHandler });
     }
 
     // A web chat configuration options object as documented at
