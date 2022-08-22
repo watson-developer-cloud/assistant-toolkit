@@ -69,7 +69,7 @@ title2 = ${step_123_result_1}.body.items.get(2).title
 snippet2 = ${step_123_result_1}.body.items.get(2).excerpt
 ```
 
-![Map variables to results](./assets/set_variables.png)<br>
+![Map variables to results](./assets/search_passed.png)<br>
 
 - Click "New Step" and also change "without conditions" to "with conditions" and select "Ran successfully" is "true" and "link0" is "defined".  Then add the following to the "Assistant says":
 
@@ -103,6 +103,7 @@ ${snippet2}
 - You may also want to go to "Actions" > "Set by assistant" > "Fallback" and do the same thing as in the previous step.  Note, however, that this will prevent your assistant from escalating to a human agent when a customer asks to connect to a human agent (which is part of the default behavior for "Fallback") so only do this if you do not have your bot connected to a human agent chat service.  For more details on connecting to human agents within Watson Assistant see [our documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-human-agent) and [blog post](https://medium.com/ibm-watson/bring-your-own-service-desk-to-watson-assistant-b39bc920075c).
 - Go to the Search action and remove "Search" from the "Customer starts with" list so that the search action _only_ triggers via the "Go to another action" settings described in steps above.  If you skip this, then the "Search" action will also be considered by the intent recognizer as a possible intent, which adds unnecessary complexity to the intent recognition and thus could result in lower overall intent recognition accuracy.
 
+![Create no action matches fallback](./assets/no_action_fallback_search.png)<br>
 ## Using this Starter Kit
 
 Once this starter kit is properly installed, you can issue a query to your bot and if there is no other action that you've configured that matched that query then it will generate search results for that query.
