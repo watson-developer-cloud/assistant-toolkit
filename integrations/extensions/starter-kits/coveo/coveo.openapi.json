@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Custom Search Coveo",
-    "description": "Custom Search unofficial partial spec from IBM.  We made this by running the API and observing the behavior.  There is a detailed documentation of the full API at https://docs.coveo.com/en/13/cloud-v2-api-reference/search-api#tag/Search-V2 that you may want to use to add more functionality to this spec.  This spec is a minimal starting point that can handle some basic use cases.",
+    "description": "Coveo Search API unofficial partial spec from IBM.  We made this by running the API and observing the behavior.  There is a detailed documentation of the full API at https://docs.coveo.com/en/13/cloud-v2-api-reference/search-api#tag/Search-V2 that you may want to use to add more functionality to this spec.  This spec is a minimal starting point that can handle some basic use cases.",
     "version": "1.0"
   },
   "servers": [
