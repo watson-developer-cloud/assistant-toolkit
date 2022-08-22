@@ -1,289 +1,18 @@
 {
-  "name": "Coveo Search 1",
+  "name": "Coveo Search",
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2022-08-10T18:37:49.015Z",
-  "updated": "2022-08-11T19:44:51.380Z",
+  "created": "2022-08-22T19:26:22.918Z",
+  "updated": "2022-08-22T20:24:33.222Z",
   "language": "en",
-  "skill_id": "4068cb4f-9494-4b9c-9522-a057c55dc8d6",
+  "skill_id": "f631a359-821b-4517-ab7c-2edfce8591b9",
   "workspace": {
     "actions": [
       {
         "steps": [
           {
-            "step": "step_185",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "<a href=\""
-                          },
-                          {
-                            "skill_variable": "link2"
-                          },
-                          {
-                            "scalar": "\" target=\"_blank\">"
-                          },
-                          {
-                            "skill_variable": "title2"
-                          },
-                          {
-                            "scalar": "</a>\n\n\n\n"
-                          },
-                          {
-                            "skill_variable": "snippet2"
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "continue"
-            },
-            "variable": "step_185",
-            "condition": {
-              "and": [
-                {
-                  "eq": [
-                    {
-                      "variable": "step_354_result_1",
-                      "variable_path": "success"
-                    },
-                    {
-                      "scalar": true
-                    }
-                  ]
-                },
-                {
-                  "exists": {
-                    "skill_variable": "link2"
-                  }
-                }
-              ]
-            }
-          },
-          {
-            "step": "step_203",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "What do you want to search?"
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "handlers": [],
-            "question": {
-              "free_text": true,
-              "only_populate_when_prompted": true
-            },
-            "resolver": {
-              "type": "continue"
-            },
-            "variable": "step_203",
-            "next_step": "step_354"
-          },
-          {
-            "step": "step_246",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "<a href=\""
-                          },
-                          {
-                            "skill_variable": "link0"
-                          },
-                          {
-                            "scalar": "\" target=\"_blank\">"
-                          },
-                          {
-                            "skill_variable": "title0"
-                          },
-                          {
-                            "scalar": "</a>\n\n\n\n"
-                          },
-                          {
-                            "skill_variable": "snippet0"
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "context": {
-              "variables": [
-                {
-                  "value": {
-                    "expression": "${step_354_result_1}.body.results.get(0).clickUri"
-                  },
-                  "skill_variable": "link0"
-                },
-                {
-                  "value": {
-                    "expression": "${step_354_result_1}.body.results.get(0).title"
-                  },
-                  "skill_variable": "title0"
-                },
-                {
-                  "value": {
-                    "expression": "${step_354_result_1}.body.results.get(0).excerpt"
-                  },
-                  "skill_variable": "snippet0"
-                },
-                {
-                  "value": {
-                    "expression": "${step_354_result_1}.body.results.get(1).clickUri"
-                  },
-                  "skill_variable": "link1"
-                },
-                {
-                  "value": {
-                    "expression": "${step_354_result_1}.body.results.get(2).clickUri"
-                  },
-                  "skill_variable": "link2"
-                },
-                {
-                  "value": {
-                    "expression": "${step_354_result_1}.body.results.get(1).title"
-                  },
-                  "skill_variable": "title1"
-                },
-                {
-                  "value": {
-                    "expression": "${step_354_result_1}.body.results.get(2).title"
-                  },
-                  "skill_variable": "title2"
-                },
-                {
-                  "value": {
-                    "expression": "${step_354_result_1}.body.results.get(1).excerpt"
-                  },
-                  "skill_variable": "snippet1"
-                },
-                {
-                  "value": {
-                    "expression": "${step_354_result_1}.body.results.get(2).excerpt"
-                  },
-                  "skill_variable": "snippet2"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "continue"
-            },
-            "variable": "step_246",
-            "condition": {
-              "eq": [
-                {
-                  "variable": "step_354_result_1",
-                  "variable_path": "success"
-                },
-                {
-                  "scalar": true
-                }
-              ]
-            },
-            "next_step": "step_470"
-          },
-          {
-            "step": "step_354",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "Searching for : "
-                          },
-                          {
-                            "skill_variable": "query_text"
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "context": {
-              "variables": [
-                {
-                  "value": {
-                    "expression": "input.text"
-                  },
-                  "skill_variable": "query_text"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "callout",
-              "callout": {
-                "path": "/rest/search/v2",
-                "type": "integration_interaction",
-                "method": "GET",
-                "internal": {
-                  "catalog_item_id": "1ce1522c-e090-45ce-b4c7-6b8300794922"
-                },
-                "request_mapping": {
-                  "query": [
-                    {
-                      "value": {
-                        "skill_variable": "query_text"
-                      },
-                      "parameter": "q"
-                    }
-                  ]
-                },
-                "result_variable": "step_354_result_1"
-              }
-            },
-            "variable": "step_354",
-            "condition": {
-              "exists": {
-                "variable": "step_203"
-              }
-            },
-            "next_step": "step_677"
-          },
-          {
-            "step": "step_470",
+            "step": "step_117",
             "output": {
               "generic": [
                 {
@@ -322,31 +51,36 @@
             "resolver": {
               "type": "continue"
             },
-            "variable": "step_470",
+            "variable": "step_117",
             "condition": {
               "and": [
                 {
-                  "eq": [
-                    {
-                      "variable": "step_354_result_1",
-                      "variable_path": "success"
-                    },
-                    {
-                      "scalar": true
-                    }
-                  ]
+                  "exists": {
+                    "variable": "step_280_result_1",
+                    "variable_path": "success"
+                  }
                 },
                 {
                   "exists": {
                     "skill_variable": "link1"
                   }
+                },
+                {
+                  "exists": {
+                    "skill_variable": "title1"
+                  }
+                },
+                {
+                  "exists": {
+                    "skill_variable": "snippet1"
+                  }
                 }
               ]
             },
-            "next_step": "step_185"
+            "next_step": "step_911"
           },
           {
-            "step": "step_677",
+            "step": "step_118",
             "output": {
               "generic": [
                 {
@@ -355,7 +89,22 @@
                       "text_expression": {
                         "concat": [
                           {
-                            "scalar": "Sorry! The search failed. Please try again."
+                            "scalar": "<a href=\""
+                          },
+                          {
+                            "skill_variable": "link0"
+                          },
+                          {
+                            "scalar": "\" target=\"_blank\">"
+                          },
+                          {
+                            "skill_variable": "title0"
+                          },
+                          {
+                            "scalar": "</a>\n\n\n\n"
+                          },
+                          {
+                            "skill_variable": "snippet0"
                           }
                         ]
                       }
@@ -370,65 +119,358 @@
             "resolver": {
               "type": "continue"
             },
-            "variable": "step_677",
+            "variable": "step_118",
             "condition": {
-              "eq": [
+              "and": [
                 {
-                  "variable": "step_354_result_1",
-                  "variable_path": "success"
+                  "exists": {
+                    "variable": "step_280_result_1",
+                    "variable_path": "success"
+                  }
                 },
                 {
-                  "scalar": false
+                  "exists": {
+                    "skill_variable": "link0"
+                  }
+                },
+                {
+                  "exists": {
+                    "skill_variable": "title0"
+                  }
+                },
+                {
+                  "exists": {
+                    "skill_variable": "snippet0"
+                  }
                 }
               ]
             },
-            "next_step": "step_246"
+            "next_step": "step_117"
+          },
+          {
+            "step": "step_263",
+            "output": {
+              "generic": [
+                {
+                  "values": [],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${step_280_result_1}.body.results.get(0).clickUri"
+                  },
+                  "skill_variable": "link0"
+                },
+                {
+                  "value": {
+                    "expression": "${step_280_result_1}.body.results.get(1).clickUri"
+                  },
+                  "skill_variable": "link1"
+                },
+                {
+                  "value": {
+                    "expression": "${step_280_result_1}.body.results.get(2).clickUri"
+                  },
+                  "skill_variable": "link2"
+                },
+                {
+                  "value": {
+                    "expression": "${step_280_result_1}.body.results.get(0).title"
+                  },
+                  "skill_variable": "title0"
+                },
+                {
+                  "value": {
+                    "expression": "${step_280_result_1}.body.results.get(1).title"
+                  },
+                  "skill_variable": "title1"
+                },
+                {
+                  "value": {
+                    "expression": "${step_280_result_1}.body.results.get(2).title"
+                  },
+                  "skill_variable": "title2"
+                },
+                {
+                  "value": {
+                    "expression": "${step_280_result_1}.body.results.get(0).excerpt"
+                  },
+                  "skill_variable": "snippet0"
+                },
+                {
+                  "value": {
+                    "expression": "${step_280_result_1}.body.results.get(1).excerpt"
+                  },
+                  "skill_variable": "snippet1"
+                },
+                {
+                  "value": {
+                    "expression": "${step_280_result_1}.body.results.get(2).excerpt"
+                  },
+                  "skill_variable": "snippet2"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_263",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_280_result_1",
+                  "variable_path": "success"
+                },
+                {
+                  "scalar": true
+                }
+              ]
+            },
+            "next_step": "step_118"
+          },
+          {
+            "step": "step_280",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Searching for "
+                          },
+                          {
+                            "skill_variable": "query_text"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "input.text"
+                  },
+                  "skill_variable": "query_text"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/rest/search/v2",
+                "type": "integration_interaction",
+                "method": "GET",
+                "internal": {
+                  "catalog_item_id": "050e455b-8401-401a-9b10-bc9e1afbe765"
+                },
+                "request_mapping": {
+                  "query": [
+                    {
+                      "value": {
+                        "skill_variable": "query_text"
+                      },
+                      "parameter": "q"
+                    }
+                  ]
+                },
+                "result_variable": "step_280_result_1"
+              }
+            },
+            "variable": "step_280",
+            "next_step": "step_541"
+          },
+          {
+            "step": "step_541",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Search Failed or Results are empty !!! Please Try again"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_541",
+            "condition": {
+              "or": [
+                {
+                  "and": [
+                    {
+                      "eq": [
+                        {
+                          "variable": "step_280_result_1",
+                          "variable_path": "success"
+                        },
+                        {
+                          "scalar": false
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "eq": [
+                        {
+                          "variable": "step_280_result_1",
+                          "variable_path": "success"
+                        },
+                        {
+                          "scalar": true
+                        }
+                      ]
+                    },
+                    {
+                      "expression": "${step_280_result_1}.body.totalCount == 0"
+                    }
+                  ]
+                }
+              ]
+            },
+            "next_step": "step_263"
+          },
+          {
+            "step": "step_911",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "<a href=\""
+                          },
+                          {
+                            "skill_variable": "link2"
+                          },
+                          {
+                            "scalar": "\" target=\"_blank\">"
+                          },
+                          {
+                            "skill_variable": "title2"
+                          },
+                          {
+                            "scalar": "</a>\n\n\n\n"
+                          },
+                          {
+                            "skill_variable": "snippet2"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_911",
+            "condition": {
+              "and": [
+                {
+                  "exists": {
+                    "variable": "step_280_result_1",
+                    "variable_path": "success"
+                  }
+                },
+                {
+                  "exists": {
+                    "skill_variable": "link2"
+                  }
+                },
+                {
+                  "exists": {
+                    "skill_variable": "title2"
+                  }
+                },
+                {
+                  "exists": {
+                    "skill_variable": "snippet2"
+                  }
+                }
+              ]
+            }
           }
         ],
-        "title": "Search Integration",
-        "action": "action_25578",
+        "title": "Search",
+        "action": "action_40450",
         "boosts": [],
         "handlers": [],
         "condition": {
-          "intent": "action_25578_intent_31163"
+          "intent": "action_40450_intent_15306"
         },
         "variables": [
           {
             "title": "<a href=\"{variable}\" target=\"_blank\">{variable}</a> {variable}",
-            "variable": "step_185",
-            "data_type": "any"
-          },
-          {
-            "title": "What do you want to search?",
-            "variable": "step_203",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_203_result_1",
+            "variable": "step_117",
             "data_type": "any"
           },
           {
             "title": "<a href=\"{variable}\" target=\"_blank\">{variable}</a> {variable}",
-            "variable": "step_246",
+            "variable": "step_118",
             "data_type": "any"
           },
           {
-            "title": "Searching for : {variable}",
-            "variable": "step_354",
+            "title": "No response",
+            "variable": "step_263",
             "data_type": "any"
           },
           {
-            "variable": "step_354_result_1",
+            "title": "Searching for {variable}",
+            "variable": "step_280",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_280_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Search Failed or Results are empty !!! Please Try again",
+            "variable": "step_541",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_556_result_1",
             "data_type": "any"
           },
           {
             "title": "<a href=\"{variable}\" target=\"_blank\">{variable}</a> {variable}",
-            "variable": "step_470",
-            "data_type": "any"
-          },
-          {
-            "title": "Sorry! The search failed. Please try again.",
-            "variable": "step_677",
+            "variable": "step_911",
             "data_type": "any"
           }
         ],
@@ -442,72 +484,17 @@
       {
         "steps": [
           {
-            "step": "step_001",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text": "I'm afraid I don't understand. Please rephrase your question."
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
+            "step": "step_556",
             "handlers": [],
             "resolver": {
-              "type": "end_action"
-            },
-            "variable": "step_001",
-            "condition": {
-              "lte": [
-                {
-                  "system_variable": "no_action_matches_count"
-                },
-                {
-                  "scalar": 3
-                }
-              ]
-            },
-            "next_step": "step_002"
-          },
-          {
-            "step": "step_002",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text": ""
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "invoke_another_action_and_end",
+              "type": "invoke_another_action",
               "invoke_action": {
-                "action": "fallback",
+                "action": "action_40450",
                 "parameters": null,
-                "result_variable": "step_002_result_1"
+                "result_variable": "step_556_result_1"
               }
             },
-            "variable": "step_002",
-            "condition": {
-              "gt": [
-                {
-                  "system_variable": "no_action_matches_count"
-                },
-                {
-                  "scalar": 3
-                }
-              ]
-            }
+            "variable": "step_556"
           }
         ],
         "title": "No action matches",
@@ -519,16 +506,16 @@
         },
         "variables": [
           {
-            "title": "I am afraid I do not understand what you are asking, please re-p",
-            "variable": "step_001",
+            "variable": "step_280_result_1",
             "data_type": "any"
           },
           {
-            "variable": "step_002",
+            "title": "No response",
+            "variable": "step_556",
             "data_type": "any"
           },
           {
-            "variable": "step_002_result_1",
+            "variable": "step_556_result_1",
             "data_type": "any"
           }
         ],
@@ -732,13 +719,13 @@
             "data_type": "any"
           }
         ],
-        "next_action": "action_25578",
+        "next_action": "action_40450",
         "disambiguation_opt_out": true
       }
     ],
     "intents": [
       {
-        "intent": "action_25578_intent_31163",
+        "intent": "action_40450_intent_15306",
         "examples": [
           {
             "text": "Search"
@@ -796,7 +783,7 @@
       {
         "title": "query_text",
         "variable": "query_text",
-        "data_type": "string",
+        "data_type": "any",
         "description": ""
       },
       {
@@ -804,6 +791,15 @@
         "variable": "result_items",
         "data_type": "any",
         "description": ""
+      },
+      {
+        "title": "result_items_length",
+        "variable": "result_items_length",
+        "data_type": "number",
+        "description": "",
+        "initial_value": {
+          "scalar": 0
+        }
       },
       {
         "title": "snippet0",
@@ -876,9 +872,9 @@
     },
     "learning_opt_out": false
   },
-  "description": "created for assistant 9fd992c6-8eac-4fb1-98d7-6404ed760672",
-  "assistant_id": "9fd992c6-8eac-4fb1-98d7-6404ed760672",
-  "workspace_id": "4068cb4f-9494-4b9c-9522-a057c55dc8d6",
+  "description": "created for assistant a11f4582-2b83-42e4-824c-b565b41fd2a8",
+  "assistant_id": "a11f4582-2b83-42e4-824c-b565b41fd2a8",
+  "workspace_id": "f631a359-821b-4517-ab7c-2edfce8591b9",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }
