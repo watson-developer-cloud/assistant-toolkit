@@ -74,7 +74,7 @@ snippet2 = ${step_123_result_1}.body.items.get(2).excerpt
 - Click "New Step" and also change "without conditions" to "with conditions" and select "Ran successfully" is "true" and "link0" is "defined".  Then add the following to the "Assistant says":
 
 ```
-<a href="${link0}">${title0}</a>
+<a href="${link0}" target="_blank">${title0}</a>
 ${snippet0}
 ```
 
@@ -83,7 +83,7 @@ ${snippet0}
 - Click "New Step" and change "without conditions" to "with conditions" and select "Ran successfully" is "true" and "link1" is "defined".  Then add the following to the "Assistant says":
 
 ```
-<a href="${link1}">${title1}</a>
+<a href="${link1}" target="_blank">${title1}</a>
 ${snippet1}
 ```
 
@@ -92,7 +92,7 @@ ${snippet1}
 - Click "New Step" and change "without conditions" to "with conditions" and select "Ran successfully" is "true" and "link2" is "defined".  For this step, set "And then" to "End the action".  Then add the following to the "Assistant says":
 
 ```
-<a href="${link2}">${title2}</a>
+<a href="${link2}" target="_blank">${title2}</a>
 ${snippet2}
 ```
 

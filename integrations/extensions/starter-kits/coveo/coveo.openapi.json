@@ -18,7 +18,7 @@
             "bearerAuth": []
           }
         ],
-        "description": "Auto generated using Swagger Inspector",
+        "description": "Search request to Coveo search",
         "parameters": [
           {
             "name": "aq",
@@ -164,7 +164,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Auto generated using Swagger Inspector",
+            "description": "Search results returned by Coveo",
             "content": {
               "application/json; charset=utf-8": {
                 "schema": {
