@@ -48,10 +48,10 @@ If you want to add this starter kit to an _existing_ assistant, you cannot use t
 ![Setup Query](./assets/store_query_text.png)<br>
 ![Create Extension](./assets/setup_extension.png)<br>
 
-- Click "New Step" and change "without conditions" to "with conditions" and set "Ran successfully" to "false".  Also set "And then" to "End the action".  Then add the following to the "Assistant says":
-  Sorry.  The search failed!  Please try again another time.
+- Click "New Step" and change "without conditions" to "with conditions" and set "Ran successfully" to "false" or "Ran successfully" to "true" and "results total count is 0".Also set "And then" to "End the action".  Then add the following to the "Assistant says":
+  Sorry.  The search failed or results are empty !!  Please try again another time.
 
-![Search failed](./assets/search_failed.png)<br>
+![Search failed](./assets/search_failed.png)<br> 
 
 
 - Add a "New Step", then:
