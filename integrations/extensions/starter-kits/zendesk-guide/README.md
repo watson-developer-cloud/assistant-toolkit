@@ -8,7 +8,10 @@ The OpenAPI spec in this starter kit includes the following endpoint:
 
 - `GET /api/v2/help_center/articles/search`: Search for articles relevant to a given query.
 
-That endpoint is described in detail at https://developer.zendesk.com/api-reference/help_center/help-center-api/search/#search-articles .  This starter kit exposes only the minimal functionality needed for simple use cases, and you will need to extend it if you want to cover more advanced ones.  For example, the API has parameters for filtering by label or category that are not listed in the simple OpenAPI specification provided in the starter kit, so you would need to add these if you wanted to employ such filters.
+That endpoint is described in detail at https://developer.zendesk.com/api-reference/help_center/help-center-api/search/#search-articles.
+
+## Basic vs Advanced
+The `basic` starter kit implements a single yet useful API call for retrieving articles. If you are new to custom extensions, we recommend you start there to get an idea on how to use custom extensions with skills. The `advanced` folder contains a kit with the more advanced functionality of API parameters for filtering your search results, which you can use as a creative springboard for more complex use cases.
 
 ## Pre-Requisite Steps
 
@@ -20,7 +23,7 @@ Follow the steps listed in [Pre-Req: Getting Auth Keys and Configuring Your Serv
 
 If you want to make a _new_ Assistant using this starter kit, take the following steps:
 
-- Download the OpenAPI specification (`zendesk-article-search-openapi.json`) and Actions JSON file (`zendesk-article-search-actions.json`) in this starter kit.
+- Download the OpenAPI specification (`zendesk-article-search-openapi.json`) and Actions JSON file (`zendesk-article-search-actions.json`) from the `basic` folder in this starter kit.
 - Use the OpenAPI specification to [build a custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension).
 - [Add the extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension) using the credentials you obtained in the first step above.
 - [Upload the Actions JSON file](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import).
@@ -104,4 +107,27 @@ ${snippet2}
 
 ## Using this Starter Kit
 
+### Basic
 Once this starter kit is properly installed, you can issue a query to your bot and if there is no other action that you've configured that matched that query then it will generate search results for that query.
+
+### Advanced
+[The Zendesk article search API](https://developer.zendesk.com/api-reference/help_center/help-center-api/search/#search-articles) includes several parameters that can be used to filter the search results. For example, you can filter results based on when a document was created or updated. To use the advanced starter kit, follow the installation instructions given above, but use the OpenAPI specification (`zendesk-article-advanced-search-openapi.json`) and Actions JSON file (`zendesk-article-advanced-search-actions.json`) from the `advanced` folder in this starter kit.
+
+#### Example Usage for Filtered Query by Document Creation Date
+- Go to `Variables` -> `Created by you`. Create a session variable `created_by_date` and set it to a date. In this example it is 2022-07-15. This will be the value of the `created_after` query parameter.
+
+![Create session variable](./assets/create-session-variable.gif)<br>
+
+- Go to `Actions` -> `Created by you`. Duplicate the basic search action.
+- Rename the new action to "Search by document creation date", or something similar.
+- Enter the actions editor by clicking on the new action that you have just created. Enter phrases that a customer types or says to start the conversation to trigger this filtered search. In this example, we use "recent rates" and "recent interest rates" to identify the `Search by document creation date` action.
+
+![Create new search action](./assets/search-by-create-date-action.gif)<br>
+
+- Next, go to the first conversation step and add the filter parameter to your extension. In "And then", select "edit extension" to set the `created_after` parameter to the session variable `created_by_date` that you just created.
+
+![Set filter parameter in extension](./assets/set-filter-parameter-in-extension.gif)<br>
+
+- Now the set up of your filtered search by creation date action is complete. You can try out your new filtered search action by typing "recent rates" in the Preview.
+
+![Try out filtered search](./assets/recent-rates.gif)<br>
