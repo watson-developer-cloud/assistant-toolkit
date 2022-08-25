@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Launcher and home screen text - Watson Assistant web chat toolkit</title>
+  <title>Select greeting action - Watson Assistant web chat toolkit</title>
 
   <style>
     html, body {
@@ -80,11 +80,11 @@
     document.documentElement.classList.add(page === 'cards' ? 'Page__CreditCards' : 'Page__Home');
 
     /**
-     * This function is called before a message is send. You can find documentation for this event at
+     * This function is called before a message is sent. You can find documentation for this event at
      * https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#presend.
      */
     function preSendHandler(event) {
-      // If the text is empty than that means this is a request for the greeting message.
+      // If the text is empty then that means this is a request for the greeting message.
       if (event.data.input && event.data.input.text === '') {
         if (page === 'cards') {
           // If we are on the credit card page, then change the requested text to a different message that will trigger

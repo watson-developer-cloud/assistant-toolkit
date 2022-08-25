@@ -34,6 +34,7 @@ It demonstrates:
 - How to use the [**send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#send) instance function to send a message to the assistant when a button is clicked.
 - How to use the [**updateHistoryUserDefined**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#updateHistoryUserDefined) instance function to record which button was clicked in session history so it will be remembered when web chat is reloaded.
 - How to use data stored in session history to change how a custom response is displayed when web chat is reloaded.
+- How to use the [Carbon Design System](https://v10.carbondesignsystem.com/) inside of web chat. The examples here cover both the vanilla JavaScript version (using web components) and the React version.
 
 ## [Custom elements](custom-element/README.md)
 
@@ -56,15 +57,15 @@ This example demonstrates how to create your own launcher that can be used to op
 
 ## [Custom responses](custom-response/README.md)
 
-This example demonstrates how to use a custom response to render a custom UI widget of a card displaying information about the weather at a location provided by the user. The weather information is retrieved using an extension and the data is stored as action variables.
+This example demonstrates how to use a custom response to render a custom UI widget that will ask the user for information in order to preform a currency exchange and display the results. It will use an extension to obtain the exchange rate for the calculation.
 
 It demonstrates:
 
-- How to use a custom extension to fetch weather data from a 3rd party service.
+- How to use a custom extension to fetch currency data from a 3rd party service.
 - How to assign data from the extension response to action variables.
 - How to return a custom response (`user_defined`) from an action.
-- How to use a [**customResponse**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#customresponse) event handler to display a custom weather card.
-- How to use the [**updateHistoryUserDefined**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#updateHistoryUserDefined) instance function to record the state of a toggle button that appears on the custom response.
+- How to use a [**customResponse**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#customresponse) event handler to display a custom card.
+- How to use the [**send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#send) instance function to send a message to the assistant and include context variables with user input.
 - How to access action variables in a custom response.
 
 ## [Deep linking](deep-linking/README.md)

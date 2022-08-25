@@ -10,8 +10,8 @@ We are going to use a custom response to display a static Carbon accordion panel
 instance.on({
   type: 'customResponse',
   handler: (event, instance) => {
-    // The "user_defined_type" property is just an example. It is not required or you can use any other property
-    // or condition you want here. This makes it easier to handle different response types if you have more than
+    // The "user_defined_type" property is just an example; it is not required. You can use any other property or
+    // condition you want here. This makes it easier to handle different response types if you have more than
     // one custom response type.
     if (event.data.message.user_defined && event.data.message.user_defined.user_defined_type === 'accordion') {
       accordionHandler(event, instance);

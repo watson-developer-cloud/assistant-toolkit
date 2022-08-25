@@ -7,9 +7,9 @@ import { useState } from 'react';
 import { PropTypes } from 'prop-types';
 
 /**
- * This is the component for out custom response. It just renders an Accordion from Carbon. You can also pass the
- * message to this component and use the data from the message to render this if you want the content to be provide
- * by the assistant.
+ * This is the component for our custom response. It just renders an Accordion from Carbon. You can pass the message
+ * to this component and use the data from the message to render this if you want the content to be provided by the
+ * assistant.
  */
 function CustomButtons({ message, fullMessage, disabled, instance }) {
   return (

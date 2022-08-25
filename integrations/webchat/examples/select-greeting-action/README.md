@@ -1,4 +1,4 @@
-# Change launcher and home screen text for Watson Assistant web chat
+# Select greeting action for Watson Assistant web chat
 
 **For a full walk through of how this code works, please visit [the tutorial page](DOCS.md) in the Watson Assistant documentation.**
 

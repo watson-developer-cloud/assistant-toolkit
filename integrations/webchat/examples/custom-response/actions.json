@@ -4,7 +4,7 @@
   "valid": true,
   "status": "Available",
   "created": "2022-04-21T13:39:39.443Z",
-  "updated": "2022-06-29T14:38:18.017Z",
+  "updated": "2022-08-16T20:21:32.190Z",
   "language": "en",
   "skill_id": "118d01f0-589d-4086-8830-7ebd3f514004",
   "workspace": {
@@ -12,198 +12,7 @@
       {
         "steps": [
           {
-            "step": "step_171",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "I'm sorry, but I was unable to find that location."
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "end_action"
-            },
-            "variable": "step_171",
-            "condition": {
-              "eq": [
-                {
-                  "variable": "step_375_result_1",
-                  "variable_path": "success"
-                },
-                {
-                  "scalar": false
-                }
-              ]
-            },
-            "next_step": "step_593"
-          },
-          {
-            "step": "step_375",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "Searching..."
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "callout",
-              "callout": {
-                "path": "/api/location/search/",
-                "type": "integration_interaction",
-                "method": "GET",
-                "internal": {
-                  "catalog_item_id": "ce91ac45-87f8-40ab-a79b-162aacc7b49d"
-                },
-                "request_mapping": {
-                  "query": [
-                    {
-                      "value": {
-                        "variable": "step_618"
-                      },
-                      "parameter": "query"
-                    }
-                  ]
-                },
-                "result_variable": "step_375_result_1"
-              }
-            },
-            "variable": "step_375",
-            "condition": {
-              "exists": {
-                "variable": "step_618"
-              }
-            },
-            "next_step": "step_171"
-          },
-          {
-            "step": "step_499",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "I'm sorry, but I was unable to look up the weather for that location."
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "end_action"
-            },
-            "variable": "step_499",
-            "condition": {
-              "eq": [
-                {
-                  "variable": "step_593_result_1",
-                  "variable_path": "success"
-                },
-                {
-                  "scalar": false
-                }
-              ]
-            },
-            "next_step": "step_521"
-          },
-          {
-            "step": "step_521",
-            "output": {
-              "generic": [
-                {
-                  "user_defined": {
-                    "user_defined_type": "weather_card"
-                  },
-                  "response_type": "user_defined"
-                }
-              ]
-            },
-            "context": {
-              "variables": [
-                {
-                  "value": {
-                    "expression": "${step_593_result_1}.status"
-                  },
-                  "skill_variable": "extension_status"
-                },
-                {
-                  "value": {
-                    "expression": "${step_593_result_1}.body"
-                  },
-                  "skill_variable": "extension_response"
-                },
-                {
-                  "value": {
-                    "expression": "${step_593_result_1}.body.consolidated_weather"
-                  },
-                  "skill_variable": "weather_items"
-                },
-                {
-                  "value": {
-                    "expression": "${weather_items}.get(0)"
-                  },
-                  "skill_variable": "weather_item_0"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "end_action"
-            },
-            "variable": "step_521",
-            "condition": {
-              "and": [
-                {
-                  "exists": {
-                    "variable": "step_618"
-                  }
-                },
-                {
-                  "expression": "${step_375_result_1}.status == 200"
-                },
-                {
-                  "expression": "${step_593_result_1}.status == 200"
-                }
-              ]
-            }
-          },
-          {
-            "step": "step_593",
+            "step": "step_350",
             "output": {
               "generic": [
                 {
@@ -213,193 +22,152 @@
                 }
               ]
             },
-            "context": {
-              "variables": [
-                {
-                  "value": {
-                    "expression": "${step_375_result_1}.status"
-                  },
-                  "skill_variable": "extension_status"
-                },
-                {
-                  "value": {
-                    "expression": "${step_375_result_1}.body"
-                  },
-                  "skill_variable": "extension_response"
-                },
-                {
-                  "value": {
-                    "expression": "${extension_response}.get(0)"
-                  },
-                  "skill_variable": "location_item_0"
-                },
-                {
-                  "value": {
-                    "expression": "${location_item_0}.woeid"
-                  },
-                  "skill_variable": "location_item_0_woeid"
-                }
-              ]
-            },
             "handlers": [],
             "resolver": {
               "type": "callout",
               "callout": {
-                "path": "/api/location/{woeid}/",
+                "path": "/api/exchangerates/rates/{table}/{code}/",
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "catalog_item_id": "ce91ac45-87f8-40ab-a79b-162aacc7b49d"
+                  "catalog_item_id": "84b75469-5caa-4177-8097-0577afb3490a"
                 },
                 "request_mapping": {
                   "path": [
                     {
                       "value": {
-                        "skill_variable": "location_item_0_woeid"
+                        "expression": "\"a\""
                       },
-                      "parameter": "woeid"
+                      "parameter": "table"
+                    },
+                    {
+                      "value": {
+                        "expression": "${input_currency}"
+                      },
+                      "parameter": "code"
                     }
                   ]
                 },
-                "result_variable": "step_593_result_1"
+                "result_variable": "step_350_result_1"
               }
             },
-            "variable": "step_593",
-            "condition": {
-              "and": [
-                {
-                  "exists": {
-                    "variable": "step_618"
-                  }
-                },
-                {
-                  "expression": "${step_375_result_1}.status == 200"
-                }
-              ]
-            },
-            "next_step": "step_499"
+            "variable": "step_350",
+            "next_step": "step_522"
           },
           {
-            "step": "step_618",
+            "step": "step_522",
             "output": {
               "generic": [
                 {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "Sure thing! What is the name of the location you want to search for?"
-                          }
-                        ]
-                      }
-                    }
-                  ],
+                  "values": [],
                   "response_type": "text",
                   "selection_policy": "sequential"
+                },
+                {
+                  "user_defined": {
+                    "user_defined_type": "currency_exchange_output"
+                  },
+                  "response_type": "user_defined"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${step_350_result_1}.body.rates.get(0).mid"
+                  },
+                  "skill_variable": "output_exchange_rate"
+                },
+                {
+                  "value": {
+                    "expression": "T(Math).round(${input_amount} * ${output_exchange_rate} * 100) / 100.0"
+                  },
+                  "skill_variable": "output_amount"
                 }
               ]
             },
             "handlers": [],
-            "question": {
-              "free_text": true,
-              "only_populate_when_prompted": true
-            },
             "resolver": {
               "type": "continue"
             },
-            "variable": "step_618",
-            "next_step": "step_375"
+            "variable": "step_522"
           }
         ],
-        "title": "I want to check the weather (and do not have a WOE-ID).",
-        "action": "action_11045",
+        "title": "DO_EXCHANGE_CALCULATION",
+        "action": "action_11675",
         "boosts": [],
         "handlers": [],
         "condition": {
-          "intent": "action_11045_intent_38447"
+          "intent": "action_11675_intent_43589"
         },
         "variables": [
           {
-            "title": "I'm sorry, but I was unable to find that location.",
-            "variable": "step_171",
+            "title": "No response",
+            "variable": "step_350",
             "data_type": "any"
           },
           {
-            "variable": "step_250_result_1",
-            "data_type": "any"
-          },
-          {
-            "title": "Searching...",
-            "variable": "step_375",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_375_result_1",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_458_result_1",
-            "data_type": "any"
-          },
-          {
-            "title": "I'm sorry, but I was unable to look up the weather for that loca",
-            "variable": "step_499",
+            "variable": "step_350_result_1",
             "data_type": "any"
           },
           {
             "title": "No response",
-            "variable": "step_521",
-            "data_type": "any"
-          },
-          {
-            "title": "No response",
-            "variable": "step_593",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_593_result_1",
-            "data_type": "any"
-          },
-          {
-            "title": "Sure thing! What is the name of the location you want to search ",
-            "variable": "step_618",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_666_result_1",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_779_result_1",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_790_result_1",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_835_result_1",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_853_result_1",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_946_result_1",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_969_result_1",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_991_result_1",
+            "variable": "step_522",
             "data_type": "any"
           }
         ],
         "next_action": "fallback",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": true
+      },
+      {
+        "steps": [
+          {
+            "step": "step_951",
+            "output": {
+              "generic": [
+                {
+                  "values": [],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                },
+                {
+                  "user_defined": {
+                    "user_defined_type": "currency_exchange_input"
+                  },
+                  "response_type": "user_defined"
+                }
+              ]
+            },
+            "context": {
+              "variables": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_951"
+          }
+        ],
+        "title": "Exchange currenty for Polish złoty",
+        "action": "action_24559",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_24559_intent_47528"
+        },
+        "variables": [
+          {
+            "title": "No response",
+            "variable": "step_951",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_11675",
         "topic_switch": {
           "allowed_from": true,
           "allowed_into": true
@@ -699,22 +467,27 @@
             "data_type": "any"
           }
         ],
-        "next_action": "action_11045",
+        "next_action": "action_24559",
         "disambiguation_opt_out": true
       }
     ],
     "intents": [
       {
-        "intent": "action_11045_intent_38447",
+        "intent": "action_11675_intent_43589",
         "examples": [
           {
-            "text": "I want to check the weather (and do not have a WOE-ID)."
+            "text": "DO_EXCHANGE_CALCULATION"
+          }
+        ]
+      },
+      {
+        "intent": "action_24559_intent_47528",
+        "examples": [
+          {
+            "text": "Exchange currenty for Polish złoty"
           },
           {
-            "text": "Weather without WOE-ID"
-          },
-          {
-            "text": "What is the weather?"
+            "text": "I would like to do a currency exchange"
           }
         ]
       },
@@ -762,45 +535,27 @@
     },
     "variables": [
       {
-        "title": "extension_response",
-        "variable": "extension_response",
+        "title": "input_amount",
+        "variable": "input_amount",
+        "data_type": "number",
+        "description": ""
+      },
+      {
+        "title": "input_currency",
+        "variable": "input_currency",
         "data_type": "any",
         "description": ""
       },
       {
-        "title": "extension_status",
-        "variable": "extension_status",
+        "title": "output_amount",
+        "variable": "output_amount",
         "data_type": "any",
         "description": ""
       },
       {
-        "title": "location_item_0",
-        "variable": "location_item_0",
-        "data_type": "any",
-        "description": ""
-      },
-      {
-        "title": "location_item_0_woeid",
-        "variable": "location_item_0_woeid",
-        "data_type": "any",
-        "description": ""
-      },
-      {
-        "title": "location_items",
-        "variable": "location_items",
-        "data_type": "any",
-        "description": ""
-      },
-      {
-        "title": "weather_item_0",
-        "variable": "weather_item_0",
-        "data_type": "any",
-        "description": ""
-      },
-      {
-        "title": "weather_items",
-        "variable": "weather_items",
-        "data_type": "any",
+        "title": "output_exchange_rate",
+        "variable": "output_exchange_rate",
+        "data_type": "number",
         "description": ""
       }
     ],

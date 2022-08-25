@@ -120,7 +120,7 @@
     function windowOpenHandler(event, instance) {
       if (!fullName) {
         // Return a Promise which web chat will wait for before completing the opening process. Our custom code will
-        // resolve this problem after the user completes the pre-chat form. If they click cancel, we can use the event
+        // resolve this Promise after the user completes the pre-chat form. If they click cancel, we can use the event
         // provided here to cancel the open and close web chat.
         return new Promise((resolve) => {
           promiseResolve = resolve;
@@ -138,7 +138,7 @@
         sessionStorage.setItem('POST_CHAT_SHOWN', 'true')
 
         // Return a Promise which web chat will wait for before completing the closing process. Our custom code will
-        // resolve this problem after the user completes the post-chat form. You could include a cancel button in the
+        // resolve this Promise after the user completes the post-chat form. You could include a cancel button in the
         // form if you wanted to allow the user to go back without actually closing web chat. But this example just
         // lets the user optionally provide feedback.
         return new Promise((resolve) => {
@@ -260,7 +260,7 @@
               </button>
             </div>
             <div class="PostChatForm__FeedbackOptional">
-              If you have any more additional feedback, please write them here. (optional)
+              If you have any more additional feedback, please write it here. (optional)
             </div>
             <div class="bx--form-item bx--text-input-wrapper">
               <div class="bx--text-input__field-outer-wrapper">
