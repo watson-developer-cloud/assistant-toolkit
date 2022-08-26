@@ -1,4 +1,4 @@
-# Download history for Watson Assistant web chat
+# Extension with custom response for Watson Assistant web chat
 
 **For a full walk through of how this code works, please visit [the tutorial page](DOCS.md) in the Watson Assistant documentation.**
 
