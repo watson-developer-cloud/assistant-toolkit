@@ -38,6 +38,13 @@ After upload, the actions should be configured to use the fields below for the s
 
 Note that `campaignid` is a session variable that must match the campaign you have created. If you have created your campaign via API, then in the response you should have an `id` property, that should be saved in `campaignid`. If you haven't created the campaign via the API, then you have to use the API to obtain the campaign id. To do this, [list the campaigns](https://mailchimp.com/developer/marketing/api/campaigns/list-campaigns/) then find your campaign.
 
+Here is an example of a cURL you can run to obtain your list of campaigns. 
+Please replace `server_prefix` as explained above, and `auth` with your private API key.
+```
+curl --location --request GET 'https://{server_prefix}.api.mailchimp.com/3.0/campaigns' \
+--header 'Authorization: Bearer {auth}' 
+```
+
 Tip: This method is suitable for a starter-kit. In a production setting, however, you will most likely use other endpoints during the action to fetch the campaign id or create a campaign and *then* store the campaign id.
 
 ## Example Usage
