@@ -9,7 +9,7 @@
     "description" : "Your hubspot support server"
   } ],
   "security" : [ {
-    "ApiKeyAuth" : [ ]
+    "BearerAuth" : [ ]
   } ],
   "paths" : {
     "/crm/v3/objects/contacts/{contactId}" : {
@@ -93,10 +93,9 @@
       }
     },
     "securitySchemes" : {
-      "ApiKeyAuth" : {
-        "type" : "apiKey",
-        "name" : "hapikey",
-        "in" : "query"
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
       }
     }
   }

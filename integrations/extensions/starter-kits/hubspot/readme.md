@@ -21,6 +21,13 @@ HubSpot has a fantastic public API documentation that is very custom extensions 
 The `basic` kit implements a single yet useful API call for retrieving contact information. If you are new to custom extensions, we recommend you start there to get an idea on how to use custom extensions with skills. The `advanced` folder contains a kit with more advanced functionality, which you can use as a creative springboard for complex use cases.
 
 ## Pre-Req 1: Getting Auth Keys
+#### ** Updated Aug. 29, 2022 **
+Hubspot has increased their level of security for making API calls. They no longer support one API Key but rather support keys per Application. Hubspot now support two types of Apps: Private and Public. Public Apps require OAuth authentication which currently IBM Watson Assistant does not support. For the time being, we recommend using Private Apps which are based on Bearer Authentication. Please note, to follow Hubspot guidelines on sharing this Bearer token.
+
+To create a Private App and then obtain the Bearer token, please follow the [guidelines provided by Hubspot](https://developers.hubspot.com/docs/api/private-apps).
+
+#### ** Instructions Prior to Aug 29, 2022 **
+
 To call the HubSpot API, you will need an API key. To obtain this key:
 
 1. Click on `Settings` (the cog wheel icon) at the top right of the page, then click `Integrations` in the left menu to open a drop-down, and select `API Key`.
