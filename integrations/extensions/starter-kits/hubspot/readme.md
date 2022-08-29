@@ -20,12 +20,12 @@ HubSpot has a fantastic public API documentation that is very custom extensions 
 
 The `basic` kit implements a single yet useful API call for retrieving contact information. If you are new to custom extensions, we recommend you start there to get an idea on how to use custom extensions with skills. The `advanced` folder contains a kit with more advanced functionality, which you can use as a creative springboard for complex use cases.
 
-## Pre-Req 1: Getting Auth Keys
-To call the HubSpot API, you will need an API key. To obtain this key:
+## Pre-Req 1: Getting Private Apps Access Token
+To call the HubSpot API, you will need an Private App access token. To obtain this key:
 
-1. Click on `Settings` (the cog wheel icon) at the top right of the page, then click `Integrations` in the left menu to open a drop-down, and select `API Key`.
+1. Click on `Settings` (the cog wheel icon) at the top right of the page, then click `Integrations` in the left menu to open a drop-down, and select `Private Apps`.
 
-1. If you do not already have one, `Create key`. Copy the API key and save for future steps. **Note:** You can also see a log of API calls using each key, which is helpful to debug API calls sent from your assistants that do not produce the expected outcome in HubSpot or in your assistants.
+1. If you do not already have one, `Create a private app`. Enter your app's name than, click the `Scopes` tab select the scopes `tickets` and `crm.objects.contacts.read`. Click `Create app` in the top right. Copy the access token and save for future steps **Note:** You can also see a log of API calls using each app, which is helpful to debug API calls sent from your assistants that do not produce the expected outcome in HubSpot or in your assistants.
 
 ## Pre-Req 2: Adding Custom Properties in HubSpot
 This starter kit focuses on the ticketing system and profile information retrieval of HubSpot. In order to use the provided JSON skill out of the box, you will need to create some custom properties - `charge_name`, `charge_amount`, `charge_date`, and `membership_status` - within your HubSpot account.

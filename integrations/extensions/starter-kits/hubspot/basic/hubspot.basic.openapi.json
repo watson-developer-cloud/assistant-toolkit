@@ -1,49 +1,53 @@
 {
-  "openapi" : "3.0.3",
-  "info" : {
-    "title" : "Hubspot Ticketing",
-    "version" : "v3"
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Hubspot Ticketing",
+    "version": "v3"
   },
-  "servers" : [ {
-    "url" : "https://api.hubapi.com",
-    "description" : "Your hubspot support server"
-  } ],
-  "security" : [ {
-    "ApiKeyAuth" : [ ]
-  } ],
-  "paths" : {
-    "/crm/v3/objects/contacts/{contactId}" : {
-      "get" : {
-        "summary" : "Get Contact by ID",
-        "description" : "Get contact information by ID",
-        "parameters" : [
+  "servers": [
+    {
+      "url": "https://api.hubapi.com",
+      "description": "Your hubspot support server"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/crm/v3/objects/contacts/{contactId}": {
+      "get": {
+        "summary": "Get Contact by ID",
+        "description": "Get contact information by ID",
+        "parameters": [
           {
-            "in" : "path",
-            "name" : "contactId",
-            "schema" : {
-              "type" : "string"
+            "in": "path",
+            "name": "contactId",
+            "schema": {
+              "type": "string"
             },
-            "required" : true,
-            "description" : "Numeric ID of the user"
+            "required": true,
+            "description": "Numeric ID of the user"
           },
           {
-            "in" : "query",
-            "name" : "properties",
-            "schema" : {
-              "type" : "string",
-              "default" : "membership_status,createdate,email,firstname,lastname,hs_object_id"
+            "in": "query",
+            "name": "properties",
+            "schema": {
+              "type": "string",
+              "default": "membership_status,createdate,email,firstname,lastname,hs_object_id"
             },
-            "required" : false,
-            "description" : "Comma separated list of properties to return"
+            "required": false,
+            "description": "Comma separated list of properties to return"
           }
         ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ContactsResponse"
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContactsResponse"
                 }
               }
             }
@@ -52,51 +56,50 @@
       }
     }
   },
-  "components" : {
-    "schemas" : {
-      "ContactsResponse" : {
-        "type" : "object",
-        "properties" : {
-          "properties" : {
-            "$ref" : "#/components/schemas/ContactsResponseProperties"
+  "components": {
+    "schemas": {
+      "ContactsResponse": {
+        "type": "object",
+        "properties": {
+          "properties": {
+            "$ref": "#/components/schemas/ContactsResponseProperties"
           }
         }
       },
-      "ContactsResponseProperties" : {
-        "type" : "object",
-        "properties" : {
-          "createdate" : {
-            "type" : "string",
-            "description" : "Date contact was added"
+      "ContactsResponseProperties": {
+        "type": "object",
+        "properties": {
+          "createdate": {
+            "type": "string",
+            "description": "Date contact was added"
           },
-          "email" : {
-            "type" : "string",
-            "description" : "User's email address"
+          "email": {
+            "type": "string",
+            "description": "User's email address"
           },
-          "firstname" : {
-            "type" : "string",
-            "description" : "User's first name"
+          "firstname": {
+            "type": "string",
+            "description": "User's first name"
           },
-          "hs_object_id" : {
-            "type" : "string",
-            "description" : "User's hubspot ID"
+          "hs_object_id": {
+            "type": "string",
+            "description": "User's hubspot ID"
           },
-          "lastname" : {
-            "type" : "string",
-            "description" : "User's last name"
+          "lastname": {
+            "type": "string",
+            "description": "User's last name"
           },
-          "membership_status" : {
-            "type" : "string",
-            "description" : "Custom property - the status of user's membership, bronze silver or gold"
+          "membership_status": {
+            "type": "string",
+            "description": "Custom property - the status of user's membership, bronze silver or gold"
           }
         }
       }
     },
-    "securitySchemes" : {
-      "ApiKeyAuth" : {
-        "type" : "apiKey",
-        "name" : "hapikey",
-        "in" : "query"
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
       }
     }
   }
