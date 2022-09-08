@@ -38,7 +38,7 @@ If you are setting up in a new assistant, skip to the section `Using this Starte
 
 ### Setup in a pre-existing Assistant
 
-If you want to add this starter kit to an _existing_ assistant, you cannot use the Actions JSON file since it will overwrite your existing configuration.  So instead, follow the following process:
+If you want to add this starter kit to an _existing_ assistant, you cannot use the Actions JSON file (such as `zendesk-article-search-actions.json`) since it will overwrite your existing configuration.  So instead, follow the following process:
 
 - Download the OpenAPI specification in this starter kit.
 - Use the OpenAPI specification to [build a custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension).
