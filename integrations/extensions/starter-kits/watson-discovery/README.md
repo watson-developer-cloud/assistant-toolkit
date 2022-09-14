@@ -36,7 +36,7 @@ Here are some additional examples of things you might need to do when connecting
 4. You can show a small graph or table in your response card (or even have a larger one pop up when you click or mouse over).
 5. You can get information from custom enrichments in Watson Discovery (e.g., entities or text classifications) and use that information to affect how results are presented to the user.
 
-More broadly, anything you can do with Watson Discovery parameters and Watson Discovery outputs, you can do with custom extensions (at least within the size limitation: see the "Limit on Size of Search Results" section later in this document for details).
+More broadly, anything you can do with Watson Discovery parameters and Watson Discovery outputs, you can do with a custom extension (at least within the size limitation: see the "Limit on Size of Search Results" section later in this document for details).  However, it will be more work, so if you just need simple search results, consider sticking with the [built-in search integration](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-search-add) instead.
 
 ### Setting up Watson Discovery
 

@@ -182,9 +182,9 @@
           let answerInPassage = descriptionWithoutKeywordEmphasis.substring(answerStart, answerEnd);
           let postAnswer = descriptionWithoutKeywordEmphasis.substring(answerEnd);
           let formattedAnswer = preAnswer + '<span class="SearchResultSnippetEmphasizedAnswer">' + answerInPassage + '</span>' + postAnswer;
-          return formattedAnswer; // + " [" + answerConfidence + "," + passageStartInField + "," + answerStart + "," + answerEnd + "]";
+          return formattedAnswer;
         } else {
-          return description; // + " (" + answerConfidence + ")"
+          return description;
         }
       }
 
@@ -212,9 +212,9 @@
 
 
       window.watsonAssistantChatOptions = {
-        integrationID: "984cd7e1-2100-41be-a81f-94f281c06aaa", // The ID of this integration.
-        region: "us-south", // The region your integration is hosted in.
-        serviceInstanceID: "0d7a3de9-a1f3-409d-956e-3154cddebd30", // The ID of your service instance.
+        integrationID: "308cd3e2-2400-31ae-a71f-93e201c06aba", // The ID of this integration.  The one provided in the kit is a dummy/placeholder.  Replace this line as described in README.md.
+        region: "us-south", // The region your integration is hosted in. Replace this line as described in README.md.
+        serviceInstanceID: "803cd3e2-2400-31ae-a71f-93e201c06bab", // The ID of your service instance.   The one provided in the kit is a dummy/placeholder.  Replace this line as described in README.md.
         onLoad: onLoad
       };
       setTimeout(function(){
