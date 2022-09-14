@@ -80,7 +80,8 @@ Included in this kit is an `index.html` file in the `client/javascript` subdirec
 ## Using this Starter Kit
 
 Load `index.html` into a browser (e.g., Firefox or Chrome or Safari).  You will see the sample site in the background, and a circle in the lower right where you can open the web chat.  Click on it, and type in a query.  Here is an example of what the results might look like:  
-![Sample chat results](./assets/sample-chat.png)  
+
+<img src="./assets/sample-chat.png" width="300"/>
 
 Next, go to the Actions page in Watson Assistant and start browsing the actions.  You may want to start with the "Set by assistant" list of actions and click on "No action matches".  The first step of this action calls out to the "Search" action (which is in the "Created by you" list of actions).  If you have an assistant for which you expect search to be common and important, you may want to end your "No action matches" action there, so that when no action matches, you will _only_ get search results.  However, in our starter kit, we've included some extra logic that might be useful for assistants where search results are expected to be infrequent and less relevant.  Specifically, we check to see if "No action matches" has triggered 3 or more times.  If not, we end the action, but if so, we also trigger an "escalate to agent" event, which gives the user an option to connect directly to your service desk (if you have configured one).  The motivation here is that if a user has issued that many queries that did not match any of your actions and only produced search results, they may not be getting the information they need and may need more help.  Of course, if you do not have a service desk configured, then you should get rid of this logic and terminate after the first step.
 
