@@ -1,8 +1,8 @@
-# Watson Discovery v2 search
+# IBM Watson Discovery:tm: v2 search
 
 ## Background
 
-This is a starter kit for accessing the IBM Watson Discovery v2 search API via a custom extension to IBM Watson Assistant. The purpose of doing so is to allow a chatbot built in Watson Assistant to search for information in Watson Discovery and show what it finds in the chat.  This starter kit uses the custom extensions feature in [the new IBM Watson:tm: Assistant experience](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-watson-assistant-faqs#faqs-new-experience) using actions.  Anyone with an older Watson Assistant instance based on the classic experience and dialogs will need to upgrade to the new Watson Assistant experience before they can use the features described here.
+This is a starter kit for accessing the IBM Watson Discovery v2 search API via a custom extension to IBM Watson Assistant. The purpose of doing so is to allow a chatbot built in Watson Assistant to search for information in Watson Discovery and show what it finds in the chat.  This starter kit uses the custom extensions feature in [the new IBM Watson≈ Assistant experience](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-watson-assistant-faqs#faqs-new-experience) using actions.  Anyone with an older Watson Assistant instance based on the classic experience and dialogs will need to upgrade to the new Watson Assistant experience before they can use the features described here.
 
 The OpenAPI spec in this starter kit includes the following endpoint:
 
@@ -30,13 +30,13 @@ As noted above, the built-in search integration is a simpler, easier, but less f
 
 Here are some additional examples of things you might need to do when connecting Watson Assistant to Watson Discovery that could require the added flexibility of a custom extension:
 
-1. If your Watson Discovery documents have a complex schema with many fields (which can happen if you are uploading CSV files or JSON files or if you have a customized Smart Document Understanding model in Watson Discovery), the custom extension approach allows you to use any or all of the fields you want.  (In contrast, the built-in integration lets you select one title field, one text field, and one URL field and not anything else).
+1. If your Watson Discovery documents have a complex schema with many fields (which can happen if you are uploading CSV files or JSON files or if you have a customized Smart Document Understanding model), the custom extension approach allows you to use any or all of the fields you want.  (In contrast, the built-in integration only lets you select one title field, one text field, and one URL field).
 2. If your Watson Discovery documents include fields that are arrays or complex nested structures, you can concatenate or otherwise arrange elements from those arrays or structures.  (In contrast, the built-in integration will take the first element of each array only and will only allow you to pick a single atomic field within a nested structure).
 3. You can use metadata in a field in your schema to set the color or shape or other visual elements of a search response.
 4. You can show a small graph or table in your response card (or even have a larger one pop up when you click or mouse over).
 5. You can get information from custom enrichments in Watson Discovery (e.g., entities or text classifications) and use that information to affect how results are presented to the user.
 
-More broadly, anything you can do with Watson Discovery parameters and Watson Discovery outputs, you can do with a custom extension (at least within the size limitation: see the "Limit on Size of Search Results" section later in this document for details).  However, it will be more work, so if you just need simple search results, consider sticking with the [built-in search integration](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-search-add) instead.
+More broadly, anything you can do with Watson Discovery parameters and Watson Discovery outputs, you can do with a custom extension (at least within the size limitation: see the "Limit on Size of Search Results" section later in this document for details).  However, a custom extension will be more work, so if you just need simple search results, consider using with the [built-in search integration](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-search-add).
 
 ### Setting up Watson Discovery
 
@@ -60,18 +60,18 @@ If you want to make a _new_ Assistant using this starter kit, take the following
    - In the first step of the "How many Bitcoins can exist?" action, do the same thing.
    - In the first step of the "Search within the mining topic" action, do the same thing.  Also, update the value for `collection_ids` to list the IDs of each Discovery collection you want to include in this search OR just delete this parameter setting completely to search across all collections within the project.
 
-Note that unlike other starter kits such as the [Coveo search extension starter kit](https://github.com/watson-developer-cloud/assistant-toolkit/tree/master/integrations/extensions/starter-kits/coveo/README.md), this starter kit includes some examples of how to specialize your search for a specific application by adding custom filters.  So unless you are just trying to build the specific example we are using (the Bitcoin FAQ page mentioned in the "Pre-Requisite Steps" section above), you will need to edit these actions to fit your use case or delete them.
+Note that unlike other starter kits such as the [Coveo search extension starter kit](https://github.com/watson-developer-cloud/assistant-toolkit/tree/master/integrations/extensions/starter-kits/coveo/README.md), this starter kit is somewhat customized to a particular application.  Specifically, it includes some illustrative examples of how to specialize your search by configuring your search differently for different user profiles or intents.  The example we use is the Bitcoin FAQ page mentioned in the "Pre-Requisite Steps" section above. Unless you want to build an assistant for that data, you will need to edit these actions to fit your use case or delete them.
 
 ### Setup in a pre-existing Assistant
 
-If you want to add this starter kit to an _existing_ assistant, you cannot use the Actions JSON file since it will overwrite your existing configuration.  Furthermore, (as noted above), this starter kit is specialized to a specific example, and needs customizing to make work on another application.  Anyone wanting to add this capability to an existing bot may thus want to start by setting up the starter kit in a new Assistant (as described in the previous section), spend some time looking at how it works and what it does, and then apply what was learned to their own assistant.
+If you want to add this starter kit to an _existing_ assistant, you cannot use the Actions JSON file since it will overwrite your existing configuration.  Furthermore, (as noted above), this starter kit is somewhat specialized to the Bitcoin FAQ page example, and needs customizing to make work on another application.  Anyone wanting to add this capability to an existing bot may thus want to start by setting up the starter kit in a new Assistant (as described in the previous section), spend some time looking at how it works and what it does, and then apply what was learned to their own assistant.  Note that the OpenAPI specification (`watson-discovery-query-openapi.json`) is _not_ specialized for the Bitcoin example in anyway, so you can use that to [build a custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension) without making any changes to it.  However, the Actions JSON is somewhat specialized.  In particular, for some other application you would want to discard or replace the following actions: "How many Bitcoins can exist?", "Bitcoin FAQ Search", and "Search within the mining topic".  You would also want to get rid of the first step of the general-purpose "Search" action which calls out to one of the "Bitcoin" actions under certain circumstances. 
 
 ### Setup the sample index.html file
 
 Included in this kit is an `index.html` file in the `client/javascript` subdirectory.  To use this file, do the following:
 
-- Setup the OpenAPI and actions in an Assistant.
-- Open the web chat configuration screen (from the Environments or Integrations pages)
+- Setup the assistant (as described in "Setup in a new Assistant" above).
+- Open the web chat configuration screen (from the Environments or Integrations pages).
 - Select the "Embed" tab, which should look like the (redacted) image below:  
 ![Web chat embed tab](./assets/web-chat-embed.png)  
 - From the included snippet, copy only the three lines starting with `integrationID`, `region`, and `serviceInstanceID`.  Don't copy the others, because the `index.html` file in this kit already has all that.
@@ -79,7 +79,7 @@ Included in this kit is an `index.html` file in the `client/javascript` subdirec
 
 ## Using this Starter Kit
 
-Load `index.html` into a browser (e.g., Firefox or Chrome or Safari).  You will see the sample site in the background, and a circle in the lower right where you can open the web chat.  Click on it, and type in a query.  Here is an example of what the results might look like:  
+Load `index.html` in the `client/javascript` subdirectory into a browser (e.g., Firefox or Chrome or Safari).  You will see the sample site in the background, and a circle in the lower right where you can open the web chat.  Click on it, and type in a query.  Here is an example of what the results might look like:  
 
 <img src="./assets/sample-chat.png" width="300"/>
 
