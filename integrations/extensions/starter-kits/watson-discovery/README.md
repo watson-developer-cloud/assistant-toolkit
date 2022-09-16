@@ -8,7 +8,7 @@ The OpenAPI spec in this starter kit includes the following endpoint:
 
 - `POST /v2/projects/{project_id}/query`: Query a project.
 
-That endpoint is described in detail at [in the Watson Discovery query API reference](https://cloud.ibm.com/apidocs/discovery-data?code=java#query).  The OpenAPI spec in this starter kit is a simplified version of the full OpenAPI spec for Watson Discovery.  You can also download the full spec for the entire service by going to [the Watson Discovery documentation](https://cloud.ibm.com/apidocs/discovery-data) and clicking on the menu in the upper right. The simplified version in this kit differs from that specification in a variety of ways, e.g.:
+That endpoint is described in detail [in the Watson Discovery query API reference](https://cloud.ibm.com/apidocs/discovery-data?code=java#query).  The OpenAPI spec in this starter kit is a simplified version of the full OpenAPI spec for Watson Discovery.  You can also download the full spec for the entire service by going to [the Watson Discovery documentation](https://cloud.ibm.com/apidocs/discovery-data) and clicking on the menu in the upper right. The simplified version in this kit differs from that specification in a variety of ways, e.g.:
 
 1. The one in this kit includes only the POST/query endpoint, and the full one includes all the endpoints.
 2. The one in this kit complies with the [restricted subset of OpenAPI that is supported in Watson Assistant extensions](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#build-custom-extension-openapi-file).
