@@ -114,7 +114,8 @@ Here is an example of how to test out the Watson Discovery query API using `curl
 ```
 curl --request POST \
   --user apikey:${APIKEY} \
-  --url https://api.us-south.discovery.watson.cloud.ibm.com/instances/${INSTANCE_ID}/v2/projects/${PROJECT_ID}/query?version=2022-08-01 \
+  --url https://api.us-south.discovery.watson.cloud.ibm.com/instances/${INSTANCE_ID}/\
+v2/projects/${PROJECT_ID}/query?version=2022-08-01 \
   --header 'Content-Type: application/json' \
   --data '{
   	"natural_language_query": "How secure is Bitcoin?",
