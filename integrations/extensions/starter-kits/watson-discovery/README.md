@@ -109,6 +109,33 @@ If you look closely at the configurations in the actions that call the search ex
 
 Watson Assistant extensions have a hard limit of 100kb on the size of search results, and if the results from your extension exceed that limit, the action will fail without any visible warning or error.  So be sure to configure your Watson Discovery query cautiously and avoid pulling in anything you do not actually need.  As long as you are only asking for text that could plausibly fit into a search result you would want to display in a conversational bot, this limit should not be a severe restriction -- 100kb is a very sizable amount of text.  However, if you configure Watson Discovery carelessly and drag in a lot of extra content you do not intend to use or display, then it is possible to hit this limit and cause your searches to fail.  If you are not sure whether your Watson Discovery queries will generate responses that are more than 100kb in size, try calling the Watson Discovery API directly using the API testing tool of your choice and measuring the size of the response.
 
+Here is an example of how to test out the Watson Discovery query API using `curl`, a popular command-line tool for testing APIs.  This can also be done using a graphical tool like [Insomnia](https://insomnia.rest/) or [Postman](https://www.postman.com/).  Here is the `curl` command with a configuration that matches the one in the general-purpose "Search" action:
+
+```
+curl --request POST \
+  --user apikey:${APIKEY} \
+  --url https://api.us-south.discovery.watson.cloud.ibm.com/instances/${INSTANCE_ID}/v2/projects/${PROJECT_ID}/query?version=2022-08-01 \
+  --header 'Content-Type: application/json' \
+  --data '{
+  	"natural_language_query": "How secure is Bitcoin?",
+	  "count": 3,
+	  "return": ["title","metadata.source.url"],
+    "passages": {
+     "enabled": true,
+	   "fields": ["text"],
+	   "find_answers": true,
+     "characters": 250
+    },
+    "table_results": {
+	   "enabled": false
+    }
+   }' > temp.txt
+```
+
+This command requires that the APIKEY, INSTANCE_ID, and PROJECT_ID be set as [shell or environment variables](https://www.digitalocean.com/community/tutorials/how-to-read-and-set-environmental-and-shell-variables-on-linux) -- set these values to the same ones you used to configure your Assistant.  Once you have run the command, look to at the size of the file produced (using `ls -lh temp.txt` from a Mac or Linux command line, or using a graphical file manager).  The query shown above produces a result of around 2.4kb -- well below the 100kb limit.  Since the only fields being returned in full are `title` and `metadata.source.url`, the number of bytes returned from the search are mostly unaffected by the size or number of documents -- passages are pulled from the `text` field, but they are limited in length.  So you should be able to use this same configuration on other data sets that might have many more documents and much longer documents and still get results that are not much more than a couple kilobytes in size, as long as the titles and URLs are fairly short.
+
+For other configurations, you may want to try several different queries, especially if you are asking for more fields or longer passages or anything else that might result in more data.  You want to make sure that the results are reliably below 100kb, since the search will fail whenever they are not.
+
 ## Note about the Example
 
 We use bitcoin.org in this starter kit because it is an example of a 3rd party site with a well-structured FAQ page that has a lot of question and answers in a variety of topics.  The operators of bitcoin.org were not involved in the making of this starter kit, and this starter kit is not intended to endorse or dispute any content on that site.

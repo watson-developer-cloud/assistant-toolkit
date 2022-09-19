@@ -4,7 +4,7 @@
   "valid": true,
   "status": "Available",
   "created": "2022-08-22T12:24:06.250Z",
-  "updated": "2022-09-13T22:51:36.998Z",
+  "updated": "2022-09-19T18:51:54.688Z",
   "language": "en",
   "skill_id": "b7e91ec5-d365-488f-9b33-edb9c0282797",
   "workspace": {
@@ -839,6 +839,12 @@
                         "expression": "[\"8f5020be-1b14-54a2-0000-0182f4e2b449\"]"
                       },
                       "parameter": "collection_ids"
+                    },
+                    {
+                      "value": {
+                        "expression": "250"
+                      },
+                      "parameter": "passages.characters"
                     }
                   ],
                   "path": [
@@ -1149,6 +1155,12 @@
                         "expression": "\"title:finite\""
                       },
                       "parameter": "filter"
+                    },
+                    {
+                      "value": {
+                        "expression": "250"
+                      },
+                      "parameter": "passages.characters"
                     }
                   ],
                   "path": [
@@ -1466,12 +1478,6 @@
                     },
                     {
                       "value": {
-                        "expression": "[\"title\",\"metadata.source.url\"]"
-                      },
-                      "parameter": "return"
-                    },
-                    {
-                      "value": {
                         "expression": "[\"text\"]"
                       },
                       "parameter": "passages.fields"
@@ -1493,6 +1499,18 @@
                         "expression": "false"
                       },
                       "parameter": "table_results.enabled"
+                    },
+                    {
+                      "value": {
+                        "expression": "[\"title\",\"metadata.source.url\"]"
+                      },
+                      "parameter": "return"
+                    },
+                    {
+                      "value": {
+                        "expression": "250"
+                      },
+                      "parameter": "passages.characters"
                     }
                   ],
                   "path": [
@@ -2423,5 +2441,5 @@
   "assistant_id": "dbd8c2ac-6304-49df-800b-ec3578a7b15a",
   "workspace_id": "b7e91ec5-d365-488f-9b33-edb9c0282797",
   "dialog_settings": {},
-  "next_snapshot_version": "15"
+  "next_snapshot_version": "20"
 }
