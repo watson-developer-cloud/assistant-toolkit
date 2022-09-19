@@ -114,23 +114,23 @@ Here is an example of how to test out the Watson Discovery query API using `curl
 ```
 curl --request POST \
   --user apikey:${APIKEY} \
-  --url https://api.us-south.discovery.watson.cloud.ibm.com/instances/${INSTANCE_ID}/\
-v2/projects/${PROJECT_ID}/query?version=2022-08-01 \
+  --url https://api.us-south.discovery.watson.cloud.ibm.com/\
+instances/${INSTANCE_ID}/v2/projects/${PROJECT_ID}/query?version=2022-08-01 \
   --header 'Content-Type: application/json' \
   --data '{
-  	"natural_language_query": "How secure is Bitcoin?",
-	  "count": 3,
-	  "return": ["title","metadata.source.url"],
-    "passages": {
-     "enabled": true,
-	   "fields": ["text"],
-	   "find_answers": true,
-     "characters": 250
-    },
-    "table_results": {
-	   "enabled": false
-    }
-   }' > temp.txt
+ "natural_language_query": "How secure is Bitcoin?",
+ "count": 3,
+ "return": ["title","metadata.source.url"],
+ "passages": {
+  "enabled": true,
+  "fields": ["text"],
+  "find_answers": true,
+  "characters": 250
+ },
+ "table_results": {
+  "enabled": false
+ }
+}' > temp.txt
 ```
 
 This command requires that the APIKEY, INSTANCE_ID, and PROJECT_ID be set as [shell or environment variables](https://www.digitalocean.com/community/tutorials/how-to-read-and-set-environmental-and-shell-variables-on-linux) -- set these values to the same ones you used to configure your Assistant.  Once you have run the command, look to at the size of the file produced (using `ls -lh temp.txt` from a Mac or Linux command line, or using a graphical file manager).  The query shown above produces a result of around 2.4kb -- well below the 100kb limit.  Since the only fields being returned in full are `title` and `metadata.source.url`, the number of bytes returned from the search are mostly unaffected by the size or number of documents -- passages are pulled from the `text` field, but they are limited in length.  So you should be able to use this same configuration on other data sets that might have many more documents and much longer documents and still get results that are not much more than a couple kilobytes in size, as long as the titles and URLs are fairly short.
