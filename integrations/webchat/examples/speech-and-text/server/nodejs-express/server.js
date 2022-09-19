@@ -9,7 +9,6 @@ const { createServer } = require('http');
 
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-const createError = require('http-errors');
 const express = require('express');
 
 const PORT = 3001;
@@ -24,9 +23,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // The routes needed by the application.
-const getAuthTokenRouter = require('./routes/getAuthToken');
+const getAuthTokensRouter = require('./routes/getAuthTokens');
 
-app.use('/getAuthToken/', getAuthTokenRouter);
+app.use('/getAuthTokens/', getAuthTokensRouter);
 
 // Send a 404 response if no handler was found.
 app.use(function (request, response) {
@@ -34,7 +33,7 @@ app.use(function (request, response) {
 });
 
 // Error handler.
-app.use(function (error, request, response, next) {
+app.use(function (error, request, response) {
   console.error('An error occurred', error);
   response.status(500).send();
 });

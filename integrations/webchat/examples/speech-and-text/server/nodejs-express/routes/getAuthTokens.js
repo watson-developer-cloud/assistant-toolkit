@@ -5,9 +5,9 @@ const path = require('path');
 
 const router = express.Router();
 
-// These two files contain the API keys from your Watson Speech service instance.
-const STT_KEY = loadAPIKey('apiKeySTT.txt');
-const TTS_KEY = loadAPIKey('apiKeyTTS.txt');
+// These two files contain the credentials from your Watson Speech service instance.
+const STT_CREDENTIALS = loadCredentials('serviceCredentialsSTT.json');
+const TTS_CREDENTIALS = loadCredentials('serviceCredentialsTTS.json');
 
 /**
  * This is the function that handles "getAuthToken" requests. It will use the provided API keys for the speech to text
@@ -16,33 +16,40 @@ const TTS_KEY = loadAPIKey('apiKeyTTS.txt');
  * You can also find more information about the Speech SDK here:
  * https://github.com/watson-developer-cloud/speech-javascript-sdk.
  */
-async function getAuthToken(request, response) {
+async function getAuthTokens(request, response) {
   const ttsManager = new IamTokenManager({
-    iamApikey: TTS_KEY,
+    iamApikey: TTS_CREDENTIALS.apikey,
   });
   const ttsToken = await ttsManager.getToken();
 
   const sttManager = new IamTokenManager({
-    iamApikey: STT_KEY,
+    iamApikey: STT_CREDENTIALS.apikey,
   });
   const sttToken = await sttManager.getToken();
 
-  response.json({ ttsToken, sttToken });
+  response.json({ ttsToken, ttsURL: TTS_CREDENTIALS.url, sttToken, sttURL: STT_CREDENTIALS.url });
 }
 
 /**
  * Reads the API key from the given file.
  */
-function loadAPIKey(fileName) {
+function loadCredentials(fileName) {
   const filePath = path.join(__dirname, `../keys/${fileName}`);
   if (fs.existsSync(filePath)) {
-    return String(fs.readFileSync(filePath)).trim();
+    const data = String(fs.readFileSync(filePath));
+    const json = JSON.parse(data);
+    if (!json.apikey || !json.url) {
+      throw new Error(
+        `The file ${filePath} does not contain the expected service credentials. I expected "apikey" and "url" properties.`,
+      );
+    }
+    return json;
   }
   throw new Error(
-    `This example requires that you provide API keys for access to your Watson Speech service. Please make sure the appropriate key can be found in the keys/${fileName}.`,
+    `This example requires that you provide service credentials for access to your Watson Speech service. Please make sure the appropriate credentials can be found in keys/${fileName}.`,
   );
 }
 
-router.get('/', getAuthToken);
+router.get('/', getAuthTokens);
 
 module.exports = router;
