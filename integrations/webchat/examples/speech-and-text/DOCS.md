@@ -6,9 +6,9 @@ These steps assume that you have already created a Watson Speech service instanc
 
 This example requires access to the [Watson Speech SDK](https://github.com/watson-developer-cloud/speech-javascript-sdk). You can also read more about [Watson Text to Speech](https://www.ibm.com/cloud/watson-text-to-speech) and [Watson Speech to Text](https://www.ibm.com/cloud/watson-speech-to-text).
 
-If you are using a simple HTML file, you can download the SDK from the link above and include it using a `<script>` tag.
+If you are using a simple HTML file, you can include it using a `<script>` tag.
 ```html
-<script src="watson-speech.min.js"></script>
+<script src="https://unpkg.com/watson-speech@0.40.0/dist/watson-speech.min.js"></script>
 ```
 Or if you are using `npm`, you can import it using
 ```javascript

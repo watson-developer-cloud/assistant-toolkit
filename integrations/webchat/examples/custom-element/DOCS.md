@@ -8,7 +8,7 @@ Web chat uses the custom element you provide as the host location for web chat. 
 ```html
 <div id="WebChatContainer"></div>
 ```
-2. You'll need to get a reference to the element so you can provide it to web chat. This can be done using whatever mechanism makes sense for the library you are using. You can save a reference if you had used the `document.createElement` function or you can look up the element from the DOM using using the document query functions. This example will look up the element using the ID we assigned to it.
+2. You'll need to get a reference to the element so you can provide it to web chat. This can be done using whatever mechanism makes sense for the library you are using. You can save a reference if you had used the `document.createElement` function or you can look up the element from the DOM using one of the document query functions. This example will look up the element using the ID we assigned to it.
 ```javascript
 const customElement = document.querySelector('#WebChatContainer');
 ```
