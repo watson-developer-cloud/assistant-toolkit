@@ -44,6 +44,7 @@ If you want to add this starter kit to an _existing_ assistant, you cannot use t
 - [Add the extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension) using the API key you obtained in the pre-requisites step above.
 - Create session variables to be used for storing the intermediate results.
 - Create actions and break it down into repeatable sub actions as below.
+- Go to `Variables > Created by you` and add `query_text`, `cx`,`search_results`,`search_result`,`link`, `title`, `snippet`, `extension_result`,`exclude_terms`, `include_terms`,`exact_terms`,`date_restrict`.
   ![Variable](./assets/variables.png)<br>
 
 #### Search
