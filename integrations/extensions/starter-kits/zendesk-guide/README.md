@@ -23,8 +23,7 @@ Follow the steps listed in [Pre-Req: Getting Auth Keys and Configuring Your Serv
 
 If you want to make a _new_ Assistant using this starter kit, take the following steps:
 
-- Download the OpenAPI specification (`zendesk-article-search-openapi.json`) and Actions JSON file (`zendesk-article-search-actions.json`) from the `basic` folder in this starter kit.
-   - This section assumes the basic version of the starter kit, which will provide a basic Zendesk article search capability. For Zendesk filtered search, use the advanced version of the starter kit by downloading the files from the `advanced` folder.
+- Download the OpenAPI specification (`zendesk-article-search-openapi.json`) and Actions JSON file (`zendesk-article-search-actions.json`) from the `basic` folder in this starter kit. (This section assumes the basic version of the starter kit, which will provide a basic Zendesk article search capability. For Zendesk filtered search, use the advanced version of the starter kit by downloading the files from the `advanced` folder.)
 - Use the OpenAPI specification to [build a custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension). In the `Import OpenAPI` step, you will upload (by click or drag-and-drop) the `zendesk-article-search-openapi.json` file to specify the authentication and methods for your extension. You will be able to review the list of the servers and server variables found within the OpenAPI document.
 - [Add the extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension) using the credentials you obtained in the first step above.
   - For Authentication, select the authentication type provided in your openapi specification from the drop-down menu. In this starter kit, it is `Basic auth`.
