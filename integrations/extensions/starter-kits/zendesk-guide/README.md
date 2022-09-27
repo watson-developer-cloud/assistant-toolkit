@@ -31,22 +31,14 @@ If you want to make a _new_ Assistant using this starter kit, take the following
   - Next, enter the Zendesk username and password (typically {your_email}/token and the API token) that you obtained in the `Pre-Requisite Steps` section above.
   - Finally, enter the value for your subdomain to access zendesk.com. For example, if your url is https://my-test-domain.zendesk.com, you would enter `my-test-domain` in the Server variables section.
   - Review your extension setup and close to move on to the next steps.
-<<<<<<< HEAD
 - Now you are ready to add the actions from the starter kit. Select `Actions` in the upper left menu. Then select `Global settings` at the top right of the Actions window and select the `Upload/Download` tab. Now [upload `zendesk-article-search-actions.json`](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import) to define the actions in this starter kit. Return to `Actions` and you will see three actions: `Search`, `Show search results`, and `Show search result` from the starter kit in the `Created by you` section.
-=======
-- Now you are ready to add the actions from the starter kit. Select `Actions` in the upper left menu. Then select `Global settings` at the top right of the Actions window and select the `Upload/Download` tab. Now [upload `zendesk-article-search-actions.json`](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import) to define the actions in this starter kit. Return to `Actions` and you will see the `Search` action from the starter kit in the `Created by you` section.
->>>>>>> 7969a18227585db727518e7e8c31a32947333415
 - Use either method listed in [Configuring Your Actions Skill to use an Extension](https://github.com/watson-developer-cloud/assistant-toolkit/blob/master/integrations/extensions/README.md#configuring-your-actions-skill-to-use-an-extension) to configure the actions you uploaded to invoke the custom extension you built.
 
 If you are setting up in a new assistant, skip to the section `Using this Starter Kit`.  
 
 ### Setup in a pre-existing Assistant
 
-<<<<<<< HEAD
 If you want to add this starter kit to an _existing_ assistant, you cannot use the Actions JSON file (e.g.,`zendesk-article-search-actions.json`) since it will overwrite your existing configuration. So instead, follow the following process:
-=======
-If you want to add this starter kit to an _existing_ assistant, you cannot use the Actions JSON file (such as `zendesk-article-search-actions.json`) since it will overwrite your existing configuration.  So instead, follow the following process:
->>>>>>> 7969a18227585db727518e7e8c31a32947333415
 
 - Download the OpenAPI specification in this starter kit.
 - Use the OpenAPI specification to [build a custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension).
