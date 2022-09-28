@@ -48,6 +48,7 @@ If you want to add this starter kit to an _existing_ assistant, you cannot use t
 - Create actions and break it down into repeatable sub actions as below.
 - Go to `Variables > Created by you` and add `query_text`, `cx`,`search_results`,`search_result`,`link`, `title`, `snippet`, `extension_result`,`exclude_terms`, `include_terms`,`exact_terms`,`date_restrict`.
 - Follow the basic step to get started with search. Results can be filtered or scoped based on the given parameters with advanced filtered search.
+
   ![Variable](./assets/variables.png)<br>
 
 
@@ -58,7 +59,7 @@ Once this starter kit is properly installed, you can issue a query to your bot a
 - Create new action and name it `Search`.
 - Click the fX button to add a variable and add new session variable `query_text` and select "Expression" type and then put `input.text` or `input.original_text` as the expression.  The former will employ spelling correction to fix any detected spelling errors before sending the query, which can be helpful but it can also be counterproductive if your documents include specialized terminology that is not in our dictionary (such as product names) so you can use `input.original_text` as the alternative in such cases.
 - Optional: In "Assistant says", put `Searching for: ${query_text}`.
-- In "And then", select "Use an extension", select the extension you made back in step 2, and select the search endpoint and set the `query` parameter to the `query_text` session variable and the `cx` parameter to an *Expression* setting the value to the `Programmable Search Engine ID` you obtained during the pre-requisites step.
+- In "And then", select "Use an extension", and select the search endpoint and set the `query` parameter to the `query_text` session variable and the `cx` parameter to an *Expression* setting the value to the `Programmable Search Engine ID` you obtained during the pre-requisites step.
 - In new step, Store the results returned by extension (success or failure) in variable `extension_result`.
 - In next steps, call the `Process Result` action to do further processing on the results stored in previous step.
 - If you are planning for advanced `Filtered Search` action. Then you need to add extra step asking user the type of filter they want to apply on the result.
@@ -106,11 +107,16 @@ ${snippet}
 
 ![Search Result](./assets/search_result.gif)<br>
 
+- Close the action editor (by clicking X in the upper right)
+- Go to "Actions" > "Set by assistant" > "No action matches" and remove all the steps from the action.  Add in a new step.  Under "And then" select "Go to another action" and select "Search" and click "End this action after the subaction is completed".
+- You may also want to go to "Actions" > "Set by assistant" > "Fallback" and do the same thing as in the previous step.  Note, however, that this will prevent your assistant from escalating to a human agent when a customer asks to connect to a human agent (which is part of the default behavior for "Fallback") so only do this if you do not have your bot connected to a human agent chat service.  For more details on connecting to human agents within Watson Assistant see [our documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-human-agent) and [blog post](https://medium.com/ibm-watson/bring-your-own-service-desk-to-watson-assistant-b39bc920075c).
+- Go to the all action and remove everything from the "Customer starts with" list so that the action _only_ triggers via the "Go to another action" settings.  If you skip this, then some action will also be considered by the intent recognizer as a possible intent, which adds unnecessary complexity to the intent recognition and thus could result in lower overall intent recognition accuracy.
 
 
 ### Advanced
 #### Filtered Search
-Google custom search api provide list of customizable query parameters that can scope the results based on the parameters.
+- Once you have the basic search setup, you can filter the results on query parameters using filtered search.
+- Google custom search api provide list of customizable query parameters that can scope the results based on the parameters.
 - Create new action and name it `Filtered Search`
   - Add new step where assistant says "Would you like to filter your search results based on parameters?" and user response should be one of the options `Date restrict`,`Include terms`,`Exclude terms`,`Exact terms`.
   - Create new step for each option and with condition set for each option. Redirect to action based on the condition for user response. For example, If user response is `Exact terms` then "Go to another action" will point to `Exact terms` action.
@@ -138,10 +144,6 @@ Google custom search api provide list of customizable query parameters that can 
     - In third step, store the result in session variable `extension_result` and redirect to action `Process result`.
   ![Filtered Search](./assets/include_filter.gif)<br>
   
-- Close the action editor (by clicking X in the upper right)
-- Go to "Actions" > "Set by assistant" > "No action matches" and remove all the steps from the action.  Add in a new step.  Under "And then" select "Go to another action" and select "Search" and click "End this action after the subaction is completed".
-- You may also want to go to "Actions" > "Set by assistant" > "Fallback" and do the same thing as in the previous step.  Note, however, that this will prevent your assistant from escalating to a human agent when a customer asks to connect to a human agent (which is part of the default behavior for "Fallback") so only do this if you do not have your bot connected to a human agent chat service.  For more details on connecting to human agents within Watson Assistant see [our documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-human-agent) and [blog post](https://medium.com/ibm-watson/bring-your-own-service-desk-to-watson-assistant-b39bc920075c).
-- Go to the all action and remove everything from the "Customer starts with" list so that the action _only_ triggers via the "Go to another action" settings described in steps 13-15 above.  If you skip this, then some action will also be considered by the intent recognizer as a possible intent, which adds unnecessary complexity to the intent recognition and thus could result in lower overall intent recognition accuracy.
 
 ## Using this Starter Kit
 
