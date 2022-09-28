@@ -29,8 +29,10 @@ Follow the steps listed in the [Before you start](https://developers.google.com/
 If you want to make a _new_ Assistant using this starter kit, take the following steps:
 
 - Download the OpenAPI specification (`google-custom-search-openapi.json`) and Actions JSON file (`google-custom-search-actions.json`) in this starter kit.
+- Use (`./basic`) directory for basic search functionality and (`./advanced`) directory for extending the basic search with advanced filtered search.
 - Use the OpenAPI specification to [build a custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension).
 - [Add the extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension) using the API key you obtained in the pre-requisites above.
+- Select "Custom Search" or "Custom Search Site Restricted" as the endpoint at this step. If search is over more than 10 different web sites (which can include an unlimited number of pages on each site), we would recommend using "Custom Search Site Restricted" since it doesn't have a limit on the number of queries you can run per day.
 - [Upload the Actions JSON file](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import).
 - Use either method listed in [Configuring Your Actions Skill to use an Extension](https://github.com/watson-developer-cloud/assistant-toolkit/blob/master/integrations/extensions/README.md#configuring-your-actions-skill-to-use-an-extension) to configure the actions you uploaded to invoke the custom extension you built. Set the `query` parameter to the `query_text` session variable and the `cx` parameter to an *Expression* setting the value to the `Programmable Search Engine ID` you obtained during the pre-requisites step
 
@@ -45,7 +47,13 @@ If you want to add this starter kit to an _existing_ assistant, you cannot use t
 - Create session variables to be used for storing the intermediate results.
 - Create actions and break it down into repeatable sub actions as below.
 - Go to `Variables > Created by you` and add `query_text`, `cx`,`search_results`,`search_result`,`link`, `title`, `snippet`, `extension_result`,`exclude_terms`, `include_terms`,`exact_terms`,`date_restrict`.
+- Follow the basic step to get started with search. Results can be filtered or scoped based on the given parameters with advanced filtered search.
   ![Variable](./assets/variables.png)<br>
+
+
+### Basic
+Once this starter kit is properly installed, you can issue a query to your bot and if there is no other action that you've configured that matched that query then it will generate search results for that query. 
+You can use the actions and openapi 
 
 #### Search
 - Create new action and name it `Search`.
@@ -53,7 +61,8 @@ If you want to add this starter kit to an _existing_ assistant, you cannot use t
 - Optional: In "Assistant says", put `Searching for: ${query_text}`.
 - In "And then", select "Use an extension", select the extension you made back in step 2, and select the search endpoint and set the `query` parameter to the `query_text` session variable and the `cx` parameter to an *Expression* setting the value to the `Programmable Search Engine ID` you obtained during the pre-requisites step.
 - In new step, Store the results returned by extension (success or failure) in variable `extension_result`.
-- In next steps, call the `Process Result` and `Filtered Search` action to do further processing on the results stored in previous step.
+- In next steps, call the `Process Result` action to do further processing on the results stored in previous step.
+- If you are planning for advanced `Filtered Search` action. Then you need to add extra step asking user the type of filter they want to apply on the result.
   ![Search Action](./assets/search_action.gif)<br>
 
 #### Process Result
@@ -98,11 +107,15 @@ ${snippet}
 
 ![Search Result](./assets/search_result.gif)<br>
 
+
+
+### Advanced
 #### Filtered Search
 Google custom search api provide list of customizable query parameters that can scope the results based on the parameters.
 - Create new action and name it `Filtered Search`
   - Add new step where assistant says "Would you like to filter your search results based on parameters?" and user response should be one of the options `Date restrict`,`Include terms`,`Exclude terms`,`Exact terms`.
   - Create new step for each option and with condition set for each option. Redirect to action based on the condition for user response. For example, If user response is `Exact terms` then "Go to another action" will point to `Exact terms` action.
+  - Please note the filtered search uses the same query input stored in `query_text` during the basic search setup. It just decorates the request with additional parameters for filtering.
 - Create new action for each kind of filter
   - Date restrict
     - Create new action and name it `Date restrict`
