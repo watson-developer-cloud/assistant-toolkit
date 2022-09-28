@@ -53,7 +53,6 @@ If you want to add this starter kit to an _existing_ assistant, you cannot use t
 
 ### Basic
 Once this starter kit is properly installed, you can issue a query to your bot and if there is no other action that you've configured that matched that query then it will generate search results for that query. 
-You can use the actions and openapi 
 
 #### Search
 - Create new action and name it `Search`.
