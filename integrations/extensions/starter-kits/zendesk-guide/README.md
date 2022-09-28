@@ -42,12 +42,13 @@ If you want to add this starter kit to an _existing_ assistant, you cannot use t
 - Download the OpenAPI specification in this starter kit.
 - Use the OpenAPI specification to [build a custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension).
 - [Add the extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension) using the credentials you obtained in the pre-requisite step above.
-- Go to `Variables > Created by you` and add `query_text`, `search_results`, `search_result`, `link`, `title`, and `snippet`.
+- Go to `Variables > Created by you` and add `query_text`, `page_limit`, `search_results`, `search_result`, `link`, `title`, and `snippet`.
 - Go to `Actions > Created by you` and create three new actions titled "Search", "Show search results", and Show search result" respectively.
 - Click on the "Search" action and put "Search" in "What does your customer say to start this interaction?".  Add step 1:
   - Click the fX button to add a variable and add new session variable `query_text` and select "Expression" type and then put `input.text` or `input.original_text` as the expression.  The former will employ spelling correction to fix any detected spelling errors before sending the query, which can be helpful but it can also be counterproductive if your documents include specialized terminology that is not in our dictionary (such as product names) so you can use `input.original_text` as the alternative in such cases.
+  - Click `Set new value` and set `page_limit` to Expression type and then put 3 as the expression. This limits the size of the results returned by the query to avoid timeouts. 
   - Optional: In "Assistant says", put `Searching for: ${query_text}`
-  - In "And then", select "Use an extension", select the extension you made back in step 2, and select the search endpoint and set the `query` paramter to the `query_text` session variable.
+  - In "And then", select "Use an extension", select the extension you made back in step 2, and select the search endpoint and set the `query` parameter to the `query_text` session variable and the `per_page` parameter to the `page_limit` variable.
 
 ![Add query step](./assets/add-query-step.gif)<br>
 

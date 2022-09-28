@@ -109,6 +109,14 @@
             "type": "string"
           },
           "example": "en-us"
+        },
+        {
+          "name": "per_page",
+          "in": "query",
+          "schema": {
+            "type": "integer"
+          },
+          "example": "3"
         }
       ],
         "responses": {
