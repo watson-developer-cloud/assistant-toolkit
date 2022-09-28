@@ -1,12 +1,12 @@
 {
-  "name": "Google Custom Search Basic",
+  "name": "Google custom search basic",
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2022-09-28T15:35:03.446Z",
-  "updated": "2022-09-28T16:45:25.786Z",
+  "created": "2022-09-15T17:08:14.662Z",
+  "updated": "2022-09-28T18:54:03.581Z",
   "language": "en",
-  "skill_id": "de6c69d7-6b26-4d71-9367-5c4005db80ab",
+  "skill_id": "4f847485-e82b-4896-9ed1-a28dbd9b5894",
   "workspace": {
     "actions": [
       {
@@ -95,6 +95,330 @@
           }
         ],
         "next_action": "action_20548",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_561",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Would you like to filter your search results based on parameters?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                },
+                {
+                  "options": [
+                    {
+                      "label": "Exclude terms",
+                      "value": {
+                        "input": {
+                          "text": "Exclude terms"
+                        }
+                      }
+                    },
+                    {
+                      "label": "Include terms",
+                      "value": {
+                        "input": {
+                          "text": "Include terms"
+                        }
+                      }
+                    },
+                    {
+                      "label": "Exact terms",
+                      "value": {
+                        "input": {
+                          "text": "Exact terms"
+                        }
+                      }
+                    },
+                    {
+                      "label": "Dated",
+                      "value": {
+                        "input": {
+                          "text": "Dated"
+                        }
+                      }
+                    },
+                    {
+                      "label": "End",
+                      "value": {
+                        "input": {
+                          "text": "End"
+                        }
+                      }
+                    }
+                  ],
+                  "response_type": "option",
+                  "repeat_on_reprompt": true
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text": "I didn't catch that. Select a valid option:"
+                        }
+                      ],
+                      "response_type": "text"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "entity": "entity_20255",
+              "max_tries": 3
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_561",
+            "next_step": "step_420"
+          },
+          {
+            "step": "step_420",
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "action": "action_20604",
+                "parameters": null,
+                "result_variable": "step_420_result_1"
+              }
+            },
+            "variable": "step_420",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_561"
+                },
+                {
+                  "value": "Exclude terms",
+                  "from_entity": "entity_20255"
+                }
+              ]
+            },
+            "next_step": "step_869"
+          },
+          {
+            "step": "step_869",
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "action": "action_46576",
+                "parameters": null,
+                "result_variable": "step_869_result_1"
+              }
+            },
+            "variable": "step_869",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_561"
+                },
+                {
+                  "value": "Include terms",
+                  "from_entity": "entity_20255"
+                }
+              ]
+            },
+            "next_step": "step_134"
+          },
+          {
+            "step": "step_134",
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "action": "action_49796",
+                "parameters": null,
+                "result_variable": "step_134_result_1"
+              }
+            },
+            "variable": "step_134",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_561"
+                },
+                {
+                  "value": "Exact terms",
+                  "from_entity": "entity_20255"
+                }
+              ]
+            },
+            "next_step": "step_201"
+          },
+          {
+            "step": "step_201",
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "action": "action_27055",
+                "parameters": null,
+                "result_variable": "step_201_result_1"
+              }
+            },
+            "variable": "step_201",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_561"
+                },
+                {
+                  "value": "Dated",
+                  "from_entity": "entity_20255"
+                }
+              ]
+            },
+            "next_step": "step_330"
+          },
+          {
+            "step": "step_330",
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_330",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_561"
+                },
+                {
+                  "value": "End",
+                  "from_entity": "entity_20255"
+                }
+              ]
+            }
+          }
+        ],
+        "title": "Filtered Search",
+        "action": "action_14114",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_14114_intent_20133"
+        },
+        "variables": [
+          {
+            "title": "No response",
+            "variable": "step_134",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_134_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_163_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_165_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_201",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_201_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_206_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_215_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_287_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_330",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_420",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_420_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_515_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Would you like to filter your search results based on parameters",
+            "variable": "step_561",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_869",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_869_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_901_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_975_result_1",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_20604",
         "topic_switch": {
           "allowed_from": true,
           "allowed_into": true
@@ -361,6 +685,489 @@
       {
         "steps": [
           {
+            "step": "step_332",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Please provide the terms to exclude (comma separated)?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "question": {
+              "free_text": true,
+              "only_populate_when_prompted": true
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_332",
+            "next_step": "step_165"
+          },
+          {
+            "step": "step_165",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Searching with excluded terms: "
+                          },
+                          {
+                            "skill_variable": "exclude_terms"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "variable": "step_332"
+                  },
+                  "skill_variable": "exclude_terms"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/customsearch/v1",
+                "type": "integration_interaction",
+                "method": "GET",
+                "internal": {
+                  "catalog_item_id": "f8695f66-9b92-40ff-9aaa-1a12083490f8"
+                },
+                "request_mapping": {
+                  "query": [
+                    {
+                      "value": {
+                        "skill_variable": "query_text"
+                      },
+                      "parameter": "q"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "cx"
+                      },
+                      "parameter": "cx"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "exclude_terms"
+                      },
+                      "parameter": "excludeTerms"
+                    }
+                  ]
+                },
+                "result_variable": "step_165_result_1"
+              }
+            },
+            "variable": "step_165",
+            "next_step": "step_975"
+          },
+          {
+            "step": "step_975",
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${step_165_result_1}"
+                  },
+                  "skill_variable": "extension_result"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action",
+              "invoke_action": {
+                "action": "action_33252",
+                "parameters": null,
+                "result_variable": "step_975_result_1"
+              }
+            },
+            "variable": "step_975",
+            "next_step": "step_515"
+          },
+          {
+            "step": "step_515",
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "action": "action_14114",
+                "parameters": null,
+                "result_variable": "step_515_result_1"
+              }
+            },
+            "variable": "step_515"
+          }
+        ],
+        "title": "Exclude",
+        "action": "action_20604",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_20604_intent_7001"
+        },
+        "variables": [
+          {
+            "variable": "step_163_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Searching with excluded terms: {variable}",
+            "variable": "step_165",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_165_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_206_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_215_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_287_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Please provide the terms to exclude (comma separated)?",
+            "variable": "step_332",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_420_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_515",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_515_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_869_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_901_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_975",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_975_result_1",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_46576",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_332",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Please provide the number of days old required?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text": "I didn't catch that. Enter a number."
+                        }
+                      ],
+                      "response_type": "text"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "entity": "sys-number",
+              "max_tries": 3
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_332",
+            "next_step": "step_165"
+          },
+          {
+            "step": "step_165",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Searching  "
+                          },
+                          {
+                            "skill_variable": "number_of_days_old"
+                          },
+                          {
+                            "scalar": " days old results"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "variable": "step_332"
+                  },
+                  "skill_variable": "number_of_days_old"
+                },
+                {
+                  "value": {
+                    "expression": "\"d[${number_of_days_old}]\""
+                  },
+                  "skill_variable": "date_restrict"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/customsearch/v1",
+                "type": "integration_interaction",
+                "method": "GET",
+                "internal": {
+                  "catalog_item_id": "f8695f66-9b92-40ff-9aaa-1a12083490f8"
+                },
+                "request_mapping": {
+                  "query": [
+                    {
+                      "value": {
+                        "skill_variable": "query_text"
+                      },
+                      "parameter": "q"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "cx"
+                      },
+                      "parameter": "cx"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "date_restrict"
+                      },
+                      "parameter": "dateRestrict"
+                    }
+                  ]
+                },
+                "result_variable": "step_165_result_1"
+              }
+            },
+            "variable": "step_165",
+            "next_step": "step_975"
+          },
+          {
+            "step": "step_975",
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${step_165_result_1}"
+                  },
+                  "skill_variable": "extension_result"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action",
+              "invoke_action": {
+                "action": "action_33252",
+                "parameters": null,
+                "result_variable": "step_975_result_1"
+              }
+            },
+            "variable": "step_975",
+            "next_step": "step_515"
+          },
+          {
+            "step": "step_515",
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "action": "action_14114",
+                "parameters": null,
+                "result_variable": "step_515_result_1"
+              }
+            },
+            "variable": "step_515"
+          }
+        ],
+        "title": "Date restrict",
+        "action": "action_27055",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_49796_intent_20257"
+        },
+        "variables": [
+          {
+            "variable": "step_163_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Searching {variable} days old results",
+            "variable": "step_165",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_165_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_201_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_206_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_215_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_287_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Please provide the number of days old required?",
+            "variable": "step_332",
+            "data_type": "number"
+          },
+          {
+            "variable": "step_420_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_515",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_515_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_869_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_901_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_975",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_975_result_1",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_39545",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
             "step": "step_419",
             "output": {
               "generic": [
@@ -548,7 +1355,21 @@
                 "result_variable": "step_287_result_1"
               }
             },
-            "variable": "step_287"
+            "variable": "step_287",
+            "next_step": "step_215"
+          },
+          {
+            "step": "step_215",
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "action": "action_14114",
+                "parameters": null,
+                "result_variable": "step_215_result_1"
+              }
+            },
+            "variable": "step_215"
           }
         ],
         "title": "Search",
@@ -582,6 +1403,15 @@
           },
           {
             "title": "No response",
+            "variable": "step_215",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_215_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
             "variable": "step_287",
             "data_type": "any"
           },
@@ -599,6 +1429,446 @@
           }
         ],
         "next_action": "action_33252",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_332",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Please provide the terms to include (comma separated)?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "question": {
+              "free_text": true,
+              "only_populate_when_prompted": true
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_332",
+            "next_step": "step_165"
+          },
+          {
+            "step": "step_165",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Searching with included terms: "
+                          },
+                          {
+                            "skill_variable": "include_terms"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "variable": "step_332"
+                  },
+                  "skill_variable": "include_terms"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/customsearch/v1",
+                "type": "integration_interaction",
+                "method": "GET",
+                "internal": {
+                  "catalog_item_id": "f8695f66-9b92-40ff-9aaa-1a12083490f8"
+                },
+                "request_mapping": {
+                  "query": [
+                    {
+                      "value": {
+                        "skill_variable": "query_text"
+                      },
+                      "parameter": "q"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "cx"
+                      },
+                      "parameter": "cx"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "include_terms"
+                      },
+                      "parameter": "orTerms"
+                    }
+                  ]
+                },
+                "result_variable": "step_165_result_1"
+              }
+            },
+            "variable": "step_165",
+            "next_step": "step_975"
+          },
+          {
+            "step": "step_975",
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${step_165_result_1}"
+                  },
+                  "skill_variable": "extension_result"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action",
+              "invoke_action": {
+                "action": "action_33252",
+                "parameters": null,
+                "result_variable": "step_975_result_1"
+              }
+            },
+            "variable": "step_975",
+            "next_step": "step_515"
+          },
+          {
+            "step": "step_515",
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "action": "action_14114",
+                "parameters": null,
+                "result_variable": "step_515_result_1"
+              }
+            },
+            "variable": "step_515"
+          }
+        ],
+        "title": "Include",
+        "action": "action_46576",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_20604_intent_36282"
+        },
+        "variables": [
+          {
+            "variable": "step_163_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Searching with included terms: {variable}",
+            "variable": "step_165",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_165_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_206_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_215_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_287_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Please provide the terms to include (comma separated)?",
+            "variable": "step_332",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_420_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_515",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_515_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_869_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_901_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_975",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_975_result_1",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_49796",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_332",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Please provide the exact terms required (comma separated)?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "question": {
+              "free_text": true,
+              "only_populate_when_prompted": true
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_332",
+            "next_step": "step_165"
+          },
+          {
+            "step": "step_165",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Searching with exact terms: "
+                          },
+                          {
+                            "skill_variable": "exact_terms"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "variable": "step_332"
+                  },
+                  "skill_variable": "exact_terms"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/customsearch/v1",
+                "type": "integration_interaction",
+                "method": "GET",
+                "internal": {
+                  "catalog_item_id": "f8695f66-9b92-40ff-9aaa-1a12083490f8"
+                },
+                "request_mapping": {
+                  "query": [
+                    {
+                      "value": {
+                        "skill_variable": "query_text"
+                      },
+                      "parameter": "q"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "cx"
+                      },
+                      "parameter": "cx"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "exact_terms"
+                      },
+                      "parameter": "exactTerms"
+                    }
+                  ]
+                },
+                "result_variable": "step_165_result_1"
+              }
+            },
+            "variable": "step_165",
+            "next_step": "step_975"
+          },
+          {
+            "step": "step_975",
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${step_165_result_1}"
+                  },
+                  "skill_variable": "extension_result"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action",
+              "invoke_action": {
+                "action": "action_33252",
+                "parameters": null,
+                "result_variable": "step_975_result_1"
+              }
+            },
+            "variable": "step_975",
+            "next_step": "step_515"
+          },
+          {
+            "step": "step_515",
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "action": "action_14114",
+                "parameters": null,
+                "result_variable": "step_515_result_1"
+              }
+            },
+            "variable": "step_515"
+          }
+        ],
+        "title": "Exact",
+        "action": "action_49796",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_46576_intent_5984"
+        },
+        "variables": [
+          {
+            "variable": "step_163_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Searching with exact terms: {variable}",
+            "variable": "step_165",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_165_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_206_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_215_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_287_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Please provide the exact terms required (comma separated)?",
+            "variable": "step_332",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_420_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_515",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_515_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_869_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_901_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_975",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_975_result_1",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_27055",
         "topic_switch": {
           "allowed_from": true,
           "allowed_into": true
@@ -867,13 +2137,25 @@
             "data_type": "any"
           }
         ],
-        "next_action": "action_39545",
+        "next_action": "action_14114",
         "disambiguation_opt_out": true
       }
     ],
     "intents": [
       {
         "intent": "action_1322_intent_44252",
+        "examples": []
+      },
+      {
+        "intent": "action_14114_intent_20133",
+        "examples": []
+      },
+      {
+        "intent": "action_20604_intent_36282",
+        "examples": []
+      },
+      {
+        "intent": "action_20604_intent_7001",
         "examples": []
       },
       {
@@ -886,6 +2168,14 @@
       },
       {
         "intent": "action_43808_intent_33082",
+        "examples": []
+      },
+      {
+        "intent": "action_46576_intent_5984",
+        "examples": []
+      },
+      {
+        "intent": "action_49796_intent_20257",
         "examples": []
       },
       {
@@ -912,6 +2202,37 @@
     ],
     "entities": [
       {
+        "entity": "entity_20255",
+        "values": [
+          {
+            "type": "synonyms",
+            "value": "Dated",
+            "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "End",
+            "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "Exact terms",
+            "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "Exclude terms",
+            "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "Include terms",
+            "synonyms": []
+          }
+        ],
+        "fuzzy_match": true
+      },
+      {
         "entity": "sys-number",
         "values": []
       }
@@ -933,8 +2254,8 @@
         }
       },
       {
-        "title": "dateRestrict",
-        "variable": "dateRestrict",
+        "title": "date_restrict",
+        "variable": "date_restrict",
         "data_type": "any",
         "description": "",
         "initial_value": {
@@ -1043,8 +2364,8 @@
     "learning_opt_out": true
   },
   "description": "created for assistant dac5bd3c-5f15-4301-8e80-9143796db103",
-  "assistant_id": "94a5f358-a736-4653-9013-800da5cecf76",
-  "workspace_id": "de6c69d7-6b26-4d71-9367-5c4005db80ab",
+  "assistant_id": "46b02c9f-9e79-4fcd-8e16-6b4f7c9770a9",
+  "workspace_id": "4f847485-e82b-4896-9ed1-a28dbd9b5894",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }

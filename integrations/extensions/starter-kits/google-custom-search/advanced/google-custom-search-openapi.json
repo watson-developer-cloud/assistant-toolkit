@@ -402,6 +402,15 @@
             }
           },
           {
+            "name": "dateRestrict",
+            "in": "query",
+            "description": "Restricts results to URLs based on date.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "exactTerms",
             "in": "query",
             "description": "A phrase that all documents in the search results must contain",

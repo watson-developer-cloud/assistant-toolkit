@@ -1,10 +1,10 @@
 {
-  "name": "Google Custom Search Advanced",
+  "name": "Google custom search advanced",
   "type": "action",
   "valid": true,
   "status": "Available",
   "created": "2022-09-15T17:08:14.662Z",
-  "updated": "2022-09-20T15:15:33.792Z",
+  "updated": "2022-09-28T18:54:03.581Z",
   "language": "en",
   "skill_id": "4f847485-e82b-4896-9ed1-a28dbd9b5894",
   "workspace": {
@@ -1005,7 +1005,7 @@
                   "value": {
                     "expression": "\"d[${number_of_days_old}]\""
                   },
-                  "skill_variable": "dateRestrict"
+                  "skill_variable": "date_restrict"
                 }
               ]
             },
@@ -1035,7 +1035,7 @@
                     },
                     {
                       "value": {
-                        "skill_variable": "dateRestrict"
+                        "skill_variable": "date_restrict"
                       },
                       "parameter": "dateRestrict"
                     }
@@ -2254,8 +2254,8 @@
         }
       },
       {
-        "title": "dateRestrict",
-        "variable": "dateRestrict",
+        "title": "date_restrict",
+        "variable": "date_restrict",
         "data_type": "any",
         "description": "",
         "initial_value": {
