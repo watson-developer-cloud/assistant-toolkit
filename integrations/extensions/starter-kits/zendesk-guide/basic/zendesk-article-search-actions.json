@@ -3,10 +3,10 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2022-09-07T19:31:38.187Z",
-  "updated": "2022-09-16T18:12:54.984Z",
+  "created": "2022-09-19T18:51:16.324Z",
+  "updated": "2022-09-28T17:27:59.859Z",
   "language": "en",
-  "skill_id": "9a2e08fe-a97b-4e68-a098-21687f735ccc",
+  "skill_id": "409c5cd7-669e-4353-bfaa-570d07aca5bc",
   "workspace": {
     "actions": [
       {
@@ -42,6 +42,12 @@
                     "expression": "input.text"
                   },
                   "skill_variable": "query_text"
+                },
+                {
+                  "value": {
+                    "expression": "3"
+                  },
+                  "skill_variable": "page_limit"
                 }
               ]
             },
@@ -53,7 +59,7 @@
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "catalog_item_id": "8142e679-8ffb-4771-956d-70c78216b391"
+                  "catalog_item_id": "2189967c-cbc0-48da-ae55-77b470b841aa"
                 },
                 "request_mapping": {
                   "query": [
@@ -62,6 +68,12 @@
                         "skill_variable": "query_text"
                       },
                       "parameter": "query"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "page_limit"
+                      },
+                      "parameter": "per_page"
                     }
                   ]
                 },
@@ -1029,7 +1041,11 @@
     "intents": [
       {
         "intent": "action_10034_intent_23612",
-        "examples": []
+        "examples": [
+          {
+            "text": "students"
+          }
+        ]
       },
       {
         "intent": "action_33230_intent_43871",
@@ -1065,7 +1081,7 @@
     "metadata": {
       "api_version": {
         "major_version": "v2",
-        "minor_version": "2021-11-27"
+        "minor_version": "2018-11-08"
       }
     },
     "variables": [
@@ -1095,6 +1111,15 @@
         "variable": "link2",
         "data_type": "any",
         "description": ""
+      },
+      {
+        "title": "page_limit",
+        "variable": "page_limit",
+        "data_type": "any",
+        "description": "",
+        "initial_value": {
+          "scalar": "3"
+        }
       },
       {
         "title": "query_text",
@@ -1185,8 +1210,8 @@
     "learning_opt_out": true
   },
   "description": "created for assistant d2904a1b-312a-44cd-aa5c-88a3f70fa971",
-  "assistant_id": "a6904870-da35-4b3d-8ab5-2a2205f029f6",
-  "workspace_id": "9a2e08fe-a97b-4e68-a098-21687f735ccc",
+  "assistant_id": "ccec9a98-6875-4e28-ba31-1c8e404793a8",
+  "workspace_id": "409c5cd7-669e-4353-bfaa-570d07aca5bc",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }
