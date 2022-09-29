@@ -29,9 +29,9 @@ It demonstrates:
 
 The server is required for generating authorization tokens from your API keys. It serves requests from `http://localhost:3001/getAuthToken`.
 
-The important code for this example can be found at [getAuthToken.js](server/nodejs-express/routes/getAuthToken.js).
+The important code for this example can be found at [getAuthTokens.js](server/nodejs-express/routes/getAuthTokens.js).
 
-1. Copy your API keys for the text to speech and speech to text services into the `apiKeySTT.txt` and `apiKeyTSS.txt` files under `server/nodejs-express/keys`.
+1. Copy your service credentials for the text to speech and speech to text services into the `serviceCredentialsSTT.json` and `serviceCredentialsTTS.json` files under `server/nodejs-express/keys`.
 2. `cd server/nodejs-express`
 3. `npm install`
 4. `npm run start`
