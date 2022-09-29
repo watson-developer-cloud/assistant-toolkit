@@ -4,7 +4,7 @@
   "valid": true,
   "status": "Available",
   "created": "2022-09-21T18:09:56.538Z",
-  "updated": "2022-09-23T13:37:31.488Z",
+  "updated": "2022-09-29T14:12:33.990Z",
   "language": "en",
   "skill_id": "4fe65f37-71e6-4f12-814e-aa8ce7f339ad",
   "workspace": {
@@ -42,6 +42,12 @@
                     "expression": "input.text"
                   },
                   "skill_variable": "query_text"
+                },
+                {
+                  "value": {
+                    "expression": "3"
+                  },
+                  "skill_variable": "page_limit"
                 }
               ]
             },
@@ -53,7 +59,7 @@
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "catalog_item_id": "78cd0983-8988-4a56-841b-b8abc4dcbbf4"
+                  "catalog_item_id": "2eec6e86-981e-4b47-9fee-a13f5287bc91"
                 },
                 "request_mapping": {
                   "query": [
@@ -62,6 +68,12 @@
                         "skill_variable": "query_text"
                       },
                       "parameter": "query"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "page_limit"
+                      },
+                      "parameter": "per_page"
                     }
                   ]
                 },
@@ -179,7 +191,7 @@
             },
             "variable": "step_265",
             "condition": {
-              "expression": "${step_176_result_1.body.results}.length=0"
+              "expression": "${step_176_result_1.body.results}.length==0"
             }
           }
         ],
@@ -488,6 +500,12 @@
                     "expression": "input.text"
                   },
                   "skill_variable": "query_text"
+                },
+                {
+                  "value": {
+                    "expression": "3"
+                  },
+                  "skill_variable": "page_limit"
                 }
               ]
             },
@@ -499,10 +517,16 @@
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "catalog_item_id": "78cd0983-8988-4a56-841b-b8abc4dcbbf4"
+                  "catalog_item_id": "2eec6e86-981e-4b47-9fee-a13f5287bc91"
                 },
                 "request_mapping": {
                   "query": [
+                    {
+                      "value": {
+                        "skill_variable": "query_text"
+                      },
+                      "parameter": "query"
+                    },
                     {
                       "value": {
                         "skill_variable": "created_by_date"
@@ -511,9 +535,9 @@
                     },
                     {
                       "value": {
-                        "skill_variable": "query_text"
+                        "skill_variable": "page_limit"
                       },
-                      "parameter": "query"
+                      "parameter": "per_page"
                     }
                   ]
                 },
@@ -631,7 +655,22 @@
             },
             "variable": "step_265",
             "condition": {
-              "expression": "${step_176_result_1.body.results}.length=0"
+              "and": [
+                {
+                  "eq": [
+                    {
+                      "variable": "step_176_result_1",
+                      "variable_path": "success"
+                    },
+                    {
+                      "scalar": true
+                    }
+                  ]
+                },
+                {
+                  "expression": "${step_176_result_1.body.results}.length==0"
+                }
+              ]
             }
           }
         ],
@@ -996,7 +1035,7 @@
             "resolver": {
               "type": "invoke_another_action_and_end",
               "invoke_action": {
-                "action": null,
+                "action": "action_45681",
                 "parameters": null,
                 "result_variable": "step_896_result_1"
               }
@@ -1409,6 +1448,12 @@
       {
         "title": "link",
         "variable": "link",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "page_limit",
+        "variable": "page_limit",
         "data_type": "any",
         "description": ""
       },

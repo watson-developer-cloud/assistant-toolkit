@@ -4,7 +4,7 @@
   "valid": true,
   "status": "Available",
   "created": "2022-09-19T18:51:16.324Z",
-  "updated": "2022-09-28T17:27:59.859Z",
+  "updated": "2022-09-29T14:24:44.128Z",
   "language": "en",
   "skill_id": "409c5cd7-669e-4353-bfaa-570d07aca5bc",
   "workspace": {
@@ -191,7 +191,7 @@
             },
             "variable": "step_265",
             "condition": {
-              "expression": "${step_176_result_1.body.results}.length=0"
+              "expression": "${step_176_result_1.body.results}.length==0"
             }
           }
         ],
@@ -318,19 +318,19 @@
                             "scalar": "<a href=\""
                           },
                           {
-                            "skill_variable": "link0"
+                            "skill_variable": "link"
                           },
                           {
                             "scalar": "\" target=\"_blank\">"
                           },
                           {
-                            "skill_variable": "title0"
+                            "skill_variable": "title"
                           },
                           {
                             "scalar": "</a>\n\n\n\n"
                           },
                           {
-                            "skill_variable": "snippet0"
+                            "skill_variable": "snippet"
                           }
                         ]
                       }
@@ -347,19 +347,19 @@
                   "value": {
                     "expression": "\"$search_result.html_url\""
                   },
-                  "skill_variable": "link0"
+                  "skill_variable": "link"
                 },
                 {
                   "value": {
                     "expression": "$search_result.title"
                   },
-                  "skill_variable": "title0"
+                  "skill_variable": "title"
                 },
                 {
                   "value": {
                     "expression": "$search_result.snippet"
                   },
-                  "skill_variable": "snippet0"
+                  "skill_variable": "snippet"
                 }
               ]
             },
@@ -692,7 +692,7 @@
             "resolver": {
               "type": "invoke_another_action_and_end",
               "invoke_action": {
-                "action": null,
+                "action": "action_33230",
                 "parameters": null,
                 "result_variable": "step_896_result_1"
               }
@@ -1041,11 +1041,7 @@
     "intents": [
       {
         "intent": "action_10034_intent_23612",
-        "examples": [
-          {
-            "text": "students"
-          }
-        ]
+        "examples": []
       },
       {
         "intent": "action_33230_intent_43871",
@@ -1086,29 +1082,8 @@
     },
     "variables": [
       {
-        "title": "created_by_date",
-        "variable": "created_by_date",
-        "data_type": "any",
-        "description": "",
-        "initial_value": {
-          "scalar": "2022-07-15"
-        }
-      },
-      {
-        "title": "link0",
-        "variable": "link0",
-        "data_type": "any",
-        "description": ""
-      },
-      {
-        "title": "link1",
-        "variable": "link1",
-        "data_type": "any",
-        "description": ""
-      },
-      {
-        "title": "link2",
-        "variable": "link2",
+        "title": "link",
+        "variable": "link",
         "data_type": "any",
         "description": ""
       },
@@ -1140,38 +1115,14 @@
         "description": ""
       },
       {
-        "title": "snippet0",
-        "variable": "snippet0",
+        "title": "snippet",
+        "variable": "snippet",
         "data_type": "any",
         "description": ""
       },
       {
-        "title": "snippet1",
-        "variable": "snippet1",
-        "data_type": "any",
-        "description": ""
-      },
-      {
-        "title": "snippet2",
-        "variable": "snippet2",
-        "data_type": "any",
-        "description": ""
-      },
-      {
-        "title": "title0",
-        "variable": "title0",
-        "data_type": "any",
-        "description": ""
-      },
-      {
-        "title": "title1",
-        "variable": "title1",
-        "data_type": "any",
-        "description": ""
-      },
-      {
-        "title": "title2",
-        "variable": "title2",
+        "title": "title",
+        "variable": "title",
         "data_type": "any",
         "description": ""
       }
