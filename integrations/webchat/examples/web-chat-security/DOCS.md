@@ -1,16 +1,8 @@
 Note: This document is in a temporary location until this content is moved into the [main Watson Assistant documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-overview) tutorials section.
 
-The existing docs (https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-security) cover explanations for how to set up security but there's a few tweaks we should make:
+You can review the existing non-tutorial documentation for web chat security for more information at https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-security.
 
-1. We should probably move that architecture diagram much lower. It is pretty intimidating if that is the first thing you see and those details are probably not things that most of our customers need to worry about.
-2. I think this article could benefit from starting off with a very high level overview of the steps that are required to enable security. To enable security you basically need to do three things:
-   1. turn on security in the web chat settings
-   2. create an endpoint on your server that can generate a JWT
-   3. pass the JWT to web chat
-
---
-
-This example also covers a second slightly more specific security use case described here:
+This example covers the basic security use case described in the documentation linked above but it also expands on it by including the anonymous to authenticated user case.
 
 If you want Watson Assistant to be able to perform operations that are specific to authenticated users and you need to be able to handle the case where a user may begin a session unauthenticated but then later authenticate, follow the steps below. There are multiple ways of accomplishing this task; below is only one example, and it is based on a NodeJS Express server.
 
