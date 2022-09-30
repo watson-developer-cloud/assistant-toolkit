@@ -471,7 +471,8 @@
             "required": false,
             "schema": {
               "type": "integer"
-            }
+            },
+            "example" : 3
           },
           {
             "name": "orTerms",

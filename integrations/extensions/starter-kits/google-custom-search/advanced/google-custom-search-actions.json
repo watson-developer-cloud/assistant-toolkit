@@ -1,10 +1,10 @@
 {
-  "name": "Google custom search advanced",
+  "name": "Google Custom Search Advanced",
   "type": "action",
   "valid": true,
   "status": "Available",
   "created": "2022-09-15T17:08:14.662Z",
-  "updated": "2022-09-28T18:54:03.581Z",
+  "updated": "2022-09-30T21:40:18.243Z",
   "language": "en",
   "skill_id": "4f847485-e82b-4896-9ed1-a28dbd9b5894",
   "workspace": {
@@ -428,37 +428,6 @@
       {
         "steps": [
           {
-            "step": "step_976",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "I was not able to find anything relevant to your query, sorry!"
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "end_action"
-            },
-            "variable": "step_976",
-            "condition": {
-              "expression": "${search_results}.size < 1"
-            },
-            "next_step": "step_167"
-          },
-          {
             "step": "step_167",
             "output": {
               "generic": [
@@ -473,7 +442,7 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "${search_results}.get(0)"
+                    "expression": "${extension_result}.body.items.get(0)"
                   },
                   "skill_variable": "search_result"
                 }
@@ -490,7 +459,7 @@
             },
             "variable": "step_167",
             "condition": {
-              "expression": "${search_results}.size > 0"
+              "expression": "${extension_result}.body.items.size > 0"
             },
             "next_step": "step_146"
           },
@@ -509,7 +478,7 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "${search_results}.get(1)"
+                    "expression": "${extension_result}.body.items.get(1)"
                   },
                   "skill_variable": "search_result"
                 }
@@ -526,7 +495,7 @@
             },
             "variable": "step_146",
             "condition": {
-              "expression": "${search_results}.size > 1"
+              "expression": "${extension_result}.body.items.size > 1"
             },
             "next_step": "step_249"
           },
@@ -545,7 +514,7 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "${search_results}.get(2)"
+                    "expression": "${extension_result}.body.items.get(2)"
                   },
                   "skill_variable": "search_result"
                 }
@@ -562,7 +531,7 @@
             },
             "variable": "step_249",
             "condition": {
-              "expression": "${search_results}.size > 2"
+              "expression": "${extension_result}.body.items.size>2"
             }
           }
         ],
@@ -666,11 +635,6 @@
             "data_type": "any"
           },
           {
-            "title": "I was not able to find anything relevant to your query, sorry!",
-            "variable": "step_976",
-            "data_type": "any"
-          },
-          {
             "variable": "step_978_result_1",
             "data_type": "any"
           }
@@ -754,11 +718,11 @@
             "resolver": {
               "type": "callout",
               "callout": {
-                "path": "/customsearch/v1",
+                "path": "/customsearch/v1/siterestrict",
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "catalog_item_id": "f8695f66-9b92-40ff-9aaa-1a12083490f8"
+                  "catalog_item_id": "a84597e7-c6d6-4f60-8de7-5ad6c24c5d95"
                 },
                 "request_mapping": {
                   "query": [
@@ -773,12 +737,6 @@
                         "skill_variable": "cx"
                       },
                       "parameter": "cx"
-                    },
-                    {
-                      "value": {
-                        "skill_variable": "exclude_terms"
-                      },
-                      "parameter": "excludeTerms"
                     }
                   ]
                 },
@@ -1017,7 +975,7 @@
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "catalog_item_id": "f8695f66-9b92-40ff-9aaa-1a12083490f8"
+                  "catalog_item_id": "a84597e7-c6d6-4f60-8de7-5ad6c24c5d95"
                 },
                 "request_mapping": {
                   "query": [
@@ -1093,6 +1051,10 @@
           "intent": "action_49796_intent_20257"
         },
         "variables": [
+          {
+            "variable": "step_151_result_1",
+            "data_type": "any"
+          },
           {
             "variable": "step_163_result_1",
             "data_type": "any"
@@ -1177,7 +1139,7 @@
                       "text_expression": {
                         "concat": [
                           {
-                            "scalar": "Sorry! The search failed"
+                            "scalar": "Sorry! The search failed or result is empty"
                           }
                         ]
                       }
@@ -1197,21 +1159,47 @@
             },
             "variable": "step_419",
             "condition": {
-              "expression": "${extension_result}.success==false"
+              "or": [
+                {
+                  "and": [
+                    {
+                      "not": {
+                        "exists": {
+                          "skill_variable": "extension_result"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "expression": "${extension_result}.body == null"
+                    }
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "expression": "${extension_result}.body.items == null"
+                    }
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "expression": "${extension_result}.body.items.size == 0"
+                    }
+                  ]
+                }
+              ]
             },
             "next_step": "step_206"
           },
           {
             "step": "step_206",
             "context": {
-              "variables": [
-                {
-                  "value": {
-                    "expression": "${extension_result}.body.items"
-                  },
-                  "skill_variable": "search_results"
-                }
-              ]
+              "variables": []
             },
             "handlers": [],
             "resolver": {
@@ -1250,7 +1238,7 @@
             "data_type": "any"
           },
           {
-            "title": "Sorry! The search failed",
+            "title": "Sorry! The search failed or result is empty",
             "variable": "step_419",
             "data_type": "any"
           },
@@ -1310,7 +1298,7 @@
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "catalog_item_id": "f8695f66-9b92-40ff-9aaa-1a12083490f8"
+                  "catalog_item_id": "a84597e7-c6d6-4f60-8de7-5ad6c24c5d95"
                 },
                 "request_mapping": {
                   "query": [
@@ -1332,10 +1320,10 @@
               }
             },
             "variable": "step_163",
-            "next_step": "step_287"
+            "next_step": "step_151"
           },
           {
-            "step": "step_287",
+            "step": "step_151",
             "context": {
               "variables": [
                 {
@@ -1352,10 +1340,10 @@
               "invoke_action": {
                 "action": "action_33252",
                 "parameters": null,
-                "result_variable": "step_287_result_1"
+                "result_variable": "step_151_result_1"
               }
             },
-            "variable": "step_287",
+            "variable": "step_151",
             "next_step": "step_215"
           },
           {
@@ -1380,6 +1368,15 @@
           "intent": "action_39545_intent_31800"
         },
         "variables": [
+          {
+            "title": "No response",
+            "variable": "step_151",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_151_result_1",
+            "data_type": "any"
+          },
           {
             "title": "Search for: {variable}",
             "variable": "step_163",
@@ -1408,15 +1405,6 @@
           },
           {
             "variable": "step_215_result_1",
-            "data_type": "any"
-          },
-          {
-            "title": "No response",
-            "variable": "step_287",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_287_result_1",
             "data_type": "any"
           },
           {
@@ -1511,7 +1499,7 @@
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "catalog_item_id": "f8695f66-9b92-40ff-9aaa-1a12083490f8"
+                  "catalog_item_id": "a84597e7-c6d6-4f60-8de7-5ad6c24c5d95"
                 },
                 "request_mapping": {
                   "query": [
@@ -1587,6 +1575,10 @@
           "intent": "action_20604_intent_36282"
         },
         "variables": [
+          {
+            "variable": "step_151_result_1",
+            "data_type": "any"
+          },
           {
             "variable": "step_163_result_1",
             "data_type": "any"
@@ -1731,7 +1723,7 @@
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "catalog_item_id": "f8695f66-9b92-40ff-9aaa-1a12083490f8"
+                  "catalog_item_id": "a84597e7-c6d6-4f60-8de7-5ad6c24c5d95"
                 },
                 "request_mapping": {
                   "query": [
@@ -1807,6 +1799,10 @@
           "intent": "action_46576_intent_5984"
         },
         "variables": [
+          {
+            "variable": "step_151_result_1",
+            "data_type": "any"
+          },
           {
             "variable": "step_163_result_1",
             "data_type": "any"
@@ -2307,12 +2303,6 @@
       {
         "title": "search_result",
         "variable": "search_result",
-        "data_type": "any",
-        "description": ""
-      },
-      {
-        "title": "search_results",
-        "variable": "search_results",
         "data_type": "any",
         "description": ""
       },
