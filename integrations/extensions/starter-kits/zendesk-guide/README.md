@@ -32,11 +32,15 @@ If you want to make a _new_ Assistant using this starter kit, take the following
   - Review your extension setup and close to move on to the next steps.
 - Now you are ready to add the actions from the starter kit. Select `Actions` in the upper left menu. Then select `Global settings` at the top right of the Actions window and select the `Upload/Download` tab. Now [upload `zendesk-article-search-actions.json`](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import) to define the actions in this starter kit. Return to `Actions` and you will see three actions: `Search`, `Show search results`, and `Show search result` from the starter kit in the `Created by you` section.
 - Use either method listed in [Configuring Your Actions Skill to use an Extension](https://github.com/watson-developer-cloud/assistant-toolkit/blob/master/integrations/extensions/README.md#configuring-your-actions-skill-to-use-an-extension) to configure the actions you uploaded to invoke the custom extension you built.
-  - For the "Search" action, in the "Parameters" section of the "Use an extension" section (in "And then") the following parameter values:
+  - In the first step of the "Search" action, in the "Use an extension" section (in "And then") set the following parameter values:
     - query = query_text
     - per_page = page_limit
-  - (Advanced) If you are setting up the advanced search action, this is where you set the filter parameters you are using, for example:
+  - (Advanced) If you are setting up the advanced search action, in the first step of the "Search by document creation date", in the "Use an extension" section, set these parameters:
+    - query = query_text
+    - per_page = page_limit
     - created_after = created_by_date
+
+Setting `per_page` is very important for the reliability of the search because Watson Assistant has a limit of 100kb on how much information can be saved in the session state. For more details see [this note about the limits on the sizes of search results](https://github.com/watson-developer-cloud/assistant-toolkit/tree/master/integrations/extensions/starter-kits/watson-discovery#limit-on-size-of-search-results).
 
 Your starter kit is now ready to use. If you are setting up in a new assistant, skip to the section `Using this Starter Kit`.  
 
