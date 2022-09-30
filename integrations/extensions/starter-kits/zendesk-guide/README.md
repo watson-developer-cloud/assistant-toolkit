@@ -32,8 +32,13 @@ If you want to make a _new_ Assistant using this starter kit, take the following
   - Review your extension setup and close to move on to the next steps.
 - Now you are ready to add the actions from the starter kit. Select `Actions` in the upper left menu. Then select `Global settings` at the top right of the Actions window and select the `Upload/Download` tab. Now [upload `zendesk-article-search-actions.json`](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import) to define the actions in this starter kit. Return to `Actions` and you will see three actions: `Search`, `Show search results`, and `Show search result` from the starter kit in the `Created by you` section.
 - Use either method listed in [Configuring Your Actions Skill to use an Extension](https://github.com/watson-developer-cloud/assistant-toolkit/blob/master/integrations/extensions/README.md#configuring-your-actions-skill-to-use-an-extension) to configure the actions you uploaded to invoke the custom extension you built.
+  - For the "Search" action, in the "Parameters" section of the "Use an extension" section (in "And then") the following parameter values:
+    - query = query_text
+    - per_page = page_limit
+  - (Advanced) If you are setting up the advanced search action, this is where you set the filter parameters you are using, for example:
+    - created_after = created_by_date
 
-If you are setting up in a new assistant, skip to the section `Using this Starter Kit`.  
+Your starter kit is now ready to use. If you are setting up in a new assistant, skip to the section `Using this Starter Kit`.  
 
 ### Setup in a pre-existing Assistant
 
@@ -46,7 +51,7 @@ If you want to add this starter kit to an _existing_ assistant, you cannot use t
 - Go to `Actions > Created by you` and create three new actions titled "Search", "Show search results", and Show search result" respectively.
 - Click on the "Search" action and put "Search" in "What does your customer say to start this interaction?".  Add step 1:
   - Click the fX button to add a variable and add new session variable `query_text` and select "Expression" type and then put `input.text` or `input.original_text` as the expression.  The former will employ spelling correction to fix any detected spelling errors before sending the query, which can be helpful but it can also be counterproductive if your documents include specialized terminology that is not in our dictionary (such as product names) so you can use `input.original_text` as the alternative in such cases.
-  - Click `Set new value` and set `page_limit` to Expression type and then put 3 as the expression. This limits the size of the results returned by the query to avoid timeouts. 
+  - Click `Set new value` and set `page_limit` to Expression type and then put 3 as the expression. This limits the size of the results returned by the query to avoid timeouts.
   - Optional: In "Assistant says", put `Searching for: ${query_text}`
   - In "And then", select "Use an extension", select the extension you made back in step 2, and select the search endpoint and set the `query` parameter to the `query_text` session variable and the `per_page` parameter to the `page_limit` variable.
 
@@ -108,12 +113,15 @@ ${snippet}
 Once this starter kit is properly installed, you can issue a query to your bot and if there is no other action that you've configured that matched that query then it will generate search results for that query.
 
 ### Advanced
-[The Zendesk article search API](https://developer.zendesk.com/api-reference/help_center/help-center-api/search/#search-articles) includes several parameters that can be used to filter the search results. For example, you can filter results based on when a document was created or updated. To use the filter parameters in the advanced starter kit, follow the installation instructions given above to install the starter kit, but use the OpenAPI specification (`zendesk-article-advanced-search-openapi.json`) and Actions JSON file (`zendesk-article-advanced-search-actions.json`) from the `advanced` folder.
+[The Zendesk article search API](https://developer.zendesk.com/api-reference/help_center/help-center-api/search/#search-articles) includes several parameters that can be used to filter the search results. There are multiple parameters to filter results based on when a document was created or updated, which can be very helpful for limiting query results to the most recent documents or to documents that include a specific modification. There is also a `locale` parameter that can limit query results to e.g., English only documents.
+
+To use the filter parameters in the advanced starter kit, follow the installation instructions given above to install the starter kit, but use the OpenAPI specification (`zendesk-article-advanced-search-openapi.json`) and Actions JSON file (`zendesk-article-advanced-search-actions.json`) from the `advanced` folder.
 
 If you are setting up in a new assistant, after you have uploaded the Actions JSON file (`zendesk-article-advanced-search-actions.json`), return to `Actions` and you will see four actions: `Search`, `Search by document creation date`, `Show search results`, and `Show search result` from the starter kit in the `Created by you` section.
 
 #### Example Usage for Filtered Query by Document Creation Date
 The `Search by document creation date` is preconfigured in the starter kit to conduct the query search in documents created only after `created_by_date`. This section describes how to create this filtered search action.
+
 - Go to `Variables` -> `Created by you`. Create a session variable `created_by_date` and set it to a date. In this example it is 2022-07-15. This will be the value of the `created_after` query parameter used to filter the results in this example.
 
 ![Create session variable](./assets/create-filter-session-variable.gif)<br>

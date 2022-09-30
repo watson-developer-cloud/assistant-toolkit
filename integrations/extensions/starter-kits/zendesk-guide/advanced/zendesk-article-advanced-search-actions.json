@@ -4,7 +4,7 @@
   "valid": true,
   "status": "Available",
   "created": "2022-09-21T18:09:56.538Z",
-  "updated": "2022-09-29T14:12:33.990Z",
+  "updated": "2022-09-30T15:30:01.787Z",
   "language": "en",
   "skill_id": "4fe65f37-71e6-4f12-814e-aa8ce7f339ad",
   "workspace": {
@@ -59,7 +59,7 @@
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "catalog_item_id": "2eec6e86-981e-4b47-9fee-a13f5287bc91"
+                  "catalog_item_id": "e59fdef3-2a0c-4f23-91a9-4763f47b207a"
                 },
                 "request_mapping": {
                   "query": [
@@ -517,7 +517,7 @@
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "catalog_item_id": "2eec6e86-981e-4b47-9fee-a13f5287bc91"
+                  "catalog_item_id": "e59fdef3-2a0c-4f23-91a9-4763f47b207a"
                 },
                 "request_mapping": {
                   "query": [
@@ -1035,7 +1035,7 @@
             "resolver": {
               "type": "invoke_another_action_and_end",
               "invoke_action": {
-                "action": "action_45681",
+                "action": "action_33230",
                 "parameters": null,
                 "result_variable": "step_896_result_1"
               }
@@ -1384,11 +1384,7 @@
     "intents": [
       {
         "intent": "action_10034_intent_23612",
-        "examples": [
-          {
-            "text": "credit cards"
-          }
-        ]
+        "examples": []
       },
       {
         "intent": "action_33230_intent_33099",
