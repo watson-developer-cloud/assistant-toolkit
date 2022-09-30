@@ -35,7 +35,7 @@ If you want to make a _new_ Assistant using this starter kit, take the following
 - [Add the extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension) using the API key you obtained in the pre-requisites above.
 - Select "Custom Search" or "Custom Search Site Restricted" as the endpoint at this step. If search is over more than 10 different web sites (which can include an unlimited number of pages on each site), we would recommend using "Custom Search Site Restricted" since it doesn't have a limit on the number of queries you can run per day.
 - [Upload the Actions JSON file](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import).
-- Use either method listed in [Configuring Your Actions Skill to use an Extension](https://github.com/watson-developer-cloud/assistant-toolkit/blob/master/integrations/extensions/README.md#configuring-your-actions-skill-to-use-an-extension) to configure the actions you uploaded to invoke the custom extension you built. Set the `query` parameter to the `query_text` session variable and the `cx` parameter to an `cx` session variable you obtained during the pre-requisites step
+- Use either method listed in [Configuring Your Actions Skill to use an Extension](https://github.com/watson-developer-cloud/assistant-toolkit/blob/master/integrations/extensions/README.md#configuring-your-actions-skill-to-use-an-extension) to configure the actions you uploaded to invoke the custom extension you built. Set the `query` parameter to the `query_text` session variable and the `cx` parameter to an `cx` session variable you obtained during the pre-requisites step and `num` parameter to `num_of_results` session variable or default value to 3.
 
 
 ### Setup in a pre-existing Assistant
@@ -46,8 +46,9 @@ If you want to add this starter kit to an _existing_ assistant, you cannot use t
 - Use the OpenAPI specification to [build a custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension).
 - [Add the extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension) using the API key you obtained in the pre-requisites step above.
 - Create session variables to be used for storing the intermediate results.
-- Go to `Variables > Created by you` and add `query_text`, `cx`,`search_results`,`search_result`,`link`, `title`, `snippet`, `extension_result`,`exclude_terms`, `include_terms`,`exact_terms`,`date_restrict`.
-- Follow the basic step to get started with search and test it in the Preview chat.
+- Go to `Variables > Created by you` and add `query_text`, `cx`,`search_result`,`link`, `title`, `snippet`, `extension_result`,`exclude_terms`, `include_terms`,`exact_terms`,`date_restrict`.
+- Create variable `num_of_results` and set it to maximum number of results you want from the search api or set it `3` as default max number of results.
+- Follow the `basic` step below to get started with search and test it in the Preview chat.
 - Results can be filtered or scoped based on the given parameters with advanced filtered search. Once you are done with basic steps, follow the filtered search section for advanced setup using filter parameters in search api.
   ![Variable](./assets/variables.png)<br>
 
@@ -59,39 +60,38 @@ Once this starter kit is properly installed, you can issue a query to your bot a
 - Create new action and name it `Search`.
 - Click the fX button to add a variable and add new session variable `query_text` and select "Expression" type and then put `input.text` or `input.original_text` as the expression.  The former will employ spelling correction to fix any detected spelling errors before sending the query, which can be helpful but it can also be counterproductive if your documents include specialized terminology that is not in our dictionary (such as product names) so you can use `input.original_text` as the alternative in such cases.
 - Optional: In "Assistant says", put `Searching for: ${query_text}`.
-- In "And then", select "Use an extension", and select the search endpoint and set the `query` parameter to the `query_text` session variable and the `cx` parameter to an *Expression* setting the value to the `Programmable Search Engine ID` you obtained during the pre-requisites step.
-- In new step, Store the results returned by extension (success or failure) in variable `extension_result`.
+- In "And then", select "Use an extension", and select the search endpoint and set the `query` parameter to the `query_text` session variable and the `cx` parameter to `cx` session variable you set in pre-requisite step and `num` parameter to `num_of_results` session variable. 
+- In new step, Store the results returned by extension in variable `extension_result`.
 - In next steps, call the `Process Result` action to do further processing on the results stored in previous step.
-- If you are planning for advanced `Filtered Search` action. Then you need to add extra step asking user the type of filter they want to apply on the result.
+- If you are planning for advanced `Filtered Search` action. Then you need to add extra step asking user the type of filter they want to apply on the result. Based on the user response each filter will be selected at runtime.
   ![Search Action](./assets/search_action.gif)<br>
 
 #### Process Result
 - Create new action and name it `Process Result`
-- change "without conditions" to "with conditions" and "check if `extension_result.success==false`
+- change "without conditions" to "with conditions" and "check if `extension_result is not defined`  or `extension_result.body == null` or `extension_result.body.items == null` or `extension_result.body.items.size == 0`.
 - In "Assistant says" provide failure response "Sorry search failed! Please try again". 
-- change "without conditions" to "with conditions" and "check if `extension_result.success==true`
-- Click the fX button to add variables and set the `search_results` variable to an `Expression`. Type in the following `extension_result.body.items`.
-- In "And then" section select "Go to another action" and type "Show Search Results" which we will create in further sections.
+- Add new step for the success response if results are not empty.
+- Change "without conditions" to "with conditions" and "check if `extension_result.success==true` and In "And then" section select "Go to another action" and type "Show Search Results" which we will create in further sections.
   ![Process Result](./assets/process_result.gif)<br>
 
 #### Show Search Results
 - Create new action and name it `Show Search Results`
 - Add a "New Step" then:
-  - Change without conditions to "with conditions" and check if `${search_results}.size==0` then add Assistant says:
+  - Change without conditions to "with conditions" and check if `${extension_result.body.items}.size==0` then add Assistant says:
     - Search results not found! Please try again
 - In further steps check iterate over each search results and check if it exists, For example if we would like to show 3 results then there will be 3 more steps.
-- Change without conditions to "with conditions" and check if `${search_results}.size>0` then 
-  - Click fx and change variable value `search_result` to expression `${search_results}.get(0)`
-- Change without conditions to "with conditions" and check if `${search_results}.size>1` then
-  - Click fx and change variable value `search_result` to expression `${search_results}.get(1)`
-- Change without conditions to "with conditions" and check if `${search_results}.size>2` then
-  - Click fx and change variable value `search_result` to expression `${search_results}.get(2)`
+- Change without conditions to "with conditions" and check if `${extension_result.body.items}.size>0` then 
+  - Click fx and change variable value `search_result` to expression `${extension_result.body.items}.get(0)`
+- Change without conditions to "with conditions" and check if `${extension_result.body.items}.size>1` then
+  - Click fx and change variable value `search_result` to expression `${extension_result.body.items}.get(1)`
+- Change without conditions to "with conditions" and check if `${extension_result.body.items}.size>2` then
+  - Click fx and change variable value `search_result` to expression `${extension_result.body.items}.get(2)`
   ![Show Search results](./assets/show_search_results.gif)<br>
 
 #### Search Result
 - Create new action and name it `Search Result`
 - Add a "New Step", then:
-  - Click the fX button to add variables and add all of the following new session variables, replacing `step_123_result_1` with the actual variable name and selecting "Expression" each time. For context on why we do this and what these mean, see [Extensions Made Easy with Watson Assistant Starter Kits](https://medium.com/ibm-watson/extensions-made-easy-with-watson-assistant-starter-kits-6b177f624697):
+  - Click the fX button to set session variables as below:
 ```
 link = ${search_result}.link
 title = ${search_result}.title
@@ -126,22 +126,22 @@ Once you have the basic search setup, you can setup a filtered search to scope t
   - Date restrict
     - Create new action and name it `Date restrict`
     - Add new step, with Assistant says "Please provide the number of days old required?"
-    - In second step, store the user provided number of days in session variable `number_of_days_old` and set `date_restrict` variable value to `d[${number_of_days_old}]`, Call the extension with the parameters `query_text` for `q`, `cx` for `cx` and `date_restrict` for `daterestrict` query parameter
+    - In second step, store the user provided number of days in session variable `number_of_days_old` and set `date_restrict` variable value to `d[${number_of_days_old}]`, Call the extension with the parameters `query_text` for `q`, `cx` for `cx` and `date_restrict` for `daterestrict` query parameter and `num` parameter to `num_of_results` session variable. 
     - In third step, store the result in session variable `extension_result` and redirect to action `Process result`.
   - Include terms
     - Create new action and name it `Include terms`
     - Add new step, with Assistant says "Please provide the terms to include (comma separated)?"
-    - In second step, store the user provided number of days in session variable `include_terms`, Call the extension with the parameters `query_text` for `q`, `cx` for `cx` and `include_terms` for `orTerms` query parameter
+    - In second step, store the user provided number of days in session variable `include_terms`, Call the extension with the parameters `query_text` for `q`, `cx` for `cx` and `include_terms` for `orTerms` query parameter and `num` parameter to `num_of_results` session variable.
     - In third step, store the result in session variable `extension_result` and redirect to action `Process result`.
   - Exclude terms
     - Create new action and name it `Exclude terms`
     - Add new step, with Assistant says "Please provide the terms to exclude (comma separated)?"
-    - In second step, store the user provided number of days in session variable `exclude_terms`, Call the extension with the parameters `query_text` for `q`, `cx` for `cx` and `exclude_terms` for `excludeTerms` query parameter
+    - In second step, store the user provided number of days in session variable `exclude_terms`, Call the extension with the parameters `query_text` for `q`, `cx` for `cx` and `exclude_terms` for `excludeTerms` query parameter and `num` parameter to `num_of_results` session variable.
     - In third step, store the result in session variable `extension_result` and redirect to action `Process result`.
   - Exact terms
     - Create new action and name it `Exact terms`
     - Add new step, with Assistant says "Please provide the terms to exclude (comma separated)?"
-    - In second step, store the user provided number of days in session variable `exact_terms`, Call the extension with the parameters `query_text` for `q`, `cx` for `cx` and `exact_terms` for `exactTerms` query parameter
+    - In second step, store the user provided number of days in session variable `exact_terms`, Call the extension with the parameters `query_text` for `q`, `cx` for `cx` and `exact_terms` for `exactTerms` query parameter and `num` parameter to `num_of_results` session variable.
     - In third step, store the result in session variable `extension_result` and redirect to action `Process result`.
   ![Filtered Search](./assets/include_filter.gif)<br>
   

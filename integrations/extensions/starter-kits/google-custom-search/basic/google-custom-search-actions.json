@@ -3,10 +3,10 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2022-09-28T15:35:03.446Z",
-  "updated": "2022-09-28T20:05:57.026Z",
+  "created": "2022-09-30T22:09:24.542Z",
+  "updated": "2022-09-30T22:14:21.745Z",
   "language": "en",
-  "skill_id": "de6c69d7-6b26-4d71-9367-5c4005db80ab",
+  "skill_id": "24c3be65-9830-430b-87d0-c0f076aff328",
   "workspace": {
     "actions": [
       {
@@ -104,37 +104,6 @@
       {
         "steps": [
           {
-            "step": "step_976",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "I was not able to find anything relevant to your query, sorry!"
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "end_action"
-            },
-            "variable": "step_976",
-            "condition": {
-              "expression": "${search_results}.size < 1"
-            },
-            "next_step": "step_167"
-          },
-          {
             "step": "step_167",
             "output": {
               "generic": [
@@ -149,7 +118,7 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "${search_results}.get(0)"
+                    "expression": "${extension_result}.body.items.get(0)"
                   },
                   "skill_variable": "search_result"
                 }
@@ -166,7 +135,7 @@
             },
             "variable": "step_167",
             "condition": {
-              "expression": "${search_results}.size > 0"
+              "expression": "${extension_result}.body.items.size > 0"
             },
             "next_step": "step_146"
           },
@@ -185,7 +154,7 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "${search_results}.get(1)"
+                    "expression": "${extension_result}.body.items.get(1)"
                   },
                   "skill_variable": "search_result"
                 }
@@ -202,7 +171,7 @@
             },
             "variable": "step_146",
             "condition": {
-              "expression": "${search_results}.size > 1"
+              "expression": "${extension_result}.body.items.size > 1"
             },
             "next_step": "step_249"
           },
@@ -221,7 +190,7 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "${search_results}.get(2)"
+                    "expression": "${extension_result}.body.items.get(2)"
                   },
                   "skill_variable": "search_result"
                 }
@@ -238,7 +207,7 @@
             },
             "variable": "step_249",
             "condition": {
-              "expression": "${search_results}.size > 2"
+              "expression": "${extension_result}.body.items.size>2"
             }
           }
         ],
@@ -342,11 +311,6 @@
             "data_type": "any"
           },
           {
-            "title": "I was not able to find anything relevant to your query, sorry!",
-            "variable": "step_976",
-            "data_type": "any"
-          },
-          {
             "variable": "step_978_result_1",
             "data_type": "any"
           }
@@ -370,7 +334,7 @@
                       "text_expression": {
                         "concat": [
                           {
-                            "scalar": "Sorry! The search failed"
+                            "scalar": "Sorry! The search failed or result is empty"
                           }
                         ]
                       }
@@ -390,21 +354,47 @@
             },
             "variable": "step_419",
             "condition": {
-              "expression": "${extension_result}.success==false"
+              "or": [
+                {
+                  "and": [
+                    {
+                      "not": {
+                        "exists": {
+                          "skill_variable": "extension_result"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "expression": "${extension_result}.body == null"
+                    }
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "expression": "${extension_result}.body.items == null"
+                    }
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "expression": "${extension_result}.body.items.size == 0"
+                    }
+                  ]
+                }
+              ]
             },
             "next_step": "step_206"
           },
           {
             "step": "step_206",
             "context": {
-              "variables": [
-                {
-                  "value": {
-                    "expression": "${extension_result}.body.items"
-                  },
-                  "skill_variable": "search_results"
-                }
-              ]
+              "variables": []
             },
             "handlers": [],
             "resolver": {
@@ -443,7 +433,7 @@
             "data_type": "any"
           },
           {
-            "title": "Sorry! The search failed",
+            "title": "Sorry! The search failed or result is empty",
             "variable": "step_419",
             "data_type": "any"
           },
@@ -503,7 +493,7 @@
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "catalog_item_id": "f8695f66-9b92-40ff-9aaa-1a12083490f8"
+                  "catalog_item_id": "b5e0c1d2-296a-497b-a614-c2da3e811c92"
                 },
                 "request_mapping": {
                   "query": [
@@ -518,6 +508,12 @@
                         "skill_variable": "cx"
                       },
                       "parameter": "cx"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "num_of_results"
+                      },
+                      "parameter": "num"
                     }
                   ]
                 },
@@ -525,10 +521,10 @@
               }
             },
             "variable": "step_163",
-            "next_step": "step_287"
+            "next_step": "step_151"
           },
           {
-            "step": "step_287",
+            "step": "step_151",
             "context": {
               "variables": [
                 {
@@ -545,10 +541,10 @@
               "invoke_action": {
                 "action": "action_33252",
                 "parameters": null,
-                "result_variable": "step_287_result_1"
+                "result_variable": "step_151_result_1"
               }
             },
-            "variable": "step_287"
+            "variable": "step_151"
           }
         ],
         "title": "Search",
@@ -559,6 +555,15 @@
           "intent": "action_39545_intent_31800"
         },
         "variables": [
+          {
+            "title": "No response",
+            "variable": "step_151",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_151_result_1",
+            "data_type": "any"
+          },
           {
             "title": "Search for: {variable}",
             "variable": "step_163",
@@ -578,15 +583,6 @@
           },
           {
             "variable": "step_206_result_1",
-            "data_type": "any"
-          },
-          {
-            "title": "No response",
-            "variable": "step_287",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_287_result_1",
             "data_type": "any"
           },
           {
@@ -933,8 +929,35 @@
         }
       },
       {
+        "title": "date_restrict",
+        "variable": "date_restrict",
+        "data_type": "any",
+        "description": "",
+        "initial_value": {
+          "scalar": "d[10]"
+        }
+      },
+      {
+        "title": "exact_terms",
+        "variable": "exact_terms",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "exclude_terms",
+        "variable": "exclude_terms",
+        "data_type": "any",
+        "description": ""
+      },
+      {
         "title": "extension_result",
         "variable": "extension_result",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "include_terms",
+        "variable": "include_terms",
         "data_type": "any",
         "description": ""
       },
@@ -945,6 +968,21 @@
         "description": ""
       },
       {
+        "title": "number_of_days_old",
+        "variable": "number_of_days_old",
+        "data_type": "number",
+        "description": ""
+      },
+      {
+        "title": "num_of_results",
+        "variable": "num_of_results",
+        "data_type": "number",
+        "description": "",
+        "initial_value": {
+          "scalar": 3
+        }
+      },
+      {
         "title": "query_text",
         "variable": "query_text",
         "data_type": "any",
@@ -953,12 +991,6 @@
       {
         "title": "search_result",
         "variable": "search_result",
-        "data_type": "any",
-        "description": ""
-      },
-      {
-        "title": "search_results",
-        "variable": "search_results",
         "data_type": "any",
         "description": ""
       },
@@ -1010,8 +1042,8 @@
     "learning_opt_out": true
   },
   "description": "created for assistant dac5bd3c-5f15-4301-8e80-9143796db103",
-  "assistant_id": "94a5f358-a736-4653-9013-800da5cecf76",
-  "workspace_id": "de6c69d7-6b26-4d71-9367-5c4005db80ab",
+  "assistant_id": "35598474-218b-4648-8e67-4c9b220792ec",
+  "workspace_id": "24c3be65-9830-430b-87d0-c0f076aff328",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }
