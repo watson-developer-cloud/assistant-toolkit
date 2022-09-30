@@ -20,7 +20,8 @@ This starter kit exposes both basic and advanced search techniques.
 
 ## Pre-Requisite Steps
 
-Follow the steps listed in the [Before you start](https://developers.google.com/custom-search/v1/introduction#before_you_start) section to create the custom programmable search engine ( and thereafter obtain the ID of that Programmable Search Engine) as well as the [API key](https://developers.google.com/custom-search/v1/introduction#identify_your_application_to_google_with_api_key) to identify your application.
+- Follow the steps listed in the [Before you start](https://developers.google.com/custom-search/v1/introduction#before_you_start) section to create the custom programmable search engine ( and thereafter obtain the ID of that Programmable Search Engine) as well as the [API key](https://developers.google.com/custom-search/v1/introduction#identify_your_application_to_google_with_api_key) to identify your application.
+- Create a session variable with name `cx` and set its value to the `ID of that Programmable Search Engine`.
 
 ## Other Setup Info
 
@@ -34,7 +35,7 @@ If you want to make a _new_ Assistant using this starter kit, take the following
 - [Add the extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension) using the API key you obtained in the pre-requisites above.
 - Select "Custom Search" or "Custom Search Site Restricted" as the endpoint at this step. If search is over more than 10 different web sites (which can include an unlimited number of pages on each site), we would recommend using "Custom Search Site Restricted" since it doesn't have a limit on the number of queries you can run per day.
 - [Upload the Actions JSON file](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import).
-- Use either method listed in [Configuring Your Actions Skill to use an Extension](https://github.com/watson-developer-cloud/assistant-toolkit/blob/master/integrations/extensions/README.md#configuring-your-actions-skill-to-use-an-extension) to configure the actions you uploaded to invoke the custom extension you built. Set the `query` parameter to the `query_text` session variable and the `cx` parameter to an *Expression* setting the value to the `Programmable Search Engine ID` you obtained during the pre-requisites step
+- Use either method listed in [Configuring Your Actions Skill to use an Extension](https://github.com/watson-developer-cloud/assistant-toolkit/blob/master/integrations/extensions/README.md#configuring-your-actions-skill-to-use-an-extension) to configure the actions you uploaded to invoke the custom extension you built. Set the `query` parameter to the `query_text` session variable and the `cx` parameter to an `cx` session variable you obtained during the pre-requisites step
 
 
 ### Setup in a pre-existing Assistant
@@ -45,10 +46,9 @@ If you want to add this starter kit to an _existing_ assistant, you cannot use t
 - Use the OpenAPI specification to [build a custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension).
 - [Add the extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension) using the API key you obtained in the pre-requisites step above.
 - Create session variables to be used for storing the intermediate results.
-- Create actions and break it down into repeatable sub actions as below.
 - Go to `Variables > Created by you` and add `query_text`, `cx`,`search_results`,`search_result`,`link`, `title`, `snippet`, `extension_result`,`exclude_terms`, `include_terms`,`exact_terms`,`date_restrict`.
-- Follow the basic step to get started with search. Results can be filtered or scoped based on the given parameters with advanced filtered search.
-
+- Follow the basic step to get started with search and test it in the Preview chat.
+- Results can be filtered or scoped based on the given parameters with advanced filtered search. Once you are done with basic steps, follow the filtered search section for advanced setup using filter parameters in search api.
   ![Variable](./assets/variables.png)<br>
 
 
@@ -107,6 +107,7 @@ ${snippet}
 
 ![Search Result](./assets/search_result.gif)<br>
 
+#### Link Actions to No Action matches state
 - Close the action editor (by clicking X in the upper right)
 - Go to "Actions" > "Set by assistant" > "No action matches" and remove all the steps from the action.  Add in a new step.  Under "And then" select "Go to another action" and select "Search" and click "End this action after the subaction is completed".
 - You may also want to go to "Actions" > "Set by assistant" > "Fallback" and do the same thing as in the previous step.  Note, however, that this will prevent your assistant from escalating to a human agent when a customer asks to connect to a human agent (which is part of the default behavior for "Fallback") so only do this if you do not have your bot connected to a human agent chat service.  For more details on connecting to human agents within Watson Assistant see [our documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-human-agent) and [blog post](https://medium.com/ibm-watson/bring-your-own-service-desk-to-watson-assistant-b39bc920075c).
@@ -115,7 +116,7 @@ ${snippet}
 
 ### Advanced
 #### Filtered Search
-- Once you have the basic search setup, you can filter the results on query parameters using filtered search.
+Once you have the basic search setup, you can setup a filtered search to scope the results on query parameters.
 - Google custom search api provide list of customizable query parameters that can scope the results based on the parameters.
 - Create new action and name it `Filtered Search`
   - Add new step where assistant says "Would you like to filter your search results based on parameters?" and user response should be one of the options `Date restrict`,`Include terms`,`Exclude terms`,`Exact terms`.
