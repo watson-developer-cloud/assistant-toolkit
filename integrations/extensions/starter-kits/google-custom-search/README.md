@@ -126,7 +126,7 @@ Once you have the basic search setup, you can setup a filtered search to scope t
   - Date restrict
     - Create new action and name it `Date restrict`
     - Add new step, with Assistant says "Please provide the number of days old required?"
-    - In second step, store the user provided number of days in session variable `number_of_days_old` and set `date_restrict` variable value to `d[${number_of_days_old}]`, Call the extension with the parameters `query_text` for `q`, `cx` for `cx` and `date_restrict` for `daterestrict` query parameter and `num` parameter to `num_of_results` session variable. 
+    - In second step, store the user provided number of days in session variable `number_of_days_old` and set `date_restrict` variable value to `d[${number_of_days_old}]`, Call the extension with the parameters `query_text` for `q`, `cx` for `cx` and `date_restrict` for `dateRestrict` query parameter and `num` parameter to `num_of_results` session variable. 
     - In third step, store the result in session variable `extension_result` and redirect to action `Process result`.
   - Include terms
     - Create new action and name it `Include terms`
