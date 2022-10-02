@@ -1,10 +1,10 @@
 {
-  "name": "Google Custom Search Advanced",
+  "name": "Google custom search advanced",
   "type": "action",
   "valid": true,
   "status": "Available",
   "created": "2022-09-15T17:08:14.662Z",
-  "updated": "2022-09-30T21:40:18.243Z",
+  "updated": "2022-10-02T01:17:24.864Z",
   "language": "en",
   "skill_id": "4f847485-e82b-4896-9ed1-a28dbd9b5894",
   "workspace": {
@@ -718,7 +718,7 @@
             "resolver": {
               "type": "callout",
               "callout": {
-                "path": "/customsearch/v1/siterestrict",
+                "path": "/customsearch/v1",
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
@@ -737,6 +737,18 @@
                         "skill_variable": "cx"
                       },
                       "parameter": "cx"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "exclude_terms"
+                      },
+                      "parameter": "excludeTerms"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "num_of_results"
+                      },
+                      "parameter": "num"
                     }
                   ]
                 },
@@ -996,6 +1008,12 @@
                         "skill_variable": "date_restrict"
                       },
                       "parameter": "dateRestrict"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "num_of_results"
+                      },
+                      "parameter": "num"
                     }
                   ]
                 },
@@ -1174,14 +1192,21 @@
                 {
                   "and": [
                     {
-                      "expression": "${extension_result}.body == null"
+                      "expression": "${extension_result}.success == false"
                     }
                   ]
                 },
                 {
                   "and": [
                     {
-                      "expression": "${extension_result}.body.items == null"
+                      "expression": "${extension_result}.body== null"
+                    }
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "expression": "${extension_result}.body.items  == null"
                     }
                   ]
                 },
@@ -1313,6 +1338,12 @@
                         "skill_variable": "cx"
                       },
                       "parameter": "cx"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "num_of_results"
+                      },
+                      "parameter": "num"
                     }
                   ]
                 },
@@ -1520,6 +1551,12 @@
                         "skill_variable": "include_terms"
                       },
                       "parameter": "orTerms"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "num_of_results"
+                      },
+                      "parameter": "num"
                     }
                   ]
                 },
@@ -1744,6 +1781,12 @@
                         "skill_variable": "exact_terms"
                       },
                       "parameter": "exactTerms"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "num_of_results"
+                      },
+                      "parameter": "num"
                     }
                   ]
                 },
@@ -2293,6 +2336,15 @@
         "variable": "number_of_days_old",
         "data_type": "number",
         "description": ""
+      },
+      {
+        "title": "num_of_results",
+        "variable": "num_of_results",
+        "data_type": "number",
+        "description": "",
+        "initial_value": {
+          "scalar": 3
+        }
       },
       {
         "title": "query_text",
