@@ -68,7 +68,7 @@ Once this starter kit is properly installed, you can issue a query to your bot a
 
 #### Process Result
 - Create new action and name it `Process Result`
-- change "without conditions" to "with conditions" and "check if `extension_result is not defined`  or `extension_result.body == null` or `extension_result.body.items == null` or `extension_result.body.items.size == 0`.
+- change "without conditions" to "with conditions" and "check if  or `extension_result is not defined`  or `extension_result.success==false` or `extension_result.body == null` or `extension_result.body.items == null` or `extension_result.body.items.size == 0`.
 - In "Assistant says" provide failure response "Sorry search failed! Please try again". 
 - Add new step for the success response if results are not empty.
 - Change "without conditions" to "with conditions" and "check if `extension_result.success==true` and In "And then" section select "Go to another action" and type "Show Search Results" which we will create in further sections.
@@ -76,15 +76,12 @@ Once this starter kit is properly installed, you can issue a query to your bot a
 
 #### Show Search Results
 - Create new action and name it `Show Search Results`
-- Add a "New Step" then:
-  - Change without conditions to "with conditions" and check if `${extension_result.body.items}.size==0` then add Assistant says:
-    - Search results not found! Please try again
-- In further steps check iterate over each search results and check if it exists, For example if we would like to show 3 results then there will be 3 more steps.
-- Change without conditions to "with conditions" and check if `${extension_result.body.items}.size>0` then 
+- In following steps, Iterate over each search results and check if it exists, For example if we would like to show 3 results then there will be 3 more steps.
+- Next step, Change without conditions to "with conditions" and check if `${extension_result.body.items}.size>0` then 
   - Click fx and change variable value `search_result` to expression `${extension_result.body.items}.get(0)`
-- Change without conditions to "with conditions" and check if `${extension_result.body.items}.size>1` then
+- Next step, Change without conditions to "with conditions" and check if `${extension_result.body.items}.size>1` then
   - Click fx and change variable value `search_result` to expression `${extension_result.body.items}.get(1)`
-- Change without conditions to "with conditions" and check if `${extension_result.body.items}.size>2` then
+- Next step, Change without conditions to "with conditions" and check if `${extension_result.body.items}.size>2` then
   - Click fx and change variable value `search_result` to expression `${extension_result.body.items}.get(2)`
   ![Show Search results](./assets/show_search_results.gif)<br>
 
