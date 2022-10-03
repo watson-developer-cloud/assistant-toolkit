@@ -68,8 +68,10 @@ Once this starter kit is properly installed, you can issue a query to your bot a
 
 #### Process Result
 - Create new action and name it `Process Result`
-- change "without conditions" to "with conditions" and "check if  or `extension_result is not defined`  or `extension_result.success==false` or `extension_result.body == null` or `extension_result.body.items == null` or `extension_result.body.items.size == 0`.
+- change "without conditions" to "with conditions" and "check if  or `extension_result is not defined`  or `extension_result.success==false`.
 - In "Assistant says" provide failure response "Sorry search failed! Please try again". 
+- Add new step for checking `extension_result.body == null` or `extension_result.body.items == null` or `extension_result.body.items.size == 0`
+- In "Assistant says" provide failure response "Search results are empty". 
 - Add new step for the success response if results are not empty.
 - Change "without conditions" to "with conditions" and "check if `extension_result.success==true` and In "And then" section select "Go to another action" and type "Show Search Results" which we will create in further sections.
   ![Process Result](./assets/process_result.gif)<br>

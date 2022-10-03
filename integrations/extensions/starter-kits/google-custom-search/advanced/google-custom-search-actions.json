@@ -4,7 +4,7 @@
   "valid": true,
   "status": "Available",
   "created": "2022-09-15T17:08:14.662Z",
-  "updated": "2022-10-02T01:17:24.864Z",
+  "updated": "2022-10-03T20:00:44.068Z",
   "language": "en",
   "skill_id": "4f847485-e82b-4896-9ed1-a28dbd9b5894",
   "workspace": {
@@ -1157,7 +1157,7 @@
                       "text_expression": {
                         "concat": [
                           {
-                            "scalar": "Sorry! The search failed or result is empty"
+                            "scalar": "Sorry! The search failed!"
                           }
                         ]
                       }
@@ -1195,11 +1195,43 @@
                       "expression": "${extension_result}.success == false"
                     }
                   ]
-                },
+                }
+              ]
+            },
+            "next_step": "step_911"
+          },
+          {
+            "step": "step_911",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Search results are empty!"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_911",
+            "condition": {
+              "or": [
                 {
                   "and": [
                     {
-                      "expression": "${extension_result}.body== null"
+                      "expression": "${extension_result}.body  == null"
                     }
                   ]
                 },
@@ -1213,7 +1245,7 @@
                 {
                   "and": [
                     {
-                      "expression": "${extension_result}.body.items.size == 0"
+                      "expression": "${extension_result}.body.items.size  == 0"
                     }
                   ]
                 }
@@ -1263,12 +1295,17 @@
             "data_type": "any"
           },
           {
-            "title": "Sorry! The search failed or result is empty",
+            "title": "Sorry! The search failed!",
             "variable": "step_419",
             "data_type": "any"
           },
           {
             "variable": "step_901_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Search results are empty!",
+            "variable": "step_911",
             "data_type": "any"
           }
         ],
