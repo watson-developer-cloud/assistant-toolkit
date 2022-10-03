@@ -42,14 +42,14 @@ If you want to make a _new_ Assistant using this starter kit, take the following
 
 If you want to add this starter kit to an _existing_ assistant, you cannot use the Actions JSON file since it will overwrite your existing configuration.  So instead, follow the following process:
 
-- Download the OpenAPI specification in this starter kit.
+- Download the OpenAPI specification in this starter kit. `basic` directory contains basic search openapi specification, while the `advanced` directory contains the filtered search openapi specification.
 - Use the OpenAPI specification to [build a custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension).
 - [Add the extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension) using the API key you obtained in the pre-requisites step above.
 - Create session variables to be used for storing the intermediate results.
 - Go to `Variables > Created by you` and add `query_text`, `cx`,`search_result`,`link`, `title`, `snippet`, `extension_result`,`exclude_terms`, `include_terms`,`exact_terms`,`date_restrict`.
 - Create variable `num_of_results` and set it to maximum number of results you want from the search api or set it `3` as default max number of results.
 - Follow the `basic` step below to get started with search and test it in the Preview chat.
-- Results can be filtered or scoped based on the given parameters with advanced filtered search. Once you are done with basic steps, follow the filtered search section for advanced setup using filter parameters in search api.
+- Results can be filtered or scoped based on the given parameters with `advanced` filtered search. Once you are done with basic steps, follow the filtered search section for advanced setup using filter parameters in search api.
   ![Variable](./assets/variables.png)<br>
 
 
