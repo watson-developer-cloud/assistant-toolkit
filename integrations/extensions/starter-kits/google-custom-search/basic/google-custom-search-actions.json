@@ -1,10 +1,10 @@
 {
-  "name": "Google Custom Search Basic",
+  "name": "Google custom search basic",
   "type": "action",
   "valid": true,
   "status": "Available",
   "created": "2022-09-30T22:09:24.542Z",
-  "updated": "2022-09-30T22:14:21.745Z",
+  "updated": "2022-10-03T20:13:58.298Z",
   "language": "en",
   "skill_id": "24c3be65-9830-430b-87d0-c0f076aff328",
   "workspace": {
@@ -334,7 +334,7 @@
                       "text_expression": {
                         "concat": [
                           {
-                            "scalar": "Sorry! The search failed or result is empty"
+                            "scalar": "Sorry! The search failed!"
                           }
                         ]
                       }
@@ -369,21 +369,60 @@
                 {
                   "and": [
                     {
-                      "expression": "${extension_result}.body == null"
+                      "expression": "${extension_result}.success == false"
+                    }
+                  ]
+                }
+              ]
+            },
+            "next_step": "step_911"
+          },
+          {
+            "step": "step_911",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Search results are empty!"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_911",
+            "condition": {
+              "or": [
+                {
+                  "and": [
+                    {
+                      "expression": "${extension_result}.body  == null"
                     }
                   ]
                 },
                 {
                   "and": [
                     {
-                      "expression": "${extension_result}.body.items == null"
+                      "expression": "${extension_result}.body.items  == null"
                     }
                   ]
                 },
                 {
                   "and": [
                     {
-                      "expression": "${extension_result}.body.items.size == 0"
+                      "expression": "${extension_result}.body.items.size  == 0"
                     }
                   ]
                 }
@@ -433,12 +472,17 @@
             "data_type": "any"
           },
           {
-            "title": "Sorry! The search failed or result is empty",
+            "title": "Sorry! The search failed!",
             "variable": "step_419",
             "data_type": "any"
           },
           {
             "variable": "step_901_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Search results are empty!",
+            "variable": "step_911",
             "data_type": "any"
           }
         ],
