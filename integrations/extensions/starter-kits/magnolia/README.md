@@ -8,9 +8,10 @@ The OpenAPI spec in this starter kit includes the following **example** endpoint
 
 - `GET /delivery/tours/v1`: Search for content in the tours workspace using the v1 version of the REST endpoint
 
-**IMPORTANT NOTE:** This is an **example endpoint only** and was setup as a custom REST endpoint in the sample demo instance of Magnolia. As an end user, you should make sure to replace this with the path of your endpoint which will get invoked like `/.rest/<endpoint>/`. See the note [here](https://docs.magnolia-cms.com/product-docs/6.2/Developing/API/Delivery-API.html#_methods) for more details. Using `delivery` as a part of your end point path will allow you to have anonymous users access the `/.rest/delivery/*` path however it is recommended to have a security strategy to safeguard your content.   
+### Important Notes
 
-The Delivery endpoint for querying nodes is described in detail in the [Magnolia docs](https://docs.magnolia-cms.com/product-docs/6.2/Developing/API/Delivery-API.html#_query_nodes). Note that the `query nodes` method is the functionality that allows a user to perform full-text searches on the content stored in their instance of Magnolia.
+1. This is an **example endpoint only** and was setup as a custom REST endpoint in the sample demo instance of Magnolia. As an end user, you should make sure to replace this with the path of your endpoint which will get invoked like `/.rest/<endpoint>/`. See the note [here](https://docs.magnolia-cms.com/product-docs/6.2/Developing/API/Delivery-API.html#_methods) for more details. Using `delivery` as a part of your end point path will allow you to have anonymous users access the `/.rest/delivery/*` path however it is recommended to have a security strategy to safeguard your content.
+2. The Delivery endpoint for querying nodes is described in detail in the [Magnolia docs](https://docs.magnolia-cms.com/product-docs/6.2/Developing/API/Delivery-API.html#_query_nodes). Note that the `query nodes` method is the functionality that allows a user to perform ***full-text searches*** on the content stored in their instance of Magnolia. Since the endpoint does not support natural language queries, you would need to ensure that an end user is only performing strict keyword queries or you could potentially have those natural language queries stripped down to simple keyword queries by taking the help of [IBM Cloud Functions](https://www.ibm.com/cloud/functions) to remove stopwords and lemmatize other words.
 
 This starter kit exposes only the minimal functionality needed for simple use cases, and you will need to extend it if you want to cover more advanced ones.  For example, the API has parameters for restricting search based on the date or country that are not listed in the simple OpenAPI specification provided in the starter kit, so you would need to add these if you wanted to employ such filters.
 
@@ -29,10 +30,10 @@ If you want to make a _new_ Assistant using this starter kit, take the following
 - Download the OpenAPI specification (`magnolia-search-openapi.json`) and Actions JSON file (`magnolia-search-actions.json`) in this starter kit.
 - Update the API path from `/delivery/tours/v1` to the endpoint setup by you for your Magnolia instance in the downloaded `magnolia-search-openapi.json`
 - Use the OpenAPI specification to [build a custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension).
-- [Add the extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension) using the username/password you setup for the API in the pre-requisites above.
+- [Add the extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension) using the username/password you setup for the API in the pre-requisites above. Also fill in the domain of your public Magnolia instance into the `domain` server variable.
 - [Upload the Actions JSON file](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import).
 - Use either method listed in [Configuring Your Actions Skill to use an Extension](https://github.com/watson-developer-cloud/assistant-toolkit/blob/master/integrations/extensions/README.md#configuring-your-actions-skill-to-use-an-extension) to configure the actions you uploaded to invoke the custom extension you built. Set the `q` parameter to the `query_text` session variable
-- Update the `workspace` variable to be the URL of the workspace that you have set up your REST endpoint for. Example: We use `http://34.71.156.142:8080/magnoliaPublic/tours` since the Delivery endpoint setup for this starter kit is querying the ***tours*** workspace
+- In the Actions page go to `Variables > Created by you` and update the `workspace` variable to be the URL of the workspace that you have set up your REST endpoint for. Example: We use `http://34.71.156.142:8080/magnoliaPublic/tours` since the Delivery endpoint setup to test this starter kit is querying the ***tours*** workspace
 
 
 ### Setup in a pre-existing Assistant
@@ -120,5 +121,7 @@ Sorry.  The search failed!  Please try again another time.
 ## Using this Starter Kit
 
 Once this starter kit is properly installed, you can issue a query to your bot and if there is no other action that you've configured that matched that query then it will generate search results for that query.
+
+![Example](./assets/sample-search.png)<br>
 
 Feel free to contribute to this starter kit, or add other starter kits by following these [contribution guidelines](../../docs/CONTRIBUTING.md).
