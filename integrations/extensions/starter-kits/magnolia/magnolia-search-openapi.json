@@ -1,0 +1,128 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Magnolia Custom Search",
+    "description": "Magnolia Custom Search unofficial partial spec from IBM.  We made this by running the API and observing the behavior.  There is a detailed documentation of the full API at https://docs.magnolia-cms.com/product-docs/6.2/Developing/API/Delivery-API.html that you may want to use to add more functionality to this spec.  This spec is a minimal starting point that can handle some basic use cases.",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://{domain}/.rest",
+      "description": "The domain for your public Magnolia instance",
+      "variables": {
+        "domain": {
+          "default": "fill_here",
+          "description": "The domain for your public Magnolia instance"
+        }
+      }
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "basicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    }
+  },
+  "security": [
+    {
+      "basicAuth": []
+    }
+  ],
+  "paths": {
+    "/delivery/tours/v1": {
+      "get": {
+        "summary": "Search pages",
+        "description": "Search pages",
+        "operationId": "searchPages",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "help"
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Query search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "total": {
+                      "type": "integer"
+                    },
+                    "offset": {
+                      "type": "integer"
+                    },
+                    "limit": {
+                      "type": "integer"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "@name": {
+                            "type": "string"
+                          },
+                          "@path": {
+                            "type": "string"
+                          },
+                          "@id": {
+                            "type": "string"
+                          },
+                          "@nodetype": {
+                            "type": "string"
+                          },
+                          "body": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "author": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

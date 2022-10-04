@@ -1,0 +1,872 @@
+{
+  "name": "Pinterest Help",
+  "type": "action",
+  "valid": true,
+  "status": "Available",
+  "created": "2021-12-06T15:25:27.581Z",
+  "updated": "2022-09-23T21:27:51.652Z",
+  "language": "en",
+  "skill_id": "0dad18e1-558c-42d2-9160-d725bb212e12",
+  "workspace": {
+    "actions": [
+      {
+        "steps": [
+          {
+            "step": "step_729",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "<a href=\""
+                          },
+                          {
+                            "skill_variable": "link"
+                          },
+                          {
+                            "scalar": "\" target=\"_blank\">"
+                          },
+                          {
+                            "skill_variable": "title"
+                          },
+                          {
+                            "scalar": "</a>\n\n\n\n"
+                          },
+                          {
+                            "skill_variable": "snippet"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${search_result}.name"
+                  },
+                  "skill_variable": "title"
+                },
+                {
+                  "value": {
+                    "expression": "${search_result}.body.substring(0,200)"
+                  },
+                  "skill_variable": "snippet"
+                },
+                {
+                  "value": {
+                    "expression": "${search_result}.get(\"@path\")"
+                  },
+                  "skill_variable": "path"
+                },
+                {
+                  "value": {
+                    "expression": "${workspace}.append(${path}).append(\".html\")"
+                  },
+                  "skill_variable": "link"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_729"
+          }
+        ],
+        "title": "Show Search Result",
+        "action": "action_2697",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_2697_intent_32864"
+        },
+        "variables": [
+          {
+            "title": "<a href=\"{variable}\" target=\"_blank\">{variable}</a> {variable}",
+            "variable": "step_729",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "fallback",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_840",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "I was not able to find anything relevant to your query, sorry!"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_840",
+            "condition": {
+              "expression": "${search_results}.size < 1"
+            },
+            "next_step": "step_738"
+          },
+          {
+            "step": "step_738",
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${search_results}.get(0)"
+                  },
+                  "skill_variable": "search_result"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action",
+              "invoke_action": {
+                "action": "action_2697",
+                "parameters": null,
+                "result_variable": "step_738_result_1"
+              }
+            },
+            "variable": "step_738",
+            "condition": {
+              "expression": "${search_results}.size > 0"
+            },
+            "next_step": "step_456"
+          },
+          {
+            "step": "step_456",
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${search_results}.get(1)"
+                  },
+                  "skill_variable": "search_result"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action",
+              "invoke_action": {
+                "action": "action_2697",
+                "parameters": null,
+                "result_variable": "step_456_result_1"
+              }
+            },
+            "variable": "step_456",
+            "condition": {
+              "expression": "${search_results}.size > 1"
+            },
+            "next_step": "step_457"
+          },
+          {
+            "step": "step_457",
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${search_results}.get(2)"
+                  },
+                  "skill_variable": "search_result"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action",
+              "invoke_action": {
+                "action": "action_2697",
+                "parameters": null,
+                "result_variable": "step_457_result_1"
+              }
+            },
+            "variable": "step_457",
+            "condition": {
+              "expression": "${search_results}.size > 2"
+            }
+          }
+        ],
+        "title": "Show Search Results",
+        "action": "action_36694",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_36694_intent_44361"
+        },
+        "variables": [
+          {
+            "title": "No response",
+            "variable": "step_456",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_456_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_457",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_457_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_666_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_738",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_738_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_768_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "I was not able to find anything relevant to your query, sorry!",
+            "variable": "step_840",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_2697",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_386",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Searching for: "
+                          },
+                          {
+                            "skill_variable": "query_text"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "input.text"
+                  },
+                  "skill_variable": "query_text"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/delivery/tours/v1",
+                "type": "integration_interaction",
+                "method": "GET",
+                "internal": {
+                  "catalog_item_id": "15cdadb4-6227-4655-a4d0-eff90894bb6c"
+                },
+                "request_mapping": {
+                  "query": [
+                    {
+                      "value": {
+                        "skill_variable": "query_text"
+                      },
+                      "parameter": "q"
+                    }
+                  ]
+                },
+                "result_variable": "step_386_result_1"
+              }
+            },
+            "variable": "step_386",
+            "next_step": "step_961"
+          },
+          {
+            "step": "step_961",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Sorry.  The search failed!  Please try again another time."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_961",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_386_result_1",
+                  "variable_path": "success"
+                },
+                {
+                  "scalar": false
+                }
+              ]
+            },
+            "next_step": "step_485"
+          },
+          {
+            "step": "step_485",
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${step_386_result_1}.body.results"
+                  },
+                  "skill_variable": "search_results"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action",
+              "invoke_action": {
+                "action": "action_36694",
+                "parameters": null,
+                "result_variable": "step_485_result_1"
+              }
+            },
+            "variable": "step_485"
+          }
+        ],
+        "title": "Search",
+        "action": "action_46798",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_46798_intent_48795"
+        },
+        "variables": [
+          {
+            "title": "Searching for: {variable}",
+            "variable": "step_386",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_386_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_456_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_457_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_485",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_485_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_666_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_738_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_768_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Sorry. The search failed! Please try again another time.",
+            "variable": "step_961",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_983_result_1",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_36694",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_867",
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "action": "action_46798",
+                "parameters": null,
+                "result_variable": "step_867_result_1"
+              }
+            },
+            "variable": "step_867"
+          }
+        ],
+        "title": "No action matches",
+        "action": "anything_else",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "expression": "anything_else"
+        },
+        "variables": [
+          {
+            "variable": "step_386_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_433_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_456_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_457_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_666_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_738_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_768_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_867",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_867_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_983_result_1",
+            "data_type": "any"
+          }
+        ],
+        "disambiguation_opt_out": true
+      },
+      {
+        "steps": [
+          {
+            "step": "step_001",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "I'm afraid I don't understand. I can connect you to an agent."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
+                },
+                "message_to_human_agent": ""
+              }
+            },
+            "variable": "step_001",
+            "condition": {
+              "eq": [
+                {
+                  "system_variable": "fallback_reason"
+                },
+                {
+                  "scalar": "Step validation failed"
+                }
+              ]
+            },
+            "next_step": "step_002"
+          },
+          {
+            "step": "step_002",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "Sorry I couldn't assist you. I will connect you to an agent right away."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
+                },
+                "message_to_human_agent": ""
+              }
+            },
+            "variable": "step_002",
+            "condition": {
+              "eq": [
+                {
+                  "system_variable": "fallback_reason"
+                },
+                {
+                  "scalar": "Agent requested"
+                }
+              ]
+            },
+            "next_step": "step_003"
+          },
+          {
+            "step": "step_003",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "I am afraid I do not understand what you are asking, let me connect you to an agent."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
+                },
+                "message_to_human_agent": ""
+              }
+            },
+            "variable": "step_003",
+            "condition": {
+              "eq": [
+                {
+                  "system_variable": "fallback_reason"
+                },
+                {
+                  "scalar": "No action matches"
+                }
+              ]
+            }
+          }
+        ],
+        "title": "Fallback",
+        "action": "fallback",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "fallback_connect_to_agent"
+        },
+        "variables": [
+          {
+            "title": "I'm afraid I don't understand. I can connect you to an agent.",
+            "variable": "step_001",
+            "data_type": "any"
+          },
+          {
+            "title": "Sorry I couldn't assist you. I will connect you to an agent righ",
+            "variable": "step_002",
+            "data_type": "any"
+          },
+          {
+            "title": "I am afraid I do not understand what you are asking, let me conn",
+            "variable": "step_003",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "anything_else",
+        "disambiguation_opt_out": true
+      },
+      {
+        "steps": [
+          {
+            "step": "step_001",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "Welcome, how can I assist you?"
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_001"
+          }
+        ],
+        "title": "Greet customer",
+        "action": "welcome",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "expression": "welcome"
+        },
+        "variables": [
+          {
+            "variable": "step_001",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_46798",
+        "disambiguation_opt_out": true
+      }
+    ],
+    "intents": [
+      {
+        "intent": "action_2697_intent_32864",
+        "examples": []
+      },
+      {
+        "intent": "action_36694_intent_44361",
+        "examples": [
+          {
+            "text": "Show Search Results"
+          }
+        ]
+      },
+      {
+        "intent": "action_46798_intent_48795",
+        "examples": []
+      },
+      {
+        "intent": "fallback_connect_to_agent",
+        "examples": [
+          {
+            "text": "Agent help"
+          },
+          {
+            "text": "Call agent"
+          },
+          {
+            "text": "Can I connect to an agent?"
+          },
+          {
+            "text": "I would like to speak to a human"
+          },
+          {
+            "text": "I would like to speak to someone"
+          }
+        ],
+        "description": "Please transfer me to an agent"
+      }
+    ],
+    "entities": [],
+    "metadata": {
+      "api_version": {
+        "major_version": "v2",
+        "minor_version": "2018-11-08"
+      }
+    },
+    "variables": [
+      {
+        "title": "link",
+        "variable": "link",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "path",
+        "variable": "path",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "query_text",
+        "variable": "query_text",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "search_result",
+        "variable": "search_result",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "search_results",
+        "variable": "search_results",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "snippet",
+        "variable": "snippet",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "title",
+        "variable": "title",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "workspace",
+        "variable": "workspace",
+        "data_type": "string",
+        "description": "",
+        "initial_value": {
+          "scalar": "http://34.71.156.142:8080/magnoliaPublic/tours"
+        }
+      }
+    ],
+    "data_types": [],
+    "counterexamples": [],
+    "system_settings": {
+      "off_topic": {
+        "enabled": true
+      },
+      "topic_switch": {
+        "enabled": true,
+        "messages": {
+          "confirm_return": {
+            "text": "Return to previous topic?"
+          },
+          "confirm_switch": {
+            "text": "Switch from the current topic?"
+          }
+        },
+        "question_steps_threshold": 2
+      },
+      "disambiguation": {
+        "prompt": "Did you mean:",
+        "enabled": true,
+        "randomize": true,
+        "max_suggestions": 5,
+        "suggestion_text_policy": "title",
+        "none_of_the_above_prompt": "None of the above",
+        "use_connect_to_support_prompt": "Connect to support"
+      },
+      "intent_classification": {
+        "training_backend_version": "v2"
+      },
+      "spelling_auto_correct": true
+    },
+    "learning_opt_out": true
+  },
+  "description": "created for assistant dac5bd3c-5f15-4301-8e80-9143796db103",
+  "assistant_id": "06b1645e-dbe7-4a04-b343-bc049778841a",
+  "workspace_id": "0dad18e1-558c-42d2-9160-d725bb212e12",
+  "dialog_settings": {},
+  "next_snapshot_version": "1"
+}
