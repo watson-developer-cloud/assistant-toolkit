@@ -8,7 +8,6 @@ The OpenAPI spec in this starter kit includes the following endpoint:
 
 - `GET /rest/search/v2`: Search for content relevant to a given query in set of sources or documents.
 
-
 The endpoints are described in detail at:
 
 1. **Search Query**: https://docs.coveo.com/en/1445/build-a-search-ui/perform-a-query
@@ -17,7 +16,7 @@ This starter kit exposes only the minimal functionality needed for simple use ca
 
 ## Pre-Requisite Steps
 
-Follow the steps listed in the [Coveo Overview](https://docs.coveo.com/en/3361/coveo-overview) section to create the API key to identify your application.
+Follow the steps listed in the [Coveo Overview](https://docs.coveo.com/en/3361/coveo-overview) section to create the API key to identify your application. Make sure your API key is enabled for Search and "Execute queries" is allowed.
 
 ## Other Setup Info
 
@@ -28,9 +27,12 @@ If you want to make a _new_ Assistant using this starter kit, take the following
 - Download the OpenAPI specification (`coveo.openapi.json`) and Actions JSON file (`coveo.actions.json`) in this starter kit.
 - Use the OpenAPI specification to [build a custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension).
 - [Add the extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension) using the API key you obtained in the pre-requisites above.
-- [Upload the Actions JSON file](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import).
-- Use either method listed in [Configuring Your Actions Skill to use an Extension](https://github.com/watson-developer-cloud/assistant-toolkit/blob/master/integrations/extensions/README.md#configuring-your-actions-skill-to-use-an-extension) to configure the actions you uploaded to invoke the custom extension you built. Set the `q` parameter to the `query_text` session variable.
+- [Upload the Actions JSON file](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import). In `Actions`, you will see three actions: `Search`, `Show search results`, and `Show search result` from the starter kit in the `Created by you` section.
+- Use either method listed in [Configuring Your Actions Skill to use an Extension](https://github.com/watson-developer-cloud/assistant-toolkit/blob/master/integrations/extensions/README.md#configuring-your-actions-skill-to-use-an-extension) to configure the actions you uploaded to invoke the custom extension you built.
+  - In the third step of the "Search" action, in the "Use an extension" section (in "And then") set the following parameter value:
+    - q = query_text
 
+Your starter kit is now ready to use. If you are setting up in a new assistant, skip to the section `Using this Starter Kit`.  
 
 ### Setup in a pre-existing Assistant
 
@@ -39,64 +41,64 @@ If you want to add this starter kit to an _existing_ assistant, you cannot use t
 - Download the OpenAPI specification in this starter kit.
 - Use the OpenAPI specification to [build a custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension).
 - [Add the extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension) using the API key you obtained in the pre-requisites step above.
-- Go to `Variables > Created by you` and add `query_text`, `result_items` `link0`, `link1`, `link2`, `title0`, `title1`, `title2`, `snippet0`,`snippet1`, and `snippet2`.
+- Go to `Variables > Created by you` and add `query_text`, `search_results`, `search_result`, `link`, `title`, and `snippet`.
 - Create a new action and put "Search" in "What does your customer say to start this interaction?".  Add step 1:
-    - Click the fX button to add a variable and add new session variable `query_text` and select "Expression" type and then put `input.text` or `input.original_text` as the expression.  The former will employ spelling correction to fix any detected spelling errors before sending the query, which can be helpful, but it can also be counterproductive if your documents include specialized terminology that is not in our dictionary (such as product names) so you can use `input.original_text` as the alternative in such cases.
-    - Optional: In "Assistant says", put `Searching for: ${query_text}`
-    - In "And then", select "Use an extension", select the extension you made back in step 2, and select the search endpoint and set the `q` parameter to the `query_text` session variable.
+    - Click the fX button to add a variable and add new session variable `query_text` and select "Expression" type and then put `input.original_text` as the expression.
+    - Add step 2, and change "without conditions" to "with conditions" and set the condition `query_text` is not defined. Then set the variable `query_text` to `input.text`. As noted in the [documentation for spell checking](https://cloud.ibm.com/docs/assistant?topic=assistant-dialog-runtime-spell-check#dialog-runtime-spell-check-how-it-works), `input.original_text` is set _only_ if the utterance from the user was altered due to spell correction and then it records the original request from the user and not the spell corrected text.  Spell correction can be very counter productive for searching because it can take specialized domain vocabulary and "correct" those terms to generic words in the language, so it is often better to apply the search on the original text.  The next step in Search then checks to see if the `query_text` is set (which it will be only if spell correction activated) and if not, it falls back to `input.text`.  At this point, `query_text` is guaranteed to be the exact original query issued by the user. The next calls the search extension. Using `input.text` for the query will employ spelling correction to fix any detected spelling errors before sending the query. This can be counterproductive if your documents include specialized terminology that is not in our dictionary (such as product names), which is why it's set up in the starter kit as a backup, in case you prefer not to use `input.original_text`.
 
-![Setup Query](./assets/store_query_text.png)<br>
-![Create Extension](./assets/setup_extension.png)<br>
+    ![Setup query 1](./assets/search-step-1.png)<br>
 
-- Click "New Step" and change "without conditions" to "with conditions" and set "Ran successfully" to "false" or "Ran successfully" to "true" and "results total count is 0".Also set "And then" to "End the action".  Then add the following to the "Assistant says":
-  Sorry.  The search failed or results are empty !!  Please try again another time.
+    ![Setup query 2](./assets/search-step-2.png)<br>
 
-![Search failed](./assets/search_failed.png)<br> 
+    - Add step 3 to run the search on the query using your extension. In "Assistant says", put `Searching for: ${query_text}`. In "And then", select "Use an extension", select your Coveo extension, and select the operation "Search request to Coveo search", and set the `q` parameter to the `query_text` session variable.
 
+    ![Setup extension](./assets/setup-extension.png)<br>
 
-- Add a "New Step", then:
-    - Change "without conditions" to "with conditions" and select "true" for "Ran successfully"
-    - Click the fX button to add variables and add all the following new session variables, replacing `step_123_result_1` with the actual variable name and selecting "Expression" each time. For context on why we do this and what these mean, see [Extensions Made Easy with Watson Assistant Starter Kits](https://medium.com/ibm-watson/extensions-made-easy-with-watson-assistant-starter-kits-6b177f624697):
-```
-link0 = ${step_123_result_1}.body.items.get(0).clickUri
-title0 = ${step_123_result_1}.body.items.get(0).title
-snippet0 = ${step_123_result_1}.body.items.get(0).excerpt
-link1 = ${step_123_result_1}.body.items.get(1).clickUri
-title1 = ${step_123_result_1}.body.items.get(1).title
-snippet1 = ${step_123_result_1}.body.items.get(1).excerpt
-link2 = ${step_123_result_1}.body.items.get(2).clickUri
-title2 = ${step_123_result_1}.body.items.get(2).title
-snippet2 = ${step_123_result_1}.body.items.get(2).excerpt
-```
+    - Click "New Step" and change "without conditions" to "with conditions" and set "Ran successfully" to "false", and set "And then" to "End the action".  Then add the following to the "Assistant says": "Sorry. The search failed. Please try again another time."
 
-![Map variables to results](./assets/search_passed.png)<br>
+    ![Search failed](./assets/search-failed.png)<br>
 
-- Click "New Step" and also change "without conditions" to "with conditions" and select "Ran successfully" is "true" and "link0" is "defined".  Then add the following to the "Assistant says":
+    - Still in the "Search" action, add another "New Step".  In the new step:
+    - In "Assistant says" hit `$` and select "Ran Successfully" and then click on `</>` in the upper right of that box to see the full JSON for the response.  In there, you should see a field called `variable` with a value that looks something like `step_123_result_1`.  Copy that value.
+    - Click "abc" in the upper right and delete the variable in "Assistant says" (we only put it there to copy the variable name).
+    - Change "without conditions" to "with conditions" and select "true" for "Ran successfully" and "${step_123_result_1.body.results}.size > 0"
+    - Click on "Variable values" and set `search_results` to "${step_123_result_1.body.results}". This allows you to pass the search results to action that displays them.
+    - Set "And then" to "Go to another action" and select "Show search results" and "Continue" upon return.
 
-```
-<a href="${link0}" target="_blank">${title0}</a>
-${snippet0}
-```
+      ![Pass results to display action](./assets/pass-results-to-display.png)<br>
 
-![Create first result snippet](./assets/define_response_1.png)<br>
+    - Click "New Step", change "without conditions" to "with conditions", and set "Ran successfully" to "true" and "{step_123_result_1.results}.size > 0". Also set "And then" to "End the action". This step clears the search results to help prevent exceeding result size limitations.
 
-- Click "New Step" and change "without conditions" to "with conditions" and select "Ran successfully" is "true" and "link1" is "defined".  Then add the following to the "Assistant says":
+        ![Clear results](./assets/clear-results.png)<br>
 
-```
-<a href="${link1}" target="_blank">${title1}</a>
-${snippet1}
-```
+  - Click "New Step", change "without conditions" to "with conditions", and set "Ran successfully" to "true" and "{step_123_result_1.results}.size == 0". Also set "And then" to "End the action".  Then add the following to the "Assistant says": `Sorry. No results found for ${query_text}`.
 
-![Create second result snippet](./assets/define_response_2.png)<br>
+    ![No results](./assets/no-results.png)<br>
 
-- Click "New Step" and change "without conditions" to "with conditions" and select "Ran successfully" is "true" and "link2" is "defined".  For this step, set "And then" to "End the action".  Then add the following to the "Assistant says":
+    - Close the "Search" action.
+- Click on the "Show search results" action and Add step 1:
+  - Change "without conditions" to "with conditions" and add the expression ${search_results}.size> 0.
+  - In "Variable values" set "search_result" to ${search_results}.get(0)
+  - Set "And then" to "Go to another action" and select "Show search result" and "Continue" upon return.
+  - Duplicate this step by clicking on the "duplicate" icon in the left menu to show the next result.
+  - Update the condition and the "search_result" variable assignment to the next available result. For the second result, set the condition to ${search_results}.size> 1, and the "search_result" to ${search_results}.get(1).
+  - Duplicate this step for as many results as you want to display. For example, if you want to show 3 results, you will have 3 steps in this action, with "search_result" set to${search_results}.get(0), ${search_results}.get(1), and ${search_results}.get(2), respectively.
+  - Close the "Show search results" action.
 
-```
-<a href="${link2}" target="_blank">${title2}</a>
-${snippet2}
-```
+  ![Show search results](./assets/show-search-results.gif)<br>
 
-![Create third result snippet](./assets/define_response_3.png)<br>
+- Click on the "Show search result" action and Add step 1:
+  - In "Variable values" set "link" to "$search_result.clickUri", set "title" to "$search_result.title", and set "snippet" to "$search_result.excerpt"
+  - Then add the following to the "Assistant says" to display the result and then set "And then" to "End the action".
+
+    ```
+    <a href="${link}" target="_blank">${title}</a>
+    ${snippet}
+    ```
+
+  - Close the "Show search result" action.
+
+  ![Show search result](./assets/show-search-result.png)<br>
 
 - Close the action editor (by clicking X in the upper right)
 - Go to "Actions" > "Set by assistant" > "No action matches" and remove all the steps from the action.  Add in a new step.  Under "And then" select "Go to another action" and select "Search" and click "End this action after the subaction is completed".
@@ -104,6 +106,7 @@ ${snippet2}
 - Go to the Search action and remove "Search" from the "Customer starts with" list so that the search action _only_ triggers via the "Go to another action" settings described in steps above.  If you skip this, then the "Search" action will also be considered by the intent recognizer as a possible intent, which adds unnecessary complexity to the intent recognition and thus could result in lower overall intent recognition accuracy.
 
 ![Create no action matches fallback](./assets/no_action_fallback_search.png)<br>
+
 ## Using this Starter Kit
 
 Once this starter kit is properly installed, you can issue a query to your bot and if there is no other action that you've configured that matched that query then it will generate search results for that query.
