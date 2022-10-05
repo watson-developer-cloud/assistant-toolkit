@@ -4,7 +4,7 @@
   "valid": true,
   "status": "Available",
   "created": "2022-10-03T19:49:44.430Z",
-  "updated": "2022-10-04T19:17:53.967Z",
+  "updated": "2022-10-05T17:40:26.184Z",
   "language": "en",
   "skill_id": "d2aaef87-b2a7-43dc-af65-cd8e59503bca",
   "workspace": {
@@ -563,6 +563,42 @@
             "condition": {
               "expression": "${search_results}.size > 1"
             },
+            "next_step": "step_896"
+          },
+          {
+            "step": "step_896",
+            "output": {
+              "generic": [
+                {
+                  "values": [],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${search_results}.get(1)"
+                  },
+                  "skill_variable": "search_result"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action",
+              "invoke_action": {
+                "action": "action_14586",
+                "parameters": null,
+                "result_variable": "step_896_result_1"
+              }
+            },
+            "variable": "step_896",
+            "condition": {
+              "expression": "${search_results}.size > 1"
+            },
             "next_step": "step_249"
           },
           {
@@ -674,6 +710,15 @@
           },
           {
             "variable": "step_890_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_896",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_896_result_1",
             "data_type": "any"
           },
           {
@@ -809,12 +854,6 @@
                     },
                     {
                       "value": {
-                        "expression": "[\"title\",\"metadata.source.url\"]"
-                      },
-                      "parameter": "return"
-                    },
-                    {
-                      "value": {
                         "expression": "[\"text\"]"
                       },
                       "parameter": "passages.fields"
@@ -848,6 +887,12 @@
                         "skill_variable": "query_text"
                       },
                       "parameter": "natural_language_query"
+                    },
+                    {
+                      "value": {
+                        "expression": "[\"title\",\"metadata.source.url\"]"
+                      },
+                      "parameter": "return"
                     }
                   ],
                   "path": [
@@ -944,7 +989,7 @@
             },
             "handlers": [],
             "resolver": {
-              "type": "invoke_another_action_and_end",
+              "type": "invoke_another_action",
               "invoke_action": {
                 "action": "action_20548",
                 "parameters": null,
@@ -962,7 +1007,26 @@
                   "scalar": true
                 }
               ]
-            }
+            },
+            "next_step": "step_195"
+          },
+          {
+            "step": "step_195",
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${step_474_result_2}.body.results=[]"
+                  },
+                  "skill_variable": "search_results"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_195"
           }
         ],
         "title": "Search",
@@ -1000,6 +1064,11 @@
           },
           {
             "variable": "step_169_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_195",
             "data_type": "any"
           },
           {
@@ -1083,6 +1152,10 @@
           },
           {
             "variable": "step_876_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_896_result_1",
             "data_type": "any"
           },
           {

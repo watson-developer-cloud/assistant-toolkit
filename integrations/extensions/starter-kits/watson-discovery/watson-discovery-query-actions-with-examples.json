@@ -3,10 +3,10 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2022-10-03T19:49:44.430Z",
-  "updated": "2022-10-04T18:32:07.361Z",
+  "created": "2022-10-05T17:44:18.339Z",
+  "updated": "2022-10-05T18:39:42.172Z",
   "language": "en",
-  "skill_id": "d2aaef87-b2a7-43dc-af65-cd8e59503bca",
+  "skill_id": "f0d9a99d-b09b-49a7-a3de-01aef17d6797",
   "workspace": {
     "actions": [
       {
@@ -829,9 +829,65 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "catalog_item_id": "29ae86c7-98af-43ab-a275-5d6728a172f2"
+                  "catalog_item_id": "0b51bf7a-810a-4296-9fd4-c96010f41d66"
                 },
                 "request_mapping": {
+                  "body": [
+                    {
+                      "value": {
+                        "expression": "3"
+                      },
+                      "parameter": "count"
+                    },
+                    {
+                      "value": {
+                        "expression": "\"title:mining\""
+                      },
+                      "parameter": "filter"
+                    },
+                    {
+                      "value": {
+                        "expression": "[\"title\",\"metadata.source.url\"]"
+                      },
+                      "parameter": "return"
+                    },
+                    {
+                      "value": {
+                        "expression": "[\"text\"]"
+                      },
+                      "parameter": "passages.fields"
+                    },
+                    {
+                      "value": {
+                        "expression": "true"
+                      },
+                      "parameter": "passages.enabled"
+                    },
+                    {
+                      "value": {
+                        "expression": "250"
+                      },
+                      "parameter": "passages.characters"
+                    },
+                    {
+                      "value": {
+                        "expression": "true"
+                      },
+                      "parameter": "passages.find_answers"
+                    },
+                    {
+                      "value": {
+                        "expression": "false"
+                      },
+                      "parameter": "table_results.enabled"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "query_text"
+                      },
+                      "parameter": "natural_language_query"
+                    }
+                  ],
                   "path": [
                     {
                       "value": {
@@ -887,7 +943,7 @@
             },
             "handlers": [],
             "resolver": {
-              "type": "continue"
+              "type": "end_action"
             },
             "variable": "step_105",
             "condition": {
@@ -926,7 +982,7 @@
             },
             "handlers": [],
             "resolver": {
-              "type": "invoke_another_action_and_end",
+              "type": "invoke_another_action",
               "invoke_action": {
                 "action": "action_20548",
                 "parameters": null,
@@ -944,7 +1000,26 @@
                   "scalar": true
                 }
               ]
-            }
+            },
+            "next_step": "step_809"
+          },
+          {
+            "step": "step_809",
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${step_474_result_2}.body.results=[]"
+                  },
+                  "skill_variable": "search_results"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_809"
           }
         ],
         "title": "Search within the mining topic",
@@ -1065,6 +1140,11 @@
             "data_type": "any"
           },
           {
+            "title": "No response",
+            "variable": "step_809",
+            "data_type": "any"
+          },
+          {
             "variable": "step_829_result_1",
             "data_type": "any"
           },
@@ -1119,19 +1199,19 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "catalog_item_id": "29ae86c7-98af-43ab-a275-5d6728a172f2"
+                  "catalog_item_id": "0b51bf7a-810a-4296-9fd4-c96010f41d66"
                 },
                 "request_mapping": {
                   "body": [
                     {
                       "value": {
-                        "expression": "1"
+                        "expression": "3"
                       },
                       "parameter": "count"
                     },
                     {
                       "value": {
-                        "expression": "\"title:finite\""
+                        "expression": "\"finite\""
                       },
                       "parameter": "filter"
                     },
@@ -1140,6 +1220,12 @@
                         "expression": "[\"title\",\"metadata.source.url\"]"
                       },
                       "parameter": "return"
+                    },
+                    {
+                      "value": {
+                        "expression": "1"
+                      },
+                      "parameter": "passages.count"
                     },
                     {
                       "value": {
@@ -1227,7 +1313,7 @@
             },
             "handlers": [],
             "resolver": {
-              "type": "continue"
+              "type": "end_action"
             },
             "variable": "step_105",
             "condition": {
@@ -1266,7 +1352,7 @@
             },
             "handlers": [],
             "resolver": {
-              "type": "invoke_another_action_and_end",
+              "type": "invoke_another_action",
               "invoke_action": {
                 "action": "action_20548",
                 "parameters": null,
@@ -1284,7 +1370,26 @@
                   "scalar": true
                 }
               ]
-            }
+            },
+            "next_step": "step_794"
+          },
+          {
+            "step": "step_794",
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${step_474_result_2}.body.results=\"\""
+                  },
+                  "skill_variable": "search_results"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_794"
           }
         ],
         "title": "How many Bitcoins can exist?",
@@ -1388,6 +1493,11 @@
           },
           {
             "variable": "step_774_result_2",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_794",
             "data_type": "any"
           },
           {
@@ -1545,7 +1655,7 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "catalog_item_id": "29ae86c7-98af-43ab-a275-5d6728a172f2"
+                  "catalog_item_id": "0b51bf7a-810a-4296-9fd4-c96010f41d66"
                 },
                 "request_mapping": {
                   "body": [
@@ -1554,12 +1664,6 @@
                         "expression": "3"
                       },
                       "parameter": "count"
-                    },
-                    {
-                      "value": {
-                        "expression": "[\"title\",\"metadata.source.url\"]"
-                      },
-                      "parameter": "return"
                     },
                     {
                       "value": {
@@ -1584,6 +1688,12 @@
                         "expression": "true"
                       },
                       "parameter": "passages.find_answers"
+                    },
+                    {
+                      "value": {
+                        "expression": "[\"title\",\"metadata.source.url\"]"
+                      },
+                      "parameter": "return"
                     },
                     {
                       "value": {
@@ -1653,7 +1763,7 @@
             },
             "handlers": [],
             "resolver": {
-              "type": "continue"
+              "type": "end_action"
             },
             "variable": "step_105",
             "condition": {
@@ -1692,7 +1802,7 @@
             },
             "handlers": [],
             "resolver": {
-              "type": "invoke_another_action_and_end",
+              "type": "invoke_another_action",
               "invoke_action": {
                 "action": "action_20548",
                 "parameters": null,
@@ -1710,7 +1820,35 @@
                   "scalar": true
                 }
               ]
-            }
+            },
+            "next_step": "step_556"
+          },
+          {
+            "step": "step_556",
+            "output": {
+              "generic": [
+                {
+                  "values": [],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${step_474_result_2}.body.results=[]"
+                  },
+                  "skill_variable": "search_results"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_556"
           }
         ],
         "title": "Search",
@@ -1802,6 +1940,11 @@
           },
           {
             "variable": "step_543_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_556",
             "data_type": "any"
           },
           {
@@ -2553,8 +2696,8 @@
     "learning_opt_out": false
   },
   "description": "created for assistant 20ef065f-6198-4892-860a-a184e52a2d19",
-  "assistant_id": "38930165-572b-478e-8d89-8247e278c92f",
-  "workspace_id": "d2aaef87-b2a7-43dc-af65-cd8e59503bca",
+  "assistant_id": "594e8f32-e778-4a6f-bdc0-5a4c57224dfd",
+  "workspace_id": "f0d9a99d-b09b-49a7-a3de-01aef17d6797",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }
