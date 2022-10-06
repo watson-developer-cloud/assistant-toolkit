@@ -57,11 +57,11 @@ If you want to make a _new_ Assistant using this starter kit, take the following
 - Use the OpenAPI specification to [build a custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension).
 - [Add the extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension) using the API key and region you obtained in the pre-requisites above.  When you select basic authentication, it will ask for a username and password.  For the username, enter `apikey` and for the password enter the API key you obtained in the pre-requisites above.  Also fill in the region you obtained in the pre-requisites into the `subdomain` server variable (the default is `us-south`, so if your instance is in a different region, you will need to change this value).
 - [Upload the Actions JSON file](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import).
-- Under "variables"/"set by you" (within the Actions page), set the using the `discovery_instance_id` and `discovery_project_id` session variables using the values you obtained in the pre-requisites above.
+- Under "variables"/"created by you" (within the Actions page), set the using the `discovery_instance_id` and `discovery_project_id` session variables using the values you obtained in the pre-requisites above.
 - Use either method listed in [Configuring Your Actions Skill to use an Extension](https://github.com/watson-developer-cloud/assistant-toolkit/blob/master/integrations/extensions/README.md#configuring-your-actions-skill-to-use-an-extension) to configure the actions you uploaded to invoke the custom extension you built.
    - In the step of the "Search" action that says "Use an extension", select the extension you created, the "Query a project" endpoint, and set the following parameter values (some of which are listed under "optional parameters", which you need to click on to see):
-      - `project_id` = the `discovery_project_id` session variable
       - `instance_id` = the `discovery_instance_id` session variable
+      - `project_id` = the `discovery_project_id` session variable
       - `version` = the `discovery_date_version` session variable
       - `count` = an expression with the value `3` (because we are showing up to 3 results -- adjust this if you want to show a different number)
       - `passages.characters` = an expression with the value `250` (you can adjust this to get longer or shorter passages)
