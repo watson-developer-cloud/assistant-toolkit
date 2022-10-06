@@ -57,9 +57,9 @@ If you want to make a _new_ Assistant using this starter kit, take the following
 - Use the OpenAPI specification to [build a custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension).
 - [Add the extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension) using the API key and region you obtained in the pre-requisites above.  When you select basic authentication, it will ask for a username and password.  For the username, enter `apikey` and for the password enter the API key you obtained in the pre-requisites above.  Also fill in the region you obtained in the pre-requisites into the `subdomain` server variable (the default is `us-south`, so if your instance is in a different region, you will need to change this value).
 - [Upload the Actions JSON file](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import).
+- Under "variables"/"set by you" (within the Actions page), set the using the `discovery_instance_id` and `discovery_project_id` session variables using the values you obtained in the pre-requisites above.
 - Use either method listed in [Configuring Your Actions Skill to use an Extension](https://github.com/watson-developer-cloud/assistant-toolkit/blob/master/integrations/extensions/README.md#configuring-your-actions-skill-to-use-an-extension) to configure the actions you uploaded to invoke the custom extension you built.
-   - Under "variables"/"set by you" (within the Actions page), set the using the `discovery_instance_id` and `discovery_project_id` session variables using the values you obtained in the pre-requisites above.
-   - In the second step of the "Search" action, set the following parameter values:
+   - In the step of the "Search" action that says "Use an extension", select the extension you created, the "Query a project" endpoint, and set the following parameter values (some of which are listed under "optional parameters", which you need to click on to see):
       - `project_id` = the `discovery_project_id` session variable
       - `instance_id` = the `discovery_instance_id` session variable
       - `version` = the `discovery_date_version` session variable
@@ -72,9 +72,9 @@ If you want to make a _new_ Assistant using this starter kit, take the following
       - `return` = an expression with the value `["title","metadata.source.url"]` (these are the fields for which the entire text is returned; see the "Limit on Size of Search Results" section of this document for more details on why it is extremely important to set this)
       - `natural_language_query` = the `query_text` session variable
    - If you used the actions file with examples (`watson-discovery-query-actions-with-examples.json`) you also need to setup some domain-specific example actions:
-      - In the first step of the "Search within the mining topic" action, set all the same values as "Search" plus the following:
+      - In the extension step of the "Search within the mining topic" action, set all the same values as "Search" plus the following:
          - `filter` = an expression with the value `title:mining`
-      - In the first step of the "How many Bitcoins can exist?" action, set all the same values as "Search" plus the following:
+      - In the extension step of the "How many Bitcoins can exist?" action, set all the same values as "Search" plus the following:
         - `count` = an expression with the value `1` (instead of the `3` in search)
         - `filter` = an expression with the value `title:finite`
 
