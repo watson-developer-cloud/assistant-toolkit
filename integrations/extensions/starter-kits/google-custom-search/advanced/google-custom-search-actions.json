@@ -3,10 +3,10 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2022-09-15T17:08:14.662Z",
-  "updated": "2022-10-03T20:00:44.068Z",
+  "created": "2022-10-03T22:37:30.553Z",
+  "updated": "2022-10-07T18:37:05.708Z",
   "language": "en",
-  "skill_id": "4f847485-e82b-4896-9ed1-a28dbd9b5894",
+  "skill_id": "a5a047bf-c48e-428e-9d1b-b3e5d7e6e8d0",
   "workspace": {
     "actions": [
       {
@@ -718,11 +718,11 @@
             "resolver": {
               "type": "callout",
               "callout": {
-                "path": "/customsearch/v1",
+                "path": "/customsearch/v1/siterestrict",
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "catalog_item_id": "a84597e7-c6d6-4f60-8de7-5ad6c24c5d95"
+                  "catalog_item_id": "ae5992f4-028d-47f4-abbb-39ecac9536a0"
                 },
                 "request_mapping": {
                   "query": [
@@ -746,7 +746,7 @@
                     },
                     {
                       "value": {
-                        "skill_variable": "num_of_results"
+                        "expression": "3"
                       },
                       "parameter": "num"
                     }
@@ -983,11 +983,11 @@
             "resolver": {
               "type": "callout",
               "callout": {
-                "path": "/customsearch/v1",
+                "path": "/customsearch/v1/siterestrict",
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "catalog_item_id": "a84597e7-c6d6-4f60-8de7-5ad6c24c5d95"
+                  "catalog_item_id": "ae5992f4-028d-47f4-abbb-39ecac9536a0"
                 },
                 "request_mapping": {
                   "query": [
@@ -1011,7 +1011,7 @@
                     },
                     {
                       "value": {
-                        "skill_variable": "num_of_results"
+                        "expression": "3"
                       },
                       "parameter": "num"
                     }
@@ -1223,7 +1223,7 @@
             },
             "handlers": [],
             "resolver": {
-              "type": "continue"
+              "type": "end_action"
             },
             "variable": "step_911",
             "condition": {
@@ -1319,6 +1319,51 @@
       {
         "steps": [
           {
+            "step": "step_567",
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "input.original_text"
+                  },
+                  "skill_variable": "query_text"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_567",
+            "next_step": "step_789"
+          },
+          {
+            "step": "step_789",
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "input.text"
+                  },
+                  "skill_variable": "query_text"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_789",
+            "condition": {
+              "not": {
+                "exists": {
+                  "skill_variable": "query_text"
+                }
+              }
+            },
+            "next_step": "step_163"
+          },
+          {
             "step": "step_163",
             "output": {
               "generic": [
@@ -1343,24 +1388,17 @@
               ]
             },
             "context": {
-              "variables": [
-                {
-                  "value": {
-                    "expression": "input.text"
-                  },
-                  "skill_variable": "query_text"
-                }
-              ]
+              "variables": []
             },
             "handlers": [],
             "resolver": {
               "type": "callout",
               "callout": {
-                "path": "/customsearch/v1",
+                "path": "/customsearch/v1/siterestrict",
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "catalog_item_id": "a84597e7-c6d6-4f60-8de7-5ad6c24c5d95"
+                  "catalog_item_id": "ae5992f4-028d-47f4-abbb-39ecac9536a0"
                 },
                 "request_mapping": {
                   "query": [
@@ -1378,7 +1416,7 @@
                     },
                     {
                       "value": {
-                        "skill_variable": "num_of_results"
+                        "expression": "3"
                       },
                       "parameter": "num"
                     }
@@ -1412,6 +1450,25 @@
               }
             },
             "variable": "step_151",
+            "next_step": "step_987"
+          },
+          {
+            "step": "step_987",
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${step_163_result_1}=null"
+                  },
+                  "skill_variable": "extension_result"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_987",
             "next_step": "step_215"
           },
           {
@@ -1480,7 +1537,22 @@
             "data_type": "any"
           },
           {
+            "title": "No response",
+            "variable": "step_567",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_789",
+            "data_type": "any"
+          },
+          {
             "variable": "step_901_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_987",
             "data_type": "any"
           }
         ],
@@ -1563,11 +1635,11 @@
             "resolver": {
               "type": "callout",
               "callout": {
-                "path": "/customsearch/v1",
+                "path": "/customsearch/v1/siterestrict",
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "catalog_item_id": "a84597e7-c6d6-4f60-8de7-5ad6c24c5d95"
+                  "catalog_item_id": "ae5992f4-028d-47f4-abbb-39ecac9536a0"
                 },
                 "request_mapping": {
                   "query": [
@@ -1585,15 +1657,15 @@
                     },
                     {
                       "value": {
-                        "skill_variable": "include_terms"
+                        "expression": "3"
                       },
-                      "parameter": "orTerms"
+                      "parameter": "num"
                     },
                     {
                       "value": {
-                        "skill_variable": "num_of_results"
+                        "skill_variable": "include_terms"
                       },
-                      "parameter": "num"
+                      "parameter": "orTerms"
                     }
                   ]
                 },
@@ -1793,11 +1865,11 @@
             "resolver": {
               "type": "callout",
               "callout": {
-                "path": "/customsearch/v1",
+                "path": "/customsearch/v1/siterestrict",
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "catalog_item_id": "a84597e7-c6d6-4f60-8de7-5ad6c24c5d95"
+                  "catalog_item_id": "ae5992f4-028d-47f4-abbb-39ecac9536a0"
                 },
                 "request_mapping": {
                   "query": [
@@ -1821,7 +1893,7 @@
                     },
                     {
                       "value": {
-                        "skill_variable": "num_of_results"
+                        "expression": "3"
                       },
                       "parameter": "num"
                     }
@@ -2326,7 +2398,7 @@
         "data_type": "any",
         "description": "Google custom search cx",
         "initial_value": {
-          "scalar": "f1e7393a4f33e4f76"
+          "scalar": "07070013872864f75"
         }
       },
       {
@@ -2443,8 +2515,8 @@
     "learning_opt_out": true
   },
   "description": "created for assistant dac5bd3c-5f15-4301-8e80-9143796db103",
-  "assistant_id": "46b02c9f-9e79-4fcd-8e16-6b4f7c9770a9",
-  "workspace_id": "4f847485-e82b-4896-9ed1-a28dbd9b5894",
+  "assistant_id": "e7e76211-8836-4444-9078-3415994caf7a",
+  "workspace_id": "a5a047bf-c48e-428e-9d1b-b3e5d7e6e8d0",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }
