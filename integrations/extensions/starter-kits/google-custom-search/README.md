@@ -2,7 +2,7 @@
 
 ## Background
 
-This is a starter kit for accessing the Google "Custom Search" JSON API. The "Custom Search" API allows search over a website, collection of websites or the world wide web using the [Google Programmable Search Engine](https://developers.google.com/custom-search/docs/overview) which is a configurable search that allows you to customize search features based on your use-case.
+This is a starter kit for accessing the Google Custom Search JSON API. This API allows search over a website, collection of websites or the world wide web using the [Google Programmable Search Engine](https://developers.google.com/custom-search/docs/overview), which is a configurable search that allows you to customize search features based on your use-case.
 
 The OpenAPI spec in this starter kit includes the following endpoints:
 
@@ -14,9 +14,12 @@ The endpoints are described in detail at:
 1. **Custom Search**: https://developers.google.com/custom-search/v1/reference/rest/v1/cse/list
 2. **Custom Search Site Restricted**: https://developers.google.com/custom-search/v1/reference/rest/v1/cse.siterestrict/list
 
-The Site Restricted API is similar to the Custom Search JSON API except that it has no daily query [limit](https://developers.google.com/custom-search/v1/overview#pricing). It is important to note that the Site Restricted API is used to be run with a Programmable Search Engine which is restricted to only searching specific sites (10 or fewer) whereas the regular Custom Search API can be run with a search engine which searches over the entire web.
+These endpoints have the same arguments and responses.  However, there are two major differences between these endpoints:
 
-This starter kit exposes both basic and advanced search techniques.
+- The *Custom Search Site Restricted* endpoint is restricted to searching 10 or fewer websites (each of which can have an unlimited number of pages).  In contrast, *Custom Search* can support any number of websites including all of the web that is indexed by Google.
+- The *Custom Search* endpoint has a [daily query limit](https://developers.google.com/custom-search/v1/overview#pricing), and the *Custom Search Site Restricted* does not.
+
+For a typical assistant focused on a specific topic, it is usually only necessary to search a single website or a small number of websites.  For assistants of this sort, *Custom Search Site Restricted* is a better fit since it doesn't have a limit on the number of queries that can be run per day.  Assistants that need to search more than 10 websites need to use *Custom Search* instead.
 
 ## Pre-Requisite Steps
 
@@ -37,7 +40,7 @@ If you want to make a _new_ Assistant using this starter kit, take the following
 - Use either method listed in [Configuring Your Actions Skill to use an Extension](https://github.com/watson-developer-cloud/assistant-toolkit/blob/master/integrations/extensions/README.md#configuring-your-actions-skill-to-use-an-extension) to configure the actions you uploaded to invoke the custom extension you built.
    - In the "Search" action that is included in both the basic and advanced versions, use the following configuration on the step that uses the extension:
       - Click on "Edit extension" at the bottom of the step
-      - Select "Custom Search" or "Custom Search Site Restricted" as the endpoint at this step. Unless the search covers more than 10 different web sites (which can include an unlimited number of pages on each site), we would recommend using "Custom Search Site Restricted" since it doesn't have a limit on the number of queries you can run per day. If you are trying to search many different sites, then you need to use "Custom Search" instead.
+      - Select *Custom Search* or *Custom Search Site Restricted* as the endpoint at this step.  See the "Background" section of this document for information about the difference between the two.
       - Set the `query` parameter to the `query_text` session variable.
       - Set the `cx` parameter to the `cx` session variable.
       - Set the `num` parameter to the `num_of_results` session variable (which is set to 3 in the Actions JSON file).
@@ -76,7 +79,14 @@ Once this starter kit is properly installed, you can issue a query to your bot a
 
 ![Setup Search 2](./assets/search-step-2.png)<br>
 
-- Add step 3. In "Assistant says", put `Searching for: ${query_text}`.  In "And then", select "Use an extension".  Select the search extension and then select either  "Custom Search" or "Custom Search Site Restricted" as the endpoint at this step (as discussed in the "Setup in a new Assistant" section above).  Set the `query` parameter to the `query_text` session variable and the `cx` parameter to `cx` session variable you set in pre-requisite step and `num` parameter to `num_of_results` session variable.
+- Add step 3.
+  - In "Assistant says", put `Searching for: ${query_text}`.
+  - In "And then", select "Use an extension".
+    - Select the search extension.
+    - Select *Custom Search* or *Custom Search Site Restricted* as the endpoint at this step.  See the "Background" section of this document for information about the difference between the two endpoints.
+    - Set the `query` parameter to the `query_text` session variable.
+    - Set the `cx` parameter to `cx` session variable you set in pre-requisite step.
+    - Set the `num` parameter to `num_of_results` session variable.
 
 ![Setup Search 3](./assets/search-step-3.png)<br>
 
@@ -85,6 +95,7 @@ Once this starter kit is properly installed, you can issue a query to your bot a
    - Click "abc" in the upper right and delete the variable in "Assistant says" (we only put it there to copy the variable name).
    - Click on "Variable values" and set `extension_result` to `${step_123_result_1}`. This allows you to pass the search results to action that displays them.
    - Click on "And then" and select "Go to another action" and select the `Process Result` action
+
 ![Setup Search 4](./assets/search-step-4.png)<br>
 
 - Add step 5.  
