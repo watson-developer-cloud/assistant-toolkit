@@ -73,11 +73,11 @@ Once this starter kit is properly installed, you can issue a query to your bot a
 
 #### Search
 - Create new actions and name them `Search`, `Process Result`, `Show Search Results`, and `Search Result`.
-- Open the `Search` action.  Click the fX button to add a variable and add new session variable `query_text` and select "Expression" type and then put `input.original_text` as the expression. As noted in the [documentation for spell checking](https://cloud.ibm.com/docs/assistant?topic=assistant-dialog-runtime-spell-check#dialog-runtime-spell-check-how-it-works), `input.original_text` is set _only_ if the utterance from the user was altered due to spell correction and then it records the original request from the user and not the spell corrected text. Spell correction can be very counter productive for searching because it can take specialized domain vocabulary and "correct" those terms to generic words in the language, so it is often better to apply the search on the original text, as we are doing here.
+- Open the `Search` action which should take you to an empty step 1.  Within step one, click the fX button to add a variable and add new session variable `query_text` and select "Expression" type and then put `input.original_text` as the expression. As noted in the [documentation for spell checking](https://cloud.ibm.com/docs/assistant?topic=assistant-dialog-runtime-spell-check#dialog-runtime-spell-check-how-it-works), `input.original_text` is set _only_ if the utterance from the user was altered due to spell correction and then it records the original request from the user and not the spell corrected text. Spell correction can be very counter productive for searching because it can take specialized domain vocabulary and "correct" those terms to generic words in the language, so it is often better to apply the search on the original text, as we are doing here.
 
 ![Setup Search 1](./assets/search-step-1.png)<br>
 
-- Add step 2, and change "without conditions" to "with conditions" and set the condition `query_text` is not defined. Then set the variable `query_text` to `input.text`. This is needed because the `input.original_text` is only set when spell correction changed the text. When there was no spell correction, you need to use `input.text` instead. After step 2, `query_text` is guaranteed to be the exact original query issued by the user.
+- Add step 2, and in step 2 change "without conditions" to "with conditions" and set the condition `query_text` is not defined. Then set the variable `query_text` to `input.text`. This is needed because the `input.original_text` is only set when spell correction changed the text. When there was no spell correction, you need to use `input.text` instead. After step 2, `query_text` is guaranteed to be the exact original query issued by the user.
 
 ![Setup Search 2](./assets/search-step-2.png)<br>
 
@@ -102,9 +102,9 @@ Once this starter kit is properly installed, you can issue a query to your bot a
 
 - Add step 5.  
   - Change "without conditions" to "with conditions", and set "Ran successfully" to "true"
-  - Set the `extension_result` variable to the expression `${step_123_result_1} = null`
+  - Set the `extension_result` variable to the expression `${step_123_result_1}=null`
   - Set "And then" to "End the action".
-  - This step clears the search results to help prevent exceeding [session state size limitations](https://github.com/watson-developer-cloud/assistant-toolkit/tree/master/integrations/extensions/starter-kits/watson-discovery#limit-on-size-of-search-results).
+  - This step clears the search results from memory to help prevent exceeding [session state size limitations](https://github.com/watson-developer-cloud/assistant-toolkit/tree/master/integrations/extensions/starter-kits/watson-discovery#limit-on-size-of-search-results).
 
 ![Setup Search 5](./assets/search-step-5.png)<br>
 
@@ -116,7 +116,8 @@ Once this starter kit is properly installed, you can issue a query to your bot a
 - In "Assistant says" provide failure response "Search results are empty".
 - Add new step for the success response if results are not empty.
 - Change "without conditions" to "with conditions" and "check if `extension_result.success==true` and In "And then" section select "Go to another action" and type "Show Search Results" which we will create in further sections.
-  ![Process Result](./assets/process_result.gif)<br>
+
+![Process Result](./assets/process_result.png)
 
 #### Show Search Results
 - Open the `Show Search Results` action.
@@ -127,7 +128,8 @@ Once this starter kit is properly installed, you can issue a query to your bot a
   - Click fx and change variable value `search_result` to expression `${extension_result.body.items}.get(1)`
 - Next step, Change without conditions to "with conditions" and check if `${extension_result.body.items}.size>2` then
   - Click fx and change variable value `search_result` to expression `${extension_result.body.items}.get(2)`
-  ![Show Search results](./assets/show_search_results.gif)<br>
+
+![Show Search results](./assets/show_search_results.png)
 
 #### Search Result
 - Open the `Search Result` action.
@@ -146,7 +148,7 @@ snippet = ${search_result}.htmlSnippet
 ${snippet}
 ```
 
-![Search Result](./assets/search_result.gif)<br>
+![Search Result](./assets/search_result.png)<br>
 
 #### Link Actions to No Action matches state
 - Close the action editor (by clicking X in the upper right)
@@ -180,7 +182,6 @@ Once you have the basic search setup, you can setup a filtered search to scope t
     - Add new step, with Assistant says "Please provide the terms to exclude (comma separated)?"
     - In second step, store the user provided number of days in session variable `exact_terms`, Call the extension with the parameters `query_text` for `q`, `cx` for `cx` and `exact_terms` for `exactTerms` query parameter and `num` parameter to `num_of_results` session variable.
     - In third step, store the result in session variable `extension_result` and redirect to action `Process result`.
-  ![Filtered Search](./assets/include_filter.gif)<br>
 - Create new action and name it `Filtered Search`
   - Add new step where assistant says "Would you like to filter your search results based on parameters?" and user response should be one of the options `Date restrict`,`Include terms`,`Exclude terms`,`Exact terms`.
   - Create new step for each option and with condition set for each option. Redirect to action based on the condition for user response. For example, If user response is `Exact terms` then "Go to another action" will point to `Exact terms` action.
