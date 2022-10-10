@@ -4,7 +4,7 @@
   "valid": true,
   "status": "Available",
   "created": "2022-10-03T23:03:12.333Z",
-  "updated": "2022-10-07T18:31:21.853Z",
+  "updated": "2022-10-10T17:39:48.007Z",
   "language": "en",
   "skill_id": "eb631e72-b40b-40a0-a141-c675af309e4b",
   "workspace": {
@@ -1061,33 +1061,12 @@
         "data_type": "any",
         "description": "Google custom search cx",
         "initial_value": {
-          "scalar": "07070013872864f75"
-        }
-      },
-      {
-        "title": "date_restrict",
-        "variable": "date_restrict",
-        "data_type": "any",
-        "description": "",
-        "initial_value": {
-          "scalar": "d[10]"
+          "scalar": "0123456789abcdef0"
         }
       },
       {
         "title": "empty",
         "variable": "empty",
-        "data_type": "any",
-        "description": ""
-      },
-      {
-        "title": "exact_terms",
-        "variable": "exact_terms",
-        "data_type": "any",
-        "description": ""
-      },
-      {
-        "title": "exclude_terms",
-        "variable": "exclude_terms",
         "data_type": "any",
         "description": ""
       },
@@ -1098,21 +1077,9 @@
         "description": ""
       },
       {
-        "title": "include_terms",
-        "variable": "include_terms",
-        "data_type": "any",
-        "description": ""
-      },
-      {
         "title": "link",
         "variable": "link",
         "data_type": "any",
-        "description": ""
-      },
-      {
-        "title": "number_of_days_old",
-        "variable": "number_of_days_old",
-        "data_type": "number",
         "description": ""
       },
       {

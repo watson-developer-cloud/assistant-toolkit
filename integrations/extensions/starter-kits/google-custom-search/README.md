@@ -36,7 +36,7 @@ If you want to make a _new_ Assistant using this starter kit, take the following
 - Use the OpenAPI specification to [build a custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension).
 - [Add the extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension) using the API key you obtained in the pre-requisites above.
 - [Upload the Actions JSON file](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import).
-- Under "variables"/"set by you" (within the Actions page), set the variable with name `cx` and set to the ID for the programmable search engine that you got in the
+- Under "variables"/"set by you" (within the Actions page), set the variable with name `cx` and set to the ID for the programmable search engine that you got in the Pre-Requisite Steps (replacing `0123456789abcdef0`, which is the dummy/placeholder value in the actions file).
 - Use either method listed in [Configuring Your Actions Skill to use an Extension](https://github.com/watson-developer-cloud/assistant-toolkit/blob/master/integrations/extensions/README.md#configuring-your-actions-skill-to-use-an-extension) to configure the actions you uploaded to invoke the custom extension you built.
    - In the "Search" action that is included in both the basic and advanced versions, use the following configuration on the step that uses the extension:
       - Click on "Edit extension" at the bottom of the step
@@ -59,12 +59,14 @@ If you want to add this starter kit to an _existing_ assistant, you cannot use t
 - Use the OpenAPI specification to [build a custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension).
 - [Add the extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension) using the API key you obtained in the pre-requisites step above.
 - Create session variables to be used for storing the intermediate results.
-- Go to `Variables > Created by you` and add `query_text`, `cx`,`search_result`,`link`, `title`, `snippet`, `extension_result`,`exclude_terms`, `include_terms`,`exact_terms`,`date_restrict`.
-- Create variable `num_of_results` and set it to maximum number of results you want from the search api or set it `3` as default max number of results.
-- Follow the `basic` step below to get started with search and test it in the Preview chat.
-- Results can be filtered or scoped based on the given parameters with `advanced` filtered search. Once you are done with basic steps, follow the filtered search section for advanced setup using filter parameters in search api.
-  ![Variable](./assets/variables.png)<br>
+- Go to `Variables > Created by you` and add the following:
+   - For basic search: `query_text`, `cx`, `extension_result`, `link`, `title`, `snippet`, and `num_of_results`
+     - Set the default value for `cx` to the ID for the programmable search engine that you got in the Pre-Requisite Steps
+     - Set the default value for `num_of_results` to `3`.
+     - Leave the other variables with no default value.     
+   - For advanced search with filters: all of the above _plus_ add `exclude_terms`, `include_terms`, `exact_terms`, `date_restrict`, and `number_of_days_old` (all with no default value).
 
+![Search Variables](./assets/variables.png)<br>
 
 ### Basic
 Once this starter kit is properly installed, you can issue a query to your bot and if there is no other action that you've configured that matched that query then it will generate search results for that query.

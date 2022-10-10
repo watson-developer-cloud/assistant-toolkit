@@ -4,7 +4,7 @@
   "valid": true,
   "status": "Available",
   "created": "2022-10-03T22:37:30.553Z",
-  "updated": "2022-10-07T18:37:05.708Z",
+  "updated": "2022-10-10T17:42:53.649Z",
   "language": "en",
   "skill_id": "a5a047bf-c48e-428e-9d1b-b3e5d7e6e8d0",
   "workspace": {
@@ -2398,17 +2398,14 @@
         "data_type": "any",
         "description": "Google custom search cx",
         "initial_value": {
-          "scalar": "07070013872864f75"
+          "scalar": "0123456789abcdef0"
         }
       },
       {
         "title": "date_restrict",
         "variable": "date_restrict",
         "data_type": "any",
-        "description": "",
-        "initial_value": {
-          "scalar": "d[10]"
-        }
+        "description": ""
       },
       {
         "title": "exact_terms",
