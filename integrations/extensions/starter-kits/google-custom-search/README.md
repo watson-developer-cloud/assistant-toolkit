@@ -71,9 +71,13 @@ If you want to add this starter kit to an _existing_ assistant, you cannot use t
 ### Basic
 Once this starter kit is properly installed, you can issue a query to your bot and if there is no other action that you've configured that matched that query then it will generate search results for that query.
 
-#### Search
+#### Create Empty Actions
+
 - Create new actions and name them `Search`, `Process Result`, `Show Search Results`, and `Search Result`.
-- Open the `Search` action which should take you to an empty step 1.  Within step one, click the fX button to add a variable and add new session variable `query_text` and select "Expression" type and then put `input.original_text` as the expression. As noted in the [documentation for spell checking](https://cloud.ibm.com/docs/assistant?topic=assistant-dialog-runtime-spell-check#dialog-runtime-spell-check-how-it-works), `input.original_text` is set _only_ if the utterance from the user was altered due to spell correction and then it records the original request from the user and not the spell corrected text. Spell correction can be very counter productive for searching because it can take specialized domain vocabulary and "correct" those terms to generic words in the language, so it is often better to apply the search on the original text, as we are doing here.
+- Open each of those actions and remove everything from the "Customer starts with" list so that the action _only_ triggers via the "Go to another action" settings.  If you skip this, then some action will also be considered by the intent recognizer as a possible intent, which adds unnecessary complexity to the intent recognition and thus could result in lower overall intent recognition accuracy.
+
+#### Search
+- Open the `Search` action which should take you to an empty step 1.  Within step one, click the fx button to add a variable and add new session variable `query_text` and select "Expression" type and then put `input.original_text` as the expression. As noted in the [documentation for spell checking](https://cloud.ibm.com/docs/assistant?topic=assistant-dialog-runtime-spell-check#dialog-runtime-spell-check-how-it-works), `input.original_text` is set _only_ if the utterance from the user was altered due to spell correction and then it records the original request from the user and not the spell corrected text. Spell correction can be very counter productive for searching because it can take specialized domain vocabulary and "correct" those terms to generic words in the language, so it is often better to apply the search on the original text, as we are doing here.
 
 ![Setup Search 1](./assets/search-step-1.png)<br>
 
@@ -96,7 +100,7 @@ Once this starter kit is properly installed, you can issue a query to your bot a
    - In "Assistant says" hit `$` and select "Ran Successfully" and then click on `</>` in the upper right of that box to see the full JSON for the response.  In there, you should see a field called `variable` with a value that looks something like `step_123_result_1`.  Copy that value. (Note that you will need to replace `step_123_result_1` in the remaining instructions below with the actual variable name in your environment).
    - Click "abc" in the upper right and delete the variable in "Assistant says" (we only put it there to copy the variable name).
    - Click on "Variable values" and set `extension_result` to `${step_123_result_1}`. This allows you to pass the search results to action that displays them.
-   - Click on "And then" and select "Go to another action" and select the `Process Result` action
+   - Click on "And then" and select "Go to another action" and select the `Process Result` action.
 
 ![Setup Search 4](./assets/search-step-4.png)<br>
 
@@ -115,33 +119,35 @@ Once this starter kit is properly installed, you can issue a query to your bot a
 - Add new step for checking `extension_result.body == null` or `extension_result.body.items == null` or `extension_result.body.items.size == 0`
 - In "Assistant says" provide failure response "Search results are empty".
 - Add new step for the success response if results are not empty.
-- Change "without conditions" to "with conditions" and "check if `extension_result.success==true` and In "And then" section select "Go to another action" and type "Show Search Results" which we will create in further sections.
+- Change "without conditions" to "with conditions" and "check if `extension_result.success==true` and in "And then" section select "Go to another action" and select "Show Search Results" and check the "End this action after the other action is completed" box.
 
 ![Process Result](./assets/process_result.png)
 
 #### Show Search Results
 - Open the `Show Search Results` action.
-- In following steps, Iterate over each search results and check if it exists, For example if we would like to show 3 results then there will be 3 more steps.
-- Next step, Change without conditions to "with conditions" and check if `${extension_result.body.items}.size>0` then
-  - Click fx and change variable value `search_result` to expression `${extension_result.body.items}.get(0)`
-- Next step, Change without conditions to "with conditions" and check if `${extension_result.body.items}.size>1` then
-  - Click fx and change variable value `search_result` to expression `${extension_result.body.items}.get(1)`
-- Next step, Change without conditions to "with conditions" and check if `${extension_result.body.items}.size>2` then
-  - Click fx and change variable value `search_result` to expression `${extension_result.body.items}.get(2)`
+- In step 1:
+  - Change without conditions to "with conditions" and check if `${extension_result.body.items}.size>0`.
+  - Click fx and change variable value `search_result` to the expression `${extension_result.body.items}.get(0)`.
+  - In the "And then" section select "Go to another action" and select "Search Result".
+- Add step 2:
+  - Change without conditions to "with conditions" and check if `${extension_result.body.items}.size>1`.
+  - Click fx and change variable value `search_result` to the expression `${extension_result.body.items}.get(1)`.
+  - In the "And then" section select "Go to another action" and select "Search Result".
+- Add step 3:
+  - Change without conditions to "with conditions" and check if `${extension_result.body.items}.size>2`.
+  - Click fx and change variable value `search_result` to the expression `${extension_result.body.items}.get(2)`.
+  - In the "And then" section select "Go to another action" and select "Search Result" and check the "End this action after the other action is completed" box.
 
 ![Show Search results](./assets/show_search_results.png)
 
 #### Search Result
 - Open the `Search Result` action.
 - Add a "New Step", then:
-  - Click the fX button to set session variables as below:
-```
-link = ${search_result}.link
-title = ${search_result}.title
-snippet = ${search_result}.htmlSnippet
-```
-
-- Add the following to the "Assistant says":
+  - Click the fx button
+    - Set `link` to the expression `${search_result}.link`
+    - Set `title` to the expression `${search_result}.title`
+    - Set `snippet` to the expression `${search_result}.snippet`
+  - Add the following to the "Assistant says":
 
 ```
 <a href="${link}" target="_blank">${title}</a>
@@ -154,7 +160,6 @@ ${snippet}
 - Close the action editor (by clicking X in the upper right)
 - Go to "Actions" > "Set by assistant" > "No action matches" and remove all the steps from the action.  Add in a new step.  Under "And then" select "Go to another action" and select "Search" and click "End this action after the subaction is completed".
 - You may also want to go to "Actions" > "Set by assistant" > "Fallback" and do the same thing as in the previous step.  Note, however, that this will prevent your assistant from escalating to a human agent when a customer asks to connect to a human agent (which is part of the default behavior for "Fallback") so only do this if you do not have your bot connected to a human agent chat service.  For more details on connecting to human agents within Watson Assistant see [our documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-human-agent) and [blog post](https://medium.com/ibm-watson/bring-your-own-service-desk-to-watson-assistant-b39bc920075c).
-- Go to the all action and remove everything from the "Customer starts with" list so that the action _only_ triggers via the "Go to another action" settings.  If you skip this, then some action will also be considered by the intent recognizer as a possible intent, which adds unnecessary complexity to the intent recognition and thus could result in lower overall intent recognition accuracy.
 
 
 ### Advanced
@@ -193,8 +198,8 @@ Once you have the basic search setup, you can setup a filtered search to scope t
 
 Once this starter kit is properly installed, you can issue a query to your bot. If there is no other action that you've configured that matched that query then it will generate search results for that query.  Here is an example of what search results from the "Search" action can look like:
 
-<img src="./assets/sample-chat-preview.png" width="300"/>
+<img src="./assets/sample-chat-preview.png" width="400"/>
 
-If you are using the advanced filtered search actions, whenever a search is performed, the user gets a list of options for whether and how to filter the search results.  The user can select a filter to apply ("Exclude terms", "Include terms", "Exact terms", "Dated") or can select "End" to complete the search action.  The search action continues to ask for more filters until the user selects "End" to terminate the action.  This can be a somewhat tedious user experience (especially the requirement to select "End" to terminate the action).  However, it is included in this kit as an illustrative example of how you can give your end users control over what filters to apply to narrow down their search results.  We recommend that you take inspiration from this example and then craft an experience that meets the needs of your users.
+If you are using the advanced filtered search actions, whenever a search is performed, the user gets a list of options for whether and how to filter the search results.  The user can select a filter to apply or can select "End" to complete the search action.  The search action continues to ask for more filters until the user selects "End" to terminate the action.  This can be a somewhat tedious user experience (especially the requirement to select "End" to terminate the action).  However, it is included in this kit as an illustrative example of how you can give your end users control over what filters to apply to narrow down their search results.  We recommend that you take inspiration from this example and then craft an experience that meets the needs of your users.
 
 Feel free to contribute to this starter kit, or add other starter kits by following these [contribution guidelines](../../docs/CONTRIBUTING.md).
