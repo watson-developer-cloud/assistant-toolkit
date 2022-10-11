@@ -45,10 +45,10 @@ If you want to make a _new_ Assistant using this starter kit, take the following
       - Set the `cx` parameter to the `cx` session variable.
       - Set the `num` parameter to the `num_of_results` session variable (which is set to 3 in the Actions JSON file).
    - If you are using the advanced version, you will also need to configure the "Exclude", "Include", "Date restrict", and "Exact" actions.  For each of these, use all the same configuration you used for the "Search" action (including the `query`, `cx`, and `num` parameter settings) plus one additional parameter setting for each:
-      - For "Exclude", set the `excludeTerms` parameter to the `exclude_terms` session variable
-      - For "Include", set the `orTerms` parameter to the `include_terms` session variable
-      - For "Date restrict", set the `dateRestrict` parameter to the `date_restrict` session variable
-      - For "Exact", set the `exactTerms` parameter to the `exact_terms` session variable
+      - For the "Exclude" action, set the `excludeTerms` parameter to the `exclude_terms` session variable
+      - For the "Include", set the `orTerms` parameter to the `include_terms` session variable
+      - For the "Date restrict" action, set the `dateRestrict` parameter to the `date_restrict` session variable
+      - For the "Exact" action, set the `exactTerms` parameter to the `exact_terms` session variable
 
 
 ### Setup in a pre-existing Assistant
@@ -203,3 +203,9 @@ Once this starter kit is properly installed, you can issue a query to your bot. 
 If you are using the advanced filtered search actions, whenever a search is performed, the user gets a list of options for whether and how to filter the search results.  The user can select a filter to apply or can select "End" to complete the search action.  The search action continues to ask for more filters until the user selects "End" to terminate the action.  This can be a somewhat tedious user experience (especially the requirement to select "End" to terminate the action).  However, it is included in this kit as an illustrative example of how you can give your end users control over what filters to apply to narrow down their search results.  We recommend that you take inspiration from this example and then craft an experience that meets the needs of your users.
 
 Feel free to contribute to this starter kit, or add other starter kits by following these [contribution guidelines](../../docs/CONTRIBUTING.md).
+
+## Limit on Size of Search Results
+
+Watson Assistant has a hard limit of 100kb on the size of information stored in Assistant context variables (which includes search results). If the results from your extension exceed that limit, the action will fail without any visible warning or error -- typically there is a long delay and then no response.  In our experience, this rarely happens with the Google Custom Search extension, but it _can_ happen if you are searching a site with extremely large volumes of metadata returned by Google custom search.  If you think that this might be a problem for you, you can try running the query in an API testing tool like curl, [Insomnia](https://insomnia.rest/), or [Postman](https://www.postman.com/) to see how many bytes of data you are getting as search results.  If the total is at or near 100kb, then this is your problem.  You may be able to work around the issue by reducing `num_of_results` (and getting fewer results for each query) and/or by excluding sites or pages with extremely large volumes of metadata from your Google Custom Search.
+
+See also the [Limit on Size of Search Results section of the Watson Discovery search extension kit](https://github.com/watson-developer-cloud/assistant-toolkit/blob/master/integrations/extensions/starter-kits/watson-discovery/README.md#limit-on-size-of-search-results) for more details on this issue.
