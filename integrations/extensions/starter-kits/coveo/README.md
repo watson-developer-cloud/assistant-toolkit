@@ -52,7 +52,7 @@ If you want to add this starter kit to an _existing_ assistant, you cannot use t
 
     ![Setup query 2](./assets/search-step-2.png)<br>
 
-    - Add step 3 to run the search on the query using your extension. In "Assistant says", put `Searching for: ${query_text}`. In "And then", select "Use an extension", select your Coveo extension, and select the operation "Search request to Coveo search", and set the `q` parameter to the `query_text` session variable.
+    - Add step 3 to run the search on the query using your extension. In "Assistant says", put `Searching for: ${query_text}`. In "And then", select "Use an extension", select your Coveo extension, and select the operation "Search request to Coveo search", and set the `q` parameter to the `query_text` session variable. Optionally set the `partialMatch` variable to `true` (via the `Expression` option) to increase the possible answer matches for a query.
 
     ![Setup extension](./assets/setup-extension.png)<br>
 
