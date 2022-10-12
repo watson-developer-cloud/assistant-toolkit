@@ -91,8 +91,8 @@ Once this starter kit is properly installed, you can issue a query to your bot a
     - Select the search extension.
     - Select *Custom Search* or *Custom Search Site Restricted* as the endpoint at this step.  See the "Background" section of this document for information about the difference between the two endpoints.
     - Set the `query` parameter to the `query_text` session variable.
-    - Set the `cx` parameter to `cx` session variable you set in pre-requisite step.
-    - Set the `num` parameter to `num_of_results` session variable.
+    - Set the `cx` parameter to the `cx` session variable.
+    - Set the `num` optional parameter to the `num_of_results` session variable.
 
 ![Setup Search 3](./assets/search-step-3.png)<br>
 
