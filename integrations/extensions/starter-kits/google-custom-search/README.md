@@ -43,7 +43,7 @@ If you want to make a _new_ Assistant using this starter kit, take the following
       - Select *Custom Search* or *Custom Search Site Restricted* as the endpoint at this step.  See the "Background" section of this document for information about the difference between the two.
       - Set the `query` parameter to the `query_text` session variable.
       - Set the `cx` parameter to the `cx` session variable.
-      - Set the `num` parameter to the `num_of_results` session variable (which is set to 3 in the Actions JSON file).
+      - Set the `num` optional parameter to the `num_of_results` session variable (which is set to 3 in the Actions JSON file).  For more on why it is important to set this parameter, see the "Limit on Size of Search Results" section of this document.
    - If you are using the advanced version, you will also need to configure the "Exclude", "Include", "Date restrict", and "Exact" actions.  For each of these, use all the same configuration you used for the "Search" action (including the `query`, `cx`, and `num` parameter settings) plus one additional parameter setting for each:
       - For the "Exclude" action, set the `excludeTerms` parameter to the `exclude_terms` session variable
       - For the "Include", set the `orTerms` parameter to the `include_terms` session variable
