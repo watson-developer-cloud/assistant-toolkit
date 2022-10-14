@@ -12,7 +12,7 @@
   "dependencies": {
     "@carbon/icons": "^10.48.0",
     "@carbon/icons-react": "^10.49.0",
-    "@ibm-watson/assistant-web-chat-react": "^1.0.2",
+    "@ibm-watson/assistant-web-chat-react": "^1.0.3",
     "carbon-components": "^10.56.0",
     "carbon-components-react": "^7.45.0",
     "classnames": "^2.3.1",
