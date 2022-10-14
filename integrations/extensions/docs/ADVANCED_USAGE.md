@@ -110,12 +110,12 @@ To create and set a session variable:
 ## Linking Multiple Extensions
 You are not limited to one extension per action nor assistant! You can add **multiple** extensions to an action, or across multiple actions within the same assistant (using [session variables](#parameters-variables-and-complex-actions)), and essentially mix APIs in order to create a completely custom workflow.
 
-For illustration purposes, let's say your business wants to be able to automatically add a customer's local weather data when adding a ticket to your system. You can achieve this with custom extensions by following the flow (using an example Weather API and the Zendesk API in this example):
+For illustration purposes, let's say your business wants to be able to automatically add a customer's local weather data when adding a ticket to your system. You can achieve this with custom extensions by following the flow (using your choice of a weather API and the Zendesk API in this example):
 
 1. Ask for the customer's name, email, then the location and date of the reserved event.
-1. Retrieve the weather information for that location and date via a Weather API, then create a ticket in Zendesk including that information.
+1. Retrieve the weather information for that location and date via a weather API, then create a ticket in Zendesk including that information.
 1. Provide the Zendesk ticket number to the customer.
 
-An Weather and Zendesk skill that shows this sequence can be found [here](../starter-kits/docs/metaweather-deprecated/readme.md#even-more-advanced-using-the-metaweather-extension-with-another-extension) in the starter kit. Note that the MetaWeather API has been permanently removed, thus this example will not work end to end. The example, however, is still relevant as reference material -- uploading the skill will allow you to see how extensions can be linked.
+A weather and Zendesk skill that shows this sequence can be found [here](../starter-kits/docs/metaweather-deprecated/readme.md#even-more-advanced-using-the-metaweather-extension-with-another-extension) in the starter kit. Note that since the MetaWeather API has been permanently removed, this example will not work end to end. It is still relevant, however, as reference material -- uploading the skill will allow you to see how extensions can be linked.
 
 There are endless combinations that you can create with extensions, in order to provide customers a personalized help experience. So get creative!
