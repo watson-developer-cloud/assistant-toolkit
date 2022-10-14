@@ -3,14 +3,14 @@
 ```
 ** IMPORTANT NOTICE **
 
-The MetaWeather API is currently unavailable. In the meantime, we recommend using a different starter kit to get started with extensions.
+The MetaWeather API is permanently out of commission. We are therefore deprecating this starter kit.
+We will leave these examples, however, as reference material that can be examined by uploading the skill.
 
-Check back for updates on when the API is running again, or visit https://www.metaweather.com/api/ to check the status on your own.
 ```
 
 MetaWeather is a simple API for querying location weather data. The API supports three use cases:
 
-- GET Location Search: Search for a location by a name (string) OR a lattitude and longitude value. This resturns a Where-On-Earth-ID (woeid).
+- GET Location Search: Search for a location by a name (string) OR a latitude and longitude value. This returns a Where-On-Earth-ID (woeid).
 - GET Location: Use a Where-On-Earth-ID to get a location's 5-day weather forecast.
 - GET Location Day: Use a Where-On-Earth-ID and a date to query for a location's historical weather data.
 
@@ -65,7 +65,7 @@ Free free to contribute to this starter kit, or add other starter kits by follow
 ## Even More Advanced: Using the MetaWeather Extension with Another Extension
 Going one step further, extensions are not limited to one per skill -- you can use multiple custom extensions in a skill and even in an action! 
 
-We have published a [Medium blog](https://linktoblog) that showcases this capability. The `metaweather-zendesk.blog.actions.json` found in the `advanced` folder is a two-extension example skill that is used in the blog. To configure this spec, you should use the below operations and parameters.
+We have published a [Medium blog](https://medium.com/ibm-watson/extensions-made-easy-with-watson-assistant-starter-kits-6b177f624697) that showcases this capability. The `metaweather-zendesk.blog.actions.json` found in the `advanced` folder is a two-extension example skill that is used in the blog. To configure this spec, you should use the below operations and parameters.
 
 Here, we assume that you named your MetaWeather extension `MetaWeather` and your Zendesk Support extension `Zendesk`:
 

@@ -17,25 +17,29 @@ For our full docs on how to create and customize extensions, visit [Building a C
 ### How to Use This Repository
 These starter kits are here as a reference for you to build your own specs and skills, act as a spring board for demos or POCs, and overall make the learning process easier.
 
-In that vein, we're providing and maintaining **two** main "tutorial" starter kits: `HubSpot` and `MetaWeather`. The files under the **basic** folder will help you get your first custom extension started, quick and simple. Once you've familiarized yourself, the **advanced** files provide examples for more complex OpenAPI specs and actions skills that showcase the full capabilities of extensions.
+In that vein, we're providing and maintaining HubSpot as the "tutorial" starter kit. The files under the **basic** folder will help you get your first custom extension started, quick and simple. Once you've familiarized yourself, the **advanced** files provide examples for more complex OpenAPI specs and actions skills that showcase the full capabilities of extensions.
 
 Then we have our **additional starter kits**. These focus on showcasing the breadth of custom extensions &mdash; use these as inspiration, further examples, or starting points to build out cool extensions.
 
 ## Jump to...
 1. [All Available Starter Kits](./starter-kits/)
-    - [MetaWeather](./starter-kits/metaweather/)
     - [HubSpot](./starter-kits/hubspot/)
-    - [Zendesk Support](./starter-kits/zendesk-support/)
-    - [Spotify](./starter-kits/spotify/)
-    - [Service Now](./starter-kits/servicenow/)
+    - [Coveo](./starter-kits/coveo/)
+    - [Google Custom Search](./starter-kits/google-custom-search/)
     - [IBM App Connect](./starter-kits/appconnect/)
-    - [ Mailchimp Campaign Management](./starter-kits/mailchimp/)
+    - [IBM Watson Discovery](./starter-kits/watson-discovery/)
+    - [Magnolia](./starter-kits/magnolia/)
+    - [Mailchimp Campaign Management](./starter-kits/mailchimp/)
+    - [Service Now](./starter-kits/servicenow/)
+    - [Spotify](./starter-kits/spotify/)
+    - [Zendesk Guide](./starter-kits/zendesk-guide/)
+    - [Zendesk Support](./starter-kits/zendesk-support/)
 1. [Create a Custom Extension](#getting-started)
 1. [How to Contribute](./docs/CONTRIBUTING.md)
 
 ## Getting Started
 1. Select a starter kit for your custom extension.
-    - We recommend you start with [MetaWeather basic](./starter-kits/metaweather/basic) if this is your first custom extension.
+    - We recommend you start with [HubSpot basic](./starter-kits/hubspot/basic) if this is your first custom extension.
 1. Navigate to the appropriate directory and download the OpenAPI spec (ending in `.openapi.json`) and actions skill (ending in `.skill.json`). 
 1. Create an extension.
     - Go to your Watson Assistant instance.

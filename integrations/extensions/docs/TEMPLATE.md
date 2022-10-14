@@ -8,7 +8,7 @@ Should include, at minimum:
 - Link to official API reference page
 ```
 
-**Example:** <br> [MetaWeather](../starter-kits/metaweather/README.md)
+**Example:** <br> [HubSpot](../starter-kits/hubspot/README.md)
 
 ## Pre-Requisite Steps
 ### Auth Info
@@ -43,4 +43,4 @@ Should include, at minimum:
 - Any notes or limitations, known issues
 ```
 
-**Example:** <br> [MetaWeather](../starter-kits/metaweather/README.md#using-this-starter-kit)
+**Example:** <br> [HubSpot](../starter-kits/hubspot/README.md#using-this-starter-kit)

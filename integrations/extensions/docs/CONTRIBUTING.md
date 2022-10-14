@@ -19,4 +19,4 @@ You should have the following items in your starter kit addition:
     - [ ] Step responses use full, user friendly sentences.
 - [ ] A `README.md` that follows [this template](./TEMPLATE.md).
 
-See the [MetaWeather Starter Kit](../starter-kits/metaweather/) as a general reference for what your starter kit addition should look like. We appreciate and welcome all contributions, and will review the PRs shortly after opening!
+See the [HubSpot Starter Kit](../starter-kits/hubspot/) as a general reference for what your starter kit addition should look like. We appreciate and welcome all contributions, and will review the PRs shortly after opening!

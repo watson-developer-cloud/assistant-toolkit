@@ -75,7 +75,7 @@ To add server variables in your OpenAPI spec, you can write something similar to
 Then, the respective fillable fields will render as an option in your `Authentication` setup step.
 
 ## Parameters, Variables, and Complex Actions
-In your actions skills, you are able to parse the response information from the extension in any consequent steps. For instance, you can observe in `Action 2` of the [MetaWeather (advanced) skill](../starter-kits/metaweather/README.md#using-this-starter-kit) how the WOE-ID returned from the first extension step is retrieved, then passed in as an argument to the second extension step. This allows you to build your own flexible workflow around the API, directly inside Watson Assistant.
+In your actions skills, you are able to parse the response information from the extension in any consequent steps. For instance, you can observe in `Action 2` of the [MetaWeather (advanced) skill](../starter-kits/docs/metaweather-deprecated/README.md#using-this-starter-kit) how the WOE-ID returned from the first extension step is retrieved, then passed in as an argument to the second extension step. This allows you to build your own flexible workflow around the API, directly inside Watson Assistant.
 
 To do this, you want to access the response variables from an extension. These can be accessed in various places, including your condition statements:
 
@@ -103,19 +103,19 @@ To create and set a session variable:
     - Set your session variable equal to a response variable from your extension. Simply select which value you want to assign from the `to` dropdown.
     - Set to an `expression`. Expressions are handy if you are trying to parse out a specific array item from an array response type. An example would be:
 
-        <img src="../assets/metaweather-session-variable.png" alt="metaweather-session-variable" style="height:40px;"/>
+        <img src="../assets/session-variable.png" alt="session-variable" style="height:40px;"/>
 
         Detailed documentation on expressions can be found on our official documentation [here](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-expressions).
 
 ## Linking Multiple Extensions
 You are not limited to one extension per action nor assistant! You can add **multiple** extensions to an action, or across multiple actions within the same assistant (using [session variables](#parameters-variables-and-complex-actions)), and essentially mix APIs in order to create a completely custom workflow.
 
-For illustration purposes, let's say your business wants to be able to automatically add a customer's local weather data when adding a ticket to your system. You can achieve this with custom extensions by following the flow (using MetaWeather and Zendesk APIs in this example):
+For illustration purposes, let's say your business wants to be able to automatically add a customer's local weather data when adding a ticket to your system. You can achieve this with custom extensions by following the flow (using your choice of a weather API and the Zendesk API in this example):
 
 1. Ask for the customer's name, email, then the location and date of the reserved event.
-1. Retrieve the weather information for that location and date via MetaWeather, then create a ticket in Zendesk including that information.
+1. Retrieve the weather information for that location and date via a weather API, then create a ticket in Zendesk including that information.
 1. Provide the Zendesk ticket number to the customer.
 
-A MetaWeather and Zendesk skill that shows this sequence can be found [here](../starter-kits/metaweather/readme.md#even-more-advanced-using-the-metaweather-extension-with-another-extension) in the starter kit. 
+A weather and Zendesk skill that shows this sequence can be found [here](../starter-kits/docs/metaweather-deprecated/readme.md#even-more-advanced-using-the-metaweather-extension-with-another-extension) in the starter kit. Note that since the MetaWeather API has been permanently removed, this example will not work end to end. It is still relevant, however, as reference material -- uploading the skill will allow you to see how extensions can be linked.
 
 There are endless combinations that you can create with extensions, in order to provide customers a personalized help experience. So get creative!
