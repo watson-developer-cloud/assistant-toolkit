@@ -48,7 +48,7 @@ If you want to add this starter kit to an _existing_ assistant, you cannot use t
 - Update the `workspace` variable to be the URL of the workspace that you have set up your REST endpoint for. Example: We use `http://34.71.156.142:8080/magnoliaPublic/tours` since the Delivery endpoint setup for this starter kit is querying the ***tours*** workspace
 - Create a new action and put "Show Search Result" in "What does your customer say to start this interaction?". Add step 1:
   - Click the fX button to add variables and add all of the following new session variables.For context on why we do this and what these mean, see [Extensions Made Easy with Watson Assistant Starter Kits](https://medium.com/ibm-watson/extensions-made-easy-with-watson-assistant-starter-kits-6b177f624697):
-  
+
 		```
 		title = ${search_result}.name
 		snippet = ${search_result}.body.substring(0,200)
@@ -57,7 +57,7 @@ If you want to add this starter kit to an _existing_ assistant, you cannot use t
 		```
 
   -  Then add the following to the "Assistant says":
-  
+
 		```
 		<a href="${link}" target="_blank">${title}</a>
 		${snippet}
@@ -66,12 +66,12 @@ If you want to add this starter kit to an _existing_ assistant, you cannot use t
 
 - Create a new action and put "Show Search Results" in "What does your customer say to start this interaction?".  Add step 1:
   - Change "without conditions" to "with conditions", click on "Expression" in the condition drop-down and type in `${search_results}.size < 1`
-  - Then add the following to the "Assistant says": 
+  - Then add the following to the "Assistant says":
   I was not able to find anything relevant to your query, sorry!
   - In "And then", select "End the action"
- 
+
  ![No results found](./assets/no-results.gif)<br>
- 
+
 - Still in the "Show Search Results" action, add a "New Step".
   - Change "without conditions" to "with conditions", click on "Expression" in the condition drop-down and type in `${search_results}.size > 0`
   - Click on the fX button and set variable `search_result` to `${search_results}.get(0)`
@@ -84,12 +84,19 @@ If you want to add this starter kit to an _existing_ assistant, you cannot use t
   - Change "without conditions" to "with conditions", click on "Expression" in the condition drop-down and type in `${search_results}.size > 2`
   - Click on the fX button and set variable `search_result` to `${search_results}.get(2)`
   - In "And then", select "Go to another action" and select the action "Show Search Result"
- 
- 
+
+
 - Create a new action and put "Search" in "What does your customer say to start this interaction?".  Add step 1:
-  - Click the fX button to add a variable and add new session variable `query_text` and select "Expression" type and then put `input.text` or `input.original_text` as the expression.  The former will employ spelling correction to fix any detected spelling errors before sending the query, which can be helpful but it can also be counterproductive if your documents include specialized terminology that is not in our dictionary (such as product names) so you can use `input.original_text` as the alternative in such cases.
-  - Optional: In "Assistant says", put `Searching for: ${query_text}`
-  - In "And then", select "Use an extension", select the extension you made back in step 2, and select the search endpoint and set the `q` parameter to the `query_text` session variable
+- Click on the `Search` action and put "Search" in "What does your customer say to start this interaction?".  Add step 1:
+    - Click the fX button to add a variable and add new session variable `query_text` and select "Expression" type and then put `input.original_text` as the expression. As noted in the [documentation for spell checking](https://cloud.ibm.com/docs/assistant?topic=assistant-dialog-runtime-spell-check#dialog-runtime-spell-check-how-it-works), `input.original_text` is set _only_ if the utterance from the user was altered due to spell correction and then it records the original request from the user and not the spell corrected text. Spell correction can be very counter productive for searching because it can take specialized domain vocabulary and "correct" those terms to generic words in the language, so it is often better to apply the search on the original text, as we are doing here.
+
+![Setup query 1](./assets/set-original-text.png)<br>
+
+    - Add step 2, and change "without conditions" to "with conditions" and set the condition `query_text` is not defined. Then set the variable `query_text` to `input.text`. This is needed because the `input.original_text` is only set when spell correction changed the text. When there was no spell correction, you need to use `input.text` instead. After step 2, `query_text` is guaranteed to be the exact original query issued by the user.
+
+![Setup query 2](./assets/set-input-text.png)<br>
+
+    - Add step 3 to run the search on the query using your extension. In "Assistant says", put `Searching for: ${query_text}`. In "And then", select "Use an extension", select your Magnolia extension, select your search endpoint, and set the `q` parameter to the `query_text` session variable.
 
 ![Add query step](./assets/add-query-step.gif)<br>
 
@@ -102,20 +109,20 @@ Sorry.  The search failed!  Please try again another time.
   - In "Assistant says" hit `$` and select "Ran Successfully" and then click on `</>` in the upper right of that box to see the full JSON for the response.  In there, you should see a field called `variable` with a value that looks something like `step_123_result_1`.  Copy that value.
   - Click "abc" in the upper right and delete the variable in "Assistant says" (we only put it there to copy the variable name).
   - Click the fX button to add variables and set the `search_results` variable to an `Expression`. Type in the following replacing `step_123_result_1` with the actual variable name:
-  
+
 	  ```
 	  search_results = ${step_123_result_1}.body.results
 	  ```
-  
+
 ![Set result items](./assets/set-search-results.gif)<br>
 
   - In "And then", select "Go to another action", and select the action "Show Search Results"
- 
+
 
 - Close the action editor (by clicking X in the upper right)
 - Go to "Actions" > "Set by assistant" > "No action matches" and remove all the steps from the action.  Add in a new step.  Under "And then" select "Go to another action" and select "Search" and click "End this action after the subaction is completed".
 - You may also want to go to "Actions" > "Set by assistant" > "Fallback" and do the same thing as in the previous step.  Note, however, that this will prevent your assistant from escalating to a human agent when a customer asks to connect to a human agent (which is part of the default behavior for "Fallback") so only do this if you do not have your bot connected to a human agent chat service.  For more details on connecting to human agents within Watson Assistant see [our documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-human-agent) and [blog post](https://medium.com/ibm-watson/bring-your-own-service-desk-to-watson-assistant-b39bc920075c).
-- Go to the Search action and remove "Search" from the "Customer starts with" list so that the search action _only_ triggers via the "Go to another action" settings described in steps 13-15 above.  If you skip this, then all actions will also be considered by the intent recognizer as a possible intent, which adds unnecessary complexity to the intent recognition and thus could result in lower overall intent recognition accuracy. 
+- Go to the Search action and remove "Search" from the "Customer starts with" list so that the search action _only_ triggers via the "Go to another action" settings described in steps 13-15 above.  If you skip this, then all actions will also be considered by the intent recognizer as a possible intent, which adds unnecessary complexity to the intent recognition and thus could result in lower overall intent recognition accuracy.
 - Do the same as above for removing "Show Search Results" and "Show Search Result" from the corresponding actions' "Customer starts with" list
 
 ## Using this Starter Kit

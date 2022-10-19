@@ -3,10 +3,10 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2021-12-06T15:25:27.581Z",
-  "updated": "2022-09-23T21:27:51.652Z",
+  "created": "2022-10-06T19:15:09.395Z",
+  "updated": "2022-10-06T19:29:06.022Z",
   "language": "en",
-  "skill_id": "0dad18e1-558c-42d2-9160-d725bb212e12",
+  "skill_id": "cb89be20-8767-41c5-8536-0c28845402bf",
   "workspace": {
     "actions": [
       {
@@ -280,20 +280,35 @@
             "output": {
               "generic": [
                 {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "Searching for: "
-                          },
-                          {
-                            "skill_variable": "query_text"
-                          }
-                        ]
-                      }
-                    }
-                  ],
+                  "values": [],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "input.original_text"
+                  },
+                  "skill_variable": "query_text"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_386",
+            "next_step": "step_331"
+          },
+          {
+            "step": "step_331",
+            "output": {
+              "generic": [
+                {
+                  "values": [],
                   "response_type": "text",
                   "selection_policy": "sequential"
                 }
@@ -311,13 +326,51 @@
             },
             "handlers": [],
             "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_331",
+            "condition": {
+              "not": {
+                "exists": {
+                  "skill_variable": "query_text"
+                }
+              }
+            },
+            "next_step": "step_636"
+          },
+          {
+            "step": "step_636",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Searching for "
+                          },
+                          {
+                            "skill_variable": "query_text"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
               "type": "callout",
               "callout": {
                 "path": "/delivery/tours/v1",
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "catalog_item_id": "15cdadb4-6227-4655-a4d0-eff90894bb6c"
+                  "catalog_item_id": "9dd0a420-76cd-4e44-a31e-a380dc3536db"
                 },
                 "request_mapping": {
                   "query": [
@@ -329,10 +382,10 @@
                     }
                   ]
                 },
-                "result_variable": "step_386_result_1"
+                "result_variable": "step_636_result_1"
               }
             },
-            "variable": "step_386",
+            "variable": "step_636",
             "next_step": "step_961"
           },
           {
@@ -362,15 +415,12 @@
             },
             "variable": "step_961",
             "condition": {
-              "eq": [
-                {
-                  "variable": "step_386_result_1",
+              "not": {
+                "exists": {
+                  "variable": "step_636_result_1",
                   "variable_path": "success"
-                },
-                {
-                  "scalar": false
                 }
-              ]
+              }
             },
             "next_step": "step_485"
           },
@@ -380,7 +430,7 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "${step_386_result_1}.body.results"
+                    "expression": "${step_636_result_1}.body.results"
                   },
                   "skill_variable": "search_results"
                 }
@@ -407,7 +457,12 @@
         },
         "variables": [
           {
-            "title": "Searching for: {variable}",
+            "title": "No response",
+            "variable": "step_331",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
             "variable": "step_386",
             "data_type": "any"
           },
@@ -430,6 +485,15 @@
           },
           {
             "variable": "step_485_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Searching for {variable}",
+            "variable": "step_636",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_636_result_1",
             "data_type": "any"
           },
           {
@@ -865,8 +929,8 @@
     "learning_opt_out": true
   },
   "description": "created for assistant dac5bd3c-5f15-4301-8e80-9143796db103",
-  "assistant_id": "06b1645e-dbe7-4a04-b343-bc049778841a",
-  "workspace_id": "0dad18e1-558c-42d2-9160-d725bb212e12",
+  "assistant_id": "896414a5-8449-4fc3-a71c-073f1baa1ff1",
+  "workspace_id": "cb89be20-8767-41c5-8536-0c28845402bf",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }
