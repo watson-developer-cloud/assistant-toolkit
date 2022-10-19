@@ -52,14 +52,19 @@ If you want to add this starter kit to an _existing_ assistant, you cannot use t
 - Use the OpenAPI specification to [build a custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension).
 - [Add the extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension) using the credentials you obtained in the pre-requisite step above.
 - Go to `Variables > Created by you` and add `query_text`, `page_limit`, `search_results`, `search_result`, `link`, `title`, and `snippet`.
-- Go to `Actions > Created by you` and create three new actions titled "Search", "Show search results", and Show search result" respectively.
-- Click on the "Search" action and put "Search" in "What does your customer say to start this interaction?".  Add step 1:
-  - Click the fX button to add a variable and add new session variable `query_text` and select "Expression" type and then put `input.text` or `input.original_text` as the expression.  The former will employ spelling correction to fix any detected spelling errors before sending the query, which can be helpful but it can also be counterproductive if your documents include specialized terminology that is not in our dictionary (such as product names) so you can use `input.original_text` as the alternative in such cases.
-  - Click `Set new value` and set `page_limit` to Expression type and then put 3 as the expression. This limits the size of the results returned by the query to avoid timeouts.
-  - Optional: In "Assistant says", put `Searching for: ${query_text}`
-  - In "And then", select "Use an extension", select the extension you made back in step 2, and select the search endpoint and set the `query` parameter to the `query_text` session variable and the `per_page` parameter to the `page_limit` variable.
+- Go to `Actions > Created by you` and create three new actions titled "Search", "Show search results", and "Show search result" respectively.
+- Click on the `Search` action and put "Search" in "What does your customer say to start this interaction?".  Add step 1:
+- Click the fX button to add a variable and add new session variable `query_text` and select "Expression" type and then put `input.original_text` as the expression. As noted in the [documentation for spell checking](https://cloud.ibm.com/docs/assistant?topic=assistant-dialog-runtime-spell-check#dialog-runtime-spell-check-how-it-works), `input.original_text` is set _only_ if the utterance from the user was altered due to spell correction and then it records the original request from the user and not the spell corrected text. Spell correction can be very counter productive for searching because it can take specialized domain vocabulary and "correct" those terms to generic words in the language, so it is often better to apply the search on the original text, as we are doing here. In addition, click `Set new value` and set `page_limit` to Expression type and then put 3 as the expression. This limits the size of the results returned by the query to avoid timeouts.
 
-![Add query step](./assets/add-query-step.gif)<br>
+![Setup query 1](./assets/search-step-1.png)<br>
+
+- Add step 2, and change "without conditions" to "with conditions" and set the condition `query_text` is not defined. Then set the variable `query_text` to `input.text`. This is needed because the `input.original_text` is only set when spell correction changed the text. When there was no spell correction, you need to use `input.text` instead. After step 2, `query_text` is guaranteed to be the exact original query issued by the user.
+
+![Setup query 2](./assets/search-step-2.png)<br>
+
+- Add step 3 to run the search on the query using your extension. In "Assistant says", put `Searching for: ${query_text}`. In "And then", select "Use an extension", select the extension you made back in step 2, and select the search endpoint and set the `query` parameter to the `query_text` session variable and the `per_page` parameter to the `page_limit` variable.
+
+![Setup extension](./assets/setup-extension.png)<br>
 
 - Click "New Step" and change "without conditions" to "with conditions" and select "Ran successfully" is "false".  Also set "And then" to "End the action".  Then add the following to the "Assistant says":
 Sorry.  The search failed!  Please try again another time.
@@ -136,9 +141,9 @@ The `Search by document creation date` is preconfigured in the starter kit to co
 
 ![Create new search action](./assets/search-by-create-date-action.gif)<br>
 
-- Next, go to the first conversation step and add the filter parameter to your extension. In "And then", select "edit extension" to set the `created_after` parameter to the session variable `created_by_date` that you just created.
+- Next, go to the conversation step that uses your extension and add the filter parameter to your extension as follows: in "And then", select "edit extension" to set the `created_after` parameter to the session variable `created_by_date` that you just created.
 
-![Set filter parameter in extension](./assets/set-filter-parameter-in-extension.gif)<br>
+![Set filter parameter in extension](./assets/set-filter-parameter-in-extension.png)<br>
 
 - Now the set up of your filtered search by creation date action is complete. You can try out your new filtered search action by typing "recent rates" in the Preview.
 
