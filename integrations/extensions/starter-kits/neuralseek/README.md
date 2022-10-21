@@ -32,7 +32,7 @@ The subsections below describe how to setup the sample actions file from this ki
 
 ### Setup in a new Assistant
 
-If you want to use that actions file, make a _new_ Assistant and take the following steps:
+If you want to use the sample actions file, make a _new_ Assistant and take the following steps:
 
 - Use the `NeuralSeek.json` OpenAPI specification (from the Pre-Requisite Steps) to [build a custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension).
 - [Add the extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension) using the API key and region you obtained in the pre-requisites above.  When you select API key authentication, it will ask for an API key.  Enter the API key for NeuralSeek that you got from the "Integrate" page during the Pre-Requisite Steps above (_not_ the API key for your Watson Discovery instance).
