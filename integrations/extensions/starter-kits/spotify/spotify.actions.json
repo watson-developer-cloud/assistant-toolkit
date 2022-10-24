@@ -1,0 +1,1453 @@
+{
+  "name": "Spotify Actions Skill",
+  "type": "dialog",
+  "valid": true,
+  "status": "Available",
+  "created": "2022-04-14T23:40:17.663Z",
+  "updated": "2022-04-18T17:13:20.365Z",
+  "language": "en",
+  "skill_id": "a423bfe4-daeb-4586-a4ab-120ffcc6d175",
+  "workspace": {
+    "actions": [
+      {
+        "steps": [
+          {
+            "step": "step_352",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Which playlist would you like to get the information for? Please provide the playlist's ID."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "question": {
+              "free_text": true,
+              "only_populate_when_prompted": true
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_352",
+            "next_step": "step_925"
+          },
+          {
+            "step": "step_358",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Here is the playlist "
+                          },
+                          {
+                            "variable": "step_925_result_1",
+                            "variable_path": "body.name"
+                          },
+                          {
+                            "scalar": ", created by "
+                          },
+                          {
+                            "variable": "step_925_result_1",
+                            "variable_path": "body.owner.display_name"
+                          },
+                          {
+                            "scalar": ": "
+                          },
+                          {
+                            "variable": "step_925_result_1",
+                            "variable_path": "body.external_urls.spotify"
+                          },
+                          {
+                            "scalar": ".\nHope this helps!"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_358",
+            "condition": {
+              "exists": {
+                "variable": "step_925_result_1",
+                "variable_path": "body.id"
+              }
+            }
+          },
+          {
+            "step": "step_925",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Ok. One sec, retrieving the requested playlist.."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/v1/playlists/{playlist_id}",
+                "type": "integration_interaction",
+                "method": "GET",
+                "internal": {
+                  "catalog_item_id": "232bb7ee-9f51-4694-912e-c2f6f09085cb"
+                },
+                "request_mapping": {
+                  "path": [
+                    {
+                      "value": {
+                        "variable": "step_352"
+                      },
+                      "parameter": "playlist_id"
+                    }
+                  ]
+                },
+                "result_variable": "step_925_result_1"
+              }
+            },
+            "variable": "step_925",
+            "condition": {
+              "exists": {
+                "variable": "step_352"
+              }
+            },
+            "next_step": "step_358"
+          }
+        ],
+        "title": "I want to look up a specific playlist.",
+        "action": "action_17923",
+        "handlers": [],
+        "condition": {
+          "intent": "action_17923_intent_24627"
+        },
+        "variables": [
+          {
+            "variable": "step_124_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_230_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Which playlist would you like to get the information for? Please",
+            "variable": "step_352",
+            "data_type": "any"
+          },
+          {
+            "title": "Here is the playlist {variable}, created by {variable}: {variabl",
+            "variable": "step_358",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_418_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_579_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_640_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Ok. One sec, retrieving the requested playlist..",
+            "variable": "step_925",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_925_result_1",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_6964",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_421",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Done! Check your spotify account to verify you're now following the playlist."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_421"
+          },
+          {
+            "step": "step_541",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Ok! Following playlist.."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/v1/playlists/{playlist_id}/followers",
+                "type": "integration_interaction",
+                "method": "PUT",
+                "internal": {
+                  "catalog_item_id": "232bb7ee-9f51-4694-912e-c2f6f09085cb"
+                },
+                "request_mapping": {
+                  "path": [
+                    {
+                      "value": {
+                        "variable": "step_792"
+                      },
+                      "parameter": "playlist_id"
+                    }
+                  ]
+                },
+                "result_variable": "step_541_result_1"
+              }
+            },
+            "variable": "step_541",
+            "condition": {
+              "exists": {
+                "variable": "step_792"
+              }
+            },
+            "next_step": "step_421"
+          },
+          {
+            "step": "step_792",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Which playlist do you want to follow? Please provide us the playlist ID."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "question": {
+              "free_text": true,
+              "only_populate_when_prompted": true
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_792",
+            "next_step": "step_541"
+          }
+        ],
+        "title": "I want to follow a playlist.",
+        "action": "action_48057",
+        "handlers": [],
+        "condition": {
+          "intent": "action_48057_intent_28555"
+        },
+        "variables": [
+          {
+            "variable": "step_124_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_230_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_418_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Done! Check your spotify account to verify you're now following ",
+            "variable": "step_421",
+            "data_type": "any"
+          },
+          {
+            "title": "Ok! Following playlist..",
+            "variable": "step_541",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_541_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_579_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_640_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Which playlist do you want to follow? Please provide us the play",
+            "variable": "step_792",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_925_result_1",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_17923",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_230",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Cool, one sec..."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/v1/me",
+                "type": "integration_interaction",
+                "method": "GET",
+                "internal": {
+                  "catalog_item_id": "232bb7ee-9f51-4694-912e-c2f6f09085cb"
+                },
+                "result_variable": "step_230_result_1"
+              }
+            },
+            "variable": "step_230",
+            "next_step": "step_481"
+          },
+          {
+            "step": "step_481",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Hey, thanks for waiting.\nYour Spotify user id is "
+                          },
+                          {
+                            "variable": "step_230_result_1",
+                            "variable_path": "body.id"
+                          },
+                          {
+                            "scalar": " and your name is displayed as "
+                          },
+                          {
+                            "variable": "step_230_result_1",
+                            "variable_path": "body.display_name"
+                          },
+                          {
+                            "scalar": ". You have "
+                          },
+                          {
+                            "variable": "step_230_result_1",
+                            "variable_path": "body.followers.total"
+                          },
+                          {
+                            "scalar": " followers. To go to your profile, visit "
+                          },
+                          {
+                            "variable": "step_230_result_1",
+                            "variable_path": "body.external_urls.spotify"
+                          },
+                          {
+                            "scalar": "."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_481",
+            "condition": {
+              "exists": {
+                "variable": "step_230_result_1",
+                "variable_path": "body.id"
+              }
+            }
+          }
+        ],
+        "title": "I want to get my profile info.",
+        "action": "action_6964",
+        "handlers": [],
+        "condition": {
+          "intent": "action_6964_intent_19071"
+        },
+        "variables": [
+          {
+            "variable": "step_124_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Cool, one sec...",
+            "variable": "step_230",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_230_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_418_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Hey, thanks for waiting. Your Spotify user id is {variable} and ",
+            "variable": "step_481",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_579_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_640_result_1",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_7688",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_114",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Give a short description for your playlist."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "question": {
+              "free_text": true,
+              "only_populate_when_prompted": true
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_114",
+            "next_step": "step_350"
+          },
+          {
+            "step": "step_142",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "What do you want to name your playlist?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "question": {
+              "free_text": true,
+              "only_populate_when_prompted": true
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_142",
+            "next_step": "step_114"
+          },
+          {
+            "step": "step_280",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Alright. Creating your playlist.."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/v1/users/{user_id}/playlists",
+                "type": "integration_interaction",
+                "method": "POST",
+                "internal": {
+                  "catalog_item_id": "232bb7ee-9f51-4694-912e-c2f6f09085cb"
+                },
+                "request_mapping": {
+                  "body": [
+                    {
+                      "value": {
+                        "variable": "step_142"
+                      },
+                      "parameter": "name"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "isPublic"
+                      },
+                      "parameter": "public"
+                    },
+                    {
+                      "value": {
+                        "variable": "step_114"
+                      },
+                      "parameter": "description"
+                    }
+                  ],
+                  "path": [
+                    {
+                      "value": {
+                        "variable": "step_443"
+                      },
+                      "parameter": "user_id"
+                    }
+                  ]
+                },
+                "result_variable": "step_280_result_1"
+              }
+            },
+            "variable": "step_280",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_350"
+                },
+                {
+                  "value": "public",
+                  "from_entity": "entity_10369"
+                }
+              ]
+            },
+            "next_step": "step_660"
+          },
+          {
+            "step": "step_350",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Do you want this playlist to be public, or private?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                },
+                {
+                  "options": [
+                    {
+                      "label": "public",
+                      "value": {
+                        "input": {
+                          "text": "public"
+                        }
+                      }
+                    },
+                    {
+                      "label": "private",
+                      "value": {
+                        "input": {
+                          "text": "private"
+                        }
+                      }
+                    }
+                  ],
+                  "response_type": "option",
+                  "repeat_on_reprompt": true
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text": "I didn't catch that. Select a valid option:"
+                        }
+                      ],
+                      "response_type": "text"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "entity": "entity_10369",
+              "max_tries": 3
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_350",
+            "next_step": "step_280"
+          },
+          {
+            "step": "step_438",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "fine, we couldnt create that.."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_438",
+            "condition": {
+              "not": {
+                "exists": {
+                  "variable": "step_280_result_1",
+                  "variable_path": "body.name"
+                }
+              }
+            }
+          },
+          {
+            "step": "step_443",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "What is your user id?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "question": {
+              "free_text": true,
+              "only_populate_when_prompted": true
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_443",
+            "next_step": "step_142"
+          },
+          {
+            "step": "step_660",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Playlist successfully created! You can go visit it here: "
+                          },
+                          {
+                            "variable": "step_280_result_1",
+                            "variable_path": "body.external_urls.spotify"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_660",
+            "condition": {
+              "exists": {
+                "variable": "step_280_result_1",
+                "variable_path": "body.external_urls.spotify"
+              }
+            },
+            "next_step": "step_438"
+          }
+        ],
+        "title": "I want to create a playlist.",
+        "action": "action_7688",
+        "handlers": [],
+        "condition": {
+          "intent": "action_7688_intent_13373"
+        },
+        "variables": [
+          {
+            "title": "Give a short description for your playlist.",
+            "variable": "step_114",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_124_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "What do you want to name your playlist?",
+            "variable": "step_142",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_230_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Alright. Creating your playlist..",
+            "variable": "step_280",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_280_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_331_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Do you want this playlist to be public, or private?",
+            "variable": "step_350",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_357_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_418_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "fine, we couldnt create that..",
+            "variable": "step_438",
+            "data_type": "any"
+          },
+          {
+            "title": "What is your user id?",
+            "variable": "step_443",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_541_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_579_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_640_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Playlist successfully created! You can go visit it here: {variab",
+            "variable": "step_660",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_666_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_768_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_802_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_899_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_925_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_968_result_1",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "fallback",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_001",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "I'm afraid I don't understand. Please rephrase your question."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_001",
+            "condition": {
+              "lte": [
+                {
+                  "system_variable": "no_action_matches_count"
+                },
+                {
+                  "scalar": 3
+                }
+              ]
+            },
+            "next_step": "step_002"
+          },
+          {
+            "step": "step_002",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": ""
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "action": "fallback",
+                "parameters": null,
+                "result_variable": "step_002_result_1"
+              }
+            },
+            "variable": "step_002",
+            "condition": {
+              "gt": [
+                {
+                  "system_variable": "no_action_matches_count"
+                },
+                {
+                  "scalar": 3
+                }
+              ]
+            }
+          }
+        ],
+        "title": "No action matches",
+        "action": "anything_else",
+        "handlers": [],
+        "condition": {
+          "expression": "anything_else"
+        },
+        "variables": [
+          {
+            "title": "I am afraid I do not understand what you are asking, please re-p",
+            "variable": "step_001",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_002",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_002_result_1",
+            "data_type": "any"
+          }
+        ],
+        "disambiguation_opt_out": true
+      },
+      {
+        "steps": [
+          {
+            "step": "step_001",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "I'm afraid I don't understand. I can connect you to an agent."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
+                },
+                "message_to_human_agent": ""
+              }
+            },
+            "variable": "step_001",
+            "condition": {
+              "eq": [
+                {
+                  "system_variable": "fallback_reason"
+                },
+                {
+                  "scalar": "Step validation failed"
+                }
+              ]
+            },
+            "next_step": "step_002"
+          },
+          {
+            "step": "step_002",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "Sorry I couldn't assist you. I will connect you to an agent right away."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
+                },
+                "message_to_human_agent": ""
+              }
+            },
+            "variable": "step_002",
+            "condition": {
+              "eq": [
+                {
+                  "system_variable": "fallback_reason"
+                },
+                {
+                  "scalar": "Agent requested"
+                }
+              ]
+            },
+            "next_step": "step_003"
+          },
+          {
+            "step": "step_003",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "I am afraid I do not understand what you are asking, let me connect you to an agent."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
+                },
+                "message_to_human_agent": ""
+              }
+            },
+            "variable": "step_003",
+            "condition": {
+              "eq": [
+                {
+                  "system_variable": "fallback_reason"
+                },
+                {
+                  "scalar": "No action matches"
+                }
+              ]
+            }
+          }
+        ],
+        "title": "Fallback",
+        "action": "fallback",
+        "handlers": [],
+        "condition": {
+          "intent": "fallback_connect_to_agent"
+        },
+        "variables": [
+          {
+            "title": "I'm afraid I don't understand. I can connect you to an agent.",
+            "variable": "step_001",
+            "data_type": "any"
+          },
+          {
+            "title": "Sorry I couldn't assist you. I will connect you to an agent righ",
+            "variable": "step_002",
+            "data_type": "any"
+          },
+          {
+            "title": "I am afraid I do not understand what you are asking, let me conn",
+            "variable": "step_003",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "anything_else",
+        "disambiguation_opt_out": true
+      },
+      {
+        "steps": [
+          {
+            "step": "step_001",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "Welcome, how can I assist you?"
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_001"
+          }
+        ],
+        "title": "Greet customer",
+        "action": "welcome",
+        "handlers": [],
+        "condition": {
+          "expression": "welcome"
+        },
+        "variables": [
+          {
+            "variable": "step_001",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_48057",
+        "disambiguation_opt_out": true
+      }
+    ],
+    "intents": [
+      {
+        "intent": "action_17923_intent_24627",
+        "examples": [
+          {
+            "text": "Get a playlist"
+          },
+          {
+            "text": "Get playlist"
+          },
+          {
+            "text": "I want to get a specific playlist."
+          },
+          {
+            "text": "I want to look up a specific playlist"
+          }
+        ]
+      },
+      {
+        "intent": "action_48057_intent_28555",
+        "examples": [
+          {
+            "text": "Follow"
+          },
+          {
+            "text": "follow request"
+          },
+          {
+            "text": "I want to follow a playlist"
+          }
+        ]
+      },
+      {
+        "intent": "action_6964_intent_19071",
+        "examples": [
+          {
+            "text": "i want to get my profile info"
+          },
+          {
+            "text": "my profile information"
+          },
+          {
+            "text": "my spotify account"
+          },
+          {
+            "text": "profile"
+          },
+          {
+            "text": "spotify profile"
+          }
+        ]
+      },
+      {
+        "intent": "action_7688_intent_13373",
+        "examples": [
+          {
+            "text": "create a playlist"
+          },
+          {
+            "text": "I want to create a playlist"
+          },
+          {
+            "text": "new playlist"
+          }
+        ]
+      },
+      {
+        "intent": "fallback_connect_to_agent",
+        "examples": [
+          {
+            "text": "Agent help"
+          },
+          {
+            "text": "Call agent"
+          },
+          {
+            "text": "Can I connect to an agent?"
+          },
+          {
+            "text": "I would like to speak to a human"
+          },
+          {
+            "text": "I would like to speak to someone"
+          }
+        ],
+        "description": "Please transfer me to an agent"
+      }
+    ],
+    "entities": [
+      {
+        "entity": "entity_10369",
+        "values": [
+          {
+            "type": "synonyms",
+            "value": "private",
+            "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "public",
+            "synonyms": []
+          }
+        ],
+        "fuzzy_match": true
+      },
+      {
+        "entity": "entity_37091",
+        "values": [
+          {
+            "type": "synonyms",
+            "value": "Change ticket information",
+            "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "Get all tickets",
+            "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "See ticket comments",
+            "synonyms": []
+          }
+        ],
+        "fuzzy_match": true
+      },
+      {
+        "entity": "sys-number",
+        "values": []
+      }
+    ],
+    "metadata": {
+      "api_version": {
+        "major_version": "v2",
+        "minor_version": "2018-11-08"
+      }
+    },
+    "variables": [
+      {
+        "title": "isPublic",
+        "variable": "isPublic",
+        "data_type": "any",
+        "description": "",
+        "default_value": {
+          "scalar": "true"
+        },
+        "initial_value": {
+          "scalar": "true"
+        }
+      }
+    ],
+    "counterexamples": [],
+    "system_settings": {
+      "topic_switch": {
+        "enabled": true,
+        "messages": {
+          "confirm_return": {
+            "text": "Return to previous topic?"
+          },
+          "confirm_switch": {
+            "text": "Switch from the current topic?"
+          }
+        },
+        "question_steps_threshold": 2
+      },
+      "disambiguation": {
+        "prompt": "Did you mean:",
+        "enabled": true,
+        "randomize": true,
+        "max_suggestions": 5,
+        "suggestion_text_policy": "title",
+        "none_of_the_above_prompt": "None of the above"
+      },
+      "intent_classification": {
+        "training_backend_version": "v2"
+      },
+      "spelling_auto_correct": true
+    },
+    "learning_opt_out": true
+  },
+  "description": "created for assistant efffe276-1bda-4c69-9de2-697172877fa7",
+  "assistant_id": "9016b815-2453-4d77-999f-05a3726d2074",
+  "workspace_id": "a423bfe4-daeb-4586-a4ab-120ffcc6d175",
+  "dialog_settings": {
+    "actions": true
+  },
+  "next_snapshot_version": "1"
+}

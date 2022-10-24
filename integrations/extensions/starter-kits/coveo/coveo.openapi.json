@@ -1,0 +1,403 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Custom Search Coveo",
+    "description": "Coveo Search API unofficial partial spec from IBM.  We made this by running the API and observing the behavior.  There is a detailed documentation of the full API at https://docs.coveo.com/en/13/cloud-v2-api-reference/search-api#tag/Search-V2 that you may want to use to add more functionality to this spec.  This spec is a minimal starting point that can handle some basic use cases.",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://platform.cloud.coveo.com"
+    }
+  ],
+  "paths": {
+    "/rest/search/v2": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "Search request to Coveo search",
+        "parameters": [
+          {
+            "name": "aq",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cq",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "debug",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "dictionaryFieldContext",
+            "in": "query",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "dq",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "enableDidYouMean",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "enableDuplicateFiltering",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "enableMLDidYouMean",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "enableQuerySyntax",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "excerptLength",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "summaryLength",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lq",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lqPartialMatchKeywords",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "lqPartialMatchMaxKeywords",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "partialMatch",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "retrieveFirstSentences",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "sortCriteria",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "help"
+          },
+          {
+            "name": "wildcards",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Search results returned by Coveo",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "apiVersion": {
+                      "type": "integer"
+                    },
+                    "categoryFacets": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "duration": {
+                      "type": "integer"
+                    },
+                    "facets": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "groupByResults": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "index": {
+                      "type": "string"
+                    },
+                    "indexDuration": {
+                      "type": "integer"
+                    },
+                    "indexToken": {
+                      "type": "string"
+                    },
+                    "phrasesToHighlight": {
+                      "type": "object"
+                    },
+                    "pipeline": {
+                      "type": "string"
+                    },
+                    "queryCorrections": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "refinedKeywords": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "requestDuration": {
+                      "type": "integer"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "absentTerms": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "childResults": {
+                            "type": "array",
+                            "items": {
+                              "type": "object"
+                            }
+                          },
+                          "clickUri": {
+                            "type": "string"
+                          },
+                          "excerpt": {
+                            "type": "string"
+                          },
+                          "excerptHighlights": {
+                            "type": "array",
+                            "items": {
+                              "type": "object"
+                            }
+                          },
+                          "firstSentences": {
+                            "type": "string"
+                          },
+                          "firstSentencesHighlights": {
+                            "type": "array",
+                            "items": {
+                              "type": "object"
+                            }
+                          },
+                          "flags": {
+                            "type": "string"
+                          },
+                          "hasHtmlVersion": {
+                            "type": "boolean"
+                          },
+                          "hasMobileHtmlVersion": {
+                            "type": "boolean"
+                          },
+                          "isRecommendation": {
+                            "type": "boolean"
+                          },
+                          "isTopResult": {
+                            "type": "boolean"
+                          },
+                          "isUserActionView": {
+                            "type": "boolean"
+                          },
+                          "parentResult": {
+                            "type": "object"
+                          },
+                          "percentScore": {
+                            "type": "number"
+                          },
+                          "printableUri": {
+                            "type": "string"
+                          },
+                          "printableUriHighlights": {
+                            "type": "array",
+                            "items": {
+                              "type": "object"
+                            }
+                          },
+                          "rankingInfo": {
+                            "type": "string"
+                          },
+                          "rating": {
+                            "type": "number"
+                          },
+                          "raw": {
+                            "type": "object"
+                          },
+                          "score": {
+                            "type": "integer"
+                          },
+                          "summary": {
+                            "type": "string"
+                          },
+                          "summaryHighlights": {
+                            "type": "array",
+                            "items": {
+                              "type": "object"
+                            }
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "titleHighlights": {
+                            "type": "array",
+                            "items": {
+                              "type": "object"
+                            }
+                          },
+                          "totalNumberOfChildResults": {
+                            "type": "integer"
+                          },
+                          "uniqueId": {
+                            "type": "string"
+                          },
+                          "uri": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "searchUid": {
+                      "type": "string"
+                    },
+                    "suggestedFacets": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "termsToHighlight": {
+                      "type": "object"
+                    },
+                    "totalCount": {
+                      "type": "integer"
+                    },
+                    "totalCountFiltered": {
+                      "type": "integer"
+                    },
+                    "triggers": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "exception": {
+                      "type": "object"
+                    },
+                    "isFallbackToAdmin": {
+                      "type": "boolean"
+                    },
+                    "questionAnswer": {
+                      "type": "object"
+                    },
+                    "warnings": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}
+

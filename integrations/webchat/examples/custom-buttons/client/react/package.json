@@ -1,0 +1,37 @@
+{
+  "name": "watson-assistant-web-chat-toolkit-example",
+  "version": "1.0.0",
+  "proxy": "http://localhost:3001",
+  "engines": {
+    "node": "^16.15.1"
+  },
+  "scripts": {
+    "start": "cross-env DISABLE_ESLINT_PLUGIN=true react-scripts start",
+    "start-comments": "// The DISABLE_ESLINT_PLUGIN above is needed because there is a conflict in this repo between the eslint used by CRA and the root eslint we have for all the examples. You would not normally need this in your project."
+  },
+  "dependencies": {
+    "@ibm-watson/assistant-web-chat-react": "^1.0.3",
+    "carbon-components": "^10.56.0",
+    "carbon-components-react": "^7.45.0",
+    "classnames": "^2.3.1",
+    "prop-types": "^15.8.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "5.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
+  }
+}

@@ -1,0 +1,731 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Google Custom Search JSON API",
+    "description": "Google Custom Search JSON API unofficial partial spec from IBM.  We made this by running the API and observing the behavior.  There is a detailed documentation of the full API at https://developers.google.com/custom-search/v1/reference/rest/v1/cse/list that you may want to use to add more functionality to this spec.  This spec is a minimal starting point that can handle some basic use cases.",
+    "termsOfService": "https://developers.google.com/custom-search/terms",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://customsearch.googleapis.com"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "apiKeyAuth": {
+        "type": "apiKey",
+        "name": "key",
+        "in": "query"
+      }
+    }
+  },
+  "security": [
+    {
+      "apiKeyAuth": []
+    }
+  ],
+  "paths": {
+    "/customsearch/v1": {
+      "get": {
+        "summary": "Custom Search",
+        "description": "Search via a customizable search engine instance over the web",
+        "operationId": "customSearch",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "The text of the query to search for",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "weather in NYC"
+          },
+          {
+            "name": "cx",
+            "in": "query",
+            "description": "The unique identifier for the Google custom search",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dateRestrict",
+            "in": "query",
+            "description": "Restricts results to URLs based on date.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "exactTerms",
+            "in": "query",
+            "description": "A phrase that all documents in the search results must contain",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "excludeTerms",
+            "in": "query",
+            "description": "A word or phrase that should not appear in any documents in the search results",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fileType",
+            "in": "query",
+            "description": "Restricts results to files of a specified extension",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "gl",
+            "in": "query",
+            "description": "Geolocation of user for bossting location specific results",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "linkSite",
+            "in": "query",
+            "description": "Specifies that all search results should contain a link to a particular URL",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lr",
+            "in": "query",
+            "description": "Restricts the search to documents written in a particular language",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "num",
+            "in": "query",
+            "description": "Number of search results to return",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "orTerms",
+            "in": "query",
+            "description": "Provides additional search terms to check for in a document, where each document in the search results must contain at least one of the additional search terms.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "relatedSite",
+            "in": "query",
+            "description": "Specifies that all search results should be pages that are related to the specified URL.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "siteSearch",
+            "in": "query",
+            "description": "Specifies a given site which should always be included or excluded from results",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "siteSearchFilter",
+            "in": "query",
+            "description": "Controls whether to include or exclude results from the site named in the siteSearch parameter.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "The sort expression to apply to the results.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful search",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "type": "string"
+                    },
+                    "url": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string"
+                        },
+                        "template": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "queries": {
+                      "type": "object",
+                      "properties": {
+                        "request": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "title": {
+                                "type": "string"
+                              },
+                              "totalResults": {
+                                "type": "string"
+                              },
+                              "searchTerms": {
+                                "type": "string"
+                              },
+                              "count": {
+                                "type": "integer"
+                              },
+                              "startIndex": {
+                                "type": "integer"
+                              },
+                              "inputEncoding": {
+                                "type": "string"
+                              },
+                              "outputEncoding": {
+                                "type": "string"
+                              },
+                              "safe": {
+                                "type": "string"
+                              },
+                              "cx": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "nextPage": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "title": {
+                                "type": "string"
+                              },
+                              "totalResults": {
+                                "type": "string"
+                              },
+                              "searchTerms": {
+                                "type": "string"
+                              },
+                              "count": {
+                                "type": "integer"
+                              },
+                              "startIndex": {
+                                "type": "integer"
+                              },
+                              "inputEncoding": {
+                                "type": "string"
+                              },
+                              "outputEncoding": {
+                                "type": "string"
+                              },
+                              "safe": {
+                                "type": "string"
+                              },
+                              "cx": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "context": {
+                          "type": "object",
+                          "properties": {
+                            "title": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "searchInformation": {
+                          "type": "object",
+                          "properties": {
+                            "searchTime": {
+                              "type": "number"
+                            },
+                            "formattedSearchTime": {
+                              "type": "string"
+                            },
+                            "totalResults": {
+                              "type": "string"
+                            },
+                            "formattedTotalResults": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "items": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "type": "string"
+                              },
+                              "title": {
+                                "type": "string"
+                              },
+                              "htmlTitle": {
+                                "type": "string"
+                              },
+                              "link": {
+                                "type": "string"
+                              },
+                              "displayLink": {
+                                "type": "string"
+                              },
+                              "snippet": {
+                                "type": "string"
+                              },
+                              "htmlSnippet": {
+                                "type": "string"
+                              },
+                              "cacheId": {
+                                "type": "string"
+                              },
+                              "formattedUrl": {
+                                "type": "string"
+                              },
+                              "htmlFormattedUrl": {
+                                "type": "string"
+                              },
+                              "pagemap": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "src": {
+                                      "type": "string"
+                                    },
+                                    "width": {
+                                      "type": "string"
+                                    },
+                                    "height": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              },
+                              "metatags": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "viewport": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              },
+                              "cse_image": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "src": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customsearch/v1/siterestrict": {
+      "get": {
+        "summary": "Custom Search Site Restricted",
+        "description": "Search via a customizable search engine instance over a specific collection of websites",
+        "operationId": "customSearchSiteRestricted",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "The text of the query to search for",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "weather in NYC"
+          },
+          {
+            "name": "cx",
+            "in": "query",
+            "description": "The unique identifier for the Google custom search",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dateRestrict",
+            "in": "query",
+            "description": "Restricts results to URLs based on date.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "exactTerms",
+            "in": "query",
+            "description": "A phrase that all documents in the search results must contain",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "excludeTerms",
+            "in": "query",
+            "description": "A word or phrase that should not appear in any documents in the search results",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fileType",
+            "in": "query",
+            "description": "Restricts results to files of a specified extension",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "gl",
+            "in": "query",
+            "description": "Geolocation of user for bossting location specific results",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "linkSite",
+            "in": "query",
+            "description": "Specifies that all search results should contain a link to a particular URL",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lr",
+            "in": "query",
+            "description": "Restricts the search to documents written in a particular language",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "num",
+            "in": "query",
+            "description": "Number of search results to return",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "example": 3
+          },
+          {
+            "name": "orTerms",
+            "in": "query",
+            "description": "Provides additional search terms to check for in a document, where each document in the search results must contain at least one of the additional search terms.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "relatedSite",
+            "in": "query",
+            "description": "Specifies that all search results should be pages that are related to the specified URL.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "siteSearch",
+            "in": "query",
+            "description": "Specifies a given site which should always be included or excluded from results",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "siteSearchFilter",
+            "in": "query",
+            "description": "Controls whether to include or exclude results from the site named in the siteSearch parameter.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "The sort expression to apply to the results.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful search",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "type": "string"
+                    },
+                    "url": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string"
+                        },
+                        "template": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "queries": {
+                      "type": "object",
+                      "properties": {
+                        "request": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "title": {
+                                "type": "string"
+                              },
+                              "totalResults": {
+                                "type": "string"
+                              },
+                              "searchTerms": {
+                                "type": "string"
+                              },
+                              "count": {
+                                "type": "integer"
+                              },
+                              "startIndex": {
+                                "type": "integer"
+                              },
+                              "inputEncoding": {
+                                "type": "string"
+                              },
+                              "outputEncoding": {
+                                "type": "string"
+                              },
+                              "safe": {
+                                "type": "string"
+                              },
+                              "cx": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "nextPage": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "title": {
+                                "type": "string"
+                              },
+                              "totalResults": {
+                                "type": "string"
+                              },
+                              "searchTerms": {
+                                "type": "string"
+                              },
+                              "count": {
+                                "type": "integer"
+                              },
+                              "startIndex": {
+                                "type": "integer"
+                              },
+                              "inputEncoding": {
+                                "type": "string"
+                              },
+                              "outputEncoding": {
+                                "type": "string"
+                              },
+                              "safe": {
+                                "type": "string"
+                              },
+                              "cx": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "context": {
+                          "type": "object",
+                          "properties": {
+                            "title": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "searchInformation": {
+                          "type": "object",
+                          "properties": {
+                            "searchTime": {
+                              "type": "number"
+                            },
+                            "formattedSearchTime": {
+                              "type": "string"
+                            },
+                            "totalResults": {
+                              "type": "string"
+                            },
+                            "formattedTotalResults": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "items": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "kind": {
+                                "type": "string"
+                              },
+                              "title": {
+                                "type": "string"
+                              },
+                              "htmlTitle": {
+                                "type": "string"
+                              },
+                              "link": {
+                                "type": "string"
+                              },
+                              "displayLink": {
+                                "type": "string"
+                              },
+                              "snippet": {
+                                "type": "string"
+                              },
+                              "htmlSnippet": {
+                                "type": "string"
+                              },
+                              "cacheId": {
+                                "type": "string"
+                              },
+                              "formattedUrl": {
+                                "type": "string"
+                              },
+                              "htmlFormattedUrl": {
+                                "type": "string"
+                              },
+                              "pagemap": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "src": {
+                                      "type": "string"
+                                    },
+                                    "width": {
+                                      "type": "string"
+                                    },
+                                    "height": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              },
+                              "metatags": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "viewport": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              },
+                              "cse_image": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "src": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,638 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1",
+    "title": "NBP Web API",
+    "description": "Currency exchange rates and gold prices in the XML and JSON formats",
+    "contact": {
+      "url": "http://http://api.nbp.pl/en.html"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://api.nbp.pl"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "TableParameter": {
+        "type": "string",
+        "enum": [
+          "A",
+          "B",
+          "C"
+        ]
+      },
+      "CodeParameter": {
+        "type": "string",
+        "pattern": "^[A-Za-z]{3}$"
+      },
+      "TopCountParameter": {
+        "type": "integer"
+      },
+      "DateParameter": {
+        "type": "string",
+        "format": "date"
+      },
+      "CurrencyObject": {
+        "type": "object",
+        "properties": {
+          "currency": {
+            "type": "string"
+          },
+          "code": {
+            "$ref": "#/components/schemas/CodeParameter"
+          },
+          "mid": {
+            "type": "number",
+            "minimum": 0
+          }
+        }
+      },
+      "ExchangeRateResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "table": {
+              "$ref": "#/components/schemas/TableParameter"
+            },
+            "no": {
+              "type": "string"
+            },
+            "effectiveDate": {
+              "type": "string",
+              "format": "date"
+            },
+            "rates": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/CurrencyObject"
+              }
+            },
+            "country": {
+              "type": "string"
+            },
+            "code": {
+              "$ref": "#/components/schemas/CodeParameter"
+            },
+            "currency": {
+              "type": "string"
+            },
+            "symbol": {
+              "type": "string"
+            },
+            "bid": {
+              "type": "number",
+              "minimum": 0
+            },
+            "ask": {
+              "type": "number",
+              "minimum": 0
+            },
+            "mid": {
+              "type": "number",
+              "minimum": 0
+            }
+          }
+        }
+      },
+      "GoldPriceResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "date": {
+              "$ref": "#/components/schemas/DateParameter"
+            },
+            "data": {
+              "$ref": "#/components/schemas/DateParameter"
+            },
+            "code": {
+              "type": "number",
+              "minimum": 0
+            },
+            "cena": {
+              "type": "number",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/api/exchangerates/tables/{table}/": {
+      "description": "Current table of exchange rates",
+      "get": {
+        "summary": "Current table of exchange rates",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "table",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/TableParameter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExchangeRateResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/exchangerates/tables/{table}/last/{topCount}/": {
+      "description": "Series of latest tables of exchange rates",
+      "get": {
+        "summary": "Series of latest tables of exchange rates",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "table",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/TableParameter"
+            }
+          },
+          {
+            "in": "path",
+            "name": "lastCount",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/TopCountParameter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExchangeRateResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/exchangerates/tables/{table}/today/": {
+      "description": "Exchange rate table published today",
+      "get": {
+        "summary": "Exchange rate table published today",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "table",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/TableParameter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExchangeRateResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/exchangerates/tables/{table}/{date}/": {
+      "description": "Exchange rate table published on a specific date",
+      "get": {
+        "summary": "Exchange rate table published on a specific date",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "table",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/TableParameter"
+            }
+          },
+          {
+            "in": "path",
+            "name": "date",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/DateParameter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExchangeRateResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/exchangerates/tables/{table}/{startDate}/{endDate}/": {
+      "description": "Series of exchange rate tables published from a start to end date",
+      "get": {
+        "summary": "Series of exchange rate tables published from a start to end date",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "table",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/TableParameter"
+            }
+          },
+          {
+            "in": "path",
+            "name": "startDate",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/DateParameter"
+            }
+          },
+          {
+            "in": "path",
+            "name": "endDate",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/DateParameter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExchangeRateResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/exchangerates/rates/{table}/{code}/": {
+      "description": "Current exchange rate of a currency code from the exchange rate table type",
+      "get": {
+        "summary": "Current exchange rate of a currency code from the exchange rate table type",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "table",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/TableParameter"
+            }
+          },
+          {
+            "in": "path",
+            "name": "code",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/CodeParameter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExchangeRateResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/exchangerates/rates/{table}/{code}/last/{topCount}": {
+      "description": "Series of latest exchange rates of currency code from exchange rate table type",
+      "get": {
+        "summary": "Series of latest exchange rates of currency code from exchange rate table type",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "table",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/TableParameter"
+            }
+          },
+          {
+            "in": "path",
+            "name": "code",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/CodeParameter"
+            }
+          },
+          {
+            "in": "path",
+            "name": "topCount",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/TopCountParameter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExchangeRateResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/exchangerates/rates/{table}/{code}/today/": {
+      "description": "Exchange rate of currency code from the exchange rate table type published today",
+      "get": {
+        "summary": "Exchange rate of currency code from the exchange rate table type published today",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "table",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/TableParameter"
+            }
+          },
+          {
+            "in": "path",
+            "name": "code",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/CodeParameter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExchangeRateResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/exchangerates/rates/{table}/{code}/{date}/": {
+      "description": "Exchange rate of currency code from the exchange rate table type published on a certain date",
+      "get": {
+        "summary": "Exchange rate of currency code from the exchange rate table type published on a certain date",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "table",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/TableParameter"
+            }
+          },
+          {
+            "in": "path",
+            "name": "code",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/CodeParameter"
+            }
+          },
+          {
+            "in": "path",
+            "name": "date",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/DateParameter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExchangeRateResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/exchangerates/rates/{table}/{startDate}/{endDate}/": {
+      "description": "Exchange rate of currency code from the exchange rate table type published from start to end date",
+      "get": {
+        "summary": "Exchange rate of currency code from the exchange rate table type published from start to end date",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "table",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/TableParameter"
+            }
+          },
+          {
+            "in": "path",
+            "name": "code",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/CodeParameter"
+            }
+          },
+          {
+            "in": "path",
+            "name": "startDate",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/DateParameter"
+            }
+          },
+          {
+            "in": "path",
+            "name": "endDate",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/DateParameter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExchangeRateResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/cenyzlota/": {
+      "description": "Current gold price",
+      "get": {
+        "summary": "Current gold price",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GoldPriceResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/cenyzlota/last/{topCount}": {
+      "description": "Series of latest gold price quotations",
+      "get": {
+        "summary": "Series of latest gold price quotations",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "topCount",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/TopCountParameter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GoldPriceResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/cenyzlota/today": {
+      "description": "Price of gold published today",
+      "get": {
+        "summary": "Price of gold published today",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GoldPriceResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/cenyzlota/{date}": {
+      "description": "Price of gold on a specified date",
+      "get": {
+        "summary": "Price of gold on a specified date",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "date",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/DateParameter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GoldPriceResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/cenyzlota/{startDate}/{endDate}": {
+      "description": "Series of gold prices published from a start to end date",
+      "get": {
+        "summary": "Series of gold prices published from a start to end date",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "startDate",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/DateParameter"
+            }
+          },
+          {
+            "in": "path",
+            "name": "endDate",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/DateParameter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GoldPriceResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,822 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Open APIs",
+    "description": "Different specs for testing OpenAPI for catalog integrations",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.spotify.com"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Spotify"
+    }
+  ],
+  "paths": {
+    "/v1/me": {
+      "get": {
+        "tags": [
+          "Spotify"
+        ],
+        "summary": "Get User Profile",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Your user id",
+                      "example": "6WjLMm5KC2gRJu8gqbO2LY"
+                    },
+                    "display_name": {
+                      "type": "string",
+                      "description": "Your display name",
+                      "example": "Bilbo Baggins"
+                    },
+                    "external_urls": {
+                      "type": "object",
+                      "properties": {
+                        "spotify": {
+                          "type": "string",
+                          "description": "External link to profile.",
+                          "example": "https://api.spotify.com/v1/users/bilbo"
+                        }
+                      }
+                    },
+                    "country": {
+                      "type": "string",
+                      "description": "The country of the user. An ISO 3166-1 alpha-2 country code.",
+                      "example": "US"
+                    },
+                    "email": {
+                      "type": "string",
+                      "description": "The user's email address.",
+                      "example": "someone@some.where"
+                    },
+                    "href": {
+                      "type": "string",
+                      "description": "A link to the Web API endpoint for this user."
+                    },
+                    "type": {
+                      "type": "string",
+                      "description": "The object type: user",
+                      "example": "user"
+                    },
+                    "uri": {
+                      "type": "string",
+                      "description": "The Spotify URI for the user."
+                    },
+                    "followers": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "number",
+                          "description": "Number of followers.",
+                          "example": 32
+                        }
+                      }
+                    }
+                  }
+								}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/me/playlists": {
+      "get": {
+        "tags": [
+          "Spotify"
+        ],
+        "summary": "Get My Playlists",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+						"name": "limit",
+						"in": "query",
+            "required": false,
+            "description": "The maximum number of items to return. Default: 20. Min: 1. Max: 50.",
+						"schema": {
+							"type": "number",
+							"example": 10
+						}
+					},
+          {
+						"name": "offset",
+						"in": "query",
+            "required": false,
+            "description": "The maximum number of items to return. Default: 0.",
+						"schema": {
+							"type": "number",
+							"example": 5
+						}
+					}
+				],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+							"application/json": {
+								"schema": {
+                  "type": "object",
+                  "properties": {
+                    "href": {
+                      "type": "string",
+                      "description": "A link to the Web API endpoint returning the full result of the request.",
+                      "example": "https://api.spotify.com/v1/me/shows?offset=0&limit=20\n"
+                    },
+                    "limit": {
+                      "type": "number",
+                      "description": "The maximum number of items in the response (as set in the query or by default).",
+                      "example": 10
+                    },
+                    "next": {
+                      "type": "string",
+                      "description": "URL to the next page of items (null if none).",
+                      "example": "https://api.spotify.com/v1/me/shows?offset=1&limit=1"
+                    },
+                    "offset": {
+                      "type": "number",
+                      "description": "The offset of the items returned (as set in the query or by default).",
+                      "example": 5
+                    },
+                    "previous": {
+                      "type": "string",
+                      "description": "URL to the previous page of items (null if none).",
+                      "example": "https://api.spotify.com/v1/me/shows?offset=1&limit=1"
+                    },
+                    "items": {
+                      "type": "array",
+                      "description": "The requested content",
+                      "properties": {
+                        "collaborative": {
+                          "type": "boolean",
+                          "description": "true if the owner allows other users to modify the playlist."
+                        },
+                        "description": {
+                          "type": "string",
+                          "description": "Description of playlist",
+                          "example": "My awesome playlist!"
+                        },
+                        "id": {
+                          "type": "string",
+                          "description": "Id of playlist.",
+                          "example": "6WjLMm5KC2gRJu8gqbO2LY"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Name of playlist.",
+                          "example": "Some Playlist Name"
+                        },
+                        "external_urls": {
+                          "type": "object",
+                          "properties": {
+                            "spotify": {
+                              "type": "string",
+                              "description": "External link to created playlist.",
+                              "example": "https://api.spotify.com/v1/playlists/6WjLMm5KC2gRJu8gqbO2LY"
+                            }
+                          }
+                        },
+                        "owner": {
+                          "type": "object",
+                          "properties": {
+                            "display_name": {
+                              "type": "string",
+                              "description": "Name of owner of this playlist",
+                              "example": "CMurray"
+                            }
+                          }
+                        },
+                        "public": {
+                          "type": "boolean",
+                          "description": "One of: public or private",
+                          "example": "public"
+                        }
+                      } 
+                    }
+                  }
+								}
+							}
+            }
+          }
+        }
+      }
+    },
+    "/v1/playlists/{playlist_id}": {
+      "get": {
+        "tags": [
+          "Spotify"
+        ],
+        "summary": "Get Playlist",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+					{
+						"name": "playlist_id",
+						"in": "path",
+            "description": "The playlist ID.",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"example": "3cEYpjA9oz9GiPac4AsH4n"
+						}
+					},
+          {
+						"name": "additional_types",
+						"in": "query",
+            "description": "A comma-separated list of item types that your client supports besides the default track type. Valid types are: track and episode.",
+						"required": false,
+						"schema": {
+							"type": "string",
+							"example": "track"
+						}
+					},
+          {
+						"name": "fields",
+						"in": "query",
+            "description": "Filters for the query: a comma-separated list of the fields to return.",
+						"required": false,
+						"schema": {
+							"type": "string",
+							"example": "tracks.items(added_at,added_by.id)"
+						}
+					},
+          {
+						"name": "market",
+						"in": "query",
+            "description": "An ISO 3166-1 alpha-2 country code. If a country code is specified, only content that is available in that market will be returned.",
+						"required": false,
+						"schema": {
+							"type": "string",
+							"example": "ES"
+						}
+					}
+				],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+							"application/json": {
+								"schema": {
+                  "type": "object",
+                  "properties": {
+                    "collaborative": {
+                      "type": "boolean",
+                      "description": "Is a collaborative playlist."
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Description of playlist",
+                      "example": "My awesome playlist!"
+                    },
+                    "id": {
+                      "type": "string",
+                      "description": "Id of playlist.",
+                      "example": "6WjLMm5KC2gRJu8gqbO2LY"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Name of playlist.",
+                      "example": "Some Playlist Name"
+                    },
+                    "external_urls": {
+                      "type": "object",
+                      "properties": {
+                        "spotify": {
+                          "type": "string",
+                          "description": "External link to created playlist.",
+                          "example": "https://api.spotify.com/v1/playlists/6WjLMm5KC2gRJu8gqbO2LY"
+                        }
+                      }
+                    },
+                    "owner": {
+                      "type": "object",
+                      "properties": {
+                        "display_name": {
+                          "type": "string",
+                          "description": "Name of owner of this playlist",
+                          "example": "CMurray"
+                        }
+                      }
+                    },
+                    "public": {
+                      "type": "boolean",
+                      "description": "One of: public or private",
+                      "example": "public"
+                    }
+                  }
+								}
+							}
+            }
+          }
+        }
+      }
+    },
+    "/v1/users/{user_id}/playlists": {
+      "get": {
+        "tags": [
+          "Spotify"
+        ],
+        "summary": "Get User's Playlists",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+					{
+						"name": "user_id",
+						"in": "path",
+            "required": true,
+            "description": "The user's Spotify user ID.",
+						"schema": {
+							"type": "string",
+							"example": "jeesookim"
+						}
+					},
+          {
+						"name": "limit",
+						"in": "query",
+            "required": false,
+            "description": "The maximum number of items to return. Default: 20. Min: 1. Max: 50.",
+						"schema": {
+							"type": "number",
+							"example": 10
+						}
+					},
+          {
+						"name": "offset",
+						"in": "query",
+            "required": false,
+            "description": "The maximum number of items to return. Default: 0.",
+						"schema": {
+							"type": "number",
+							"example": 5
+						}
+					}
+				],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "href": {
+                      "type": "string",
+                      "description": "A link to the Web API endpoint returning the full result of the request.",
+                      "example": "https://api.spotify.com/v1/me/shows?offset=0&limit=20\n"
+                    },
+                    "limit": {
+                      "type": "number",
+                      "description": "The maximum number of items in the response (as set in the query or by default).",
+                      "example": 10
+                    },
+                    "next": {
+                      "type": "string",
+                      "description": "URL to the next page of items (null if none).",
+                      "example": "https://api.spotify.com/v1/me/shows?offset=1&limit=1"
+                    },
+                    "offset": {
+                      "type": "number",
+                      "description": "The offset of the items returned (as set in the query or by default).",
+                      "example": 5
+                    },
+                    "previous": {
+                      "type": "string",
+                      "description": "URL to the previous page of items (null if none).",
+                      "example": "https://api.spotify.com/v1/me/shows?offset=1&limit=1"
+                    },
+                    "items": {
+                      "type": "array",
+                      "description": "The requested content",
+                      "properties": {
+                        "collaborative": {
+                          "type": "boolean",
+                          "description": "true if the owner allows other users to modify the playlist."
+                        },
+                        "description": {
+                          "type": "string",
+                          "description": "Description of playlist",
+                          "example": "My awesome playlist!"
+                        },
+                        "id": {
+                          "type": "string",
+                          "description": "Id of playlist.",
+                          "example": "6WjLMm5KC2gRJu8gqbO2LY"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Name of playlist.",
+                          "example": "Some Playlist Name"
+                        },
+                        "external_urls": {
+                          "type": "object",
+                          "properties": {
+                            "spotify": {
+                              "type": "string",
+                              "description": "External link to created playlist.",
+                              "example": "https://api.spotify.com/v1/playlists/6WjLMm5KC2gRJu8gqbO2LY"
+                            }
+                          }
+                        },
+                        "owner": {
+                          "type": "object",
+                          "properties": {
+                            "display_name": {
+                              "type": "string",
+                              "description": "Name of owner of this playlist",
+                              "example": "CMurray"
+                            }
+                          }
+                        },
+                        "public": {
+                          "type": "boolean",
+                          "description": "One of: public or private",
+                          "example": "public"
+                        }
+                      } 
+                    }
+                  }
+								}
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Spotify"
+        ],
+        "summary": "Create a Playlist",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+					{
+						"name": "user_id",
+						"in": "path",
+            "required": true,
+						"schema": {
+							"type": "string",
+							"example": "jeesookim"
+						}
+					}
+				],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+								"properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the playlist. This name does not need to be unique.",
+                    "example": "my awesome playlist"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Description of your new playlist to be displayed in the Spotify UI.",
+                    "example": "filled with sick tunes!"
+                  },
+                  "public": {
+                    "type": "boolean",
+                    "description": "Defaults to true. If true the playlist will be public, if false it will be private."
+                  },
+                  "collaborative": {
+                    "type": "boolean",
+                    "description": "Defaults to false. If true the playlist will be collaborative."
+                  }
+								}
+							},
+              "example": {
+                "name": "Cool Cats Beatz",
+                "description": "Songs that only cool cats listen to",
+                "public": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "content": {
+							"application/json": {
+								"schema": {
+                  "type": "object",
+                  "properties": {
+                    "collaborative": {
+                      "type": "boolean",
+                      "description": "true if the owner allows other users to modify the playlist."
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Description of created playlist",
+                      "example": "My awesome playlist!"
+                    },
+                    "id": {
+                      "type": "string",
+                      "description": "Id of newly create playlist.",
+                      "example": "6WjLMm5KC2gRJu8gqbO2LY"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Name of playlist.",
+                      "example": "Some Playlist Name"
+                    },
+                    "external_urls": {
+                      "type": "object",
+                      "properties": {
+                        "spotify": {
+                          "type": "string",
+                          "description": "External link to created playlist.",
+                          "example": "https://api.spotify.com/v1/playlists/6WjLMm5KC2gRJu8gqbO2LY"
+                        }
+                      }
+                    },
+                    "href": {
+                      "type": "string",
+                      "description": "A link to the Web API endpoint for this user."
+                    },
+                    "public": {
+                      "type": "boolean",
+                      "description": "One of: public or private",
+                      "example": "public"
+                    },
+                    "followers": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "number",
+                          "description": "Number of followers.",
+                          "example": 32
+                        }
+                      }
+                    },
+                    "tracks": {
+                      "type": "object",
+                      "description": "The requested content.",
+                      "properties": {
+                        "href": {
+                          "type": "string",
+                          "description": "A link to the Web API endpoint for this user."
+                        },
+                        "limit": {
+                          "type": "number",
+                          "description": "The maximum number of items in the response (as set in the query or by default).",
+                          "example": 10
+                        },
+                        "next": {
+                          "type": "string",
+                          "description": "URL to the next page of items (null if none).",
+                          "example": "https://api.spotify.com/v1/me/shows?offset=1&limit=1"
+                        },
+                        "offset": {
+                          "type": "number",
+                          "description": "The offset of the items returned (as set in the query or by default).",
+                          "example": 5
+                        },
+                        "previous": {
+                          "type": "string",
+                          "description": "URL to the previous page of items (null if none).",
+                          "example": "https://api.spotify.com/v1/me/shows?offset=1&limit=1"
+                        },
+                        "items": {
+                          "type": "array",
+                          "description": "The requested content."
+                        },
+                        "total": {
+                          "type": "number",
+                          "description": "Total number of items available to return",
+                          "example": 20
+                        }
+                      }
+                    },
+                    "type": {
+                      "type": "string",
+                      "description": "The object type: playlist",
+                      "example": "playlist"
+                    },
+                    "uri": {
+                      "type": "string",
+                      "description": "The Spotify URI for the user."
+                    }
+                  }
+								}
+							}
+            }
+          }
+        }
+      }
+    },
+    "/v1/playlists/{playlist_id}/followers": {
+      "put": {
+        "tags": [
+          "Spotify"
+        ],
+        "summary": "Follow Playlist",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+					{
+						"name": "playlist_id",
+						"in": "path",
+            "required": true,
+						"schema": {
+							"type": "string",
+							"example": "37i9dQZF1DZ06evO1RBsv6"
+						}
+					},
+          {
+						"name": "public",
+						"in": "body",
+            "required": false,
+            "description": "Defaults to true. If true the playlist will be included in user's public playlists, if false it will remain private.",
+						"schema": {
+							"type": "boolean",
+							"example": true
+						}
+					}
+				],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Spotify"
+        ],
+        "summary": "Unfollow Playlist",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+					{
+						"name": "playlist_id",
+						"in": "path",
+            "required": true,
+						"schema": {
+							"type": "string",
+							"example": "37i9dQZF1DZ06evO1RBsv6"
+						}
+					}
+				],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/v1/me/player/play": {
+      "put": {
+        "tags": [
+          "Spotify"
+        ],
+        "summary": "Start/Resume Playback",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+					{
+						"name": "device_id",
+						"in": "query",
+            "required": false,
+            "description": "The id of the device this command is targeting. If not supplied, the user's currently active device is the target.",
+						"schema": {
+							"type": "string",
+							"example": "0d1841b0976bae2a3a310dd74c0f3df354899bc8"
+						}
+					}
+				],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+								"properties": {
+                  "context_uri": {
+                    "type": "string"
+                  },
+                  "uris": {
+                    "type": "array",
+                    "description": "Array of URIs."
+                  },
+                  "offset": {
+                    "type": "object",
+                    "description": "Additional properties."
+                  },
+                  "position_ms": {
+                    "type": "number",
+                    "description": "Position of playback."
+                  }
+								}
+							},
+              "example": {
+                "name": "Cool Cats Beatz",
+                "description": "Songs that only cool cats listen to",
+                "public": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Playback started",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/v1/me/player/pause": {
+      "put": {
+        "tags": [
+          "Spotify"
+        ],
+        "summary": "Pause Playback",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+					{
+						"name": "device_id",
+						"in": "query",
+            "required": false,
+            "description": "The id of the device this command is targeting. If not supplied, the user's currently active device is the target.",
+						"schema": {
+							"type": "string",
+							"example": "0d1841b0976bae2a3a310dd74c0f3df354899bc8"
+						}
+					}
+				],
+        "requestBody": {
+          "content": {
+            "application/json": {}
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Playback paused",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    }
+  }
+}

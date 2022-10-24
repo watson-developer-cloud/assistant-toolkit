@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Extension with custom response - Watson Assistant web chat toolkit</title>
+
+  <style>
+    #WACContainer.WACContainer .CurrencyCard {
+      background-color: #ffffff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 8px;
+    }
+
+    #WACContainer.WACContainer .CurrencyCard p {
+      font-size: 20px;
+      line-height: 28px;
+    }
+
+    #WACContainer.WACContainer .CurrencyCard__ResultInput {
+      color: #525252;
+      font-size: 18px;
+      line-height: 30px;
+    }
+
+    #WACContainer.WACContainer .CurrencyCard__ResultOutput {
+      font-size: 30px;
+      line-height: 42px;
+    }
+
+    #WACContainer.WACContainer .CurrencyCard__CurrencyButtons {
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+
+    #WACContainer.WACContainer button.CurrencyCard__CurrencyButton {
+      background-color: #82f3f1;
+      cursor: pointer;
+      color: #004144;
+    }
+
+    #WACContainer.WACContainer button.CurrencyCard__CurrencyButton--selected {
+      background-color: #004144;
+      color: #ffffff;
+    }
+
+    #WACContainer.WACContainer .CurrencyCard__AmountInput.bx--text-input {
+      background-color: #f4f4f4;
+    }
+
+    #WACContainer.WACContainer .bx--text-input-wrapper p {
+      font-size: 14px;
+      color: #525252;
+    }
+
+    #WACContainer.WACContainer .bx--text-input-wrapper {
+      margin-top: 8px;
+    }
+
+    #WACContainer.WACContainer .CurrencyCard__ExchangeButtonContainer {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    #WACContainer.WACContainer button.CurrencyCard__ExchangeButton {
+      margin-top: 24px;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    /**
+     * This function is called to render the custom response that asks for input from the user about the currency and
+     * amount they wish to exchange.
+     */
+    function currencyInputHandler(event, instance) {
+      const { element } = event.data;
+
+      let selectedCurrency;
+      let exchangeClicked = false;
+
+      element.innerHTML = `
+        <div class="CurrencyCard">
+          <p>What currency would you like to exchange from?</p>
+          <div class="CurrencyCard__CurrencyButtons">
+            <button type="button" class="CurrencyCard__CurrencyButton bx--tag" data-currency="eur">${currencyLabel('eur')}</button>
+            <button type="button" class="CurrencyCard__CurrencyButton bx--tag" data-currency="gbp">${currencyLabel('gbp')}</button>
+            <button type="button" class="CurrencyCard__CurrencyButton bx--tag" data-currency="usd">${currencyLabel('usd')}</button>
+            <button type="button" class="CurrencyCard__CurrencyButton bx--tag" data-currency="jpy">${currencyLabel('jpy')}</button>
+          </div>
+          <div class="bx--form-item bx--text-input-wrapper">
+          <p>Choose an amount</p>
+            <div class="bx--text-input__field-outer-wrapper">
+              <div class="bx--text-input__field-wrapper">
+                <input type="text" class="CurrencyCard__AmountInput bx--text-input">
+              </div>
+            </div>
+          </div>
+          <div class="CurrencyCard__ExchangeButtonContainer">
+            <button type="button" class="CurrencyCard__ExchangeButton bx--btn bx--btn--primary" disabled>Exchange</button>
+          </div>
+        </div>
+      `;
+
+      const currencyButtons = element.querySelectorAll('.CurrencyCard__CurrencyButton');
+      const exchangeButton = element.querySelector('.CurrencyCard__ExchangeButton');
+      const amountInput = element.querySelector('.CurrencyCard__AmountInput');
+
+      currencyButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          selectedCurrency = button.getAttribute('data-currency');
+          updateInputs();
+        })
+      });
+
+      function updateInputs() {
+        currencyButtons.forEach(button => {
+          if (button.getAttribute('data-currency') === selectedCurrency) {
+            button.classList.add('CurrencyCard__CurrencyButton--selected');
+          } else {
+            button.classList.remove('CurrencyCard__CurrencyButton--selected');
+          }
+        });
+
+        const amount = element.querySelector('.CurrencyCard__AmountInput').value;
+        exchangeButton.disabled = !selectedCurrency || !amount || !Number(amount) || exchangeClicked;
+      }
+
+      amountInput.addEventListener('input', updateInputs);
+
+      exchangeButton.addEventListener('click', () => {
+        exchangeClicked = true;
+
+        updateInputs();
+
+        // Send a message to the assistant using a well-known phrase it will recognize which should trigger the action
+        // that will perform the exchange conversion. The input currency and amount are stored in context variables
+        // that the action will read. The action will place the resulting values into output context variables.
+        const amount = element.querySelector('.CurrencyCard__AmountInput').value;
+        const message = {
+          context: {
+            skills: {
+              'actions skill': {
+                skill_variables: {
+                  'input_amount': Number(amount),
+                  'input_currency': selectedCurrency,
+                },
+              },
+            },
+          },
+          input: {
+            // This is the text the assistant will see.
+            text: `DO_EXCHANGE_CALCULATION`,
+          },
+          history: {
+            // This is the label the user will see.
+            label: `What is ${amount} ${currencyLabel(selectedCurrency)} in złoty?`,
+          }
+        };
+        instance.send(message);
+      });
+    }
+
+    /**
+     * This function is called to render the custom response that displays the results from the previous custom
+     * response.
+     */
+    function currencyOutputHandler(event) {
+      const { element, fullMessage } = event.data;
+
+      const inputCurrency = fullMessage.context.skills['actions skill'].skill_variables.input_currency;
+      const inputAmount = fullMessage.context.skills['actions skill'].skill_variables.input_amount;
+      const outputAmount = fullMessage.context.skills['actions skill'].skill_variables.output_amount;
+
+      element.innerHTML = `
+        <div class="CurrencyCard">
+          <div class="CurrencyCard__ResultInput">
+            ${inputAmount} ${currencyLabel(inputCurrency)} equals
+          </div>
+          <div class="CurrencyCard__ResultOutput">
+            ${outputAmount} zł
+          </div>
+          <div class="CurrencyCard__ResultDivider"></div>
+        </div>
+      `;
+    }
+
+    /**
+     * Returns a label for the given currency.
+     */
+    function currencyLabel(currency) {
+      switch (currency) {
+        case 'eur': return '€ Euro';
+        case 'gbp': return '£ Pound';
+        case 'usd': return '$ USD';
+        case 'jpy': return '¥ Yen';
+      }
+    }
+
+    /**
+     * This is the function that is called when the web chat code has been loaded and it is ready to be rendered.
+     */
+    function onLoad(instance) {
+      // Listen for the customResponse event that will allow us to create content for the custom response when one is
+      // received. See https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#summary for more
+      // about our events.
+      instance.on({
+        type: 'customResponse',
+        handler: (event, instance) => {
+          // The "user_defined_type" property is just an example; it is not required. You can use any other property or
+          // condition you want here. This makes it easier to handle different response types if you have more than
+          // one custom response type.
+          if (event.data.message.user_defined && event.data.message.user_defined.user_defined_type === 'currency_exchange_input') {
+            currencyInputHandler(event, instance);
+          } else if (event.data.message.user_defined && event.data.message.user_defined.user_defined_type === 'currency_exchange_output') {
+            currencyOutputHandler(event, instance);
+          }
+        },
+      });
+      instance.render();
+    }
+
+    // A web chat configuration options object as documented at
+    // https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-configuration#configurationobject.
+    window.watsonAssistantChatOptions = {
+      integrationID: "23336f00-e47c-4ac0-846e-0889579445bf",
+      region: "us-south",
+      serviceInstanceID: "9a3613d2-3ce6-4928-8eb6-4d659d87ae68",
+      onLoad: onLoad,
+    };
+    setTimeout(function(){const t=document.createElement('script');t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";document.head.appendChild(t);});
+  </script>
+</body>
+</html>

@@ -1,0 +1,2703 @@
+{
+  "name": "WD search integration bot",
+  "type": "action",
+  "valid": true,
+  "status": "Available",
+  "created": "2022-10-05T17:44:18.339Z",
+  "updated": "2022-10-05T18:39:42.172Z",
+  "language": "en",
+  "skill_id": "f0d9a99d-b09b-49a7-a3de-01aef17d6797",
+  "workspace": {
+    "actions": [
+      {
+        "steps": [
+          {
+            "step": "step_117",
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "action": "action_44059",
+                "parameters": null,
+                "result_variable": "step_117_result_1"
+              }
+            },
+            "variable": "step_117"
+          }
+        ],
+        "title": "Bitcoin FAQ search",
+        "action": "action_11533",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_11533_intent_29600"
+        },
+        "variables": [
+          {
+            "title": "No response",
+            "variable": "step_117",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_117_result_1",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_44059",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_543",
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "action": "action_1555",
+                "parameters": null,
+                "result_variable": "step_543_result_1"
+              }
+            },
+            "variable": "step_543",
+            "condition": {
+              "eq": [
+                {
+                  "skill_variable": "user_defined_responses_enabled"
+                },
+                {
+                  "scalar": true
+                }
+              ]
+            },
+            "next_step": "step_167"
+          },
+          {
+            "step": "step_167",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "<hr/>\n\n<em>"
+                          },
+                          {
+                            "skill_variable": "answer"
+                          },
+                          {
+                            "scalar": "</em>\n\n<br />\n\n\n\n<strong>For more context on this answer see:</strong>\n\n<a href=\""
+                          },
+                          {
+                            "skill_variable": "link"
+                          },
+                          {
+                            "scalar": "\" target=\"_blank\">"
+                          },
+                          {
+                            "skill_variable": "title"
+                          },
+                          {
+                            "scalar": "</a>\n\n\n\n"
+                          },
+                          {
+                            "skill_variable": "snippet"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${search_result}.metadata.source.url"
+                  },
+                  "skill_variable": "link"
+                },
+                {
+                  "value": {
+                    "expression": "${search_result}.title"
+                  },
+                  "skill_variable": "title"
+                },
+                {
+                  "value": {
+                    "expression": "${search_result}.document_passages.get(0).passage_text"
+                  },
+                  "skill_variable": "snippet"
+                },
+                {
+                  "value": {
+                    "expression": "${search_result}.document_passages.get(0).answers.get(0).answer_text"
+                  },
+                  "skill_variable": "answer"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_167",
+            "condition": {
+              "expression": "${search_result}.document_passages.size > 0"
+            },
+            "next_step": "step_577"
+          },
+          {
+            "step": "step_577",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "<hr/>\n\n<a href=\""
+                          },
+                          {
+                            "skill_variable": "link"
+                          },
+                          {
+                            "scalar": "\" target=\"_blank\">"
+                          },
+                          {
+                            "skill_variable": "title"
+                          },
+                          {
+                            "scalar": "</a>"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${search_result}.metadata.source.url"
+                  },
+                  "skill_variable": "link"
+                },
+                {
+                  "value": {
+                    "expression": "${search_result}.title"
+                  },
+                  "skill_variable": "title"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_577"
+          }
+        ],
+        "title": "Show search result",
+        "action": "action_14586",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_20548_intent_39741"
+        },
+        "variables": [
+          {
+            "variable": "step_001_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_117_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_146_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "<hr/> <em>{variable}</em> <br /> <strong>For more context on thi",
+            "variable": "step_167",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_167_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_169_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_217_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_222_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_237_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_237_result_2",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_249_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_472_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_474_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_474_result_2",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_492_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_543",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_543_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "<hr/> <a href=\"{variable}\" target=\"_blank\">{variable}</a>",
+            "variable": "step_577",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_748_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_863_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_890_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_942_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_978_result_1",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_1555",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_167",
+            "output": {
+              "generic": [
+                {
+                  "user_defined": {
+                    "link": "${link}",
+                    "title": "${title}",
+                    "answer": "${answer}",
+                    "snippet": "${snippet}",
+                    "answer_confidence": "${answer_confidence}",
+                    "answer_end_offset": "${answer_end_offset}",
+                    "user_defined_type": "search_card",
+                    "answer_start_offset": "${answer_start_offset}",
+                    "passage_start_offset": "${passage_start_offset}"
+                  },
+                  "response_type": "user_defined"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${search_result}.metadata.source.url"
+                  },
+                  "skill_variable": "link"
+                },
+                {
+                  "value": {
+                    "expression": "${search_result}.title"
+                  },
+                  "skill_variable": "title"
+                },
+                {
+                  "value": {
+                    "expression": "${search_result}.document_passages.get(0).passage_text"
+                  },
+                  "skill_variable": "snippet"
+                },
+                {
+                  "value": {
+                    "expression": "${search_result}.document_passages.get(0).answers.get(0).answer_text"
+                  },
+                  "skill_variable": "answer"
+                },
+                {
+                  "value": {
+                    "expression": "${search_result}.document_passages.get(0).answers.get(0).start_offset"
+                  },
+                  "skill_variable": "answer_start_offset"
+                },
+                {
+                  "value": {
+                    "expression": "${search_result}.document_passages.get(0).answers.get(0).end_offset"
+                  },
+                  "skill_variable": "answer_end_offset"
+                },
+                {
+                  "value": {
+                    "expression": "${search_result}.document_passages.get(0).answers.get(0).confidence"
+                  },
+                  "skill_variable": "answer_confidence"
+                },
+                {
+                  "value": {
+                    "expression": "${search_result}.document_passages.get(0).start_offset"
+                  },
+                  "skill_variable": "passage_start_offset"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_167"
+          }
+        ],
+        "title": "Provide custom search result",
+        "action": "action_1555",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_14586_intent_24000"
+        },
+        "variables": [
+          {
+            "variable": "step_001_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_146_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "{variable} <br /> For more context on this answer see: <a href=\"",
+            "variable": "step_167",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_167_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_169_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_217_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_222_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_237_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_237_result_2",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_249_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_472_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_474_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_474_result_2",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_492_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_543_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_748_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_863_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_890_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_942_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_978_result_1",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "fallback",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_976",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "I was not able to find anything relevant to your query, sorry!"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_976",
+            "condition": {
+              "expression": "${search_results}.size < 1"
+            },
+            "next_step": "step_167"
+          },
+          {
+            "step": "step_167",
+            "output": {
+              "generic": [
+                {
+                  "values": [],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${search_results}.get(0)"
+                  },
+                  "skill_variable": "search_result"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action",
+              "invoke_action": {
+                "action": "action_14586",
+                "parameters": null,
+                "result_variable": "step_167_result_1"
+              }
+            },
+            "variable": "step_167",
+            "condition": {
+              "expression": "${search_results}.size > 0"
+            },
+            "next_step": "step_146"
+          },
+          {
+            "step": "step_146",
+            "output": {
+              "generic": [
+                {
+                  "values": [],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${search_results}.get(1)"
+                  },
+                  "skill_variable": "search_result"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action",
+              "invoke_action": {
+                "action": "action_14586",
+                "parameters": null,
+                "result_variable": "step_146_result_1"
+              }
+            },
+            "variable": "step_146",
+            "condition": {
+              "expression": "${search_results}.size > 1"
+            },
+            "next_step": "step_249"
+          },
+          {
+            "step": "step_249",
+            "output": {
+              "generic": [
+                {
+                  "values": [],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${search_results}.get(2)"
+                  },
+                  "skill_variable": "search_result"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "action": "action_14586",
+                "parameters": null,
+                "result_variable": "step_249_result_1"
+              }
+            },
+            "variable": "step_249",
+            "condition": {
+              "expression": "${search_results}.size > 2"
+            }
+          }
+        ],
+        "title": "Show search results",
+        "action": "action_20548",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_43808_intent_33082"
+        },
+        "variables": [
+          {
+            "title": "No response",
+            "variable": "step_146",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_146_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_167",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_167_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_169_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_217_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_222_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_237_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_237_result_2",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_249",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_249_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_472_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_474_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_474_result_2",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_492_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_890_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_942_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "I was not able to find anything relevant to your query, sorry!",
+            "variable": "step_976",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_978_result_1",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_14586",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_348",
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "input.original_text"
+                  },
+                  "skill_variable": "query_text"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_348",
+            "next_step": "step_418"
+          },
+          {
+            "step": "step_418",
+            "output": {
+              "generic": [
+                {
+                  "values": [],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "input.text"
+                  },
+                  "skill_variable": "query_text"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_418",
+            "condition": {
+              "not": {
+                "exists": {
+                  "skill_variable": "query_text"
+                }
+              }
+            },
+            "next_step": "step_474"
+          },
+          {
+            "step": "step_474",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Searching for mining content relating to query: "
+                          },
+                          {
+                            "skill_variable": "query_text"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/instances/{instance_id}/v2/projects/{project_id}/query",
+                "type": "integration_interaction",
+                "method": "POST",
+                "internal": {
+                  "catalog_item_id": "0b51bf7a-810a-4296-9fd4-c96010f41d66"
+                },
+                "request_mapping": {
+                  "body": [
+                    {
+                      "value": {
+                        "expression": "3"
+                      },
+                      "parameter": "count"
+                    },
+                    {
+                      "value": {
+                        "expression": "\"title:mining\""
+                      },
+                      "parameter": "filter"
+                    },
+                    {
+                      "value": {
+                        "expression": "[\"title\",\"metadata.source.url\"]"
+                      },
+                      "parameter": "return"
+                    },
+                    {
+                      "value": {
+                        "expression": "[\"text\"]"
+                      },
+                      "parameter": "passages.fields"
+                    },
+                    {
+                      "value": {
+                        "expression": "true"
+                      },
+                      "parameter": "passages.enabled"
+                    },
+                    {
+                      "value": {
+                        "expression": "250"
+                      },
+                      "parameter": "passages.characters"
+                    },
+                    {
+                      "value": {
+                        "expression": "true"
+                      },
+                      "parameter": "passages.find_answers"
+                    },
+                    {
+                      "value": {
+                        "expression": "false"
+                      },
+                      "parameter": "table_results.enabled"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "query_text"
+                      },
+                      "parameter": "natural_language_query"
+                    }
+                  ],
+                  "path": [
+                    {
+                      "value": {
+                        "skill_variable": "discovery_project_id"
+                      },
+                      "parameter": "project_id"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "discovery_instance_id"
+                      },
+                      "parameter": "instance_id"
+                    }
+                  ],
+                  "query": [
+                    {
+                      "value": {
+                        "skill_variable": "discovery_date_version"
+                      },
+                      "parameter": "version"
+                    }
+                  ]
+                },
+                "result_variable": "step_474_result_2"
+              }
+            },
+            "variable": "step_474",
+            "next_step": "step_105"
+          },
+          {
+            "step": "step_105",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Sorry, the search failed!"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_105",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_474_result_2",
+                  "variable_path": "success"
+                },
+                {
+                  "scalar": false
+                }
+              ]
+            },
+            "next_step": "step_237"
+          },
+          {
+            "step": "step_237",
+            "output": {
+              "generic": [
+                {
+                  "values": [],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${step_474_result_2}.body.results"
+                  },
+                  "skill_variable": "search_results"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action",
+              "invoke_action": {
+                "action": "action_20548",
+                "parameters": null,
+                "result_variable": "step_237_result_2"
+              }
+            },
+            "variable": "step_237",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_474_result_2",
+                  "variable_path": "success"
+                },
+                {
+                  "scalar": true
+                }
+              ]
+            },
+            "next_step": "step_809"
+          },
+          {
+            "step": "step_809",
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${step_474_result_2}.body.results=[]"
+                  },
+                  "skill_variable": "search_results"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_809"
+          }
+        ],
+        "title": "Search within the mining topic",
+        "action": "action_31100",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_44059_intent_39106"
+        },
+        "variables": [
+          {
+            "variable": "step_001_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Sorry, the search failed!",
+            "variable": "step_105",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_117_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_146_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_164_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_167_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_169_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_222_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_237",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_237_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_237_result_2",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_249_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_272_result_2",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_338_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_348",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_418",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_418_result_2",
+            "data_type": "any"
+          },
+          {
+            "title": "Searching for mining content relating to query: {variable}",
+            "variable": "step_474",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_474_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_474_result_2",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_492_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_543_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_604_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_748_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_749_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_774_result_2",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_809",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_829_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_863_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_876_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_978_result_1",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_20548",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_474",
+            "output": {
+              "generic": [
+                {
+                  "values": [],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "\"How many Bitcoins can there be in total?\""
+                  },
+                  "skill_variable": "query_text"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/instances/{instance_id}/v2/projects/{project_id}/query",
+                "type": "integration_interaction",
+                "method": "POST",
+                "internal": {
+                  "catalog_item_id": "0b51bf7a-810a-4296-9fd4-c96010f41d66"
+                },
+                "request_mapping": {
+                  "body": [
+                    {
+                      "value": {
+                        "expression": "3"
+                      },
+                      "parameter": "count"
+                    },
+                    {
+                      "value": {
+                        "expression": "\"finite\""
+                      },
+                      "parameter": "filter"
+                    },
+                    {
+                      "value": {
+                        "expression": "[\"title\",\"metadata.source.url\"]"
+                      },
+                      "parameter": "return"
+                    },
+                    {
+                      "value": {
+                        "expression": "1"
+                      },
+                      "parameter": "passages.count"
+                    },
+                    {
+                      "value": {
+                        "expression": "[\"text\"]"
+                      },
+                      "parameter": "passages.fields"
+                    },
+                    {
+                      "value": {
+                        "expression": "true"
+                      },
+                      "parameter": "passages.enabled"
+                    },
+                    {
+                      "value": {
+                        "expression": "250"
+                      },
+                      "parameter": "passages.characters"
+                    },
+                    {
+                      "value": {
+                        "expression": "true"
+                      },
+                      "parameter": "passages.find_answers"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "query_text"
+                      },
+                      "parameter": "natural_language_query"
+                    }
+                  ],
+                  "path": [
+                    {
+                      "value": {
+                        "skill_variable": "discovery_project_id"
+                      },
+                      "parameter": "project_id"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "discovery_instance_id"
+                      },
+                      "parameter": "instance_id"
+                    }
+                  ],
+                  "query": [
+                    {
+                      "value": {
+                        "skill_variable": "discovery_date_version"
+                      },
+                      "parameter": "version"
+                    }
+                  ]
+                },
+                "result_variable": "step_474_result_2"
+              }
+            },
+            "variable": "step_474",
+            "next_step": "step_105"
+          },
+          {
+            "step": "step_105",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Sorry, the search failed!"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_105",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_474_result_2",
+                  "variable_path": "success"
+                },
+                {
+                  "scalar": false
+                }
+              ]
+            },
+            "next_step": "step_237"
+          },
+          {
+            "step": "step_237",
+            "output": {
+              "generic": [
+                {
+                  "values": [],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${step_474_result_2}.body.results"
+                  },
+                  "skill_variable": "search_results"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action",
+              "invoke_action": {
+                "action": "action_20548",
+                "parameters": null,
+                "result_variable": "step_237_result_2"
+              }
+            },
+            "variable": "step_237",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_474_result_2",
+                  "variable_path": "success"
+                },
+                {
+                  "scalar": true
+                }
+              ]
+            },
+            "next_step": "step_794"
+          },
+          {
+            "step": "step_794",
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${step_474_result_2}.body.results=\"\""
+                  },
+                  "skill_variable": "search_results"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_794"
+          }
+        ],
+        "title": "How many Bitcoins can exist?",
+        "action": "action_3234",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_44059_intent_46332"
+        },
+        "variables": [
+          {
+            "variable": "step_001_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Sorry, the search failed!",
+            "variable": "step_105",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_117_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_146_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_164_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_167_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_169_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_222_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_237",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_237_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_237_result_2",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_249_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_272_result_2",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_338_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_418_result_2",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_474",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_474_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_474_result_2",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_492_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_543_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_748_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_749_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_774_result_2",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_794",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_807_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_829_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_863_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_876_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_978_result_1",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_31100",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_604",
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "action": "action_31100",
+                "parameters": null,
+                "result_variable": "step_604_result_1"
+              }
+            },
+            "variable": "step_604",
+            "condition": {
+              "matches": [
+                {
+                  "skill_variable": "application_topic"
+                },
+                {
+                  "scalar": "mining",
+                  "options": {
+                    "ignore_case": true
+                  }
+                }
+              ]
+            },
+            "next_step": "step_774"
+          },
+          {
+            "step": "step_774",
+            "output": {
+              "generic": [
+                {
+                  "values": [],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "input.original_text"
+                  },
+                  "skill_variable": "query_text"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_774",
+            "next_step": "step_983"
+          },
+          {
+            "step": "step_983",
+            "output": {
+              "generic": [
+                {
+                  "values": [],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "input.text"
+                  },
+                  "skill_variable": "query_text"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_983",
+            "condition": {
+              "not": {
+                "exists": {
+                  "skill_variable": "query_text"
+                }
+              }
+            },
+            "next_step": "step_474"
+          },
+          {
+            "step": "step_474",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Searching for: "
+                          },
+                          {
+                            "skill_variable": "query_text"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/instances/{instance_id}/v2/projects/{project_id}/query",
+                "type": "integration_interaction",
+                "method": "POST",
+                "internal": {
+                  "catalog_item_id": "0b51bf7a-810a-4296-9fd4-c96010f41d66"
+                },
+                "request_mapping": {
+                  "body": [
+                    {
+                      "value": {
+                        "expression": "3"
+                      },
+                      "parameter": "count"
+                    },
+                    {
+                      "value": {
+                        "expression": "[\"text\"]"
+                      },
+                      "parameter": "passages.fields"
+                    },
+                    {
+                      "value": {
+                        "expression": "true"
+                      },
+                      "parameter": "passages.enabled"
+                    },
+                    {
+                      "value": {
+                        "expression": "250"
+                      },
+                      "parameter": "passages.characters"
+                    },
+                    {
+                      "value": {
+                        "expression": "true"
+                      },
+                      "parameter": "passages.find_answers"
+                    },
+                    {
+                      "value": {
+                        "expression": "[\"title\",\"metadata.source.url\"]"
+                      },
+                      "parameter": "return"
+                    },
+                    {
+                      "value": {
+                        "expression": "false"
+                      },
+                      "parameter": "table_results.enabled"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "query_text"
+                      },
+                      "parameter": "natural_language_query"
+                    }
+                  ],
+                  "path": [
+                    {
+                      "value": {
+                        "skill_variable": "discovery_project_id"
+                      },
+                      "parameter": "project_id"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "discovery_instance_id"
+                      },
+                      "parameter": "instance_id"
+                    }
+                  ],
+                  "query": [
+                    {
+                      "value": {
+                        "skill_variable": "discovery_date_version"
+                      },
+                      "parameter": "version"
+                    }
+                  ]
+                },
+                "result_variable": "step_474_result_2"
+              }
+            },
+            "variable": "step_474",
+            "next_step": "step_105"
+          },
+          {
+            "step": "step_105",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Sorry, the search failed!"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_105",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_474_result_2",
+                  "variable_path": "success"
+                },
+                {
+                  "scalar": false
+                }
+              ]
+            },
+            "next_step": "step_237"
+          },
+          {
+            "step": "step_237",
+            "output": {
+              "generic": [
+                {
+                  "values": [],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${step_474_result_2}.body.results"
+                  },
+                  "skill_variable": "search_results"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action",
+              "invoke_action": {
+                "action": "action_20548",
+                "parameters": null,
+                "result_variable": "step_237_result_2"
+              }
+            },
+            "variable": "step_237",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_474_result_2",
+                  "variable_path": "success"
+                },
+                {
+                  "scalar": true
+                }
+              ]
+            },
+            "next_step": "step_556"
+          },
+          {
+            "step": "step_556",
+            "output": {
+              "generic": [
+                {
+                  "values": [],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${step_474_result_2}.body.results=[]"
+                  },
+                  "skill_variable": "search_results"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_556"
+          }
+        ],
+        "title": "Search",
+        "action": "action_44059",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_47312_intent_17298"
+        },
+        "variables": [
+          {
+            "variable": "step_001_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Sorry, the search failed!",
+            "variable": "step_105",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_117_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_146_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_164_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_167_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_169_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_222_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_237",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_237_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_237_result_2",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_249_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_272_result_2",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_338_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_418_result_2",
+            "data_type": "any"
+          },
+          {
+            "title": "Searching for: {variable}",
+            "variable": "step_474",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_474_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_474_result_2",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_492_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_543_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_556",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_604",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_604_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_748_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_749_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_774",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_774_result_2",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_829_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_863_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_876_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_978_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_983",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_3234",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_001",
+            "output": {
+              "generic": [
+                {
+                  "values": [],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action",
+              "invoke_action": {
+                "action": "action_44059",
+                "parameters": null,
+                "result_variable": "step_001_result_1"
+              }
+            },
+            "variable": "step_001",
+            "next_step": "step_002"
+          },
+          {
+            "step": "step_002",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": ""
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_002",
+            "condition": {
+              "lt": [
+                {
+                  "system_variable": "no_action_matches_count"
+                },
+                {
+                  "scalar": 3
+                }
+              ]
+            },
+            "next_step": "step_748"
+          },
+          {
+            "step": "step_748",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "If this is not what you are looking for, you may want to connect to an agent:"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
+                },
+                "message_to_human_agent": ""
+              }
+            },
+            "variable": "step_748",
+            "condition": {
+              "gte": [
+                {
+                  "system_variable": "no_action_matches_count"
+                },
+                {
+                  "scalar": "3"
+                }
+              ]
+            }
+          }
+        ],
+        "title": "No action matches",
+        "action": "anything_else",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "expression": "anything_else"
+        },
+        "variables": [
+          {
+            "title": "No response",
+            "variable": "step_001",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_001_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_002",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_002_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_146_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_167_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_169_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_217_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_222_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_237_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_237_result_2",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_249_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_472_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_474_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_474_result_2",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_492_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "If this is not what you are looking for, you may want to connect",
+            "variable": "step_748",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_748_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_807_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_863_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_978_result_1",
+            "data_type": "any"
+          }
+        ],
+        "disambiguation_opt_out": true
+      },
+      {
+        "steps": [
+          {
+            "step": "step_001",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "I'm afraid I don't understand. I can connect you to an agent."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
+                },
+                "message_to_human_agent": ""
+              }
+            },
+            "variable": "step_001",
+            "condition": {
+              "eq": [
+                {
+                  "system_variable": "fallback_reason"
+                },
+                {
+                  "scalar": "Step validation failed"
+                }
+              ]
+            },
+            "next_step": "step_002"
+          },
+          {
+            "step": "step_002",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "Sorry I couldn't assist you. I will connect you to an agent right away."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
+                },
+                "message_to_human_agent": ""
+              }
+            },
+            "variable": "step_002",
+            "condition": {
+              "eq": [
+                {
+                  "system_variable": "fallback_reason"
+                },
+                {
+                  "scalar": "Agent requested"
+                }
+              ]
+            },
+            "next_step": "step_003"
+          },
+          {
+            "step": "step_003",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "I am afraid I do not understand what you are asking, let me connect you to an agent."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
+                },
+                "message_to_human_agent": ""
+              }
+            },
+            "variable": "step_003",
+            "condition": {
+              "eq": [
+                {
+                  "system_variable": "fallback_reason"
+                },
+                {
+                  "scalar": "No action matches"
+                }
+              ]
+            }
+          }
+        ],
+        "title": "Fallback",
+        "action": "fallback",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "fallback_connect_to_agent"
+        },
+        "variables": [
+          {
+            "title": "I'm afraid I don't understand. I can connect you to an agent.",
+            "variable": "step_001",
+            "data_type": "any"
+          },
+          {
+            "title": "Sorry I couldn't assist you. I will connect you to an agent righ",
+            "variable": "step_002",
+            "data_type": "any"
+          },
+          {
+            "title": "I am afraid I do not understand what you are asking, let me conn",
+            "variable": "step_003",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "anything_else",
+        "disambiguation_opt_out": true
+      },
+      {
+        "steps": [
+          {
+            "step": "step_001",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "Welcome, how can I assist you?"
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_001"
+          }
+        ],
+        "title": "Greet customer",
+        "action": "welcome",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "expression": "welcome"
+        },
+        "variables": [
+          {
+            "variable": "step_001",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_11533",
+        "disambiguation_opt_out": true
+      }
+    ],
+    "intents": [
+      {
+        "intent": "action_11533_intent_29600",
+        "examples": [
+          {
+            "text": "Bitcoin"
+          },
+          {
+            "text": "bitcoins"
+          },
+          {
+            "text": "block"
+          },
+          {
+            "text": "blockchain"
+          },
+          {
+            "text": "crypto"
+          },
+          {
+            "text": "cryptocurrency"
+          },
+          {
+            "text": "cryptography"
+          },
+          {
+            "text": "miner"
+          },
+          {
+            "text": "mining"
+          },
+          {
+            "text": "money"
+          },
+          {
+            "text": "search"
+          },
+          {
+            "text": "security"
+          },
+          {
+            "text": "transaction"
+          },
+          {
+            "text": "What is the average time to find a block?"
+          }
+        ]
+      },
+      {
+        "intent": "action_14586_intent_24000",
+        "examples": []
+      },
+      {
+        "intent": "action_20548_intent_39741",
+        "examples": []
+      },
+      {
+        "intent": "action_43808_intent_33082",
+        "examples": []
+      },
+      {
+        "intent": "action_44059_intent_39106",
+        "examples": []
+      },
+      {
+        "intent": "action_44059_intent_46332",
+        "examples": [
+          {
+            "text": "How many bitcoins can be issued?"
+          },
+          {
+            "text": "How many bitcoins can exist?"
+          },
+          {
+            "text": "How many Bitcoins can there be?"
+          },
+          {
+            "text": "What is the limit on the quantity of bitcoins in circulation?"
+          },
+          {
+            "text": "What is the maximum total number of bitcoins"
+          },
+          {
+            "text": "What is the number of bitcoins that will eventually exist?"
+          }
+        ]
+      },
+      {
+        "intent": "action_47312_intent_17298",
+        "examples": []
+      },
+      {
+        "intent": "fallback_connect_to_agent",
+        "examples": [
+          {
+            "text": "Agent help"
+          },
+          {
+            "text": "Call agent"
+          },
+          {
+            "text": "Can I connect to an agent?"
+          },
+          {
+            "text": "I would like to speak to a human"
+          },
+          {
+            "text": "I would like to speak to someone"
+          }
+        ],
+        "description": "Please transfer me to an agent"
+      }
+    ],
+    "entities": [
+      {
+        "entity": "sys-yes-no",
+        "values": []
+      }
+    ],
+    "metadata": {
+      "api_version": {
+        "major_version": "v2",
+        "minor_version": "2018-11-08"
+      }
+    },
+    "variables": [
+      {
+        "title": "answer",
+        "variable": "answer",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "answer_begin",
+        "variable": "answer_begin",
+        "data_type": "number",
+        "description": ""
+      },
+      {
+        "title": "answer_confidence",
+        "variable": "answer_confidence",
+        "data_type": "number",
+        "description": ""
+      },
+      {
+        "title": "answer_end_confidence",
+        "variable": "answer_end_confidence",
+        "data_type": "number",
+        "description": ""
+      },
+      {
+        "title": "answer_end_offset",
+        "variable": "answer_end_offset",
+        "data_type": "number",
+        "description": ""
+      },
+      {
+        "title": "answer_start_offset",
+        "variable": "answer_start_offset",
+        "data_type": "number",
+        "description": ""
+      },
+      {
+        "title": "application_topic",
+        "variable": "application_topic",
+        "data_type": "string",
+        "description": ""
+      },
+      {
+        "title": "discovery_date_version",
+        "variable": "discovery_date_version",
+        "data_type": "any",
+        "description": "",
+        "initial_value": {
+          "scalar": "2022-08-01"
+        }
+      },
+      {
+        "title": "discovery_instance_id",
+        "variable": "discovery_instance_id",
+        "data_type": "string",
+        "description": "",
+        "initial_value": {
+          "scalar": "447fc929-fde9-402e-b73c-03274b8ab0bb"
+        }
+      },
+      {
+        "title": "discovery_project_id",
+        "variable": "discovery_project_id",
+        "data_type": "string",
+        "description": "was aa06acac-6aaf-4e75-87de-f9cad3671be1",
+        "initial_value": {
+          "scalar": "80618725-d10b-4d7a-b91a-79c031f99eee"
+        }
+      },
+      {
+        "title": "link",
+        "variable": "link",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "passage_start_offset",
+        "variable": "passage_start_offset",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "query_text",
+        "variable": "query_text",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "search_result",
+        "variable": "search_result",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "search_results",
+        "variable": "search_results",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "snippet",
+        "variable": "snippet",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "title",
+        "variable": "title",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "user_defined_responses_enabled",
+        "variable": "user_defined_responses_enabled",
+        "data_type": "boolean",
+        "description": "",
+        "initial_value": {
+          "scalar": false
+        }
+      }
+    ],
+    "data_types": [],
+    "counterexamples": [],
+    "system_settings": {
+      "nlp": {
+        "model": "baseline"
+      },
+      "off_topic": {
+        "enabled": true
+      },
+      "launch_mode": {},
+      "topic_switch": {
+        "enabled": true,
+        "messages": {
+          "confirm_return": {
+            "text": ""
+          },
+          "confirm_switch": {
+            "text": ""
+          }
+        },
+        "question_steps_threshold": 2
+      },
+      "disambiguation": {
+        "prompt": "Did you mean:",
+        "enabled": false,
+        "randomize": true,
+        "max_suggestions": 5,
+        "suggestion_text_policy": "title",
+        "none_of_the_above_prompt": "None of the above"
+      },
+      "intent_classification": {
+        "training_backend_version": "v2"
+      },
+      "spelling_auto_correct": true
+    },
+    "learning_opt_out": false
+  },
+  "description": "created for assistant 20ef065f-6198-4892-860a-a184e52a2d19",
+  "assistant_id": "594e8f32-e778-4a6f-bdc0-5a4c57224dfd",
+  "workspace_id": "f0d9a99d-b09b-49a7-a3de-01aef17d6797",
+  "dialog_settings": {},
+  "next_snapshot_version": "1"
+}

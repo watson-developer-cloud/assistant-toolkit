@@ -1,0 +1,98 @@
+{
+  "name": "watson-assistant-toolkit-for-web-chat",
+  "version": "1.0.0",
+  "description": "A set of examples for extending and customizing the web chat feature in Watson Assistant",
+  "scripts": {
+    "lint": "eslint \"./{examples,contributing}/**/*.{js,jsx}\"",
+    "lint:fix": "eslint \"./{examples,contributing}/**/*.{js,jsx}\" --fix",
+    "lint:fix:dryrun": "eslint \"./{examples,contributing}/**/*.{js,jsx}\" --fix-dry-run"
+  },
+  "engines": {
+    "node": "^16.15.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsdoc": "^39.2.1",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.30.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "prettier": "^2.6.2"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 120,
+    "trailingComma": "all"
+  },
+  "eslintConfig": {
+    "extends": [
+      "airbnb",
+      "eslint:recommended",
+      "plugin:prettier/recommended"
+    ],
+    "plugins": [
+      "jsdoc",
+      "simple-import-sort",
+      "react-hooks"
+    ],
+    "parserOptions": {
+      "ecmaVersion": "latest",
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "env": {
+      "browser": true,
+      "es6": true,
+      "node": true
+    },
+    "rules": {
+      "prettier/prettier": [
+        "error"
+      ],
+      "no-console": 0,
+      "no-plusplus": 0,
+      "no-underscore-dangle": 0,
+      "no-shadow": 0,
+      "no-param-reassign": "off",
+      "class-methods-use-this": "off",
+      "max-nested-callbacks": [
+        2,
+        5
+      ],
+      "react/require-default-props": "off",
+      "max-classes-per-file": "off",
+      "indent": 0,
+      "camelcase": 0,
+      "jsdoc/check-alignment": 1,
+      "jsdoc/check-indentation": 1,
+      "jsdoc/check-param-names": 1,
+      "jsdoc/check-syntax": 1,
+      "jsdoc/check-tag-names": 1,
+      "jsdoc/check-types": 1,
+      "jsdoc/newline-after-description": 1,
+      "jsdoc/require-description-complete-sentence": 0,
+      "jsdoc/require-param-description": 1,
+      "jsdoc/require-param-name": 1,
+      "jsdoc/require-returns-check": 1,
+      "jsdoc/require-returns-description": 1,
+      "jsdoc/valid-types": 1,
+      "linebreak-style": 0,
+      "no-use-before-define": "off",
+      "lines-between-class-members": "off",
+      "react/jsx-filename-extension": "off",
+      "react/react-in-jsx-scope": "off",
+      "import/prefer-default-export": "off",
+      "import/extensions": "off",
+      "import/no-unresolved": "off",
+      "func-names": "off",
+      "no-unused-vars": "off"
+    }
+  }
+}
