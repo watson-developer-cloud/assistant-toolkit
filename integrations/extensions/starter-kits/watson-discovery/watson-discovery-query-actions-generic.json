@@ -3,10 +3,10 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2022-10-03T19:49:44.430Z",
-  "updated": "2022-10-05T17:40:26.184Z",
+  "created": "2022-10-24T19:24:31.115Z",
+  "updated": "2022-10-24T19:51:15.063Z",
   "language": "en",
-  "skill_id": "d2aaef87-b2a7-43dc-af65-cd8e59503bca",
+  "skill_id": "895e855a-ca58-4ef0-a7f6-229c6341884d",
   "workspace": {
     "actions": [
       {
@@ -496,13 +496,7 @@
           {
             "step": "step_167",
             "output": {
-              "generic": [
-                {
-                  "values": [],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
+              "generic": []
             },
             "context": {
               "variables": [
@@ -527,54 +521,12 @@
             "condition": {
               "expression": "${search_results}.size > 0"
             },
-            "next_step": "step_146"
-          },
-          {
-            "step": "step_146",
-            "output": {
-              "generic": [
-                {
-                  "values": [],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "context": {
-              "variables": [
-                {
-                  "value": {
-                    "expression": "${search_results}.get(1)"
-                  },
-                  "skill_variable": "search_result"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "invoke_another_action",
-              "invoke_action": {
-                "action": "action_14586",
-                "parameters": null,
-                "result_variable": "step_146_result_1"
-              }
-            },
-            "variable": "step_146",
-            "condition": {
-              "expression": "${search_results}.size > 1"
-            },
             "next_step": "step_896"
           },
           {
             "step": "step_896",
             "output": {
-              "generic": [
-                {
-                  "values": [],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
+              "generic": []
             },
             "context": {
               "variables": [
@@ -604,13 +556,7 @@
           {
             "step": "step_249",
             "output": {
-              "generic": [
-                {
-                  "values": [],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
+              "generic": []
             },
             "context": {
               "variables": [
@@ -646,16 +592,7 @@
         },
         "variables": [
           {
-            "title": "No response",
-            "variable": "step_146",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_146_result_1",
-            "data_type": "any"
-          },
-          {
-            "title": "No response",
+            "title": "",
             "variable": "step_167",
             "data_type": "any"
           },
@@ -684,7 +621,7 @@
             "data_type": "any"
           },
           {
-            "title": "No response",
+            "title": "",
             "variable": "step_249",
             "data_type": "any"
           },
@@ -747,13 +684,7 @@
           {
             "step": "step_774",
             "output": {
-              "generic": [
-                {
-                  "values": [],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
+              "generic": []
             },
             "context": {
               "variables": [
@@ -775,13 +706,7 @@
           {
             "step": "step_983",
             "output": {
-              "generic": [
-                {
-                  "values": [],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
+              "generic": []
             },
             "context": {
               "variables": [
@@ -842,7 +767,7 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "catalog_item_id": "29ae86c7-98af-43ab-a275-5d6728a172f2"
+                  "catalog_item_id": "aac950c3-3bb0-4130-b45b-c5dfddfc6ed7"
                 },
                 "request_mapping": {
                   "body": [
@@ -854,13 +779,25 @@
                     },
                     {
                       "value": {
-                        "expression": "[\"text\"]"
+                        "expression": "3"
                       },
-                      "parameter": "passages.fields"
+                      "parameter": "offset"
                     },
                     {
                       "value": {
-                        "expression": "true"
+                        "expression": "false"
+                      },
+                      "parameter": "similar.enabled"
+                    },
+                    {
+                      "value": {
+                        "expression": "\"\""
+                      },
+                      "parameter": "passages.count"
+                    },
+                    {
+                      "value": {
+                        "expression": "\"True\""
                       },
                       "parameter": "passages.enabled"
                     },
@@ -878,21 +815,75 @@
                     },
                     {
                       "value": {
+                        "expression": "\"\""
+                      },
+                      "parameter": "passages.per_document"
+                    },
+                    {
+                      "value": {
+                        "expression": "\"\""
+                      },
+                      "parameter": "passages.max_per_document"
+                    },
+                    {
+                      "value": {
+                        "expression": "1"
+                      },
+                      "parameter": "passages.max_answers_per_passage"
+                    },
+                    {
+                      "value": {
+                        "expression": "\"\""
+                      },
+                      "parameter": "highlight"
+                    },
+                    {
+                      "value": {
+                        "expression": "\"\""
+                      },
+                      "parameter": "table_results.count"
+                    },
+                    {
+                      "value": {
                         "expression": "false"
                       },
                       "parameter": "table_results.enabled"
                     },
                     {
                       "value": {
-                        "skill_variable": "query_text"
+                        "expression": "\"\""
                       },
-                      "parameter": "natural_language_query"
+                      "parameter": "spelling_suggestions"
+                    },
+                    {
+                      "value": {
+                        "expression": "\"\""
+                      },
+                      "parameter": "suggested_refinements.count"
+                    },
+                    {
+                      "value": {
+                        "expression": "\"\""
+                      },
+                      "parameter": "suggested_refinements.enabled"
                     },
                     {
                       "value": {
                         "expression": "[\"title\",\"metadata.source.url\"]"
                       },
                       "parameter": "return"
+                    },
+                    {
+                      "value": {
+                        "expression": "[\"text\"]"
+                      },
+                      "parameter": "passages.fields"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "query_text"
+                      },
+                      "parameter": "natural_language_query"
                     }
                   ],
                   "path": [
@@ -969,13 +960,7 @@
           {
             "step": "step_237",
             "output": {
-              "generic": [
-                {
-                  "values": [],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
+              "generic": []
             },
             "context": {
               "variables": [
@@ -1076,7 +1061,7 @@
             "data_type": "any"
           },
           {
-            "title": "No response",
+            "title": "",
             "variable": "step_237",
             "data_type": "any"
           },
@@ -1134,7 +1119,7 @@
             "data_type": "any"
           },
           {
-            "title": "No response",
+            "title": "",
             "variable": "step_774",
             "data_type": "any"
           },
@@ -1755,7 +1740,7 @@
     "counterexamples": [],
     "system_settings": {
       "nlp": {
-        "model": "baseline"
+        "model": "latest"
       },
       "off_topic": {
         "enabled": true
@@ -1789,8 +1774,8 @@
     "learning_opt_out": false
   },
   "description": "created for assistant 20ef065f-6198-4892-860a-a184e52a2d19",
-  "assistant_id": "38930165-572b-478e-8d89-8247e278c92f",
-  "workspace_id": "d2aaef87-b2a7-43dc-af65-cd8e59503bca",
+  "assistant_id": "a88c8602-a8c4-4a28-97fb-9d7a16a9b710",
+  "workspace_id": "895e855a-ca58-4ef0-a7f6-229c6341884d",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }
