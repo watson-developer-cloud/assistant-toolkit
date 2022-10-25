@@ -1,0 +1,156 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Swagger IBM RPA Asynch Server",
+    "description": "This is a Swagger representing IBM RPA Server for Asynch",
+    "version": "1.0.11"
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  },
+  "servers": [
+    {
+      "url": "https://us-south.functions.cloud.ibm.com"
+    }
+  ],
+  "paths": {
+    "/api/v1/web/2ada559b-42cf-4862-904a-2ee51dd62af0/default/Start%20RPA%20Asynchronously.json": {
+      "post": {
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "query",
+            "required": true,
+            "description": "a unique identifier representing the cloud function namespace",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "summary": "Insert Item into IBM RPA",
+        "description": "Insert Item into IBM RPA to kick off an instance",
+        "operationId": "insertItem",
+        "requestBody": {
+          "description": "Payload to insert items into IBM RPA by means of Cloud Function",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InsertItem"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstanceOutput"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/v1/web/2ada559b-42cf-4862-904a-2ee51dd62af0/default/Get%20RPA%20Asynchronous%20Status.json": {
+      "post": {
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "query",
+            "required": true,
+            "description": "a unique identifier representing the cloud function namespace",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "summary": "Get RPA Status",
+        "description": "Get Status of an RPA Instance",
+        "operationId": "getStatusOfRPAInstance",
+        "requestBody": {
+          "description": "Payload to get status of an item in IBM RPA by means of Cloud Function",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InstanceStatus"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusOutput"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "InsertItem": {
+        "type": "object",
+        "properties": {
+          "rpaInputParam1": {
+            "type": "string",
+            "description": "RPA First input Value"
+          },
+          "rpaInputParam2": {
+            "type": "string",
+            "description": "RPA Second input Value"
+          }
+        }
+      },
+      "InstanceStatus": {
+        "type": "object",
+        "properties": {
+          "instanceID": {
+            "type": "string",
+            "description": "ID of Item"
+          }
+        }
+      },
+      "InstanceOutput": {
+        "type": "object",
+        "properties": {
+          "rpaInstanceID": {
+            "type": "string",
+            "example": "0bO0vKrd00cTYYBZe0Po8ZxPevFiZXa4TrLj0UwZh8kSWAZNoU6bwoo-heffvABDspPvryNzMKzyU9waPrEuctkAhxiEgsRMqPzWVyZa1a-pMsqIXtZnb_F1KPi44JpkXfQyRe0QqFWn8a-IaeH2Ld874kWjg2Av0BrHKZ9SxGc4OgRNuTZDBxMKIg-27eFe79SxP870Pt-6jtNsQRpRuKtISdfRX9vktC0qa2Day8mmso_lHXhc5CowEVisUQ0eXLqLJM2Eb8YATyEIJfYkUNxgzMXue7HJ1u8lObGPlAdVO7DdIcoOX4MbSQjE4XLbIG5VY05BJT4Jys0c-c5yuVlXezLzDlU9e4Z7LVpywz7ZYwxCJKzMtEVZYO--YLGR8543G3AzH8CeZASHh5aTg8a-J3LVpW1tEbjspjCJXLW76pHsUhi3oCDbBqHxKLVIpuhJLcXErFh"
+          }
+        }
+      },
+      "StatusOutput": {
+        "type": "object",
+        "properties": {
+          "rpaInstanceStatus": {
+            "type": "object",
+            "properties": {
+              "rpaOutputVariable1": {
+                "type": "string"
+              },
+              "rpaOutputVariable2": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
