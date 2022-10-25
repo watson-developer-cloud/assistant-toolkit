@@ -3,118 +3,12 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2022-08-08T17:09:02.985Z",
-  "updated": "2022-10-14T05:00:52.308Z",
+  "created": "2022-10-25T17:48:16.162Z",
+  "updated": "2022-10-25T21:08:31.049Z",
   "language": "en",
-  "skill_id": "3720b576-023b-4ce3-9f24-3473126dae4f",
+  "skill_id": "8d8d1a09-850c-4ca3-a5e8-ba1e56d8fc1c",
   "workspace": {
     "actions": [
-      {
-        "steps": [
-          {
-            "step": "step_497",
-            "handlers": [],
-            "resolver": {
-              "type": "callout",
-              "callout": {
-                "path": "/api/v1/web/b3831995-185a-4b0a-86bb-71d3b802cc2f/default/WA-RPA-Insert.json",
-                "type": "integration_interaction",
-                "method": "POST",
-                "internal": {
-                  "catalog_item_id": "5d4fe473-37c9-4c8c-83bc-61893e2f962a"
-                },
-                "request_mapping": {
-                  "body": [
-                    {
-                      "value": {
-                        "expression": "\"String1\""
-                      },
-                      "parameter": "rpaInputParam1"
-                    },
-                    {
-                      "value": {
-                        "expression": "\"String2\""
-                      },
-                      "parameter": "rpaInputParam2"
-                    }
-                  ],
-                  "query": [
-                    {
-                      "value": {
-                        "expression": "\"b3831995-185a-4b0a-86bb-71d3b802cc2f\""
-                      },
-                      "parameter": "guid"
-                    }
-                  ]
-                },
-                "result_variable": "step_497_result_1"
-              }
-            },
-            "variable": "step_497",
-            "next_step": "step_186"
-          },
-          {
-            "step": "step_186",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": ""
-                          },
-                          {
-                            "variable": "step_497_result_1",
-                            "child_property": null
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "continue"
-            },
-            "variable": "step_186"
-          }
-        ],
-        "title": "CLIENTENGINEERING",
-        "action": "action_20514",
-        "boosts": [],
-        "handlers": [],
-        "condition": {
-          "intent": "action_20514_intent_47690"
-        },
-        "variables": [
-          {
-            "title": "{variable}",
-            "variable": "step_186",
-            "data_type": "any"
-          },
-          {
-            "title": "No response",
-            "variable": "step_497",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_497_result_1",
-            "data_type": "any"
-          }
-        ],
-        "next_action": "action_41727",
-        "topic_switch": {
-          "allowed_from": true,
-          "allowed_into": true
-        },
-        "disambiguation_opt_out": false
-      },
       {
         "steps": [
           {
@@ -180,25 +74,17 @@
             "resolver": {
               "type": "callout",
               "callout": {
-                "path": "/api/v1/web/2ada559b-42cf-4862-904a-2ee51dd62af0/default/ETECFInsert.json",
+                "path": "/api/v1/web/2ada559b-42cf-4862-904a-2ee51dd62af0/default/Start%20RPA%20Asynchronously.json",
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "catalog_item_id": "9e5069b9-589d-455e-ab7d-41213270da5f"
+                  "catalog_item_id": "1111bdcf-524c-4581-8a59-bc250658b167"
                 },
                 "request_mapping": {
-                  "body": [
-                    {
-                      "value": {
-                        "variable": "step_687"
-                      },
-                      "parameter": "vInput"
-                    }
-                  ],
                   "query": [
                     {
                       "value": {
-                        "expression": "\"2ada559b-42cf-4862-904a-2ee51dd62af0\""
+                        "expression": "\"xxx\""
                       },
                       "parameter": "guid"
                     }
@@ -291,464 +177,6 @@
       {
         "steps": [
           {
-            "step": "step_702",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "Thanks firing Request"
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "callout",
-              "callout": {
-                "path": "/scripts/apiTestBen",
-                "type": "integration_interaction",
-                "method": "POST",
-                "internal": {
-                  "catalog_item_id": "bb24996b-5911-4dfa-84f1-f7e86bb3f7e6"
-                },
-                "request_mapping": {
-                  "body": [
-                    {
-                      "value": {
-                        "expression": "\"Zach Test Live Video Now\""
-                      },
-                      "parameter": "inputTest"
-                    }
-                  ],
-                  "query": [
-                    {
-                      "value": {
-                        "expression": "\"false\""
-                      },
-                      "parameter": "unlockMachine"
-                    }
-                  ]
-                },
-                "result_variable": "step_702_result_1"
-              }
-            },
-            "variable": "step_702",
-            "next_step": "step_785"
-          },
-          {
-            "step": "step_785",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "Thanks we got "
-                          },
-                          {
-                            "variable": "step_702_result_1",
-                            "variable_path": "body.outputTest"
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "continue"
-            },
-            "variable": "step_785",
-            "condition": {
-              "eq": [
-                {
-                  "variable": "step_702_result_1",
-                  "variable_path": "success"
-                },
-                {
-                  "scalar": true
-                }
-              ]
-            }
-          }
-        ],
-        "title": "Test Synch",
-        "action": "action_45235",
-        "boosts": [],
-        "handlers": [],
-        "condition": {
-          "intent": "action_45235_intent_21004"
-        },
-        "variables": [
-          {
-            "title": "Thanks firing Request",
-            "variable": "step_702",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_702_result_1",
-            "data_type": "any"
-          },
-          {
-            "title": "Thanks we got {variable}",
-            "variable": "step_785",
-            "data_type": "any"
-          }
-        ],
-        "next_action": "fallback",
-        "topic_switch": {
-          "allowed_from": true,
-          "allowed_into": true
-        },
-        "disambiguation_opt_out": false
-      },
-      {
-        "steps": [
-          {
-            "step": "step_506",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "I'll help you fire an asynch request"
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "callout",
-              "callout": {
-                "path": "/api/v1/web/2ada559b-42cf-4862-904a-2ee51dd62af0/default/Start%20RPA%20Asynchronously.json",
-                "type": "integration_interaction",
-                "method": "POST",
-                "internal": {
-                  "catalog_item_id": "ec2c7aa8-7d24-49e0-ac95-cdc8446b9a6e"
-                },
-                "request_mapping": {
-                  "body": [
-                    {
-                      "value": {
-                        "expression": "\"Thing\""
-                      },
-                      "parameter": "payload"
-                    }
-                  ],
-                  "query": [
-                    {
-                      "value": {
-                        "expression": "\"2ada559b-42cf-4862-904a-2ee51dd62af0\""
-                      },
-                      "parameter": "guid"
-                    }
-                  ]
-                },
-                "result_variable": "step_506_result_1"
-              }
-            },
-            "variable": "step_506",
-            "condition": {
-              "eq": [
-                {
-                  "system_variable": "current_date"
-                },
-                {
-                  "system_variable": "current_date"
-                }
-              ]
-            },
-            "next_step": "step_114"
-          },
-          {
-            "step": "step_114",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": ""
-                          },
-                          {
-                            "variable": "step_506_result_1",
-                            "variable_path": "body.rpaInstanceID"
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "continue"
-            },
-            "variable": "step_114",
-            "condition": {
-              "exists": {
-                "variable": "step_506_result_1",
-                "variable_path": "success"
-              }
-            },
-            "next_step": "step_254"
-          },
-          {
-            "step": "step_254",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "Do you want to check the status"
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                },
-                {
-                  "options": [
-                    {
-                      "label": "Yes",
-                      "value": {
-                        "input": {
-                          "text": "Yes"
-                        }
-                      }
-                    },
-                    {
-                      "label": "No",
-                      "value": {
-                        "input": {
-                          "text": "No"
-                        }
-                      }
-                    }
-                  ],
-                  "response_type": "option",
-                  "repeat_on_reprompt": true
-                }
-              ]
-            },
-            "handlers": [
-              {
-                "type": "not_found",
-                "title": "validation_not_found_handler",
-                "output": {
-                  "generic": [
-                    {
-                      "values": [
-                        {
-                          "text": "I'm sorry, I did not catch that, please restate your response."
-                        }
-                      ],
-                      "response_type": "text"
-                    }
-                  ]
-                },
-                "handler": "validation_not_found_handler",
-                "resolver": {
-                  "type": "prompt_again"
-                },
-                "next_handler": "validation_not_found_max_tries_handler"
-              },
-              {
-                "type": "not_found_max_tries",
-                "title": "validation_not_found_max_tries_handler",
-                "handler": "validation_not_found_max_tries_handler",
-                "resolver": {
-                  "type": "fallback"
-                }
-              }
-            ],
-            "question": {
-              "entity": "sys-yes-no",
-              "max_tries": 3
-            },
-            "resolver": {
-              "type": "continue"
-            },
-            "variable": "step_254",
-            "next_step": "step_723"
-          },
-          {
-            "step": "step_723",
-            "handlers": [],
-            "resolver": {
-              "type": "callout",
-              "callout": {
-                "path": "/api/v1/web/2ada559b-42cf-4862-904a-2ee51dd62af0/default/Get%20RPA%20Asynchronous%20Status.json",
-                "type": "integration_interaction",
-                "method": "POST",
-                "internal": {
-                  "catalog_item_id": "ec2c7aa8-7d24-49e0-ac95-cdc8446b9a6e"
-                },
-                "request_mapping": {
-                  "body": [
-                    {
-                      "value": {
-                        "variable": "step_506_result_1",
-                        "variable_path": "body.rpaInstanceID"
-                      },
-                      "parameter": "instanceID"
-                    }
-                  ],
-                  "query": [
-                    {
-                      "value": {
-                        "expression": "\"2ada559b-42cf-4862-904a-2ee51dd62af0\""
-                      },
-                      "parameter": "guid"
-                    }
-                  ]
-                },
-                "result_variable": "step_723_result_1"
-              }
-            },
-            "variable": "step_723",
-            "condition": {
-              "eq": [
-                {
-                  "variable": "step_254"
-                },
-                {
-                  "scalar": "yes"
-                }
-              ]
-            },
-            "next_step": "step_387"
-          },
-          {
-            "step": "step_387",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": ""
-                          },
-                          {
-                            "variable": "step_723_result_1",
-                            "child_property": null
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "continue"
-            },
-            "variable": "step_387",
-            "condition": {
-              "eq": [
-                {
-                  "variable": "step_723_result_1",
-                  "variable_path": "success"
-                },
-                {
-                  "scalar": true
-                }
-              ]
-            }
-          }
-        ],
-        "title": "Test Asynch",
-        "action": "action_45275",
-        "boosts": [],
-        "handlers": [],
-        "condition": {
-          "intent": "action_45275_intent_44658"
-        },
-        "variables": [
-          {
-            "title": "{variable}",
-            "variable": "step_114",
-            "data_type": "any"
-          },
-          {
-            "title": "Do you want to check the status",
-            "variable": "step_254",
-            "data_type": "yes_no"
-          },
-          {
-            "title": "{variable}",
-            "variable": "step_387",
-            "data_type": "any"
-          },
-          {
-            "title": "I'll help you fire an asynch request",
-            "variable": "step_506",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_506_result_1",
-            "data_type": "any"
-          },
-          {
-            "title": "No response",
-            "variable": "step_723",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_723_result_1",
-            "data_type": "any"
-          }
-        ],
-        "next_action": "action_45235",
-        "topic_switch": {
-          "allowed_from": true,
-          "allowed_into": true
-        },
-        "disambiguation_opt_out": false
-      },
-      {
-        "steps": [
-          {
             "step": "step_536",
             "handlers": [],
             "resolver": {
@@ -816,7 +244,7 @@
             "variable": "step_825"
           }
         ],
-        "title": "Help me check an instance status",
+        "title": "Check status",
         "action": "action_4591",
         "boosts": [],
         "handlers": [],
@@ -843,124 +271,7 @@
             "data_type": "any"
           }
         ],
-        "next_action": "action_45275",
-        "topic_switch": {
-          "allowed_from": true,
-          "allowed_into": true
-        },
-        "disambiguation_opt_out": false
-      },
-      {
-        "steps": [
-          {
-            "step": "step_884",
-            "handlers": [],
-            "resolver": {
-              "type": "callout",
-              "callout": {
-                "path": "/api/v1/web/2ada559b-42cf-4862-904a-2ee51dd62af0/default/HydroQBAWInit.json",
-                "type": "integration_interaction",
-                "method": "POST",
-                "internal": {
-                  "catalog_item_id": "7f7cfc8f-9f3b-4cdb-a3fd-151e53962923"
-                },
-                "request_mapping": {
-                  "body": [
-                    {
-                      "value": {
-                        "expression": "\"Zach\""
-                      },
-                      "parameter": "requester"
-                    },
-                    {
-                      "value": {
-                        "expression": "\"blah\""
-                      },
-                      "parameter": "productName"
-                    },
-                    {
-                      "value": {
-                        "expression": "\"blah\""
-                      },
-                      "parameter": "requesterID"
-                    },
-                    {
-                      "value": {
-                        "expression": "\"blah\""
-                      },
-                      "parameter": "requesterEmail"
-                    }
-                  ]
-                },
-                "result_variable": "step_884_result_1"
-              }
-            },
-            "variable": "step_884",
-            "next_step": "step_211"
-          },
-          {
-            "step": "step_211",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": ""
-                          },
-                          {
-                            "variable": "step_884_result_1",
-                            "variable_path": "body.poNum"
-                          },
-                          {
-                            "scalar": "<br />\n\n"
-                          },
-                          {
-                            "variable": "step_884_result_1",
-                            "variable_path": "body.bawInstanceID"
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "continue"
-            },
-            "variable": "step_211"
-          }
-        ],
-        "title": "test Hydro",
-        "action": "action_45919",
-        "boosts": [],
-        "handlers": [],
-        "condition": {
-          "intent": "action_45919_intent_24054"
-        },
-        "variables": [
-          {
-            "title": "{variable}<br /> {variable}",
-            "variable": "step_211",
-            "data_type": "any"
-          },
-          {
-            "title": "No response",
-            "variable": "step_884",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_884_result_1",
-            "data_type": "any"
-          }
-        ],
-        "next_action": "action_20514",
+        "next_action": "fallback",
         "topic_switch": {
           "allowed_from": true,
           "allowed_into": true
@@ -1260,19 +571,11 @@
             "data_type": "any"
           }
         ],
-        "next_action": "action_45919",
+        "next_action": "action_41727",
         "disambiguation_opt_out": true
       }
     ],
     "intents": [
-      {
-        "intent": "action_20514_intent_47690",
-        "examples": [
-          {
-            "text": "CLIENTENGINEERING"
-          }
-        ]
-      },
       {
         "intent": "action_41727_intent_15653",
         "examples": [
@@ -1284,33 +587,6 @@
           },
           {
             "text": "Please Test End to end"
-          }
-        ]
-      },
-      {
-        "intent": "action_45235_intent_21004",
-        "examples": [
-          {
-            "text": "Test"
-          },
-          {
-            "text": "Test API"
-          }
-        ]
-      },
-      {
-        "intent": "action_45275_intent_44658",
-        "examples": [
-          {
-            "text": "Test Asynch"
-          }
-        ]
-      },
-      {
-        "intent": "action_45919_intent_24054",
-        "examples": [
-          {
-            "text": "test Hydro"
           }
         ]
       },
@@ -1410,11 +686,11 @@
       },
       "spelling_auto_correct": true
     },
-    "learning_opt_out": false
+    "learning_opt_out": true
   },
   "description": "created for assistant 67ea3f61-423e-46bf-b7ab-a6add1cbefd2",
-  "assistant_id": "67ea3f61-423e-46bf-b7ab-a6add1cbefd2",
-  "workspace_id": "3720b576-023b-4ce3-9f24-3473126dae4f",
+  "assistant_id": "73531d1e-7918-4548-90d3-596e97c526d9",
+  "workspace_id": "8d8d1a09-850c-4ca3-a5e8-ba1e56d8fc1c",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }
