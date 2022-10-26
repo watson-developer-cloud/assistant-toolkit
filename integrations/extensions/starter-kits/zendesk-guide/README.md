@@ -13,6 +13,8 @@ That endpoint is described in detail at https://developer.zendesk.com/api-refere
 ## Basic vs Advanced
 The `basic` starter kit implements a single yet useful API call for retrieving articles. If you are new to custom extensions, we recommend you start there to get an idea on how to use custom extensions with skills. The `advanced` folder contains a kit with the more advanced functionality of API parameters for filtering your search results, which you can use as a creative springboard for more complex use cases.
 
+In addition, the `advanced` version can return _custom search results_ to the calling application.  The `client` folder has an example `index.html` file that uses those custom search results to render the search results as cards rather than as plain text.  You can see examples of both formats in the "Using this Starter Kit" section later in this document.
+
 ## Pre-Requisite Steps
 
 Follow the steps listed in [Pre-Req: Getting Auth Keys and Configuring Your Server](https://github.com/watson-developer-cloud/assistant-toolkit/tree/master/integrations/extensions/starter-kits/zendesk-support#pre-req-getting-auth-keys-and-configuring-your-server) to configure Zendesk to let you access its APIs.
@@ -23,38 +25,48 @@ Follow the steps listed in [Pre-Req: Getting Auth Keys and Configuring Your Serv
 
 If you want to make a _new_ Assistant using this starter kit, take the following steps:
 
-- Download the OpenAPI specification (`zendesk-article-search-openapi.json`) and Actions JSON file (`zendesk-article-search-actions.json`) from the `basic` folder in this starter kit. (This section assumes the basic version of the starter kit, which will provide a basic Zendesk article search capability. For Zendesk filtered search, use the advanced version of the starter kit by downloading the files from the `advanced` folder.)
+- Download the OpenAPI specification and Actions JSON file from the `basic` or `advanced` folder in this starter kit. The advanced OpenAPI specification includes additional parameters for filtering search results (e.g., filtering by document creation date, and the advanced actions file includes an example of how to use use filtering for a specific intent.  If you don't need any filtering of results, you may with to start with the basic kit to make things simpler.
 - Use the OpenAPI specification to [build a custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension). In the `Import OpenAPI` step, you will upload (by click or drag-and-drop) the `zendesk-article-search-openapi.json` file to specify the authentication and methods for your extension. You will be able to review the list of the servers and server variables found within the OpenAPI document.
 - [Add the extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension) using the credentials you obtained in the first step above.
   - For Authentication, select the authentication type provided in your openapi specification from the drop-down menu. In this starter kit, it is `Basic auth`.
-  - Next, enter the Zendesk username and password (typically {your_email}/token and the API token) that you obtained in the `Pre-Requisite Steps` section above.
+  - Next, enter the Zendesk API username and password (typically `{your_email}/token `and the API token) that you obtained in the `Pre-Requisite Steps` section above.
   - Finally, enter the value for your subdomain to access zendesk.com. For example, if your url is https://my-test-domain.zendesk.com, you would enter `my-test-domain` in the Server variables section.
   - Review your extension setup and close to move on to the next steps.
 - Now you are ready to add the actions from the starter kit. Select `Actions` in the upper left menu. Then select `Global settings` at the top right of the Actions window and select the `Upload/Download` tab. Now [upload `zendesk-article-search-actions.json`](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import) to define the actions in this starter kit. Return to `Actions` and you will see three actions: `Search`, `Show search results`, and `Show search result` from the starter kit in the `Created by you` section.
-- Use either method listed in [Configuring Your Actions Skill to use an Extension](https://github.com/watson-developer-cloud/assistant-toolkit/blob/master/integrations/extensions/README.md#configuring-your-actions-skill-to-use-an-extension) to configure the actions you uploaded to invoke the custom extension you built.
-  - In the first step of the "Search" action, in the "Use an extension" section (in "And then") set the following parameter values:
-    - query = query_text
-    - per_page = page_limit
-  - (Advanced) If you are setting up the advanced search action, in the first step of the "Search by document creation date", in the "Use an extension" section, set these parameters:
-    - query = query_text
-    - per_page = page_limit
-    - created_after = created_by_date
+- Use either method listed in [Configuring Your Actions Skill to use an Extension](https://github.com/watson-developer-cloud/assistant-toolkit/blob/master/integrations/extensions/README.md#configuring-your-actions-skill-to-use-an-extension) to configure the actions you uploaded to invoke the custom extension you built.  We generally recommend "Method 1: For simple actions skills" because it tends to be quicker and easier:
+  - Click on the step of the "Search" action that says "Use an extension".  Click on "Edit Extension" and select the extension you created in the earlier steps and the "Search Articles" endpoint.  Then set the following parameter values:
+    - `query = query_text`
+    - `per_page = page_limit`
+  - (Advanced) If you are setting up the advanced search actions, click on the step of the "Search by document creation date" action that says "Use an extension".  Click on "Edit Extension" and select the extension you created in the earlier steps and the "Search Articles" endpoint.  Then set the following parameter values:
+    - `query = query_text`
+    - `per_page = page_limit`
+    - `created_after = created_by_date`
 
 Setting `per_page` is very important for the reliability of the search because Watson Assistant has a limit of 100kb on how much information can be saved in the session state. For more details see [this note about the limits on the sizes of search results](https://github.com/watson-developer-cloud/assistant-toolkit/tree/master/integrations/extensions/starter-kits/watson-discovery#limit-on-size-of-search-results).
 
-Your starter kit is now ready to use. If you are setting up in a new assistant, skip to the section `Using this Starter Kit`.  
+### (Optional/Advanced) Setup the sample index.html file
+
+Included in this kit is an `index.html` file in the `client/javascript` subdirectory.  To use this file, do the following:
+
+- Setup the assistant (as described in "Setup in a new Assistant" above).
+- Open the web chat configuration screen (from the Environments or Integrations pages).
+- Select the "Embed" tab, which should look like the (redacted) image below:  
+![Web chat embed tab](./assets/web-chat-embed.png)  
+- From the included snippet, copy only the three lines starting with `integrationID`, `region`, and `serviceInstanceID`.  Don't copy the others, because the `index.html` file in this kit already has all that.
+- Edit the `index.html` file in this kit to replace those same three lines in the kit (which have dummy placeholder values) with the ones you copied in the previous step.  Now the script is pointing specifically to _your_ assistant.
 
 ### Setup in a pre-existing Assistant
 
+*Note*: If you already did the "Setup in a new Assistant" process above, you can skip over this section and go directly to "Using this Starter Kit" below.
+
 If you want to add this starter kit to an _existing_ assistant, you cannot use the Actions JSON file (e.g.,`zendesk-article-search-actions.json`) since it will overwrite your existing configuration. So instead, follow the following process:
 
-- Download the OpenAPI specification in this starter kit.
+- Download the OpenAPI specification in this starter kit.  Use the one in the `advanced` subdirectory if you need additional parameters to filter on document dates or locale.  Otherwise, use the `basic` one because it is simpler.
 - Use the OpenAPI specification to [build a custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension).
 - [Add the extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension) using the credentials you obtained in the pre-requisite step above.
 - Go to `Variables > Created by you` and add `query_text`, `page_limit`, `search_results`, `search_result`, `link`, `title`, and `snippet`.
 - Go to `Actions > Created by you` and create three new actions titled "Search", "Show search results", and "Show search result" respectively.
-- Click on the `Search` action and put "Search" in "What does your customer say to start this interaction?".  Add step 1:
-- Click the fX button to add a variable and add new session variable `query_text` and select "Expression" type and then put `input.original_text` as the expression. As noted in the [documentation for spell checking](https://cloud.ibm.com/docs/assistant?topic=assistant-dialog-runtime-spell-check#dialog-runtime-spell-check-how-it-works), `input.original_text` is set _only_ if the utterance from the user was altered due to spell correction and then it records the original request from the user and not the spell corrected text. Spell correction can be very counter productive for searching because it can take specialized domain vocabulary and "correct" those terms to generic words in the language, so it is often better to apply the search on the original text, as we are doing here. In addition, click `Set new value` and set `page_limit` to Expression type and then put 3 as the expression. This limits the size of the results returned by the query to avoid timeouts.
+- Click on the `Search` action and add step 1. Click the fX button to add a variable and add new session variable `query_text` and select "Expression" type and then put `input.original_text` as the expression. As noted in the [documentation for spell checking](https://cloud.ibm.com/docs/assistant?topic=assistant-dialog-runtime-spell-check#dialog-runtime-spell-check-how-it-works), `input.original_text` is set _only_ if the utterance from the user was altered due to spell correction and then it records the original request from the user and not the spell corrected text. Spell correction can be very counter productive for searching because it can take specialized domain vocabulary and "correct" those terms to generic words in the language, so it is often better to apply the search on the original text, as we are doing here. In addition, click `Set new value` and set `page_limit` to Expression type and then put 3 as the expression. This limits the size of the results returned by the query to avoid timeouts.
 
 ![Setup query 1](./assets/search-step-1.png)<br>
 
@@ -114,7 +126,9 @@ ${snippet}
 - Close the action editor (by clicking X in the upper right)
 - Go to "Actions" > "Set by assistant" > "No action matches" and remove all the steps from the action.  Add in a new step.  Under "And then" select "Go to another action" and select "Search" and click "End this action after the subaction is completed".
 - You may also want to go to "Actions" > "Set by assistant" > "Fallback" and do the same thing as in the previous step.  Note, however, that this will prevent your assistant from escalating to a human agent when a customer asks to connect to a human agent (which is part of the default behavior for "Fallback") so only do this if you do not have your bot connected to a human agent chat service.  For more details on connecting to human agents within Watson Assistant see [our documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-human-agent) and [blog post](https://medium.com/ibm-watson/bring-your-own-service-desk-to-watson-assistant-b39bc920075c).
-- Go to the Search action and remove "Search" from the "Customer starts with" list so that the search action _only_ triggers via the "Go to another action" settings described in steps 13-15 above.  If you skip this, then the "Search" action will also be considered by the intent recognizer as a possible intent, which adds unnecessary complexity to the intent recognition and thus could result in lower overall intent recognition accuracy.
+- Go to each of the actions you created ("Search", "Show search results", and "Show search result").  For each one, go to the "Customer starts with" list and remove the action name for that list.  This ensures that these actions _only_ triggers via the "Go to another action" settings described in the steps above.  If you skip this, then these actions will also be considered by the intent recognizer as a possible intent, which adds unnecessary complexity to the intent recognition and thus could result in lower overall intent recognition accuracy.
+
+At this point, you will have recreated all of the actions in the `basic` version of the starter kit.  If you want to also use the
 
 ## Using this Starter Kit
 
@@ -147,4 +161,10 @@ The `Search by document creation date` is preconfigured in the starter kit to co
 
 - Now the set up of your filtered search by creation date action is complete. You can try out your new filtered search action by typing "recent rates" in the Preview.
 
-![Try out filtered search](./assets/recent-rates.gif)<br>
+![Try out filtered search in the preview](./assets/recent-rates.gif)<br>
+
+#### Example Usage for the Sample Client with Search Cards
+
+If you did the "Optional/Advanced" setup of `index.html`, you can load `index.html` in the `client/javascript` subdirectory into a browser (e.g., Firefox or Chrome or Safari).  You will see the sample site in the background, and a circle in the lower right where you can open the web chat.  Click on it, and type in a query.  Here is an example of what the results might look like:  
+
+<img src="./assets/sample-chat-client.png" width="300"/>
