@@ -103,8 +103,8 @@ No search results were found for query "${query_text}"
   - In "Variable values" set "search_result" to ${search_results}.get(0)
   - Set "And then" to "Go to another action" and select "Show search result" and "Continue" upon return.
 - Duplicate this step by clicking on the "duplicate" icon in the left menu to show the next result.
-  - Update the condition and the "search_result" variable assignment to the next available result. For the second result, set the condition to ${search_results}.size> 1, and the "search_result" to ${search_results}.get(1).
-  - Duplicate this step for as many results as you want to display. For example, if you want to show 3 results, you will have 3 steps in this action, with "search_result" set to${search_results}.get(0), ${search_results}.get(1), and ${search_results}.get(2), respectively.
+  - Update the condition and the "search_result" variable assignment to the next available result. For the second result, set the condition to ${search_results}.size> 1, and the "search_result" to `${search_results}.get(1)`.
+  - Duplicate this step for as many results as you want to display. For example, if you want to show 3 results, you will have 3 steps in this action, with "search_result" set to `${search_results}.get(0)`, `${search_results}.get(1)`, and `${search_results}.get(2)`, respectively.
 - Close the "Show search results" action.
 
 ![Show search results](./assets/show-search-results.gif)<br>
@@ -128,22 +128,7 @@ ${snippet}
 - You may also want to go to "Actions" > "Set by assistant" > "Fallback" and do the same thing as in the previous step.  Note, however, that this will prevent your assistant from escalating to a human agent when a customer asks to connect to a human agent (which is part of the default behavior for "Fallback") so only do this if you do not have your bot connected to a human agent chat service.  For more details on connecting to human agents within Watson Assistant see [our documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-human-agent) and [blog post](https://medium.com/ibm-watson/bring-your-own-service-desk-to-watson-assistant-b39bc920075c).
 - Go to each of the actions you created ("Search", "Show search results", and "Show search result").  For each one, go to the "Customer starts with" list and remove the action name for that list.  This ensures that these actions _only_ triggers via the "Go to another action" settings described in the steps above.  If you skip this, then these actions will also be considered by the intent recognizer as a possible intent, which adds unnecessary complexity to the intent recognition and thus could result in lower overall intent recognition accuracy.
 
-At this point, you will have recreated all of the actions in the `basic` version of the starter kit.  If you want to also use the
-
-## Using this Starter Kit
-
-### Basic
-Once this starter kit is properly installed, you can issue a query to your bot and if there is no other action that you've configured that matched that query then it will generate search results for that query.
-
-### Advanced
-[The Zendesk article search API](https://developer.zendesk.com/api-reference/help_center/help-center-api/search/#search-articles) includes several parameters that can be used to filter the search results. There are multiple parameters to filter results based on when a document was created or updated, which can be very helpful for limiting query results to the most recent documents or to documents that include a specific modification. There is also a `locale` parameter that can limit query results to e.g., English only documents.
-
-To use the filter parameters in the advanced starter kit, follow the installation instructions given above to install the starter kit, but use the OpenAPI specification (`zendesk-article-advanced-search-openapi.json`) and Actions JSON file (`zendesk-article-advanced-search-actions.json`) from the `advanced` folder.
-
-If you are setting up in a new assistant, after you have uploaded the Actions JSON file (`zendesk-article-advanced-search-actions.json`), return to `Actions` and you will see four actions: `Search`, `Search by document creation date`, `Show search results`, and `Show search result` from the starter kit in the `Created by you` section.
-
-#### Example Usage for Filtered Query by Document Creation Date
-The `Search by document creation date` is preconfigured in the starter kit to conduct the query search in documents created only after `created_by_date`. This section describes how to create this filtered search action.
+At this point, you will have recreated all of the actions in the `basic` version of the starter kit.  If you want to also use the filtered searching capability from the `advanced` kit, you can take the following additional steps to setup the sample action from the advanced actions file (or something similar to set up a filtered search more suited to your specific application):
 
 - Go to `Variables` -> `Created by you`. Create a session variable `created_by_date` and set it to a date. In this example it is 2022-07-15. This will be the value of the `created_after` query parameter used to filter the results in this example.
 
@@ -159,12 +144,26 @@ The `Search by document creation date` is preconfigured in the starter kit to co
 
 ![Set filter parameter in extension](./assets/set-filter-parameter-in-extension.png)<br>
 
-- Now the set up of your filtered search by creation date action is complete. You can try out your new filtered search action by typing "recent rates" in the Preview.
+Now the set up of your filtered search by creation date action is complete.
+
+## Using this Starter Kit
+
+### Basic
+
+Once this starter kit is properly installed, you can issue a query to your bot and if there is no other action that you've configured that matched that query then it will generate search results for that query.  Here is an example of what a basic search result can look like:
+
+<img src="./assets/sample-chat-preview.png" width="300"/>
+
+### Advanced
+
+[The Zendesk article search API](https://developer.zendesk.com/api-reference/help_center/help-center-api/search/#search-articles) includes several parameters that can be used to filter the search results. There are multiple parameters to filter results based on when a document was created or updated, which can be very helpful for limiting query results to the most recent documents or to documents that include a specific modification. There is also a `locale` parameter that can limit query results to e.g., English only documents.
+
+The `Search by document creation date` is preconfigured in the starter kit to conduct the query search in documents created only after `created_by_date`. This section describes how to create this filtered search action.
+
+ You can try out your new filtered search action by typing "recent rates" in the Preview.
 
 ![Try out filtered search in the preview](./assets/recent-rates.gif)<br>
 
-#### Example Usage for the Sample Client with Search Cards
-
-If you did the "Optional/Advanced" setup of `index.html`, you can load `index.html` in the `client/javascript` subdirectory into a browser (e.g., Firefox or Chrome or Safari).  You will see the sample site in the background, and a circle in the lower right where you can open the web chat.  Click on it, and type in a query.  Here is an example of what the results might look like:  
+Also, if you did the "Optional/Advanced" setup of `index.html`, you can load `index.html` in the `client/javascript` subdirectory of this starter kit into a browser (e.g., Firefox or Chrome or Safari).  You will see the sample site in the background, and a circle in the lower right where you can open the web chat.  Click on it, and type in a query.  Here is an example of what the results might look like:
 
 <img src="./assets/sample-chat-client.png" width="300"/>
