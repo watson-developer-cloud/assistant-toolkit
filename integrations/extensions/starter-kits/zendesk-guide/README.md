@@ -11,9 +11,9 @@ The OpenAPI spec in this starter kit includes the following endpoint:
 That endpoint is described in detail at https://developer.zendesk.com/api-reference/help_center/help-center-api/search/#search-articles.
 
 ## Basic vs Advanced
-The `basic` starter kit implements a single yet useful API call for retrieving articles. If you are new to custom extensions, we recommend you start there to get an idea on how to use custom extensions with skills. The `advanced` folder contains a kit with the more advanced functionality of API parameters for filtering your search results, which you can use as a creative springboard for more complex use cases.
+The `basic` starter kit implements a single yet useful API call for retrieving articles. If you are new to custom extensions, we recommend you start there to get an idea on how to use custom extensions with skills. The `advanced` folder contains a kit with additional API parameters for filtering your search results, which you can use as a creative springboard for more complex use cases. The sample actions in the `advanced` folder include an example in which the query "recent rates" is configured to only search for documents whose creation date is recent.
 
-In addition, the `advanced` version can return _custom search results_ to the calling application.  The `client` folder has an example `index.html` file that uses those custom search results to render the search results as cards rather than as plain text.  You can see examples of both formats in the "Using this Starter Kit" section later in this document.
+In addition, the `advanced` version can return _custom search results_ to the calling application.  The `client/javascript` folder has an example `index.html` file that uses those custom search results to render the search results as cards rather than as plain text.  You can see examples of both formats in the "Using this Starter Kit" section later in this document.
 
 ## Pre-Requisite Steps
 
@@ -25,14 +25,14 @@ Follow the steps listed in [Pre-Req: Getting Auth Keys and Configuring Your Serv
 
 If you want to make a _new_ Assistant using this starter kit, take the following steps:
 
-- Download the OpenAPI specification and Actions JSON file from the `basic` or `advanced` folder in this starter kit. The advanced OpenAPI specification includes additional parameters for filtering search results (e.g., filtering by document creation date, and the advanced actions file includes an example of how to use use filtering for a specific intent.  If you don't need any filtering of results, you may with to start with the basic kit to make things simpler.
-- Use the OpenAPI specification to [build a custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension). In the `Import OpenAPI` step, you will upload (by click or drag-and-drop) the `zendesk-article-search-openapi.json` file to specify the authentication and methods for your extension. You will be able to review the list of the servers and server variables found within the OpenAPI document.
+- Download the OpenAPI specification and Actions JSON file from the `basic` or `advanced` folder in this starter kit. (see "Basic vs Advanced" above).
+- Use the OpenAPI specification to [build a custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension). In the `Import OpenAPI` step, you will upload (by click or drag-and-drop) the file in your chosen directory whose name ends in `openapi.json`. This specifies the authentication method, endpoints, and parameters for your extension.
 - [Add the extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension) using the credentials you obtained in the first step above.
   - For Authentication, select the authentication type provided in your openapi specification from the drop-down menu. In this starter kit, it is `Basic auth`.
   - Next, enter the Zendesk API username and password (typically `{your_email}/token `and the API token) that you obtained in the `Pre-Requisite Steps` section above.
   - Finally, enter the value for your subdomain to access zendesk.com. For example, if your url is https://my-test-domain.zendesk.com, you would enter `my-test-domain` in the Server variables section.
   - Review your extension setup and close to move on to the next steps.
-- Now you are ready to add the actions from the starter kit. Select `Actions` in the upper left menu. Then select `Global settings` at the top right of the Actions window and select the `Upload/Download` tab. Now [upload `zendesk-article-search-actions.json`](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import) to define the actions in this starter kit. Return to `Actions` and you will see three actions: `Search`, `Show search results`, and `Show search result` from the starter kit in the `Created by you` section.
+- Now you are ready to add the actions from the starter kit. Select `Actions` in the upper left menu. Then select `Global settings` at the top right of the Actions window and select the `Upload/Download` tab. [Upload the file](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import) ending in `actions.json` from either the `basic` or advanced folder.  This defines the actions in this starter kit. Return to `Actions` and you will see three actions: `Search`, `Show search results`, and `Show search result` from the starter kit in the `Created by you` section (and one more action if you are using the `advanced` configuration).
 - Use either method listed in [Configuring Your Actions Skill to use an Extension](https://github.com/watson-developer-cloud/assistant-toolkit/blob/master/integrations/extensions/README.md#configuring-your-actions-skill-to-use-an-extension) to configure the actions you uploaded to invoke the custom extension you built.  We generally recommend "Method 1: For simple actions skills" because it tends to be quicker and easier:
   - Click on the step of the "Search" action that says "Use an extension".  Click on "Edit Extension" and select the extension you created in the earlier steps and the "Search Articles" endpoint.  Then set the following parameter values:
     - `query = query_text`
@@ -59,14 +59,14 @@ Included in this kit is an `index.html` file in the `client/javascript` subdirec
 
 *Note*: If you already did the "Setup in a new Assistant" process above, you can skip over this section and go directly to "Using this Starter Kit" below.
 
-If you want to add this starter kit to an _existing_ assistant, you cannot use the Actions JSON file (e.g.,`zendesk-article-search-actions.json`) since it will overwrite your existing configuration. So instead, follow the following process:
+If you want to add this starter kit to an _existing_ assistant, you cannot use the actions JSON file (e.g.,`zendesk-article-search-actions.json`) since it will overwrite your existing configuration. So instead, do the following:
 
-- Download the OpenAPI specification in this starter kit.  Use the one in the `advanced` subdirectory if you need additional parameters to filter on document dates or locale.  Otherwise, use the `basic` one because it is simpler.
+- Download the OpenAPI specification from the `basic` or `advanced` folder in this starter kit. (see "Basic vs Advanced" above).
 - Use the OpenAPI specification to [build a custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension).
 - [Add the extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension) using the credentials you obtained in the pre-requisite step above.
 - Go to `Variables > Created by you` and add `query_text`, `page_limit`, `search_results`, `search_result`, `link`, `title`, and `snippet`.
 - Go to `Actions > Created by you` and create three new actions titled "Search", "Show search results", and "Show search result" respectively.
-- Click on the `Search` action and add step 1. Click the fX button to add a variable and add new session variable `query_text` and select "Expression" type and then put `input.original_text` as the expression. As noted in the [documentation for spell checking](https://cloud.ibm.com/docs/assistant?topic=assistant-dialog-runtime-spell-check#dialog-runtime-spell-check-how-it-works), `input.original_text` is set _only_ if the utterance from the user was altered due to spell correction and then it records the original request from the user and not the spell corrected text. Spell correction can be very counter productive for searching because it can take specialized domain vocabulary and "correct" those terms to generic words in the language, so it is often better to apply the search on the original text, as we are doing here. In addition, click `Set new value` and set `page_limit` to Expression type and then put 3 as the expression. This limits the size of the results returned by the query to avoid timeouts.
+- Click on the `Search` action and add step 1. Click the fX button to add a variable and add new session variable `query_text` and select "Expression" type and then put `input.original_text` as the expression. As noted in the [documentation for spell checking](https://cloud.ibm.com/docs/assistant?topic=assistant-dialog-runtime-spell-check#dialog-runtime-spell-check-how-it-works), `input.original_text` is set _only_ if the utterance from the user was altered due to spell correction and then it records the original request from the user and not the spell corrected text. Spell correction can be very counter productive for searching because it can take specialized domain vocabulary and "correct" those terms to generic words in the language, so it is often better to apply the search on the original text, as we are doing here. In addition, click `Set new value` and set `page_limit` to Expression type and then put 3 as the expression. This limits the size of the results returned by the query to avoid hitting the 100kb limit on session state.
 
 ![Setup query 1](./assets/search-step-1.png)<br>
 
@@ -86,24 +86,27 @@ Sorry.  The search failed!  Please try again another time.
 - Still in the "Search" action, add a "New Step".  In the new step:
   - In "Assistant says" hit `$` and select "Ran Successfully" and then click on `</>` in the upper right of that box to see the full JSON for the response.  In there, you should see a field called `variable` with a value that looks something like `step_123_result_1`.  Copy that value.
   - Click "abc" in the upper right and delete the variable in "Assistant says" (we only put it there to copy the variable name).
-  - Change "without conditions" to "with conditions" and select "true" for "Ran successfully" and "${step_123_result_1.body.results}.size > 0"
-  - Click on "Variable values" and set `search_results` to "${step_123_result_1.body.results}". This allows you to pass the search results to actions that display them.
+  - Change "without conditions" to "with conditions" and select `true` for "Ran successfully" and add the expression `${step_123_result_1.body.results}.size > 0`
+  - Click on "Variable values" and set `search_results` to `${step_123_result_1.body.results}`. This allows you to pass the search results to actions that display them.
   - Set "And then" to "Go to another action" and select "Show search results" and "End current action" upon return.
 
 ![Pass results to display action](./assets/pass-results-to-display.gif)<br>
 
-- Click "New Step" and change "without conditions" to "with conditions" and select "Ran successfully" is "true" and "${step_123_result_1.body.results}.size = 0".  Also set "And then" to "End the action".  Then add the following to the "Assistant says":
-No search results were found for query "${query_text}"
+- Click "New Step" and change "without conditions" to "with conditions" and select "Ran successfully" is `true` and `${step_123_result_1.body.results}.size = 0`.  Also set "And then" to "End the action".  Then add the following to the "Assistant says":
+
+```
+Sorry, no search results were found for "${query_text}"
+```
 
 ![No results were found](./assets/no-results-step.gif)<br>
 
 - Close the "Search" action.
 - Click on the "Show search results" action and Add step 1:
-  - Change "without conditions" to "with conditions" and add the expression ${search_results}.size> 0.
-  - In "Variable values" set "search_result" to ${search_results}.get(0)
+  - Change "without conditions" to "with conditions" and add the expression `${search_results}.size> 0`.
+  - In "Variable values" set `search_result` to `${search_results}.get(0)`
   - Set "And then" to "Go to another action" and select "Show search result" and "Continue" upon return.
 - Duplicate this step by clicking on the "duplicate" icon in the left menu to show the next result.
-  - Update the condition and the "search_result" variable assignment to the next available result. For the second result, set the condition to ${search_results}.size> 1, and the "search_result" to `${search_results}.get(1)`.
+  - Update the condition and the `search_result` variable assignment to the next available result. For the second result, set the condition to `${search_results}.size> 1`, and the `search_result` to `${search_results}.get(1)`.
   - Duplicate this step for as many results as you want to display. For example, if you want to show 3 results, you will have 3 steps in this action, with "search_result" set to `${search_results}.get(0)`, `${search_results}.get(1)`, and `${search_results}.get(2)`, respectively.
 - Close the "Show search results" action.
 
@@ -111,7 +114,7 @@ No search results were found for query "${query_text}"
 
 
 - Click on the "Show search result" action and Add step 1:
-  - In "Variable values" set "link" to "$search_result.html_url", set "title" to "$search_result.title", and set "snippet" to "$search_result.snippet"
+  - In "Variable values" set `link` to `$search_result.html_url`, set `title` to `$search_result.title`, and set `snippet` to `$search_result.snippet`
   - Then add the following to the "Assistant says" to display the result and then set "And then" to "End the action".
 
 ```
