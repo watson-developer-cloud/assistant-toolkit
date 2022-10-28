@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Zendesk Guide search extension for IBM Watson Assistant demo</title>
+
+<meta property="og:title" content="Zendesk demo"/>
+<meta property="og:description" content="Demo shows off custom search cards for Zendesk Guide search extension for IBM Watson Assistant"/>
+<meta property="og:site_name" content="IBM Watson Assistant demos"/>
+<meta property="og:image:width" content="1200" />
+
+<link rel="shortcut icon" href="https://web-chat.global.assistant.watson.cloud.ibm.com/favicon.ico">
+
+<style>
+
+#WACContainer.WACContainer .WACTextHolderTile {
+  display: flex;
+  padding: 12px;
+  min-height: auto;
+}
+
+#WACContainer.WACContainer .WACTextHolderTile__Icon{
+  flex: 0 1 auto;
+  margin: 0 8px 0 0;
+}
+
+#WACContainer.WACContainer .WACTextHolderTile__Wrapper{
+  flex: 1 1;
+  align-self: center;
+}
+
+#WACContainer.WACContainer .SearchResultCard-button,
+#WACContainer.WACContainer .SearchResultCard {
+  padding: 0;
+  width: 100%;
+  text-align: unset;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  overflow: hidden;
+  background-color: #ffffff;
+  color: unset;
+  width: 100%;
+  outline: none;
+  border: 2px solid transparent;
+ }
+
+#WACContainer.WACContainer .SearchResultCard-button {
+  cursor: pointer;
+}
+
+#WACContainer.WACContainer .SearchResultCard-launch {
+  float: right;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+#WACContainer.WACContainer .SearchResultIcon {
+   height: 16px;
+}
+
+#WACContainer.WACContainer .SearchResultTitle {
+  display: flex;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  margin-bottom: 4px;
+}
+
+#WACContainer.WACContainer .SearchResultSnippet {
+  font-family: 'IBM Plex Sans';
+  color: #000000;
+  font-weight: 400;
+  line-height: 18px;
+  font-size: 12px;
+  font-style: normal;
+}
+
+#WACContainer.WACContainer .SearchResultSnippetEmphasizedAnswer {
+  font-family: 'IBM Plex Sans';
+  color: #000000;
+  font-weight: 600;
+  line-height: 18px;
+  font-size: 14px;
+  text-decoration: underline;
+  font-style: normal;
+}
+
+</style>
+
+</head>
+
+<body>
+
+  <script>
+
+      // This sets the user_defined_responses_enabled session variable to true.
+      // In our sample actions, the "Show search result" action checks this variable
+      // and returns a special search card response that this script knows how to
+      // process (in the searchCardHandler below).  If user_defined_responses_enabled
+      // was not set here, then the "Show search result" action would continue on
+      // to a plain HTML response that does not require any additional processing
+      // to render.
+      function preSendhandler(event) {
+        event.data.context.skills['actions skill'] = event.data.context.skills['actions skill'] || {};
+        event.data.context.skills['actions skill'].skill_variables = event.data.context.skills['actions skill'].skill_variables || {};
+        event.data.context.skills['actions skill'].skill_variables.user_defined_responses_enabled = true;
+      }
+
+      /**
+       * This function is called to render the custom response that displays the results from the previous custom
+       * response.
+       */
+      function searchCardHandler(event) {
+        const { element, fullMessage } = event.data;
+        const title=event.data.message.user_defined.title;
+        const description=event.data.message.user_defined.snippet;
+        const urlHostName=event.data.message.user_defined.link;
+
+        if(title && urlHostName) {
+          element.innerHTML = `
+            <button class="SearchResultCard-button" onclick="window.open('${urlHostName}','_blank')" type="button">
+              <div class="WACTextHolderTile">
+                <div class="WACTextHolderTile__Wrapper">
+                  <p class="SearchResultTitle">
+                    ${title}
+                  </p>
+                  <p class="SearchResultSnippet">
+                    ${description}
+                  </p>
+                  <embed class="SearchResultCard-launch" src="launch.svg"/>
+                </div>
+              </div>
+            </button>
+
+        `;
+        }
+        else {
+          element.innerHTML = `
+          <div class="SearchResultCard">
+            <div class="WACTextHolderTile">
+              <div class="WACTextHolderTile__Wrapper">
+                <p class="SearchResultTitle">
+                  ${title}
+                </p>
+                <p class="SearchResultSnippet">
+                  ${description}
+                </p>
+              </div>
+            </div>
+          </div>
+        `;
+        }
+      }
+
+      /**
+       * This is the function that is called when the web chat code has been loaded and it is ready to be rendered.
+       */
+      function onLoad(instance) {
+        // Listen for the customResponse event that will allow us to create content for the custom response when one is
+        // received. See https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#summary for more
+        // about our events.
+        instance.on({
+          type: 'customResponse',
+          handler: (event, instance) => {
+            // The "user_defined_type" property is just an example; it is not required. You can use any other property or
+            // condition you want here. This makes it easier to handle different response types if you have more than
+            // one custom response type.
+            if (event.data.message.user_defined && event.data.message.user_defined.user_defined_type === 'search_card') {
+              searchCardHandler(event, instance);
+            }
+          },
+        });
+        instance.on({ type: "pre:send", handler: preSendhandler });
+        instance.render();
+      }
+
+
+      window.watsonAssistantChatOptions = {
+        integrationID: "40676a06-cc0c-48b7-b752-ae95e893b3a2", // The ID of this integration.  The one provided in the kit is a dummy/placeholder.  Replace this line as described in README.md.
+        region: "us-south", // The region your integration is hosted in. Replace this line as described in README.md.
+        serviceInstanceID: "0d7a3de9-a1f3-409d-956e-3154cddebd31", // The ID of your service instance.   The one provided in the kit is a dummy/placeholder.  Replace this line as described in README.md.
+        onLoad: onLoad
+      };
+      setTimeout(function(){
+        const t=document.createElement('script');
+        t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";
+        document.head.appendChild(t);
+      });
+
+    </script>
+
+ <!-- This iframe provides an example background for this demo.  In a real application, you would get rid of it and put your actual page content here instead -->
+ <iframe src="https://www.ibm.com/watson" title="IBM Watson" width="100%" height="1800px"></iframe>
+
+</body>
+</html>
