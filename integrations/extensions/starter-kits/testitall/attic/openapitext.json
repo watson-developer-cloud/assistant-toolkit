@@ -1,0 +1,485 @@
+{
+  "openapi" : "3.0.3",
+  "info" : {
+    "title" : "Mock Integration- Localhost",
+    "version" : "1.0.0",
+    "contact" : { }
+  },
+  "servers" : [ {
+    "description" : "SwaggerHub API Auto Mocking",
+    "url" : "https://virtserver.swaggerhub.com/amiddavid/Test001/1.0.0"
+  }, {
+    "url" : "https://{ngrok_uuid}.ngrok.io",
+    "variables" : {
+      "ngrok_uuid" : {
+        "default" : "3fb6-2a0d-6fc2-4380-3c00-3111-5ae5-c50f-224",
+        "description" : "uuid provided by ngrok"
+      }
+    }
+  }, {
+    "url" : "http://{host}:4000",
+    "variables" : {
+      "host" : {
+        "default" : "localhost",
+        "description" : "testing our support for server variables"
+      }
+    }
+  } ],
+  "components" : {
+    "securitySchemes" : {
+      "BasicAuth" : {
+        "type" : "http",
+        "scheme" : "basic"
+      },
+      "BearerAuth" : {
+        "type" : "http",
+        "scheme" : "bearer"
+      },
+      "ApiKeyAuth" : {
+        "type" : "apiKey",
+        "in" : "header",
+        "name" : "X-API-Key"
+      }
+    }
+  },
+  "security" : [ {
+    "BasicAuth" : [ ]
+  }, {
+    "BearerAuth" : [ ]
+  }, {
+    "ApiKeyAuth" : [ ]
+  } ],
+  "paths" : {
+    "/delay" : {
+      "post" : {
+        "tags" : [ "API" ],
+        "summary" : "Timeout",
+        "description" : "if sleep_time is above 30, you will receive a 408",
+        "operationId" : "delay",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "sleep_time" : {
+                    "type" : "string",
+                    "example" : "25"
+                  }
+                },
+                "required" : [ "sleep_time" ]
+              },
+              "example" : {
+                "sleep_time" : "25"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "status" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "408" : {
+            "description" : "Timeout, in case sleep time is above 30"
+          }
+        }
+      }
+    },
+    "/test" : {
+      "get" : {
+        "tags" : [ "API" ],
+        "summary" : "TEST GET",
+        "description" : "TEST GET",
+        "operationId" : "testGet",
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "status" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "API" ],
+        "summary" : "TEST PUT",
+        "description" : "TEST PUT",
+        "operationId" : "testPut",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "some_content" : {
+                    "type" : "string",
+                    "example" : "25"
+                  }
+                }
+              },
+              "example" : {
+                "sleep_time" : "25"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "status" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "API" ],
+        "summary" : "TEST POST",
+        "description" : "TEST POST",
+        "operationId" : "testPost",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "some_content" : {
+                    "type" : "string",
+                    "example" : "25"
+                  }
+                }
+              },
+              "example" : {
+                "sleep_time" : "25"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "status" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "API" ],
+        "summary" : "TEST DELETE",
+        "description" : "TEST DELETE",
+        "operationId" : "testDelete",
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "status" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/test/content" : {
+      "post" : {
+        "tags" : [ "API" ],
+        "summary" : "TEST Content Aware",
+        "description" : "TEST Content Aware - Json",
+        "operationId" : "testContentAwareJson",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "some_content" : {
+                    "type" : "string",
+                    "example" : "25"
+                  }
+                }
+              },
+              "example" : {
+                "sleep_time" : "25"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+                "text/plain" : {
+                  "schema" : {
+                    "type" : "string"
+                  }
+                }
+            }
+          }
+        }
+      }
+    },
+    "/test/arrays1" : {
+      "post" : {
+        "tags" : [ "API" ],
+        "summary" : "TEST Arrays",
+        "description" : "TEST Arrays",
+        "operationId" : "Arrays",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type": "object",
+                "properties": {
+                  "my_array":{
+                    "type" : "array",
+                    "items" : {
+                      
+                        "type" : "string"
+                      
+                    }
+                  },
+                  "item":{
+                    "type" : "string"
+                    
+                  }
+                }
+              }
+             
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "reverse_array" : {
+                      "type" : "array"
+                    }
+                  }
+                }
+              }
+            }
+          }
+         
+        }
+      }
+    },
+    "/test/arrays" : {
+      "post" : {
+        "tags" : [ "API" ],
+        "summary" : "TEST Arrays",
+        "description" : "TEST Arrays",
+        "operationId" : "Arrays",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "array",
+                "items" : {
+                  
+                    "type" : "string"
+                  
+                }
+              }
+             
+            }
+          }
+        },
+        "responses" : {
+          
+          "200" : {
+            "description" : "should never be returned",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items": {
+                      "type" : "string"
+                    
+                  }
+                }
+              }
+            }
+          }
+         
+        }
+      }
+    },
+    "/test/error" : {
+      "post" : {
+        "tags" : [ "API" ],
+        "summary" : "TEST Error",
+        "description" : "TEST Error",
+        "operationId" : "testError",
+        
+        "responses" : {
+          "200" : {
+            "description" : "should never be returned",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "this is the only response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "message" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/test/params/{path_param}" : {
+      "post" : {
+        "tags" : [ "API" ],
+        "summary" : "TEST Params",
+        "description" : "test we handle params  path, query, header",
+        "operationId" : "testParams",
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "query_param",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "path_param",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "header",
+          "name" : "header_param",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "echoes back the params values",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "path_param" : {
+                      "type" : "string"
+                    },
+                    "query_param" : {
+                      "type" : "string"
+                    },
+                    "header_param" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/security/{method}" : {
+      "post" : {
+        "tags" : [ "API" ],
+        "summary" : "TEST Security",
+        "description" : "test we handle authentication for  basic, bearer, api-key",
+        "operationId" : "testSecurity",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "method",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "echoes back the params values",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "message" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags" : [ {
+    "name" : "API"
+  } ]
+}

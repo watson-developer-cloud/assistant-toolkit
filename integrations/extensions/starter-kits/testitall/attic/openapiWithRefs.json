@@ -1,0 +1,364 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Mock Integration- Localhost",
+    "contact": {},
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://virtserver.swaggerhub.com/amiddavid/Test001/1.0.0",
+      "description": "SwaggerHub API Auto Mocking"
+    },
+    {
+      "url": "https://{ngrok_uuid}.ngrok.io",
+      "variables": {
+        "ngrok_uuid": {
+          "description": "uuid provided by ngrok",
+          "default": "3fb6-2a0d-6fc2-4380-3c00-3111-5ae5-c50f-224"
+        }
+      }
+    },
+    {
+      "url": "http://{host}:4000",
+      "variables": {
+        "host": {
+          "description": "testing our support for server variables",
+          "default": "localhost"
+        }
+      }
+    }
+  ],
+  "security": [
+    {
+      "BasicAuth": []
+    },
+    {
+      "BearerAuth": []
+    },
+    {
+      "ApiKeyAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "API"
+    }
+  ],
+  "paths": {
+    "/delay": {
+      "post": {
+        "tags": [
+          "API"
+        ],
+        "summary": "Timeout",
+        "description": "if sleep_time is above 30, you will receive a 408",
+        "operationId": "delay",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/delay_body"
+              },
+              "example": {
+                "sleep_time": "25"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "408": {
+            "description": "Timeout, in case sleep time is above 30"
+          }
+        }
+      }
+    },
+    "/test": {
+      "get": {
+        "tags": [
+          "API"
+        ],
+        "summary": "TEST GET",
+        "description": "TEST GET",
+        "operationId": "testGet",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "API"
+        ],
+        "summary": "TEST PUT",
+        "description": "TEST PUT",
+        "operationId": "testPut",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/test_body"
+              },
+              "example": {
+                "sleep_time": "25"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "API"
+        ],
+        "summary": "TEST POST",
+        "description": "TEST POST",
+        "operationId": "testPost",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/test_body_1"
+              },
+              "example": {
+                "sleep_time": "25"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "API"
+        ],
+        "summary": "TEST DELETE",
+        "description": "TEST DELETE",
+        "operationId": "testDelete",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/test/content": {
+      "post": {
+        "tags": [
+          "API"
+        ],
+        "summary": "TEST Content Aware",
+        "description": "TEST Content Aware - Json",
+        "operationId": "testContentAwareJson",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/test_content_body"
+              },
+              "example": {
+                "sleep_time": "25"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/test/error": {
+      "post": {
+        "tags": [
+          "API"
+        ],
+        "summary": "TEST Error",
+        "description": "TEST Error",
+        "operationId": "testError",
+        "responses": {
+          "400": {
+            "description": "this is the only response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/test/params/{path_param}": {
+      "post": {
+        "tags": [
+          "API"
+        ],
+        "summary": "TEST Params",
+        "description": "test we handle params  path, query, header",
+        "operationId": "testParams",
+        "parameters": [
+          {
+            "name": "query_param",
+            "in": "query",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "path_param",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "header_param",
+            "in": "header",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "echoes back the params values"
+          }
+        }
+      }
+    },
+    "/security/{method}": {
+      "post": {
+        "tags": [
+          "API"
+        ],
+        "summary": "TEST Security",
+        "description": "test we handle authentication for  basic, bearer, api-key",
+        "operationId": "testSecurity",
+        "parameters": [
+          {
+            "name": "method",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "echoes back the params values"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "delay_body": {
+        "type": "object",
+        "properties": {
+          "sleep_time": {
+            "type": "string",
+            "example": "25"
+          }
+        }
+      },
+      "test_content_body": {
+        "type": "object",
+        "properties": {
+          "sleep_time": {
+            "type": "string",
+            "example": "25"
+          }
+        }
+      },
+      "test_body_1": {
+        "type": "object",
+        "properties": {
+          "sleep_time": {
+            "type": "string",
+            "example": "25"
+          }
+        }
+      },
+      "inline_response_200": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          }
+        }
+      },
+      "test_body": {
+        "type": "object",
+        "properties": {
+          "sleep_time": {
+            "type": "string",
+            "example": "25"
+          }
+        }
+      },
+      "inline_response_400": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "BasicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      },
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      },
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "name": "X-API-Key",
+        "in": "header"
+      }
+    }
+  }
+}
