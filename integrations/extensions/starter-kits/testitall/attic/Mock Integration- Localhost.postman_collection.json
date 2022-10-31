@@ -1,0 +1,2943 @@
+{
+	"info": {
+		"_postman_id": "f6f9e456-0ae0-4a21-b118-4777ac87c1f9",
+		"name": "Mock Integration- Localhost",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "WA",
+			"item": [
+				{
+					"name": "Setup",
+					"item": [
+						{
+							"name": "0- create assistant",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"postman.setEnvironmentVariable(\"ASSISTANT_ID\", jsonData.assistant_id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Watson-Origin",
+										"value": "{{X_WATSON_ORIGIN}}",
+										"type": "text"
+									},
+									{
+										"key": "X-Watson-Userinfo",
+										"value": "{{X_WATSON_USERINFO}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \r\n    \"language\": \"en\",\r\n    \"name\": \"David new ia test\"\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{STORE_URL}}/v2/assistants?version={{API_VERSION}}&new_ia={{NEW_IA}}",
+									"host": [
+										"{{STORE_URL}}"
+									],
+									"path": [
+										"v2",
+										"assistants"
+									],
+									"query": [
+										{
+											"key": "version",
+											"value": "{{API_VERSION}}"
+										},
+										{
+											"key": "new_ia",
+											"value": "{{NEW_IA}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "1- register catalog item",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"postman.setEnvironmentVariable(\"CATALOG_ITEM_ID\", jsonData.catalog_item_id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Watson-Origin",
+										"value": "{{X_WATSON_ORIGIN}}",
+										"type": "text"
+									},
+									{
+										"key": "X-Watson-UserInfo",
+										"value": "{{X_WATSON_USERINFO}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"title\" : \"mc\",\r\n  \"description\" : \"The best timarketing system in the world\",\r\n  \"specification\": {\r\n    \"type\": \"OpenAPI\",\r\n    \"source\": \"http://www.example.com/spec\"\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/catalog/integrations?version={{API_VERSION}}",
+									"host": [
+										"{{STORE_URL}}"
+									],
+									"path": [
+										"v2",
+										"assistants",
+										"{{ASSISTANT_ID}}",
+										"catalog",
+										"integrations"
+									],
+									"query": [
+										{
+											"key": "version",
+											"value": "{{API_VERSION}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2- V2 update skill",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Watson-Origin",
+										"value": "{{X_WATSON_ORIGIN}}",
+										"type": "text"
+									},
+									{
+										"key": "X-Watson-UserInfo",
+										"value": "{{X_WATSON_USERINFO}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"assistant_id\": \"{{ASSISTANT_ID}}\",\r\n    \"workspace\": {\r\n        \"actions\": [\r\n            {\r\n                \"steps\": [\r\n                    {\r\n                        \"step\": \"step_347\",\r\n                        \"output\": {\r\n                            \"generic\": [\r\n                                {\r\n                                    \"values\": [\r\n                                        {\r\n                                            \"text_expression\": {\r\n                                                \"concat\": [\r\n                                                    {\r\n                                                        \"scalar\": \"one moment let me delete it\"\r\n                                                    }\r\n                                                ]\r\n                                            }\r\n                                        }\r\n                                    ],\r\n                                    \"response_type\": \"text\",\r\n                                    \"selection_policy\": \"sequential\"\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"handlers\": [],\r\n                        \"resolver\": {\r\n                            \"type\": \"callout\",\r\n                            \"callout\": {\r\n                                \"path\": \"/test\",\r\n                                \"type\": \"integration_interaction\",\r\n                                \"method\": \"DELETE\",\r\n                                \"internal\": {\r\n                                    \"catalog_item_id\": \"847e8f57-86f7-4525-9472-0d0cf3049b39\"\r\n                                },\r\n                                \"request_mapping\": {},\r\n                                \"result_variable\": \"mock_result\"\r\n                            }\r\n                        },\r\n                        \"variable\": \"step_347\",\r\n                        \"next_step\": \"step_509\"\r\n                    },\r\n                    {\r\n                        \"step\": \"step_509\",\r\n                        \"output\": {\r\n                            \"generic\": [\r\n                                {\r\n                                    \"values\": [\r\n                                        {\r\n                                            \"text_expression\": {\r\n                                                \"concat\": [\r\n                                                    {\r\n                                                        \"scalar\": \"Indeed it was deleted - result is:\"\r\n                                                    }\r\n                                                ]\r\n                                            }\r\n                                        }\r\n                                    ],\r\n                                    \"response_type\": \"text\",\r\n                                    \"selection_policy\": \"sequential\"\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"handlers\": [],\r\n                        \"resolver\": {\r\n                            \"type\": \"continue\"\r\n                        },\r\n                        \"variable\": \"step_509\"\r\n                    }\r\n                ],\r\n                \"title\": \"DELETE\",\r\n                \"action\": \"action_1543\",\r\n                \"handlers\": [],\r\n                \"condition\": {\r\n                    \"intent\": \"action_1543_intent_5385\"\r\n                },\r\n                \"variables\": [\r\n                    {\r\n                        \"title\": \"oops I deleted it\",\r\n                        \"variable\": \"step_347\",\r\n                        \"data_type\": \"any\"\r\n                    },\r\n                    {\r\n                        \"title\": \"Indeed it was deleted - result is:\",\r\n                        \"variable\": \"step_509\",\r\n                        \"data_type\": \"any\"\r\n                    }\r\n                ],\r\n                \"next_action\": \"action_30035\",\r\n                \"topic_switch\": {\r\n                    \"allowed_from\": true,\r\n                    \"allowed_into\": true\r\n                },\r\n                \"disambiguation_opt_out\": false\r\n            },\r\n            {\r\n                \"steps\": [\r\n                    {\r\n                        \"step\": \"step_386\",\r\n                        \"output\": {\r\n                            \"generic\": [\r\n                                {\r\n                                    \"values\": [\r\n                                        {\r\n                                            \"text_expression\": {\r\n                                                \"concat\": [\r\n                                                    {\r\n                                                        \"scalar\": \"Indeed it was posted - result is:\"\r\n                                                    }\r\n                                                ]\r\n                                            }\r\n                                        }\r\n                                    ],\r\n                                    \"response_type\": \"text\",\r\n                                    \"selection_policy\": \"sequential\"\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"handlers\": [],\r\n                        \"resolver\": {\r\n                            \"type\": \"continue\"\r\n                        },\r\n                        \"variable\": \"step_386\"\r\n                    },\r\n                    {\r\n                        \"step\": \"step_867\",\r\n                        \"output\": {\r\n                            \"generic\": [\r\n                                {\r\n                                    \"values\": [\r\n                                        {\r\n                                            \"text_expression\": {\r\n                                                \"concat\": [\r\n                                                    {\r\n                                                        \"scalar\": \"this is a post\"\r\n                                                    }\r\n                                                ]\r\n                                            }\r\n                                        }\r\n                                    ],\r\n                                    \"response_type\": \"text\",\r\n                                    \"selection_policy\": \"sequential\"\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"handlers\": [],\r\n                        \"resolver\": {\r\n                            \"type\": \"callout\",\r\n                            \"callout\": {\r\n                                \"path\": \"/test\",\r\n                                \"type\": \"integration_interaction\",\r\n                                \"method\": \"POST\",\r\n                                \"internal\": {\r\n                                    \"catalog_item_id\": \"847e8f57-86f7-4525-9472-0d0cf3049b39\"\r\n                                },\r\n                                \"request_mapping\": {},\r\n                                \"result_variable\": \"mock_result\"\r\n                            }\r\n                        },\r\n                        \"variable\": \"step_867\",\r\n                        \"next_step\": \"step_386\"\r\n                    }\r\n                ],\r\n                \"title\": \"POST\",\r\n                \"action\": \"action_20585\",\r\n                \"handlers\": [],\r\n                \"condition\": {\r\n                    \"intent\": \"action_20585_intent_24221\"\r\n                },\r\n                \"variables\": [\r\n                    {\r\n                        \"title\": \"Indeed it was posted - result is:\",\r\n                        \"variable\": \"step_386\",\r\n                        \"data_type\": \"any\"\r\n                    },\r\n                    {\r\n                        \"title\": \"this is a post\",\r\n                        \"variable\": \"step_867\",\r\n                        \"data_type\": \"any\"\r\n                    }\r\n                ],\r\n                \"next_action\": \"fallback\",\r\n                \"topic_switch\": {\r\n                    \"allowed_from\": true,\r\n                    \"allowed_into\": true\r\n                },\r\n                \"disambiguation_opt_out\": false\r\n            },\r\n            {\r\n                \"steps\": [\r\n                    {\r\n                        \"step\": \"step_436\",\r\n                        \"output\": {\r\n                            \"generic\": [\r\n                                {\r\n                                    \"values\": [\r\n                                        {\r\n                                            \"text_expression\": {\r\n                                                \"concat\": [\r\n                                                    {\r\n                                                        \"scalar\": \"So this is your error: \"\r\n                                                    },\r\n                                                    {\r\n                                                        \"variable\": \"error_result\"\r\n                                                    },\r\n                                                    {\r\n                                                        \"scalar\": \"status code: \"\r\n                                                    },\r\n                                                    {\r\n                                                        \"variable\": \"error_result_status\"\r\n                                                    }\r\n                                                ]\r\n                                            }\r\n                                        }\r\n                                    ],\r\n                                    \"response_type\": \"text\",\r\n                                    \"selection_policy\": \"sequential\"\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"context\": {\r\n                            \"variables\": [\r\n                                {\r\n                                    \"value\": {\r\n                                        \"expression\": \"${mock_result}.body\"\r\n                                    },\r\n                                    \"variable\": \"error_result\"\r\n                                },\r\n                                {\r\n                                    \"value\": {\r\n                                        \"expression\": \"${mock_result}.status\"\r\n                                    },\r\n                                    \"variable\": \"error_result_status\"\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"handlers\": [],\r\n                        \"resolver\": {\r\n                            \"type\": \"continue\"\r\n                        },\r\n                        \"variable\": \"step_436\"\r\n                    },\r\n                    {\r\n                        \"step\": \"step_997\",\r\n                        \"output\": {\r\n                            \"generic\": [\r\n                                {\r\n                                    \"values\": [\r\n                                        {\r\n                                            \"text_expression\": {\r\n                                                \"concat\": [\r\n                                                    {\r\n                                                        \"scalar\": \"I will show you how I handle error\"\r\n                                                    }\r\n                                                ]\r\n                                            }\r\n                                        }\r\n                                    ],\r\n                                    \"response_type\": \"text\",\r\n                                    \"selection_policy\": \"sequential\"\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"handlers\": [],\r\n                        \"resolver\": {\r\n                            \"type\": \"callout\",\r\n                            \"callout\": {\r\n                                \"path\": \"/test/error\",\r\n                                \"type\": \"integration_interaction\",\r\n                                \"method\": \"POST\",\r\n                                \"internal\": {\r\n                                    \"catalog_item_id\": \"847e8f57-86f7-4525-9472-0d0cf3049b39\"\r\n                                },\r\n                                \"request_mapping\": {},\r\n                                \"result_variable\": \"mock_result\"\r\n                            }\r\n                        },\r\n                        \"variable\": \"step_997\",\r\n                        \"next_step\": \"step_436\"\r\n                    }\r\n                ],\r\n                \"title\": \"Error\",\r\n                \"action\": \"action_26118\",\r\n                \"handlers\": [],\r\n                \"condition\": {\r\n                    \"intent\": \"action_26118_intent_41514\"\r\n                },\r\n                \"variables\": [\r\n                    {\r\n                        \"title\": \"So this is your error\",\r\n                        \"variable\": \"step_436\",\r\n                        \"data_type\": \"any\"\r\n                    },\r\n                    {\r\n                        \"title\": \"I will show you how I handle error\",\r\n                        \"variable\": \"step_997\",\r\n                        \"data_type\": \"any\"\r\n                    },\r\n                    {\r\n                        \"title\": \"aggregated variable\",\r\n                        \"variable\": \"error_result\",\r\n                        \"data_type\": \"any\"\r\n                    },\r\n                    {\r\n                        \"title\": \"aggregated variable\",\r\n                        \"variable\": \"error_result_status\",\r\n                        \"data_type\": \"any\"\r\n                    }\r\n                ],\r\n                \"next_action\": \"action_45207\",\r\n                \"topic_switch\": {\r\n                    \"allowed_from\": true,\r\n                    \"allowed_into\": true\r\n                },\r\n                \"disambiguation_opt_out\": false\r\n            },\r\n            {\r\n                \"steps\": [\r\n                    {\r\n                        \"step\": \"step_213\",\r\n                        \"output\": {\r\n                            \"generic\": [\r\n                                {\r\n                                    \"values\": [\r\n                                        {\r\n                                            \"text_expression\": {\r\n                                                \"concat\": [\r\n                                                    {\r\n                                                        \"scalar\": \"PUT is now in the house\"\r\n                                                    }\r\n                                                ]\r\n                                            }\r\n                                        }\r\n                                    ],\r\n                                    \"response_type\": \"text\",\r\n                                    \"selection_policy\": \"sequential\"\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"handlers\": [],\r\n                        \"resolver\": {\r\n                            \"type\": \"callout\",\r\n                            \"callout\": {\r\n                                \"path\": \"/test\",\r\n                                \"type\": \"integration_interaction\",\r\n                                \"method\": \"PUT\",\r\n                                \"internal\": {\r\n                                    \"catalog_item_id\": \"847e8f57-86f7-4525-9472-0d0cf3049b39\"\r\n                                },\r\n                                \"request_mapping\": {},\r\n                                \"result_variable\": \"mock_result\"\r\n                            }\r\n                        },\r\n                        \"variable\": \"step_213\",\r\n                        \"next_step\": \"step_368\"\r\n                    },\r\n                    {\r\n                        \"step\": \"step_368\",\r\n                        \"output\": {\r\n                            \"generic\": [\r\n                                {\r\n                                    \"values\": [\r\n                                        {\r\n                                            \"text_expression\": {\r\n                                                \"concat\": [\r\n                                                    {\r\n                                                        \"scalar\": \"Indeed it was updated - result is:\"\r\n                                                    }\r\n                                                ]\r\n                                            }\r\n                                        }\r\n                                    ],\r\n                                    \"response_type\": \"text\",\r\n                                    \"selection_policy\": \"sequential\"\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"handlers\": [],\r\n                        \"resolver\": {\r\n                            \"type\": \"continue\"\r\n                        },\r\n                        \"variable\": \"step_368\"\r\n                    }\r\n                ],\r\n                \"title\": \"PUT\",\r\n                \"action\": \"action_30035\",\r\n                \"handlers\": [],\r\n                \"condition\": {\r\n                    \"intent\": \"action_30035_intent_49329\"\r\n                },\r\n                \"variables\": [\r\n                    {\r\n                        \"title\": \"PUT is now in the house\",\r\n                        \"variable\": \"step_213\",\r\n                        \"data_type\": \"any\"\r\n                    },\r\n                    {\r\n                        \"title\": \"Indeed it was updated - result is:\",\r\n                        \"variable\": \"step_368\",\r\n                        \"data_type\": \"any\"\r\n                    }\r\n                ],\r\n                \"next_action\": \"action_20585\",\r\n                \"topic_switch\": {\r\n                    \"allowed_from\": true,\r\n                    \"allowed_into\": true\r\n                },\r\n                \"disambiguation_opt_out\": false\r\n            },\r\n            {\r\n                \"steps\": [\r\n                    {\r\n                        \"step\": \"step_386\",\r\n                        \"output\": {\r\n                            \"generic\": [\r\n                                {\r\n                                    \"values\": [\r\n                                        {\r\n                                            \"text_expression\": {\r\n                                                \"concat\": [\r\n                                                    {\r\n                                                        \"scalar\": \"Indeed I got it- result is:\"\r\n                                                    }\r\n                                                ]\r\n                                            }\r\n                                        }\r\n                                    ],\r\n                                    \"response_type\": \"text\",\r\n                                    \"selection_policy\": \"sequential\"\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"handlers\": [],\r\n                        \"resolver\": {\r\n                            \"type\": \"continue\"\r\n                        },\r\n                        \"variable\": \"step_386\"\r\n                    },\r\n                    {\r\n                        \"step\": \"step_666\",\r\n                        \"output\": {\r\n                            \"generic\": [\r\n                                {\r\n                                    \"values\": [\r\n                                        {\r\n                                            \"text_expression\": {\r\n                                                \"concat\": [\r\n                                                    {\r\n                                                        \"scalar\": \"let me get it\"\r\n                                                    }\r\n                                                ]\r\n                                            }\r\n                                        }\r\n                                    ],\r\n                                    \"response_type\": \"text\",\r\n                                    \"selection_policy\": \"sequential\"\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"handlers\": [],\r\n                        \"resolver\": {\r\n                            \"type\": \"callout\",\r\n                            \"callout\": {\r\n                                \"path\": \"/test\",\r\n                                \"type\": \"integration_interaction\",\r\n                                \"method\": \"POST\",\r\n                                \"internal\": {\r\n                                    \"catalog_item_id\": \"847e8f57-86f7-4525-9472-0d0cf3049b39\"\r\n                                },\r\n                                \"request_mapping\": {},\r\n                                \"result_variable\": \"mock_result\"\r\n                            }\r\n                        },\r\n                        \"variable\": \"step_666\",\r\n                        \"next_step\": \"step_386\"\r\n                    }\r\n                ],\r\n                \"title\": \"GET\",\r\n                \"action\": \"action_34746\",\r\n                \"handlers\": [],\r\n                \"condition\": {\r\n                    \"intent\": \"action_34746_intent_20809\"\r\n                },\r\n                \"variables\": [\r\n                    {\r\n                        \"title\": \"Indeed I got it- result is:\",\r\n                        \"variable\": \"step_386\",\r\n                        \"data_type\": \"any\"\r\n                    },\r\n                    {\r\n                        \"title\": \"let me get it\",\r\n                        \"variable\": \"step_666\",\r\n                        \"data_type\": \"any\"\r\n                    }\r\n                ],\r\n                \"next_action\": \"action_1543\",\r\n                \"topic_switch\": {\r\n                    \"allowed_from\": true,\r\n                    \"allowed_into\": true\r\n                },\r\n                \"disambiguation_opt_out\": false\r\n            },\r\n            {\r\n                \"steps\": [\r\n                    {\r\n                        \"step\": \"step_382\",\r\n                        \"output\": {\r\n                            \"generic\": [\r\n                                {\r\n                                    \"values\": [\r\n                                        {\r\n                                            \"text_expression\": {\r\n                                                \"concat\": [\r\n                                                    {\r\n                                                        \"scalar\": \"So what kind of content do u like to the server to send back\"\r\n                                                    }\r\n                                                ]\r\n                                            }\r\n                                        }\r\n                                    ],\r\n                                    \"response_type\": \"text\",\r\n                                    \"selection_policy\": \"sequential\"\r\n                                },\r\n                                {\r\n                                    \"options\": [\r\n                                        {\r\n                                            \"label\": \"Default - JSON\",\r\n                                            \"value\": {\r\n                                                \"input\": {\r\n                                                    \"text\": \"default\"\r\n                                                }\r\n                                            }\r\n                                        },\r\n                                        {\r\n                                            \"label\": \"JSON\",\r\n                                            \"value\": {\r\n                                                \"input\": {\r\n                                                    \"text\": \"applicaiton/json\"\r\n                                                }\r\n                                            }\r\n                                        },\r\n                                        {\r\n                                            \"label\": \"Text\",\r\n                                            \"value\": {\r\n                                                \"input\": {\r\n                                                    \"text\": \"text/plain\"\r\n                                                }\r\n                                            }\r\n                                        }\r\n                                    ],\r\n                                    \"response_type\": \"option\",\r\n                                    \"repeat_on_reprompt\": true\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"handlers\": [\r\n                            {\r\n                                \"type\": \"not_found\",\r\n                                \"title\": \"validation_not_found_handler\",\r\n                                \"output\": {\r\n                                    \"generic\": [\r\n                                        {\r\n                                            \"values\": [\r\n                                                {\r\n                                                    \"text\": \"I didn't catch that. Select a valid option:\"\r\n                                                }\r\n                                            ],\r\n                                            \"response_type\": \"text\"\r\n                                        }\r\n                                    ]\r\n                                },\r\n                                \"handler\": \"validation_not_found_handler\",\r\n                                \"resolver\": {\r\n                                    \"type\": \"prompt_again\"\r\n                                },\r\n                                \"next_handler\": \"validation_not_found_max_tries_handler\"\r\n                            },\r\n                            {\r\n                                \"type\": \"not_found_max_tries\",\r\n                                \"title\": \"validation_not_found_max_tries_handler\",\r\n                                \"handler\": \"validation_not_found_max_tries_handler\",\r\n                                \"resolver\": {\r\n                                    \"type\": \"fallback\"\r\n                                }\r\n                            }\r\n                        ],\r\n                        \"question\": {\r\n                            \"entity\": \"entity_41044\",\r\n                            \"max_tries\": 3\r\n                        },\r\n                        \"resolver\": {\r\n                            \"type\": \"continue\"\r\n                        },\r\n                        \"variable\": \"step_382\",\r\n                        \"next_step\": \"step_985\"\r\n                    },\r\n                    {\r\n                        \"step\": \"step_717\",\r\n                        \"output\": {\r\n                            \"generic\": [\r\n                                {\r\n                                    \"values\": [\r\n                                        {\r\n                                            \"text_expression\": {\r\n                                                \"concat\": [\r\n                                                    {\r\n                                                        \"scalar\": \"Here is your reply\"\r\n                                                    }\r\n                                                ]\r\n                                            }\r\n                                        }\r\n                                    ],\r\n                                    \"response_type\": \"text\",\r\n                                    \"selection_policy\": \"sequential\"\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"handlers\": [],\r\n                        \"resolver\": {\r\n                            \"type\": \"callout\",\r\n                            \"callout\": {\r\n                                \"path\": \"/test/content\",\r\n                                \"type\": \"integration_interaction\",\r\n                                \"method\": \"POST\",\r\n                                \"internal\": {\r\n                                    \"catalog_item_id\": \"847e8f57-86f7-4525-9472-0d0cf3049b39\"\r\n                                },\r\n                                \"request_mapping\": {\r\n                                    \"header\": [\r\n                                        {\r\n                                            \"value\": {\r\n                                                \"variable\": \"step_382\"\r\n                                            },\r\n                                            \"parameter\": \"accept\"\r\n                                        }\r\n                                    ]\r\n                                },\r\n                                \"result_variable\": \"mock_result\"\r\n                            }\r\n                        },\r\n                        \"variable\": \"step_717\"\r\n                    },\r\n                    {\r\n                        \"step\": \"step_985\",\r\n                        \"output\": {\r\n                            \"generic\": [\r\n                                {\r\n                                    \"values\": [\r\n                                        {\r\n                                            \"text_expression\": {\r\n                                                \"concat\": [\r\n                                                    {\r\n                                                        \"scalar\": \"You chose \"\r\n                                                    },\r\n                                                    {\r\n                                                        \"variable\": \"step_382\"\r\n                                                    },\r\n                                                    {\r\n                                                        \"scalar\": \" , hang on\"\r\n                                                    }\r\n                                                ]\r\n                                            }\r\n                                        }\r\n                                    ],\r\n                                    \"response_type\": \"text\",\r\n                                    \"selection_policy\": \"sequential\"\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"handlers\": [],\r\n                        \"resolver\": {\r\n                            \"type\": \"continue\"\r\n                        },\r\n                        \"variable\": \"step_985\",\r\n                        \"next_step\": \"step_717\"\r\n                    }\r\n                ],\r\n                \"title\": \"Content\",\r\n                \"action\": \"action_38711\",\r\n                \"handlers\": [],\r\n                \"condition\": {\r\n                    \"intent\": \"action_38711_intent_10553\"\r\n                },\r\n                \"variables\": [\r\n                    {\r\n                        \"title\": \"So what kind of content do u like to the server to send back\",\r\n                        \"variable\": \"step_382\",\r\n                        \"data_type\": \"any\"\r\n                    },\r\n                    {\r\n                        \"title\": \"Here is your reply\",\r\n                        \"variable\": \"step_717\",\r\n                        \"data_type\": \"any\"\r\n                    },\r\n                    {\r\n                        \"title\": \"You chose {variable} , hang on\",\r\n                        \"variable\": \"step_985\",\r\n                        \"data_type\": \"any\"\r\n                    }\r\n                ],\r\n                \"next_action\": \"action_26118\",\r\n                \"topic_switch\": {\r\n                    \"allowed_from\": true,\r\n                    \"allowed_into\": true\r\n                },\r\n                \"disambiguation_opt_out\": false\r\n            },\r\n            {\r\n                \"steps\": [\r\n                    {\r\n                        \"step\": \"step_316\",\r\n                        \"output\": {\r\n                            \"generic\": [\r\n                                {\r\n                                    \"values\": [\r\n                                        {\r\n                                            \"text_expression\": {\r\n                                                \"concat\": [\r\n                                                    {\r\n                                                        \"scalar\": \"Let's delay the response for \"\r\n                                                    },\r\n                                                    {\r\n                                                        \"variable\": \"step_739\"\r\n                                                    }\r\n                                                ]\r\n                                            }\r\n                                        }\r\n                                    ],\r\n                                    \"response_type\": \"text\",\r\n                                    \"selection_policy\": \"sequential\"\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"handlers\": [],\r\n                        \"resolver\": {\r\n                            \"type\": \"continue\"\r\n                        },\r\n                        \"variable\": \"step_316\",\r\n                        \"next_step\": \"step_766\"\r\n                    },\r\n                    {\r\n                        \"step\": \"step_739\",\r\n                        \"output\": {\r\n                            \"generic\": [\r\n                                {\r\n                                    \"values\": [\r\n                                        {\r\n                                            \"text_expression\": {\r\n                                                \"concat\": [\r\n                                                    {\r\n                                                        \"scalar\": \"how much delay do you want\"\r\n                                                    }\r\n                                                ]\r\n                                            }\r\n                                        }\r\n                                    ],\r\n                                    \"response_type\": \"text\",\r\n                                    \"selection_policy\": \"sequential\"\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"handlers\": [\r\n                            {\r\n                                \"type\": \"not_found\",\r\n                                \"title\": \"validation_not_found_handler\",\r\n                                \"output\": {\r\n                                    \"generic\": [\r\n                                        {\r\n                                            \"values\": [\r\n                                                {\r\n                                                    \"text\": \"I didn't catch that. Enter a number.\"\r\n                                                }\r\n                                            ],\r\n                                            \"response_type\": \"text\"\r\n                                        }\r\n                                    ]\r\n                                },\r\n                                \"handler\": \"validation_not_found_handler\",\r\n                                \"resolver\": {\r\n                                    \"type\": \"prompt_again\"\r\n                                },\r\n                                \"next_handler\": \"validation_not_found_max_tries_handler\"\r\n                            },\r\n                            {\r\n                                \"type\": \"not_found_max_tries\",\r\n                                \"title\": \"validation_not_found_max_tries_handler\",\r\n                                \"handler\": \"validation_not_found_max_tries_handler\",\r\n                                \"resolver\": {\r\n                                    \"type\": \"fallback\"\r\n                                }\r\n                            }\r\n                        ],\r\n                        \"question\": {\r\n                            \"entity\": \"sys-number\",\r\n                            \"max_tries\": 3\r\n                        },\r\n                        \"resolver\": {\r\n                            \"type\": \"callout\",\r\n                            \"callout\": {\r\n                                \"path\": \"/delay\",\r\n                                \"type\": \"integration_interaction\",\r\n                                \"method\": \"POST\",\r\n                                \"internal\": {\r\n                                    \"catalog_item_id\": \"847e8f57-86f7-4525-9472-0d0cf3049b39\"\r\n                                },\r\n                                \"request_mapping\": {\r\n                                    \"body\": [\r\n                                        {\r\n                                            \"value\": {\r\n                                                \"variable\": null\r\n                                            },\r\n                                            \"parameter\": \"sleep_time\"\r\n                                        }\r\n                                    ]\r\n                                },\r\n                                \"result_variable\": \"mock_result\"\r\n                            }\r\n                        },\r\n                        \"variable\": \"step_739\",\r\n                        \"next_step\": \"step_316\"\r\n                    },\r\n                    {\r\n                        \"step\": \"step_766\",\r\n                        \"output\": {\r\n                            \"generic\": [\r\n                                {\r\n                                    \"values\": [\r\n                                        {\r\n                                            \"text_expression\": {\r\n                                                \"concat\": [\r\n                                                    {\r\n                                                        \"scalar\": \"OK, Your request has been logged, DEBUG INFO: call status is '\"\r\n                                                    },\r\n                                                    {\r\n                                                        \"variable\": null\r\n                                                    },\r\n                                                    {\r\n                                                        \"scalar\": \"and the body is '\"\r\n                                                    },\r\n                                                    {\r\n                                                        \"variable\": null\r\n                                                    }\r\n                                                ]\r\n                                            }\r\n                                        }\r\n                                    ],\r\n                                    \"response_type\": \"text\",\r\n                                    \"selection_policy\": \"sequential\"\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"handlers\": [],\r\n                        \"resolver\": {\r\n                            \"type\": \"continue\"\r\n                        },\r\n                        \"variable\": \"step_766\"\r\n                    }\r\n                ],\r\n                \"title\": \"delay\",\r\n                \"action\": \"action_45207\",\r\n                \"handlers\": [],\r\n                \"condition\": {\r\n                    \"intent\": \"action_45207_intent_43212\"\r\n                },\r\n                \"variables\": [\r\n                    {\r\n                        \"title\": \"Let's delay the response for {variable}\",\r\n                        \"variable\": \"step_316\",\r\n                        \"data_type\": \"any\"\r\n                    },\r\n                    {\r\n                        \"title\": \"how much delay do you want\",\r\n                        \"variable\": \"step_739\",\r\n                        \"data_type\": \"any\"\r\n                    },\r\n                    {\r\n                        \"title\": \"OK, Your request has been logged, DEBUG INFO: call status is\",\r\n                        \"variable\": \"step_766\",\r\n                        \"data_type\": \"any\"\r\n                    }\r\n                ],\r\n                \"next_action\": \"action_34746\",\r\n                \"topic_switch\": {\r\n                    \"allowed_from\": true,\r\n                    \"allowed_into\": true\r\n                },\r\n                \"disambiguation_opt_out\": false\r\n            },\r\n            {\r\n                \"steps\": [\r\n                    {\r\n                        \"step\": \"step_001\",\r\n                        \"output\": {\r\n                            \"generic\": [\r\n                                {\r\n                                    \"values\": [\r\n                                        {\r\n                                            \"text\": \"I'm afraid I don't understand. Please rephrase your question.\"\r\n                                        }\r\n                                    ],\r\n                                    \"response_type\": \"text\",\r\n                                    \"selection_policy\": \"sequential\"\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"handlers\": [],\r\n                        \"resolver\": {\r\n                            \"type\": \"end_action\"\r\n                        },\r\n                        \"variable\": \"step_001\",\r\n                        \"condition\": {\r\n                            \"lte\": [\r\n                                {\r\n                                    \"system_variable\": \"no_action_matches_count\"\r\n                                },\r\n                                {\r\n                                    \"scalar\": 3\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"next_step\": \"step_002\"\r\n                    },\r\n                    {\r\n                        \"step\": \"step_002\",\r\n                        \"output\": {\r\n                            \"generic\": [\r\n                                {\r\n                                    \"values\": [\r\n                                        {\r\n                                            \"text\": \"\"\r\n                                        }\r\n                                    ],\r\n                                    \"response_type\": \"text\",\r\n                                    \"selection_policy\": \"sequential\"\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"handlers\": [],\r\n                        \"resolver\": {\r\n                            \"type\": \"invoke_another_action_and_end\",\r\n                            \"invoke_action\": {\r\n                                \"action\": \"fallback\",\r\n                                \"parameters\": null,\r\n                                \"result_variable\": \"step_002_result_1\"\r\n                            }\r\n                        },\r\n                        \"variable\": \"step_002\",\r\n                        \"condition\": {\r\n                            \"gt\": [\r\n                                {\r\n                                    \"system_variable\": \"no_action_matches_count\"\r\n                                },\r\n                                {\r\n                                    \"scalar\": 3\r\n                                }\r\n                            ]\r\n                        }\r\n                    }\r\n                ],\r\n                \"title\": \"No action matches\",\r\n                \"action\": \"anything_else\",\r\n                \"handlers\": [],\r\n                \"condition\": {\r\n                    \"expression\": \"anything_else\"\r\n                },\r\n                \"variables\": [\r\n                    {\r\n                        \"title\": \"I am afraid I do not understand what you are asking, please re-p\",\r\n                        \"variable\": \"step_001\",\r\n                        \"data_type\": \"any\"\r\n                    },\r\n                    {\r\n                        \"variable\": \"step_002\",\r\n                        \"data_type\": \"any\"\r\n                    },\r\n                    {\r\n                        \"variable\": \"step_002_result_1\",\r\n                        \"data_type\": \"any\"\r\n                    }\r\n                ],\r\n                \"disambiguation_opt_out\": true\r\n            },\r\n            {\r\n                \"steps\": [\r\n                    {\r\n                        \"step\": \"step_001\",\r\n                        \"output\": {\r\n                            \"generic\": [\r\n                                {\r\n                                    \"values\": [\r\n                                        {\r\n                                            \"text\": \"I'm afraid I don't understand. I can connect you to an agent.\"\r\n                                        }\r\n                                    ],\r\n                                    \"response_type\": \"text\",\r\n                                    \"selection_policy\": \"sequential\"\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"handlers\": [],\r\n                        \"resolver\": {\r\n                            \"type\": \"connect_to_agent\",\r\n                            \"response\": {\r\n                                \"transfer_info\": {\r\n                                    \"target\": {}\r\n                                },\r\n                                \"agent_available\": {\r\n                                    \"message\": \"Let's send you to an available agent.\"\r\n                                },\r\n                                \"agent_unavailable\": {\r\n                                    \"message\": \"There are no agents available at this time. When one becomes available, we'll connect you.\"\r\n                                },\r\n                                \"message_to_human_agent\": \"\"\r\n                            }\r\n                        },\r\n                        \"variable\": \"step_001\",\r\n                        \"condition\": {\r\n                            \"eq\": [\r\n                                {\r\n                                    \"system_variable\": \"fallback_reason\"\r\n                                },\r\n                                {\r\n                                    \"scalar\": \"Step validation failed\"\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"next_step\": \"step_002\"\r\n                    },\r\n                    {\r\n                        \"step\": \"step_002\",\r\n                        \"output\": {\r\n                            \"generic\": [\r\n                                {\r\n                                    \"values\": [\r\n                                        {\r\n                                            \"text\": \"Sorry I couldn't assist you. I will connect you to an agent right away.\"\r\n                                        }\r\n                                    ],\r\n                                    \"response_type\": \"text\",\r\n                                    \"selection_policy\": \"sequential\"\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"handlers\": [],\r\n                        \"resolver\": {\r\n                            \"type\": \"connect_to_agent\",\r\n                            \"response\": {\r\n                                \"transfer_info\": {\r\n                                    \"target\": {}\r\n                                },\r\n                                \"agent_available\": {\r\n                                    \"message\": \"Let's send you to an available agent.\"\r\n                                },\r\n                                \"agent_unavailable\": {\r\n                                    \"message\": \"There are no agents available at this time. When one becomes available, we'll connect you.\"\r\n                                },\r\n                                \"message_to_human_agent\": \"\"\r\n                            }\r\n                        },\r\n                        \"variable\": \"step_002\",\r\n                        \"condition\": {\r\n                            \"eq\": [\r\n                                {\r\n                                    \"system_variable\": \"fallback_reason\"\r\n                                },\r\n                                {\r\n                                    \"scalar\": \"Agent requested\"\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"next_step\": \"step_003\"\r\n                    },\r\n                    {\r\n                        \"step\": \"step_003\",\r\n                        \"output\": {\r\n                            \"generic\": [\r\n                                {\r\n                                    \"values\": [\r\n                                        {\r\n                                            \"text\": \"I am afraid I do not understand what you are asking, let me connect you to an agent.\"\r\n                                        }\r\n                                    ],\r\n                                    \"response_type\": \"text\",\r\n                                    \"selection_policy\": \"sequential\"\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"handlers\": [],\r\n                        \"resolver\": {\r\n                            \"type\": \"connect_to_agent\",\r\n                            \"response\": {\r\n                                \"transfer_info\": {\r\n                                    \"target\": {}\r\n                                },\r\n                                \"agent_available\": {\r\n                                    \"message\": \"Let's send you to an available agent.\"\r\n                                },\r\n                                \"agent_unavailable\": {\r\n                                    \"message\": \"There are no agents available at this time. When one becomes available, we'll connect you.\"\r\n                                },\r\n                                \"message_to_human_agent\": \"\"\r\n                            }\r\n                        },\r\n                        \"variable\": \"step_003\",\r\n                        \"condition\": {\r\n                            \"eq\": [\r\n                                {\r\n                                    \"system_variable\": \"fallback_reason\"\r\n                                },\r\n                                {\r\n                                    \"scalar\": \"No action matches\"\r\n                                }\r\n                            ]\r\n                        }\r\n                    }\r\n                ],\r\n                \"title\": \"Fallback\",\r\n                \"action\": \"fallback\",\r\n                \"handlers\": [],\r\n                \"condition\": {\r\n                    \"intent\": \"fallback_connect_to_agent\"\r\n                },\r\n                \"variables\": [\r\n                    {\r\n                        \"title\": \"I'm afraid I don't understand. I can connect you to an agent.\",\r\n                        \"variable\": \"step_001\",\r\n                        \"data_type\": \"any\"\r\n                    },\r\n                    {\r\n                        \"title\": \"Sorry I couldn't assist you. I will connect you to an agent righ\",\r\n                        \"variable\": \"step_002\",\r\n                        \"data_type\": \"any\"\r\n                    },\r\n                    {\r\n                        \"title\": \"I am afraid I do not understand what you are asking, let me conn\",\r\n                        \"variable\": \"step_003\",\r\n                        \"data_type\": \"any\"\r\n                    }\r\n                ],\r\n                \"next_action\": \"anything_else\",\r\n                \"disambiguation_opt_out\": true\r\n            },\r\n            {\r\n                \"steps\": [\r\n                    {\r\n                        \"step\": \"step_001\",\r\n                        \"output\": {\r\n                            \"generic\": [\r\n                                {\r\n                                    \"values\": [\r\n                                        {\r\n                                            \"text\": \"Welcome, how can I assist you?\"\r\n                                        }\r\n                                    ],\r\n                                    \"response_type\": \"text\",\r\n                                    \"selection_policy\": \"sequential\"\r\n                                }\r\n                            ]\r\n                        },\r\n                        \"handlers\": [],\r\n                        \"resolver\": {\r\n                            \"type\": \"continue\"\r\n                        },\r\n                        \"variable\": \"step_001\"\r\n                    }\r\n                ],\r\n                \"title\": \"Greet customer\",\r\n                \"action\": \"welcome\",\r\n                \"handlers\": [],\r\n                \"condition\": {\r\n                    \"expression\": \"welcome\"\r\n                },\r\n                \"variables\": [\r\n                    {\r\n                        \"variable\": \"step_001\",\r\n                        \"data_type\": \"any\"\r\n                    }\r\n                ],\r\n                \"next_action\": \"action_38711\",\r\n                \"disambiguation_opt_out\": true\r\n            }\r\n        ],\r\n        \"intents\": [\r\n            {\r\n                \"intent\": \"action_1543_intent_5385\",\r\n                \"examples\": [\r\n                    {\r\n                        \"text\": \"can u delete\"\r\n                    },\r\n                    {\r\n                        \"text\": \"DELETE\"\r\n                    },\r\n                    {\r\n                        \"text\": \"how about deleting it\"\r\n                    },\r\n                    {\r\n                        \"text\": \"just delete it\"\r\n                    },\r\n                    {\r\n                        \"text\": \"pld delete\"\r\n                    }\r\n                ]\r\n            },\r\n            {\r\n                \"intent\": \"action_20585_intent_24221\",\r\n                \"examples\": [\r\n                    {\r\n                        \"text\": \"I want to post\"\r\n                    },\r\n                    {\r\n                        \"text\": \"just post it\"\r\n                    },\r\n                    {\r\n                        \"text\": \"nail it\"\r\n                    },\r\n                    {\r\n                        \"text\": \"POST\"\r\n                    },\r\n                    {\r\n                        \"text\": \"poster it\"\r\n                    }\r\n                ]\r\n            },\r\n            {\r\n                \"intent\": \"action_26118_intent_41514\",\r\n                \"examples\": [\r\n                    {\r\n                        \"text\": \"Error\"\r\n                    },\r\n                    {\r\n                        \"text\": \"Exception\"\r\n                    },\r\n                    {\r\n                        \"text\": \"handle error\"\r\n                    },\r\n                    {\r\n                        \"text\": \"integration sent back an error\"\r\n                    },\r\n                    {\r\n                        \"text\": \"Just show me how u handle error\"\r\n                    },\r\n                    {\r\n                        \"text\": \"Problem in calling integration\"\r\n                    },\r\n                    {\r\n                        \"text\": \"Wrong\"\r\n                    }\r\n                ]\r\n            },\r\n            {\r\n                \"intent\": \"action_30035_intent_49329\",\r\n                \"examples\": [\r\n                    {\r\n                        \"text\": \"Just put it\"\r\n                    },\r\n                    {\r\n                        \"text\": \"PUT\"\r\n                    },\r\n                    {\r\n                        \"text\": \"put is the name\"\r\n                    },\r\n                    {\r\n                        \"text\": \"PUT IT\"\r\n                    },\r\n                    {\r\n                        \"text\": \"put operation\"\r\n                    }\r\n                ]\r\n            },\r\n            {\r\n                \"intent\": \"action_34746_intent_20809\",\r\n                \"examples\": [\r\n                    {\r\n                        \"text\": \"GET\"\r\n                    },\r\n                    {\r\n                        \"text\": \"GET IT\"\r\n                    },\r\n                    {\r\n                        \"text\": \"get operation\"\r\n                    },\r\n                    {\r\n                        \"text\": \"GO Get it\"\r\n                    },\r\n                    {\r\n                        \"text\": \"he got it\"\r\n                    },\r\n                    {\r\n                        \"text\": \"just get it\"\r\n                    }\r\n                ]\r\n            },\r\n            {\r\n                \"intent\": \"action_38711_intent_10553\",\r\n                \"examples\": [\r\n                    {\r\n                        \"text\": \"can u deal with dynamic content responses\"\r\n                    },\r\n                    {\r\n                        \"text\": \"Content\"\r\n                    },\r\n                    {\r\n                        \"text\": \"content me\"\r\n                    },\r\n                    {\r\n                        \"text\": \"How do u handle content\"\r\n                    },\r\n                    {\r\n                        \"text\": \"Json me\"\r\n                    },\r\n                    {\r\n                        \"text\": \"Text me\"\r\n                    }\r\n                ]\r\n            },\r\n            {\r\n                \"intent\": \"action_45207_intent_43212\",\r\n                \"examples\": [\r\n                    {\r\n                        \"text\": \"delay\"\r\n                    },\r\n                    {\r\n                        \"text\": \"delay request\"\r\n                    },\r\n                    {\r\n                        \"text\": \"delay the request for at least 30 seconds\"\r\n                    },\r\n                    {\r\n                        \"text\": \"long time\"\r\n                    },\r\n                    {\r\n                        \"text\": \"more more time\"\r\n                    },\r\n                    {\r\n                        \"text\": \"pls long request\"\r\n                    }\r\n                ]\r\n            },\r\n            {\r\n                \"intent\": \"fallback_connect_to_agent\",\r\n                \"examples\": [\r\n                    {\r\n                        \"text\": \"Agent help\"\r\n                    },\r\n                    {\r\n                        \"text\": \"Call agent\"\r\n                    },\r\n                    {\r\n                        \"text\": \"Can I connect to an agent?\"\r\n                    },\r\n                    {\r\n                        \"text\": \"I would like to speak to a human\"\r\n                    },\r\n                    {\r\n                        \"text\": \"I would like to speak to someone\"\r\n                    }\r\n                ],\r\n                \"description\": \"Please transfer me to an agent\"\r\n            }\r\n        ],\r\n        \"entities\": [\r\n            {\r\n                \"entity\": \"entity_41044\",\r\n                \"values\": [\r\n                    {\r\n                        \"type\": \"synonyms\",\r\n                        \"value\": \"Default - JSON\",\r\n                        \"synonyms\": [\r\n                            \"default\"\r\n                        ]\r\n                    },\r\n                    {\r\n                        \"type\": \"synonyms\",\r\n                        \"value\": \"JSON\",\r\n                        \"synonyms\": []\r\n                    },\r\n                    {\r\n                        \"type\": \"synonyms\",\r\n                        \"value\": \"Text\",\r\n                        \"synonyms\": []\r\n                    }\r\n                ],\r\n                \"fuzzy_match\": true\r\n            },\r\n            {\r\n                \"entity\": \"sys-number\",\r\n                \"values\": []\r\n            }\r\n        ],\r\n        \"metadata\": {\r\n            \"api_version\": {\r\n                \"major_version\": \"v2\",\r\n                \"minor_version\": \"2018-11-08\"\r\n            }\r\n        },\r\n        \"variables\": [],\r\n        \"data_types\": [],\r\n        \"counterexamples\": [],\r\n        \"system_settings\": {\r\n            \"topic_switch\": {\r\n                \"enabled\": true,\r\n                \"messages\": {\r\n                    \"confirm_return\": {\r\n                        \"text\": \"Return to previous topic?\"\r\n                    },\r\n                    \"confirm_switch\": {\r\n                        \"text\": \"Switch from the current topic?\"\r\n                    }\r\n                },\r\n                \"question_steps_threshold\": 2\r\n            },\r\n            \"disambiguation\": {\r\n                \"prompt\": \"Did you mean:\",\r\n                \"enabled\": true,\r\n                \"randomize\": true,\r\n                \"max_suggestions\": 5,\r\n                \"suggestion_text_policy\": \"title\",\r\n                \"none_of_the_above_prompt\": \"None of the above\"\r\n            },\r\n            \"intent_classification\": {\r\n                \"training_backend_version\": \"v2\"\r\n            },\r\n            \"spelling_auto_correct\": true\r\n        },\r\n        \"learning_opt_out\": true\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{STORE_URL}}/v2/skills/{{SKILL_ID}}?version={{API_VERSION}}&new_ia={{NEW_IA}}",
+									"host": [
+										"{{STORE_URL}}"
+									],
+									"path": [
+										"v2",
+										"skills",
+										"{{SKILL_ID}}"
+									],
+									"query": [
+										{
+											"key": "version",
+											"value": "{{API_VERSION}}"
+										},
+										{
+											"key": "new_ia",
+											"value": "{{NEW_IA}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3- create integration",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"postman.setEnvironmentVariable(\"INTEGRATION_ID\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Watson-Origin",
+										"value": "{{X_WATSON_ORIGIN}}",
+										"type": "text"
+									},
+									{
+										"key": "X-Watson-Userinfo",
+										"value": "{{X_WATSON_USERINFO}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"integration_template_id\": \"f1512f73-4702-4579-a8a6-41a941979c6b\",\r\n    \"name\": \"DAVID MC markering catalog item\",\r\n    \"description\": \"TBD\",\r\n    \"config\": {\r\n        \"catalog_item_id\": \"847e8f57-86f7-4525-9472-0d0cf3049b39\",\r\n        \"private\": {\r\n            \"secrets\": {\r\n                \"authentication\": {\r\n                    \"BasicAuth\": {\r\n                        \"username\": {\r\n                            \"value\": \"david\",\r\n                            \"type\": \"value\"\r\n                        },\r\n                        \"password\": {\r\n                            \"value\": \"42\",\r\n                            \"type\": \"value\"\r\n                        }\r\n                    },\r\n                    \"BearerAuth\": {\r\n                        \"token\": { \"value\":\"david42\", \"type\": \"value\"}\r\n                    },\r\n                    \"ApiKeyAuth\": {\r\n                        \"x-api-key\": {\r\n                            \"value\": \"david42\",\r\n                            \"type\": \"value\",\r\n                            \"in\": \"header\"\r\n                        }\r\n                    }\r\n                }\r\n            }\r\n        },\r\n        \"server_url\": \"http://{host}:4000\",\r\n        \"server_variables\": {\r\n            \"host\": \"localhost\"\r\n        }\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{STORE_URL}}/v1/integrations/definitions?agentInstanceId={{ASSISTANT_ID}}&deploy=true",
+									"host": [
+										"{{STORE_URL}}"
+									],
+									"path": [
+										"v1",
+										"integrations",
+										"definitions"
+									],
+									"query": [
+										{
+											"key": "agentInstanceId",
+											"value": "{{ASSISTANT_ID}}"
+										},
+										{
+											"key": "deploy",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3- create integration Bearer",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"postman.setEnvironmentVariable(\"INTEGRATION_ID\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Watson-Origin",
+										"value": "{{X_WATSON_ORIGIN}}",
+										"type": "text"
+									},
+									{
+										"key": "X-Watson-Userinfo",
+										"value": "{{X_WATSON_USERINFO}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"integration_template_id\": \"f1512f73-4702-4579-a8a6-41a941979c6b\",\r\n    \"name\": \"DAVID MC markering catalog item\",\r\n    \"description\": \"TBD\",\r\n    \"config\": {\r\n        \"catalog_item_id\": \"847e8f57-86f7-4525-9472-0d0cf3049b39\",\r\n        \"private\": {\r\n            \"secrets\": {\r\n                \"authentication\": {\r\n                    \r\n                    \"BearerAuth\": {\r\n                        \"token\": { \"value\":\"david42\", \"type\": \"value\"}\r\n                    }\r\n                    \r\n                }\r\n            }\r\n        },\r\n        \"server_url\": \"http://{host}:4000\",\r\n        \"server_variables\": {\r\n            \"host\": \"localhost\"\r\n        }\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{STORE_URL}}/v1/integrations/definitions?agentInstanceId={{ASSISTANT_ID}}&deploy=true",
+									"host": [
+										"{{STORE_URL}}"
+									],
+									"path": [
+										"v1",
+										"integrations",
+										"definitions"
+									],
+									"query": [
+										{
+											"key": "agentInstanceId",
+											"value": "{{ASSISTANT_ID}}"
+										},
+										{
+											"key": "deploy",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3- create integration APIKEY",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"postman.setEnvironmentVariable(\"INTEGRATION_ID\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Watson-Origin",
+										"value": "{{X_WATSON_ORIGIN}}",
+										"type": "text"
+									},
+									{
+										"key": "X-Watson-Userinfo",
+										"value": "{{X_WATSON_USERINFO}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"integration_template_id\": \"f1512f73-4702-4579-a8a6-41a941979c6b\",\r\n    \"name\": \"DAVID MC markering catalog item\",\r\n    \"description\": \"TBD\",\r\n    \"config\": {\r\n        \"catalog_item_id\": \"847e8f57-86f7-4525-9472-0d0cf3049b39\",\r\n        \"private\": {\r\n            \"secrets\": {\r\n                \"authentication\": {\r\n                    \r\n                    \"ApiKeyAuth\": {\r\n                        \"x-api-key\": {\r\n                            \"value\": \"david42\",\r\n                            \"type\": \"value\",\r\n                            \"in\": \"header\"\r\n                        }\r\n                    }\r\n                }\r\n            }\r\n        },\r\n        \"server_url\": \"http://{host}:4000\",\r\n        \"server_variables\": {\r\n            \"host\": \"localhost\"\r\n        }\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{STORE_URL}}/v1/integrations/definitions?agentInstanceId={{ASSISTANT_ID}}&deploy=true",
+									"host": [
+										"{{STORE_URL}}"
+									],
+									"path": [
+										"v1",
+										"integrations",
+										"definitions"
+									],
+									"query": [
+										{
+											"key": "agentInstanceId",
+											"value": "{{ASSISTANT_ID}}"
+										},
+										{
+											"key": "deploy",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Messages",
+					"item": [
+						{
+							"name": "POST",
+							"item": [
+								{
+									"name": "0 create session",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);\r",
+													"postman.setEnvironmentVariable(\"SESSION_ID\", jsonData.session_id);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "1 message",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"SESSION_CONTEXT\", JSON.stringify(jsonData.context));"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Watson-Origin",
+												"value": "{{X_WATSON_ORIGIN}}",
+												"type": "text"
+											},
+											{
+												"key": "X-Watson-Userinfo",
+												"value": "{{X_WATSON_USERINFO}}",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"input\": {\r\n        \"text\": \"post\",\r\n        \"options\": {\r\n            \"return_context\": true\r\n        }\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions/{{SESSION_ID}}/message?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions",
+												"{{SESSION_ID}}",
+												"message"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "2 message no input",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Watson-Origin",
+												"value": "{{X_WATSON_ORIGIN}}",
+												"type": "text"
+											},
+											{
+												"key": "X-Watson-Userinfo",
+												"value": "{{X_WATSON_USERINFO}}",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"input\": {\r\n        \"text\": \"\"\r\n    },\r\n     \"options\": {\r\n            \"return_context\": true\r\n        }\r\n        \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions/{{SESSION_ID}}/message?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions",
+												"{{SESSION_ID}}",
+												"message"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Params",
+							"item": [
+								{
+									"name": "0 create session",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);\r",
+													"postman.setEnvironmentVariable(\"SESSION_ID\", jsonData.session_id);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "1 message",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"SESSION_CONTEXT\", JSON.stringify(jsonData.context));"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Watson-Origin",
+												"value": "{{X_WATSON_ORIGIN}}",
+												"type": "text"
+											},
+											{
+												"key": "X-Watson-Userinfo",
+												"value": "{{X_WATSON_USERINFO}}",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"input\": {\r\n        \"text\": \"params\",\r\n        \"options\": {\r\n            \"return_context\": true\r\n        }\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions/{{SESSION_ID}}/message?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions",
+												"{{SESSION_ID}}",
+												"message"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "2 message the param",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"SESSION_CONTEXT\", JSON.stringify(jsonData.context));"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Watson-Origin",
+												"value": "{{X_WATSON_ORIGIN}}",
+												"type": "text"
+											},
+											{
+												"key": "X-Watson-Userinfo",
+												"value": "{{X_WATSON_USERINFO}}",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"input\": {\r\n        \"text\": \"post\",\r\n        \"options\": {\r\n            \"return_context\": true\r\n        }\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions/{{SESSION_ID}}/message?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions",
+												"{{SESSION_ID}}",
+												"message"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "2 message no input",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Watson-Origin",
+												"value": "{{X_WATSON_ORIGIN}}",
+												"type": "text"
+											},
+											{
+												"key": "X-Watson-Userinfo",
+												"value": "{{X_WATSON_USERINFO}}",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"input\": {\r\n        \"text\": \"\"\r\n    },\r\n     \"options\": {\r\n            \"return_context\": true\r\n        }\r\n        \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions/{{SESSION_ID}}/message?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions",
+												"{{SESSION_ID}}",
+												"message"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "DELETE",
+							"item": [
+								{
+									"name": "0 create session",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);\r",
+													"postman.setEnvironmentVariable(\"SESSION_ID\", jsonData.session_id);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "1 message",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"SESSION_CONTEXT\", JSON.stringify(jsonData.context));"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Watson-Origin",
+												"value": "{{X_WATSON_ORIGIN}}",
+												"type": "text"
+											},
+											{
+												"key": "X-Watson-Userinfo",
+												"value": "{{X_WATSON_USERINFO}}",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"input\": {\r\n        \"text\": \"delete\",\r\n        \"options\": {\r\n            \"return_context\": true\r\n        }\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions/{{SESSION_ID}}/message?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions",
+												"{{SESSION_ID}}",
+												"message"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "2 message no input",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Watson-Origin",
+												"value": "{{X_WATSON_ORIGIN}}",
+												"type": "text"
+											},
+											{
+												"key": "X-Watson-Userinfo",
+												"value": "{{X_WATSON_USERINFO}}",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"input\": {\r\n        \"text\": \"\"\r\n    },\r\n     \"options\": {\r\n            \"return_context\": true\r\n        },\r\n        \"context\": {{SESSION_CONTEXT}}\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions/{{SESSION_ID}}/message?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions",
+												"{{SESSION_ID}}",
+												"message"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "PUT",
+							"item": [
+								{
+									"name": "0 create session",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);\r",
+													"postman.setEnvironmentVariable(\"SESSION_ID\", jsonData.session_id);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "1 message",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"SESSION_CONTEXT\", JSON.stringify(jsonData.context));"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Watson-Origin",
+												"value": "{{X_WATSON_ORIGIN}}",
+												"type": "text"
+											},
+											{
+												"key": "X-Watson-Userinfo",
+												"value": "{{X_WATSON_USERINFO}}",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"input\": {\r\n        \"text\": \"put\",\r\n        \"options\": {\r\n            \"return_context\": true\r\n        }\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions/{{SESSION_ID}}/message?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions",
+												"{{SESSION_ID}}",
+												"message"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "2 message no input",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Watson-Origin",
+												"value": "{{X_WATSON_ORIGIN}}",
+												"type": "text"
+											},
+											{
+												"key": "X-Watson-Userinfo",
+												"value": "{{X_WATSON_USERINFO}}",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"input\": {\r\n        \"text\": \"\"\r\n    },\r\n     \"options\": {\r\n            \"return_context\": true\r\n        },\r\n        \"context\": {{SESSION_CONTEXT}}\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions/{{SESSION_ID}}/message?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions",
+												"{{SESSION_ID}}",
+												"message"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "GET",
+							"item": [
+								{
+									"name": "0 create session",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);\r",
+													"postman.setEnvironmentVariable(\"SESSION_ID\", jsonData.session_id);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "1 message",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"SESSION_CONTEXT\", JSON.stringify(jsonData.context));"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Watson-Origin",
+												"value": "{{X_WATSON_ORIGIN}}",
+												"type": "text"
+											},
+											{
+												"key": "X-Watson-Userinfo",
+												"value": "{{X_WATSON_USERINFO}}",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"input\": {\r\n        \"text\": \"get\",\r\n        \"options\": {\r\n            \"return_context\": true\r\n        }\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions/{{SESSION_ID}}/message?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions",
+												"{{SESSION_ID}}",
+												"message"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "2 message no input",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Watson-Origin",
+												"value": "{{X_WATSON_ORIGIN}}",
+												"type": "text"
+											},
+											{
+												"key": "X-Watson-Userinfo",
+												"value": "{{X_WATSON_USERINFO}}",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"input\": {\r\n        \"text\": \"\"\r\n    },\r\n     \"options\": {\r\n            \"return_context\": true\r\n        },\r\n        \"context\": {{SESSION_CONTEXT}}\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions/{{SESSION_ID}}/message?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions",
+												"{{SESSION_ID}}",
+												"message"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Error",
+							"item": [
+								{
+									"name": "0 create session",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);\r",
+													"postman.setEnvironmentVariable(\"SESSION_ID\", jsonData.session_id);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "1 message",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"SESSION_CONTEXT\", JSON.stringify(jsonData.context));"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Watson-Origin",
+												"value": "{{X_WATSON_ORIGIN}}",
+												"type": "text"
+											},
+											{
+												"key": "X-Watson-Userinfo",
+												"value": "{{X_WATSON_USERINFO}}",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"input\": {\r\n        \"text\": \"error\",\r\n        \"options\": {\r\n            \"return_context\": true\r\n        }\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions/{{SESSION_ID}}/message?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions",
+												"{{SESSION_ID}}",
+												"message"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "2 message no input",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Watson-Origin",
+												"value": "{{X_WATSON_ORIGIN}}",
+												"type": "text"
+											},
+											{
+												"key": "X-Watson-Userinfo",
+												"value": "{{X_WATSON_USERINFO}}",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"input\": {\r\n        \"text\": \"\"\r\n    },\r\n     \"options\": {\r\n            \"return_context\": true\r\n        },\r\n        \"context\": {{SESSION_CONTEXT}}\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions/{{SESSION_ID}}/message?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions",
+												"{{SESSION_ID}}",
+												"message"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Content",
+							"item": [
+								{
+									"name": "0 create session",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);\r",
+													"postman.setEnvironmentVariable(\"SESSION_ID\", jsonData.session_id);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "1 message",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"SESSION_CONTEXT\", JSON.stringify(jsonData.context));"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Watson-Origin",
+												"value": "{{X_WATSON_ORIGIN}}",
+												"type": "text"
+											},
+											{
+												"key": "X-Watson-Userinfo",
+												"value": "{{X_WATSON_USERINFO}}",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"input\": {\r\n        \"text\": \"content\",\r\n        \"options\": {\r\n            \"return_context\": true\r\n        }\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions/{{SESSION_ID}}/message?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions",
+												"{{SESSION_ID}}",
+												"message"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "2A text only",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"SESSION_CONTEXT\", JSON.stringify(jsonData.context));"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Watson-Origin",
+												"value": "{{X_WATSON_ORIGIN}}",
+												"type": "text"
+											},
+											{
+												"key": "X-Watson-Userinfo",
+												"value": "{{X_WATSON_USERINFO}}",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"input\": {\r\n        \"text\": \"text\",\r\n        \"options\": {\r\n            \"return_context\": true\r\n        }\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions/{{SESSION_ID}}/message?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions",
+												"{{SESSION_ID}}",
+												"message"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "2B default",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"SESSION_CONTEXT\", JSON.stringify(jsonData.context));"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"accept": true
+										}
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Watson-Origin",
+												"value": "{{X_WATSON_ORIGIN}}",
+												"type": "text"
+											},
+											{
+												"key": "X-Watson-Userinfo",
+												"value": "{{X_WATSON_USERINFO}}",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"input\": {\r\n        \"text\": \"Default - JSON\",\r\n        \"options\": {\r\n            \"return_context\": true\r\n        }\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions/{{SESSION_ID}}/message?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions",
+												"{{SESSION_ID}}",
+												"message"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "2C JSON",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"SESSION_CONTEXT\", JSON.stringify(jsonData.context));"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"accept": true
+										}
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Watson-Origin",
+												"value": "{{X_WATSON_ORIGIN}}",
+												"type": "text"
+											},
+											{
+												"key": "X-Watson-Userinfo",
+												"value": "{{X_WATSON_USERINFO}}",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"input\": {\r\n        \"text\": \"json\",\r\n        \"options\": {\r\n            \"return_context\": true\r\n        }\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions/{{SESSION_ID}}/message?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions",
+												"{{SESSION_ID}}",
+												"message"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "3 message no input",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Watson-Origin",
+												"value": "{{X_WATSON_ORIGIN}}",
+												"type": "text"
+											},
+											{
+												"key": "X-Watson-Userinfo",
+												"value": "{{X_WATSON_USERINFO}}",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"input\": {\r\n        \"text\": \"\"\r\n    },\r\n     \"options\": {\r\n            \"return_context\": true\r\n        },\r\n        \"context\": {{SESSION_CONTEXT}}\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions/{{SESSION_ID}}/message?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions",
+												"{{SESSION_ID}}",
+												"message"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Security",
+							"item": [
+								{
+									"name": "0 create session",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);\r",
+													"postman.setEnvironmentVariable(\"SESSION_ID\", jsonData.session_id);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "1 message",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"SESSION_CONTEXT\", JSON.stringify(jsonData.context));"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Watson-Origin",
+												"value": "{{X_WATSON_ORIGIN}}",
+												"type": "text"
+											},
+											{
+												"key": "X-Watson-Userinfo",
+												"value": "{{X_WATSON_USERINFO}}",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"input\": {\r\n        \"text\": \"security\",\r\n        \"options\": {\r\n            \"return_context\": true\r\n        }\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions/{{SESSION_ID}}/message?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions",
+												"{{SESSION_ID}}",
+												"message"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "2A basic",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"SESSION_CONTEXT\", JSON.stringify(jsonData.context));"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Watson-Origin",
+												"value": "{{X_WATSON_ORIGIN}}",
+												"type": "text"
+											},
+											{
+												"key": "X-Watson-Userinfo",
+												"value": "{{X_WATSON_USERINFO}}",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"input\": {\r\n        \"text\": \"text\",\r\n        \"options\": {\r\n            \"return_context\": true\r\n        }\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions/{{SESSION_ID}}/message?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions",
+												"{{SESSION_ID}}",
+												"message"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "2B bearer",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"SESSION_CONTEXT\", JSON.stringify(jsonData.context));"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"accept": true
+										}
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Watson-Origin",
+												"value": "{{X_WATSON_ORIGIN}}",
+												"type": "text"
+											},
+											{
+												"key": "X-Watson-Userinfo",
+												"value": "{{X_WATSON_USERINFO}}",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"input\": {\r\n        \"text\": \"bearer\",\r\n        \"options\": {\r\n            \"return_context\": true\r\n        }\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions/{{SESSION_ID}}/message?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions",
+												"{{SESSION_ID}}",
+												"message"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "2C api-key",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"SESSION_CONTEXT\", JSON.stringify(jsonData.context));"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"accept": true
+										}
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Watson-Origin",
+												"value": "{{X_WATSON_ORIGIN}}",
+												"type": "text"
+											},
+											{
+												"key": "X-Watson-Userinfo",
+												"value": "{{X_WATSON_USERINFO}}",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"input\": {\r\n        \"text\": \"api-key\",\r\n        \"options\": {\r\n            \"return_context\": true\r\n        }\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions/{{SESSION_ID}}/message?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions",
+												"{{SESSION_ID}}",
+												"message"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "3 message no input",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Watson-Origin",
+												"value": "{{X_WATSON_ORIGIN}}",
+												"type": "text"
+											},
+											{
+												"key": "X-Watson-Userinfo",
+												"value": "{{X_WATSON_USERINFO}}",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"input\": {\r\n        \"text\": \"\"\r\n    },\r\n     \"options\": {\r\n            \"return_context\": true\r\n        },\r\n        \"context\": {{SESSION_CONTEXT}}\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions/{{SESSION_ID}}/message?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions",
+												"{{SESSION_ID}}",
+												"message"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Timeout/Delay",
+							"item": [
+								{
+									"name": "0 create session",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);\r",
+													"postman.setEnvironmentVariable(\"SESSION_ID\", jsonData.session_id);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "1 message",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"SESSION_CONTEXT\", JSON.stringify(jsonData.context));"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Watson-Origin",
+												"value": "{{X_WATSON_ORIGIN}}",
+												"type": "text"
+											},
+											{
+												"key": "X-Watson-Userinfo",
+												"value": "{{X_WATSON_USERINFO}}",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"input\": {\r\n        \"text\": \"delay\",\r\n        \"options\": {\r\n            \"return_context\": true\r\n        }\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions/{{SESSION_ID}}/message?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions",
+												"{{SESSION_ID}}",
+												"message"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "2 time to wait",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"SESSION_CONTEXT\", JSON.stringify(jsonData.context));"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Watson-Origin",
+												"value": "{{X_WATSON_ORIGIN}}",
+												"type": "text"
+											},
+											{
+												"key": "X-Watson-Userinfo",
+												"value": "{{X_WATSON_USERINFO}}",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"input\": {\r\n        \"text\": \"40\",\r\n        \"options\": {\r\n            \"return_context\": true\r\n        }\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions/{{SESSION_ID}}/message?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions",
+												"{{SESSION_ID}}",
+												"message"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "3 message no input",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Watson-Origin",
+												"value": "{{X_WATSON_ORIGIN}}",
+												"type": "text"
+											},
+											{
+												"key": "X-Watson-Userinfo",
+												"value": "{{X_WATSON_USERINFO}}",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"input\": {\r\n        \"text\": \"\"\r\n    },\r\n     \"options\": {\r\n            \"return_context\": true\r\n        },\r\n        \"context\": {{SESSION_CONTEXT}}\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/sessions/{{SESSION_ID}}/message?version={{API_VERSION}}",
+											"host": [
+												"{{STORE_URL}}"
+											],
+											"path": [
+												"v2",
+												"assistants",
+												"{{ASSISTANT_ID}}",
+												"sessions",
+												"{{SESSION_ID}}",
+												"message"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "{{API_VERSION}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Stateless Messages",
+					"item": [
+						{
+							"name": "2 message no input",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Watson-Origin",
+										"value": "{{X_WATSON_ORIGIN}}",
+										"type": "text"
+									},
+									{
+										"key": "X-Watson-Userinfo",
+										"value": "{{X_WATSON_USERINFO}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"input\": {\r\n        \"text\": \"\"\r\n    },\r\n     \"options\": {\r\n            \"return_context\": true\r\n        },\r\n        \"context\": {{SESSION_CONTEXT}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/message?version={{API_VERSION}}",
+									"host": [
+										"{{STORE_URL}}"
+									],
+									"path": [
+										"v2",
+										"assistants",
+										"{{ASSISTANT_ID}}",
+										"message"
+									],
+									"query": [
+										{
+											"key": "version",
+											"value": "{{API_VERSION}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "1 message",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"SESSION_CONTEXT\", JSON.stringify(jsonData.context));"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Watson-Origin",
+										"value": "{{X_WATSON_ORIGIN}}",
+										"type": "text"
+									},
+									{
+										"key": "X-Watson-Userinfo",
+										"value": "{{X_WATSON_USERINFO}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"input\": {\r\n        \"text\": \"post\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{STORE_URL}}/v2/assistants/{{ASSISTANT_ID}}/message?version={{API_VERSION}}",
+									"host": [
+										"{{STORE_URL}}"
+									],
+									"path": [
+										"v2",
+										"assistants",
+										"{{ASSISTANT_ID}}",
+										"message"
+									],
+									"query": [
+										{
+											"key": "version",
+											"value": "{{API_VERSION}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "basic",
+				"basic": [
+					{
+						"key": "password",
+						"value": "ero5Ahfx9GXqSdfcon7kufRCnGhdVVEr359rE9cz9ddG",
+						"type": "string"
+					},
+					{
+						"key": "username",
+						"value": "apikey",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "API",
+			"item": [
+				{
+					"name": "Delay",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"sleep_time\": \"25\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/delay",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"delay"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TEST Content Aware - Text only",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "text/plain",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"sleep_time\": \"25\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/test/content",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"test",
+								"content"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TEST Content Aware - Json",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"sleep_time\": \"25\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/test/content",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"test",
+								"content"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TEST POST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"sleep_time\": \"25\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/test",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TEST Basic Auth",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "42",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "david",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"sleep_time\": \"25\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/security/basic",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"security",
+								"basic"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TEST Bearer Auth",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "david42",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"sleep_time\": \"25\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/security/bearer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"security",
+								"bearer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TEST API Key Auth",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "david42",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"sleep_time\": \"25\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/security/apikey",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"security",
+								"apikey"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TEST POST Params",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"sleep_time\": \"25\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/test/my_param",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"test",
+								"my_param"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TEST Error",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"sleep_time\": \"25\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/test/error",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"test",
+								"error"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TEST GET",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"sleep_time\": \"25\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/test",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TEST PUT",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"sleep_time\": \"25\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/test",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TEST DELETE",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"sleep_time\": \"25\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/test",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"test"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
