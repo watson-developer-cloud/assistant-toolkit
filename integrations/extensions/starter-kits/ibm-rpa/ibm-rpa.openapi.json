@@ -11,11 +11,20 @@
   },
   "servers": [
     {
-      "url": "https://us-south.functions.cloud.ibm.com"
+      "url": "https://{region}.functions.cloud.ibm.com/api/v1/web/{cloud_function_id}/default",
+      "variables": {
+        "region": {
+          "default": "us-south",
+          "description": "This value is based on which region your cloud functions are located."
+        },
+        "cloud_function_id": {
+          "default": "cloud_function_id"
+        }
+      }
     }
   ],
   "paths": {
-    "/api/v1/web/2ada559b-42cf-4862-904a-2ee51dd62af0/default/Start%20RPA%20Asynchronously.json": {
+    "/Start%20RPA%20Asynchronously.json": {
       "post": {
         "parameters": [
           {
@@ -58,7 +67,7 @@
         }
       }
     },
-    "/api/v1/web/2ada559b-42cf-4862-904a-2ee51dd62af0/default/Get%20RPA%20Asynchronous%20Status.json": {
+    "/Get%20RPA%20Asynchronous%20Status.json": {
       "post": {
         "parameters": [
           {

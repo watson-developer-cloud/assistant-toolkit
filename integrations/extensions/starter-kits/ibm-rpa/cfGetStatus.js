@@ -3,10 +3,10 @@ const axios = require('axios').default;
 const qs = require('qs');
 const appGUID = "app-guid"; //The Developer Gets this from the action namespace
 const apiURL = "app-url"; //The Developer gets this from the IBMRPA server deployed to
-const workspaceAPIID = "workspace-app-id"; // Get this from a get request to the server with your UserName ((https://us1api.wdgautomation.com/v2.0/account/tenant?UserName=zachary.silverstein@ibm.com))
+const workspaceAPIID = "workspace-app-id"; // Get this from a get request to the server with your UserName (https://us1api.wdgautomation.com/v2.0/account/tenant?UserName={username})
 const username = "username" //username you want the bot to log in as
 const password = "password" //password the bot uses with your username
-const processID = "process-id"//Developer uses a get request for list processes to see https://us1api.wdgautomation.com/v2.0/workspace/a1699374-7c93-45e4-a931-e3254968e014/process
+const processID = "process-id"//Developer uses a get request for list processes to see https://us1api.wdgautomation.com/v2.0/workspace/{workspace-app-id}/process
 
 async function main(params) {
 
