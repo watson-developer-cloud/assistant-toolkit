@@ -24,14 +24,14 @@ The `basic` kit implements a single yet useful API call for retrieving contact i
 
 Hubspot has increased their level of security for making API calls. They no longer support one API Key but rather support keys per Application. Hubspot now support two types of Apps: Private and Public. Public Apps require OAuth authentication which currently IBM Watson Assistant does not support. For the time being, we recommend using Private Apps which are based on Bearer Authentication. Please note, to follow Hubspot guidelines on sharing this Bearer token.
 
-First we need to create a Hubspot account.
+First, we need to create a Hubspot account.
 
-1. [Create app developer account](https://developers.hubspot.com/get-started)
-1. Once you have verified your email, you need to click "create a test account", and select the test account.
+1. [Create app developer account](https://developers.hubspot.com/get-started).
+1. Once you have verified your email, click `Create a test account`, and select the test account.
 
 1. Click on `Settings` (the cog wheel icon) at the top right of the page, then click `Integrations` in the left menu to open a drop-down, and select `Private Apps`.
 
-1. If you do not already have one, `Create a private app`. Enter your app's name than, click the `Scopes` tab select the scopes `tickets` and `crm.objects.contacts.read`. Click `Create app` in the top right. Copy the access token and save for future steps.
+1. If you do not already have one, `Create a private app`. Enter your app's name, then click the `Scopes` tab select the scopes `tickets` and `crm.objects.contacts.read`. Click `Create app` on the top right. Copy the access token and save for future steps.
 
 [guidelines provided by Hubspot](https://developers.hubspot.com/docs/api/private-apps).
 
@@ -101,7 +101,8 @@ The following actions are provided in this starter kit. After upload, the action
 
     **Note**: `subject` and `hs_pipeline_stage` exist by default in HubSpot's ticketing schema - the provided skill adds default values in `Step 4`. The `hs_pipeline_stage` field in the API corresponds to the `Ticket status` of a HubSpot ticket; we recommend submitting a value of `1` for the `hs_pipeline_stage` field, which will set the `Ticket status` to `New`.  The `subject` field in the API corresponds to the `Ticket name` of a HubSpot ticket.
 
-- **Action 4: Pick a ticket subaction** (advanced) 
+- **Action 4: Pick a ticket subaction** (advanced)<br>
+    Note that this is a subaction, and not meant to be called individually.
     ```
     Operation: List Tickets
     Parameters:
@@ -109,7 +110,7 @@ The following actions are provided in this starter kit. After upload, the action
     ```
 
 - **Action 5: I want to check my ticket status** (advanced)<br>
-    Note that you will have to also configure action `Can I see my tickets?` above, since it is used as a subaction within this action.
+    Note that you will have to also configure action `Pick a ticket subaction` above, since it is used as a subaction within this action.
     ```
     Operation: Get Ticket Info
     Parameters:
@@ -128,6 +129,6 @@ A conversation using this starter kit could look like the following. Note that t
 
 ![hello-appointment](./assets/hello-appointment.gif)
 ![create-ticket](./assets/create-ticket.gif)
-![check-ticket-status](./assets/check-ticket-status.gif)
+<img src="./assets/check-ticket-status.gif" alt="check-ticket-status" height="479px"/>
 
-Free free to contribute to this starter kit, or add other starter kits by following these [contribution guidelines](../../docs/CONTRIBUTING.md).
+Feel free to contribute to this starter kit, or add other starter kits by following these [contribution guidelines](../../docs/CONTRIBUTING.md).

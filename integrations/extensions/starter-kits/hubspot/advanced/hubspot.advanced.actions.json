@@ -3,10 +3,10 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2022-11-10T18:45:47.990Z",
-  "updated": "2022-11-15T11:09:51.985Z",
+  "created": "2022-11-15T12:16:38.140Z",
+  "updated": "2022-11-16T18:12:30.288Z",
   "language": "en",
-  "skill_id": "3007aed5-ea1c-42d1-8064-eff14c1ab81e",
+  "skill_id": "5ee04e86-f902-4384-9665-6e7f5976e084",
   "workspace": {
     "actions": [
       {
@@ -644,14 +644,7 @@
               ]
             },
             "context": {
-              "variables": [
-                {
-                  "value": {
-                    "expression": "\"membership_status,createdate,email,firstname,lastname,hs_object_id\""
-                  },
-                  "skill_variable": "query_properties"
-                }
-              ]
+              "variables": []
             },
             "handlers": [],
             "resolver": {
@@ -661,7 +654,7 @@
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "catalog_item_id": "97a2494f-3832-4ff4-9b1e-600dc46fae3e"
+                  "catalog_item_id": "6ac15b43-097b-4e48-a6bf-397568188b8b"
                 },
                 "request_mapping": {
                   "path": [
@@ -670,14 +663,6 @@
                         "variable": "step_968"
                       },
                       "parameter": "contactId"
-                    }
-                  ],
-                  "query": [
-                    {
-                      "value": {
-                        "skill_variable": "query_properties"
-                      },
-                      "parameter": "properties"
                     }
                   ]
                 },
@@ -1365,7 +1350,7 @@
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "catalog_item_id": "e63ef4ac-77ad-42fc-9173-6f07098d7eb2"
+                  "catalog_item_id": "6ac15b43-097b-4e48-a6bf-397568188b8b"
                 },
                 "request_mapping": {
                   "path": [
@@ -1998,13 +1983,13 @@
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "catalog_item_id": "e63ef4ac-77ad-42fc-9173-6f07098d7eb2"
+                  "catalog_item_id": "6ac15b43-097b-4e48-a6bf-397568188b8b"
                 },
                 "request_mapping": {
                   "query": [
                     {
                       "value": {
-                        "expression": "\"5\""
+                        "expression": "10"
                       },
                       "parameter": "limit"
                     }
@@ -2217,7 +2202,7 @@
             "data_type": "any"
           },
           {
-            "title": "We were not able to find any tickets with your account, please t",
+            "title": "We were not able to find any tickets with your account, please try again later.",
             "variable": "step_536",
             "data_type": "any"
           },
@@ -2850,8 +2835,8 @@
     "learning_opt_out": true
   },
   "description": "created for assistant 1afaf69c-8cc4-4821-8b87-003bd45e86fb",
-  "assistant_id": "6a18b925-5b88-4349-8696-8b96ee34c9d8",
-  "workspace_id": "3007aed5-ea1c-42d1-8064-eff14c1ab81e",
+  "assistant_id": "d6cbee8a-52e4-45a7-94f7-f6cbbf090bfe",
+  "workspace_id": "5ee04e86-f902-4384-9665-6e7f5976e084",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }
