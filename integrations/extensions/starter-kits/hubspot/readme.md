@@ -21,25 +21,19 @@ HubSpot has a fantastic public API documentation that is very custom extensions 
 The `basic` kit implements a single yet useful API call for retrieving contact information. If you are new to custom extensions, we recommend you start there to get an idea on how to use custom extensions with skills. The `advanced` folder contains a kit with more advanced functionality, which you can use as a creative springboard for complex use cases.
 
 ## Pre-Req 1: Getting Private Apps Access Token
-#### ** Updated Aug. 29, 2022 **
 
 Hubspot has increased their level of security for making API calls. They no longer support one API Key but rather support keys per Application. Hubspot now support two types of Apps: Private and Public. Public Apps require OAuth authentication which currently IBM Watson Assistant does not support. For the time being, we recommend using Private Apps which are based on Bearer Authentication. Please note, to follow Hubspot guidelines on sharing this Bearer token.
 
-To call the HubSpot API, you will need an Private App access token. To obtain this key:
+First, we need to create a Hubspot account.
+
+1. [Create app developer account](https://developers.hubspot.com/get-started).
+1. Once you have verified your email, click `Create a test account`, and select the test account.
 
 1. Click on `Settings` (the cog wheel icon) at the top right of the page, then click `Integrations` in the left menu to open a drop-down, and select `Private Apps`.
 
-1. If you do not already have one, `Create a private app`. Enter your app's name than, click the `Scopes` tab select the scopes `tickets` and `crm.objects.contacts.read`. Click `Create app` in the top right. Copy the access token and save for future steps.
+1. If you do not already have one, `Create a private app`. Enter your app's name, then click the `Scopes` tab select the scopes `tickets` and `crm.objects.contacts.read`. Click `Create app` on the top right. Copy the access token and save for future steps.
 
 [guidelines provided by Hubspot](https://developers.hubspot.com/docs/api/private-apps).
-
-#### ** Instructions Prior to Aug 29, 2022 **
-
-To call the HubSpot API, you will need an API key. To obtain this key:
-
-1. Click on `Settings` (the cog wheel icon) at the top right of the page, then click `Integrations` in the left menu to open a drop-down, and select `API Key`.
-
-1. If you do not already have one, `Create key`. Copy the API key and save for future steps. **Note:** You can also see a log of API calls using each key, which is helpful to debug API calls sent from your assistants that do not produce the expected outcome in HubSpot or in your assistants.
 
 ## Pre-Req 2: Adding Custom Properties in HubSpot
 This starter kit focuses on the ticketing system and profile information retrieval of HubSpot. In order to use the provided JSON skill out of the box, you will need to create some custom properties - `charge_name`, `charge_amount`, `charge_date`, and `membership_status` - within your HubSpot account.
@@ -80,22 +74,21 @@ For helpful information on how to easily modify and use the skills/OpenAPI speci
 
 The following actions are provided in this starter kit. After upload, the actions should be configured to use the fields below for the skill to be fully functional. Follow the instructions [here](../../README.md#configuring-your-actions-skill-to-use-an-extension) and note the information below to do this.
 
-- **Action 1**. (basic + advanced) Greet customer.<br>
+- **Action 1: Greet customer** (basic + advanced)<br>
     ```
     Operation: Get Contact by ID
     Parameters:
       - contactId: 1. Hi! Please tell me your customer ID ...
-      - properties: query_properties
     ```
 
-- **Action 2**. (basic + advanced) I want to book an appointment.<br>
+- **Action 2:  I want to book an appointment** (basic + advanced)<br>
     This action does not use an extension - it is included to demonstrate the flow of session variables after using Action 1.
     ```
     Operation: N/A
     Parameters: N/A
     ```
 
-- **Action 3**. (advanced) I want to dispute a charge.
+- **Action 3:  I want to dispute a charge** (advanced)
     ```
     Operation: Create Ticket
     Parameters:
@@ -108,26 +101,27 @@ The following actions are provided in this starter kit. After upload, the action
 
     **Note**: `subject` and `hs_pipeline_stage` exist by default in HubSpot's ticketing schema - the provided skill adds default values in `Step 4`. The `hs_pipeline_stage` field in the API corresponds to the `Ticket status` of a HubSpot ticket; we recommend submitting a value of `1` for the `hs_pipeline_stage` field, which will set the `Ticket status` to `New`.  The `subject` field in the API corresponds to the `Ticket name` of a HubSpot ticket.
 
-- **Action 4**. (advanced) Can I see my tickets?
+- **Action 4: Pick a ticket subaction** (advanced)<br>
+    Note that this is a subaction, and not meant to be called individually.
     ```
     Operation: List Tickets
     Parameters:
-      - None
+      - limit: 10
     ```
 
-- **Action 5**. (advanced) I want to check my ticket status.<br>
-    Note that you will have to also configure action `Can I see my tickets?` above, since it is used as a subaction within this action.
+- **Action 5: I want to check my ticket status** (advanced)<br>
+    Note that you will have to also configure action `Pick a ticket subaction` above, since it is used as a subaction within this action.
     ```
     Operation: Get Ticket Info
     Parameters:
       - ticketId: ticketId
     ```
 
-- **Action 6**. (advanced) I want to delete my ticket.
+- **Action 6: I want to delete my ticket** (advanced) 
     ```
     Operation: Archive Ticket
     Parameters:
-      - ticketId: 1. Ok! What's the ID of the ...
+      - ticketId: ticketId
     ```
 
 ## Example Usage
@@ -135,6 +129,6 @@ A conversation using this starter kit could look like the following. Note that t
 
 ![hello-appointment](./assets/hello-appointment.gif)
 ![create-ticket](./assets/create-ticket.gif)
-![check-ticket-status](./assets/check-ticket-status.gif)
+<img src="./assets/check-ticket-status.gif" alt="check-ticket-status" height="479px"/>
 
-Free free to contribute to this starter kit, or add other starter kits by following these [contribution guidelines](../../docs/CONTRIBUTING.md).
+Feel free to contribute to this starter kit, or add other starter kits by following these [contribution guidelines](../../docs/CONTRIBUTING.md).

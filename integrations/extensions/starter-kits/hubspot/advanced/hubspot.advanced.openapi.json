@@ -29,16 +29,6 @@
             },
             "required": true,
             "description": "Numeric ID of the user"
-          },
-          {
-            "in": "query",
-            "name": "properties",
-            "schema": {
-              "type": "string",
-              "default": "membership_status,createdate,email,firstname,lastname,hs_object_id"
-            },
-            "required": false,
-            "description": "Comma separated list of properties to return"
           }
         ],
         "responses": {
@@ -107,71 +97,6 @@
               "format": "int32",
               "default": 3
             }
-          },
-          {
-            "name": "after",
-            "in": "query",
-            "description": "The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.",
-            "required": false,
-            "style": "form",
-            "explode": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "properties",
-            "in": "query",
-            "description": "A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.",
-            "required": false,
-            "style": "form",
-            "explode": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          {
-            "name": "propertiesWithHistory",
-            "in": "query",
-            "description": "A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. Usage of this parameter will reduce the maximum number of objects that can be read by a single request.",
-            "required": false,
-            "style": "form",
-            "explode": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          {
-            "name": "associations",
-            "in": "query",
-            "description": "A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.",
-            "required": false,
-            "style": "form",
-            "explode": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          {
-            "name": "archived",
-            "in": "query",
-            "description": "Whether to return only results that have been archived.",
-            "required": false,
-            "style": "form",
-            "explode": true,
-            "schema": {
-              "type": "boolean",
-              "default": false
-            }
           }
         ],
         "responses": {
@@ -199,71 +124,6 @@
             "required": true,
             "style": "simple",
             "explode": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "properties",
-            "in": "query",
-            "description": "A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.",
-            "required": false,
-            "style": "form",
-            "explode": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          {
-            "name": "propertiesWithHistory",
-            "in": "query",
-            "description": "A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored.",
-            "required": false,
-            "style": "form",
-            "explode": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          {
-            "name": "associations",
-            "in": "query",
-            "description": "A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.",
-            "required": false,
-            "style": "form",
-            "explode": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          {
-            "name": "archived",
-            "in": "query",
-            "description": "Whether to return only results that have been archived.",
-            "required": false,
-            "style": "form",
-            "explode": true,
-            "schema": {
-              "type": "boolean",
-              "default": false
-            }
-          },
-          {
-            "name": "idProperty",
-            "in": "query",
-            "description": "The name of a property whose values are unique for this object type",
-            "required": false,
-            "style": "form",
-            "explode": true,
             "schema": {
               "type": "string"
             }
