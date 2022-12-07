@@ -4,7 +4,7 @@
 
 This code is for extending the Watson Assistant web chat. If you are new to developing with web chat, please start with the [web chat development overview](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-develop). The code in this folder is commented with links and references to the web chat APIs used.
 
-This example will demonstrate how to add custom content to the home screen by using a custom writeable element. It will add a number of custom buttons which, when clicked, will send a message to the assistant.
+This example demonstrates how to add custom content to the home screen by using a custom writeable element. It will add a number of custom buttons which, when clicked, will send a message to the assistant.
 
 It demonstrates:
 

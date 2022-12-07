@@ -8,12 +8,23 @@
 <body>
 
   <p>
-    Please enter your account number (web chat can fill this in for you):
+    Please enter your information (web chat can fill these in for you):
   </p>
-  <label>
-    Account number
-    <input id="account-number" type="text">
-  </label>
+  <p>
+    Send the message "fill phone number" to web chat and it will automatically fill in the phone number for you.
+  </p>
+  <p>
+    <label>
+      Account number
+      <input id="account-number" type="text">
+    </label>
+  </p>
+  <p>
+    <label>
+      Phone number
+      <input id="phone-number" type="text">
+    </label>
+  </p>
 
   <script>
     /**
@@ -27,7 +38,8 @@
       button.type = 'button';
       button.innerHTML = 'Fill in account number';
       button.addEventListener('click', () => {
-        // Look for the account number element in the document and fill in the account number.
+        // Look for the account number element in the document and fill in the account number. You could get this value
+        // from a context variable in the message.
         document.querySelector('#account-number').value = '1234567';
       });
 
@@ -40,18 +52,15 @@
     }
 
     /**
-     * This will add an additional message item to each message received that will render a custom button for filling
-     * in the account number.
+     * This will look for the "fill_phone_number" user defined value and if it sees it, will fill in the phone form
+     * field.
      */
-    function preReceiveHandler(event) {
+    function receiveHandler(event) {
       const message = event.data;
-      if (message.output.generic) {
-        message.output.generic.push({
-          response_type: 'user_defined',
-          user_defined: {
-            user_defined_type: 'fill_account_number',
-          }
-        });
+      if (message.output.generic && message.output.generic[0].user_defined && message.output.generic[0].user_defined.user_defined_type === 'fill_phone_number') {
+        // Look for the phone number element in the document and fill in the phone number. You could get this value
+        // from a context variable in the message.
+        document.querySelector('#phone-number').value = '555-555-5555';
       }
     }
 
@@ -75,9 +84,9 @@
         },
       });
 
-      // We will need to listen for the "pre:receive" event so we can add a custom response item to the message so we
-      // can display a button.
-      instance.on({ type: 'pre:receive', handler: preReceiveHandler });
+      // We will need to listen for the "receive" event so we can automatically fill in a form element after
+      // getting a response from the assistant.
+      instance.on({ type: 'receive', handler: receiveHandler });
 
       instance.render();
     }
@@ -89,6 +98,7 @@
       integrationID: "4a5aaa9a-b4f9-47b6-bfc1-28488166cb64",
       region: "us-south",
       serviceInstanceID: "9a3613d2-3ce6-4928-8eb6-4d659d87ae68",
+      debug: true,
       onLoad: onLoad,
     };
     setTimeout(function(){const t=document.createElement('script');t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";document.head.appendChild(t);});

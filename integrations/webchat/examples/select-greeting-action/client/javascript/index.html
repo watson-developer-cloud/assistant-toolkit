@@ -85,7 +85,7 @@
      */
     function preSendHandler(event) {
       // If the text is empty then that means this is a request for the greeting message.
-      if (event.data.input && event.data.input.text === '') {
+      if (event.data.history && event.data.history.is_welcome_request) {
         if (page === 'cards') {
           // If we are on the credit card page, then change the requested text to a different message that will trigger
           // a different action instead of the default greeting message.

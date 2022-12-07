@@ -170,6 +170,14 @@
             "schema": {
               "$ref": "#/components/schemas/TopCountParameter"
             }
+          },
+          {
+            "in": "path",
+            "name": "topCount",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/TopCountParameter"
+            }
           }
         ],
         "responses": {

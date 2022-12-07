@@ -1,18 +1,18 @@
 {
-  "name": "Example - Page Interaction",
+  "name": "Ex - Agents Unavailable",
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2022-05-20T17:49:07.711Z",
-  "updated": "2022-12-06T21:41:28.192Z",
+  "created": "2022-12-06T20:48:52.117Z",
+  "updated": "2022-12-06T21:08:54.189Z",
   "language": "en",
-  "skill_id": "dfaa72f9-b8df-4617-9396-c3d2ff1cd857",
+  "skill_id": "a5d6a2b1-1837-43e8-a758-c11c17f7cf50",
   "workspace": {
     "actions": [
       {
         "steps": [
           {
-            "step": "step_229",
+            "step": "step_434",
             "output": {
               "generic": [
                 {
@@ -21,15 +21,50 @@
                       "text_expression": {
                         "concat": [
                           {
-                            "scalar": "I have looked up your phone number but this time, I have filled it in for you without asking."
+                            "scalar": "I can create a ticket for you and we will respond when an agent becomes available. What is your name?"
                           }
                         ]
                       }
                     }
                   ],
-                  "user_defined": {
-                    "user_defined_type": "fill_phone_number"
-                  },
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "question": {
+              "free_text": true,
+              "response_collection_behavior": "always_ask"
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_434",
+            "next_step": "step_866"
+          },
+          {
+            "step": "step_866",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Thank you "
+                          },
+                          {
+                            "variable": "step_434"
+                          },
+                          {
+                            "scalar": "! I have created a ticket. (Okay, I really didn't but in the real world I would have used an extension to create a ticket in an external system so let's just pretend I did)"
+                          }
+                        ]
+                      }
+                    }
+                  ],
                   "response_type": "text",
                   "selection_policy": "sequential"
                 }
@@ -39,24 +74,80 @@
             "resolver": {
               "type": "continue"
             },
-            "variable": "step_229"
+            "variable": "step_866"
           }
         ],
-        "title": "fill automatically",
-        "action": "action_23179",
+        "title": "NO_AGENTS_FILE_TICKET",
+        "action": "action_22567",
         "boosts": [],
         "handlers": [],
         "condition": {
-          "intent": "action_23179_intent_14329"
+          "intent": "action_22567_intent_49583"
         },
         "variables": [
           {
-            "title": "I have looked up your phone number but this time, I have filled ",
-            "variable": "step_229",
+            "title": "I can create a ticket for you and we will respond when an agent ",
+            "variable": "step_434",
+            "data_type": "any"
+          },
+          {
+            "title": "Thank you {variable}! I have created a ticket. (Okay, I really d",
+            "variable": "step_866",
             "data_type": "any"
           }
         ],
         "next_action": "fallback",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": true
+      },
+      {
+        "steps": [
+          {
+            "step": "step_709",
+            "output": {
+              "generic": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {
+                    "service_desk": {
+                      "department": "not needed"
+                    }
+                  }
+                },
+                "agent_available": {
+                  "message": "Agents are available! This message should not appear in the example."
+                },
+                "agent_unavailable": {
+                  "message": "I'm afraid that no agents are currently available."
+                },
+                "message_to_human_agent": ""
+              }
+            },
+            "variable": "step_709"
+          }
+        ],
+        "title": "agent",
+        "action": "action_4731",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_4731_intent_40459"
+        },
+        "variables": [
+          {
+            "title": "",
+            "variable": "step_709",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_22567",
         "topic_switch": {
           "allowed_from": true,
           "allowed_into": true
@@ -331,7 +422,7 @@
                       "text_expression": {
                         "concat": [
                           {
-                            "scalar": "Hello! I have looked up your account number and I can fill it into the form on the left for you. Just click the button below."
+                            "scalar": "Go ahead. Ask for an agent!"
                           }
                         ]
                       }
@@ -339,12 +430,6 @@
                   ],
                   "response_type": "text",
                   "selection_policy": "sequential"
-                },
-                {
-                  "user_defined": {
-                    "user_defined_type": "fill_account_number"
-                  },
-                  "response_type": "user_defined"
                 }
               ]
             },
@@ -364,21 +449,29 @@
         },
         "variables": [
           {
-            "title": "Hello! I have looked up your account number and I can fill it in",
+            "title": "Go ahead. Ask for an agent!",
             "variable": "step_001",
             "data_type": "any"
           }
         ],
-        "next_action": "action_23179",
+        "next_action": "action_4731",
         "disambiguation_opt_out": true
       }
     ],
     "intents": [
       {
-        "intent": "action_23179_intent_14329",
+        "intent": "action_22567_intent_49583",
         "examples": [
           {
-            "text": "fill phone number"
+            "text": "NO_AGENTS_FILE_TICKET"
+          }
+        ]
+      },
+      {
+        "intent": "action_4731_intent_40459",
+        "examples": [
+          {
+            "text": "agent"
           }
         ]
       },
@@ -445,9 +538,9 @@
     },
     "learning_opt_out": true
   },
-  "description": "created for assistant bbbb71e9-cfce-49c4-8515-692ba3aa82f6",
-  "assistant_id": "bbbb71e9-cfce-49c4-8515-692ba3aa82f6",
-  "workspace_id": "dfaa72f9-b8df-4617-9396-c3d2ff1cd857",
+  "description": "created for assistant 13f21e9b-3a7f-4926-85eb-8613c085de11",
+  "assistant_id": "13f21e9b-3a7f-4926-85eb-8613c085de11",
+  "workspace_id": "a5d6a2b1-1837-43e8-a758-c11c17f7cf50",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }

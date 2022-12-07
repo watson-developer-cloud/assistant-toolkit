@@ -70,7 +70,7 @@ It demonstrates:
 
 ## [Deep linking](deep-linking/README.md)
 
-This example will show you how to create an external link that can be shared in other apps such as email that, when clicked, will open web chat to a specific conversation topic.
+This example demonstrates how to create an external link that can be shared in other apps such as email that, when clicked, will open web chat to a specific conversation topic.
 
 It demonstrates:
 
@@ -89,9 +89,18 @@ It demonstrates:
 - How to convert [**Watson Assistant messages**](https://cloud.ibm.com/apidocs/assistant/assistant-v2#message) into a text format that can be downloaded.
 - How to use the built-in `Blob` and `URL` objects to construct a downloadable link.
 
+## [Handling agents unavailable](agents-unavailable/README.md)
+
+This example demonstrates how to listen for the `agent:areAnyAgentsOnline` event from web chat and use that to start an action that could be used to file a ticket when no agents are currently online/available.
+
+It demonstrates:
+
+- How to use an [**agent:areAnyAgentsOnline**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#areanyagentsonline) event handler to display a custom card.
+- How to use the [**send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#send) instance function to send a message to the assistant and include context variables with user input.
+
 ## [Home screen custom element](home-screen-custom-element/README.md)
 
-This example will demonstrate how to add custom content to the home screen by using a custom writeable element. It will add a number of custom buttons which, when clicked, will send a message to the assistant.
+This example demonstrates how to add custom content to the home screen by using a custom writeable element. It will add a number of custom buttons which, when clicked, will send a message to the assistant.
 
 It demonstrates:
 
@@ -100,11 +109,11 @@ It demonstrates:
  
 ## [Page interaction](page-interaction/README.md)
 
-This example will show you how to use a custom response to display a button within web chat that can locate fields in the host page and fill in values to them.
+This example demonstrates how to use a custom response to display a button within web chat that can locate fields in the host page and fill in values to them.
 
 It demonstrates:
 
-- How to use the [**pre:receive**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#prereceive) event handler to add a custom response to message returned from the assistant so you can display a custom button.
+- How to use the [**receive**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#receive) event handler trigger an immediate interaction with the page.
 - How to use a [**customResponse**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#customresponse) event handler to display a custom button which, when clicked, will interact with elements on the host page.
 - How to use the [**ibm-web-chat--default-styles**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-render#helper_classes) CSS helper class to make a custom button look like a default web chat button.
 

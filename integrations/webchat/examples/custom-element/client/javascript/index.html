@@ -12,6 +12,10 @@
       top: 10%;
       bottom: 10%;
     }
+
+    #WACContainer.WACContainer .HideWebChat {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -24,17 +28,15 @@
     /**
      * This function is called when web chat is closed. It will hide the main web chat window.
      */
-    function closeHandler() {
-      const wacWidgetElement = customElement.querySelector('.WACWidget');
-      wacWidgetElement.style.display = 'none';
+    function closeHandler(event, instance) {
+      instance.elements.getMainWindow().addClassName('HideWebChat');
     }
 
     /**
      * This function is called when web chat is closed. It will un-hide the main web chat window.
      */
-    function openHandler() {
-      const wacWidgetElement = customElement.querySelector('.WACWidget');
-      wacWidgetElement.style.display = '';
+    function openHandler(event, instance) {
+      instance.elements.getMainWindow().removeClassName('HideWebChat');
     }
 
     /**
@@ -48,11 +50,11 @@
       instance.on({ type: 'window:close', handler: closeHandler });
       instance.on({ type: 'window:open', handler: openHandler });
 
-      // Hide the widget until it is opened. With session history, it may already be opened (but the window:open will
-      // fire where we will cause the widget to show). Note that we have to hide WACWidget instead of WebChatContainer
-      // because the custom element hosts both the main web chat window as well as the launcher. If we hide the entire
-      // container, then we will hide the launcher too.
-      customElement.querySelector('.WACWidget').style.display = 'none';
+      // Hide the main window until it is opened. With session history, it may already be opened (but the window:open
+      // will fire where we will cause the main window to show). Note that we have to hide the main window instead of
+      // WebChatContainer because the custom element hosts both the main web chat window and the launcher. If we hide
+      // the entire container, then we will hide the launcher too.
+      instance.elements.getMainWindow().addClassName('HideWebChat')
     }
 
     // This is the standard web chat configuration object. You can modify these values with the embed code for your
