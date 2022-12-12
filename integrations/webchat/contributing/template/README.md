@@ -2,7 +2,7 @@
 
 **For a full walk through of how this code works, please visit [the tutorial page](https://cloud.ibm.com/docs/watson-assistant?topic=TODO) in the Watson Assistant documentation.**
 
-This code is for extending the Watson Assistant web chat. If you are new to developing with web chat, please start with the [web chat development overview](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-customize). The code in this folder is commented with links and references to the web chat APIs used.
+This code is for extending the Watson Assistant web chat. If you are new to developing with web chat, please start with the [web chat development overview](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-develop). The code in this folder is commented with links and references to the web chat APIs used.
 
 TODO: Fill in the content below with a brief description of what this example does. Also create a list of each feature or technology that the example with demonstrate and include links to the documentation where appropriate. Also copy this content to the README.md file one folder up that is the index file for the entire examples folder.
 
@@ -13,6 +13,21 @@ It demonstrates:
 TODO
 
 ## Running the Code
+
+### Running the Server
+
+TODO: Replace "api" with the appropriate routes that you've created.
+
+This example requires having NodeJS installed.
+
+A simple server that serves requests from `http://localhost:3001/api`.
+
+The important code for this example can be found at [api.js](server/nodejs-express/routes/api.js).
+
+1. `cd server/nodejs-express`
+2. `npm install`
+3. `npm run start`
+4. The server will be available at `http://localhost:3001`.
 
 TODO: Fill out each of the appropriate sections as needed and delete the unneeded sections. Only use one of the two JavaScript sections that correspond to the template you are using.
 
@@ -33,19 +48,6 @@ TODO: Fill out each of the appropriate sections as needed and delete the unneede
 2. `npm install`
 3. `npm run start`
 4. Open a web browser to `localhost:3000`.
-
-### Running the Server
-
-TODO: Replace "api" with the appropriate routes that you've created.
-
-A simple server that serves requests from `http://localhost:3001/api`.
-
-The important code for this example can be found at [api.js](server/nodejs-express/routes/api.js).
-
-1. `cd server/nodejs-express`
-2. `npm install`
-3. `npm run start`
-4. The server will be available at `http://localhost:3001`.
 
 ## Setting up your own assistant
 

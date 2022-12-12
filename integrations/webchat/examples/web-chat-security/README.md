@@ -30,6 +30,8 @@ openssl rsa -in jwtRS256.key -pubout -outform PEM -out jwtRS256.key.pub
 
 ### Running the Server
 
+This example requires having NodeJS installed.
+
 The server is required for creating the JWTs that are required to enable security and for authenticating a user. It serves requests from `http://localhost:3001`.
 
 1. `cd server/nodejs-express`

@@ -129,7 +129,7 @@ function FormContainer({ instance }) {
   function preSendHandler(event) {
     // This code only runs for the initial welcome message, but you could set the variable on any message that is sent
     // to the assistant.
-    if (event.data.input && event.data.input.text === '') {
+    if (event.data.history && event.data.history.is_welcome_request) {
       // Make sure these objects exist but don't override them if they already do.
       event.data.context.skills['actions skill'] = event.data.context.skills['actions skill'] || {};
       event.data.context.skills['actions skill'].skill_variables =
