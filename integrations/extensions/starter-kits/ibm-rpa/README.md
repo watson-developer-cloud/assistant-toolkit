@@ -7,7 +7,7 @@ This extension starter kits shows how to integrate IBM RPA into a conversational
 One important caveate about this starter kit is that it does not contain the backend RPA distribution needed to complete an end-to-end demo. The purpose of the starter kit is to provide template assets needed to start building the integration but practitioners may need help from the IBM RPA client engineering team to build a working demo. IBM employees can put in a request for help through the Customer Care Jumpstart program. Please check the [intake process here through ISC](https://ibm.box.com/s/m715465sjeai35dz58rdp72t35z4z58m).
 
 ---
-**NOTE:** It's important to understand that this starter kit is using generic RPA input and output parameters for illustration purposes. For example, rpaInputParam1 and rpaInputParam2 will likely need to change based on your actual RPA script. Throughout this starter kit you will be directed at the places these temporary parameters will need to be modified to match your actual RPA scripts.
+**NOTE:** It's important to understand that this starter kit is using generic RPA input and output parameters for illustration purposes. For example, `rpaInputParam1` and `rpaInputParam2` will likely need to change based on your actual RPA script. Throughout this starter kit you will be directed at the places these temporary parameters will need to be modified to match your actual RPA scripts.
 ___
 
 ### Starter Kit Overview
@@ -90,14 +90,14 @@ Next update the OpenAPI spec template included with this starter kit:
 
 ### Setup Watson Assistant
 
-1. Within the new Watson Assistant environment, start by creating a new assistant. You can do this by importing the ibm-rpa.actions.json file. Note that the parameters and endpoints related to the RPA extension defined within this JSON file will have to be setup again after you import the Extension. 
+1. Within your new Watson Assistant instance, start by creating a new assistant. You can do this by importing the ibm-rpa.actions.json file. Note that the parameters and endpoints related to the RPA extension defined within this JSON file will have to be setup again after you import the Extension. 
 
 2. After you create your assistant, you can upload the OpenAPI specification that you edited above to your assistant by following these [instructions](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension).
 
 You should see these two methods in the extension:
 ![methods](./assets/ibm-rpa-methods.png)
 
-3. Add your newly created custom extension to your draft environment. Be sure to set the region and cloud_function_id server variables that are derived from your cloud function endpoints.
+3. Add your newly created custom extension to your draft environment. Be sure to set the `region` and `cloud_function_id` server variables that are derived from your cloud function endpoints.
 ![set-url-path-vars](./assets/set-url-path-vars.png)
 
 4. After you setup the new extension you will need to go into the two Action steps which call out to the extension and point them at the new methods associated with the extension. This includes setup of both the call out methods and the related parameters.
