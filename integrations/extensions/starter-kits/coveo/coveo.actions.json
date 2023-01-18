@@ -3,10 +3,10 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2022-10-04T18:43:52.193Z",
-  "updated": "2022-10-05T18:08:52.830Z",
+  "created": "2023-01-18T20:06:51.856Z",
+  "updated": "2023-01-18T20:12:28.883Z",
   "language": "en",
-  "skill_id": "54674051-c26c-48a9-bc9a-2cb77fa87160",
+  "skill_id": "590b1b4f-0909-412f-98fc-85c70c995ee1",
   "workspace": {
     "actions": [
       {
@@ -162,6 +162,10 @@
             "data_type": "any"
           },
           {
+            "variable": "step_668_result_1",
+            "data_type": "any"
+          },
+          {
             "title": "No response",
             "variable": "step_947",
             "data_type": "any"
@@ -287,6 +291,10 @@
             "data_type": "any"
           },
           {
+            "variable": "step_668_result_1",
+            "data_type": "any"
+          },
+          {
             "variable": "step_947_result_1",
             "data_type": "any"
           },
@@ -399,7 +407,8 @@
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "catalog_item_id": "31515f61-604a-47e1-bea0-65812b610bf5"
+                  "spec_hash_id": null,
+                  "catalog_item_id": "b8b1add6-8283-4c08-a482-0a84ebfc3738"
                 },
                 "request_mapping": {
                   "query": [
@@ -684,6 +693,10 @@
             "data_type": "any"
           },
           {
+            "variable": "step_668_result_1",
+            "data_type": "any"
+          },
+          {
             "variable": "step_947_result_1",
             "data_type": "any"
           },
@@ -944,27 +957,15 @@
     "intents": [
       {
         "intent": "action_20399_intent_15891",
-        "examples": [
-          {
-            "text": "Show search result"
-          }
-        ]
+        "examples": []
       },
       {
         "intent": "action_40450_intent_15306",
-        "examples": [
-          {
-            "text": "Search"
-          }
-        ]
+        "examples": []
       },
       {
         "intent": "action_40450_intent_4786",
-        "examples": [
-          {
-            "text": "Show search result"
-          }
-        ]
+        "examples": []
       },
       {
         "intent": "fallback_connect_to_agent",
@@ -992,7 +993,7 @@
     "metadata": {
       "api_version": {
         "major_version": "v2",
-        "minor_version": "2018-11-08"
+        "minor_version": "2021-11-27"
       }
     },
     "variables": [
@@ -1068,8 +1069,8 @@
     "learning_opt_out": false
   },
   "description": "created for assistant a11f4582-2b83-42e4-824c-b565b41fd2a8",
-  "assistant_id": "c1f43114-31bc-48bc-9e40-6a3edc4f9d61",
-  "workspace_id": "54674051-c26c-48a9-bc9a-2cb77fa87160",
+  "assistant_id": "29c7b844-3589-4032-bb9a-6930a544298f",
+  "workspace_id": "590b1b4f-0909-412f-98fc-85c70c995ee1",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }
