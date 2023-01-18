@@ -74,7 +74,7 @@ For helpful information on how to easily modify and use the skills/OpenAPI speci
 
 The following actions are provided in this starter kit. After upload, the actions should be configured to use the fields below for the skill to be fully functional. Follow the instructions [here](../../README.md#configuring-your-actions-skill-to-use-an-extension) and note the information below to do this.
 
-- **Action 1: Greet customer** (basic + advanced)<br>
+- **Action 1: Personalized greeting** (basic + advanced)<br>
     ```
     Operation: Get Contact by ID
     Parameters:
@@ -88,7 +88,7 @@ The following actions are provided in this starter kit. After upload, the action
     Parameters: N/A
     ```
 
-- **Action 3:  I want to dispute a charge** (advanced)
+- **Action 3:  Dispute a charge** (advanced)
     ```
     Operation: Create Ticket
     Parameters:
@@ -101,7 +101,7 @@ The following actions are provided in this starter kit. After upload, the action
 
     **Note**: `subject` and `hs_pipeline_stage` exist by default in HubSpot's ticketing schema - the provided skill adds default values in `Step 4`. The `hs_pipeline_stage` field in the API corresponds to the `Ticket status` of a HubSpot ticket; we recommend submitting a value of `1` for the `hs_pipeline_stage` field, which will set the `Ticket status` to `New`.  The `subject` field in the API corresponds to the `Ticket name` of a HubSpot ticket.
 
-- **Action 4: Pick a ticket subaction** (advanced)<br>
+- **Action 4: View all HubSpot tickets** (advanced)<br>
     Note that this is a subaction, and not meant to be called individually.
     ```
     Operation: List Tickets
@@ -109,7 +109,7 @@ The following actions are provided in this starter kit. After upload, the action
       - limit: 10
     ```
 
-- **Action 5: I want to check my ticket status** (advanced)<br>
+- **Action 5: Check ticket status** (advanced)<br>
     Note that you will have to also configure action `Pick a ticket subaction` above, since it is used as a subaction within this action.
     ```
     Operation: Get Ticket Info
@@ -117,7 +117,7 @@ The following actions are provided in this starter kit. After upload, the action
       - ticketId: ticketId
     ```
 
-- **Action 6: I want to delete my ticket** (advanced) 
+- **Action 6: Delete a ticket** (advanced) 
     ```
     Operation: Archive Ticket
     Parameters:
