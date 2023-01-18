@@ -1,0 +1,697 @@
+{
+	"openapi": "3.0.3",
+	"info": {
+		"title": "Zendesk Support Ticketing",
+		"version": "1.0.0",
+		"contact": {
+		}
+	},
+	"servers": [
+		{
+			"url": "https://{subdomain}.zendesk.com",
+			"description": "Your zendesk support server",
+			"variables": {
+				"subdomain": {
+					"default": "fill_here",
+					"description": "The domain provided for you by Zendesk."
+				}
+			}
+		}
+	],
+	"components": {
+		"securitySchemes": {
+			"basicAuth": {
+				"type": "http",
+				"scheme": "basic"
+			},
+			"noauthAuth": {
+				"type": "http",
+				"scheme": "noauth"
+			}
+		}
+	},
+	"security": [
+		{
+			"basicAuth": [
+			]
+		}
+	],
+	"paths": {
+		"/api/v2/requests.json": {
+			"get": {
+				"summary": "List Tickets",
+				"description": "List all tickets.",
+				"operationId": "listTickets",
+				"parameters": [
+					{
+						"name": "status",
+						"in": "query",
+						"schema": {
+							"type": "string",
+							"example": "hold,open,new"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "List Tickets",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"count": {
+											"type": "number",
+											"example": 4
+										},
+										"next_page": {
+											"nullable": true,
+											"example": null
+										},
+										"previous_page": {
+											"nullable": true,
+											"example": null
+										},
+										"requests": {
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"assignee_id": {
+														"nullable": true,
+														"example": null
+													},
+													"can_be_solved_by_me": {
+														"type": "boolean",
+														"example": false
+													},
+													"collaborator_ids": {
+														"type": "array",
+														"items": {
+														},
+														"example": [
+
+														]
+													},
+													"created_at": {
+														"type": "string",
+														"example": "2021-11-07T15:56:18Z"
+													},
+													"custom_fields": {
+														"type": "array",
+														"items": {
+														},
+														"example": [
+
+														]
+													},
+													"description": {
+														"type": "string",
+														"example": "My printer is on fire!"
+													},
+													"due_at": {
+														"nullable": true,
+														"example": null
+													},
+													"email_cc_ids": {
+														"type": "array",
+														"items": {
+														},
+														"example": [
+
+														]
+													},
+													"fields": {
+														"type": "array",
+														"items": {
+														},
+														"example": [
+
+														]
+													},
+													"followup_source_id": {
+														"nullable": true,
+														"example": null
+													},
+													"id": {
+														"type": "number",
+														"example": 198
+													},
+													"is_public": {
+														"type": "boolean",
+														"example": true
+													},
+													"organization_id": {
+														"nullable": true,
+														"example": null
+													},
+													"priority": {
+														"nullable": true,
+														"example": null
+													},
+													"recipient": {
+														"nullable": true,
+														"example": null
+													},
+													"requester_id": {
+														"type": "number",
+														"example": 1904601487434
+													},
+													"status": {
+														"type": "string",
+														"example": "new"
+													},
+													"subject": {
+														"type": "string",
+														"example": "Help!"
+													},
+													"ticket_form_id": {
+														"type": "number",
+														"example": 360000152219
+													},
+													"type": {
+														"nullable": true,
+														"example": null
+													},
+													"updated_at": {
+														"type": "string",
+														"example": "2021-11-07T15:56:18Z"
+													},
+													"url": {
+														"type": "string",
+														"example": "https://d3v-ibm-test9.zendesk.com/api/v2/requests/198.json"
+													},
+													"via": {
+														"type": "object",
+														"properties": {
+															"channel": {
+																"type": "string",
+																"example": "api"
+															},
+															"source": {
+																"type": "object",
+																"properties": {
+																	"from": {
+																		"type": "object",
+																		"properties": {
+																		}
+																	},
+																	"rel": {
+																		"nullable": true,
+																		"example": null
+																	},
+																	"to": {
+																		"type": "object",
+																		"properties": {
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"post": {
+				"summary": "Create Ticket",
+				"security": [
+					{
+						"basicAuth": [
+						]
+					},
+					{
+						"noauthAuth": [
+						]
+					}
+				],
+				"description": "Create ticket - can either be anonymous or authenticated.",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"request": {
+										"type": "object",
+										"required": [
+											"comment",
+											"subject"
+										],
+										"properties": {
+											"comment": {
+												"type": "object",
+												"required": [
+													"body"
+												],
+												"properties": {
+													"body": {
+														"type": "string",
+														"example": "My printer is on fire!"
+													}
+												}
+											},
+											"requester": {
+												"type": "object",
+												"properties": {
+													"email": {
+														"type": "string",
+														"example": "test@dudi.com"
+													},
+													"name": {
+														"type": "string",
+														"example": "dudi001"
+													}
+												}
+											},
+											"subject": {
+												"type": "string",
+												"example": "Help!"
+											}
+										}
+									}
+								}
+							},
+							"example": {
+								"request": {
+									"comment": {
+										"body": "My printer is on fire!"
+									},
+									"requester": {
+										"email": "test@dudi.com",
+										"name": "dudi001"
+									},
+									"subject": "Help!"
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Create Success",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"request": {
+											"type": "object",
+											"properties": {
+												"url": {
+													"type": "string"
+												},
+												"id": {
+													"type": "string"
+												},
+												"status": {
+													"type": "string"
+												},
+												"priority": {
+													"type": "string"
+												},
+												"subject": {
+													"type": "string"
+												},
+												"description": {
+													"type": "string"
+												},
+												"created_at": {
+													"type": "string"
+												},
+												"updated_at": {
+													"type": "string"
+												},
+												"due_at": {
+													"type": "string"
+												},
+												"type": {
+													"type": "string"
+												},
+												"requester_id": {
+													"type": "number"
+												},
+												"is_public": {
+													"type": "boolean"
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v2/requests/{id}.json": {
+			"put": {
+				"summary": "Update Ticket",
+				"description": "Update ticket for a given ID.",
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"minimum": 1
+						},
+						"description": "The request ID"
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"request": {
+										"type": "object",
+										"required": [
+											"comment"
+										],
+										"properties": {
+											"comment": {
+												"type": "object",
+												"required": [
+													"body"
+												],
+												"properties": {
+													"body": {
+														"type": "string",
+														"example": "My house too pls pls pls"
+													}
+												}
+											}
+										}
+									}
+								}
+							},
+							"example": {
+								"request": {
+									"comment": {
+										"body": "My house too pls pls pls"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Update Success",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"request": {
+											"type": "object",
+											"properties": {
+												"assignee_id": {
+													"nullable": true,
+													"example": null
+												},
+												"can_be_solved_by_me": {
+													"type": "boolean",
+													"example": false
+												},
+												"collaborator_ids": {
+													"type": "array",
+													"items": {
+													},
+													"example": [
+
+													]
+												},
+												"created_at": {
+													"type": "string",
+													"example": "2021-11-07T15:54:58Z"
+												},
+												"custom_fields": {
+													"type": "array",
+													"items": {
+													},
+													"example": [
+
+													]
+												},
+												"description": {
+													"type": "string",
+													"example": "My printer is on fire!"
+												},
+												"due_at": {
+													"nullable": true,
+													"example": null
+												},
+												"email_cc_ids": {
+													"type": "array",
+													"items": {
+													},
+													"example": [
+
+													]
+												},
+												"fields": {
+													"type": "array",
+													"items": {
+													},
+													"example": [
+
+													]
+												},
+												"followup_source_id": {
+													"nullable": true,
+													"example": null
+												},
+												"id": {
+													"type": "number",
+													"example": 197
+												},
+												"is_public": {
+													"type": "boolean",
+													"example": true
+												},
+												"organization_id": {
+													"nullable": true,
+													"example": null
+												},
+												"priority": {
+													"nullable": true,
+													"example": null
+												},
+												"recipient": {
+													"nullable": true,
+													"example": null
+												},
+												"requester_id": {
+													"type": "number",
+													"example": 1904601487434
+												},
+												"status": {
+													"type": "string",
+													"example": "new"
+												},
+												"subject": {
+													"type": "string",
+													"example": "Help!"
+												},
+												"ticket_form_id": {
+													"type": "number",
+													"example": 360000152219
+												},
+												"type": {
+													"nullable": true,
+													"example": null
+												},
+												"updated_at": {
+													"type": "string",
+													"example": "2021-11-08T12:03:23Z"
+												},
+												"url": {
+													"type": "string",
+													"example": "https://d3v-ibm-test9.zendesk.com/api/v2/requests/197.json"
+												},
+												"via": {
+													"type": "object",
+													"properties": {
+														"channel": {
+															"type": "string",
+															"example": "api"
+														},
+														"source": {
+															"type": "object",
+															"properties": {
+																"from": {
+																	"type": "object",
+																	"properties": {
+																	}
+																},
+																"rel": {
+																	"nullable": true,
+																	"example": null
+																},
+																"to": {
+																	"type": "object",
+																	"properties": {
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v2/requests/{id}/comments.json": {
+			"get": {
+				"summary": "Get Ticket Comments",
+				"description": "Get all comments on a given ticket ID.",
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"minimum": 1
+						},
+						"description": "The request ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Get Success",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"comments": {
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"attachments": {
+														"type": "array",
+														"items": {
+														},
+														"example": [
+
+														]
+													},
+													"author_id": {
+														"type": "number",
+														"example": 1904601487434
+													},
+													"body": {
+														"type": "string",
+														"example": "My printer is on fire!"
+													},
+													"created_at": {
+														"type": "string",
+														"example": "2021-11-07T15:54:58Z"
+													},
+													"html_body": {
+														"type": "string",
+														"example": "<div class=\"zd-comment\" dir=\"auto\"><p dir=\"auto\">My printer is on fire!</p></div>"
+													},
+													"id": {
+														"type": "number",
+														"example": 1946003069874
+													},
+													"plain_body": {
+														"type": "string",
+														"example": "My printer is on fire!"
+													},
+													"public": {
+														"type": "boolean",
+														"example": true
+													},
+													"request_id": {
+														"type": "number",
+														"example": 197
+													},
+													"type": {
+														"type": "string",
+														"example": "Comment"
+													},
+													"url": {
+														"type": "string",
+														"example": "https://d3v-ibm-test9.zendesk.com/api/v2/requests/197/comments/1946003069874.json"
+													}
+												}
+											}
+										},
+										"count": {
+											"type": "number",
+											"example": 2
+										},
+										"next_page": {
+											"nullable": true,
+											"example": null
+										},
+										"organizations": {
+											"type": "array",
+											"items": {
+											},
+											"example": [
+
+											]
+										},
+										"previous_page": {
+											"nullable": true,
+											"example": null
+										},
+										"users": {
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"agent": {
+														"type": "boolean",
+														"example": false
+													},
+													"id": {
+														"type": "number",
+														"example": 1904601487434
+													},
+													"name": {
+														"type": "string",
+														"example": "dudi002"
+													},
+													"organization_id": {
+														"nullable": true,
+														"example": null
+													},
+													"photo": {
+														"nullable": true,
+														"example": null
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
