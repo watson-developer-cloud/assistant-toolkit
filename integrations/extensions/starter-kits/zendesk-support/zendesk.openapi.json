@@ -371,6 +371,9 @@
 								"properties": {
 									"request": {
 										"type": "object",
+										"required": [
+											"comment"
+										],
 										"properties": {
 											"comment": {
 												"type": "object",
