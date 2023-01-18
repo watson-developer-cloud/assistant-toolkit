@@ -3,10 +3,10 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-01-18T17:10:44.832Z",
-  "updated": "2023-01-18T18:44:48.208Z",
+  "created": "2023-01-18T19:40:40.398Z",
+  "updated": "2023-01-18T20:06:55.636Z",
   "language": "en",
-  "skill_id": "1c951ddd-fdd2-47d1-bbb0-9ba252f96ff7",
+  "skill_id": "e274a10d-b5a5-45ce-ab37-b9e9c918e217",
   "workspace": {
     "actions": [
       {
@@ -204,21 +204,22 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "catalog_item_id": "15025126-0db8-4cf8-b275-9f6731ef4666"
+                  "spec_hash_id": null,
+                  "catalog_item_id": "a0fb97d0-185b-4d11-b664-8a3146faf957"
                 },
                 "request_mapping": {
                   "body": [
                     {
                       "value": {
-                        "variable": "step_397"
-                      },
-                      "parameter": "request.subject"
-                    },
-                    {
-                      "value": {
                         "variable": "step_972"
                       },
                       "parameter": "request.comment.body"
+                    },
+                    {
+                      "value": {
+                        "variable": "step_397"
+                      },
+                      "parameter": "request.subject"
                     },
                     {
                       "value": {
@@ -363,6 +364,10 @@
             "data_type": "any"
           },
           {
+            "variable": "step_389_result_1",
+            "data_type": "any"
+          },
+          {
             "title": "Thanks! Alright, in just a few words (we'll ask for details afte",
             "variable": "step_397",
             "data_type": "any"
@@ -443,7 +448,8 @@
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "catalog_item_id": "15025126-0db8-4cf8-b275-9f6731ef4666"
+                  "spec_hash_id": null,
+                  "catalog_item_id": "a0fb97d0-185b-4d11-b664-8a3146faf957"
                 },
                 "result_variable": "step_393_result_1"
               }
@@ -704,6 +710,10 @@
             "data_type": "any"
           },
           {
+            "variable": "step_389_result_1",
+            "data_type": "any"
+          },
+          {
             "title": "I can help you with that! <br /> Just a moment while I retrieve ",
             "variable": "step_393",
             "data_type": "any"
@@ -809,10 +819,10 @@
               "type": "continue"
             },
             "variable": "step_767",
-            "next_step": "step_726"
+            "next_step": "step_389"
           },
           {
-            "step": "step_726",
+            "step": "step_389",
             "output": {
               "generic": [
                 {
@@ -821,7 +831,7 @@
                       "text_expression": {
                         "concat": [
                           {
-                            "scalar": "Alright. I'll get your ticket updated in no time.\n\n<br />\n\n\n\nJust a moment..."
+                            "scalar": "Alright, I'll get your ticket updated in no time.<br />\n\nJust a moment..."
                           }
                         ]
                       }
@@ -832,7 +842,6 @@
                 }
               ]
             },
-            "context": {},
             "handlers": [],
             "resolver": {
               "type": "callout",
@@ -841,7 +850,8 @@
                 "type": "integration_interaction",
                 "method": "PUT",
                 "internal": {
-                  "catalog_item_id": "15025126-0db8-4cf8-b275-9f6731ef4666"
+                  "spec_hash_id": null,
+                  "catalog_item_id": "a0fb97d0-185b-4d11-b664-8a3146faf957"
                 },
                 "request_mapping": {
                   "body": [
@@ -861,50 +871,10 @@
                     }
                   ]
                 },
-                "result_variable": "step_726_result_1"
+                "result_variable": "step_389_result_1"
               }
             },
-            "variable": "step_726",
-            "condition": {
-              "exists": {
-                "variable": "step_767"
-              }
-            },
-            "next_step": "step_540"
-          },
-          {
-            "step": "step_540",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "Looks like you don't have anything to add to the ticket. If you change your mind and want to update the information on your ticket, just ask again and I'll take care of that for you."
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "end_action"
-            },
-            "variable": "step_540",
-            "condition": {
-              "not": {
-                "exists": {
-                  "variable": "step_767"
-                }
-              }
-            },
+            "variable": "step_389",
             "next_step": "step_254"
           },
           {
@@ -936,7 +906,7 @@
             "condition": {
               "eq": [
                 {
-                  "variable": "step_726_result_1",
+                  "variable": "step_389_result_1",
                   "variable_path": "success"
                 },
                 {
@@ -975,7 +945,7 @@
             "condition": {
               "eq": [
                 {
-                  "variable": "step_726_result_1",
+                  "variable": "step_389_result_1",
                   "variable_path": "success"
                 },
                 {
@@ -1004,18 +974,17 @@
             "data_type": "any"
           },
           {
-            "title": "Looks like you don't have anything to add to the ticket. If you ",
-            "variable": "step_540",
+            "title": "Alright, I'll get your ticket updated in no time.<br /> Just a m",
+            "variable": "step_389",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_389_result_1",
             "data_type": "any"
           },
           {
             "title": "Let's get your ticket updated. <br /> What is the ticket number ",
             "variable": "step_613",
-            "data_type": "any"
-          },
-          {
-            "title": "Alright. I'll get your ticket updated in no time. <br /> Just a ",
-            "variable": "step_726",
             "data_type": "any"
           },
           {
@@ -1090,10 +1059,40 @@
                 }
               ]
             },
-            "handlers": [],
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text": "Can you try again? Your ticket ID should be a number."
+                        }
+                      ],
+                      "response_type": "text"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
             "question": {
-              "free_text": true,
-              "only_populate_when_prompted": true
+              "entity": "sys-number",
+              "max_tries": 3
             },
             "resolver": {
               "type": "continue"
@@ -1130,7 +1129,8 @@
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "catalog_item_id": "15025126-0db8-4cf8-b275-9f6731ef4666"
+                  "spec_hash_id": null,
+                  "catalog_item_id": "a0fb97d0-185b-4d11-b664-8a3146faf957"
                 },
                 "request_mapping": {
                   "path": [
@@ -1471,11 +1471,15 @@
           {
             "title": "What's the ticket ID you're looking for?",
             "variable": "step_235",
-            "data_type": "any"
+            "data_type": "number"
           },
           {
             "title": "I'd be happy to get those comments for you.",
             "variable": "step_241",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_389_result_1",
             "data_type": "any"
           },
           {
@@ -2147,7 +2151,7 @@
     "metadata": {
       "api_version": {
         "major_version": "v2",
-        "minor_version": "2021-11-27"
+        "minor_version": "2018-11-08"
       }
     },
     "variables": [],
@@ -2186,8 +2190,8 @@
     "learning_opt_out": true
   },
   "description": "created for assistant 8d741d42-a7c8-4c12-a40f-e987b06e9e3e",
-  "assistant_id": "8d741d42-a7c8-4c12-a40f-e987b06e9e3e",
-  "workspace_id": "1c951ddd-fdd2-47d1-bbb0-9ba252f96ff7",
+  "assistant_id": "6dce60a5-4606-4b21-b084-070c0f252179",
+  "workspace_id": "e274a10d-b5a5-45ce-ab37-b9e9c918e217",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }
