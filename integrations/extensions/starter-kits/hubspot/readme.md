@@ -28,12 +28,12 @@ First, we need to create a Hubspot account.
 
 1. [Create app developer account](https://developers.hubspot.com/get-started).
 1. Once you have verified your email, click `Create a test account`, and select the test account.
-
+1. Click on `Testing` on the top menu bar, then `Create app test account` with an account name you’d like. 
+1. Click on the new `App test account` you created.
 1. Click on `Settings` (the cog wheel icon) at the top right of the page, then click `Integrations` in the left menu to open a drop-down, and select `Private Apps`.
-
 1. If you do not already have one, `Create a private app`. Enter your app's name, then click the `Scopes` tab select the scopes `tickets` and `crm.objects.contacts.read`. Click `Create app` on the top right. Copy the access token and save for future steps.
 
-[guidelines provided by Hubspot](https://developers.hubspot.com/docs/api/private-apps).
+[Guidelines provided by Hubspot](https://developers.hubspot.com/docs/api/private-apps).
 
 ## Pre-Req 2: Adding Custom Properties in HubSpot
 This starter kit focuses on the ticketing system and profile information retrieval of HubSpot. In order to use the provided JSON skill out of the box, you will need to create some custom properties - `charge_name`, `charge_amount`, `charge_date`, and `membership_status` - within your HubSpot account.
