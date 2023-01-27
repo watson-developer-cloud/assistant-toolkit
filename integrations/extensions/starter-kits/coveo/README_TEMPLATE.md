@@ -33,17 +33,17 @@ To set up the Coveo extension in your assistant, take the following steps:
 - Select the `Do more with starter kits` section of the template catalog
 - Select the `Coveo starter kit` template
 - Add the template to your assistant
-- On the `Actions` page, you will see three actions: `Coveo Search`, `Show Coveo search results`, and `Show Coveo search result` that were added by the template.
+- On the `Actions` page, you will see three actions: `*Coveo Search`, `*Show Coveo search results`, and `*Show Coveo search result` that were added by the template.
 - Use either method listed in [Configuring Your Actions Skill to use an Extension](https://github.com/watson-developer-cloud/assistant-toolkit/blob/master/integrations/extensions/README.md#configuring-your-actions-skill-to-use-an-extension) to configure the actions you uploaded to invoke the custom extension you built.
-  - In the third step of the `Coveo Search` action, in the `Use an extension` section (in "And then")
+  - In the third step of the `*Coveo Search` action, in the `Use an extension` section (in "And then")
   - Click on the "Edit extension" at the bottom of the step
   - Select the Coveo extension that you created earlier
   - Select the "Search request to Coveo search" endpoint
   - Set the following parameter value:
-    - q = query_text
+    - `q` = ``*query_text`
 
 ### Link Actions to No Action matches state
-- Go to "Actions" > "Set by assistant" > "No action matches" and remove all the steps from the action.  Add in a new step.  Under "And then" select "Go to another action" and select "Coveo Search" and click "End this action after the subaction is completed".
+- Go to "Actions" > "Set by assistant" > "No action matches" and remove all the steps from the action.  Add in a new step.  Under "And then" select "Go to another action" and select "*Coveo Search" and click "End this action after the subaction is completed".
 - You may also want to go to "Actions" > "Set by assistant" > "Fallback" and do the same thing as in the previous step.  Note, however, that this will prevent your assistant from escalating to a human agent when a customer asks to connect to a human agent (which is part of the default behavior for "Fallback") so only do this if you do not have your bot connected to a human agent chat service.  For more details on connecting to human agents within Watson Assistant see [our documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-human-agent) and [blog post](https://medium.com/ibm-watson/bring-your-own-service-desk-to-watson-assistant-b39bc920075c).
 
 ![Create no action matches fallback](./assets/no_action_fallback_search.png)<br>
