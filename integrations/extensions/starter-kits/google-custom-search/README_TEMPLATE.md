@@ -36,22 +36,22 @@ For a typical assistant focused on a specific topic, it is usually only necessar
 - Select `Quick start with templates` to see the templates
 - Select the `Do more with starter kits` section of the template catalog
 - Select the `Google custom search starter kit` template
-- Add the template to your cart
-- Navigate to the Actions page. Under "variables"/"set by you", set the variable with name `cx` to the ID for the programmable search engine that you got in the Pre-Requisite Steps (replacing `0123456789abcdef0`, which is the dummy/placeholder value).
- - In the "Google Search" action, use the following configuration on the step that uses the extension:
+- Add the template to your assistant
+- Navigate to the Actions page. Under "variables"/"set by you", set the variable with name `*cx` to the ID for the programmable search engine that you got in the Pre-Requisite Steps (replacing `0123456789abcdef0`, which is the dummy/placeholder value).
+ - In the "*Google search" action, use the following configuration on the step that uses the extension:
       - Click on "Edit extension" at the bottom of the step
       - Select *Custom Search* or *Custom Search Site Restricted* as the endpoint at this step.  See the "Background" section of this document for information about the difference between the two.
-      - Set the `query` parameter to the `query_text` action variable.
-      - Set the `cx` parameter to the `cx` action variable.
-      - Set the `num` optional parameter to the `num_of_results` action variable (which is set to 3 by default). For more on why it is important to set this parameter, see the "Limit on Size of Search Results" section of this document.
+      - Set the `query` parameter to the `*query_text` action variable.
+      - Set the `cx` parameter to the `*cx` action variable.
+      - Set the `num` optional parameter to the `*num_of_results` action variable (which is set to 3 by default). For more on why it is important to set this parameter, see the "Limit on Size of Search Results" section of this document.
 
 ### Link Actions to No Action matches state
-- Go to "Actions" > "Set by assistant" > "No action matches" and remove all the steps from the action.  Add in a new step.  Under "And then" select "Go to another action" and select "Google Search" and click "End this action after the subaction is completed".
+- Go to "Actions" > "Set by assistant" > "No action matches" and remove all the steps from the action.  Add in a new step.  Under "And then" select "Go to another action" and select "*Google search" and click "End this action after the subaction is completed".
 - You may also want to go to "Actions" > "Set by assistant" > "Fallback" and do the same thing as in the previous step.  Note, however, that this will prevent your assistant from escalating to a human agent when a customer asks to connect to a human agent (which is part of the default behavior for "Fallback") so only do this if you do not have your bot connected to a human agent chat service.  For more details on connecting to human agents within Watson Assistant see [our documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-human-agent) and [blog post](https://medium.com/ibm-watson/bring-your-own-service-desk-to-watson-assistant-b39bc920075c).
 
 ## Using your Google Custom Search Extension
 
-Once you have completed these setup instructions, you can issue a query to your bot and if there is no other action that matches that query then it will generate search results for that query. Here is an example of what search results from the "Google Search" action can look like:
+Once you have completed these setup instructions, you can issue a query to your bot and if there is no other action that matches that query then it will generate search results for that query. Here is an example of what search results from the "*Google search" action can look like:
 
 <img src="./assets/sample-chat-preview.png" width="400"/>
 
