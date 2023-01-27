@@ -27,14 +27,14 @@ Simple instructions for setting up NeuralSeek are available within the NeuralSee
 ### Using a template to create a new action
 - Click on `Actions` in the left menu
 - Select `Quick start with templates`
-- Select the `extensions` section of the template catalog
+- Select the `Do more with starter kits` section of the template catalog
 - Select the `NeuralSeek starter kit` template
 - Add the template to your cart
-- On the `Actions` page, you will see the search action from the template.
+- On the `Actions` page, you will see the "NeuralSeek search" action from the template.
 - Use either method listed in [Configuring Your Actions Skill to use an Extension](https://github.com/watson-developer-cloud/assistant-toolkit/blob/master/integrations/extensions/README.md#configuring-your-actions-skill-to-use-an-extension) to configure the actions you uploaded to invoke the custom extension you built.
-   - In the step of the "NeuralSeek" action that says "Use an extension", select the extension you created, the "Seek an answer from NeuralSeek" endpoint, and set the following parameter values:
-      - `question` = the `query_text` session variable
-      - `context` (under Optional Parameters) = the `query_context` session variable
+   - In the step of the "NeuralSeek search" action that says "Use an extension", select the extension you created, the "Seek an answer from NeuralSeek" endpoint, and set the following parameter values:
+      - `question` = the `query_text` action variable
+      - `context` (under Optional Parameters) = the `query_context` action variable
       - You may want to also set the optional `language` parameter to an expression containing the 2-letter language code.  See the "Integrate" page in the NeuralSeek application for a list of valid language codes (e.g., "en" or "ja").
 
 ### Link Actions to No Action matches state
