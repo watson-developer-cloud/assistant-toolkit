@@ -12,7 +12,7 @@
   "dependencies": {
     "@ibm-watson/assistant-web-chat-react": "^1.0.3",
     "carbon-components": "^10.56.0",
-    "carbon-components-react": "^7.45.0",
+    "carbon-components-react": "^7.59.5",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
