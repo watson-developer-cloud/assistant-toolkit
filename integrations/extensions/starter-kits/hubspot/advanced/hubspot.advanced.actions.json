@@ -2202,7 +2202,7 @@
             "data_type": "any"
           },
           {
-            "title": "We were not able to find any tickets with your account, please try again later.",
+            "title": "We were not able to find any tickets with your account.",
             "variable": "step_536",
             "data_type": "any"
           },
