@@ -43,7 +43,11 @@ More broadly, anything you can do with Watson Discovery parameters and Watson Di
 
 Before starting, you will need an instance of [IBM Watson Discovery](https://www.ibm.com/cloud/watson-discovery).  You will also need the URL for that instance and either an API key or a bearer token for that instance.  Typically API keys are used for IBM Cloud instances and bearer tokens are used for instances running in Cloud Pak for Data outside of the IBM Cloud.  Both the URL and the API key or bearer token are found on the credentials page for the instance on IBM Cloud or on Cloud Pak for Data.
 
-You will also need to load some data into IBM Watson Discovery.  The example actions in this starter kit were tested on an IBM Watson Discovery project in which we ingested the page `https://bitcoin.org/en/faq` and configured Discovery to follow 0 links (i.e., load that one page only).  To try out this starter kit, you can also ingest that example page, or you can connect directly to your own data and modify the details of the starter kit as needed to be relevant to your data.
+You will also need to load some data into IBM Watson Discovery.  The example actions in this starter kit were tested on an IBM Watson Discovery project in which we ingested the page `https://bitcoin.org/en/faq` and configured Discovery to follow 0 links (i.e., load that one page only).  To try out this starter kit, you can also ingest that example page, or you can connect directly to your own data and modify the details of the starter kit as needed to be relevant to your data.  Either way, be sure to get the project ID for the project containing your data.
+
+If you are using Watson Discovery in Cloud Pak for Data, this kit will only work if your Watson Discovery instance has a valid SSL certificate signed by a trusted authority _or_ you are connecting to Watson Discovery using a Watson Assistant on Cloud Pak for Data version 4.6.3 or later.  In practice, we find that it is rare for anyone to have a Cloud Pak for Data instance that has a valid SSL certificate signed by a trusted authority, so this using this kit with Cloud Pak for Data _mostly_ only works for version 4.6.3 or later.  This issue does not apply if you are running Watson Discovery in the public cloud, because the public cloud has a valid certificate signed by a trusted authority.
+
+Also note that Watson Discovery in Cloud Pak for Data does not include the answer finding feature, so you will not get concise answers identified within the passages. You may want to update the "Show search result" action to remove the code that sets the `answer` session variable and includes it in the response before the `snippet`.  However, the action will still work even if you don't make this change -- it will just have a blank answer.
 
 ## Other Setup Info
 
@@ -60,7 +64,7 @@ If you want to make a _new_ Assistant using this starter kit, take the following
    - If you have a bearer token (as typical on Cloud Pak for Data), select bearer authentication, and it will ask for your bearer token.
    - Also fill in the portions of the URL for your instance _after_ `https://` in the `discovery_url` field.
 - [Upload the Actions JSON file](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import).
-- Under "variables"/"created by you" (within the Actions page), set the using the `discovery_instance_id` and `discovery_project_id` session variables using the values you obtained in the pre-requisites above.
+- Under "variables"/"created by you" (within the Actions page), set the `discovery_project_id` session variable using the value you obtained in the pre-requisites above.
 - If you are using the OpenAPI specification _exactly_ as it is in this starter kit, you should find that your actions are correctly configured to use this extension as is.  However, if you have made any changes to the OpenAPI specification, you will need to manually configure your search action as follows:
    - In the step of the "Search" action that says "Use an extension", select the extension you created, the "Query a project" endpoint, and set the following parameter values (some of which are listed under "optional parameters", which you need to click on to see):
       - `project_id` = the `discovery_project_id` session variable
