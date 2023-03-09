@@ -3,10 +3,10 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2022-10-05T17:44:18.339Z",
-  "updated": "2022-10-05T18:39:42.172Z",
+  "created": "2023-03-08T18:32:52.647Z",
+  "updated": "2023-03-08T20:53:00.015Z",
   "language": "en",
-  "skill_id": "f0d9a99d-b09b-49a7-a3de-01aef17d6797",
+  "skill_id": "b9bded36-8ca5-4e17-8a87-4f26e004e229",
   "workspace": {
     "actions": [
       {
@@ -762,13 +762,7 @@
           {
             "step": "step_418",
             "output": {
-              "generic": [
-                {
-                  "values": [],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
+              "generic": []
             },
             "context": {
               "variables": [
@@ -825,11 +819,12 @@
             "resolver": {
               "type": "callout",
               "callout": {
-                "path": "/instances/{instance_id}/v2/projects/{project_id}/query",
+                "path": "/v2/projects/{project_id}/query",
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "catalog_item_id": "0b51bf7a-810a-4296-9fd4-c96010f41d66"
+                  "spec_hash_id": "8566081a305e8f8ade4e9bd3887da0600e87948417fc10ba38ee121426f8c50b",
+                  "catalog_item_id": "ca62ae92-447b-44a4-af23-3a239ae8eb2f"
                 },
                 "request_mapping": {
                   "body": [
@@ -838,12 +833,6 @@
                         "expression": "3"
                       },
                       "parameter": "count"
-                    },
-                    {
-                      "value": {
-                        "expression": "\"title:mining\""
-                      },
-                      "parameter": "filter"
                     },
                     {
                       "value": {
@@ -886,6 +875,12 @@
                         "skill_variable": "query_text"
                       },
                       "parameter": "natural_language_query"
+                    },
+                    {
+                      "value": {
+                        "expression": "\"mining\""
+                      },
+                      "parameter": "filter"
                     }
                   ],
                   "path": [
@@ -894,12 +889,6 @@
                         "skill_variable": "discovery_project_id"
                       },
                       "parameter": "project_id"
-                    },
-                    {
-                      "value": {
-                        "skill_variable": "discovery_instance_id"
-                      },
-                      "parameter": "instance_id"
                     }
                   ],
                   "query": [
@@ -1094,7 +1083,7 @@
             "data_type": "any"
           },
           {
-            "title": "No response",
+            "title": "",
             "variable": "step_418",
             "data_type": "any"
           },
@@ -1173,13 +1162,7 @@
           {
             "step": "step_474",
             "output": {
-              "generic": [
-                {
-                  "values": [],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
+              "generic": []
             },
             "context": {
               "variables": [
@@ -1195,17 +1178,18 @@
             "resolver": {
               "type": "callout",
               "callout": {
-                "path": "/instances/{instance_id}/v2/projects/{project_id}/query",
+                "path": "/v2/projects/{project_id}/query",
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "catalog_item_id": "0b51bf7a-810a-4296-9fd4-c96010f41d66"
+                  "spec_hash_id": "8566081a305e8f8ade4e9bd3887da0600e87948417fc10ba38ee121426f8c50b",
+                  "catalog_item_id": "ca62ae92-447b-44a4-af23-3a239ae8eb2f"
                 },
                 "request_mapping": {
                   "body": [
                     {
                       "value": {
-                        "expression": "3"
+                        "expression": "1"
                       },
                       "parameter": "count"
                     },
@@ -1220,12 +1204,6 @@
                         "expression": "[\"title\",\"metadata.source.url\"]"
                       },
                       "parameter": "return"
-                    },
-                    {
-                      "value": {
-                        "expression": "1"
-                      },
-                      "parameter": "passages.count"
                     },
                     {
                       "value": {
@@ -1253,6 +1231,12 @@
                     },
                     {
                       "value": {
+                        "expression": "false"
+                      },
+                      "parameter": "table_results.enabled"
+                    },
+                    {
+                      "value": {
                         "skill_variable": "query_text"
                       },
                       "parameter": "natural_language_query"
@@ -1264,12 +1248,6 @@
                         "skill_variable": "discovery_project_id"
                       },
                       "parameter": "project_id"
-                    },
-                    {
-                      "value": {
-                        "skill_variable": "discovery_instance_id"
-                      },
-                      "parameter": "instance_id"
                     }
                   ],
                   "query": [
@@ -1463,7 +1441,7 @@
             "data_type": "any"
           },
           {
-            "title": "No response",
+            "title": "",
             "variable": "step_474",
             "data_type": "any"
           },
@@ -1651,11 +1629,12 @@
             "resolver": {
               "type": "callout",
               "callout": {
-                "path": "/instances/{instance_id}/v2/projects/{project_id}/query",
+                "path": "/v2/projects/{project_id}/query",
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "catalog_item_id": "0b51bf7a-810a-4296-9fd4-c96010f41d66"
+                  "spec_hash_id": "8566081a305e8f8ade4e9bd3887da0600e87948417fc10ba38ee121426f8c50b",
+                  "catalog_item_id": "ca62ae92-447b-44a4-af23-3a239ae8eb2f"
                 },
                 "request_mapping": {
                   "body": [
@@ -1664,6 +1643,12 @@
                         "expression": "3"
                       },
                       "parameter": "count"
+                    },
+                    {
+                      "value": {
+                        "expression": "[\"title\",\"metadata.source.url\"]"
+                      },
+                      "parameter": "return"
                     },
                     {
                       "value": {
@@ -1691,12 +1676,6 @@
                     },
                     {
                       "value": {
-                        "expression": "[\"title\",\"metadata.source.url\"]"
-                      },
-                      "parameter": "return"
-                    },
-                    {
-                      "value": {
                         "expression": "false"
                       },
                       "parameter": "table_results.enabled"
@@ -1714,12 +1693,6 @@
                         "skill_variable": "discovery_project_id"
                       },
                       "parameter": "project_id"
-                    },
-                    {
-                      "value": {
-                        "skill_variable": "discovery_instance_id"
-                      },
-                      "parameter": "instance_id"
                     }
                   ],
                   "query": [
@@ -2662,24 +2635,9 @@
     "counterexamples": [],
     "system_settings": {
       "nlp": {
-        "model": "baseline"
-      },
-      "off_topic": {
-        "enabled": true
+        "model": "latest"
       },
       "launch_mode": {},
-      "topic_switch": {
-        "enabled": true,
-        "messages": {
-          "confirm_return": {
-            "text": ""
-          },
-          "confirm_switch": {
-            "text": ""
-          }
-        },
-        "question_steps_threshold": 2
-      },
       "disambiguation": {
         "prompt": "Did you mean:",
         "enabled": false,
@@ -2696,8 +2654,8 @@
     "learning_opt_out": false
   },
   "description": "created for assistant 20ef065f-6198-4892-860a-a184e52a2d19",
-  "assistant_id": "594e8f32-e778-4a6f-bdc0-5a4c57224dfd",
-  "workspace_id": "f0d9a99d-b09b-49a7-a3de-01aef17d6797",
+  "assistant_id": "7ca897ba-ac3d-45ac-9fe3-5c86a59df89d",
+  "workspace_id": "b9bded36-8ca5-4e17-8a87-4f26e004e229",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }
