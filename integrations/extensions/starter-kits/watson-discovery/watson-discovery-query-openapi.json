@@ -3,31 +3,24 @@
   "info": {
     "title": "IBM Watson Discovery query endpoint",
     "description": "IBM Watson Discovery simplified API spec for querying.  You can also download the full spec for the entire service by going to https://cloud.ibm.com/apidocs/discovery-data and clicking on the menu in the upper right.",
-    "version": "1.0"
+    "version": "1.1"
   },
   "servers": [
     {
-      "url": "https://api.{subdomain}.discovery.watson.cloud.ibm.com",
-      "description": "Production servers available to customers",
+      "url": "https://{discovery_url}",
+      "description": "The Watson Discovery URL as specfied in the manage/credentials on IBM Cloud or Cloud Pak for Data",
       "variables": {
-        "subdomain": {
-          "default": "us-south",
-          "description": "The region where your instance is located"
-        }
-      }
-    },
-    {
-      "url": "https://api.{subdomain}.discovery.test.watson.cloud.ibm.com",
-      "description": "Test servers for internal IBM use only",
-      "variables": {
-        "subdomain": {
-          "default": "us-south",
-          "description": "The region where your instance is located"
+        "discovery_url": {
+          "default": "api.us-south.discovery.watson.cloud.ibm.com/instances/12345-6789",
+          "description": "The portions of the Watson Discovery URL that follow https://"
         }
       }
     }
   ],
   "security": [
+    {
+      "bearerAuth": []
+    },
     {
       "basicAuth": []
     }
@@ -38,7 +31,7 @@
     "x-release-notes": "https://cloud.ibm.com/docs/discovery-data?topic=discovery-data-release-notes"
   },
   "paths": {
-    "/instances/{instance_id}/v2/projects/{project_id}/query": {
+    "/v2/projects/{project_id}/query": {
       "post": {
         "operationId": "query",
         "summary": "Query a project",
@@ -60,18 +53,6 @@
             "name": "project_id",
             "in": "path",
             "description": "The ID of the project. This information can be found from the *Integrate and Deploy* page in Discovery.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 255,
-              "pattern": "^[a-zA-Z0-9_-]*$"
-            }
-          },
-          {
-            "name": "instance_id",
-            "in": "path",
-            "description": "The ID of the instance. This information can be found from the *Integrate and Deploy* page in Discovery.",
             "required": true,
             "schema": {
               "type": "string",
@@ -246,6 +227,10 @@
       "basicAuth": {
         "type": "http",
         "scheme": "basic"
+      },
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
       }
     },
     "parameters": {
