@@ -2,6 +2,8 @@ let webChatInstance;
 let currentTextToVerify;
 let currentTextElementToVerify;
 let currentNextButton;
+let currentAgentUtterance;
+let currentUserElement;
 
 /**
  * Installs web chat.
@@ -83,6 +85,8 @@ function preSendHandler(event) {
   currentTextToVerify = null;
   currentTextElementToVerify = null;
   currentNextButton = null;
+  currentAgentUtterance = null;
+  currentUserElement = null;
 
   if (event.data.context?.skills?.['actions skill']?.skill_variables?.custom_command) {
     // Remove the custom command if it's set.
@@ -159,20 +163,30 @@ function markVerified() {
 }
 
 /**
- * This function handles when an utterance from a user is submitted.
+ * This function handles when an utterance from a user is submitted. This will continue to append this content to
+ * the existing user message until an utterance from the agent is encountered.
  */
-function onUserSaid(message) {
-  addUserSaid(message);
+function onUserSaid(text) {
+  // Switching from the agent to the user so clear the agent's text.
+  currentAgentUtterance = null;
+
+  addUserSaid(text);
 }
 
 /**
- * This function handles when an utterance from an agent is submitted.
+ * This function handles when an utterance from an agent is submitted. This will append this content to the current
+ * agent says text until an utterance from the user is received. The current combined text from the agent will be
+ * checked against the most recent text to verify.
  */
 function onAgentSaid(text) {
+  // Switching from the user to the agent so clear the current user element.
+  currentUserElement = null;
+
   if (currentTextToVerify) {
+    currentAgentUtterance = `${currentAgentUtterance} ${text.toLowerCase().trim()}`;
     const verbatimText = currentTextToVerify.toLowerCase();
     const { stringSimilarity } = window;
-    const similarity = stringSimilarity.compareTwoStrings(verbatimText, text.toLowerCase());
+    const similarity = stringSimilarity.compareTwoStrings(verbatimText, currentAgentUtterance);
 
     if (similarity > 0.8) {
       markVerified();
@@ -183,33 +197,41 @@ function onAgentSaid(text) {
 /**
  * Creates a new message in the "user said" area.
  */
-function addUserSaid(message) {
+function addUserSaid(text) {
   const container = document.getElementById('AgentAssist__UserSaidContainer');
-  const newElement = document.createElement('div');
-  newElement.innerHTML = `
-  <div class="AgentAssist__UserSaidMessage">
-    <bx-btn class="AgentAssist__UserSaidCopyButton" kind="primary" icon-layout="" size="sm">
-      <svg id="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32" slot="icon">
-        <polygon points="6 18 7.41 19.41 15 11.83 15 30 17 30 17 11.83 24.59 19.41 26 18 16 8 6 18"/>
-        <path d="M6,8V4H26V8h2V4a2,2,0,0,0-2-2H6A2,2,0,0,0,4,4V8Z"/>
-        <rect fill="none" width="32" height="32"/>
-      </svg>
-    </bx-btn>
-    <div class="AgentAssist__UserSaidText"></div>
-  </div>
-  `;
+
+  if (!currentUserElement) {
+    // If we don't have a current user element, then create a new one and add it to the container. Otherwise, we'll
+    // just append the new text to the existing one.
+    currentUserElement = document.createElement('div');
+    currentUserElement.innerHTML = `
+    <div class="AgentAssist__UserSaidMessage">
+      <bx-btn class="AgentAssist__UserSaidCopyButton" kind="primary" icon-layout="" size="sm">
+        <svg id="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32" slot="icon">
+          <polygon points="6 18 7.41 19.41 15 11.83 15 30 17 30 17 11.83 24.59 19.41 26 18 16 8 6 18"/>
+          <path d="M6,8V4H26V8h2V4a2,2,0,0,0-2-2H6A2,2,0,0,0,4,4V8Z"/>
+          <rect fill="none" width="32" height="32"/>
+        </svg>
+      </bx-btn>
+      <div class="AgentAssist__UserSaidText"></div>
+    </div>
+    `;
+
+    const copyButton = currentUserElement.querySelector('.AgentAssist__UserSaidCopyButton');
+    copyButton.addEventListener('click', () => {
+      const textElement = currentUserElement.querySelector('.AgentAssist__UserSaidText');
+      webChatInstance.elements.getMessageInput().setValue(textElement.textContent.trim());
+      webChatInstance.elements.getMessageInput().getHTMLElement().focus();
+    });
+
+    container.appendChild(currentUserElement);
+  }
 
   // Set the textContent property to escape any HTML that might be in the message.
-  const textElement = newElement.querySelector('.AgentAssist__UserSaidText');
-  textElement.textContent = message;
+  const textElement = currentUserElement.querySelector('.AgentAssist__UserSaidText');
+  const currentContent = textElement.textContent;
+  textElement.textContent = `${currentContent} ${text.trim()}`;
 
-  const copyButton = newElement.querySelector('.AgentAssist__UserSaidCopyButton');
-  copyButton.addEventListener('click', () => {
-    webChatInstance.elements.getMessageInput().setValue(message);
-    webChatInstance.elements.getMessageInput().getHTMLElement().focus();
-  });
-
-  container.appendChild(newElement);
   setTimeout(() => {
     container.scrollTop = container.scrollHeight;
   });
