@@ -24,9 +24,6 @@ let environment = ''; // 'mypurecloud.de';
 let callChannel = {};
 let agentAssistConversationID = '';
 
-let chatHistory = [];
-let lastTranscriptionSource = null;
-
 /**
  * Callback function for transcription 'message' events.
  * @param {Object} data the event data  
