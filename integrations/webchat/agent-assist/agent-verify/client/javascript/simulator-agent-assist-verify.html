@@ -19,9 +19,13 @@
       overflow: hidden;
     }
 
-    .DocumentContainer {
+    .Simulator__DocumentContainer {
       display: flex;
       height: 100%;
+    }
+
+    .Simulator__AgentSaidText {
+      padding-top: 16px;
     }
 
     .Simulator__SayContainer {
@@ -47,7 +51,7 @@
 </head>
 <body>
 
-<div class="DocumentContainer">
+<div class="Simulator__DocumentContainer">
 
   <div class="Simulator__LeftPanel">
     <div class="Simulator__SayContainer">
@@ -61,6 +65,7 @@
         <span slot="label-text">Agent says</span>
       </bx-textarea>
       <bx-btn id="Simulator__AgentSaysButton">Submit</bx-btn>
+      <div class="Simulator__AgentSaidText"></div>
     </div>
   </div>
 
@@ -76,27 +81,36 @@
   const userSaysTextArea = document.querySelector('#Simulator__UserSaysTextArea');
   const agentSaysTextArea = document.querySelector('#Simulator__AgentSaysTextArea');
 
-  userSaysButton.addEventListener('click', () => {
-    window.watsonAssistantChat?.agentAssist?.onUserSaid(userSaysTextArea.value);
-  })
+  function doUserSays() {
+    const text = userSaysTextArea.value;
+    window.watsonAssistantChat?.agentAssist?.onUserSaid(text);
+    userSaysTextArea.value = "";
 
-  agentSaysButton.addEventListener('click', () => {
-    window.watsonAssistantChat?.agentAssist?.onAgentSaid(agentSaysTextArea.value);
-  })
+    const agentSaidTextElement = document.querySelector('.Simulator__AgentSaidText');
+    agentSaidTextElement.textContent = '';
+  }
 
+  function doAgentSays() {
+    const text = agentSaysTextArea.value;
+    window.watsonAssistantChat?.agentAssist?.onAgentSaid(text);
+    agentSaysTextArea.value = "";
+
+    const agentSaidTextElement = document.querySelector('.Simulator__AgentSaidText');
+    agentSaidTextElement.textContent = `${agentSaidTextElement.textContent} ${text.trim()}`
+  }
+
+  userSaysButton.addEventListener('click', doUserSays);
+  agentSaysButton.addEventListener('click', doAgentSays);
   userSaysTextArea.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
-      window.watsonAssistantChat?.agentAssist?.onUserSaid(userSaysTextArea.value);
-      userSaysTextArea.value = "";
       event.preventDefault();
+      doUserSays();
     }
   })
-
   agentSaysTextArea.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
-      window.watsonAssistantChat?.agentAssist?.onAgentSaid(agentSaysTextArea.value);
-      agentSaysTextArea.value = "";
       event.preventDefault();
+      doAgentSays();
     }
   })
 </script>
