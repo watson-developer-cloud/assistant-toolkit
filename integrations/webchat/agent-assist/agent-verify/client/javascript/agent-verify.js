@@ -82,10 +82,10 @@ function preSendHandler(event) {
     currentNextButton.disabled = true;
   }
 
-  currentTextToVerify = null;
+  currentTextToVerify = '';
   currentTextElementToVerify = null;
   currentNextButton = null;
-  currentAgentUtterance = null;
+  currentAgentUtterance = '';
   currentUserElement = null;
 
   if (event.data.context?.skills?.['actions skill']?.skill_variables?.custom_command) {
@@ -128,6 +128,7 @@ function customResponseHandler(event) {
     element.innerHTML = `<div class="AgentAssist__TextToVerify AgentAssist__TextToVerify--notVerified">${text}</div><br/>`;
 
     currentTextToVerify = text;
+    
     currentTextElementToVerify = element.querySelector('.AgentAssist__TextToVerify');
   } else if (message.options) {
     // Here's where we create our custom buttons.
@@ -167,8 +168,11 @@ function markVerified() {
  * the existing user message until an utterance from the agent is encountered.
  */
 function onUserSaid(text) {
+  console.log('onUserSaid:' + text );
+
+
   // Switching from the agent to the user so clear the agent's text.
-  currentAgentUtterance = null;
+  currentAgentUtterance = '';
 
   addUserSaid(text);
 }
@@ -186,9 +190,14 @@ function onAgentSaid(text) {
     currentAgentUtterance = `${currentAgentUtterance} ${text.toLowerCase().trim()}`;
     const verbatimText = currentTextToVerify.toLowerCase();
     const { stringSimilarity } = window;
-    const similarity = stringSimilarity.compareTwoStrings(verbatimText, currentAgentUtterance);
 
-    if (similarity > 0.8) {
+    console.log('onAgentSaid: currentAgentUtterance: ' + currentAgentUtterance);
+    console.log('onAgentSaid: verbatimText: ' + verbatimText);
+
+    const similarity = stringSimilarity.compareTwoStrings(verbatimText, currentAgentUtterance);
+    console.log('onAgentSaid: similarity: ' + similarity);
+
+    if (similarity > 0.7) {
       markVerified();
     }
   }
@@ -203,8 +212,8 @@ function addUserSaid(text) {
   if (!currentUserElement) {
     // If we don't have a current user element, then create a new one and add it to the container. Otherwise, we'll
     // just append the new text to the existing one.
-    currentUserElement = document.createElement('div');
-    currentUserElement.innerHTML = `
+    const localUserElement = document.createElement('div');
+    localUserElement.innerHTML = `
     <div class="AgentAssist__UserSaidMessage">
       <bx-btn class="AgentAssist__UserSaidCopyButton" kind="primary" icon-layout="" size="sm">
         <svg id="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32" slot="icon">
@@ -217,20 +226,23 @@ function addUserSaid(text) {
     </div>
     `;
 
-    const copyButton = currentUserElement.querySelector('.AgentAssist__UserSaidCopyButton');
+    const copyButton = localUserElement.querySelector('.AgentAssist__UserSaidCopyButton');
     copyButton.addEventListener('click', () => {
-      const textElement = currentUserElement.querySelector('.AgentAssist__UserSaidText');
+      const textElement = localUserElement.querySelector('.AgentAssist__UserSaidText');
       webChatInstance.elements.getMessageInput().setValue(textElement.textContent.trim());
       webChatInstance.elements.getMessageInput().getHTMLElement().focus();
     });
 
-    container.appendChild(currentUserElement);
+    container.appendChild(localUserElement);
+    currentUserElement = localUserElement;
   }
 
   // Set the textContent property to escape any HTML that might be in the message.
   const textElement = currentUserElement.querySelector('.AgentAssist__UserSaidText');
   const currentContent = textElement.textContent;
   textElement.textContent = `${currentContent} ${text.trim()}`;
+
+  console.log('addUserSaid: text: ' + textElement.textContent);
 
   setTimeout(() => {
     container.scrollTop = container.scrollHeight;
