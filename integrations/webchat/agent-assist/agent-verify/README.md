@@ -184,7 +184,7 @@ This sample relies on the `string-similarity` algorithm implemented [here](https
 
 View a demo of the sample:
 
-<video src="./videos/agent-verify-demo.mp4" controls="controls" style="max-width: 1200px;">
+<video src="videos/agent-verify-demo.mp4" controls="controls" style="max-width: 1200px;">
 </video>
 
 
