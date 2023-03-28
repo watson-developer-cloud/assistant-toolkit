@@ -14,7 +14,7 @@ The client application that comes with this starter kit can be embedded into the
 1. Genesys Cloud CX: This version of the client application relies on Genesys voice transcriptions to drive the Watson Assistant conversational flow.
 2. Dashboard Simulator - The starter kit includes a simulator application that can be used for testing outside the chosen CCaaS.
 
-## Structure of the Starter Kit
+## Structure of the Agent Verify Sample
 
 Below this directory you will find the following two directories:
 
@@ -39,7 +39,9 @@ Here is a quick rundown of all the relevant files:
 To test this application with a particular Contact Center as a Server (CCaaS) provider requires an account with that provider. It may also require specific permissions within the account. In addition, you will need a Watson Assistant instance.
 
 ### Genesys
-For Genesys, you will need a Cloud CX 3 license to have access to the features needed to execute this demo. You will also need to setup and configure a webserver to serve up the static HTML pages, CSS and javascript contained in this sample project. 
+Genesys Voice Transcription requires customers to have Genesys Cloud CX 1 WEM Add-on II, Genesys Cloud CX 2 WEM Add-on I, or Genesys Cloud CX 3 licenses. You will need voice transcription to be enabled to run this demo.Go here for details on the [Genesys Fair Use Policy](https://help.mypurecloud.com/articles/genesys-cloud-fair-use-policy/). This demo was built using [Genesys Transcription Notifications](https://developer.genesys.cloud/analyticsdatamanagement/speechtextanalytics/transcription-notifications).
+
+You will also need to setup and configure a webserver to serve up the static HTML pages, CSS and javascript contained in this sample project. 
 
 #### Authentication
 The Genesys connector included with this sample relise on a type of OAuth called **Token Implicit Grant** browser for authentication. The parameters needed to perform this authentication are passed to the agent-verify application through query parameters. Details on setting up 
@@ -174,6 +176,7 @@ After completing these steps you will need to setup a call flow to test that the
 - [Integrating Watson Assistant with phone and Genesys Cloud](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-deploy-phone-genesys)
 - [Genesys: Create a trunk under BYOC Cloud](https://help.mypurecloud.com/articles/create-a-byoc-cloud-trunk/)
 - [About Genesys Cloud Voice](https://help.mypurecloud.com/articles/about-genesys-cloud-voice/)
+- [Details on Genesys Voice Transcription](https://help.mypurecloud.com/articles/about-voice-transcription/)
 
 ## Miscelaneous
 
