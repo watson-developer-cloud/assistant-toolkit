@@ -25,7 +25,7 @@ Below this directory you will find the following two directories:
 
 Here is a quick rundown of all the relevant files:
 
-- `.\client\genesys-agent-assist-verify.html` - Loads the agent-verify app along with the genesys connector. Can be loaded into the genesys agent dashboard.
+- `.\client\genesys-agent-assist-verify.html` - Loads the agent-verify app along with the Genesys connector. Can be loaded into the Genesys agent dashboard.
 - `.\client\simulator-agent-assist-verify.html` - Loads both a simulator and the agent-verify application. Can be loaded directly into a browser to locally test the application. 
 - `.\client\javascript\agent-verify.js` - Contains the wrapper for the Watson Assistant webchat app. It handles the real-time transcription events published from the various connectors.
 - `.\client\javascript\agent-verify.css` - Used to render the agent-verify app.
