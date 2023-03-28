@@ -9,17 +9,12 @@ let currentUserElement;
  * Installs web chat.
  */
 function installWebChat() {
-  // Pull out the IDs required to load an instance of web chat from the URL.
-  const urlParameters = new URLSearchParams(window.location.search);
-  // const integrationID = urlParameters.get('integrationID');
-  // const region = urlParameters.get('region');
-  // const serviceInstanceID = urlParameters.get('serviceInstanceID');
-  // const subscriptionID = urlParameters.get('subscriptionID');
-
+  // This is the standard web chat configuration object. You can modify these values with the embed code for your
+  // own assistant if you wish to try this example with your assistant. You can find the documentation for this at
+  // https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-configuration#configurationobject.
   const integrationID = 'e147ea66-03be-4165-9c3e-b4347acc4f2a';
   const region = 'us-east';
   const serviceInstanceID = '920dfdd7-fff9-4840-ac91-6cacfe609b37';
-  const subscriptionID = undefined;
 
   if (!integrationID || !region || !serviceInstanceID) {
     console.error('Cannot load web chat! The integrationID, region, and serviceInstanceID parameters are required.');
@@ -29,7 +24,6 @@ function installWebChat() {
     integrationID,
     region,
     serviceInstanceID,
-    subscriptionID,
 
     openChatByDefault: true,
     disableSessionHistory: true,
