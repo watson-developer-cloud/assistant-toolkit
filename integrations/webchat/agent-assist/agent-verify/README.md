@@ -182,9 +182,7 @@ After completing these steps you will need to setup a call flow to test that the
 
 This sample relies on the `string-similarity` algorithm implemented [here](https://github.com/aceakash/string-similarity) to do the verbatim check.
 
-View a demo of the sample:
+You can download a video of the sample from [here](videos/agent-verify-demo.mp4).
 
-<video src="videos/agent-verify-demo.mp4" controls="controls" style="max-width: 1200px;">
-</video>
 
 
