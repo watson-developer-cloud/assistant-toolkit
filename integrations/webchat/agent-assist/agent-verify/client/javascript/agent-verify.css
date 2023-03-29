@@ -17,10 +17,6 @@
   margin: 32px;
 }
 
-.AgentAssist__CopyUserSaidButton {
-
-}
-
 .AgentAssist__UserSaidMessage {
   padding-bottom: 16px;
   display: flex;
@@ -32,7 +28,6 @@
 }
 
 #WACContainer.WACContainer .ibm-web-chat--default-styles button.AgentAssist__NextButton:disabled:not([class*=bx--]) {
-  /* That we need to do this is a bug in web chat. */
   background-color: #e0e0e0;
   opacity: 0.75;
   color: #393939;
