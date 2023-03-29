@@ -39,12 +39,12 @@ Here is a quick rundown of all the relevant files:
 To test this application with a particular Contact Center as a Server (CCaaS) provider requires an account with that provider. It may also require specific permissions within the account. In addition, you will need a Watson Assistant instance.
 
 ### Genesys
-Genesys Voice Transcription requires customers to have Genesys Cloud CX 1 WEM Add-on II, Genesys Cloud CX 2 WEM Add-on I, or Genesys Cloud CX 3 licenses. You will need voice transcription to be enabled to run this demo.Go here for details on the [Genesys Fair Use Policy](https://help.mypurecloud.com/articles/genesys-cloud-fair-use-policy/). This demo was built using [Genesys Transcription Notifications](https://developer.genesys.cloud/analyticsdatamanagement/speechtextanalytics/transcription-notifications).
+Genesys Voice Transcription requires customers to have Genesys Cloud CX 1 WEM Add-on II, Genesys Cloud CX 2 WEM Add-on I, or Genesys Cloud CX 3 licenses. You will need voice transcription to be enabled to run this demo. Go here for details on the [Genesys Fair Use Policy](https://help.mypurecloud.com/articles/genesys-cloud-fair-use-policy/). This demo was built using [Genesys Transcription Notifications](https://developer.genesys.cloud/analyticsdatamanagement/speechtextanalytics/transcription-notifications).
 
 You will also need to setup and configure a webserver to serve up the static HTML pages, CSS and javascript contained in this sample project. 
 
 #### Authentication
-The Genesys connector included with this sample relise on a type of OAuth called **Token Implicit Grant** browser for authentication. The parameters needed to perform this authentication are passed to the agent-verify application through query parameters. Details on setting up 
+The Genesys connector included with this sample relies on a type of OAuth called **Token Implicit Grant** browser for authentication. The parameters needed to perform this authentication are passed to the agent-verify application through query parameters. Details on setting up OAuth can be found in the steps outlined below.
 
 #### Agent Groups
 You must define a group that will contain agents within the Genesys Admin dashboard. Please refer to Genesys documentation for how to set this up. Note that you will need this group when configuring the agent-verify Interation Widget.
@@ -146,17 +146,17 @@ The `Group Filtering` section is selected from a pre-configured group that can b
 
 ### Step 8: Configure OAuth for the Interaction Widget
 
-![Genesys Interaction Widget Config Page](images/oauth-client-page.png)
+![Oauth Client Page](images/oauth-client-page.png)
 Start by going to `OAuth` under Integrations and it `Add Client` to create a new OAuth client.
 
-![Genesys Interaction Widget Config Page](images/oauth-client-details-top-page.png)
+![OAuth Client Details Page](images/oauth-client-details-top-page.png)
 Here you'll need to configure the App Name associated with the credentials, the Grant Type which must be `Token Implicit Grant (Browser)`, the redirect URL which is shown below:
 ```
-http://localhost:8080/genesys-agent-assist-verify.html?clientID=xxxxx&environment=mypurecloud.com
+http://<hostname:port>/genesys-agent-assist-verify.html
 ```
-and the Scope which is set to `notifications`. Note that the redirect URL does not need to include the conversationID.
+and the Scope which is set to `notifications`. Note that the redirect URL does not need to include the query parameters.
 
-![Genesys Interaction Widget Config Page](images/oauth-client-details-bottom-page.png)
+![OAuth Client Details Bottom Page](images/oauth-client-details-bottom-page.png)
 Once the previous page is saved, you will be presented with more details about your OAuth configuration including the Client ID which is needed when configuring the Interaction Widget.
 
 ### Step 9: Setup Speech and Text Analytics
@@ -182,7 +182,7 @@ After completing these steps you will need to setup a call flow to test that the
 
 This sample relies on the `string-similarity` algorithm implemented [here](https://github.com/aceakash/string-similarity) to do the verbatim check.
 
-You can download a video of the sample from [here](videos/agent-verify-demo.mp4).
+You can download a video of the sample from [this page](videos/agent-verify-demo.mp4) by clicking the download button.
 
 
 
