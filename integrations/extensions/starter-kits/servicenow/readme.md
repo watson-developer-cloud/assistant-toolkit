@@ -42,9 +42,9 @@ Upload the provided OpenAPI spec as a custom extension, add the extension to you
 
 After upload, the actions should be configured to use the fields below for the skill to be fully functional. Follow the instructions [here](../../README.md#configuring-your-actions-skill-to-use-an-extension) and note the information below to do this.
 
-- **Action 1.** I want to report a problem.
+- **Action 1.** Create an incident report.
     ```
-    Operation: https://dev93773.service-now.com/api/now/table/incident
+    Operation: Create Incident
     Parameters:
       - impact: urgency
       - urgency: urgency
