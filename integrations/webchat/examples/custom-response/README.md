@@ -1,6 +1,6 @@
 # Extension with custom response for Watson Assistant web chat
 
-**For a full walk through of how this code works, please visit [the tutorial page](DOCS.md) in the Watson Assistant documentation.**
+**For a full walk through of how this code works, please visit the [tutorial page](DOCS.md) in the Watson Assistant documentation.**
 
 This code is for extending the Watson Assistant web chat. If you are new to developing with web chat, please start with the [web chat development overview](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-develop). The code in this folder is commented with links and references to the web chat APIs used.
 
