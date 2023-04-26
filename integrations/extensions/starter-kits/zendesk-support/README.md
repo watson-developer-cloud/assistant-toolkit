@@ -41,7 +41,7 @@ This account will now be able to add and update their ticket using their email a
 ## Using this Starter Kit
 Upload the provided OpenAPI spec as a custom extension, and add your token to the Auth section when prompted. After upload, the actions should be configured to use the fields below for the skill to be fully functional. Follow the instructions [here](../../README.md#configuring-your-actions-skill-to-use-an-extension) and note the information below to do this.
 
-- **Action 1.** Create a ticket.
+- **Action 1.** Create a Zendesk support ticket
     ```
     Operation: Create Ticket
     Parameters:
@@ -53,7 +53,7 @@ Upload the provided OpenAPI spec as a custom extension, and add your token to th
       - request.requester.email: 2. Hi, {variable}.<br /> Can I also ask for ...
     ```
 
-- **Action 2.** Update ticket for a given id.
+- **Action 2.** Update existing ticket
     ```
     Operation: Update Ticket
     Parameters:
@@ -61,14 +61,14 @@ Upload the provided OpenAPI spec as a custom extension, and add your token to th
       - request.comment.body: 2. So your ticket id is {variable} ...
     ```
 
-- **Action 3.** Get all my tickets.
+- **Action 3.** View all Zendesk tickets
     ```
     Operation: List Tickets
     Parameters:
       - None
     ```
 
-- **Action 4.** Get comments on a specific ticket.
+- **Action 4.** View comments on a ticket
     ```
     Operation: Get Ticket Comments
     Parameters:

@@ -1,12 +1,12 @@
 {
-  "name": "Jeesoo Testfest",
+  "name": "Zendesk Support Action",
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-01-18T19:40:40.398Z",
-  "updated": "2023-01-18T20:06:55.636Z",
+  "created": "2022-04-27T14:48:13.105Z",
+  "updated": "2023-04-26T16:49:56.761Z",
   "language": "en",
-  "skill_id": "e274a10d-b5a5-45ce-ab37-b9e9c918e217",
+  "skill_id": "db5b5299-3be6-4716-b9d6-2c1f446533b5",
   "workspace": {
     "actions": [
       {
@@ -204,8 +204,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": null,
-                  "catalog_item_id": "a0fb97d0-185b-4d11-b664-8a3146faf957"
+                  "spec_hash_id": "119f5a8e606c78504f2a910cf4696af5a0f25ede1c00b6e0d2e3e1f6e0f958f3",
+                  "catalog_item_id": "ba6a7178-1e2b-4209-8d4a-b3f5e643c9d4"
                 },
                 "request_mapping": {
                   "body": [
@@ -220,18 +220,6 @@
                         "variable": "step_397"
                       },
                       "parameter": "request.subject"
-                    },
-                    {
-                      "value": {
-                        "variable": "step_129"
-                      },
-                      "parameter": "request.requester.name"
-                    },
-                    {
-                      "value": {
-                        "variable": "step_332"
-                      },
-                      "parameter": "request.requester.email"
                     }
                   ]
                 },
@@ -336,7 +324,7 @@
             }
           }
         ],
-        "title": "*Create a Zendesk support ticket",
+        "title": "Create a Zendesk support ticket",
         "action": "action_21342",
         "boosts": [],
         "handlers": [],
@@ -448,8 +436,8 @@
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "spec_hash_id": null,
-                  "catalog_item_id": "a0fb97d0-185b-4d11-b664-8a3146faf957"
+                  "spec_hash_id": "119f5a8e606c78504f2a910cf4696af5a0f25ede1c00b6e0d2e3e1f6e0f958f3",
+                  "catalog_item_id": "ba6a7178-1e2b-4209-8d4a-b3f5e643c9d4"
                 },
                 "result_variable": "step_393_result_1"
               }
@@ -474,7 +462,7 @@
                             "variable_path": "body.count"
                           },
                           {
-                            "scalar": " on file. Here is some additional information: "
+                            "scalar": " on file.\n\n<br />\n\n\n\nHere is some additional information:\n\n\n\n"
                           },
                           {
                             "variable": "step_393_result_1",
@@ -696,7 +684,7 @@
             }
           }
         ],
-        "title": "*View all Zendesk tickets",
+        "title": "View all Zendesk tickets",
         "action": "action_23485",
         "boosts": [],
         "handlers": [],
@@ -705,7 +693,7 @@
         },
         "variables": [
           {
-            "title": "Alright. It looks like you have {variable} on file. Here is some",
+            "title": "Alright. It looks like you have {variable} on file. <br /> Here ",
             "variable": "step_156",
             "data_type": "any"
           },
@@ -772,10 +760,40 @@
                 }
               ]
             },
-            "handlers": [],
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text": "I didn't catch that. Enter a number."
+                        }
+                      ],
+                      "response_type": "text"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
             "question": {
-              "free_text": true,
-              "only_populate_when_prompted": true
+              "entity": "sys-number",
+              "max_tries": 3
             },
             "resolver": {
               "type": "continue"
@@ -809,6 +827,9 @@
                   "selection_policy": "sequential"
                 }
               ]
+            },
+            "context": {
+              "variables": []
             },
             "handlers": [],
             "question": {
@@ -850,8 +871,8 @@
                 "type": "integration_interaction",
                 "method": "PUT",
                 "internal": {
-                  "spec_hash_id": null,
-                  "catalog_item_id": "a0fb97d0-185b-4d11-b664-8a3146faf957"
+                  "spec_hash_id": "119f5a8e606c78504f2a910cf4696af5a0f25ede1c00b6e0d2e3e1f6e0f958f3",
+                  "catalog_item_id": "ba6a7178-1e2b-4209-8d4a-b3f5e643c9d4"
                 },
                 "request_mapping": {
                   "body": [
@@ -955,7 +976,7 @@
             }
           }
         ],
-        "title": "*Update existing ticket",
+        "title": "Update existing ticket",
         "action": "action_2442",
         "boosts": [],
         "handlers": [],
@@ -985,7 +1006,7 @@
           {
             "title": "Let's get your ticket updated. <br /> What is the ticket number ",
             "variable": "step_613",
-            "data_type": "any"
+            "data_type": "number"
           },
           {
             "variable": "step_726_result_1",
@@ -1129,8 +1150,8 @@
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "spec_hash_id": null,
-                  "catalog_item_id": "a0fb97d0-185b-4d11-b664-8a3146faf957"
+                  "spec_hash_id": "119f5a8e606c78504f2a910cf4696af5a0f25ede1c00b6e0d2e3e1f6e0f958f3",
+                  "catalog_item_id": "ba6a7178-1e2b-4209-8d4a-b3f5e643c9d4"
                 },
                 "request_mapping": {
                   "path": [
@@ -1450,7 +1471,7 @@
             }
           }
         ],
-        "title": "*View comments on a ticket",
+        "title": "View comments on a ticket",
         "action": "action_33161",
         "boosts": [],
         "handlers": [],
@@ -1744,94 +1765,6 @@
                   "scalar": "No action matches"
                 }
               ]
-            },
-            "next_step": "step_004"
-          },
-          {
-            "step": "step_004",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text": "It seems this conversation would be best managed by a human agent. Let me connect you to one of our agents."
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "connect_to_agent",
-              "response": {
-                "transfer_info": {
-                  "target": {}
-                },
-                "agent_available": {
-                  "message": "Let's send you to an available agent."
-                },
-                "agent_unavailable": {
-                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
-                },
-                "message_to_human_agent": ""
-              }
-            },
-            "variable": "step_004",
-            "condition": {
-              "eq": [
-                {
-                  "system_variable": "fallback_reason"
-                },
-                {
-                  "scalar": "Danger word detected"
-                }
-              ]
-            },
-            "next_step": "step_005"
-          },
-          {
-            "step": "step_005",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text": "It seems this conversation would be best managed by a human agent. Let me connect you to one of our agents."
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "connect_to_agent",
-              "response": {
-                "transfer_info": {
-                  "target": {}
-                },
-                "agent_available": {
-                  "message": "Let's send you to an available agent."
-                },
-                "agent_unavailable": {
-                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
-                },
-                "message_to_human_agent": ""
-              }
-            },
-            "variable": "step_004",
-            "condition": {
-              "eq": [
-                {
-                  "system_variable": "fallback_reason"
-                },
-                {
-                  "scalar": "Profanity detected"
-                }
-              ]
             }
           }
         ],
@@ -1857,94 +1790,10 @@
             "title": "I am afraid I do not understand what you are asking, let me conn",
             "variable": "step_003",
             "data_type": "any"
-          },
-          {
-            "title": "It seems this conversation would be best managed",
-            "variable": "step_004",
-            "data_type": "any"
-          },
-          {
-            "title": "Profanity - It seems this conversation",
-            "variable": "step_005",
-            "data_type": "any"
           }
         ],
-        "next_action": "run_always",
+        "next_action": "anything_else",
         "disambiguation_opt_out": true
-      },
-      {
-        "steps": [
-          {
-            "step": "danger_word_detected",
-            "title": "Connect to agent",
-            "handlers": [],
-            "resolver": {
-              "type": "fallback"
-            },
-            "variable": "danger_word_detected_variable",
-            "condition": {
-              "entity": "danger_words"
-            },
-            "next_step": "profanity_detected"
-          },
-          {
-            "step": "profanity_detected",
-            "title": "Show warning",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "Please use appropriate language when interacting with the assistant."
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "handlers": [
-              {
-                "type": "max_hits",
-                "handler": "max_hits_handler",
-                "resolver": {
-                  "type": "fallback"
-                }
-              }
-            ],
-            "max_hits": 2,
-            "resolver": {
-              "type": "end_action"
-            },
-            "variable": "profanity_detected_variable",
-            "condition": {
-              "entity": "profane_words"
-            }
-          }
-        ],
-        "title": "Trigger word detected",
-        "action": "run_always",
-        "boosts": [],
-        "handlers": [],
-        "variables": [
-          {
-            "title": "Profanity detected",
-            "variable": "danger_word_detected_variable",
-            "data_type": "any"
-          },
-          {
-            "title": "Profane word detected",
-            "variable": "profanity_detected_variable",
-            "data_type": "any"
-          }
-        ],
-        "next_action": "anything_else"
       },
       {
         "steps": [
@@ -2156,11 +2005,9 @@
     },
     "variables": [],
     "data_types": [],
+    "collections": [],
     "counterexamples": [],
     "system_settings": {
-      "off_topic": {
-        "enabled": true
-      },
       "topic_switch": {
         "enabled": true,
         "messages": {
@@ -2179,19 +2026,18 @@
         "randomize": true,
         "max_suggestions": 5,
         "suggestion_text_policy": "title",
-        "none_of_the_above_prompt": "None of the above",
-        "use_connect_to_support_prompt": "Connect to support"
+        "none_of_the_above_prompt": "None of the above"
       },
       "intent_classification": {
         "training_backend_version": "v2"
       },
       "spelling_auto_correct": true
     },
-    "learning_opt_out": true
+    "learning_opt_out": false
   },
-  "description": "created for assistant 8d741d42-a7c8-4c12-a40f-e987b06e9e3e",
-  "assistant_id": "6dce60a5-4606-4b21-b084-070c0f252179",
-  "workspace_id": "e274a10d-b5a5-45ce-ab37-b9e9c918e217",
+  "description": "created for assistant cabed9ff-f61e-49a0-8557-a3a22af89c4b",
+  "assistant_id": "cabed9ff-f61e-49a0-8557-a3a22af89c4b",
+  "workspace_id": "db5b5299-3be6-4716-b9d6-2c1f446533b5",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }
