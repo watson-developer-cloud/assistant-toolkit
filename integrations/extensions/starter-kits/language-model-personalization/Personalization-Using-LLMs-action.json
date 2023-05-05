@@ -1,0 +1,1046 @@
+{
+  "name": "Personalization Using LLMs-action",
+  "type": "action",
+  "valid": true,
+  "status": "Available",
+  "created": "2023-04-29T17:32:19.699Z",
+  "updated": "2023-05-05T18:57:22.245Z",
+  "language": "en",
+  "skill_id": "7604458d-5347-4471-a258-303cff0fb66f",
+  "workspace": {
+    "actions": [
+      {
+        "steps": [
+          {
+            "step": "step_126",
+            "context": {
+              "variables": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/v1/completions",
+                "type": "integration_interaction",
+                "method": "POST",
+                "internal": {
+                  "spec_hash_id": "52abfcce168af45904bbec67aa72171f74fe00fccc025503d374dbe9d83f0898",
+                  "catalog_item_id": "5d884979-48fb-4fce-ad58-81b03529168e"
+                },
+                "request_mapping": {
+                  "body": [
+                    {
+                      "value": {
+                        "scalar": "text-davinci-003"
+                      },
+                      "parameter": "model"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_prompt"
+                      },
+                      "parameter": "prompt"
+                    },
+                    {
+                      "value": {
+                        "scalar": 200
+                      },
+                      "parameter": "max_tokens"
+                    }
+                  ]
+                },
+                "result_variable": "step_126_result_1"
+              }
+            },
+            "variable": "step_126",
+            "next_step": "step_973"
+          },
+          {
+            "step": "step_973",
+            "output": {
+              "generic": []
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${step_126_result_1}.body.choices[0].text"
+                  },
+                  "skill_variable": "model_response"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_973",
+            "condition": {
+              "and": [
+                {
+                  "eq": [
+                    {
+                      "variable": "step_126_result_1",
+                      "variable_path": "success"
+                    },
+                    {
+                      "scalar": true
+                    }
+                  ]
+                },
+                {
+                  "expression": "${step_126_result_1}.body.choices.size() > 0"
+                }
+              ]
+            },
+            "next_step": "step_416"
+          },
+          {
+            "step": "step_416",
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "null"
+                  },
+                  "skill_variable": "model_response"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_416"
+          }
+        ],
+        "title": "Invoke GPT Completion API",
+        "action": "action_25675",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_25675_intent_42103"
+        },
+        "variables": [
+          {
+            "title": "No response",
+            "variable": "step_126",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_126_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_416",
+            "data_type": "any"
+          },
+          {
+            "title": "",
+            "variable": "step_973",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_36336",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true,
+          "never_return": false
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_126",
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "[{\"role\": \"user\", \"content\": \"${model_prompt}\"}]"
+                  },
+                  "skill_variable": "messages"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/v1/chat/completions",
+                "type": "integration_interaction",
+                "method": "POST",
+                "internal": {
+                  "spec_hash_id": "52abfcce168af45904bbec67aa72171f74fe00fccc025503d374dbe9d83f0898",
+                  "catalog_item_id": "5d884979-48fb-4fce-ad58-81b03529168e"
+                },
+                "request_mapping": {
+                  "body": [
+                    {
+                      "value": {
+                        "scalar": "gpt-3.5-turbo"
+                      },
+                      "parameter": "model"
+                    },
+                    {
+                      "value": {
+                        "expression": "${messages}"
+                      },
+                      "parameter": "messages"
+                    },
+                    {
+                      "value": {
+                        "scalar": 200
+                      },
+                      "parameter": "max_tokens"
+                    }
+                  ]
+                },
+                "result_variable": "step_126_result_1"
+              }
+            },
+            "variable": "step_126",
+            "next_step": "step_973"
+          },
+          {
+            "step": "step_973",
+            "output": {
+              "generic": []
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${step_126_result_1}.body.choices[0].message.content"
+                  },
+                  "skill_variable": "model_response"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_973",
+            "condition": {
+              "and": [
+                {
+                  "eq": [
+                    {
+                      "variable": "step_126_result_1",
+                      "variable_path": "success"
+                    },
+                    {
+                      "scalar": true
+                    }
+                  ]
+                },
+                {
+                  "expression": "${step_126_result_1}.body.choices.size() > 0"
+                }
+              ]
+            },
+            "next_step": "step_416"
+          },
+          {
+            "step": "step_416",
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "null"
+                  },
+                  "skill_variable": "model_response"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_416"
+          }
+        ],
+        "title": "Invoke GPT Chat Completion API",
+        "action": "action_25675-2",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_25675_intent_42103-2"
+        },
+        "variables": [
+          {
+            "title": "No response",
+            "variable": "step_126",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_126_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_416",
+            "data_type": "any"
+          },
+          {
+            "title": "",
+            "variable": "step_973",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "fallback",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true,
+          "never_return": false
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_457",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "I'm sorry to hear that you want to close your bank account. Why do you want to close your account?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "scalar": "Jane Exemplar"
+                  },
+                  "skill_variable": "customer_name"
+                },
+                {
+                  "value": {
+                    "scalar": "Savings account"
+                  },
+                  "skill_variable": "account_type"
+                },
+                {
+                  "value": {
+                    "scalar": "jane@example.com"
+                  },
+                  "skill_variable": "email"
+                }
+              ]
+            },
+            "handlers": [],
+            "question": {
+              "free_text": true,
+              "response_collection_behavior": "always_ask"
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_457",
+            "next_step": "step_338"
+          },
+          {
+            "step": "step_338",
+            "output": {
+              "generic": []
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "\"Pretend you are a bank and that the customer wants to close their bank account because \" + ${step_457} + \". address the customer directly in the chat window and convince them to stay with the bank? Personalize with any info they provide. If you don't know the customer's name then address the customer generically. Here are some details about the customer, if any of the values are null just ignore and don't mention them: customer name: ${customer_name}, and customer email ${email}, and account type: ${account_type}. Limit your response to 400 characters without trailing off, don't mention this to the customer.\""
+                  },
+                  "skill_variable": "model_prompt"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action",
+              "invoke_action": {
+                "action": "action_25675-2",
+                "parameters": null,
+                "result_variable": "step_338_result_2"
+              }
+            },
+            "variable": "step_338",
+            "next_step": "step_759"
+          },
+          {
+            "step": "step_759",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": ""
+                          },
+                          {
+                            "skill_variable": "model_response"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_759",
+            "condition": {
+              "exists": {
+                "skill_variable": "model_response"
+              }
+            },
+            "next_step": "step_204"
+          },
+          {
+            "step": "step_204",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "I hope that helps. Do you still want to close your account? Or would you like to talk to a representative and discuss your options?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                },
+                {
+                  "options": [
+                    {
+                      "label": "Talk to representative",
+                      "value": {
+                        "input": {
+                          "text": "Talk to representative"
+                        }
+                      }
+                    },
+                    {
+                      "label": "Continue to close",
+                      "value": {
+                        "input": {
+                          "text": "Continue to close"
+                        }
+                      }
+                    }
+                  ],
+                  "response_type": "option",
+                  "repeat_on_reprompt": true
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text": "I didn't catch that. Select a valid option:"
+                        }
+                      ],
+                      "response_type": "text"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "entity": "entity_28619",
+              "max_tries": 3,
+              "allow_topic_switch": false,
+              "response_collection_behavior": "always_ask"
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_204",
+            "condition": {
+              "exists": {
+                "skill_variable": "model_response"
+              }
+            },
+            "next_step": "step_355"
+          },
+          {
+            "step": "step_355",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Okay, let's connect you to an agent to help out."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
+                },
+                "message_to_human_agent": "Customer wants to close account because of ${step_457}"
+              }
+            },
+            "variable": "step_355"
+          }
+        ],
+        "title": "Close bank account",
+        "action": "action_36336",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_36336_intent_11141"
+        },
+        "variables": [
+          {
+            "title": "I hope that helps. Do you still want to close your account? Or w",
+            "variable": "step_204",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_338",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_338_result_2",
+            "data_type": "any"
+          },
+          {
+            "title": "Okay, let's connect you to an agent to help out.",
+            "variable": "step_355",
+            "data_type": "any"
+          },
+          {
+            "title": "I'm sorry to hear that you want to close your bank account. Why ",
+            "variable": "step_457",
+            "data_type": "any"
+          },
+          {
+            "title": "{variable}",
+            "variable": "step_759",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_25675-2",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true,
+          "never_return": false
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_001",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "I'm afraid I don't understand. Please rephrase your question."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_001",
+            "condition": {
+              "lte": [
+                {
+                  "system_variable": "no_action_matches_count"
+                },
+                {
+                  "scalar": 3
+                }
+              ]
+            },
+            "next_step": "step_002"
+          },
+          {
+            "step": "step_002",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": ""
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "action": "fallback",
+                "parameters": null,
+                "result_variable": "step_002_result_1"
+              }
+            },
+            "variable": "step_002",
+            "condition": {
+              "gt": [
+                {
+                  "system_variable": "no_action_matches_count"
+                },
+                {
+                  "scalar": 3
+                }
+              ]
+            }
+          }
+        ],
+        "title": "No action matches",
+        "action": "anything_else",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "expression": "anything_else"
+        },
+        "variables": [
+          {
+            "title": "I am afraid I do not understand what you are asking, please re-p",
+            "variable": "step_001",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_002",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_002_result_1",
+            "data_type": "any"
+          }
+        ],
+        "disambiguation_opt_out": true
+      },
+      {
+        "steps": [
+          {
+            "step": "step_001",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "I'm afraid I don't understand. I can connect you to an agent."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
+                },
+                "message_to_human_agent": ""
+              }
+            },
+            "variable": "step_001",
+            "condition": {
+              "eq": [
+                {
+                  "system_variable": "fallback_reason"
+                },
+                {
+                  "scalar": "Step validation failed"
+                }
+              ]
+            },
+            "next_step": "step_002"
+          },
+          {
+            "step": "step_002",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "Sorry I couldn't assist you. I will connect you to an agent right away."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
+                },
+                "message_to_human_agent": ""
+              }
+            },
+            "variable": "step_002",
+            "condition": {
+              "eq": [
+                {
+                  "system_variable": "fallback_reason"
+                },
+                {
+                  "scalar": "Agent requested"
+                }
+              ]
+            },
+            "next_step": "step_003"
+          },
+          {
+            "step": "step_003",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "I am afraid I do not understand what you are asking, let me connect you to an agent."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
+                },
+                "message_to_human_agent": ""
+              }
+            },
+            "variable": "step_003",
+            "condition": {
+              "eq": [
+                {
+                  "system_variable": "fallback_reason"
+                },
+                {
+                  "scalar": "No action matches"
+                }
+              ]
+            }
+          }
+        ],
+        "title": "Fallback",
+        "action": "fallback",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "fallback_connect_to_agent"
+        },
+        "variables": [
+          {
+            "title": "I'm afraid I don't understand. I can connect you to an agent.",
+            "variable": "step_001",
+            "data_type": "any"
+          },
+          {
+            "title": "Sorry I couldn't assist you. I will connect you to an agent righ",
+            "variable": "step_002",
+            "data_type": "any"
+          },
+          {
+            "title": "I am afraid I do not understand what you are asking, let me conn",
+            "variable": "step_003",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "anything_else",
+        "disambiguation_opt_out": true
+      },
+      {
+        "steps": [
+          {
+            "step": "step_421",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "How can I help you?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_421"
+          }
+        ],
+        "title": "Greet customer",
+        "action": "welcome",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "expression": "welcome"
+        },
+        "variables": [
+          {
+            "title": "How can I help you?",
+            "variable": "step_421",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_991_result_1",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_25675",
+        "disambiguation_opt_out": true
+      }
+    ],
+    "intents": [
+      {
+        "intent": "action_25675_intent_42103",
+        "examples": []
+      },
+      {
+        "intent": "action_25675_intent_42103-2",
+        "examples": []
+      },
+      {
+        "intent": "action_36336_intent_11141",
+        "examples": [
+          {
+            "text": "close my account"
+          },
+          {
+            "text": "personalization"
+          },
+          {
+            "text": "personalized journey"
+          }
+        ]
+      },
+      {
+        "intent": "fallback_connect_to_agent",
+        "examples": [
+          {
+            "text": "Agent help"
+          },
+          {
+            "text": "Call agent"
+          },
+          {
+            "text": "Can I connect to an agent?"
+          },
+          {
+            "text": "I would like to speak to a human"
+          },
+          {
+            "text": "I would like to speak to someone"
+          }
+        ],
+        "description": "Please transfer me to an agent"
+      }
+    ],
+    "entities": [
+      {
+        "entity": "entity_28619",
+        "values": [
+          {
+            "type": "synonyms",
+            "value": "Continue to close",
+            "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "Talk to representative",
+            "synonyms": []
+          }
+        ],
+        "fuzzy_match": true
+      }
+    ],
+    "metadata": {
+      "api_version": {
+        "major_version": "v2",
+        "minor_version": "2018-11-08"
+      }
+    },
+    "variables": [
+      {
+        "title": "account_type",
+        "variable": "account_type",
+        "data_type": "string",
+        "description": ""
+      },
+      {
+        "title": "customer_name",
+        "variable": "customer_name",
+        "data_type": "string",
+        "description": ""
+      },
+      {
+        "title": "email",
+        "variable": "email",
+        "data_type": "string",
+        "description": ""
+      },
+      {
+        "title": "messages",
+        "variable": "messages",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "model_prompt",
+        "variable": "model_prompt",
+        "data_type": "string",
+        "description": ""
+      },
+      {
+        "title": "model_response",
+        "variable": "model_response",
+        "data_type": "string",
+        "description": ""
+      }
+    ],
+    "data_types": [],
+    "collections": [],
+    "counterexamples": [],
+    "system_settings": {
+      "off_topic": {
+        "enabled": true
+      },
+      "topic_switch": {
+        "enabled": true,
+        "messages": {}
+      },
+      "disambiguation": {
+        "prompt": "Did you mean:",
+        "enabled": true,
+        "randomize": true,
+        "max_suggestions": 5,
+        "suggestion_text_policy": "title",
+        "none_of_the_above_prompt": "None of the above"
+      },
+      "intent_classification": {
+        "training_backend_version": "v2"
+      },
+      "spelling_auto_correct": true
+    },
+    "learning_opt_out": true
+  },
+  "description": "created for assistant 9e4a467a-c147-4e0d-8acd-ba3fe3798ae1",
+  "assistant_id": "15106530-b33d-4bb9-b309-fcc7265ece36",
+  "workspace_id": "7604458d-5347-4471-a258-303cff0fb66f",
+  "dialog_settings": {},
+  "next_snapshot_version": "1"
+}
