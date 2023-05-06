@@ -68,6 +68,8 @@ Recording the context at each step of each action can be extremely tedious for a
 
 Once the context is recorded, we've configured the human agent escalation process to use the language model to summarize the session and present the summary to both the user and the human agent.  You can see that the model response is sent to the agent by going to step 3 of the `Escalate to Agent` action and clicking on "Edit settings" in the "Connect to agent" block at the bottom of the step.  You should see this:
 
-![Connect to agent](./assets/connect.png)<br>
+<img src="./assets/connect.png" width="500"/>
+
+As you can see, the "Message to agent" field is set to the `model_response`, i.e., the summary that the language model generated.
 
 In the starter kit, this is not configured to a real contact center, so no actual human agent is contacted.  See [Adding contact center support](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-deploy-web-chat-haa) in the Watson Assistant documentation for details on how to connect to a real contact center.
