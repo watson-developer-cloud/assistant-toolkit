@@ -62,10 +62,14 @@ The full prompt expression in step 2 is:
 What we see when we use this model with models like the GPT 3.5 and 4 models is that the results are often very impressive and persuasive but are also often erratic, unpredictable, and include entirely made-up facts.  For example, consider the following transcript:
 
 > User: close bank account
+
 > Watson Assistant: I'm sorry to hear that you want to close your bank account. Why do you want to close your account?
+
 > User: I am moving to London
+
 > Watson Assistant: Hello Jane, we're sorry to hear that you're planning to close your savings account as you move to London. Did you know that our bank has a wide network and presence in London? By keeping your savings account with us, you can continue to enjoy our competitive interest rates and access to our services. We'd love to keep you as a customer and help you with your banking needs. Let us know if there's anything we can do to make banking with us easier for you in London.
-> I hope that helps. Do you still want to close your account? Or would you like to talk to a representative and discuss your options?
+
+> Watson Assistant: I hope that helps. Do you still want to close your account? Or would you like to talk to a representative and discuss your options?
 
 It is very impressive that the model (`gpt-3.5-turbo` in this example) is able to directly respond to the specific issue that the customer has and make claims that respond directly to the concerns the user has.  Note, however, that the model says things like "Did you know that our bank has a wide network and presence in London?", but we never sent the model any information that suggests that the (hypothetical) bank for this sample chatbot has any presence in London.  This is coming from the model for two reasons:
 
