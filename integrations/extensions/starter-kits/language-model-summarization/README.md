@@ -1,6 +1,6 @@
 # Language Model Summarization starter kit
 
-You can use this starter kit to try a simple example of how generative language model can be used to collect and summarize a customer's answers and then pass the summary along to a customer service agent when the assistant escalates to an agent.  The reason you would do so is to enable a customer service agent who is taking over a chat session to have a general sense of what has been said in the chat so far without having to read an entire transcript.
+This starter kit uses a generative language model to collect and summarize a customer's answers.  It sends the summary to a customer service agent when the assistant escalates to an agent.  This can enable a customer service agent who enters a chat session to have an overview of what has been said in the chat so far without having to read an entire transcript.
 
 ## Prerequisites
 
@@ -19,10 +19,10 @@ The starter kit includes a JSON file with these sample actions:
 | Action | Description |
 | --- | --- |
 | Invoke GPT Chat Completion API | Connects to OpenAI with the `gpt-3.5-turbo` model, which provides a level of quality that is nearly as good as `text-davinci-003` at a much lower cost. |
-| Invoke GPT Completion API | Connects to OpenAI with the `text-davinci-003` model, which is more expensive. For more information, see [OpenAI Pricing](https://openai.com/pricing). |
+| Invoke GPT Completion API | Connects to OpenAI with the `text-davinci-003` model. For more information, see [OpenAI Pricing](https://openai.com/pricing). |
 | Tell a joke | Simple action to test the conversation and call the *Record context* action |
 | Record context | Uses a variable that collects the session history of the conversation. |
-| Escalate to Agent | Simple example of how OpenAI can be used to provide a summary of a customer conversation. Connects to OpenAI using the `Invoke GPT Chat Completion API` action.
+| Escalate to Agent | Simple example of how OpenAI can be used to provide a summary of a customer conversation. Connects to OpenAI using the `Invoke GPT Chat Completion API` action and shows the summary to the user.  It also triggers an escalation to a customer service agent with the summary in the message sent to the agent. |
 | Tell a joke without recording context | Simple action without any context recording. Included as a comparison to the *Tell a joke* action. |
 
 To use the sample actions:
@@ -47,11 +47,11 @@ To preview the sample actions, you'll use the Tell a joke action to simulate a c
 
 1. To complete the conversation, enter something like `Tell me why`. The assistant says `To get to the other side!` and the action ends.
 
-1. To see the summary, enter `Escalate to agent`. This triggers the `Invoke GPT Chat Completion API` action and shows the response that is returned.
+1. To see the summary, enter `human agent`. This causes Watson Assistant to invoke the `Fallback` action, which is configured to call the `Escalate to Agent` action.  This then triggers the `Invoke GPT Chat Completion API` action and shows the response that is returned.
 
-   An example response might look something like this: `The user asked the chatbot to tell a joke. The chatbot asked "Why did the chicken cross the road?" but the user talked about liking chicken salad instead. The chatbot repeated the joke question and the user asked to close their bank account. The chatbot kept asking the same question until finally revealing the classic punchline - the chicken crossed the road to get to the other side.`
+An example response might look something like this: `The user asked the chatbot to tell a joke. The chatbot asked "Why did the chicken cross the road?" but the user talked about liking chicken salad instead. The chatbot repeated the joke question and the user asked to close their bank account. The chatbot kept asking the same question until finally revealing the classic punchline - the chicken crossed the road to get to the other side.`
 
-If you repeat your preview using different answers, you should see different variations and level of detail in the summary returned by OpenAI.
+1. After showing the summary to the user, it then initiates a transfer to a human agent. Unless you have configured a contact center, this will not work, but it is included in the kit to show how it would be invoked if you did have one configured.  See details in the next section.
 
 ## Technical Details
 
@@ -65,3 +65,9 @@ You can see how session history recording is enabled by contrasting the `Tell a 
   - If your existing step had something other than continuing to the next step in the "And then" portion, add a _new_ step that just does that additional "And then" behavior.  For example, step 3 in `Tell a joke without recording context` says "If you want to get the answer, you need to ask 'why'!" and then goes back to step 1.  When this is converted into `Tell a joke`, it gets split into two steps: the first says the same thing and records the context and the second goes back to step 1.
 
 Recording the context at each step of each action can be extremely tedious for a complex assistant with many actions.  In the future, Watson Assistant might add a feature that collects the history in a session variable automatically.  If it does, we will update the kit, and it will be much simpler and easier to use.
+
+Once the context is recorded, we've configured the human agent escalation process to use the language model to summarize the session and present the summary to both the user and the human agent.  You can see that the model response is sent to the agent by going to step 3 of the `Escalate to Agent` action and clicking on "Edit settings" in the "Connect to agent" block at the bottom of the step.  You should see this:
+
+![Connect to agent](./assets/connect.png)<br>
+
+In the starter kit, this is not configured to a real contact center, so no actual human agent is contacted.  See [Adding contact center support](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-deploy-web-chat-haa) in the Watson Assistant documentation for details on how to connect to a real contact center.
