@@ -1,6 +1,6 @@
 # Language Model Personalization starter kit
 
-You can use this starter kit to try a simple example of how generative language model can be used to provide a personalized response to a customer.  It illustrates the power of doing so, but it also demonstrates some disturbing and ethically dubious with some serious potential consequences.  The purpose of this kit is _not_ to provide a model that embodies a best-practice that we would recommend that someone follow.  Quite the contrary: we are putting this out there because we believe that users are starting to do these sorts of things with Watson Assistant right now, and we want to illustrate the power _and_ the dangers and talk through how someone might use this power more responsibly.  Furthermore, we intend in the future to add more examples that illustrate more cautious, responsible applications of this kind of capability.  See the "Responsible Use" section at the end of this kit for more details on this subject.
+You can use this starter kit to try a simple example of how generative language model can be used to provide a personalized response to a customer.  It illustrates the power of doing so, but it also demonstrates some disturbing and ethically dubious with some serious potential consequences.  The purpose of this kit is _not_ to illustrate a best-practice that we would recommend that someone follow.  Quite the contrary: we are putting this out there because we believe that users are starting to do these sorts of things with Watson Assistant right now, and we want to illustrate the power _and_ the dangers and provide guidelines for using this power more responsibly.  Furthermore, we intend in the future to add more examples that illustrate more cautious, responsible applications of this kind of capability.  See the "Responsible Use" section at the end of this README file for more details on this subject.
 
 ## Prerequisites
 
@@ -19,7 +19,7 @@ The starter kit includes a JSON file with these sample actions:
 | Action | Description |
 | --- | --- |
 | Invoke GPT Chat Completion API | Connects to OpenAI with the `gpt-3.5-turbo` model, which provides a level of quality that is nearly as good as `text-davinci-003` at a much lower cost. |
-| Invoke GPT Completion API | Connects to OpenAI with the `text-davinci-003` model, which is more expensive. For more information, see [OpenAI Pricing](https://openai.com/pricing). |
+| Invoke GPT Completion API | Connects to OpenAI with the `text-davinci-003` model. For more information, see [OpenAI Pricing](https://openai.com/pricing). |
 | Close bank account | Simple example of how OpenAI can be used to provide a personalized response to a customer. |
 
 To use the sample actions:
@@ -43,7 +43,8 @@ To preview the sample actions:
 ### Details about the Close bank account sample action
 
 | Step | Description |
-| 1 | Sets hardcoded values for three variables: `customer_name`, `account_type`, and `email`. You can modify these values as you want. |
+| --- | --- |
+| 1 | Sets hardcoded values for three variables: `customer_name`, `account_type`, and `email`. You can modify these values as you want. In a real application, you would probably get them from a database if your user was logged in to the site where your assistant is deployed.  |
 | 2 | Uses the variable `model_prompt` to ask OpenAI to pretend to be a bank and personalize the response based on the customer's reason from step 1. Set to use the `Invoke GPT Chat Completion API` action, which uses the `gpt-3.5-turbo` model. Depending on your OpenAI plan, you can modify to use the `Invoke GPT Completion API` action, which uses the more expensive `text-davinci-003` model. |
 | 3 | Uses the variable `model_response` to show the response from OpenAI to the customer. |
 | 4 | Example options step |
@@ -78,7 +79,7 @@ It is very impressive that the model (`gpt-3.5-turbo` in this example) is able t
 
 The nature of large language models like GPT 3.5 here is that they excel at generating _seemingly plausible_ content because they are trained on huge volumes of content and have a lot of powerful statistics about what content tends to appear in any given context.  In this case, it knows what a convincing argument for keeping a customer who is moving to London would look like so it generates one, without any real _understanding_ that this argument includes entirely made-up facts or that made-up facts can have real consequences.
 
-A real-world customer who relies on this answer might move to London based on the claims made by the chatbot only to find they have no access to their money because the purported network and presence in London does not exist.  Such a customer could face severe financial hardship.  If a customer got this information from a chatbot on the bank's website, that customer could have a serious legal claim against the bank.
+A real-world customer who relies on this answer might keep their money in the same bank when moving to London based on the claims made by the chatbot, only to find they have no access to their money because the purported presence in London does not exist.  Such a customer could face severe financial hardship.  If a customer got this information from a chatbot on the bank's website, that customer could have a serious legal claim against the bank.
 
 What can be done about this?  Here are some guidelines to consider:
 
