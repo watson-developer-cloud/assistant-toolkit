@@ -4,7 +4,7 @@
   "valid": true,
   "status": "Available",
   "created": "2023-04-29T17:32:19.699Z",
-  "updated": "2023-05-05T18:57:22.245Z",
+  "updated": "2023-05-07T21:15:42.927Z",
   "language": "en",
   "skill_id": "7604458d-5347-4471-a258-303cff0fb66f",
   "workspace": {
@@ -31,7 +31,7 @@
                   "body": [
                     {
                       "value": {
-                        "scalar": "text-davinci-003"
+                        "skill_variable": "model_for_completions"
                       },
                       "parameter": "model"
                     },
@@ -43,7 +43,7 @@
                     },
                     {
                       "value": {
-                        "scalar": 200
+                        "skill_variable": "model_max_tokens"
                       },
                       "parameter": "max_tokens"
                     }
@@ -179,7 +179,7 @@
                   "body": [
                     {
                       "value": {
-                        "scalar": "gpt-3.5-turbo"
+                        "skill_variable": "model_for_chat"
                       },
                       "parameter": "model"
                     },
@@ -191,7 +191,7 @@
                     },
                     {
                       "value": {
-                        "scalar": 200
+                        "skill_variable": "model_max_tokens"
                       },
                       "parameter": "max_tokens"
                     }
@@ -998,6 +998,33 @@
         "variable": "messages",
         "data_type": "any",
         "description": ""
+      },
+      {
+        "title": "model_for_chat",
+        "variable": "model_for_chat",
+        "data_type": "string",
+        "description": "",
+        "initial_value": {
+          "scalar": "gpt-3.5-turbo"
+        }
+      },
+      {
+        "title": "model_for_completions",
+        "variable": "model_for_completions",
+        "data_type": "string",
+        "description": "",
+        "initial_value": {
+          "scalar": "text-davinci-003"
+        }
+      },
+      {
+        "title": "model_max_tokens",
+        "variable": "model_max_tokens",
+        "data_type": "number",
+        "description": "",
+        "initial_value": {
+          "scalar": 200
+        }
       },
       {
         "title": "model_prompt",

@@ -4,7 +4,7 @@
   "valid": true,
   "status": "Available",
   "created": "2023-04-17T20:35:33.560Z",
-  "updated": "2023-05-06T13:37:02.814Z",
+  "updated": "2023-05-07T21:15:56.176Z",
   "language": "en",
   "skill_id": "cfe417d3-1e64-419f-bd8d-1156ff56c64f",
   "workspace": {
@@ -204,7 +204,7 @@
                   "body": [
                     {
                       "value": {
-                        "scalar": "text-davinci-003"
+                        "skill_variable": "model_for_completions"
                       },
                       "parameter": "model"
                     },
@@ -216,7 +216,7 @@
                     },
                     {
                       "value": {
-                        "scalar": 200
+                        "skill_variable": "model_max_tokens"
                       },
                       "parameter": "max_tokens"
                     }
@@ -327,9 +327,6 @@
         "steps": [
           {
             "step": "step_126",
-            "output": {
-              "generic": []
-            },
             "context": {
               "variables": [
                 {
@@ -355,7 +352,7 @@
                   "body": [
                     {
                       "value": {
-                        "scalar": "gpt-3.5-turbo"
+                        "skill_variable": "model_for_chat"
                       },
                       "parameter": "model"
                     },
@@ -367,7 +364,7 @@
                     },
                     {
                       "value": {
-                        "scalar": 200
+                        "skill_variable": "model_max_tokens"
                       },
                       "parameter": "max_tokens"
                     }
@@ -447,7 +444,7 @@
         },
         "variables": [
           {
-            "title": "",
+            "title": "No response",
             "variable": "step_126",
             "data_type": "any"
           },
@@ -1218,6 +1215,33 @@
         "variable": "messages",
         "data_type": "any",
         "description": ""
+      },
+      {
+        "title": "model_for_chat",
+        "variable": "model_for_chat",
+        "data_type": "string",
+        "description": "",
+        "initial_value": {
+          "scalar": "gpt-3.5-turbo"
+        }
+      },
+      {
+        "title": "model_for_completions",
+        "variable": "model_for_completions",
+        "data_type": "string",
+        "description": "",
+        "initial_value": {
+          "scalar": "text-davinci-003"
+        }
+      },
+      {
+        "title": "model_max_tokens",
+        "variable": "model_max_tokens",
+        "data_type": "number",
+        "description": "",
+        "initial_value": {
+          "scalar": 200
+        }
       },
       {
         "title": "model_prompt",

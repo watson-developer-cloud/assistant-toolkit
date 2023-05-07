@@ -52,8 +52,6 @@ To preview the sample actions:
 
 The `Close bank account` action currently connects to OpenAI using the `Invoke GPT Chat Completion API` action, but you can change the action call out in step 2 of this action to call a different model-invoking action instead.  The model-invoking action needs to take in the `model_prompt` session variable, prompt the model using that prompt, and then set `model_responded` to true or false depending on whether the model provided a response and `model_response` to that response if it did.  The `Invoke GPT Completion API` action meets this requirement too, so you change the action call out in step 2 of `Close bank account` to call `Invoke GPT Completion API` action if you want to try calling the slightly higher-quality (but much more expensive) `text-davinci-003` model.  Furthermore, if you create an action that invokes some _other_ language model using `model_prompt` as input and `model_responded` and `model_response` as outputs, you can change the action call out to call that _other_ model-invoking action instead.
 
-In this example the token limit was set to 200, so the prompt included an instruction to set the maximum character out to 400 so that the answer fits in the assistant reply.
-
 ## Responsible Use
 
 The full prompt expression in step 2 is:

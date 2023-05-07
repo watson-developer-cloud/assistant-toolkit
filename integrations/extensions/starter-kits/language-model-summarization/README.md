@@ -72,4 +72,6 @@ Once the context is recorded, we've configured the human agent escalation proces
 
 As you can see, the "Message to agent" field is set to the `model_response`, i.e., the summary that the language model generated.
 
-In the starter kit, this is not configured to a real contact center, so no actual human agent is contacted.  See [Adding contact center support](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-deploy-web-chat-haa) in the Watson Assistant documentation for details on how to connect to a real contact center.
+In the starter kit, this is not configured to a real contact center, so no actual human agent is contacted.  See [Adding contact center support](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-deploy-web-chat-haa) in the Watson Assistant documentation for details on how to connect to a real contact center.  Here is what the output looks like in the Preview page of Watson Assistant (including the error message because no contact center has been configured):
+
+<img src="./assets/sample.png" width="300"/>
