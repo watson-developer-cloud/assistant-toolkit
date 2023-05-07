@@ -40,6 +40,12 @@ To preview the sample actions:
 
 1. The `Invoke GPT Chat Completion API` action is recognized. The assistant responds with a personalized response.
 
+Here is an example of what the output can look like:
+
+<img src="./assets/sample.png" width="300"/>
+
+The behavior of the model can vary, so the output you get for this prompt may not match the one seen here.
+
 ### Details about the Close bank account sample action
 
 | Step | Description |
