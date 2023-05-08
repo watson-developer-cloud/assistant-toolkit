@@ -14,6 +14,8 @@ You connect your assistant by using an OpenAPI specification to add a custom ext
 
 ## Upload sample actions
 
+Use **Actions Global Settings** to upload the `Transcript-Summary-Using-LLMs-action.json` file in this kit to your assistant. For more information, see [Uploading](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import).  You may also need to refresh the action Preview chat after uploading in order to get all the session variables initialized before these actions will work correctly.
+
 The starter kit includes a JSON file with these sample actions:
 
 | Action | Description |

@@ -4,7 +4,7 @@
   "valid": true,
   "status": "Available",
   "created": "2023-04-29T17:32:19.699Z",
-  "updated": "2023-05-07T21:15:42.927Z",
+  "updated": "2023-05-08T17:09:09.670Z",
   "language": "en",
   "skill_id": "7604458d-5347-4471-a258-303cff0fb66f",
   "workspace": {
@@ -363,7 +363,7 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "\"Pretend you are a bank and that the customer wants to close their bank account because \" + ${step_457} + \". address the customer directly in the chat window and convince them to stay with the bank? Personalize with any info they provide. If you don't know the customer's name then address the customer generically. Here are some details about the customer, if any of the values are null just ignore and don't mention them: customer name: ${customer_name}, and customer email ${email}, and account type: ${account_type}. Limit your response to 400 characters without trailing off, don't mention this to the customer.\""
+                    "expression": "\"Pretend you are a bank and that the customer wants to close their bank account because \" + ${step_457} + \". Address the customer directly in the chat window and convince them to stay with the bank. Personalize with any info they provide. If you don't know the customer's name then address the customer generically. Here are some details about the customer, if any of the values are null just ignore and don't mention them: customer name: ${customer_name}, and customer email ${email}, and account type: ${account_type}. Limit your response to 400 characters without trailing off, don't mention this to the customer.\""
                   },
                   "skill_variable": "model_prompt"
                 }

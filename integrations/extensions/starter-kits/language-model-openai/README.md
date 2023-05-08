@@ -2,7 +2,7 @@
 
 OpenAI is an AI research and deployment company, which is best known for the [ChatGPT](https://openai.com/blog/chatgpt) conversational application. OpenAI provides an [API](https://platform.openai.com/docs/api-reference) for interacting with their generative language models. You can use this starter kit to connect IBM Watson Assistant to the OpenAI API.
 
-This starter kit does not provide any examples of anything that you can _do_ with this extension.  Instead, we have two general-purpose kits that show _use cases_ generative language models, and we may add more in the future.  The two use case starter kits we have now are:
+This starter kit does not provide any examples of anything that you can _do_ with this extension.  Instead, we have two general-purpose kits that show _use cases_ for generative language models, and we may add more in the future.  The two use case starter kits we have now are:
 
 - [language-model-personalization](../language-model-personalization)
 - [language-model-summarization](../language-model-summarization)
@@ -53,6 +53,8 @@ If you need any capabilities that are in the documentation but not in the OpenAP
 
 ## Upload sample actions
 
+Use **Actions Global Settings** to upload the `OpenAI-Extension-action.json` file in this kit to your assistant. For more information, see [Uploading](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import).  You may also need to refresh the action Preview chat after uploading in order to get all the session variables initialized before these actions will work correctly.
+
 The starter kit includes a JSON file with sample actions that are configured to use the OpenAI extension.
 
 | Action | Description |
@@ -71,4 +73,4 @@ Note that one of the options in `Test model` is `gpt-4`, but at the time we are 
 
 ## Use at your own risk
 
-You can get either of these actions to just respond to _anything_ a user says by updating "No action matches" (and optionally "Fallback") built-in actions in Watson Assistant to set `model_prompt` to `input.text`, call one of these actions, and then put the `model_response` in "Assistant says".  With more work, you can even keep track of things the assistant and the user have said to each other and put them into the prompt too, ideally as separate entries in the `messages` list of the chat completion API as described in the [chat completion API documentation](https://platform.openai.com/docs/api-reference/chat); the result would be something similar to the ChatGPT experience in which you would have an ongoing conversation with the model.  This can be a fun thing to try out, but *we strongly recommend that you do not do this for any serious chatbot that you use to represent your enterprise*, since you would no control over what it will say.
+You can get either of these actions to just respond to _anything_ a user says by updating "No action matches" (and optionally "Fallback") built-in actions in Watson Assistant to set `model_prompt` to `input.text`, call one of these actions, and then put the `model_response` in "Assistant says".  With more work, you can even keep track of things the assistant and the user have said to each other and put them into the prompt too, ideally as separate entries in the `messages` list of the chat completion API as described in the [chat completion API documentation](https://platform.openai.com/docs/api-reference/chat); the result would be something similar to the ChatGPT experience in which you would have an ongoing conversation with the model.  This can be a fun thing to try out, but *we strongly recommend that you do not do this for any serious chatbot that you use to represent your enterprise*, since you would have no control over what it will say.
