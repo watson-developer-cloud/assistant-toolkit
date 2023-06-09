@@ -23,11 +23,16 @@ Then we have our **additional starter kits**. These focus on showcasing the brea
 
 ## Jump to...
 1. [All Available Starter Kits](./starter-kits/)
-    - [HubSpot](./starter-kits/hubspot/)
     - [Coveo](./starter-kits/coveo/)
     - [Google Custom Search](./starter-kits/google-custom-search/)
+    - [HubSpot](./starter-kits/hubspot/)
     - [IBM App Connect](./starter-kits/appconnect/)
     - [IBM Watson Discovery](./starter-kits/watson-discovery/)
+    - [LLM: IBM watsonx tech preview](./starter-kits/language-model-watsonx-tech-preview/)
+    - [LLM: OpenAI](./starter-kits/language-model-openai/)
+    - [LLM use case: Conversational Search](./starter-kits/language-model-conversational-search/)
+    - [LLM use case: Personalization](./starter-kits/language-model-personalization/)
+    - [LLM use case: Summarization](./starter-kits/language-model-summarization/)
     - [Magnolia](./starter-kits/magnolia/)
     - [Mailchimp Campaign Management](./starter-kits/mailchimp/)
     - [Service Now](./starter-kits/servicenow/)
