@@ -24,8 +24,8 @@ The server code for generating a JWT can be found in [createJWT.js](server/nodej
 
 If you do not have a public and private key pair, you can generate one using the following commands:
 ```
-ssh-keygen -t rsa -b 4096 -m PEM -f jwtRS256.key
-openssl rsa -in jwtRS256.key -pubout -outform PEM -out jwtRS256.key.pub
+ssh-keygen -t rsa -b 4096 -m PEM -f example-jwtRS256.key
+openssl rsa -in example-jwtRS256.key -pubout -outform PEM -out example-jwtRS256.key.pub
 ```
 
 ### Running the Server
@@ -51,7 +51,7 @@ This example is configured to use an existing assistant set up for common use by
 
 - Import the [actions.json](actions.json) file located in the repository for this example into your assistant.
 - Modify the `integrationID`, `region`, `serviceInstanceID` and `subscriptionID` (only for enterprise accounts) in the `watsonAssistantChatOptions` used in this example to match those in the web chat embed code for your assistant.
-- Copy your public key into the file `server/nodejs-express/keys/jwtRS256.key.pub` and copy your private key into the file `server/nodejs-express/keys/jwtRS256.key`.
+- Copy your public key into the file `server/nodejs-express/keys/example-jwtRS256.key.pub` and copy your private key into the file `server/nodejs-express/keys/example-jwtRS256.key`.
 - Open the Security tab for the web chat settings page.
 - Copy your public key into the "Your public key" field.
 - Copy the "IBM provided public key" into the file `server/nodejs-express/keys/ibmPublic.key.pub`.
