@@ -31,18 +31,20 @@ Follow the steps in the following two sections before proceeding.
 
 The starter kit includes a JSON file with these sample actions:
 
-| Action             | Description                                                                                                                                                      |
-|--------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Search             | Connects to Watson Discovery to search for documents related to the user query.                                                                                  |
-| Generate Answer    | Connects to watsonx tech preview and, using as context the documents resulting from the search, asks the language model to generate an answer to the user query. |
+| Action             | Description                                                                                                                                                                                                                                                                                          |
+|--------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Search             | Connects to Watson Discovery to search for documents related to the user query. The "No Action Matches" action has been configured to send all input to this action, so whatever the user enters will be used as the search input. It invokes the "Generate Answer" action to generate a response to the query. |
+| Generate Answer    | Connects to watsonx tech preview and, using as context the documents resulting from the search, asks the language model to generate an answer to the user query. It is not meant to be invoked directly, but rather by the "Search" action.                                                          |
 
 To use the sample actions:
 
-1. Download the sample actions from this starter kit: [`ConvSearchStarter-action.json`](./ConvSearchStarter-action.json).
+1. **After having configured both extensions**, download the sample actions from this starter kit: [`ConvSearchStarter-action.json`](./ConvSearchStarter-action.json).
 
 1. Use **Actions Global Settings** to upload the JSON file to your assistant. For more information, see [Uploading](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import).
 
 1. Under "Variables"/"Created by you" (within the Actions page), set the `discovery_project_id` session variable using the project ID value you obtained [when configuring Watson Discovery above](#configure-watson-discovery-extension).
+
+**NOTE**:  If you import the actions *before* configuring the extensions, you will see some errors on the actions because it could not find the extensions. Simply configure the extensions (as described [above](#prerequisites)) and re-import the action JSON file.
 
 The advantage of the model chosen by default and the specific prompt used by the "Generate Answer" action is that it makes it easy to determine whether the query is not answerable. The downside, however, is that the generated answers tend to be short and terse.
 
