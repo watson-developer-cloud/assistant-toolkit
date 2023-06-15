@@ -44,6 +44,10 @@ To use the sample actions:
 
 1. Under "Variables"/"Created by you" (within the Actions page), set the `discovery_project_id` session variable using the project ID value you obtained [when configuring Watson Discovery above](#configure-watson-discovery-extension).
 
+1. Re-connect the starter kit actions to the integrations you created.
+    - Connect "Generate Answer" step 5 to "watsonx tech preview extension"
+    - Connect "Search" step 3 to your "Watson Discovery extension" 
+
 The advantage of the model chosen by default and the specific prompt used by the "Generate Answer" action is that it makes it easy to determine whether the query is not answerable. The downside, however, is that the generated answers tend to be short and terse.
 
 If this does not suit your needs and you want to experiment with different prompts, do the following:
