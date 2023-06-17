@@ -62,7 +62,9 @@ If you want to make a _new_ Assistant using this starter kit, take the following
 - [Add the extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension) using the API key and region you obtained in the pre-requisites above.
    - If you have an API key (as typical on IBM Cloud), select basic authentication, and it will ask for a username and password; for the username, enter `apikey` and for the password enter the API key you obtained in the pre-requisites above.  
    - If you have a bearer token (as typical on Cloud Pak for Data), select bearer authentication, and it will ask for your bearer token.
-   - Also fill in the portions of the URL for your instance _after_ `https://` in the `discovery_url` field.
+   - At the bottom of the `Authentication` pane, under `discovery_url` fill in the URL for your Discovery instance (without the `https://` prefix).
+<img src="./assets/discovery-config.png"/>
+  
 - [Upload the Actions JSON file](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import).
 - Under "variables"/"created by you" (within the Actions page), set the `discovery_project_id` session variable using the value you obtained in the pre-requisites above.
 - If you are using the OpenAPI specification _exactly_ as it is in this starter kit, you should find that your actions are correctly configured to use this extension as is.  However, if you have made any changes to the OpenAPI specification, you will need to manually configure your search action as follows:
