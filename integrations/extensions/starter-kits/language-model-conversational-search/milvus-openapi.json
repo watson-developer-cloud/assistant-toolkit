@@ -1,0 +1,261 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Milvus search",
+    "description": "Unofficial simplified OpenAPI specification for the Milvus search endpoint as documented in https://milvus.io/docs/search.md.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://{milvus_url}",
+      "description": "IP address and port without encryption/authentication",
+      "variables": {
+        "milvus_url": {
+          "default": "0.0.0.0:9091",
+          "description": "The portions of URL that follow http://"
+        }
+      }
+    },
+    {
+      "url": "https://{milvus_url}",
+      "description": "IP address and port with encryption/authentication",
+      "variables": {
+        "milvus_url": {
+          "default": "0.0.0.0:9091",
+          "description": "The portions of URL that follow https://"
+        }
+      }
+    }
+  ],
+  "paths": {
+    "/api/v1/search": {
+      "post": {
+        "summary": "Semantic (vector) search in the given collection",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful search",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "basicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    },
+    "schemas": {
+      "SearchRequest": {
+        "type": "object",
+        "description": "A search request made by the client",
+        "properties": {
+          "collection_name": {
+            "type": "string",
+            "description": "The name of the collection to search in"
+          },
+          "output_fields": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Fields to be included in the response"
+          },
+          "search_params": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Param"
+            },
+            "description": "Parameters for the index, as described in https://milvus.io/docs/index.md"
+          },
+          "dsl_type": {
+            "type": "integer",
+            "description": "The Data Search Language type for the search; 0=Dsl, 1=BoolExprV1",
+            "enum": [
+              1,
+              2
+            ]
+          },
+          "vectors": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "description": "Vector data to search for, typically an embedding of a query using the same embedding model used to make the index"
+          }
+        }
+      },
+      "Param": {
+        "type": "object",
+        "description": "A key-value pair used in search parameters",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "The name of the parameter; valid values depend in the index type and are listed in https://milvus.io/docs/search.md and/or https://milvus.io/docs/index.md"
+          },
+          "value": {
+            "type": "string",
+            "description": "The value of the parameter"
+          }
+        }
+      },
+      "SearchResponse": {
+        "type": "object",
+        "description": "Response received after a successful search",
+        "properties": {
+          "status": {
+            "type": "object",
+            "description": "Status of the search operation",
+            "properties": {
+              "error_code": {
+                "type": "integer",
+                "description": "If the search failed, a code indicating the failure; this field is absent when there is no failure"
+              },
+              "reason": {
+                "type": "string",
+                "description": "If the search failed, a text reason for the failure; this field is absent when there is no failure."
+              }
+            }
+          },
+          "results": {
+            "type": "object",
+            "description": "The results from the search",
+            "properties": {
+              "num_queries": {
+                "type": "integer",
+                "description": "The number of queries made"
+              },
+              "top_k": {
+                "type": "integer",
+                "description": "The maximum number of search results to return"
+              },
+              "fields_data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/FieldData"
+                },
+                "description": "Data for the output fields"
+              },
+              "scores": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "description": "Scores of the search results"
+              },
+              "ids": {
+                "type": "object",
+                "description": "IDs of the search results",
+                "properties": {
+                  "IdField": {
+                    "type": "object",
+                    "properties": {
+                      "IntId": {
+                        "type": "object",
+                        "properties": {
+                          "data": {
+                            "type": "array",
+                            "items": {
+                              "type": "integer"
+                            },
+                            "description": "Array of integer IDs"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "topks": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                },
+                "description": "The number of search results returned for each query"
+              },
+              "output_fields": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Names of the fields included in the search output"
+              }
+            }
+          },
+          "collection_name": {
+            "type": "string",
+            "description": "The name of the collection searched in"
+          }
+        }
+      },
+      "FieldData": {
+        "type": "object",
+        "description": "Data related to a specific field",
+        "properties": {
+          "type": {
+            "type": "integer",
+            "description": "The type of the field"
+          },
+          "field_name": {
+            "type": "string",
+            "description": "The name of the field"
+          },
+          "Field": {
+            "type": "object",
+            "properties": {
+              "StringData": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "description": "The string values of the field",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "LongData": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "description": "The long integer values of the field",
+                    "items": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "field_id": {
+            "type": "integer",
+            "description": "The ID of the field"
+          }
+        }
+      }
+    }
+  }
+}
