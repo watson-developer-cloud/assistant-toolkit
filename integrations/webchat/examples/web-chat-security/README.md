@@ -1,6 +1,6 @@
 # Enabling security for Watson Assistant web chat
 
-**For a full walk through of how this code works, please visit [the tutorial page](DOCS.md) in the Watson Assistant documentation.**
+**For a full walk through of how this code works, please visit the [tutorial page](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-develop-security) in the Watson Assistant documentation or view the [security overview](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-security).**
 
 This code is for extending the Watson Assistant web chat. If you are new to developing with web chat, please start with the [web chat development overview](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-develop). The code in this folder is commented with links and references to the web chat APIs used.
 
@@ -24,8 +24,8 @@ The server code for generating a JWT can be found in [createJWT.js](server/nodej
 
 If you do not have a public and private key pair, you can generate one using the following commands:
 ```
-ssh-keygen -t rsa -b 4096 -m PEM -f jwtRS256.key
-openssl rsa -in jwtRS256.key -pubout -outform PEM -out jwtRS256.key.pub
+ssh-keygen -t rsa -b 4096 -m PEM -f example-jwtRS256.key
+openssl rsa -in example-jwtRS256.key -pubout -outform PEM -out example-jwtRS256.key.pub
 ```
 
 ### Running the Server
@@ -51,7 +51,7 @@ This example is configured to use an existing assistant set up for common use by
 
 - Import the [actions.json](actions.json) file located in the repository for this example into your assistant.
 - Modify the `integrationID`, `region`, `serviceInstanceID` and `subscriptionID` (only for enterprise accounts) in the `watsonAssistantChatOptions` used in this example to match those in the web chat embed code for your assistant.
-- Copy your public key into the file `server/nodejs-express/keys/jwtRS256.key.pub` and copy your private key into the file `server/nodejs-express/keys/jwtRS256.key`.
+- Copy your public key into the file `server/nodejs-express/keys/example-jwtRS256.key.pub` and copy your private key into the file `server/nodejs-express/keys/example-jwtRS256.key`.
 - Open the Security tab for the web chat settings page.
 - Copy your public key into the "Your public key" field.
 - Copy the "IBM provided public key" into the file `server/nodejs-express/keys/ibmPublic.key.pub`.

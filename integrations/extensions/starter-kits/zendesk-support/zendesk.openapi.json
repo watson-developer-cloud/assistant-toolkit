@@ -247,6 +247,9 @@
 										"properties": {
 											"comment": {
 												"type": "object",
+												"required": [
+													"body"
+												],
 												"properties": {
 													"body": {
 														"type": "string",
@@ -371,9 +374,15 @@
 								"properties": {
 									"request": {
 										"type": "object",
+										"required": [
+											"comment"
+										],
 										"properties": {
 											"comment": {
 												"type": "object",
+												"required": [
+													"body"
+												],
 												"properties": {
 													"body": {
 														"type": "string",

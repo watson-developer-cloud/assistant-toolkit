@@ -153,7 +153,7 @@
             "variable": "step_951"
           }
         ],
-        "title": "Exchange currenty for Polish złoty",
+        "title": "Exchange currency for Polish złoty",
         "action": "action_24559",
         "boosts": [],
         "handlers": [],
@@ -484,7 +484,7 @@
         "intent": "action_24559_intent_47528",
         "examples": [
           {
-            "text": "Exchange currenty for Polish złoty"
+            "text": "Exchange currency for Polish złoty"
           },
           {
             "text": "I would like to do a currency exchange"

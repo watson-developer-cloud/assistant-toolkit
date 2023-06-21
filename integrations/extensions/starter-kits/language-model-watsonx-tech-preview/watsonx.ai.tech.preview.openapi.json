@@ -1,0 +1,128 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "description": "Minimal spec for commonly used features in watsonx.ai tech preview /generate API endpoint.  Missing lots of parameters.  See https://bam.res.ibm.com/docs/api-reference for details.",
+    "title": "Simplified watsonx.ai tech preview generate API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://workbench-api.res.ibm.com",
+      "description": "watsonx.ai tech preview"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/v1/generate": {
+      "post": {
+        "description": "Generate",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "model_id",
+                  "inputs"
+                ],
+                "properties": {
+                  "model_id": {
+                    "type": "string",
+                    "description": "The ID of the model to be used for this request. Please refer to the list of models at https://bam.res.ibm.com/docs/models",
+                    "example": "google/flan-ul2"
+                  },
+                  "inputs": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "The inputs are the prompt(s) to generate completions, passed as an array of strings. Note: The method tokenizes the inputs internally. It is recommended not to leave any trailing spaces."
+                  },
+                  "parameters": {
+                    "type": "object",
+                    "description": "The requested date of the appointment",
+                    "properties": {
+                      "temperature": {
+                        "type": "number",
+                        "description": "The value used to module the next token probabilities. The range is 0.00 to 1.00, a value set to 0.00 would make it deterministic.",
+                        "example": "0.7"
+                      },
+                      "max_new_tokens": {
+                        "type": "number",
+                        "description": "The maximum number of new tokens to be generated.",
+                        "example": "150"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "model_id": {
+                      "description": "The ID of the model to be used for this request. Please refer to the list of models at https://bam.res.ibm.com/docs/models",
+                      "type": "boolean"
+                    },
+                    "created_at": {
+                      "description": "The date and time of the r",
+                      "type": "string"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "generated_text": {
+                            "description": "The generated text",
+                            "type": "string"
+                          },
+                          "generated_token_count": {
+                            "description": "The number of tokens in the output",
+                            "type": "integer"
+                          },
+                          "input_token_count": {
+                            "description": "The number of tokens in the input",
+                            "type": "integer"
+                          },
+                          "stop_reason": {
+                            "description": "The reason for stopping the generation.  Can be NOT_FINISHED - Possibly more tokens to be streamed, MAX_TOKENS - Maximum requested tokens reached, EOS_TOKEN - End of sequence token encountered, CANCELLED - Request canceled by the client, TIME_LIMIT - Time limit reached, STOP_SEQUENCE - Stop sequence encountered, TOKEN_LIMIT - Token limit reached, ERROR - Error encountered",
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "description": "Outputs of the generation"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error"
+          }
+        }
+      }
+    }
+  }
+}

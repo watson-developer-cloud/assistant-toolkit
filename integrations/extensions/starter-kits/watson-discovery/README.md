@@ -41,9 +41,13 @@ More broadly, anything you can do with Watson Discovery parameters and Watson Di
 
 ### Setting up Watson Discovery
 
-Before starting, you will need an instance of [IBM Watson Discovery](https://www.ibm.com/cloud/watson-discovery), and you will need the API key and instance ID for that instance.  You will also need to know the region where the instance is located, which is found in the URL for the instance immediately after `https://api.` For example if the URL for your instance is `https://api.us-south.discovery.watson.cloud.ibm.com/instances/447fc929-fde9-402e-b73c-03274b8ab0bb`, then the region where your instance is located is `us-south` and your instance ID is `447fc929-fde9-402e-b73c-03274b8ab0bb`.  The URL and API key are both found in the "Credentials" section of the resource page for the instance in IBM Cloud.
+Before starting, you will need an instance of [IBM Watson Discovery](https://www.ibm.com/cloud/watson-discovery).  You will also need the URL for that instance and either an API key or a bearer token for that instance.  Typically API keys are used for IBM Cloud instances and bearer tokens are used for instances running in Cloud Pak for Data outside of the IBM Cloud.  Both the URL and the API key or bearer token are found on the credentials page for the instance on IBM Cloud or on Cloud Pak for Data.
 
-You will also need to load some data into IBM Watson Discovery.  The example actions in this starter kit were tested on an IBM Watson Discovery project in which we ingested the page `https://bitcoin.org/en/faq` and configured Discovery to follow 0 links (i.e., load that one page only) with FAQ Extraction enabled to split that page into multiple question/answer pairs.  For more details on FAQ Extraction in Watson Discovery, see [Turn your FAQ pages into conversational AI](https://medium.com/ibm-watson/turn-your-faq-pages-into-conversational-ai-8ac7ae7ec793).  To try out this starter kit, you can also ingest that example page, or you can connect directly to your own data and modify the details of the starter kit as needed to be relevant to your data.
+You will also need to load some data into IBM Watson Discovery.  The example actions in this starter kit were tested on an IBM Watson Discovery project in which we ingested the page `https://bitcoin.org/en/faq` and configured Discovery to follow 0 links (i.e., load that one page only).  To try out this starter kit, you can also ingest that example page, or you can connect directly to your own data and modify the details of the starter kit as needed to be relevant to your data.  Either way, be sure to get the project ID for the project containing your data.
+
+If you are using Watson Discovery in Cloud Pak for Data, this kit will only work if your Watson Discovery instance has a valid SSL certificate signed by a trusted authority _or_ you are connecting to Watson Discovery using a Watson Assistant on Cloud Pak for Data version 4.6.3 or later.  In practice, we find that it is rare for anyone to have a Cloud Pak for Data instance that has a valid SSL certificate signed by a trusted authority, so using this kit with Cloud Pak for Data _mostly_ only works for version 4.6.3 or later.  This issue does not apply if you are running Watson Discovery in the public cloud, because the public cloud has a valid certificate signed by a trusted authority.
+
+Also note that Watson Discovery in Cloud Pak for Data does not include the answer finding feature, so you will not get concise answers identified within the passages. You may want to update the "Show search result" action to remove the code that sets the `answer` session variable and includes it in the response before the `snippet`.  However, the action will still work even if you don't make this change -- it will just have a blank answer.
 
 ## Other Setup Info
 
@@ -55,12 +59,16 @@ If you want to make a _new_ Assistant using this starter kit, take the following
    - The `watson-discovery-query-actions-generic.json` actions file uses search only when no action matches and does not apply any filters on the search -- it just searches a complete project.  It is a general purpose solution usable with any data set.
    - The `watson-discovery-query-actions-with-examples.json` actions file includes everything in the generic actions file _plus_ some specialized examples that show the use of filters and other customization for particular settings or intents.  See the "Exploring the actions in the actions file with examples" section of this document for more details.
 - Use the OpenAPI specification to [build a custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension).
-- [Add the extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension) using the API key and region you obtained in the pre-requisites above.  When you select basic authentication, it will ask for a username and password.  For the username, enter `apikey` and for the password enter the API key you obtained in the pre-requisites above.  Also fill in the region you obtained in the pre-requisites into the `subdomain` server variable (the default is `us-south`, so if your instance is in a different region, you will need to change this value).
+- [Add the extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension) using the API key and region you obtained in the pre-requisites above.
+   - If you have an API key (as typical on IBM Cloud), select basic authentication, and it will ask for a username and password; for the username, enter `apikey` and for the password enter the API key you obtained in the pre-requisites above.  
+   - If you have a bearer token (as typical on Cloud Pak for Data), select bearer authentication, and it will ask for your bearer token.
+   - At the bottom of the `Authentication` pane, under `discovery_url` fill in the URL for your Discovery instance (without the `https://` prefix).
+<img src="./assets/discovery-config.png"/>
+  
 - [Upload the Actions JSON file](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import).
-- Under "variables"/"created by you" (within the Actions page), set the using the `discovery_instance_id` and `discovery_project_id` session variables using the values you obtained in the pre-requisites above.
-- Use either method listed in [Configuring Your Actions Skill to use an Extension](https://github.com/watson-developer-cloud/assistant-toolkit/blob/master/integrations/extensions/README.md#configuring-your-actions-skill-to-use-an-extension) to configure the actions you uploaded to invoke the custom extension you built.
+- Under "variables"/"created by you" (within the Actions page), set the `discovery_project_id` session variable using the value you obtained in the pre-requisites above.
+- If you are using the OpenAPI specification _exactly_ as it is in this starter kit, you should find that your actions are correctly configured to use this extension as is.  However, if you have made any changes to the OpenAPI specification, you will need to manually configure your search action as follows:
    - In the step of the "Search" action that says "Use an extension", select the extension you created, the "Query a project" endpoint, and set the following parameter values (some of which are listed under "optional parameters", which you need to click on to see):
-      - `instance_id` = the `discovery_instance_id` session variable
       - `project_id` = the `discovery_project_id` session variable
       - `version` = the `discovery_date_version` session variable
       - `count` = an expression with the value `3` (because we are showing up to 3 results -- adjust this if you want to show a different number)
@@ -73,14 +81,14 @@ If you want to make a _new_ Assistant using this starter kit, take the following
       - `natural_language_query` = the `query_text` session variable
    - If you used the actions file with examples (`watson-discovery-query-actions-with-examples.json`) you also need to setup some domain-specific example actions:
       - In the extension step of the "Search within the mining topic" action, set all the same values as "Search" plus the following:
-         - `filter` = an expression with the value `title:mining`
+         - `filter` = an expression with the value `mining`
       - In the extension step of the "How many Bitcoins can exist?" action, set all the same values as "Search" plus the following:
         - `count` = an expression with the value `1` (instead of the `3` in search)
-        - `filter` = an expression with the value `title:finite`
+        - `filter` = an expression with the value `finite`
 
 ### Setup in a pre-existing Assistant
 
-If you want to add this starter kit to an _existing_ assistant, you cannot use the Actions JSON file since it will overwrite your existing configuration. Anyone wanting to add this capability to an existing bot may thus want to start by setting up the starter kit in a new Assistant (as described in the previous section), spend some time looking at how it works and what it does, and then apply what was learned to their own assistant.  You should be able to use the OpenAPI specification (`watson-discovery-query-openapi.json`) to [build a custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension) without making any changes to it.  However, you will need to make your own Actions, including the ones in the generic actions file and perhaps some that are inspired by the additional examples in the "with examples" actions file.
+If you want to add this starter kit to an _existing_ assistant, you cannot use the Actions JSON file since it will overwrite your existing configuration. Anyone wanting to add this capability to an existing bot may thus want to start by setting up the starter kit in a new Assistant (as described in the previous section), spend some time looking at how it works and what it does, and then apply what was learned to their existing assistant.  You should be able to use the OpenAPI specification (`watson-discovery-query-openapi.json`) to [build a custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension) without making any changes to it.  However, you will need to make your own Actions, including the ones in the generic actions file and perhaps some that are inspired by the additional examples in the "with examples" actions file.
 
 ### (Optional/Advanced) Setup the sample index.html file
 

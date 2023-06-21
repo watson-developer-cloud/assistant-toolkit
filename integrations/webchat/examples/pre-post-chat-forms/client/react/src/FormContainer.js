@@ -131,6 +131,8 @@ function FormContainer({ instance }) {
     // to the assistant.
     if (event.data.history && event.data.history.is_welcome_request) {
       // Make sure these objects exist but don't override them if they already do.
+      // Note: If you are using a dialog skill instead of an actions skill, then replace "actions skill" with
+      // "main skill" and replace "skill_variables" with "user_defined".
       event.data.context.skills['actions skill'] = event.data.context.skills['actions skill'] || {};
       event.data.context.skills['actions skill'].skill_variables =
         event.data.context.skills['actions skill'].skill_variables || {};

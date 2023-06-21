@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent verification - Watson Assistant agent assist</title>
+
+  <link rel="stylesheet" href="./javascript/agent-verify.css" />
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/version/v1.21.0/textarea.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/version/v1.21.0/button.min.js"></script>
+  <script src="https://unpkg.com/string-similarity/umd/string-similarity.min.js"></script>
+
+  <style>
+    html, body {
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .Simulator__DocumentContainer {
+      display: flex;
+      height: 100%;
+    }
+
+    .Simulator__AgentSaidText {
+      padding-top: 16px;
+    }
+
+    .Simulator__SayContainer {
+      padding: 16px;
+    }
+
+    .Simulator__LeftPanel {
+      width: 800px;
+      height: 100%;
+    }
+
+    .Simulator__RightPanel {
+      width: 600px;
+      height: 100%;
+    }
+
+    #AgentAssistContainer {
+      padding: 16px;
+      width: 600px;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<div class="Simulator__DocumentContainer">
+
+  <div class="Simulator__LeftPanel">
+    <div class="Simulator__SayContainer">
+      <bx-textarea id="Simulator__UserSaysTextArea" rows="4">
+        <span slot="label-text">User says</span>
+      </bx-textarea>
+      <bx-btn id="Simulator__UserSaysButton">Submit</bx-btn>
+    </div>
+    <div class="Simulator__SayContainer">
+      <bx-textarea id="Simulator__AgentSaysTextArea" rows="4">
+        <span slot="label-text">Agent says</span>
+      </bx-textarea>
+      <bx-btn id="Simulator__AgentSaysButton">Submit</bx-btn>
+      <div class="Simulator__AgentSaidText"></div>
+    </div>
+  </div>
+
+  <div class="Simulator__RightPanel">
+    <!-- This is where web chat will be loaded and the "user said" panel. -->
+    <div id="AgentAssistContainer"></div>
+  </div>
+</div>
+
+<script>
+  const userSaysButton = document.querySelector('#Simulator__UserSaysButton');
+  const agentSaysButton = document.querySelector('#Simulator__AgentSaysButton');
+  const userSaysTextArea = document.querySelector('#Simulator__UserSaysTextArea');
+  const agentSaysTextArea = document.querySelector('#Simulator__AgentSaysTextArea');
+
+  function doUserSays() {
+    const text = userSaysTextArea.value;
+    window.watsonAssistantChat?.agentAssist?.onUserSaid(text);
+    userSaysTextArea.value = "";
+
+    const agentSaidTextElement = document.querySelector('.Simulator__AgentSaidText');
+    agentSaidTextElement.textContent = '';
+  }
+
+  function doAgentSays() {
+    const text = agentSaysTextArea.value;
+    window.watsonAssistantChat?.agentAssist?.onAgentSaid(text);
+    agentSaysTextArea.value = "";
+
+    const agentSaidTextElement = document.querySelector('.Simulator__AgentSaidText');
+    agentSaidTextElement.textContent = `${agentSaidTextElement.textContent} ${text.trim()}`
+  }
+
+  userSaysButton.addEventListener('click', doUserSays);
+  agentSaysButton.addEventListener('click', doAgentSays);
+  userSaysTextArea.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      doUserSays();
+    }
+  })
+  agentSaysTextArea.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      doAgentSays();
+    }
+  })
+</script>
+
+<!-- This will load the framework for enabling agent verification in web chat. -->
+<script src="./javascript/agent-verify.js"></script>
+
+</body>
+</html>

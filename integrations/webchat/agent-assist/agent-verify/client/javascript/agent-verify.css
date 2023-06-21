@@ -1,0 +1,42 @@
+#AgentAssistContainer {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+#AgentAssist__WebChatContainer {
+  width: 100%;
+  height: 640px;
+  align-self: center;
+}
+
+#AgentAssist__UserSaidContainer {
+  flex: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin: 32px;
+}
+
+.AgentAssist__UserSaidMessage {
+  padding-bottom: 16px;
+  display: flex;
+}
+
+.AgentAssist__UserSaidText {
+  flex: 1;
+  padding-left: 16px;
+}
+
+#WACContainer.WACContainer .ibm-web-chat--default-styles button.AgentAssist__NextButton:disabled:not([class*=bx--]) {
+  background-color: #e0e0e0;
+  opacity: 0.75;
+  color: #393939;
+}
+
+#WACContainer.WACContainer .AgentAssist__TextToVerify--notVerified {
+  color: #da1e28;
+}
+
+#WACContainer.WACContainer .AgentAssist__TextToVerify--verified {
+  color: #198038;
+}

@@ -9,19 +9,19 @@ const router = express.Router();
 
 // If you want to generate your own private/public key pair, you can use commands like the following.
 //
-// ssh-keygen -t rsa -b 4096 -m PEM -f jwtRS256.key
-// openssl rsa -in jwtRS256.key -pubout -outform PEM -out jwtRS256.key.pub
+// ssh-keygen -t rsa -b 4096 -m PEM -f example-jwtRS256.key
+// openssl rsa -in example-jwtRS256.key -pubout -outform PEM -out example-jwtRS256.key.pub
 
 // *** DO NOT USE THE PUBLIC AND PRIVATE KEYS FROM THIS EXAMPLE FOR PRODUCTION USE! ***
 
 // This is your private key that you will keep on your server. This is used to sign the jwt. You will paste your public
 // key into the appropriate field on the Security tab of the web chat settings page. Watson Assistant will use your
 // public key to validate the signature on the jwt.
-const PRIVATE_KEY = fs.readFileSync(path.join(__dirname, '../keys/jwtRS256.key'));
+const PRIVATE_KEY = fs.readFileSync(path.join(__dirname, '../keys/example-jwtRS256.key'));
 
 // This is IBM's public key and can be found on the Security tab of the web chat settings page. This is only necessary
 // if you wish to encrypt a user payload in your jwt. The code below will use this key to encrypt the user payload
-// inside of the JWT.
+// inside the JWT.
 const IBM_PUBLIC_KEY = fs.readFileSync(path.join(__dirname, '../keys/ibmPublic.key.pub'));
 
 // A time period of 45 days in milliseconds.

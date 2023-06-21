@@ -28,12 +28,12 @@ First, we need to create a Hubspot account.
 
 1. [Create app developer account](https://developers.hubspot.com/get-started).
 1. Once you have verified your email, click `Create a test account`, and select the test account.
-
+1. Click on `Testing` on the top menu bar, then `Create app test account` with an account name you’d like. 
+1. Click on the new `App test account` you created.
 1. Click on `Settings` (the cog wheel icon) at the top right of the page, then click `Integrations` in the left menu to open a drop-down, and select `Private Apps`.
-
 1. If you do not already have one, `Create a private app`. Enter your app's name, then click the `Scopes` tab select the scopes `tickets` and `crm.objects.contacts.read`. Click `Create app` on the top right. Copy the access token and save for future steps.
 
-[guidelines provided by Hubspot](https://developers.hubspot.com/docs/api/private-apps).
+[Guidelines provided by Hubspot](https://developers.hubspot.com/docs/api/private-apps).
 
 ## Pre-Req 2: Adding Custom Properties in HubSpot
 This starter kit focuses on the ticketing system and profile information retrieval of HubSpot. In order to use the provided JSON skill out of the box, you will need to create some custom properties - `charge_name`, `charge_amount`, `charge_date`, and `membership_status` - within your HubSpot account.
@@ -74,7 +74,7 @@ For helpful information on how to easily modify and use the skills/OpenAPI speci
 
 The following actions are provided in this starter kit. After upload, the actions should be configured to use the fields below for the skill to be fully functional. Follow the instructions [here](../../README.md#configuring-your-actions-skill-to-use-an-extension) and note the information below to do this.
 
-- **Action 1: Greet customer** (basic + advanced)<br>
+- **Action 1: Personalized greeting** (basic + advanced)<br>
     ```
     Operation: Get Contact by ID
     Parameters:
@@ -88,7 +88,7 @@ The following actions are provided in this starter kit. After upload, the action
     Parameters: N/A
     ```
 
-- **Action 3:  I want to dispute a charge** (advanced)
+- **Action 3:  Dispute a charge** (advanced)
     ```
     Operation: Create Ticket
     Parameters:
@@ -101,7 +101,7 @@ The following actions are provided in this starter kit. After upload, the action
 
     **Note**: `subject` and `hs_pipeline_stage` exist by default in HubSpot's ticketing schema - the provided skill adds default values in `Step 4`. The `hs_pipeline_stage` field in the API corresponds to the `Ticket status` of a HubSpot ticket; we recommend submitting a value of `1` for the `hs_pipeline_stage` field, which will set the `Ticket status` to `New`.  The `subject` field in the API corresponds to the `Ticket name` of a HubSpot ticket.
 
-- **Action 4: Pick a ticket subaction** (advanced)<br>
+- **Action 4: View all HubSpot tickets** (advanced)<br>
     Note that this is a subaction, and not meant to be called individually.
     ```
     Operation: List Tickets
@@ -109,7 +109,7 @@ The following actions are provided in this starter kit. After upload, the action
       - limit: 10
     ```
 
-- **Action 5: I want to check my ticket status** (advanced)<br>
+- **Action 5: Check ticket status** (advanced)<br>
     Note that you will have to also configure action `Pick a ticket subaction` above, since it is used as a subaction within this action.
     ```
     Operation: Get Ticket Info
@@ -117,7 +117,7 @@ The following actions are provided in this starter kit. After upload, the action
       - ticketId: ticketId
     ```
 
-- **Action 6: I want to delete my ticket** (advanced) 
+- **Action 6: Delete a ticket** (advanced) 
     ```
     Operation: Archive Ticket
     Parameters:

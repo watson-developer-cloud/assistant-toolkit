@@ -1,0 +1,318 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "OpenAI API",
+    "description": "Unofficial and incomplete specification for the API for interacting with the OpenAI service.  See https://platform.openai.com/docs/api-reference/introduction for the full API."
+  },
+  "servers": [
+    {
+      "url": "https://api.openai.com"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/v1/completions": {
+      "post": {
+        "summary": "Generate completions for a given prompt using a text completion model",
+        "operationId": "generateCompletions",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "model",
+                  "prompt",
+                  "max_tokens"
+                ],
+                "type": "object",
+                "properties": {
+                  "model": {
+                    "type": "string",
+                    "description": "The ID of the model to use for generating completions, e.g., text-davinci-003"
+                  },
+                  "prompt": {
+                    "type": "string",
+                    "description": "The prompt to generate completions for"
+                  },
+                  "temperature": {
+                    "type": "number",
+                    "description": "The temperature to use when generating completions"
+                  },
+                  "max_tokens": {
+                    "type": "integer",
+                    "description": "The maximum number of tokens to generate in the completion"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully generated completions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "model": {
+                      "type": "string",
+                      "description": "The ID of the model to use for generating completions"
+                    },
+                    "choices": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "text": {
+                            "type": "string",
+                            "description": "The completion"
+                          },
+                          "start": {
+                            "type": "integer",
+                            "description": "The start index of the completion in the prompt"
+                          },
+                          "end": {
+                            "type": "integer",
+                            "description": "The end index of the completion in the prompt"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "The error message"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "The error message"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "The error message"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/chat/completions": {
+      "post": {
+        "summary": "Generate response for a given prompt using a chat model",
+        "operationId": "generateChatCompletions",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "model",
+                  "messages",
+                  "max_tokens"
+                ],
+                "properties": {
+                  "model": {
+                    "type": "string",
+                    "description": "The ID of the model to use, e.g., gpt-3.5-turbo or gpt-4"
+                  },
+                  "messages": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "role",
+                        "content"
+                      ],
+                      "description": "A list of messages describing the conversation so far",
+                      "properties": {
+                        "role": {
+                          "type": "string",
+                          "enum": ["system", "user", "assistant"],
+                          "description": "The role of the message's author"
+                        },
+                        "content": {
+                          "type": "string",
+                          "description": "The content of the message"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "The name of the message's author"
+                        }
+                      }
+                    }
+                  },
+                  "user": {
+                    "type": "string",
+                    "description": "User ID, which can be useful for diagnosing abuse cases"
+                  },
+                  "temperature": {
+                    "type": "number",
+                    "description": "The temperature from 0 to 2.  Higher values are more random and lower values are more focused."
+                  },
+                  "n": {
+                    "type": "number",
+                    "description": "The number of chat completion choices to generate"
+                  },
+                  "max_tokens": {
+                    "type": "number",
+                    "description": "The maximum number of tokens to generate"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully generated chat completions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "model": {
+                      "type": "string",
+                      "description": "The ID of the model used"
+                    },
+                    "choices": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "index": {
+                            "type": "number",
+                            "description": "The message index"
+                          },
+                          "finish_reason": {
+                            "type": "string",
+                            "description": "The reason for finishing, e.g., stop or length"
+                          },
+                          "message": {
+                            "type": "object",
+                            "description": "A response message",
+                            "properties": {
+                              "role": {
+                                "type": "string",
+                                "enum": ["system", "user", "assistant"],
+                                "description": "The role of the message's author"
+                              },
+                              "content": {
+                                "type": "string",
+                                "description": "The content of the message"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "The error message"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "The error message"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "The error message"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
