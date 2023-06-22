@@ -1,0 +1,110 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "version": "1.0.0",
+    "title": "Hugging Face Hub Embeddings API",
+    "description": "Unofficial simplified OpenAPI specification for generating embeddings using Hugging Face Hub."
+  },
+  "servers": [
+    {
+      "url": "https://api.huggingface.co"
+    }
+  ],
+  "paths": {
+    "/pipeline/feature-extraction/sentence-transformers/{model_id}": {
+      "post": {
+        "summary": "Generate embeddings using a sentence-transformers model",
+        "parameters": [
+          {
+            "name": "model_id",
+            "in": "path",
+            "description": "ID of the sentence-transformers model to use for generating embeddings.",
+            "example": "all-MiniLM-L6-v2",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmbeddingInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmbeddingOutput"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "EmbeddingInput": {
+        "type": "object",
+        "properties": {
+          "inputs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "An array of input text to generate embeddings for."
+          },
+          "options": {
+            "type": "object",
+            "properties": {
+              "wait_for_model": {
+                "type": "boolean",
+                "description": "Flag indicating whether to wait for the model to be downloaded and installed on the server (if needed) before generating embeddings."
+              }
+            },
+            "description": "Additional options for generating embeddings."
+          }
+        },
+        "required": [
+          "inputs"
+        ],
+        "example": {
+          "inputs": [
+            "How do I start a purchase order?"
+          ],
+          "options": {
+            "wait_for_model": true
+          }
+        }
+      },
+      "EmbeddingOutput": {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "description": "The generated embeddings."
+      }
+    }
+  }
+}
