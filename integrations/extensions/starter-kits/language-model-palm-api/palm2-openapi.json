@@ -1,0 +1,205 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Generative Language API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://generativelanguage.googleapis.com/v1beta2"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "apiKeyAuth": {
+        "type": "apiKey",
+        "name": "key",
+        "in": "query"
+      }
+    }
+  },
+  "paths": {
+    "/models/text-bison-001:generateText": {
+      "post": {
+        "summary": "Generate text using the generative language model",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "prompt": {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "string",
+                        "example": "Write a story about a magic backpack."
+                      }
+                    },
+                    "required": ["text"]
+                  },
+                  "temperature": {
+                    "type": "number",
+                    "format": "float",
+                    "minimum": 0,
+                    "maximum": 1.0,
+                    "example": 1.0
+                  }
+                },
+                "required": ["prompt"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "generated_text": {
+                      "type": "string",
+                      "example": "Once upon a time, there was a magic backpack..."
+                    }
+                  },
+                  "required": ["generated_text"]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/models/chat-bison-001:generateMessage": {
+      "post": {
+        "summary": "Generate a chat message using the generative language model",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "prompt": {
+                    "type": "object",
+                    "properties": {
+                      "messages": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "content": {
+                              "type": "string",
+                              "example": "hi"
+                            }
+                          },
+                          "required": ["content"]
+                        }
+                      }
+                    },
+                    "required": ["messages"]
+                  },
+                  "temperature": {
+                    "type": "number",
+                    "format": "float",
+                    "minimum": 0,
+                    "maximum": 1.0,
+                    "example": 0.1
+                  }
+                },
+                "required": ["prompt"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "generated_message": {
+                      "type": "string",
+                      "example": "Hello, how can I assist you?"
+                    }
+                  },
+                  "required": ["generated_message"]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/models/embedding-gecko-001:embedText": {
+      "post": {
+        "summary": "Embed text using the generative language model",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "example": "say something nice!"
+                  }
+                },
+                "required": ["text"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "embedded_text": {
+                      "type": "string",
+                      "example": "0.12345"
+                    }
+                  },
+                  "required": ["text"]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  }
+}
