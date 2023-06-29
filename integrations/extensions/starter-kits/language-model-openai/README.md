@@ -104,8 +104,8 @@ Use **Actions Global Settings** to upload the [`azure-openai-actions.json`](./az
 These are the session variables used in this example. Most of values are set in the process of setting up the starter kit so you do not need to set them yourself unless you want to make changes. You must, however, set the azure deployment id variables `azure_deployment_id_chat` and `azure_deployment_id_completions` to the respective values of the models that you have deployed with Azure OpenAI.
 
 - `azure_api_version` The version of the Azure OpenAI api spec, defaults to `2023-03-15-preview`.
-- `azure_deployment_id_chat` You **MUST** set this value to be the deployment id of the model (e.g., `gpt-3.5-turbo`) you deployed with Azure OpenAI for chat.
-- `azure_deployment_id_completions` You **MUST** set this value to be the deployment id of the model (e.g., `text-davinci-003`) you deployed with Azure OpenAI.
+- `azure_deployment_id_chat` You **MUST** set this value to be the deployment id of the model (e.g., `my-gpt-3.5-turbo-deployment`) you deployed with Azure OpenAI for chat.
+- `azure_deployment_id_completions` You **MUST** set this value to be the deployment id of the model (e.g., `my-text-davinci-003-deployment`) you deployed with Azure OpenAI.
 - `messages` : Input to the OpenAI model; includes the `search_results` and the `model_prompt`.
 - `model_for_chat` : The OpenAI model used, defaults to `gpt-3.5-turbo`.
 - `model_for_completions` : The OpenAI model used for completions, defaults to `text-davinci-003`.
