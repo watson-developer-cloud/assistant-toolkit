@@ -1,12 +1,12 @@
 {
-  "name": "azure openai test mds-action",
+  "name": "azure-openai-test-bot-mds-action",
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-06-28T19:34:33.718Z",
-  "updated": "2023-06-29T17:47:37.308Z",
+  "created": "2023-06-29T19:50:16.164Z",
+  "updated": "2023-06-29T20:45:13.327Z",
   "language": "en",
-  "skill_id": "46e9df23-c6fb-4759-ac33-04430fa27ae9",
+  "skill_id": "b7436097-eb92-465c-99bd-b32d6c39e6da",
   "workspace": {
     "actions": [
       {
@@ -24,14 +24,14 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "02a3c7c6110ae5af007302a7f7ad022d608ffd271478c4b7e166517ae1345011",
-                  "catalog_item_id": "7e11f691-ab3f-40fa-a619-e737d6390a88"
+                  "spec_hash_id": "e2103b11b764b82ea27bae0ccb5ee4f45dbb60da9478cc613750e7cdafd40128",
+                  "catalog_item_id": "259c2ef6-2f24-47c1-96f3-470ea27bcd58"
                 },
                 "request_mapping": {
                   "body": [
                     {
                       "value": {
-                        "skill_variable": "model_for_completions"
+                        "skill_variable": "model_for_chat"
                       },
                       "parameter": "model"
                     },
@@ -188,8 +188,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "02a3c7c6110ae5af007302a7f7ad022d608ffd271478c4b7e166517ae1345011",
-                  "catalog_item_id": "7e11f691-ab3f-40fa-a619-e737d6390a88"
+                  "spec_hash_id": "e2103b11b764b82ea27bae0ccb5ee4f45dbb60da9478cc613750e7cdafd40128",
+                  "catalog_item_id": "259c2ef6-2f24-47c1-96f3-470ea27bcd58"
                 },
                 "request_mapping": {
                   "body": [
@@ -1565,8 +1565,8 @@
     "learning_opt_out": false
   },
   "description": "created for assistant 05c10d7d-336f-4d33-8cb3-5c53520d61ce",
-  "assistant_id": "8a64a660-6d6e-403e-a9d6-f697d2cd6726",
-  "workspace_id": "46e9df23-c6fb-4759-ac33-04430fa27ae9",
+  "assistant_id": "76630c1b-7b1f-407b-ac32-4abc015004e8",
+  "workspace_id": "b7436097-eb92-465c-99bd-b32d6c39e6da",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }
