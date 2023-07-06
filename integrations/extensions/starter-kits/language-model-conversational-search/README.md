@@ -300,7 +300,8 @@ Below is a list of the session variables used in this example. Most of them are 
 
 ### Language model
 
-In this example, we have used PaLM's text generation model, which is `text-Bison-001`, as we found the chat model, which is `chat-Bison-001`, to be more prone to making up information when we tested it. However, if you want to experiment and use PaLM's chat language model, which is `chat-Bison-001`, you can change the operation of the PaLM extension in the 'Invoke PaLM' action in step 1 and click on 'edit extension' as shown below.
+In this example We found the chat model, which is `chat-Bison-001`, to be more prone to making up information when we tested it & hence for this example, we have used PaLM's text generation model, which is `text-Bison-001`.
+However, if you want to experiment and use PaLM's chat language model, which is `chat-Bison-001`, you can change the operation of the PaLM extension in the 'Invoke PaLM' action in step 1 and click on 'edit extension' as shown below.
 
 <img src="./assets/discovery-palm-language-model-change-example.png" width="300"/>
 
