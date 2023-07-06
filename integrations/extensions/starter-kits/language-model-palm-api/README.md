@@ -1,6 +1,6 @@
 # Google PaLM (Powerful Language Model) starter kit
 
-Google [PaLM](https://developers.generativeai.google/guide/palm_api_overview) is a language model developed by Google. It offers various capabilities for generating text, engaging in conversational interactions, and extracting text embeddings. This guide provides an overview of the PaLM API and demonstrates how to integrate three specific models: text-bison-001, chat-bison-001, and embedding-gecko-001.
+Google [PaLM](https://developers.generativeai.google/guide/palm_api_overview) is a language model developed by Google. It offers various capabilities for generating text, engaging in conversational interactions, and extracting text embeddings. This guide provides an example of how to use the PaLM API to integrate three specific models: text-bison-001, chat-bison-001, and embedding-gecko-001. The use of the PaLM API in this example was not made in partnership with, sponsorship with, or with endorsement from Google.
 
 The OpenAPI specification in the starter kit describes three endpoints, and a few of the most important of the configuration options that these endpoints provide.
 
