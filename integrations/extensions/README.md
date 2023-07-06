@@ -30,6 +30,7 @@ Then we have our **additional starter kits**. These focus on showcasing the brea
     - [IBM Watson Discovery](./starter-kits/watson-discovery/)
     - [LLM: IBM watsonx tech preview](./starter-kits/language-model-watsonx-tech-preview/)
     - [LLM: OpenAI](./starter-kits/language-model-openai/)
+    - [LLM: PaLM](./starter-kits/language-model-palm-api/)
     - [LLM use case: Conversational Search](./starter-kits/language-model-conversational-search/)
     - [LLM use case: Personalization](./starter-kits/language-model-personalization/)
     - [LLM use case: Summarization](./starter-kits/language-model-summarization/)
