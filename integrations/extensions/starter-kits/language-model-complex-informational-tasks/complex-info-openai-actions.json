@@ -1,0 +1,2072 @@
+{
+  "name": "expert-openai-test-bot-mds-action",
+  "type": "action",
+  "valid": true,
+  "status": "Available",
+  "created": "2023-07-03T19:42:11.532Z",
+  "updated": "2023-07-06T14:48:12.753Z",
+  "language": "en",
+  "skill_id": "4e6bce74-e2cf-46db-b6c7-85f8464ef11d",
+  "workspace": {
+    "actions": [
+      {
+        "steps": [
+          {
+            "step": "step_888",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Please select the TV package you would like to include in the plan."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                },
+                {
+                  "options": [
+                    {
+                      "label": "Bronze",
+                      "value": {
+                        "input": {
+                          "text": "Bronze"
+                        }
+                      }
+                    },
+                    {
+                      "label": "Silver",
+                      "value": {
+                        "input": {
+                          "text": "Silver"
+                        }
+                      }
+                    },
+                    {
+                      "label": "Gold",
+                      "value": {
+                        "input": {
+                          "text": "Gold"
+                        }
+                      }
+                    },
+                    {
+                      "label": "No TV",
+                      "value": {
+                        "input": {
+                          "text": "No TV"
+                        }
+                      }
+                    }
+                  ],
+                  "response_type": "option",
+                  "repeat_on_reprompt": true
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text": "I didn't catch that. Select a valid option:"
+                        }
+                      ],
+                      "response_type": "text"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "entity": "entity_2561",
+              "max_tries": 3
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_888",
+            "next_step": "step_784"
+          },
+          {
+            "step": "step_784",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Please select the internet package that will meet your needs."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                },
+                {
+                  "options": [
+                    {
+                      "label": "100 Mbps",
+                      "value": {
+                        "input": {
+                          "text": "100 Mbps"
+                        }
+                      }
+                    },
+                    {
+                      "label": "500 Mbps",
+                      "value": {
+                        "input": {
+                          "text": "500 Mbps"
+                        }
+                      }
+                    },
+                    {
+                      "label": "1 Gbps",
+                      "value": {
+                        "input": {
+                          "text": "1 Gbps"
+                        }
+                      }
+                    },
+                    {
+                      "label": "No Internet",
+                      "value": {
+                        "input": {
+                          "text": "No Internet"
+                        }
+                      }
+                    }
+                  ],
+                  "response_type": "option",
+                  "repeat_on_reprompt": true
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text": "I didn't catch that. Select a valid option:"
+                        }
+                      ],
+                      "response_type": "text"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "entity": "entity_18967",
+              "max_tries": 3
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_784",
+            "next_step": "step_489"
+          },
+          {
+            "step": "step_489",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Do you want to update your account to this new plan?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                },
+                {
+                  "options": [
+                    {
+                      "label": "Yes",
+                      "value": {
+                        "input": {
+                          "text": "Yes"
+                        }
+                      }
+                    },
+                    {
+                      "label": "No",
+                      "value": {
+                        "input": {
+                          "text": "No"
+                        }
+                      }
+                    }
+                  ],
+                  "response_type": "option",
+                  "repeat_on_reprompt": true
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text": "I'm sorry, I did not catch that, please restate your response."
+                        }
+                      ],
+                      "response_type": "text"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "entity": "sys-yes-no",
+              "max_tries": 3,
+              "response_collection_behavior": "always_ask"
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_489",
+            "next_step": "step_939"
+          },
+          {
+            "step": "step_939",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Updating your account to include the "
+                          },
+                          {
+                            "variable": "step_888"
+                          },
+                          {
+                            "scalar": " TV plan. You also requested $"
+                          },
+                          {
+                            "variable": "step_784"
+                          },
+                          {
+                            "scalar": " bundle."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "\"Make the following account changes: TV Plan: ${step_888}; Internet Package: ${step_784}\" "
+                  },
+                  "skill_variable": "new_plan_name"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_939",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_489"
+                },
+                {
+                  "scalar": "yes"
+                }
+              ]
+            },
+            "next_step": "step_409"
+          },
+          {
+            "step": "step_409",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Your plan will be updated within the next 30 mins. Your confirmation number is 3174. Thanks!"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_409",
+            "next_step": "step_294"
+          },
+          {
+            "step": "step_294",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Ok, is there anything else I can help you with?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_294",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_489"
+                },
+                {
+                  "scalar": "no"
+                }
+              ]
+            }
+          }
+        ],
+        "title": "Purchase a Plan",
+        "action": "action_29608",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_29608_intent_22594"
+        },
+        "variables": [
+          {
+            "title": "Ok, is there anything else I can help you with?",
+            "variable": "step_294",
+            "data_type": "any"
+          },
+          {
+            "title": "Your plan will be updated within the next 30 mins. Your confirma",
+            "variable": "step_409",
+            "data_type": "any"
+          },
+          {
+            "title": "Do you want to update your account to this new plan?",
+            "variable": "step_489",
+            "data_type": "yes_no"
+          },
+          {
+            "title": "Please select the internet package that will meet your needs.",
+            "variable": "step_784",
+            "data_type": "any"
+          },
+          {
+            "title": "Please select the TV package you would like to include in the pl",
+            "variable": "step_888",
+            "data_type": "any"
+          },
+          {
+            "title": "Updating your account to include the {variable} TV plan. You als",
+            "variable": "step_939",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_41495-2",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true,
+          "never_return": false
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_660",
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "{ \"role\": \"user\",  \"content\": input.text}"
+                  },
+                  "skill_variable": "user_message"
+                },
+                {
+                  "value": {
+                    "skill_variable": "plan_messages"
+                  },
+                  "skill_variable": "messages"
+                },
+                {
+                  "value": {
+                    "expression": "${messages}.append(${user_message})"
+                  },
+                  "skill_variable": "messages"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_660",
+            "next_step": "step_821"
+          },
+          {
+            "step": "step_821",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Invoking GPT Chat Completion API with "
+                          },
+                          {
+                            "skill_variable": "messages"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_821",
+            "condition": {
+              "eq": [
+                {
+                  "skill_variable": "verbose"
+                },
+                {
+                  "scalar": true
+                }
+              ]
+            },
+            "next_step": "step_949"
+          },
+          {
+            "step": "step_949",
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action",
+              "invoke_action": {
+                "action": "action_42650",
+                "parameters": null,
+                "result_variable": "step_949_result_1"
+              }
+            },
+            "variable": "step_949",
+            "next_step": "step_483"
+          },
+          {
+            "step": "step_483",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "I'm sorry, I encountered a connection error."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_483",
+            "condition": {
+              "not": {
+                "exists": {
+                  "skill_variable": "model_response"
+                }
+              }
+            },
+            "next_step": "step_884"
+          },
+          {
+            "step": "step_884",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "I'm sorry, I am unable to find an answer to your question."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_884",
+            "condition": {
+              "matches": [
+                {
+                  "skill_variable": "model_response"
+                },
+                {
+                  "scalar": "unanswerable*",
+                  "options": {
+                    "ignore_case": true
+                  }
+                }
+              ]
+            },
+            "next_step": "step_503"
+          },
+          {
+            "step": "step_503",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": ""
+                          },
+                          {
+                            "skill_variable": "model_response"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_503"
+          }
+        ],
+        "title": "Generate Answer",
+        "action": "action_41261",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_41261_intent_28294"
+        },
+        "variables": [
+          {
+            "title": "I'm sorry, I encountered a connection error.",
+            "variable": "step_483",
+            "data_type": "any"
+          },
+          {
+            "title": "{variable}",
+            "variable": "step_503",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_660",
+            "data_type": "any"
+          },
+          {
+            "title": "Invoking GPT Chat Completion API with {variable}",
+            "variable": "step_821",
+            "data_type": "any"
+          },
+          {
+            "title": "I'm sorry, I am unable to find an answer to your question.",
+            "variable": "step_884",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_949",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_949_result_1",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_42650",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true,
+          "never_return": false
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_429",
+            "output": {
+              "generic": []
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "{\n    \"role\": \"system\",\n     \"content\": ${tv_plan_prompt}\n}"
+                  },
+                  "skill_variable": "messages"
+                },
+                {
+                  "value": {
+                    "expression": "${tv_plan_messages}.append(${messages})"
+                  },
+                  "skill_variable": "plan_messages"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_429",
+            "condition": {
+              "expression": "${tv_plan_messages}.size()==0"
+            },
+            "next_step": "step_426"
+          },
+          {
+            "step": "step_426",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Invoking Generate Answer with TV Plan Messages "
+                          },
+                          {
+                            "skill_variable": "tv_plan_messages"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_426",
+            "condition": {
+              "eq": [
+                {
+                  "skill_variable": "verbose"
+                },
+                {
+                  "scalar": true
+                }
+              ]
+            },
+            "next_step": "step_340"
+          },
+          {
+            "step": "step_340",
+            "output": {
+              "generic": []
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "scalar": "TV Plan Questions"
+                  },
+                  "skill_variable": "last_action_accessed"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "action": "action_41261",
+                "parameters": null,
+                "result_variable": "step_340_result_1"
+              }
+            },
+            "variable": "step_340"
+          }
+        ],
+        "title": "TV Plan Questions",
+        "action": "action_41495",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_41495_intent_37690"
+        },
+        "variables": [
+          {
+            "title": "No response",
+            "variable": "step_340",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_340_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Invoking Generate Answer with TV Plan Messages {variable}",
+            "variable": "step_426",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_429",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_29608",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true,
+          "never_return": false
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_429",
+            "output": {
+              "generic": []
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "{\n    \"role\": \"system\",\n     \"content\": ${internet_plan_prompt}\n}"
+                  },
+                  "skill_variable": "internet_plan_prompt"
+                },
+                {
+                  "value": {
+                    "expression": "${internet_plan_messages}.append(${message})"
+                  },
+                  "skill_variable": "internet_plan_messages"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_429",
+            "condition": {
+              "expression": "${internet_plan_messages}.size()==0"
+            },
+            "next_step": "step_365"
+          },
+          {
+            "step": "step_365",
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "{\n    \"role\": \"user\",\n     \"content\": input.text\n}"
+                  },
+                  "skill_variable": "messages"
+                },
+                {
+                  "value": {
+                    "expression": "${internet_plan_messages}.append(${messages})"
+                  },
+                  "skill_variable": "internet_plan_messages"
+                },
+                {
+                  "value": {
+                    "scalar": "Internet Plan Questions"
+                  },
+                  "skill_variable": "last_action_accessed"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action",
+              "invoke_action": {
+                "action": "action_41261",
+                "parameters": null,
+                "result_variable": "step_365_result_2"
+              }
+            },
+            "variable": "step_365"
+          }
+        ],
+        "title": "Internet Plan Questions",
+        "action": "action_41495-2",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_41495_intent_37690-2"
+        },
+        "variables": [
+          {
+            "title": "No response",
+            "variable": "step_365",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_365_result_2",
+            "data_type": "any"
+          },
+          {
+            "title": "",
+            "variable": "step_429",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "fallback",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true,
+          "never_return": false
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_941",
+            "context": {
+              "variables": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/v1/chat/completions",
+                "type": "integration_interaction",
+                "method": "POST",
+                "internal": {
+                  "spec_hash_id": "52abfcce168af45904bbec67aa72171f74fe00fccc025503d374dbe9d83f0898",
+                  "catalog_item_id": "38e72ef9-048f-40aa-b7ae-db7e9eaeb511"
+                },
+                "request_mapping": {
+                  "body": [
+                    {
+                      "value": {
+                        "skill_variable": "model_for_chat"
+                      },
+                      "parameter": "model"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "messages"
+                      },
+                      "parameter": "messages"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_max_tokens"
+                      },
+                      "parameter": "max_tokens"
+                    }
+                  ]
+                },
+                "result_variable": "step_941_result_1"
+              }
+            },
+            "variable": "step_941",
+            "next_step": "step_790"
+          },
+          {
+            "step": "step_790",
+            "output": {
+              "generic": []
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${step_941_result_1}.body.choices[0].message.content"
+                  },
+                  "skill_variable": "model_response"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_790",
+            "condition": {
+              "and": [
+                {
+                  "eq": [
+                    {
+                      "variable": "step_941_result_1",
+                      "variable_path": "success"
+                    },
+                    {
+                      "scalar": true
+                    }
+                  ]
+                },
+                {
+                  "expression": "${step_941_result_1}.body.choices.size() > 0"
+                }
+              ]
+            },
+            "next_step": "step_521"
+          },
+          {
+            "step": "step_521",
+            "output": {
+              "generic": []
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "null"
+                  },
+                  "skill_variable": "model_response"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_521"
+          }
+        ],
+        "title": "Invoke GPT Chat Completion API with Messages",
+        "action": "action_42650",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_42650_intent_13766"
+        },
+        "variables": [
+          {
+            "title": "",
+            "variable": "step_521",
+            "data_type": "any"
+          },
+          {
+            "title": "",
+            "variable": "step_790",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_941",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_941_result_1",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_41495",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true,
+          "never_return": false
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_001",
+            "output": {
+              "generic": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "action": "action_41495",
+                "parameters": null,
+                "result_variable": "step_001_result_1"
+              }
+            },
+            "variable": "step_001",
+            "condition": {
+              "contains": [
+                {
+                  "skill_variable": "last_action_accessed"
+                },
+                {
+                  "scalar": "TV Plan Questions",
+                  "options": {
+                    "ignore_case": true
+                  }
+                }
+              ]
+            },
+            "next_step": "step_351"
+          },
+          {
+            "step": "step_351",
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action",
+              "invoke_action": {
+                "action": "action_41495-2",
+                "parameters": null,
+                "result_variable": "step_351_result_1"
+              }
+            },
+            "variable": "step_351",
+            "condition": {
+              "contains": [
+                {
+                  "skill_variable": "last_action_accessed"
+                },
+                {
+                  "scalar": "Internet Plan Questions",
+                  "options": {
+                    "ignore_case": true
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "title": "No action matches",
+        "action": "anything_else",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "expression": "anything_else"
+        },
+        "variables": [
+          {
+            "title": "",
+            "variable": "step_001",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_001_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_351",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_351_result_1",
+            "data_type": "any"
+          }
+        ],
+        "disambiguation_opt_out": true
+      },
+      {
+        "steps": [
+          {
+            "step": "digression_failure",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "Sorry I couldn't confirm if you wanted to return to previous topic, let me connect to an agent."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
+                },
+                "message_to_human_agent": ""
+              }
+            },
+            "variable": "digression_failure",
+            "condition": {
+              "eq": [
+                {
+                  "system_variable": "fallback_reason"
+                },
+                {
+                  "scalar": "Failed to confirm topic return"
+                }
+              ]
+            },
+            "next_step": "step_001"
+          },
+          {
+            "step": "step_001",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "I'm afraid I don't understand. I can connect you to an agent."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
+                },
+                "message_to_human_agent": ""
+              }
+            },
+            "variable": "step_001",
+            "condition": {
+              "eq": [
+                {
+                  "system_variable": "fallback_reason"
+                },
+                {
+                  "scalar": "Step validation failed"
+                }
+              ]
+            },
+            "next_step": "step_002"
+          },
+          {
+            "step": "step_002",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "Sorry I couldn't assist you. I will connect you to an agent right away."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
+                },
+                "message_to_human_agent": ""
+              }
+            },
+            "variable": "step_002",
+            "condition": {
+              "eq": [
+                {
+                  "system_variable": "fallback_reason"
+                },
+                {
+                  "scalar": "Agent requested"
+                }
+              ]
+            },
+            "next_step": "step_003"
+          },
+          {
+            "step": "step_003",
+            "output": {
+              "generic": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
+                },
+                "message_to_human_agent": ""
+              }
+            },
+            "variable": "step_003",
+            "condition": {
+              "eq": [
+                {
+                  "system_variable": "fallback_reason"
+                },
+                {
+                  "scalar": "No action matches"
+                }
+              ]
+            },
+            "next_step": "step_004"
+          },
+          {
+            "step": "step_004",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "It seems this conversation would be best managed by a human agent. Let me connect you to one of our agents."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
+                },
+                "message_to_human_agent": ""
+              }
+            },
+            "variable": "step_004",
+            "condition": {
+              "eq": [
+                {
+                  "system_variable": "fallback_reason"
+                },
+                {
+                  "scalar": "Danger word detected"
+                }
+              ]
+            },
+            "next_step": "step_005"
+          },
+          {
+            "step": "step_005",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "It seems this conversation would be best managed by a human agent. Let me connect you to one of our agents."
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
+                },
+                "message_to_human_agent": ""
+              }
+            },
+            "variable": "step_005",
+            "condition": {
+              "eq": [
+                {
+                  "system_variable": "fallback_reason"
+                },
+                {
+                  "scalar": "Profanity detected"
+                }
+              ]
+            }
+          }
+        ],
+        "title": "Fallback",
+        "action": "fallback",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "fallback_connect_to_agent"
+        },
+        "variables": [
+          {
+            "title": "Topic return failed",
+            "variable": "digression_failure",
+            "data_type": "any"
+          },
+          {
+            "title": "I'm afraid I don't understand. I can connect you to an agent.",
+            "variable": "step_001",
+            "data_type": "any"
+          },
+          {
+            "title": "Sorry I couldn't assist you. I will connect you to an agent righ",
+            "variable": "step_002",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_003",
+            "data_type": "any"
+          },
+          {
+            "title": "It seems this conversation would be best managed",
+            "variable": "step_004",
+            "data_type": "any"
+          },
+          {
+            "title": "Profanity - It seems this conversation",
+            "variable": "step_005",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "run_always",
+        "disambiguation_opt_out": true
+      },
+      {
+        "steps": [
+          {
+            "step": "danger_word_detected",
+            "title": "Connect to agent",
+            "handlers": [],
+            "resolver": {
+              "type": "fallback"
+            },
+            "variable": "danger_word_detected_variable",
+            "condition": {
+              "entity": "danger_words"
+            },
+            "next_step": "profanity_detected"
+          },
+          {
+            "step": "profanity_detected",
+            "title": "Show warning",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Please use appropriate language when interacting with the assistant."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "max_hits",
+                "handler": "max_hits_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "max_hits": 2,
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "profanity_detected_variable",
+            "condition": {
+              "entity": "profane_words"
+            }
+          }
+        ],
+        "title": "Trigger word detected",
+        "action": "run_always",
+        "boosts": [],
+        "handlers": [],
+        "variables": [
+          {
+            "title": "Profanity detected",
+            "variable": "danger_word_detected_variable",
+            "data_type": "any"
+          },
+          {
+            "title": "Profane word detected",
+            "variable": "profanity_detected_variable",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "anything_else"
+      },
+      {
+        "steps": [
+          {
+            "step": "step_001",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "Welcome, how can I assist you?"
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_001"
+          }
+        ],
+        "title": "Greet customer",
+        "action": "welcome",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "expression": "welcome"
+        },
+        "variables": [
+          {
+            "variable": "step_001",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_41261",
+        "disambiguation_opt_out": true
+      }
+    ],
+    "intents": [
+      {
+        "intent": "action_29608_intent_22594",
+        "examples": [
+          {
+            "text": "change my plan"
+          },
+          {
+            "text": "Give me the plan"
+          },
+          {
+            "text": "Give me the silver plan"
+          },
+          {
+            "text": "I'll have the plan"
+          },
+          {
+            "text": "I'll take the bronze plan"
+          },
+          {
+            "text": "I'll take the gold plan"
+          },
+          {
+            "text": "I'll take the silver plan"
+          },
+          {
+            "text": "I want to change my plan"
+          },
+          {
+            "text": "I want to purchase that internet plan."
+          },
+          {
+            "text": "I want to update my plan to include"
+          },
+          {
+            "text": "I want to upgrade my plan"
+          },
+          {
+            "text": "modify plan"
+          },
+          {
+            "text": "modify tv plan"
+          },
+          {
+            "text": "please sign me up for the gold plan and cancel the current plan I have."
+          },
+          {
+            "text": "Purchase TV plan"
+          },
+          {
+            "text": "Sign me up for the plan"
+          },
+          {
+            "text": "Sing me up for the silver plan"
+          },
+          {
+            "text": "update my plan"
+          },
+          {
+            "text": "Upgrade plan"
+          },
+          {
+            "text": "upgrade tv plan"
+          }
+        ]
+      },
+      {
+        "intent": "action_41261_intent_28294",
+        "examples": []
+      },
+      {
+        "intent": "action_41495_intent_37690",
+        "examples": [
+          {
+            "text": "Are there contracts?"
+          },
+          {
+            "text": "Does the gold plan include"
+          },
+          {
+            "text": "Does the plan include"
+          },
+          {
+            "text": "Does the silver plan include"
+          },
+          {
+            "text": "I need a plan"
+          },
+          {
+            "text": "I only need these channels on my TV Plan"
+          },
+          {
+            "text": "I want a TV plan that"
+          },
+          {
+            "text": "I would like a plan"
+          },
+          {
+            "text": "TV Plan"
+          },
+          {
+            "text": "TV Plan determination"
+          },
+          {
+            "text": "What are the terms of the contract?"
+          },
+          {
+            "text": "What's the cheapest plan"
+          },
+          {
+            "text": "Which plans have"
+          },
+          {
+            "text": "Which TV plan has the most channels"
+          },
+          {
+            "text": "Which TV plan has these channels"
+          },
+          {
+            "text": "Which TV plan is the cheapest"
+          },
+          {
+            "text": "Which TV plan would be best"
+          }
+        ]
+      },
+      {
+        "intent": "action_41495_intent_37690-2",
+        "examples": [
+          {
+            "text": "I need an internet plan that can support 4 simultaneous tv streams."
+          },
+          {
+            "text": "Internet Plan Questions"
+          },
+          {
+            "text": "What internet plans to you offer"
+          },
+          {
+            "text": "What internet plan works well for streaming"
+          },
+          {
+            "text": "What's the cheapest internet plan?"
+          },
+          {
+            "text": "Which internet plan is best for me"
+          }
+        ]
+      },
+      {
+        "intent": "action_42650_intent_13766",
+        "examples": []
+      },
+      {
+        "intent": "fallback_connect_to_agent",
+        "examples": [
+          {
+            "text": "Agent help"
+          },
+          {
+            "text": "Call agent"
+          },
+          {
+            "text": "Can I connect to an agent?"
+          },
+          {
+            "text": "I would like to speak to a human"
+          },
+          {
+            "text": "I would like to speak to someone"
+          }
+        ],
+        "description": "Please transfer me to an agent"
+      }
+    ],
+    "entities": [
+      {
+        "entity": "danger_words",
+        "values": [],
+        "fuzzy_match": false
+      },
+      {
+        "entity": "entity_18967",
+        "values": [
+          {
+            "type": "synonyms",
+            "value": "100 Mbps",
+            "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "1 Gbps",
+            "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "500 Mbps",
+            "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "No Internet",
+            "synonyms": []
+          }
+        ],
+        "fuzzy_match": true
+      },
+      {
+        "entity": "entity_2561",
+        "values": [
+          {
+            "type": "synonyms",
+            "value": "Bronze",
+            "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "Gold",
+            "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "No TV",
+            "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "Silver",
+            "synonyms": []
+          }
+        ],
+        "fuzzy_match": true
+      },
+      {
+        "entity": "profane_words",
+        "values": [],
+        "fuzzy_match": false
+      },
+      {
+        "entity": "sys-yes-no",
+        "values": []
+      }
+    ],
+    "metadata": {
+      "api_version": {
+        "major_version": "v2",
+        "minor_version": "2018-11-08"
+      }
+    },
+    "variables": [
+      {
+        "title": "internet_plan_messages",
+        "variable": "internet_plan_messages",
+        "data_type": "any",
+        "description": "",
+        "initial_value": {
+          "expression": "[]"
+        }
+      },
+      {
+        "title": "internet_plan_prompt",
+        "variable": "internet_plan_prompt",
+        "data_type": "any",
+        "description": "",
+        "initial_value": {
+          "expression": "\"You are an agent for a cable provider that helps customers determine which internet plan is best for them.  Limit your response to 30 words and only discuss which plans are best for that customer unless prompted otherwise. The three plans are 1) The 100 Mbps plan which cost $30; 2) The 500 Mbps which cost $40; 3) The 1 Gbps plan which cost $50\""
+        }
+      },
+      {
+        "title": "last_action_accessed",
+        "variable": "last_action_accessed",
+        "data_type": "string",
+        "description": "",
+        "initial_value": {
+          "scalar": "\"\""
+        }
+      },
+      {
+        "title": "messages",
+        "variable": "messages",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "model_for_chat",
+        "variable": "model_for_chat",
+        "data_type": "string",
+        "description": "",
+        "initial_value": {
+          "scalar": "gpt-3.5-turbo"
+        }
+      },
+      {
+        "title": "model_max_tokens",
+        "variable": "model_max_tokens",
+        "data_type": "number",
+        "description": "",
+        "initial_value": {
+          "scalar": 200
+        }
+      },
+      {
+        "title": "model_prompt",
+        "variable": "model_prompt",
+        "data_type": "string",
+        "description": ""
+      },
+      {
+        "title": "model_response",
+        "variable": "model_response",
+        "data_type": "string",
+        "description": ""
+      },
+      {
+        "title": "new_plan_name",
+        "variable": "new_plan_name",
+        "data_type": "string",
+        "description": ""
+      },
+      {
+        "title": "plan_messages",
+        "variable": "plan_messages",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "tv_plan_messages",
+        "variable": "tv_plan_messages",
+        "data_type": "any",
+        "description": "",
+        "initial_value": {
+          "expression": "[]"
+        }
+      },
+      {
+        "title": "tv_plan_prompt",
+        "variable": "tv_plan_prompt",
+        "data_type": "any",
+        "description": "",
+        "initial_value": {
+          "scalar": "You are an agent for a cable provider that helps customers determine which TV plan is best for them. The plan to recommend should include all of the channels they request. Limit your response to 30 words and only discuss which plans are best for that customer unless prompted otherwise. The plans are listed below in the following JSON schema: {\"_id\":\"PlanID\",\"channel\":[\"List of channels\"],\"cost\":\"cost of the plan\"} Here are the plans: {\"_id\":\"Bronze\",\"channel\":[\"A&EHDEast(A&E)\",\"AMC\",\"BravoHD(Bravo)\",\"CNBCHD(CNBC)\",\"CNNHD(CNN)\",\"ComedyCentral\",\"ComedyCentralHD(ComedyCentral)\",\"CookingChannel\",\"E!EntertainmentTelevision(Pacific)(E!)\",\"E!EntertainmentTelevisionHD(E!)\",\"EsquireHD(EsquireNetwork)\",\"FoodNetwork\",\"FoodNetworkHD(FoodNetwork)\",\"FoxBusinessHD(FoxBusiness)\",\"FoxNewsChannel(FoxNews)\",\"FoxNewsChannelHD(FoxNews)\",\"Fuse\",\"FXHD(FX)\",\"HallmarkChannelHD(HallmarkChannel)\",\"HLNHD(HLN)\",\"Home&GardenTelevisionHD(HGTV)\",\"HSNHD(HSN)\",\"LifetimeHD(Lifetime)\",\"MilitaryHistoryChannel\",\"MSNBCHD(MSNBC)\",\"NewsNationSD(NewsNation)\",\"Nickelodeon\",\"OlympicChannel\",\"ParamountNetworkHD(ParamountNetwork)\",\"QVC\",\"QVCHD(QVC)\",\"SyfyHD(SYFY)\",\"TheGolfChannelHD(GolfChannel)\",\"TheTravelChannel(TravelChannel)\",\"TheTravelChannelHD(TravelChannel)\",\"TheWeatherChannelHD(WeatherChannel)\",\"TLCHD(US)(TLC)\",\"truTVHD(truTV)\",\"USANetworkHD(USA)\",\"WEtvHD(WEtv)\"],\"cost\":60} {\"_id\":\"Silver\",\"_rev\":\"4-de6232a1df2de73ebdfe7417dfccd98c\",\"channels\":[\"A&EHDEast(A&E)\",\"AMC\",\"AMC(Pacific)(AMC)\",\"AnimalPlanet(Pacific)(AnimalPlanet)\",\"ASPiRE\",\"BBCAmerica\",\"BBCNews(NorthAmerica)(BBCNews)\",\"BloombergBusinessTelevision(Bloomberg)\",\"BloombergHD(Bloomberg)\",\"Bravo\",\"BravoHD(Bravo)\",\"CableNewsNetwork(CNN)\",\"CartoonNetwork\",\"CartoonNetwork(Pacific)(CartoonNetwork)\",\"CMT(Pacific)(CMT)\",\"CNBC\",\"CNBCHD(CNBC)\",\"CNNHD(CNN)\",\"ComedyCentral\",\"ComedyCentral(Pacific)(ComedyCentral)\",\"ComedyCentralHD(ComedyCentral)\",\"CookingChannel\",\"CSPAN2(C-SPAN)\",\"CSPAN3(C-SPAN)\",\"DiscoveryChannel\",\"E!EntertainmentTelevision(E!)\",\"E!EntertainmentTelevision(Pacific)(E!)\",\"E!EntertainmentTelevisionHD(E!)\",\"EsquireHD(EsquireNetwork)\",\"FoodNetwork\",\"FoodNetwork(Pacific)(FoodNetwork)\",\"FoodNetworkHD(FoodNetwork)\",\"FoxBusiness\",\"FoxBusinessHD(FoxBusiness)\",\"FoxNewsChannel(FoxNews)\",\"FoxNewsChannelHD(FoxNews)\",\"Freeform\",\"Fuse\",\"FX\",\"FXHD(FX)\",\"GameShowNetwork\",\"GameShowNetworkHD(GameShowNetwork)\",\"GreatAmericanFamily\",\"HallmarkChannel\",\"HallmarkChannel(Pacific)(HallmarkChannel)\",\"HallmarkChannelHD(HallmarkChannel)\",\"HLNHD(HLN)\",\"Home&GardenTelevisionHD(HGTV)\",\"HomeShoppingNetwork(HSN)\",\"HSNHD(HSN)\",\"InvestigationDiscovery\",\"Lifetime\",\"LifetimeHD(Lifetime)\",\"LMN(LifetimeMovies)\",\"MilitaryHistoryChannel\",\"MSNBC\",\"MSNBCHD(MSNBC)\",\"MTVClassic(Pacific)(MTVClassic)\",\"NationalGeographicUSA(NatGeo)\",\"NewsNationSD(NewsNation)\",\"Nickelodeon\",\"Nicktoons(Nickelodeon)\",\"OlympicChannel\",\"OutdoorChannel\",\"OxygenTrueCrime\",\"ParamountNetworkHD(ParamountNetwork)\",\"QVC\",\"QVCHD(QVC)\",\"StarzEncore(Pacific)(STARZ)\",\"SyfyHD(SYFY)\",\"TheGolfChannelHD(GolfChannel)\",\"TheTravelChannel(TravelChannel)\",\"TheTravelChannelHD(TravelChannel)\",\"TheWeatherChannelHD(WeatherChannel)\",\"TLCHD(US)(TLC)\",\"truTVHD(truTV)\",\"TVONE\",\"UniversalKids\",\"USANetworkHD(USA)\",\"WEtv\",\"WEtvHD(WEtv)\",\"Xfinity(Help&Services)\"],\"cost\":80} {\"_id\":\"Gold\",\"_rev\":\"3-934714e38351f0e760f2961050c63732\",\"channels\":[\"A&EHDEast(A&E)\",\"AMC\",\"AMC(Pacific)(AMC)\",\"AmericanHeroesChannel(AmericanHeroes)\",\"AnimalPlanet(Pacific)(AnimalPlanet)\",\"ASPiRE\",\"BBCAmerica\",\"BBCNews(NorthAmerica)(BBCNews)\",\"BETHer\",\"BETJams(BET)\",\"BETSoul(BET)\",\"BloombergBusinessTelevision(Bloomberg)\",\"BloombergHD(Bloomberg)\",\"Bravo\",\"BravoHD(Bravo)\",\"CableNewsNetwork(CNN)\",\"CartoonNetwork\",\"CartoonNetwork(Pacific)(CartoonNetwork)\",\"CMT(Pacific)(CMT)\",\"CMTMusic(CMT)\",\"CNBC\",\"CNBCHD(CNBC)\",\"CNNHD(CNN)\",\"ComedyCentral\",\"ComedyCentral(Pacific)(ComedyCentral)\",\"ComedyCentralHD(ComedyCentral)\",\"CookingChannel\",\"Crime+Investigation(ci)\",\"CSPAN2(C-SPAN)\",\"CSPAN3(C-SPAN)\",\"DestinationAmerica\",\"DiscoveryChannel\",\"DiscoveryFamilyChannel(DiscoveryFamily)\",\"DisneyXD\",\"E!EntertainmentTelevision(E!)\",\"E!EntertainmentTelevision(Pacific)(E!)\",\"E!EntertainmentTelevisionHD(E!)\",\"ESPNEWS(ESPN)\",\"EsquireHD(EsquireNetwork)\",\"Flix\",\"FoodNetwork\",\"FoodNetwork(Pacific)(FoodNetwork)\",\"FoodNetworkHD(FoodNetwork)\",\"FoxBusiness\",\"FoxBusinessHD(FoxBusiness)\",\"FoxNewsChannel(FoxNews)\",\"FoxNewsChannelHD(FoxNews)\",\"Freeform\",\"Fuse\",\"FX\",\"FXHD(FX)\",\"FYI(fyi,)\",\"GameShowNetwork\",\"GameShowNetworkHD(GameShowNetwork)\",\"GreatAmericanFamily\",\"HallmarkChannel\",\"HallmarkChannel(Pacific)(HallmarkChannel)\",\"HallmarkChannelHD(HallmarkChannel)\",\"HLNHD(HLN)\",\"Home&GardenTelevisionHD(HGTV)\",\"HomeShoppingNetwork(HSN)\",\"HSNHD(HSN)\",\"InvestigationDiscovery\",\"Lifetime\",\"LifetimeHD(Lifetime)\",\"LMN(LifetimeMovies)\",\"Logo\",\"MilitaryHistoryChannel\",\"MSNBC\",\"MSNBCHD(MSNBC)\",\"MTVClassic\",\"MTVClassic(Pacific)(MTVClassic)\",\"MTV2:MusicTelevision(MTV2)\",\"NationalGeographicUSA(NatGeo)\",\"NewsNationSD(NewsNation)\",\"NFLRedZone\",\"NickJr(NickJr.)\",\"NickMusic(Nickelodeon)\",\"NickTooEast(Nickelodeon)\",\"Nickelodeon\",\"Nicktoons(Nickelodeon)\",\"OlympicChannel\",\"OutdoorChannel\",\"OutdoorChannelHD(OutdoorChannel)\",\"Ovation\",\"OxygenTrueCrime\",\"ParamountNetwork\",\"ParamountNetworkHD(ParamountNetwork)\",\"QVC\",\"QVCHD(QVC)\",\"Science(ScienceChannel)\",\"StarzEncore(Pacific)(STARZ)\",\"StarzEncoreClassic(STARZ)\",\"StarzEncoreSuspense(STARZ)\",\"SundanceTV\",\"SyfyHD(SYFY)\",\"TeenNick(TeenNick)\",\"TennisChannel\",\"TheGolfChannelHD(GolfChannel)\",\"TheTravelChannel(TravelChannel)\",\"TheTravelChannelHD(TravelChannel)\",\"TheWeatherChannelHD(WeatherChannel)\",\"TLC\",\"TLCHD(US)(TLC)\",\"Tr3s:MTV,MusicayMas(Tr3s)\",\"truTVHD(truTV)\",\"TVONE\",\"UniversalKids\",\"USANetworkHD(USA)\",\"Vice\",\"WEtv\",\"WEtvHD(WEtv)\",\"Xfinity(Help&Services)\"],\"cost\":100} When more than two plans meet the query always suggest the more expensive plan first. Lastly, there are no contracts with any of these plans."
+        }
+      },
+      {
+        "title": "user_message",
+        "variable": "user_message",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "verbose",
+        "variable": "verbose",
+        "data_type": "boolean",
+        "description": "Set to True for debugging output",
+        "initial_value": {
+          "scalar": true
+        }
+      }
+    ],
+    "data_types": [],
+    "collections": [],
+    "counterexamples": [],
+    "system_settings": {
+      "nlp": {
+        "model": "latest"
+      },
+      "variable": {
+        "format": {
+          "time": {
+            "pattern": "short"
+          },
+          "currency": {
+            "fraction_digits": 2
+          }
+        }
+      },
+      "off_topic": {
+        "enabled": true
+      },
+      "launch_mode": {},
+      "topic_switch": {
+        "enabled": true,
+        "messages": {
+          "enable_confirmation": true,
+          "confirmation_failure": {
+            "generic": [
+              {
+                "values": [
+                  {
+                    "text_expression": {
+                      "concat": [
+                        {
+                          "scalar": "I'm sorry, I did not catch that, please confirm."
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "response_type": "text",
+                "selection_policy": "sequential"
+              }
+            ]
+          },
+          "confirmation_request": {
+            "generic": [
+              {
+                "values": [
+                  {
+                    "text_expression": {
+                      "concat": [
+                        {
+                          "scalar": "Do you want to continue with the previous topic: "
+                        },
+                        {
+                          "system_variable": "digressed_from"
+                        },
+                        {
+                          "scalar": "?"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "response_type": "text",
+                "selection_policy": "sequential"
+              },
+              {
+                "options": [
+                  {
+                    "label": "Yes",
+                    "value": {
+                      "input": {
+                        "text": "Yes"
+                      }
+                    }
+                  },
+                  {
+                    "label": "No",
+                    "value": {
+                      "input": {
+                        "text": "No"
+                      }
+                    }
+                  }
+                ],
+                "response_type": "option",
+                "repeat_on_reprompt": true
+              }
+            ]
+          }
+        },
+        "max_tries": 3
+      },
+      "disambiguation": {
+        "prompt": "Did you mean:",
+        "enabled": false,
+        "randomize": true,
+        "max_suggestions": 5,
+        "suggestion_text_policy": "title",
+        "none_of_the_above_prompt": "None of the above",
+        "use_connect_to_support_prompt": "connect to support",
+        "single_answer_clarification_prompt": "Something else"
+      },
+      "spelling_auto_correct": true
+    },
+    "learning_opt_out": true
+  },
+  "description": "created for assistant 4fec3f06-cc09-4398-82af-6ab377d02783",
+  "assistant_id": "1857da47-bf99-4a2b-bb11-03008d2a8948",
+  "workspace_id": "4e6bce74-e2cf-46db-b6c7-85f8464ef11d",
+  "dialog_settings": {},
+  "next_snapshot_version": "1"
+}
