@@ -1,12 +1,12 @@
 {
-  "name": "expert-openai-test-bot-mds-action",
+  "name": "jwm4 OpenAI Complex Task kit-action",
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-07-03T19:42:11.532Z",
-  "updated": "2023-07-06T14:48:12.753Z",
+  "created": "2023-07-07T17:51:28.608Z",
+  "updated": "2023-07-07T19:11:10.535Z",
   "language": "en",
-  "skill_id": "4e6bce74-e2cf-46db-b6c7-85f8464ef11d",
+  "skill_id": "72246080-4e7f-4edb-9469-3bfbaf11cdba",
   "workspace": {
     "actions": [
       {
@@ -483,12 +483,6 @@
                 },
                 {
                   "value": {
-                    "skill_variable": "plan_messages"
-                  },
-                  "skill_variable": "messages"
-                },
-                {
-                  "value": {
                     "expression": "${messages}.append(${user_message})"
                   },
                   "skill_variable": "messages"
@@ -590,47 +584,6 @@
                 }
               }
             },
-            "next_step": "step_884"
-          },
-          {
-            "step": "step_884",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "I'm sorry, I am unable to find an answer to your question."
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "end_action"
-            },
-            "variable": "step_884",
-            "condition": {
-              "matches": [
-                {
-                  "skill_variable": "model_response"
-                },
-                {
-                  "scalar": "unanswerable*",
-                  "options": {
-                    "ignore_case": true
-                  }
-                }
-              ]
-            },
             "next_step": "step_503"
           },
           {
@@ -654,6 +607,16 @@
                   ],
                   "response_type": "text",
                   "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${messages}.append({\"role\": \"assistant\", \"content\": ${model_response}})"
+                  },
+                  "skill_variable": "messages"
                 }
               ]
             },
@@ -693,11 +656,6 @@
             "data_type": "any"
           },
           {
-            "title": "I'm sorry, I am unable to find an answer to your question.",
-            "variable": "step_884",
-            "data_type": "any"
-          },
-          {
             "title": "No response",
             "variable": "step_949",
             "data_type": "any"
@@ -726,15 +684,9 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "{\n    \"role\": \"system\",\n     \"content\": ${tv_plan_prompt}\n}"
+                    "expression": "[{\n    \"role\": \"system\",\n     \"content\": ${tv_plan_prompt}\n}]"
                   },
-                  "skill_variable": "messages"
-                },
-                {
-                  "value": {
-                    "expression": "${tv_plan_messages}.append(${messages})"
-                  },
-                  "skill_variable": "plan_messages"
+                  "skill_variable": "tv_plan_messages"
                 }
               ]
             },
@@ -745,47 +697,6 @@
             "variable": "step_429",
             "condition": {
               "expression": "${tv_plan_messages}.size()==0"
-            },
-            "next_step": "step_426"
-          },
-          {
-            "step": "step_426",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "Invoking Generate Answer with TV Plan Messages "
-                          },
-                          {
-                            "skill_variable": "tv_plan_messages"
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "continue"
-            },
-            "variable": "step_426",
-            "condition": {
-              "eq": [
-                {
-                  "skill_variable": "verbose"
-                },
-                {
-                  "scalar": true
-                }
-              ]
             },
             "next_step": "step_340"
           },
@@ -801,19 +712,44 @@
                     "scalar": "TV Plan Questions"
                   },
                   "skill_variable": "last_action_accessed"
+                },
+                {
+                  "value": {
+                    "skill_variable": "tv_plan_messages"
+                  },
+                  "skill_variable": "messages"
                 }
               ]
             },
             "handlers": [],
             "resolver": {
-              "type": "invoke_another_action_and_end",
+              "type": "invoke_another_action",
               "invoke_action": {
                 "action": "action_41261",
                 "parameters": null,
                 "result_variable": "step_340_result_1"
               }
             },
-            "variable": "step_340"
+            "variable": "step_340",
+            "next_step": "step_916"
+          },
+          {
+            "step": "step_916",
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "skill_variable": "messages"
+                  },
+                  "skill_variable": "tv_plan_messages"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_916"
           }
         ],
         "title": "TV Plan Questions",
@@ -834,13 +770,13 @@
             "data_type": "any"
           },
           {
-            "title": "Invoking Generate Answer with TV Plan Messages {variable}",
-            "variable": "step_426",
+            "title": "",
+            "variable": "step_429",
             "data_type": "any"
           },
           {
             "title": "No response",
-            "variable": "step_429",
+            "variable": "step_916",
             "data_type": "any"
           }
         ],
@@ -863,13 +799,7 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "{\n    \"role\": \"system\",\n     \"content\": ${internet_plan_prompt}\n}"
-                  },
-                  "skill_variable": "internet_plan_prompt"
-                },
-                {
-                  "value": {
-                    "expression": "${internet_plan_messages}.append(${message})"
+                    "expression": "[{\n    \"role\": \"system\",\n     \"content\": ${internet_plan_prompt}\n}]"
                   },
                   "skill_variable": "internet_plan_messages"
                 }
@@ -891,21 +821,15 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "{\n    \"role\": \"user\",\n     \"content\": input.text\n}"
-                  },
-                  "skill_variable": "messages"
-                },
-                {
-                  "value": {
-                    "expression": "${internet_plan_messages}.append(${messages})"
-                  },
-                  "skill_variable": "internet_plan_messages"
-                },
-                {
-                  "value": {
                     "scalar": "Internet Plan Questions"
                   },
                   "skill_variable": "last_action_accessed"
+                },
+                {
+                  "value": {
+                    "skill_variable": "internet_plan_messages"
+                  },
+                  "skill_variable": "messages"
                 }
               ]
             },
@@ -918,7 +842,26 @@
                 "result_variable": "step_365_result_2"
               }
             },
-            "variable": "step_365"
+            "variable": "step_365",
+            "next_step": "step_905"
+          },
+          {
+            "step": "step_905",
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "skill_variable": "messages"
+                  },
+                  "skill_variable": "internet_plan_messages"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_905"
           }
         ],
         "title": "Internet Plan Questions",
@@ -941,6 +884,11 @@
           {
             "title": "",
             "variable": "step_429",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_905",
             "data_type": "any"
           }
         ],
@@ -968,7 +916,7 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "52abfcce168af45904bbec67aa72171f74fe00fccc025503d374dbe9d83f0898",
-                  "catalog_item_id": "38e72ef9-048f-40aa-b7ae-db7e9eaeb511"
+                  "catalog_item_id": "48c482b3-9498-4dbd-83c4-98983975b11f"
                 },
                 "request_mapping": {
                   "body": [
@@ -1917,12 +1865,6 @@
         "description": ""
       },
       {
-        "title": "plan_messages",
-        "variable": "plan_messages",
-        "data_type": "any",
-        "description": ""
-      },
-      {
         "title": "tv_plan_messages",
         "variable": "tv_plan_messages",
         "data_type": "any",
@@ -1952,7 +1894,7 @@
         "data_type": "boolean",
         "description": "Set to True for debugging output",
         "initial_value": {
-          "scalar": true
+          "scalar": false
         }
       }
     ],
@@ -2065,8 +2007,8 @@
     "learning_opt_out": true
   },
   "description": "created for assistant 4fec3f06-cc09-4398-82af-6ab377d02783",
-  "assistant_id": "1857da47-bf99-4a2b-bb11-03008d2a8948",
-  "workspace_id": "4e6bce74-e2cf-46db-b6c7-85f8464ef11d",
+  "assistant_id": "f30231a4-ae7e-41f4-b4e8-4dc556e5fc42",
+  "workspace_id": "72246080-4e7f-4edb-9469-3bfbaf11cdba",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }
