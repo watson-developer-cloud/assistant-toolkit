@@ -1565,7 +1565,7 @@
         "data_type": "string",
         "description": "You MUST set this value to the project ID of the Discovery project containing your data",
         "initial_value": {
-          "scalar": "1dd799c5-6db8-4c65-a287-9f1988edeab8"
+          "scalar": ""
         }
       },
       {
