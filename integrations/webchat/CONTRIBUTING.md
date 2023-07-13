@@ -1,12 +1,7 @@
 # Contributing
 
-We welcome contributions!
+We welcome contributions that show ways to extend and customize Watson Assistant web chat.
 
-To contribute to our project, fork and clone it, create a branch, and submit a pull request. Here's a good [set of instructions](https://www.dataschool.io/how-to-contribute-on-github/).
+Please [review the rules for contributing to this repository](../../CONTRIBUTING.md) before submitting code for information about legal requirements, project start process and pull request process.
 
-Make sure you read our [template instructions](contributing/TEMPLATE_INSTRUCTIONS.md), [coding standards](contributing/CODING_STANDARDS.md) and [pull request process](contributing/PULL_REQUESTS.md) before submitting code.
-
-Does your code show up in another IBM offering or is part of an IBM contracted services engagement? If it does, that's not necessarily a problem, we just need to know. Because this code can end up in our commercially licensed cloud and on premise offerings, we need a bit of process. We need to be sure of the provenance of your contribution and that we have the ability to use it and redistribute it.
-## Intellectual Property
-
-We take intellectual property seriously. We need to be sure of the provenance of your contribution and that we have the ability to include it in our project and redistribute it under our open source [license](../../LICENSE). When you submit your PR, you're asserting that you have authored all of the code in the PR and that you have the right to contribute it to our project.
+In addition, please make sure you read our [template instructions](contributing/TEMPLATE_INSTRUCTIONS.md), [coding standards](contributing/CODING_STANDARDS.md) that are specific to adding an example of extending and customizing web chat.
