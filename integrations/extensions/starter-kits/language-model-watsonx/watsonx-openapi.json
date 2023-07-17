@@ -1,0 +1,140 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "description": "Minimal spec for commonly used features in watsonx.ai /generattion API endpoint.  Missing lots of parameters.",
+    "title": "Simplified watsonx.ai generation API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://us-south.ml.cloud.ibm.com",
+      "description": "watsonx.ai v1-beta"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/ml/v1-beta/generation/text": {
+      "post": {
+        "description": "Generation",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "description": "Release date of the version of the API you want to use. Specify dates in YYYY-MM-DD format. The current version is `2023-05-29`.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["model_id", "input", "project_id"],
+                "properties": {
+                  "model_id": {
+                    "type": "string",
+                    "description": "The ID of the model to be used for this request. Please refer to the list of models at https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/fm-prompt-lab.html?context=wx",
+                    "example": "google/flan-ul2"
+                  },
+                  "input": {
+                    "type": "string",
+                    "description": "The input is the prompt to generate completions. Note: The method tokenizes the input internally. It is recommended not to leave any trailing spaces."
+                  },
+                  "project_id": {
+                    "type": "string",
+                    "description": "id for the associated watsonx project.",
+                    "minLength": 1,
+                    "maxLength": 255,
+                    "pattern": "^[a-zA-Z0-9_-]*$",
+                    "example": "3e992422-d337-47f9-869a-0928e49a3ea6"
+                  },
+                  "parameters": {
+                    "type": "object",
+                    "properties": {
+                      "temperature": {
+                        "type": "number",
+                        "description": "The value used to module the next token probabilities. The range is 0.00 to 1.00, a value set to 0.00 would make it deterministic.",
+                        "example": "0.7"
+                      },
+                      "max_new_tokens": {
+                        "type": "number",
+                        "description": "The maximum number of new tokens to be generated.",
+                        "example": "150"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "model_id": {
+                      "description": "The ID of the model to be used for this request",
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "description": "The date and time of the response",
+                      "type": "string"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "generated_text": {
+                            "description": "The generated text",
+                            "type": "string"
+                          },
+                          "generated_token_count": {
+                            "description": "The number of tokens in the output",
+                            "type": "integer"
+                          },
+                          "input_token_count": {
+                            "description": "The number of tokens in the input",
+                            "type": "integer"
+                          },
+                          "stop_reason": {
+                            "description": "The reason for stopping the generation.  Can be NOT_FINISHED - Possibly more tokens to be streamed, MAX_TOKENS - Maximum requested tokens reached, EOS_TOKEN - End of sequence token encountered, CANCELLED - Request canceled by the client, TIME_LIMIT - Time limit reached, STOP_SEQUENCE - Stop sequence encountered, TOKEN_LIMIT - Token limit reached, ERROR - Error encountered",
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "description": "Outputs of the generation"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error"
+          }
+        }
+      }
+    }
+  }
+}
