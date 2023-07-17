@@ -1,5 +1,5 @@
 {
-  "name": "azure-openai-test-bot-mds-action",
+  "name": "Azure OpenAI Extension actions",
   "type": "action",
   "valid": true,
   "status": "Available",
@@ -1344,30 +1344,22 @@
           {
             "type": "synonyms",
             "value": "gpt-3.5-turbo",
-            "synonyms": [
-              "3.5"
-            ]
+            "synonyms": ["3.5"]
           },
           {
             "type": "synonyms",
             "value": "gpt-4",
-            "synonyms": [
-              "4"
-            ]
+            "synonyms": ["4"]
           },
           {
             "type": "synonyms",
             "value": "text-curie-001",
-            "synonyms": [
-              "curie"
-            ]
+            "synonyms": ["curie"]
           },
           {
             "type": "synonyms",
             "value": "text-davinci-003",
-            "synonyms": [
-              "davinci"
-            ]
+            "synonyms": ["davinci"]
           }
         ],
         "fuzzy_match": true
