@@ -1,12 +1,12 @@
 {
-  "name": "watsonx extension sample action",
+  "name": "watsonx extension sample actions",
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-07-18T14:04:41.111Z",
-  "updated": "2023-07-18T19:18:10.144Z",
+  "created": "2023-07-18T13:36:37.767Z",
+  "updated": "2023-07-18T21:22:48.224Z",
   "language": "en",
-  "skill_id": "711aaac5-bf0e-4f55-9600-34d9edb8b992",
+  "skill_id": "9c3433c1-f60d-4f0a-9648-9b43a23100de",
   "workspace": {
     "actions": [
       {
@@ -475,8 +475,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "5d2330e34363984652a85b94204362d36954af5a7f7125281b8ae74b5e988c52",
-                  "catalog_item_id": "c8aa8e62-dd47-45c3-a8e6-a92ec199ae5a"
+                  "spec_hash_id": "f22a973be9c24f524794f9f86d114b5fe9e4e1168ae47ea950e4d7889e972125",
+                  "catalog_item_id": "3a1fabde-51ff-42cc-ad27-23b965370021"
                 },
                 "request_mapping": {
                   "body": [
@@ -1248,9 +1248,9 @@
         "title": "model_parameters_temperature",
         "variable": "model_parameters_temperature",
         "data_type": "number",
-        "description": "The value used to module the next token probabilities. The range is 0.00 to 1.00, a value set to 0.00 would make it deterministic.",
+        "description": "The value used to module the next token probabilities. The range is 0.05 to 1.00, a value set to 0.05 would make it mostly deterministic.",
         "initial_value": {
-          "scalar": 0
+          "scalar": 0.05
         }
       },
       {
@@ -1380,8 +1380,8 @@
     "learning_opt_out": true
   },
   "description": "created for assistant 05c10d7d-336f-4d33-8cb3-5c53520d61ce",
-  "assistant_id": "8e5f5c47-3947-4f46-a6fa-6c34fdd4899e",
-  "workspace_id": "711aaac5-bf0e-4f55-9600-34d9edb8b992",
+  "assistant_id": "3b229721-63a8-4e2e-8aa1-380654a5cdb0",
+  "workspace_id": "9c3433c1-f60d-4f0a-9648-9b43a23100de",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }
