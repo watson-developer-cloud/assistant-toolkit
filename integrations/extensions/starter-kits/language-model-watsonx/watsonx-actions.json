@@ -1,12 +1,12 @@
 {
-  "name": "watsonx sample extension action",
+  "name": "watsonx extension sample action",
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-07-13T16:45:37.644Z",
-  "updated": "2023-07-17T17:19:04.408Z",
+  "created": "2023-07-18T14:04:41.111Z",
+  "updated": "2023-07-18T19:18:10.144Z",
   "language": "en",
-  "skill_id": "b822b5ab-3d29-42df-a9ef-d49ae7c30ca6",
+  "skill_id": "711aaac5-bf0e-4f55-9600-34d9edb8b992",
   "workspace": {
     "actions": [
       {
@@ -362,46 +362,11 @@
             },
             "handlers": [],
             "resolver": {
-              "type": "callout",
-              "callout": {
-                "path": "/ml/v1-beta/generation/text",
-                "type": "integration_interaction",
-                "method": "POST",
-                "internal": {
-                  "spec_hash_id": "d81019a2e990a55918689a29dbc072bc8aad8c8596872dc2a97e58a4a76964c2",
-                  "catalog_item_id": "d847cd7f-6fe1-4887-8243-1fa5154ea802"
-                },
-                "request_mapping": {
-                  "body": [
-                    {
-                      "value": {
-                        "skill_variable": "model_input"
-                      },
-                      "parameter": "input"
-                    },
-                    {
-                      "value": {
-                        "skill_variable": "model_id"
-                      },
-                      "parameter": "model_id"
-                    },
-                    {
-                      "value": {
-                        "skill_variable": "watsonx_project_id"
-                      },
-                      "parameter": "project_id"
-                    }
-                  ],
-                  "query": [
-                    {
-                      "value": {
-                        "skill_variable": "watsonx_api_version"
-                      },
-                      "parameter": "version"
-                    }
-                  ]
-                },
-                "result_variable": "step_817_result_2"
+              "type": "invoke_another_action",
+              "invoke_action": {
+                "action": "action_3200-2",
+                "parameters": null,
+                "result_variable": "step_817_result_1"
               }
             },
             "variable": "step_817",
@@ -432,31 +397,13 @@
               ]
             },
             "context": {
-              "variables": [
-                {
-                  "value": {
-                    "expression": "${step_817_result_2.body.results}[0].generated_text"
-                  },
-                  "skill_variable": "model_response"
-                }
-              ]
+              "variables": []
             },
             "handlers": [],
             "resolver": {
               "type": "end_action"
             },
-            "variable": "step_606",
-            "condition": {
-              "eq": [
-                {
-                  "variable": "step_817_result_2",
-                  "variable_path": "success"
-                },
-                {
-                  "scalar": true
-                }
-              ]
-            }
+            "variable": "step_606"
           }
         ],
         "title": "Test model",
@@ -489,6 +436,173 @@
           },
           {
             "title": "Response is: {variable}",
+            "variable": "step_606",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_817",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_817_result_1",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_3200-2",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true,
+          "never_return": false
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_817",
+            "output": {
+              "generic": []
+            },
+            "context": {
+              "variables": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/ml/v1-beta/generation/text",
+                "type": "integration_interaction",
+                "method": "POST",
+                "internal": {
+                  "spec_hash_id": "5d2330e34363984652a85b94204362d36954af5a7f7125281b8ae74b5e988c52",
+                  "catalog_item_id": "c8aa8e62-dd47-45c3-a8e6-a92ec199ae5a"
+                },
+                "request_mapping": {
+                  "body": [
+                    {
+                      "value": {
+                        "skill_variable": "model_input"
+                      },
+                      "parameter": "input"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_id"
+                      },
+                      "parameter": "model_id"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "watsonx_project_id"
+                      },
+                      "parameter": "project_id"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_parameters_temperature"
+                      },
+                      "parameter": "parameters.temperature"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_parameters_max_new_tokens"
+                      },
+                      "parameter": "parameters.max_new_tokens"
+                    }
+                  ],
+                  "query": [
+                    {
+                      "value": {
+                        "skill_variable": "watsonx_api_version"
+                      },
+                      "parameter": "version"
+                    }
+                  ]
+                },
+                "result_variable": "step_817_result_2"
+              }
+            },
+            "variable": "step_817",
+            "next_step": "step_606"
+          },
+          {
+            "step": "step_606",
+            "output": {
+              "generic": []
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${step_817_result_2.body.results}[0].generated_text"
+                  },
+                  "skill_variable": "model_response"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_606",
+            "condition": {
+              "and": [
+                {
+                  "eq": [
+                    {
+                      "variable": "step_817_result_2",
+                      "variable_path": "success"
+                    },
+                    {
+                      "scalar": true
+                    }
+                  ]
+                },
+                {
+                  "expression": "${step_817_result_2.body.results}.size() > 0"
+                }
+              ]
+            },
+            "next_step": "step_212"
+          },
+          {
+            "step": "step_212",
+            "output": {
+              "generic": []
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "null"
+                  },
+                  "skill_variable": "model_response"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_212"
+          }
+        ],
+        "title": "Invoke watsonx Generation API",
+        "action": "action_3200-2",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_3200_intent_45093-2"
+        },
+        "variables": [
+          {
+            "title": "",
+            "variable": "step_212",
+            "data_type": "any"
+          },
+          {
+            "title": "",
             "variable": "step_606",
             "data_type": "any"
           },
@@ -1038,6 +1152,10 @@
         ]
       },
       {
+        "intent": "action_3200_intent_45093-2",
+        "examples": []
+      },
+      {
         "intent": "fallback_connect_to_agent",
         "examples": [
           {
@@ -1098,7 +1216,7 @@
     "metadata": {
       "api_version": {
         "major_version": "v2",
-        "minor_version": "2018-11-08"
+        "minor_version": "2021-11-27"
       }
     },
     "variables": [
@@ -1262,8 +1380,8 @@
     "learning_opt_out": true
   },
   "description": "created for assistant 05c10d7d-336f-4d33-8cb3-5c53520d61ce",
-  "assistant_id": "be0bf26e-52dc-4cd8-acce-e4268a7899cd",
-  "workspace_id": "b822b5ab-3d29-42df-a9ef-d49ae7c30ca6",
+  "assistant_id": "8e5f5c47-3947-4f46-a6fa-6c34fdd4899e",
+  "workspace_id": "711aaac5-bf0e-4f55-9600-34d9edb8b992",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }

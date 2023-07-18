@@ -50,11 +50,12 @@ Use **Actions Global Settings** to upload the [`watsonx-actions.json`](./watsonx
 
 **NOTE**: If you import the actions _before_ configuring the extensions, you will see some errors on the actions because it could not find the extensions. Simply configure the extensions (as described [above](#prerequisites)) and re-import the action JSON file.
 
-The starter kit includes [a JSON file with a sample action](./watsonx-actions.json) that is configured to use the watsonx extension.
+The starter kit includes [a JSON file with sample actions](./watsonx-actions.json) that are configured to use the watsonx extension.
 
-| Action     | Description                                                                                                                                                                 |
-| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Test model | Simple test action that asks what model, prompt, temperature and length you want and then calls the extension so the model can generate a response to the specified prompt. |
+| Action                        | Description                                                                                                                                                                                   |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Invoke watsonx Generation API | Connects to watson with the selected model and the model input                                                                                                                                |
+| Test model                    | Simple test action that asks what model, length, temperature and prompt you want and then calls "Invoke watsonx Generation API" so the model can generate a response to the specified prompt. |
 
 Note that the "Test model" action includes a step that invokes an extension and includes a parameter named `model_id`. You can set the `model_id` session variable to control which model is used by `Test model`. You can see which models work with the Generate API by viewing the supported foundation models in [the watsonx Prompt Lab](https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/fm-prompt-lab.html?context=wx).
 

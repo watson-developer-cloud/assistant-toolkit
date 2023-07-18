@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "description": "Minimal spec for commonly used features in watsonx.ai /generattion API endpoint.  Missing lots of parameters.",
+    "description": "Minimal spec for commonly used features in watsonx.ai /generation API endpoint.  Missing lots of parameters.",
     "title": "Simplified watsonx.ai generation API",
     "version": "1.0.0"
   },
