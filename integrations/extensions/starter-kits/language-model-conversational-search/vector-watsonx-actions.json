@@ -1,10 +1,10 @@
 {
-  "name": "semantic conversational search with watsonx sample action",
+  "name": "semantic search watsonx actions",
   "type": "action",
   "valid": true,
   "status": "Available",
   "created": "2023-07-17T20:49:45.460Z",
-  "updated": "2023-07-19T14:57:34.040Z",
+  "updated": "2023-07-19T17:34:47.204Z",
   "language": "en",
   "skill_id": "9c9bd779-6bd7-4acb-a47d-c93e25d25616",
   "workspace": {
@@ -466,8 +466,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "d81019a2e990a55918689a29dbc072bc8aad8c8596872dc2a97e58a4a76964c2",
-                  "catalog_item_id": "f566080f-07b2-4c12-b037-66d18ac1d69b"
+                  "spec_hash_id": "f22a973be9c24f524794f9f86d114b5fe9e4e1168ae47ea950e4d7889e972125",
+                  "catalog_item_id": "4414460c-2b48-4276-b6da-6319b9e3ae53"
                 },
                 "request_mapping": {
                   "body": [
