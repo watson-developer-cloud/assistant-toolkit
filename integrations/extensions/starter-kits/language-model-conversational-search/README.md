@@ -355,7 +355,6 @@ These are the session variables used in this example. Most of the values are set
 
 - `collection_name`: This **MUST** be set to the name of the document collection in Milvus to be searched.
 - `embedding_model_id` : ID of the model to use for generating embeddings for the query.
-- `messages` : Input to the watsonx model; includes the `search_results` and the `model_prompt`.
 - `model_id`: The id of the watsonx model that you select for this action. Defaults to `google/flan-ul2`.
 - `model_input`: The input to the watsonx model. You MAY change this to do prompt engineering, but a default will be used by the model if you don’t pass a prompt here.
 - `model_parameters_max_new_tokens` : The maximum number of new tokens to be generated. Defaults to 20.

@@ -1,10 +1,10 @@
 {
-  "name": "WA-neural-watsonx-20230717-action",
+  "name": "semantic conversational search with watsonx sample action",
   "type": "action",
   "valid": true,
   "status": "Available",
   "created": "2023-07-17T20:49:45.460Z",
-  "updated": "2023-07-19T13:55:05.382Z",
+  "updated": "2023-07-19T14:57:34.040Z",
   "language": "en",
   "skill_id": "9c9bd779-6bd7-4acb-a47d-c93e25d25616",
   "workspace": {
@@ -132,7 +132,7 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "${passages}.concat(\"\\n\\nPlease answer a question about this article. If the question is unanswerable from the content in this article, say  \\\"unanswerable\\\". \\n\\n\").concat(${query_text}).concat(\"\\n\\n\")"
+                    "expression": "(\"Agent: Okay, I am awaiting your instructions\\nUser: Watson, here are your instructions:\\n1. You will be given a document that should be used to reply to user questions.\\n2. You should generate the next response using information available in the document.\\n3. If you can't find an answer, say \\\"I don't know\\\".\\n4. Your responses should not be long and just have about 1-2 sentences.\\n5. You should not repeat your answers.\\n6. Do not use any other knowledge.\\n\\nPlease repeat the instructions back to me so that I know you understood.\\n\\nAgent: Ok, here are my instructions:\\n\\n1. I will be given a document that should be used to reply to user questions.\\n2. I should generate the next response using information available in the document.\\n3. If you can't find an answer, say \\\"I don't know\\\".\\n4. My responses should not be long and just have about 1-2 sentences.\\n5. I should not repeat your answers.\\n6. I will not use any other knowledge.\\n\\nI am ready, please give me the document.\\n\\nUser: Here's the document: \\n\").concat(${passages}).concat(\"\\nAgent: I am ready to answer your questions from the document. I will not repeat answers I have given.\\nUser:\").concat(${query_text}).concat(\"\\n\\nAgent:\")"
                   },
                   "skill_variable": "model_input"
                 }
@@ -276,10 +276,7 @@
                   "skill_variable": "model_response"
                 },
                 {
-                  "scalar": "unanswerable.*",
-                  "options": {
-                    "ignore_case": true
-                  }
+                  "scalar": "\"I don't know\""
                 }
               ]
             },
@@ -459,14 +456,7 @@
           {
             "step": "step_126",
             "context": {
-              "variables": [
-                {
-                  "value": {
-                    "expression": "\"Answer the following question using only information from the article. If there is no good answer in the article, say \\\"I don't know\\\".\\\\n\\\\nArticle: \\\\n###\\\\n${model_input}\\\\n###\\\\n\""
-                  },
-                  "skill_variable": "messages"
-                }
-              ]
+              "variables": []
             },
             "handlers": [],
             "resolver": {
@@ -483,7 +473,7 @@
                   "body": [
                     {
                       "value": {
-                        "skill_variable": "messages"
+                        "skill_variable": "model_input"
                       },
                       "parameter": "input"
                     },
@@ -1718,12 +1708,6 @@
         }
       },
       {
-        "title": "messages",
-        "variable": "messages",
-        "data_type": "any",
-        "description": ""
-      },
-      {
         "title": "model_id",
         "variable": "model_id",
         "data_type": "string",
@@ -1737,15 +1721,6 @@
         "variable": "model_input",
         "data_type": "string",
         "description": ""
-      },
-      {
-        "title": "model_instructions",
-        "variable": "model_instructions",
-        "data_type": "string",
-        "description": "",
-        "initial_value": {
-          "scalar": "Agent: Okay, I am awaiting your instructions\\\\nUser: Watson, here are your instructions:\\\\n1. You will be given a document that should be used to reply to user questions.\\\\n2. You should generate the next response using information available in the document.\\\\n3. If you can't find an answer, say \\\"I don't know\\\".\\\\n4. Your responses should not be long and just have about 1-2 sentences.\\\\n5. You should not repeat your answers.\\\\n6. Do not use any other knowledge.\\\\n"
-        }
       },
       {
         "title": "model_parameters_max_new_tokens",
@@ -1764,12 +1739,6 @@
         "initial_value": {
           "scalar": 0.05
         }
-      },
-      {
-        "title": "model_prompt",
-        "variable": "model_prompt",
-        "data_type": "string",
-        "description": ""
       },
       {
         "title": "model_response",
@@ -1829,7 +1798,7 @@
         "title": "watsonx_project_id",
         "variable": "watsonx_project_id",
         "data_type": "any",
-        "description": ""
+        "description": "This MUST be set to your watsonx project id"
       }
     ],
     "data_types": [],
