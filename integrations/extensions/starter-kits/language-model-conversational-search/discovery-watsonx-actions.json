@@ -1,12 +1,12 @@
 {
-  "name": "ConvSearchStarter-action",
+  "name": "discovery watsonx sample actions",
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-06-15T20:26:49.406Z",
-  "updated": "2023-06-16T20:43:45.081Z",
+  "created": "2023-07-19T19:20:18.961Z",
+  "updated": "2023-07-19T19:30:04.313Z",
   "language": "en",
-  "skill_id": "8b0baf70-b603-4e8c-9117-d643e6021be7",
+  "skill_id": "25fe050c-cae4-4cdc-9936-eceac512db14",
   "workspace": {
     "actions": [
       {
@@ -159,9 +159,9 @@
                 },
                 {
                   "value": {
-                    "expression": "${passages}.concat(\"\\n\\nPlease answer a question about this article. If the question is unanswerable, say \\\"unanswerable\\\". \\n\").concat(${query_text}).concat(\"\\n\\n\")"
+                    "expression": "(\"Agent: Okay, I am awaiting your instructions\\nUser: Watson, here are your instructions:\\n1. You will be given a document that should be used to reply to user questions.\\n2. You should generate the next response using information available in the document.\\n3. If you can't find an answer, say \\\"I don't know\\\".\\n4. Your responses should not be long and just have about 1-2 sentences.\\n5. You should not repeat your answers.\\n6. Do not use any other knowledge.\\n\\nPlease repeat the instructions back to me so that I know you understood.\\n\\nAgent: Ok, here are my instructions:\\n\\n1. I will be given a document that should be used to reply to user questions.\\n2. I should generate the next response using information available in the document.\\n3. If you can't find an answer, say \\\"I don't know\\\".\\n4. My responses should not be long and just have about 1-2 sentences.\\n5. I should not repeat your answers.\\n6. I will not use any other knowledge.\\n\\nI am ready, please give me the document.\\n\\nUser: Here's the document: \\n\").concat(${passages}).concat(\"\\nAgent: I am ready to answer your questions from the document. I will not repeat answers I have given.\\nUser:\").concat(${query_text}).concat(\"\\n\\nAgent:\")"
                   },
-                  "skill_variable": "prompt"
+                  "skill_variable": "model_input"
                 }
               ]
             },
@@ -170,38 +170,64 @@
               "type": "continue"
             },
             "variable": "step_858",
+            "next_step": "step_762"
+          },
+          {
+            "step": "step_762",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Invoking watsonx "
+                          },
+                          {
+                            "skill_variable": "model_id"
+                          },
+                          {
+                            "scalar": " with "
+                          },
+                          {
+                            "skill_variable": "model_input"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_762",
+            "condition": {
+              "eq": [
+                {
+                  "skill_variable": "verbose"
+                },
+                {
+                  "scalar": true
+                }
+              ]
+            },
             "next_step": "step_657"
           },
           {
             "step": "step_657",
             "handlers": [],
             "resolver": {
-              "type": "callout",
-              "callout": {
-                "path": "/v1/generate",
-                "type": "integration_interaction",
-                "method": "POST",
-                "internal": {
-                  "spec_hash_id": "901fc62a3121cfbab32f7ea8b2aba35797f774c49dabb32941800c9beaef1cf7",
-                  "catalog_item_id": "01d512fb-33fe-40a9-b1fb-d700efe14ae0"
-                },
-                "request_mapping": {
-                  "body": [
-                    {
-                      "value": {
-                        "expression": "[ ${prompt} ]"
-                      },
-                      "parameter": "inputs"
-                    },
-                    {
-                      "value": {
-                        "skill_variable": "model_id"
-                      },
-                      "parameter": "model_id"
-                    }
-                  ]
-                },
-                "result_variable": "step_657_result_1"
+              "type": "invoke_another_action",
+              "invoke_action": {
+                "action": "action_20548-2-2",
+                "parameters": null,
+                "result_variable": "step_657_result_2"
               }
             },
             "variable": "step_657",
@@ -220,7 +246,7 @@
                             "scalar": "I'm sorry, I encountered an connection error: "
                           },
                           {
-                            "variable": "step_657_result_1"
+                            "skill_variable": "model_response"
                           }
                         ]
                       }
@@ -237,42 +263,16 @@
             },
             "variable": "step_323",
             "condition": {
-              "eq": [
-                {
-                  "variable": "step_657_result_1",
-                  "variable_path": "success"
-                },
-                {
-                  "scalar": false
+              "not": {
+                "exists": {
+                  "skill_variable": "model_response"
                 }
-              ]
+              }
             },
-            "next_step": "step_714"
+            "next_step": "step_600"
           },
           {
-            "step": "step_714",
-            "output": {
-              "generic": []
-            },
-            "context": {
-              "variables": [
-                {
-                  "value": {
-                    "expression": "${step_657_result_1.body.results}.get(0).generated_text"
-                  },
-                  "skill_variable": "answer"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "continue"
-            },
-            "variable": "step_714",
-            "next_step": "step_930"
-          },
-          {
-            "step": "step_930",
+            "step": "step_600",
             "output": {
               "generic": [
                 {
@@ -294,11 +294,21 @@
             },
             "handlers": [],
             "resolver": {
-              "type": "end_action"
+              "type": "continue"
             },
-            "variable": "step_930",
+            "variable": "step_600",
             "condition": {
-              "expression": "${answer} == \"unanswerable\""
+              "matches": [
+                {
+                  "skill_variable": "model_response"
+                },
+                {
+                  "scalar": "I don't know",
+                  "options": {
+                    "ignore_case": true
+                  }
+                }
+              ]
             },
             "next_step": "step_525"
           },
@@ -315,7 +325,7 @@
                             "scalar": ""
                           },
                           {
-                            "skill_variable": "answer"
+                            "skill_variable": "model_response"
                           }
                         ]
                       }
@@ -419,17 +429,22 @@
             "data_type": "any"
           },
           {
+            "title": "I'm sorry, I was not able to find an answer to your question.",
+            "variable": "step_600",
+            "data_type": "any"
+          },
+          {
             "title": "No response",
             "variable": "step_657",
             "data_type": "any"
           },
           {
-            "variable": "step_657_result_1",
+            "variable": "step_657_result_2",
             "data_type": "any"
           },
           {
-            "title": "",
-            "variable": "step_714",
+            "title": "Invoking watsonx {variable} with {variable}",
+            "variable": "step_762",
             "data_type": "any"
           },
           {
@@ -439,11 +454,6 @@
           },
           {
             "variable": "step_890_result_1",
-            "data_type": "any"
-          },
-          {
-            "title": "I'm sorry, I was not able to find an answer to your question.",
-            "variable": "step_930",
             "data_type": "any"
           },
           {
@@ -465,6 +475,234 @@
           }
         ],
         "next_action": "action_44059-2",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_796",
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/ml/v1-beta/generation/text",
+                "type": "integration_interaction",
+                "method": "POST",
+                "internal": {
+                  "spec_hash_id": "f22a973be9c24f524794f9f86d114b5fe9e4e1168ae47ea950e4d7889e972125",
+                  "catalog_item_id": "f337155f-560c-40e7-8917-fd8e86904d06"
+                },
+                "request_mapping": {
+                  "body": [
+                    {
+                      "value": {
+                        "skill_variable": "model_input"
+                      },
+                      "parameter": "input"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_id"
+                      },
+                      "parameter": "model_id"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "watsonx_project_id"
+                      },
+                      "parameter": "project_id"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_parameters_temperature"
+                      },
+                      "parameter": "parameters.temperature"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_parameters_max_new_tokens"
+                      },
+                      "parameter": "parameters.max_new_tokens"
+                    }
+                  ],
+                  "query": [
+                    {
+                      "value": {
+                        "skill_variable": "watsonx_api_version"
+                      },
+                      "parameter": "version"
+                    }
+                  ]
+                },
+                "result_variable": "step_796_result_1"
+              }
+            },
+            "variable": "step_796",
+            "next_step": "step_930"
+          },
+          {
+            "step": "step_930",
+            "output": {
+              "generic": []
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${step_796_result_1.body.results}[0].generated_text"
+                  },
+                  "skill_variable": "model_response"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_930",
+            "condition": {
+              "and": [
+                {
+                  "eq": [
+                    {
+                      "variable": "step_796_result_1",
+                      "variable_path": "success"
+                    },
+                    {
+                      "scalar": true
+                    }
+                  ]
+                },
+                {
+                  "expression": "${step_796_result_1.body.results}.size() > 0"
+                }
+              ]
+            },
+            "next_step": "step_525"
+          },
+          {
+            "step": "step_525",
+            "output": {
+              "generic": []
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "null"
+                  },
+                  "skill_variable": "model_response"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_525"
+          }
+        ],
+        "title": "Invoke watsonx generation API",
+        "action": "action_20548-2-2",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_43808_intent_33082-2-2"
+        },
+        "variables": [
+          {
+            "variable": "step_167_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_169_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_217_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_222_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_237_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_237_result_2",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_239_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_286_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_472_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_474_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_474_result_2",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_492_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "",
+            "variable": "step_525",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_597_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_796",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_796_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_890_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "",
+            "variable": "step_930",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_942_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_978_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_982_result_1",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "fallback",
         "topic_switch": {
           "allowed_from": true,
           "allowed_into": true
@@ -541,7 +779,7 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "8566081a305e8f8ade4e9bd3887da0600e87948417fc10ba38ee121426f8c50b",
-                  "catalog_item_id": "b84957bf-1ca8-4fa1-9740-0e88607be37f"
+                  "catalog_item_id": "47d17046-d929-4b8a-a596-eb4d1702d2e6"
                 },
                 "request_mapping": {
                   "body": [
@@ -863,7 +1101,7 @@
             "data_type": "any"
           }
         ],
-        "next_action": "fallback",
+        "next_action": "action_20548-2-2",
         "topic_switch": {
           "allowed_from": true,
           "allowed_into": true
@@ -1417,6 +1655,10 @@
         "examples": []
       },
       {
+        "intent": "action_43808_intent_33082-2-2",
+        "examples": []
+      },
+      {
         "intent": "action_47312_intent_17298-2",
         "examples": []
       },
@@ -1466,12 +1708,6 @@
     },
     "variables": [
       {
-        "title": "answer",
-        "variable": "answer",
-        "data_type": "any",
-        "description": "The text generated by the model in response to the user prompt."
-      },
-      {
         "title": "discovery_date_version",
         "variable": "discovery_date_version",
         "data_type": "any",
@@ -1496,16 +1732,40 @@
         }
       },
       {
+        "title": "model_input",
+        "variable": "model_input",
+        "data_type": "string",
+        "description": "input to the watsonx model"
+      },
+      {
+        "title": "model_parameters_max_new_tokens",
+        "variable": "model_parameters_max_new_tokens",
+        "data_type": "number",
+        "description": "The maximum number of new tokens to be generated.",
+        "initial_value": {
+          "scalar": 100
+        }
+      },
+      {
+        "title": "model_parameters_temperature",
+        "variable": "model_parameters_temperature",
+        "data_type": "number",
+        "description": "he value used to control the next token probabilities. The range is from 0.05 to 1.00; 0.05 makes it mostly deterministic.",
+        "initial_value": {
+          "scalar": 0.05
+        }
+      },
+      {
+        "title": "model_response",
+        "variable": "model_response",
+        "data_type": "string",
+        "description": "The text generated by the model in response to the model input"
+      },
+      {
         "title": "passages",
         "variable": "passages",
         "data_type": "string",
         "description": ""
-      },
-      {
-        "title": "prompt",
-        "variable": "prompt",
-        "data_type": "string",
-        "description": "You MAY change this to do prompt engineering, but a default will be used by watsonx if you don’t pass a prompt here."
       },
       {
         "title": "query_text",
@@ -1524,6 +1784,30 @@
         "variable": "snippet",
         "data_type": "any",
         "description": ""
+      },
+      {
+        "title": "verbose",
+        "variable": "verbose",
+        "data_type": "boolean",
+        "description": "Prints debug output when true",
+        "initial_value": {
+          "scalar": false
+        }
+      },
+      {
+        "title": "watsonx_api_version",
+        "variable": "watsonx_api_version",
+        "data_type": "any",
+        "description": "The version of the watsonx api (required)",
+        "initial_value": {
+          "scalar": "2023-05-29"
+        }
+      },
+      {
+        "title": "watsonx_project_id",
+        "variable": "watsonx_project_id",
+        "data_type": "any",
+        "description": "You MUST set this to your watsonx project id"
       }
     ],
     "data_types": [],
@@ -1631,8 +1915,8 @@
     "learning_opt_out": true
   },
   "description": "created for assistant 1c76effb-2430-4334-8897-6cdad3c6282b",
-  "assistant_id": "75e6a6d0-c23a-4cad-9ca4-484da1e3ef4b",
-  "workspace_id": "8b0baf70-b603-4e8c-9117-d643e6021be7",
+  "assistant_id": "972fbb76-9e03-48ad-a894-16ae79482e1a",
+  "workspace_id": "25fe050c-cae4-4cdc-9936-eceac512db14",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }
