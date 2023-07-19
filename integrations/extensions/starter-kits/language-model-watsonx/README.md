@@ -12,9 +12,11 @@ The watsonx specification in the starter kit describes one endpoint, and a few o
 
 ## Prerequisites
 
-### Create an API key
+### Create an API key and a project id
 
 1. Log into [watsonx](https://dataplatform.cloud.ibm.com/wx/home?context=wx&apps=cos&nocache=true&onboarding=true&quick_start_target=watsonx) and [generate an API key](https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/ml-authentication.html?context=cpdaas). Save this API key somewhere safe and accessible. The initial version of this starter kit uses temporary access tokens only, so you need to [use your API key to authenticate with an IAM token](https://cloud.ibm.com/docs/account?topic=account-iamtoken_from_apikey), which you will need to refresh periodically.
+1. To find your watsonx project id, navigate to [your projects](https://dataplatform.cloud.ibm.com/projects/). Open the project you would like to work in, and go to the Manage tab and the Services and integrations tab. Click Associate service + and associate an instance of Watson Machine Learning (WML).
+   If you do not have an instance of WML, you can provision a Lite instance from the [IBM Cloud catalog](https://cloud.ibm.com/catalog/services/watson-machine-learning). Then complete this step using the new Lite instance.
 
 ### Create an assistant
 
@@ -38,7 +40,7 @@ You use this specification file to create and add the extension to your assistan
 
 1.  After you build the watsonx extension and it appears on your **Integrations** page, click **Add** to add it to your assistant. For general instructions on adding any custom extension, see [Adding an extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension).
 
-1.  In **Authentication**, choose **Bearer auth**. Copy and paste your [authenticated watsonx IAM token](#create-an-api-key) into the **Token** field.
+1.  In **Authentication**, choose **Bearer auth**. Copy and paste your [authenticated watsonx IAM token](#create-an-api-key-and-a-project-id) into the **Token** field.
 
 If you need any capabilities that are not in the watsonx specification that we provided, feel free to add them to the watsonx openapi specification. The specification in the kit is intended to be a simple example of how to get started, not a comprehensive encoding of everything that API can do.
 
@@ -46,7 +48,7 @@ If you need any capabilities that are not in the watsonx specification that we p
 
 Use **Actions Global Settings** to upload the [`watsonx-actions.json`](./watsonx-actions.json) file in this kit to your assistant. For more information, see [Uploading](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import). You may also need to refresh the action Preview chat after uploading in order to get all the session variables initialized before these actions will work correctly.
 
-1. Under "Variables"/"Created by you" (within the Actions page), set the `watsonx_project_id` session variable using [a project ID value from watsonx](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html?context=wx&audience=wdp).
+1. Under "Variables"/"Created by you" (within the Actions page), set the `watsonx_project_id` session variable using [a project ID value from watsonx](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html?context=wx&audience=wdp). See also [this section](#create-an-api-key-and-a-project-id) for additional details on how to find your project id.
 
 **NOTE**: If you import the actions _before_ configuring the extensions, you will see some errors on the actions because it could not find the extensions. Simply configure the extensions (as described [above](#prerequisites)) and re-import the action JSON file.
 
