@@ -5,6 +5,8 @@ This starter kit has multiple examples of how to configure language models with 
 1. The first example shows how to use [Watson Discovery search as input to the IBM watsonx tech preview language model](#example-1-connect-your-assistant-to-a-watsonx-language-model-via-custom-extensions).
 1. The second example shows how to use [semantic search output as input to an OpenAI model](#example-2-connect-your-assistant-to-hugging-face-milvus-and-openai-via-custom-extensions)
 1. The third example shows how to use [Watson Discovery search as input to an OpenAI model](#example-3-connect-your-assistant-to-watson-discovery-and-openai-via-custom-extensions)
+1. The fourth example shows how to use [Watson Discovery search as input to Google PaLM](#example-4-connect-your-assistant-to-watson-discovery-and-palm-via-custom-extensions)
+1. The fifth example shows how to use [semantic search output as input to a watsonx model](#example-5-connect-your-assistant-to-hugging-face-milvus-and-watsonx-via-custom-extensions)
 
 The [prerequisite for a new Watson Assistant](#prerequisites) applies for all examples.
 
@@ -44,7 +46,7 @@ The starter kit includes a JSON file with these sample actions:
 
 To use the sample actions:
 
-1. **After having configured both extensions**, download the sample actions from this starter kit: [`discovery-watsonx-actions.json`](./discovery-watsonx-actions.json).
+1. **After having configured both extensions**, download the sample actions from this starter kit: [`discovery-watsonx-tech-preview-actions.json`](./discovery-watsonx-tech-preview-actions.json).
 
 1. Use **Actions Global Settings** to upload the JSON file to your assistant. For more information, see [Uploading](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import).
 
@@ -155,7 +157,7 @@ To use the sample actions:
 
 ### Session variables
 
-These are the session variables used in this example. Most of values are set in the process of setting up the starter kit. The user must set `collection_name` to identify the Milvus collection for the document search step.
+These are the session variables used in this example. Most of the values are set in the process of setting up the starter kit. The user must set `collection_name` to identify the Milvus collection for the document search step.
 
 - `collection_name`: This **MUST** be set to the name of the document collection in Milvus to be searched.
 - `embedding_model_id` : ID of the model to use for generating embeddings for the query.
@@ -183,7 +185,7 @@ You can also modify the `model_for_chat` session variable to control which model
 
 ### Example 2 usage
 
-Here is an example of how to use the `Search` action for this starter kit advanced conversational search example:
+Here is an example of how to use the `Search` action for this starter kit semantic search example:
 
 <img src="./assets/apr_for_preferred.png" width="300"/>
 
@@ -310,3 +312,64 @@ However, if you want to experiment and use PaLM's chat language model, which is 
 Here is an example of how to use the `Search` action for this starter kit advanced conversational search example:
 
 <img src="./assets/discovery-palm-example.png" width="300"/>
+
+## Example 5: Connect your assistant to Hugging Face, Milvus, and watsonx via custom extensions
+
+This example shows how to use Hugging Face to generate query embeddings for semantic search and use those results to generate an answer with watsonx.
+
+Before you upload the sample action for this starter kit, you first need to configure multiple custom extensions: [Hugging Face Hub Embeddings](https://huggingface.co/blog/getting-started-with-embeddings), [Milvus](https://milvus.io) for semantic search, and [watsonx](../language-model-watsonx/README.md) for answer generation.
+
+Follow the steps in the following sections for the custom extensions setup before uploading the sample action.
+
+### Configure the Hugging Face Hub Embeddings extension
+
+Follow [these steps to configure the Hugging Face Hub Embeddings extension](#configure-the-hugging-face-hub-embeddings-extension).
+
+### Configure the Milvus semantic search extension
+
+Follow [these steps to configure the Milvus semantic search extension](#configure-the-milvus-semantic-search-extension).
+
+### Configure the watsonx extension
+
+Follow [these steps to configure the watsonx extension](../language-model-watsonx/README.md). Note that the initial version of the watsonx starter kit uses temporary access tokens only.
+
+### Upload sample action
+
+The starter kit includes [a JSON file with these sample actions](./vector-watsonx-actions.json):
+
+| Action                        | Description                                                                                                                                                                                                                                                                                                                                         |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Search                        | Connects to Hugging Face to generate vectors for the user query, and to Milvus for semantic search of a collection. The "No Action Matches" action has been configured to send all input to this action, so whatever the user enters will be used as the search input. It invokes the "Generate Answer" action to generate a response to the query. |
+| Generate Answer               | Configures the query prompt and document passages resulting from search, and calls the action "Invoke watsonx generation API". It is not meant to be invoked directly, but rather by the "Search" action.                                                                                                                                           |
+| Invoke watsonx Completion API | Connects to watsonx and, using as context the documents resulting from the search, asks the language model to generate an answer to the user query. It is not meant to be invoked directly, but rather by the "Generate Answer" action.                                                                                                             |
+
+To use the sample actions:
+
+1. **After having configured all three extensions**, download the sample actions from this starter kit: [`vector-watsonx-actions.json`](./vector-watsonx-actions.json).
+
+1. Use **Actions Global Settings** to upload the sample actions JSON file to your assistant. For more information, see [Uploading](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import). Once you have uploaded the actions, refresh the preview to make sure the assistant registers all of the variable assignments.
+
+### Session variables
+
+These are the session variables used in this example. Most of the values are set in the process of setting up the starter kit. However, you **MUST** set both `collection_name` to identify the Milvus collection for the document search step, and `watsonx_project_id` to the [watsonx project id](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html) that you want to use for answer generation.
+
+- `collection_name`: This **MUST** be set to the name of the document collection in Milvus to be searched.
+- `embedding_model_id` : ID of the model to use for generating embeddings for the query.
+- `messages` : Input to the watsonx model; includes the `search_results` and the `model_prompt`.
+- `model_id`: The id of the watsonx model that you select for this action. Defaults to `google/flan-ul2`.
+- `model_input`: The input to the watsonx model. You MAY change this to do prompt engineering, but a default will be used by the model if you don’t pass a prompt here.
+- `model_parameters_max_new_tokens` : The maximum number of new tokens to be generated. Defaults to 20.
+- `model_parameters_temperature` : The value used to control the next token probabilities. The range is from 0.05 to 1.00; 0.05 makes it _mostly_ deterministic.
+- `model_response`: The text generated by the model in response to the model input.
+- `passages` : Concatenation of top search results.
+- `query_text`: By default the Search action passes the user’s input.text directly.
+- `search_results` : Results from the semantic search for the query. These will be input to the watsonx extension model.
+- `snippet` : Top results from the semantic search.
+- `watsonx_api_version` - watsonx api date version. It currently defaults to `2023-05-29`.
+- `watsonx_project_id`: You **MUST** set this value to be [a project ID value from watsonx](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html). By default, this is a [sandbox project id](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/sandbox.html) that is automatically created for you when you sign up for watsonx.ai.
+
+### Example 5 usage
+
+Here is an example of how to use the `Search` action for this starter kit semantic search example:
+
+<img src="./assets/apr_for_preferred.png" width="300"/>
