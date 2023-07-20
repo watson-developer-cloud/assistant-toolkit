@@ -1,12 +1,12 @@
 {
-  "name": "watsonx extension sample actions",
+  "name": "watsonx-action",
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-07-18T13:36:37.767Z",
-  "updated": "2023-07-18T21:22:48.224Z",
+  "created": "2023-07-20T00:32:11.686Z",
+  "updated": "2023-07-20T01:04:34.155Z",
   "language": "en",
-  "skill_id": "9c3433c1-f60d-4f0a-9648-9b43a23100de",
+  "skill_id": "c1add3e6-11d6-4107-951c-6534a658985a",
   "workspace": {
     "actions": [
       {
@@ -475,8 +475,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "f22a973be9c24f524794f9f86d114b5fe9e4e1168ae47ea950e4d7889e972125",
-                  "catalog_item_id": "3a1fabde-51ff-42cc-ad27-23b965370021"
+                  "spec_hash_id": "2933fc3422daaf175981a809c3d29f317259000e45ab18a79783f4ef00285d46",
+                  "catalog_item_id": "0f5d2a32-34f0-4a45-bb6c-38870cb250ca"
                 },
                 "request_mapping": {
                   "body": [
@@ -1189,12 +1189,19 @@
           {
             "type": "synonyms",
             "value": "google/flan-t5-xxl",
-            "synonyms": ["flan-t5-xxl", "t5", "xxl"]
+            "synonyms": [
+              "flan-t5-xxl",
+              "t5",
+              "xxl"
+            ]
           },
           {
             "type": "synonyms",
             "value": "google/flan-ul2",
-            "synonyms": ["flan-ul2", "ul2"]
+            "synonyms": [
+              "flan-ul2",
+              "ul2"
+            ]
           }
         ],
         "fuzzy_match": true
@@ -1380,8 +1387,8 @@
     "learning_opt_out": true
   },
   "description": "created for assistant 05c10d7d-336f-4d33-8cb3-5c53520d61ce",
-  "assistant_id": "3b229721-63a8-4e2e-8aa1-380654a5cdb0",
-  "workspace_id": "9c3433c1-f60d-4f0a-9648-9b43a23100de",
+  "assistant_id": "af1b593b-6ff2-4ee2-8190-099bd47dbf87",
+  "workspace_id": "c1add3e6-11d6-4107-951c-6534a658985a",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }

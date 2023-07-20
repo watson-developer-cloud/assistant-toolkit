@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "description": "Minimal spec for commonly used features in watsonx.ai /generation API endpoint.  Missing lots of parameters.",
-    "title": "Simplified watsonx.ai generation API",
+    "description": "Minimal spec for commonly used features in watsonx.ai /generattion API endpoint.  Missing lots of parameters.  See https://bam.res.ibm.com/docs/api-reference for details.",
+    "title": "Simplified watsonx.ai generate API",
     "version": "1.0.0"
   },
   "servers": [
@@ -13,16 +13,23 @@
   ],
   "components": {
     "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
+      "oauth2": {
+        "type": "oauth2",
+        "flows": {
+          "x-apikey": {
+            "tokenUrl": "https://iam.cloud.ibm.com/identity/token",
+            "grantType": "urn:ibm:params:oauth:grant-type:apikey",
+            "secretKeys": ["apikey"],
+            "paramKeys": [],
+            "scopes": {}
+          }
+        }
       }
     }
   },
   "security": [
     {
-      "bearerAuth": []
+      "oauth2": []
     }
   ],
   "paths": {
@@ -49,7 +56,7 @@
                 "properties": {
                   "model_id": {
                     "type": "string",
-                    "description": "The ID of the model to be used for this request. Please refer to the list of models at https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/fm-prompt-lab.html?context=wx",
+                    "description": "The ID of the model to be used for this request. Please refer to the list of models at https://bam.res.ibm.com/docs/models",
                     "example": "google/flan-ul2"
                   },
                   "input": {
@@ -93,11 +100,11 @@
                   "type": "object",
                   "properties": {
                     "model_id": {
-                      "description": "The ID of the model to be used for this request",
-                      "type": "string"
+                      "description": "The ID of the model to be used for this request. Please refer to the list of models at https://bam.res.ibm.com/docs/models",
+                      "type": "boolean"
                     },
                     "created_at": {
-                      "description": "The date and time of the response",
+                      "description": "The date and time of the r",
                       "type": "string"
                     },
                     "results": {

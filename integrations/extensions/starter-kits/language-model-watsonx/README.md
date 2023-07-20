@@ -14,7 +14,7 @@ The watsonx specification in the starter kit describes one endpoint, and a few o
 
 ### Create an API key and a project id
 
-1. Log into [watsonx](https://dataplatform.cloud.ibm.com/wx/home?context=wx&apps=cos&nocache=true&onboarding=true&quick_start_target=watsonx) and [generate an API key](https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/ml-authentication.html?context=cpdaas). Save this API key somewhere safe and accessible. The initial version of this starter kit uses temporary access tokens only, so you need to [use your API key to authenticate with an IAM token](https://cloud.ibm.com/docs/account?topic=account-iamtoken_from_apikey), which you will need to refresh periodically.
+1. Log into [watsonx](https://dataplatform.cloud.ibm.com/wx/home?context=wx&apps=cos&nocache=true&onboarding=true&quick_start_target=watsonx) and [generate an API key](https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/ml-authentication.html?context=cpdaas). Save this API key somewhere safe and accessible. You will need this API key to setup watsonx custom extension later.
 1. To find your watsonx project id, navigate to [your projects](https://dataplatform.cloud.ibm.com/projects/). Open the project you would like to work in, and go to the Manage tab and the Services and integrations tab. Click Associate service + and associate an instance of Watson Machine Learning (WML).
    If you do not have an instance of WML, you can provision a Lite instance from the [IBM Cloud catalog](https://cloud.ibm.com/catalog/services/watson-machine-learning). Then complete this step using the new Lite instance.
 
@@ -40,7 +40,7 @@ You use this specification file to create and add the extension to your assistan
 
 1.  After you build the watsonx extension and it appears on your **Integrations** page, click **Add** to add it to your assistant. For general instructions on adding any custom extension, see [Adding an extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension).
 
-1.  In **Authentication**, choose **Bearer auth**. Copy and paste your [authenticated watsonx IAM access token](#create-an-api-key-and-a-project-id) into the **Token** field.
+1.  In **Authentication**, choose **OAuth 2.0**. Make sure grant type is **Custom apikey** selected in the next dropdown. Now copy and paste your [API key](#create-an-api-key-and-a-project-id) you saved earlier into the **Apikey** field.
 
 If you need any capabilities that are not in the watsonx specification that we provided, feel free to add them to the watsonx openapi specification. The specification in the kit is intended to be a simple example of how to get started, not a comprehensive encoding of everything that API can do.
 
