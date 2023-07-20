@@ -1,5 +1,5 @@
 {
-  "name": "watsonx-action",
+  "name": "watsonx extension sample actions",
   "type": "action",
   "valid": true,
   "status": "Available",
@@ -1189,19 +1189,12 @@
           {
             "type": "synonyms",
             "value": "google/flan-t5-xxl",
-            "synonyms": [
-              "flan-t5-xxl",
-              "t5",
-              "xxl"
-            ]
+            "synonyms": ["flan-t5-xxl", "t5", "xxl"]
           },
           {
             "type": "synonyms",
             "value": "google/flan-ul2",
-            "synonyms": [
-              "flan-ul2",
-              "ul2"
-            ]
+            "synonyms": ["flan-ul2", "ul2"]
           }
         ],
         "fuzzy_match": true

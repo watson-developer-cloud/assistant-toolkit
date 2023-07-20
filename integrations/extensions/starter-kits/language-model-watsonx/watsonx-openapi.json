@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "description": "Minimal spec for commonly used features in watsonx.ai /generattion API endpoint.  Missing lots of parameters.  See https://bam.res.ibm.com/docs/api-reference for details.",
-    "title": "Simplified watsonx.ai generate API",
+    "description": "Minimal spec for commonly used features in watsonx.ai /generation API endpoint.  Missing lots of parameters.  See https://bam.res.ibm.com/docs/api-reference for details.",
+    "title": "Simplified watsonx.ai generation API",
     "version": "1.0.0"
   },
   "servers": [
