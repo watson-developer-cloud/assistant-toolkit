@@ -40,7 +40,7 @@ You use this specification file to create and add the extension to your assistan
 
 1.  After you build the watsonx extension and it appears on your **Integrations** page, click **Add** to add it to your assistant. For general instructions on adding any custom extension, see [Adding an extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension).
 
-1.  In **Authentication**, choose **Bearer auth**. Copy and paste your [authenticated watsonx IAM token](#create-an-api-key-and-a-project-id) into the **Token** field.
+1.  In **Authentication**, choose **Bearer auth**. Copy and paste your [authenticated watsonx IAM access token](#create-an-api-key-and-a-project-id) into the **Token** field.
 
 If you need any capabilities that are not in the watsonx specification that we provided, feel free to add them to the watsonx openapi specification. The specification in the kit is intended to be a simple example of how to get started, not a comprehensive encoding of everything that API can do.
 
