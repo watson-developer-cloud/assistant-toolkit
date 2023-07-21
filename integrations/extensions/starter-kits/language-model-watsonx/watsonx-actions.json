@@ -1,10 +1,10 @@
 {
-  "name": "Bearer watsonx-action",
+  "name": "watsonx extension sample actions",
   "type": "action",
   "valid": true,
   "status": "Available",
   "created": "2023-07-21T19:51:32.819Z",
-  "updated": "2023-07-21T19:54:17.497Z",
+  "updated": "2023-07-21T20:00:49.088Z",
   "language": "en",
   "skill_id": "209a0bdc-68f6-4eff-b50e-9dca66537329",
   "workspace": {
@@ -501,19 +501,19 @@
                     },
                     {
                       "value": {
-                        "scalar": 0
+                        "skill_variable": "model_parameters_temperature"
                       },
                       "parameter": "parameters.temperature"
                     },
                     {
                       "value": {
-                        "scalar": 300
+                        "skill_variable": "model_parameters_max_new_tokens"
                       },
                       "parameter": "parameters.max_new_tokens"
                     },
                     {
                       "value": {
-                        "scalar": 1
+                        "skill_variable": "model_parameters_min_new_tokens"
                       },
                       "parameter": "parameters.min_new_tokens"
                     }
@@ -1249,7 +1249,16 @@
         "data_type": "number",
         "description": "The maximum number of new tokens to be generated.",
         "initial_value": {
-          "scalar": 20
+          "scalar": 300
+        }
+      },
+      {
+        "title": "model_parameters_min_new_tokens",
+        "variable": "model_parameters_min_new_tokens",
+        "data_type": "number",
+        "description": "",
+        "initial_value": {
+          "scalar": 1
         }
       },
       {
@@ -1258,7 +1267,7 @@
         "data_type": "number",
         "description": "The value used to module the next token probabilities. The range is 0.05 to 1.00, a value set to 0.05 would make it mostly deterministic.",
         "initial_value": {
-          "scalar": 0.05
+          "scalar": 0
         }
       },
       {
