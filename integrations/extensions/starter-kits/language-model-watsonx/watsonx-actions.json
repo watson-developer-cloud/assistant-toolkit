@@ -1,12 +1,12 @@
 {
-  "name": "watsonx extension sample actions",
+  "name": "Bearer watsonx-action",
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-07-18T13:36:37.767Z",
-  "updated": "2023-07-18T21:22:48.224Z",
+  "created": "2023-07-21T19:51:32.819Z",
+  "updated": "2023-07-21T19:54:17.497Z",
   "language": "en",
-  "skill_id": "9c3433c1-f60d-4f0a-9648-9b43a23100de",
+  "skill_id": "209a0bdc-68f6-4eff-b50e-9dca66537329",
   "workspace": {
     "actions": [
       {
@@ -365,6 +365,7 @@
               "type": "invoke_another_action",
               "invoke_action": {
                 "action": "action_3200-2",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_817_result_1"
               }
@@ -475,8 +476,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "f22a973be9c24f524794f9f86d114b5fe9e4e1168ae47ea950e4d7889e972125",
-                  "catalog_item_id": "3a1fabde-51ff-42cc-ad27-23b965370021"
+                  "spec_hash_id": "e52b73f74df6fdf6e9b51bb3348e45b640aac0417df790d4a9f69ac4649f64e9",
+                  "catalog_item_id": "38b45f08-73eb-40ca-b788-b7d1aaedb150"
                 },
                 "request_mapping": {
                   "body": [
@@ -500,15 +501,21 @@
                     },
                     {
                       "value": {
-                        "skill_variable": "model_parameters_temperature"
+                        "scalar": 0
                       },
                       "parameter": "parameters.temperature"
                     },
                     {
                       "value": {
-                        "skill_variable": "model_parameters_max_new_tokens"
+                        "scalar": 300
                       },
                       "parameter": "parameters.max_new_tokens"
+                    },
+                    {
+                      "value": {
+                        "scalar": 1
+                      },
+                      "parameter": "parameters.min_new_tokens"
                     }
                   ],
                   "query": [
@@ -678,6 +685,7 @@
               "type": "invoke_another_action_and_end",
               "invoke_action": {
                 "action": "fallback",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_002_result_1"
               }
@@ -1380,8 +1388,8 @@
     "learning_opt_out": true
   },
   "description": "created for assistant 05c10d7d-336f-4d33-8cb3-5c53520d61ce",
-  "assistant_id": "3b229721-63a8-4e2e-8aa1-380654a5cdb0",
-  "workspace_id": "9c3433c1-f60d-4f0a-9648-9b43a23100de",
+  "assistant_id": "54671862-d623-473d-9898-b6cd0c8690d5",
+  "workspace_id": "209a0bdc-68f6-4eff-b50e-9dca66537329",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }
