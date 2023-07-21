@@ -83,6 +83,11 @@
                         "type": "number",
                         "description": "The maximum number of new tokens to be generated.",
                         "example": "150"
+                      },
+                      "min_new_tokens": {
+                        "type": "number",
+                        "description": "The minimum number of new tokens to be generated.",
+                        "example": "50"
                       }
                     }
                   }
