@@ -4,7 +4,7 @@
   "valid": true,
   "status": "Available",
   "created": "2023-07-21T20:55:49.034Z",
-  "updated": "2023-07-21T21:17:24.128Z",
+  "updated": "2023-07-21T22:00:08.588Z",
   "language": "en",
   "skill_id": "80489ddc-daf6-4ee2-9c72-0a8abdbf033c",
   "workspace": {
@@ -112,7 +112,8 @@
                     }
                   ],
                   "response_type": "text",
-                  "selection_policy": "sequential"
+                  "selection_policy": "sequential",
+                  "repeat_on_reprompt": false
                 }
               ]
             },
@@ -128,10 +129,17 @@
                     {
                       "values": [
                         {
-                          "text": "I didn't catch that. Enter a number."
+                          "text_expression": {
+                            "concat": [
+                              {
+                                "scalar": "I didn't catch that. Enter a number."
+                              }
+                            ]
+                          }
                         }
                       ],
-                      "response_type": "text"
+                      "response_type": "text",
+                      "selection_policy": "incremental"
                     }
                   ]
                 },
@@ -163,10 +171,17 @@
                     {
                       "values": [
                         {
-                          "text": "I didn't catch that. Enter a number."
+                          "text_expression": {
+                            "concat": [
+                              {
+                                "scalar": "I didn't catch that. Enter a number."
+                              }
+                            ]
+                          }
                         }
                       ],
-                      "response_type": "text"
+                      "response_type": "text",
+                      "selection_policy": "incremental"
                     }
                   ]
                 },
@@ -193,6 +208,118 @@
               "type": "continue"
             },
             "variable": "step_333",
+            "next_step": "step_577"
+          },
+          {
+            "step": "step_577",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "How many minimum tokens do you want to generate?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential",
+                  "repeat_on_reprompt": false
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "input_validation",
+                "title": "input_validation_handler_1",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text_expression": {
+                            "concat": [
+                              {
+                                "scalar": "I didn't catch that. Enter a number."
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "response_type": "text",
+                      "selection_policy": "incremental"
+                    }
+                  ]
+                },
+                "handler": "input_validation_handler_1",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_handler",
+                "input_constraints": [
+                  {
+                    "name": "maximum",
+                    "value": {
+                      "scalar": 1024
+                    }
+                  },
+                  {
+                    "name": "minimum",
+                    "value": {
+                      "scalar": 0
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text_expression": {
+                            "concat": [
+                              {
+                                "scalar": "I didn't catch that. Enter a number."
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "response_type": "text",
+                      "selection_policy": "incremental"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "entity": "sys-number",
+              "max_tries": 3
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_577",
             "next_step": "step_605"
           },
           {
@@ -348,6 +475,12 @@
                 },
                 {
                   "value": {
+                    "variable": "step_577"
+                  },
+                  "skill_variable": "model_parameters_min_new_tokens"
+                },
+                {
+                  "value": {
                     "variable": "step_605"
                   },
                   "skill_variable": "model_parameters_temperature"
@@ -431,6 +564,11 @@
             "data_type": "number"
           },
           {
+            "title": "How many minimum tokens do you want to generate?",
+            "variable": "step_577",
+            "data_type": "number"
+          },
+          {
             "title": "What temperature do you want to use?",
             "variable": "step_605",
             "data_type": "number"
@@ -476,8 +614,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "18ee0f1a2ecf427ffe7a45c70673925e3bdba48bf12e5088d63f5daacbb7bbe2",
-                  "catalog_item_id": "ecb5c3d0-c903-4b03-ba63-22966e5fbed0"
+                  "spec_hash_id": "8bda7da26e6e075397a07ab525c0c271cfdbe19f2ec66244b0aa8e7b8ea8b1c7",
+                  "catalog_item_id": "05401cdc-ad23-493a-bfbe-09597c6b0bc3"
                 },
                 "request_mapping": {
                   "body": [
@@ -516,6 +654,12 @@
                         "skill_variable": "model_parameters_min_new_tokens"
                       },
                       "parameter": "parameters.min_new_tokens"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_parameters_stop_sequences"
+                      },
+                      "parameter": "parameters.stop_sequences"
                     },
                     {
                       "value": {
@@ -1274,6 +1418,15 @@
         "description": "",
         "initial_value": {
           "scalar": 1.1
+        }
+      },
+      {
+        "title": "model_parameters_stop_sequences",
+        "variable": "model_parameters_stop_sequences",
+        "data_type": "any",
+        "description": "",
+        "initial_value": {
+          "expression": "[\"\\n\\n\"]"
         }
       },
       {

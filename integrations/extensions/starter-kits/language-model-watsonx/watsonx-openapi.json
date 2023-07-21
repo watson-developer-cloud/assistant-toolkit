@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "description": "Minimal spec for commonly used features in watsonx.ai /generation API endpoint.  Missing lots of parameters.",
+    "description": "Minimal spec for commonly used features in watsonx.ai /generation API endpoint.  Missing a few of parameters.",
     "title": "Simplified watsonx.ai generation API",
     "version": "1.0.0"
   },
@@ -86,6 +86,11 @@
                         "type": "number",
                         "description": "The value which represents the penalty for penalizing tokens that have already been generated or belong to the context.",
                         "example": "1.10"
+                      },
+                      "stop_sequences": {
+                        "type": "array",
+                        "description": "The value which represents the penalty for penalizing tokens that have already been generated or belong to the context.",
+                        "example": ["\n\n"]
                       }
                     }
                   }
