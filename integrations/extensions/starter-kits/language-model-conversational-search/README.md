@@ -2,11 +2,12 @@
 
 This starter kit has multiple examples of how to configure language models with Watson Assistant for conversational search.
 
-1. The first example shows how to use [Watson Discovery search as input to the IBM watsonx tech preview language model](#example-1-connect-your-assistant-to-a-watsonx-language-model-via-custom-extensions).
+1. The first example shows how to use [Watson Discovery search as input to the IBM watsonx tech preview language model](#example-1-connect-your-assistant-to-watson-discovery-and-watsonx-tech-preview-language-model-via-custom-extensions).
 1. The second example shows how to use [semantic search output as input to an OpenAI model](#example-2-connect-your-assistant-to-hugging-face-milvus-and-openai-via-custom-extensions)
 1. The third example shows how to use [Watson Discovery search as input to an OpenAI model](#example-3-connect-your-assistant-to-watson-discovery-and-openai-via-custom-extensions)
 1. The fourth example shows how to use [Watson Discovery search as input to Google PaLM](#example-4-connect-your-assistant-to-watson-discovery-and-palm-via-custom-extensions)
 1. The fifth example shows how to use [semantic search output as input to a watsonx model](#example-5-connect-your-assistant-to-hugging-face-milvus-and-watsonx-via-custom-extensions)
+1. The sixth example shows how to use [Watson Discovery search as input to a watsonx model](#example-6-connect-your-assistant-to-watson-discovery-and-watsonx-via-custom-extensions)
 
 The [prerequisite for a new Watson Assistant](#prerequisites) applies for all examples.
 
@@ -16,7 +17,7 @@ All examples in this starter kit require that you use the [new Watson Assistant]
 
 Create a new, empty assistant that you can use to test this starter kit. For more information, see [Adding more assistants](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-assistant-add).
 
-## Example 1: Connect your assistant to a watsonx language model via custom extensions
+## Example 1: Connect your assistant to Watson Discovery and watsonx tech preview language model via custom extensions
 
 Before you upload the sample action for this starter kit, you first need to configure two custom extensions: [watsonx tech preview](../language-model-watsonx-tech-preview/README.md) and [Watson Discovery](../watson-discovery/README.md).
 
@@ -364,6 +365,7 @@ These are the session variables used in this example. Most of the values are set
 - `query_text`: By default the Search action passes the user’s input.text directly.
 - `search_results` : Results from the semantic search for the query. These will be input to the watsonx extension model.
 - `snippet` : Top results from the semantic search.
+- `verbose`: A boolean that will print debugging output if true. Default is false.
 - `watsonx_api_version` - watsonx api date version. It currently defaults to `2023-05-29`.
 - `watsonx_project_id`: You **MUST** set this value to be [a project ID value from watsonx](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html). By default, this is a [sandbox project id](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/sandbox.html) that is automatically created for you when you sign up for watsonx.ai.
 
@@ -372,3 +374,64 @@ These are the session variables used in this example. Most of the values are set
 Here is an example of how to use the `Search` action for this starter kit semantic search example:
 
 <img src="./assets/apr_for_preferred.png" width="300"/>
+
+## Example 6: Connect your assistant to Watson Discovery and watsonx via custom extensions
+
+This starter kit example shows how to configure your assistant to use Watson Discovery for document search, and then use those search results as input context for a watsonx large language model. The watsonx LLM generates a natural language answer for the query based on the documents provided by the search.
+
+Before you upload the sample action for this starter kit, you first need to configure two custom extensions: [Watson Discovery](../watson-discovery/README.md) and [watsonx](../language-model-watsonx/README.md).
+
+Follow the steps in the following two sections to configure your extensions before proceeding.
+
+### Configure Watson Discovery extension
+
+Follow the steps [here](#configure-watson-discovery-extension) to configure the Watson Discovery extension.
+
+### Configure the watsonx answer generation extension
+
+Follow the steps [here](#configure-the-watsonx-extension) to configure watsonx as a custom extension.
+
+### Upload sample action
+
+The starter kit includes [a JSON file with these sample actions](./discovery-watsonx-actions.json):
+
+| Action                        | Description                                                                                                                                                                                                                                                                                                     |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Search                        | Connects to Watson Discovery to search for documents related to the user query. The "No Action Matches" action has been configured to send all input to this action, so whatever the user enters will be used as the search input. It invokes the "Generate Answer" action to generate a response to the query. |
+| Generate Answer               | Configures the query prompt and document passages resulting from search, and calls the action "Invoke watsonx generation API". It is not meant to be invoked directly, but rather by the "Search" action.                                                                                                       |
+| Invoke watsonx generation API | Connects to watsonx and, using as context the documents resulting from the search, asks the language model to generate an answer to the user query. It is not meant to be invoked directly, but rather by the "Generate Answer" action.                                                                         |
+
+To use the sample actions:
+
+1. **After having configured both extensions**, download the sample actions from this starter kit: [`discovery-watsonx-actions.json`](./discovery-watsonx-actions.json).
+
+1. Use **Actions Global Settings** to upload the JSON file to your assistant. For more information, see [Uploading](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import).
+
+1. Under "Variables"/"Created by you" (within the Actions page), set the `discovery_project_id` session variable using the project ID value you obtained [when configuring Watson Discovery above](#configure-watson-discovery-extension). You must also set `watsonx_project_id` to the [watsonx project id](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html) that you want to use for answer generation.
+
+**NOTE**: If you import the actions _before_ configuring the extensions, you will see some errors on the actions because it could not find the extensions. Simply configure the extensions as described above and re-import the action JSON file.
+
+#### Session variables
+
+Below is a list of the session variables used in this example. Most of them are automatically set with defaults in the sample [discovery-watsonx-actions.json](discovery-watsonx-actions.json), so you do not need to set them yourself unless you want to make changes. You must, however, [set](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-manage-info#store-session-variable) the `discovery_project_id` to point to the project id for your Watson Discovery collection, and set `watsonx_project_id` to the [watsonx project id](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html) that you want to use for answer generation.
+
+- `discovery_date_version` - Discovery date versions are documented in the [release notes](https://cloud.ibm.com/docs/discovery-data?topic=discovery-data-release-notes).
+- `discovery_project_id`: You **MUST** set this value to be the project ID obtained [when configuring Watson Discovery above](#configure-watson-discovery-extension).
+- `model_id`: The id of the watsonx model that you select for this action. Defaults to `google/flan-ul2`.
+- `model_input`: The input to the watsonx model. You MAY change this to do prompt engineering, but a default will be used by the model if you don’t pass a prompt here.
+- `model_parameters_max_new_tokens` : The maximum number of new tokens to be generated. Defaults to 100.
+- `model_parameters_temperature` : The value used to control the next token probabilities. The range is from 0.05 to 1.00; 0.05 makes it _mostly_ deterministic.
+- `model_response`: The text generated by the model in response to the model input.
+- `passages` : Concatenation of top search results.
+- `query_text`: You MAY change this to pass queries to Watson Discovery. By default the Search action passes the user’s input.text directly.
+- `search_results`: Response object from [Discovery query](https://cloud.ibm.com/apidocs/discovery-data#query).
+- `snippet` : Top results from the Watson Discovery document search.
+- `verbose`: A boolean that will print debugging output if true. Default is false.
+- `watsonx_api_version` - watsonx api date version. It currently defaults to `2023-05-29`.
+- `watsonx_project_id`: You **MUST** set this value to be [a project ID value from watsonx](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html). By default, this is a [sandbox project id](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/sandbox.html) that is automatically created for you when you sign up for watsonx.ai.
+
+### Example 6 usage
+
+Here is an example of how to use the `Search` action for this starter kit conversational search example:
+
+<img src="./assets/discovery-watsonx-sample.png" width="300"/>
