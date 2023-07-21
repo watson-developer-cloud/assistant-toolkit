@@ -4,7 +4,7 @@
   "valid": true,
   "status": "Available",
   "created": "2023-07-21T20:55:49.034Z",
-  "updated": "2023-07-21T22:00:08.588Z",
+  "updated": "2023-07-21T22:12:26.817Z",
   "language": "en",
   "skill_id": "80489ddc-daf6-4ee2-9c72-0a8abdbf033c",
   "workspace": {
@@ -113,7 +113,7 @@
                   ],
                   "response_type": "text",
                   "selection_policy": "sequential",
-                  "repeat_on_reprompt": false
+                  "repeat_on_reprompt": true
                 }
               ]
             },
@@ -132,7 +132,7 @@
                           "text_expression": {
                             "concat": [
                               {
-                                "scalar": "I didn't catch that. Enter a number."
+                                "scalar": "I didn't catch that. Enter a number between 1 to 1024"
                               }
                             ]
                           }
@@ -158,7 +158,7 @@
                   {
                     "name": "maximum",
                     "value": {
-                      "scalar": 4000
+                      "scalar": 1024
                     }
                   }
                 ]
@@ -174,7 +174,7 @@
                           "text_expression": {
                             "concat": [
                               {
-                                "scalar": "I didn't catch that. Enter a number."
+                                "scalar": "I didn't catch that. Enter a number between 1 to 1024"
                               }
                             ]
                           }
@@ -244,7 +244,7 @@
                           "text_expression": {
                             "concat": [
                               {
-                                "scalar": "I didn't catch that. Enter a number."
+                                "scalar": "I didn't catch that. Enter a number between 0 to 1024"
                               }
                             ]
                           }
@@ -286,7 +286,7 @@
                           "text_expression": {
                             "concat": [
                               {
-                                "scalar": "I didn't catch that. Enter a number."
+                                "scalar": "I didn't catch that. Enter a number between 0 to 1024"
                               }
                             ]
                           }
@@ -339,7 +339,8 @@
                     }
                   ],
                   "response_type": "text",
-                  "selection_policy": "sequential"
+                  "selection_policy": "sequential",
+                  "repeat_on_reprompt": false
                 }
               ]
             },
@@ -352,10 +353,17 @@
                     {
                       "values": [
                         {
-                          "text": "I didn't catch that. Enter a number."
+                          "text_expression": {
+                            "concat": [
+                              {
+                                "scalar": "I didn't catch that. Enter a number."
+                              }
+                            ]
+                          }
                         }
                       ],
-                      "response_type": "text"
+                      "response_type": "text",
+                      "selection_policy": "incremental"
                     }
                   ]
                 },
@@ -387,10 +395,17 @@
                     {
                       "values": [
                         {
-                          "text": "I didn't catch that. Enter a number."
+                          "text_expression": {
+                            "concat": [
+                              {
+                                "scalar": "I didn't catch that. Enter a number."
+                              }
+                            ]
+                          }
                         }
                       ],
-                      "response_type": "text"
+                      "response_type": "text",
+                      "selection_policy": "incremental"
                     }
                   ]
                 },
@@ -1448,16 +1463,16 @@
         "title": "watsonx_api_version",
         "variable": "watsonx_api_version",
         "data_type": "any",
-        "description": "",
-        "initial_value": {
-          "scalar": "2023-05-29"
-        }
+        "description": ""
       },
       {
         "title": "watsonx_project_id",
         "variable": "watsonx_project_id",
         "data_type": "any",
-        "description": ""
+        "description": "",
+        "initial_value": {
+          "scalar": "e7396031-c53f-4fdd-8719-7bebfe1dd3f0"
+        }
       }
     ],
     "data_types": [],
