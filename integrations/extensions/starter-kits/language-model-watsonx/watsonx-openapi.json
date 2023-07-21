@@ -3,7 +3,7 @@
   "info": {
     "description": "Minimal spec for commonly used features in watsonx.ai /generation API endpoint.  Missing a few of parameters.",
     "title": "Simplified watsonx.ai generation API",
-    "version": "1.0.0"
+    "version": "1.0.1"
   },
   "servers": [
     {

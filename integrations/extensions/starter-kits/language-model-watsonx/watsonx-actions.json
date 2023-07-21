@@ -3,10 +3,10 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-07-21T20:55:49.034Z",
-  "updated": "2023-07-21T22:12:26.817Z",
+  "created": "2023-07-21T23:27:18.637Z",
+  "updated": "2023-07-21T23:31:17.833Z",
   "language": "en",
-  "skill_id": "80489ddc-daf6-4ee2-9c72-0a8abdbf033c",
+  "skill_id": "096d12a9-3b20-43ac-bc18-9d2e4c79ec1a",
   "workspace": {
     "actions": [
       {
@@ -629,8 +629,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "8bda7da26e6e075397a07ab525c0c271cfdbe19f2ec66244b0aa8e7b8ea8b1c7",
-                  "catalog_item_id": "05401cdc-ad23-493a-bfbe-09597c6b0bc3"
+                  "spec_hash_id": "efd13c68dff079388ffa62bfc3aff447e49efd7024450961cc74d6de89106cce",
+                  "catalog_item_id": "f53a6acc-4505-45a5-a785-27fe357b96da"
                 },
                 "request_mapping": {
                   "body": [
@@ -1463,16 +1463,16 @@
         "title": "watsonx_api_version",
         "variable": "watsonx_api_version",
         "data_type": "any",
-        "description": ""
+        "description": "",
+        "initial_value": {
+          "scalar": "2023-05-29"
+        }
       },
       {
         "title": "watsonx_project_id",
         "variable": "watsonx_project_id",
         "data_type": "any",
-        "description": "",
-        "initial_value": {
-          "scalar": "e7396031-c53f-4fdd-8719-7bebfe1dd3f0"
-        }
+        "description": ""
       }
     ],
     "data_types": [],
@@ -1580,8 +1580,8 @@
     "learning_opt_out": true
   },
   "description": "created for assistant 05c10d7d-336f-4d33-8cb3-5c53520d61ce",
-  "assistant_id": "55969aa5-b6b3-4377-aef4-b37eaa29c7c5",
-  "workspace_id": "80489ddc-daf6-4ee2-9c72-0a8abdbf033c",
+  "assistant_id": "69f5847f-17c6-4cb0-bafe-e1c3e5f7cfd2",
+  "workspace_id": "096d12a9-3b20-43ac-bc18-9d2e4c79ec1a",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }
