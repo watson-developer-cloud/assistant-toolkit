@@ -81,6 +81,11 @@
                         "type": "number",
                         "description": "The minimum number of new tokens to be generated.",
                         "example": "50"
+                      },
+                      "repetition_penalty": {
+                        "type": "number",
+                        "description": "The value which represents the penalty for penalizing tokens that have already been generated or belong to the context.",
+                        "example": "1.10"
                       }
                     }
                   }

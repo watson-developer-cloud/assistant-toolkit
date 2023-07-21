@@ -3,10 +3,10 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-07-21T19:51:32.819Z",
-  "updated": "2023-07-21T20:00:49.088Z",
+  "created": "2023-07-21T20:55:49.034Z",
+  "updated": "2023-07-21T21:17:24.128Z",
   "language": "en",
-  "skill_id": "209a0bdc-68f6-4eff-b50e-9dca66537329",
+  "skill_id": "80489ddc-daf6-4ee2-9c72-0a8abdbf033c",
   "workspace": {
     "actions": [
       {
@@ -476,8 +476,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "e52b73f74df6fdf6e9b51bb3348e45b640aac0417df790d4a9f69ac4649f64e9",
-                  "catalog_item_id": "38b45f08-73eb-40ca-b788-b7d1aaedb150"
+                  "spec_hash_id": "18ee0f1a2ecf427ffe7a45c70673925e3bdba48bf12e5088d63f5daacbb7bbe2",
+                  "catalog_item_id": "ecb5c3d0-c903-4b03-ba63-22966e5fbed0"
                 },
                 "request_mapping": {
                   "body": [
@@ -516,6 +516,12 @@
                         "skill_variable": "model_parameters_min_new_tokens"
                       },
                       "parameter": "parameters.min_new_tokens"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_parameters_repetition_penalty"
+                      },
+                      "parameter": "parameters.repetition_penalty"
                     }
                   ],
                   "query": [
@@ -1262,6 +1268,15 @@
         }
       },
       {
+        "title": "model_parameters_repetition_penalty",
+        "variable": "model_parameters_repetition_penalty",
+        "data_type": "number",
+        "description": "",
+        "initial_value": {
+          "scalar": 1.1
+        }
+      },
+      {
         "title": "model_parameters_temperature",
         "variable": "model_parameters_temperature",
         "data_type": "number",
@@ -1397,8 +1412,8 @@
     "learning_opt_out": true
   },
   "description": "created for assistant 05c10d7d-336f-4d33-8cb3-5c53520d61ce",
-  "assistant_id": "54671862-d623-473d-9898-b6cd0c8690d5",
-  "workspace_id": "209a0bdc-68f6-4eff-b50e-9dca66537329",
+  "assistant_id": "55969aa5-b6b3-4377-aef4-b37eaa29c7c5",
+  "workspace_id": "80489ddc-daf6-4ee2-9c72-0a8abdbf033c",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }
