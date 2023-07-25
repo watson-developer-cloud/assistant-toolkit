@@ -3,10 +3,10 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-07-19T19:20:18.961Z",
-  "updated": "2023-07-19T19:30:04.313Z",
+  "created": "2023-07-24T14:34:28.109Z",
+  "updated": "2023-07-25T05:18:44.642Z",
   "language": "en",
-  "skill_id": "25fe050c-cae4-4cdc-9936-eceac512db14",
+  "skill_id": "b9406366-1512-4553-ae35-60ba0ebe0bb9",
   "workspace": {
     "actions": [
       {
@@ -226,6 +226,7 @@
               "type": "invoke_another_action",
               "invoke_action": {
                 "action": "action_20548-2-2",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_657_result_2"
               }
@@ -493,8 +494,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "f22a973be9c24f524794f9f86d114b5fe9e4e1168ae47ea950e4d7889e972125",
-                  "catalog_item_id": "f337155f-560c-40e7-8917-fd8e86904d06"
+                  "spec_hash_id": "cc50493e455de183d661b95360196ddb468a02051add6dcaf4a6479b34900be5",
+                  "catalog_item_id": "f6a34340-796b-4d64-8186-06f61391e61e"
                 },
                 "request_mapping": {
                   "body": [
@@ -527,6 +528,24 @@
                         "skill_variable": "model_parameters_max_new_tokens"
                       },
                       "parameter": "parameters.max_new_tokens"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_parameters_min_new_tokens"
+                      },
+                      "parameter": "parameters.min_new_tokens"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_parameters_stop_sequences"
+                      },
+                      "parameter": "parameters.stop_sequences"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_parameters_repetition_penalty"
+                      },
+                      "parameter": "parameters.repetition_penalty"
                     }
                   ],
                   "query": [
@@ -779,7 +798,7 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "8566081a305e8f8ade4e9bd3887da0600e87948417fc10ba38ee121426f8c50b",
-                  "catalog_item_id": "47d17046-d929-4b8a-a596-eb4d1702d2e6"
+                  "catalog_item_id": "39268001-1084-4b65-ac57-7fd9fd1e67e5"
                 },
                 "request_mapping": {
                   "body": [
@@ -917,6 +936,7 @@
               "type": "invoke_another_action",
               "invoke_action": {
                 "action": "action_20548-2",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_237_result_2"
               }
@@ -1117,6 +1137,7 @@
               "type": "invoke_another_action_and_end",
               "invoke_action": {
                 "action": "action_44059-2",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_558_result_1"
               }
@@ -1176,6 +1197,7 @@
               "type": "invoke_another_action_and_end",
               "invoke_action": {
                 "action": "fallback",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_002_result_1"
               }
@@ -1743,7 +1765,34 @@
         "data_type": "number",
         "description": "The maximum number of new tokens to be generated.",
         "initial_value": {
-          "scalar": 100
+          "scalar": 300
+        }
+      },
+      {
+        "title": "model_parameters_min_new_tokens",
+        "variable": "model_parameters_min_new_tokens",
+        "data_type": "number",
+        "description": "The minimum number of new tokens to be generated.",
+        "initial_value": {
+          "scalar": 1
+        }
+      },
+      {
+        "title": "model_parameters_repetition_penalty",
+        "variable": "model_parameters_repetition_penalty",
+        "data_type": "number",
+        "description": "",
+        "initial_value": {
+          "scalar": 1.1
+        }
+      },
+      {
+        "title": "model_parameters_stop_sequences",
+        "variable": "model_parameters_stop_sequences",
+        "data_type": "any",
+        "description": "",
+        "initial_value": {
+          "expression": "[ \"\\n\\n\"]"
         }
       },
       {
@@ -1752,7 +1801,7 @@
         "data_type": "number",
         "description": "he value used to control the next token probabilities. The range is from 0.05 to 1.00; 0.05 makes it mostly deterministic.",
         "initial_value": {
-          "scalar": 0.05
+          "scalar": 0
         }
       },
       {
@@ -1915,8 +1964,8 @@
     "learning_opt_out": true
   },
   "description": "created for assistant 1c76effb-2430-4334-8897-6cdad3c6282b",
-  "assistant_id": "972fbb76-9e03-48ad-a894-16ae79482e1a",
-  "workspace_id": "25fe050c-cae4-4cdc-9936-eceac512db14",
+  "assistant_id": "1e6040e4-c997-4ef9-a16f-b101bdbef59f",
+  "workspace_id": "b9406366-1512-4553-ae35-60ba0ebe0bb9",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }
