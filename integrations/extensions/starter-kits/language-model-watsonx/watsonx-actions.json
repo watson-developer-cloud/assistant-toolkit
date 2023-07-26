@@ -3,10 +3,10 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-07-22T15:27:13.429Z",
-  "updated": "2023-07-22T15:31:15.239Z",
+  "created": "2023-07-26T00:29:57.573Z",
+  "updated": "2023-07-26T00:34:33.767Z",
   "language": "en",
-  "skill_id": "bb764987-8d04-4709-8c35-0561fedf105c",
+  "skill_id": "d7b6684e-45f0-4fed-967e-c1091494f945",
   "workspace": {
     "actions": [
       {
@@ -629,8 +629,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "572393bac5639f3adad43d3d7cc830fc3575568d094fa2bb634d33e62f83f0a5",
-                  "catalog_item_id": "4b26b235-5e05-4182-8cc7-728ba85d7d3e"
+                  "spec_hash_id": "cc50493e455de183d661b95360196ddb468a02051add6dcaf4a6479b34900be5",
+                  "catalog_item_id": "4f170e0d-95b5-4f59-9d1d-e52f67ee9352"
                 },
                 "request_mapping": {
                   "body": [
@@ -1580,8 +1580,8 @@
     "learning_opt_out": true
   },
   "description": "created for assistant 05c10d7d-336f-4d33-8cb3-5c53520d61ce",
-  "assistant_id": "b2b9dc09-1d15-4514-9a4d-9636cf3afd44",
-  "workspace_id": "bb764987-8d04-4709-8c35-0561fedf105c",
+  "assistant_id": "67614f79-ba73-4c10-a90f-9b647f797521",
+  "workspace_id": "d7b6684e-45f0-4fed-967e-c1091494f945",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }
