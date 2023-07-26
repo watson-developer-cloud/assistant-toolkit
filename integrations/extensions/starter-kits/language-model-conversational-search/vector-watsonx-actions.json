@@ -3,10 +3,10 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-07-17T20:49:45.460Z",
-  "updated": "2023-07-19T17:34:47.204Z",
+  "created": "2023-07-25T05:34:50.881Z",
+  "updated": "2023-07-25T05:53:36.816Z",
   "language": "en",
-  "skill_id": "9c9bd779-6bd7-4acb-a47d-c93e25d25616",
+  "skill_id": "89e3344e-5a0b-47c7-a823-d3bea6f0696c",
   "workspace": {
     "actions": [
       {
@@ -199,6 +199,7 @@
               "type": "invoke_another_action",
               "invoke_action": {
                 "action": "action_25675-2",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_657_result_2"
               }
@@ -466,8 +467,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "f22a973be9c24f524794f9f86d114b5fe9e4e1168ae47ea950e4d7889e972125",
-                  "catalog_item_id": "4414460c-2b48-4276-b6da-6319b9e3ae53"
+                  "spec_hash_id": "cc50493e455de183d661b95360196ddb468a02051add6dcaf4a6479b34900be5",
+                  "catalog_item_id": "e67a4e51-f70f-447e-b507-fdd68bf5952b"
                 },
                 "request_mapping": {
                   "body": [
@@ -500,6 +501,24 @@
                         "skill_variable": "model_parameters_max_new_tokens"
                       },
                       "parameter": "parameters.max_new_tokens"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_parameters_min_new_tokens"
+                      },
+                      "parameter": "parameters.min_new_tokens"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_parameters_stop_sequences"
+                      },
+                      "parameter": "parameters.stop_sequences"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_parameters_repetition_penalty"
+                      },
+                      "parameter": "parameters.repetition_penalty"
                     }
                   ],
                   "query": [
@@ -682,7 +701,7 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "c957ef2a69e23cd1f24311557dc72969a683b34a016faa4f4fde886fc9872b75",
-                  "catalog_item_id": "090b8659-31d6-4d6f-b96f-ea34e16bd8fc"
+                  "catalog_item_id": "311c0877-2c95-4bb7-85e4-f333f98a83b3"
                 },
                 "request_mapping": {
                   "body": [
@@ -780,7 +799,7 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "6c94004d2d26e57dd1c7662f7d2dfb15d6ca268f9da810859a137a331be96cb1",
-                  "catalog_item_id": "8eaec0b2-08d7-43c1-97a8-8e93ae02856e"
+                  "catalog_item_id": "0caae514-f025-4f0d-b42e-a407cd974524"
                 },
                 "request_mapping": {
                   "body": [
@@ -885,6 +904,7 @@
               "type": "invoke_another_action",
               "invoke_action": {
                 "action": "action_20548-2",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_237_result_2"
               }
@@ -1099,6 +1119,7 @@
               "type": "invoke_another_action_and_end",
               "invoke_action": {
                 "action": "action_44059-2",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_558_result_1"
               }
@@ -1158,6 +1179,7 @@
               "type": "invoke_another_action_and_end",
               "invoke_action": {
                 "action": "fallback",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_002_result_1"
               }
@@ -1685,7 +1707,7 @@
     "metadata": {
       "api_version": {
         "major_version": "v2",
-        "minor_version": "2018-11-08"
+        "minor_version": "2021-11-27"
       }
     },
     "variables": [
@@ -1728,7 +1750,34 @@
         "data_type": "number",
         "description": "",
         "initial_value": {
-          "scalar": 50
+          "scalar": 300
+        }
+      },
+      {
+        "title": "model_parameters_min_new_tokens",
+        "variable": "model_parameters_min_new_tokens",
+        "data_type": "number",
+        "description": "",
+        "initial_value": {
+          "scalar": 1
+        }
+      },
+      {
+        "title": "model_parameters_repetition_penalty",
+        "variable": "model_parameters_repetition_penalty",
+        "data_type": "number",
+        "description": "",
+        "initial_value": {
+          "scalar": 1.1
+        }
+      },
+      {
+        "title": "model_parameters_stop_sequences",
+        "variable": "model_parameters_stop_sequences",
+        "data_type": "any",
+        "description": "",
+        "initial_value": {
+          "expression": "[\"\\n\\n\"]"
         }
       },
       {
@@ -1737,7 +1786,7 @@
         "data_type": "number",
         "description": "",
         "initial_value": {
-          "scalar": 0.05
+          "scalar": 0
         }
       },
       {
@@ -1906,8 +1955,8 @@
     "learning_opt_out": true
   },
   "description": "created for assistant 1c76effb-2430-4334-8897-6cdad3c6282b",
-  "assistant_id": "85add4f4-5c6a-4237-b9f1-e8fef06c5fb0",
-  "workspace_id": "9c9bd779-6bd7-4acb-a47d-c93e25d25616",
+  "assistant_id": "2483966d-5473-49bb-9d3c-3430b858042e",
+  "workspace_id": "89e3344e-5a0b-47c7-a823-d3bea6f0696c",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }
