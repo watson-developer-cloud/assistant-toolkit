@@ -2,7 +2,7 @@
 
 *WARNING*: There is a bug in Watson Assistant that causes this kit to stop working after an hour or more. You can use this kit until it stops working, and then any calls to this extension will fail with a authentication_token_expired error because Watson Assisant is failing to properly refresh authentication tokens. We are working on a fix for this problem and will delete this warning when the fix is deployed.
 
-watsonx is our enterprise-ready AI and data platform designed to multiply the impact of AI across your business. It provides an API for interacting with generative language models. You can use this starter kit to connect IBM Watson Assistant to the watsonx API.
+Watsonx is our enterprise-ready AI and data platform designed to multiply the impact of AI across your business. It provides an API for interacting with generative language models. You can use this starter kit to connect IBM Watson Assistant to the watsonx API.
 
 This starter kit does not provide examples of anything that you can _do_ with this extension. It can be used for specific use cases as the generative language model component.
 
