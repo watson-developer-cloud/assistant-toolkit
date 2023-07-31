@@ -78,8 +78,8 @@
     /**
      * This is the function that is called when the web chat code has been loaded and it is ready to be rendered.
      */
-    function onLoad(instance) {
-      instance.render();
+    async function onLoad(instance) {
+      await instance.render();
       createHomeScreenElement(instance);
     }
 

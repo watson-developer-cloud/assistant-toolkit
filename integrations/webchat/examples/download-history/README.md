@@ -11,7 +11,7 @@ It demonstrates:
 - How to use the [**receive**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#receive) and [**send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#send) event handlers to capture the messages that are sent to and received from the assistant.
 - How to use the [**agent:receive**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#agentreceive) and [**agent:send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#agentsend) event handlers to capture the messages that are sent to and received from a human agent using a service desk integration.
 - How to use a [**history:begin**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#historybegin) event handler to capture messages that were loaded from session history.
-- How to use the [**updateCustomMenuOptions**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#updatecustommenuoptions) instance function to add a "Download history" option to the header.
+- How to use the [**updateCustomMenuOptions**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#updatecustommenuoptions) instance method to add a "Download history" option to the header.
 - How to convert [**Watson Assistant messages**](https://cloud.ibm.com/apidocs/assistant/assistant-v2#message) into a text format that can be downloaded.
 - How to use the built-in `Blob` and `URL` objects to construct a downloadable link.
 

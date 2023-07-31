@@ -21,7 +21,7 @@ The example will display an interactive content carousel for data returned from 
 It demonstrates:
 
 - How to use a [**customResponse**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#customresponse) event handler to create the content carousel.
-- How to use the [**send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#send) instance function to send a message to the assistant when a button is clicked.
+- How to use the [**send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#send) instance method to send a message to the assistant when a button is clicked.
 
 ## [Custom buttons](custom-buttons/README.md)
 
@@ -31,8 +31,8 @@ It demonstrates:
 
 - How to use a [**pre:receive**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#prereceive) event handler to convert a built-in response to a custom response so it can be customized.
 - How to use a [**customResponse**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#customresponse) event handler to create custom buttons.
-- How to use the [**send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#send) instance function to send a message to the assistant when a button is clicked.
-- How to use the [**updateHistoryUserDefined**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#updateHistoryUserDefined) instance function to record which button was clicked in session history so it will be remembered when web chat is reloaded.
+- How to use the [**send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#send) instance method to send a message to the assistant when a button is clicked.
+- How to use the [**updateHistoryUserDefined**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#updateHistoryUserDefined) instance method to record which button was clicked in session history so it will be remembered when web chat is reloaded.
 - How to use data stored in session history to change how a custom response is displayed when web chat is reloaded.
 - How to use the [Carbon Design System](https://v10.carbondesignsystem.com/) inside of web chat. The examples here cover both the vanilla JavaScript version (using web components) and the React version.
 
@@ -42,8 +42,7 @@ This example demonstrates how to use a custom element to change the size and pos
 
 It demonstrates:
 
-- How to use a [**window:open**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#windowclose) event handler to show the main web chat window when web chat is opened.
-- How to use a [**window:close**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#windowclose) event handler to hide the main web chat window when web chat is closed.
+- How to use a [**view:change**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#viewchange) event handler to show or hide the main web chat window when it is opened or closed.
 - How to use the [**element**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-configuration#configurationobject) configuration property to specify which custom element to use.
 - How to apply custom animation to the entrance and exit of web chat.
 
@@ -52,8 +51,8 @@ It demonstrates:
 This example demonstrates how to create your own launcher that can be used to open web chat.
 
 - How to use the [**showLauncher**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-configuration#configurationobject) configuration property to hide the default launcher.
-- How to use a [**window:open**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#windowopen) event handler to listen for when web chat is opened so you can hide your custom launcher.
-- How to use a [**window:close**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#windowclose) event handler to listen for when web chat is closed so you can show your custom launcher.
+- How to use a [**view:change**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#viewchange) event handler to show or hide the custom launcher when the main web chat window is opened or closed.
+- How to use the [**changeView**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#changeview) instance method to open the main window when the user clicks on the custom launcher.
 
 ## [Custom responses](custom-response/README.md)
 
@@ -65,7 +64,7 @@ It demonstrates:
 - How to assign data from the extension response to action variables.
 - How to return a custom response (`user_defined`) from an action.
 - How to use a [**customResponse**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#customresponse) event handler to display a custom card.
-- How to use the [**send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#send) instance function to send a message to the assistant and include context variables with user input.
+- How to use the [**send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#send) instance method to send a message to the assistant and include context variables with user input.
 - How to access action variables in a custom response.
 
 ## [Deep linking](deep-linking/README.md)
@@ -85,7 +84,7 @@ It demonstrates:
 - How to use the [**receive**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#receive) and [**send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#send) event handlers to capture the messages that are sent to and received from the assistant.
 - How to use the [**agent:receive**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#agentreceive) and [**agent:send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#agentsend) event handlers to capture the messages that are sent to and received from a human agent using a service desk integration.
 - How to use a [**history:begin**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#historybegin) event handler to capture messages that were loaded from session history.
-- How to use the [**updateCustomMenuOptions**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#updatecustommenuoptions) instance function to add a "Download history" option to the header.
+- How to use the [**updateCustomMenuOptions**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#updatecustommenuoptions) instance method to add a "Download history" option to the header.
 - How to convert [**Watson Assistant messages**](https://cloud.ibm.com/apidocs/assistant/assistant-v2#message) into a text format that can be downloaded.
 - How to use the built-in `Blob` and `URL` objects to construct a downloadable link.
 
@@ -96,7 +95,7 @@ This example demonstrates how to listen for the `agent:areAnyAgentsOnline` event
 It demonstrates:
 
 - How to use an [**agent:areAnyAgentsOnline**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#areanyagentsonline) event handler to display a custom card.
-- How to use the [**send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#send) instance function to send a message to the assistant and include context variables with user input.
+- How to use the [**send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#send) instance method to send a message to the assistant and include context variables with user input.
 
 ## [Home screen custom element](home-screen-custom-element/README.md)
 
@@ -105,7 +104,7 @@ This example demonstrates how to add custom content to the home screen by using 
 It demonstrates:
 
 - How to use the [**writeableElements**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#writeableelements) instance property to add a custom element to the home screen below the starters.
-- How to use the [**send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#send) instance function to send a message to the assistant.
+- How to use the [**send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#send) instance method to send a message to the assistant.
  
 ## [Page interaction](page-interaction/README.md)
 
@@ -124,10 +123,9 @@ This example demonstrates how to create pre-chat and post-chat forms with web ch
 It demonstrates:
 
 - How to use the [**pre:receive**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#prereceive) event handler to send the data gathered from the pre-chat form to the assistant.
-- How to use a [**window:open**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#windowclose) event handler to show a pre-chat form before web chat is opened.
-- How to use a [**window:pre:close**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#windowclose) event handler to show a customUserID form when web chat is closed.
+- How to use a [**view:change**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#viewchange) event handler to show a pre-chat form before web chat is opened.
+- How to use a [**view:pre:change**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#viewprechange) event handler to show a post-chat form when web chat is closed.
 - How to use the [**customPanels**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#custompanels) instance property to display custom panels.
-
 
 ## [Select greeting action](select-greeting-action/README.md)
 
@@ -154,7 +152,7 @@ This example demonstrates how to share the user's geographic location with the a
 It demonstrates:
 
 - How to use the [**receive**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#receive) event handlers to identify messages from the assistant that should trigger an action by the browser.
-- How to use the [**send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#send) instance function to send messages to the assistant and how to set context/skill variables.
+- How to use the [**send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#send) instance method to send messages to the assistant and how to set context/skill variables.
 - How to use the browser's built-in geolocation functionality to obtain the user's current location.
 - How to use a variable in an action.
 
@@ -169,7 +167,7 @@ It demonstrates:
 - How to use the [**Watson Speech JS SDK**](https://github.com/watson-developer-cloud/speech-javascript-sdk) To convert text to speech.
 - How to use the [**writeableElements**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#writeableelements) instance property to add a custom button above the web chat input field that can be used to record speech.
 - How to use the [**Watson Speech JS SDK**](https://github.com/watson-developer-cloud/speech-javascript-sdk) To convert the recorded speech to text.
-- How to use the [**send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#send) instance function to send the converted text to the assistant.
+- How to use the [**send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#send) instance method to send the converted text to the assistant.
 
 ## [Using Carbon](using-carbon/README.md)
 
@@ -188,7 +186,7 @@ It demonstrates:
 - How to generate public and private keys that are required for creating JWTs.
 - How to use a NodeJS Express server for creating a JWT from your private key.
 - How to use an [**identityTokenExpired**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#identityexpired) event handler to request a new JWT from your server.
-- How to use the [**updateIdentityToken**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#updateidentity) instance function to send update web chat with a new JWT when the user has changed.
+- How to use the [**updateIdentityToken**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#updateidentity) instance method to send update web chat with a new JWT when the user has changed.
 - How to set the user ID used by web chat.
 - How to encrypt a payload in a JWT so that secret information can be sent to the assistant.
 - How to use a custom variable to change the user ID in the middle of a session.

@@ -202,7 +202,7 @@
     /**
      * This is the function that is called when the web chat code has been loaded and it is ready to be rendered.
      */
-    function onLoad(instance) {
+    async function onLoad(instance) {
       // Listen for the customResponse event that will allow us to create content for the custom response when one is
       // received. See https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#summary for more
       // about our events.
@@ -219,7 +219,7 @@
           }
         },
       });
-      instance.render();
+      await instance.render();
     }
 
     // A web chat configuration options object as documented at

@@ -97,11 +97,11 @@
     /**
      * This is the function that is called when the web chat code has been loaded and it is ready to be rendered.
      */
-    function onLoad(instance) {
+    async function onLoad(instance) {
       // Register a handler that will be called before a message is sent. We only need thy handler to run once since we
       // only need to capture the greeting message.
       instance.once({ type: 'pre:send', handler: preSendHandler});
-      instance.render();
+      await instance.render();
     }
 
     // This is the standard web chat configuration object. You can modify these values with the embed code for your
