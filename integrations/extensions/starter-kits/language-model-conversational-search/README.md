@@ -27,11 +27,11 @@ Follow the steps in the following two sections to configure your extensions befo
 
 ### Configure Watson Discovery extension
 
-Follow the steps [here](#configure-watson-discovery-extension) to configure the Watson Discovery extension.
+Follow the steps [here](../watson-discovery/README.md) to configure the Watson Discovery extension.
 
 ### Configure the watsonx answer generation extension
 
-Follow the steps [here](#configure-the-watsonx-extension) to configure watsonx as a custom extension.
+Follow the steps [here](../language-model-watsonx/README.md) to configure watsonx as a custom extension.
 
 ### Upload sample action
 
