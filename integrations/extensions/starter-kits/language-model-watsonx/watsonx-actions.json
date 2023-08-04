@@ -3,10 +3,10 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-07-18T13:36:37.767Z",
-  "updated": "2023-07-18T21:22:48.224Z",
+  "created": "2023-07-26T00:29:57.573Z",
+  "updated": "2023-07-26T00:34:33.767Z",
   "language": "en",
-  "skill_id": "9c3433c1-f60d-4f0a-9648-9b43a23100de",
+  "skill_id": "d7b6684e-45f0-4fed-967e-c1091494f945",
   "workspace": {
     "actions": [
       {
@@ -112,7 +112,8 @@
                     }
                   ],
                   "response_type": "text",
-                  "selection_policy": "sequential"
+                  "selection_policy": "sequential",
+                  "repeat_on_reprompt": true
                 }
               ]
             },
@@ -128,10 +129,17 @@
                     {
                       "values": [
                         {
-                          "text": "I didn't catch that. Enter a number."
+                          "text_expression": {
+                            "concat": [
+                              {
+                                "scalar": "I didn't catch that. Enter a number between 1 to 1024"
+                              }
+                            ]
+                          }
                         }
                       ],
-                      "response_type": "text"
+                      "response_type": "text",
+                      "selection_policy": "incremental"
                     }
                   ]
                 },
@@ -150,7 +158,7 @@
                   {
                     "name": "maximum",
                     "value": {
-                      "scalar": 4000
+                      "scalar": 1024
                     }
                   }
                 ]
@@ -163,10 +171,17 @@
                     {
                       "values": [
                         {
-                          "text": "I didn't catch that. Enter a number."
+                          "text_expression": {
+                            "concat": [
+                              {
+                                "scalar": "I didn't catch that. Enter a number between 1 to 1024"
+                              }
+                            ]
+                          }
                         }
                       ],
-                      "response_type": "text"
+                      "response_type": "text",
+                      "selection_policy": "incremental"
                     }
                   ]
                 },
@@ -193,6 +208,118 @@
               "type": "continue"
             },
             "variable": "step_333",
+            "next_step": "step_577"
+          },
+          {
+            "step": "step_577",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "How many minimum tokens do you want to generate?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential",
+                  "repeat_on_reprompt": false
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "input_validation",
+                "title": "input_validation_handler_1",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text_expression": {
+                            "concat": [
+                              {
+                                "scalar": "I didn't catch that. Enter a number between 0 to 1024"
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "response_type": "text",
+                      "selection_policy": "incremental"
+                    }
+                  ]
+                },
+                "handler": "input_validation_handler_1",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_handler",
+                "input_constraints": [
+                  {
+                    "name": "maximum",
+                    "value": {
+                      "scalar": 1024
+                    }
+                  },
+                  {
+                    "name": "minimum",
+                    "value": {
+                      "scalar": 0
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text_expression": {
+                            "concat": [
+                              {
+                                "scalar": "I didn't catch that. Enter a number between 0 to 1024"
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "response_type": "text",
+                      "selection_policy": "incremental"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "entity": "sys-number",
+              "max_tries": 3
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_577",
             "next_step": "step_605"
           },
           {
@@ -212,7 +339,8 @@
                     }
                   ],
                   "response_type": "text",
-                  "selection_policy": "sequential"
+                  "selection_policy": "sequential",
+                  "repeat_on_reprompt": false
                 }
               ]
             },
@@ -225,10 +353,17 @@
                     {
                       "values": [
                         {
-                          "text": "I didn't catch that. Enter a number."
+                          "text_expression": {
+                            "concat": [
+                              {
+                                "scalar": "I didn't catch that. Enter a number."
+                              }
+                            ]
+                          }
                         }
                       ],
-                      "response_type": "text"
+                      "response_type": "text",
+                      "selection_policy": "incremental"
                     }
                   ]
                 },
@@ -260,10 +395,17 @@
                     {
                       "values": [
                         {
-                          "text": "I didn't catch that. Enter a number."
+                          "text_expression": {
+                            "concat": [
+                              {
+                                "scalar": "I didn't catch that. Enter a number."
+                              }
+                            ]
+                          }
                         }
                       ],
-                      "response_type": "text"
+                      "response_type": "text",
+                      "selection_policy": "incremental"
                     }
                   ]
                 },
@@ -348,6 +490,12 @@
                 },
                 {
                   "value": {
+                    "variable": "step_577"
+                  },
+                  "skill_variable": "model_parameters_min_new_tokens"
+                },
+                {
+                  "value": {
                     "variable": "step_605"
                   },
                   "skill_variable": "model_parameters_temperature"
@@ -365,6 +513,7 @@
               "type": "invoke_another_action",
               "invoke_action": {
                 "action": "action_3200-2",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_817_result_1"
               }
@@ -430,6 +579,11 @@
             "data_type": "number"
           },
           {
+            "title": "How many minimum tokens do you want to generate?",
+            "variable": "step_577",
+            "data_type": "number"
+          },
+          {
             "title": "What temperature do you want to use?",
             "variable": "step_605",
             "data_type": "number"
@@ -475,8 +629,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "f22a973be9c24f524794f9f86d114b5fe9e4e1168ae47ea950e4d7889e972125",
-                  "catalog_item_id": "3a1fabde-51ff-42cc-ad27-23b965370021"
+                  "spec_hash_id": "cc50493e455de183d661b95360196ddb468a02051add6dcaf4a6479b34900be5",
+                  "catalog_item_id": "4f170e0d-95b5-4f59-9d1d-e52f67ee9352"
                 },
                 "request_mapping": {
                   "body": [
@@ -509,6 +663,24 @@
                         "skill_variable": "model_parameters_max_new_tokens"
                       },
                       "parameter": "parameters.max_new_tokens"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_parameters_min_new_tokens"
+                      },
+                      "parameter": "parameters.min_new_tokens"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_parameters_stop_sequences"
+                      },
+                      "parameter": "parameters.stop_sequences"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_parameters_repetition_penalty"
+                      },
+                      "parameter": "parameters.repetition_penalty"
                     }
                   ],
                   "query": [
@@ -678,6 +850,7 @@
               "type": "invoke_another_action_and_end",
               "invoke_action": {
                 "action": "fallback",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_002_result_1"
               }
@@ -1241,7 +1414,34 @@
         "data_type": "number",
         "description": "The maximum number of new tokens to be generated.",
         "initial_value": {
-          "scalar": 20
+          "scalar": 300
+        }
+      },
+      {
+        "title": "model_parameters_min_new_tokens",
+        "variable": "model_parameters_min_new_tokens",
+        "data_type": "number",
+        "description": "",
+        "initial_value": {
+          "scalar": 1
+        }
+      },
+      {
+        "title": "model_parameters_repetition_penalty",
+        "variable": "model_parameters_repetition_penalty",
+        "data_type": "number",
+        "description": "",
+        "initial_value": {
+          "scalar": 1.1
+        }
+      },
+      {
+        "title": "model_parameters_stop_sequences",
+        "variable": "model_parameters_stop_sequences",
+        "data_type": "any",
+        "description": "",
+        "initial_value": {
+          "expression": "[\"\\n\\n\"]"
         }
       },
       {
@@ -1250,7 +1450,7 @@
         "data_type": "number",
         "description": "The value used to module the next token probabilities. The range is 0.05 to 1.00, a value set to 0.05 would make it mostly deterministic.",
         "initial_value": {
-          "scalar": 0.05
+          "scalar": 0
         }
       },
       {
@@ -1380,8 +1580,8 @@
     "learning_opt_out": true
   },
   "description": "created for assistant 05c10d7d-336f-4d33-8cb3-5c53520d61ce",
-  "assistant_id": "3b229721-63a8-4e2e-8aa1-380654a5cdb0",
-  "workspace_id": "9c3433c1-f60d-4f0a-9648-9b43a23100de",
+  "assistant_id": "67614f79-ba73-4c10-a90f-9b647f797521",
+  "workspace_id": "d7b6684e-45f0-4fed-967e-c1091494f945",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }
