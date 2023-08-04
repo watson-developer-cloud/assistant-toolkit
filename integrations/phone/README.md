@@ -2,7 +2,7 @@
 
 This repository holds a collection of examples for utilizing and programming the Watson Assistant phone channel.
 
-See the [overview of the examples](examples/README.md) contained in this repository.
+See the [overview of examples](examples/README.md) contained in this repository.
 
 ## Helpful links
 - [Watson Assistant](https://cloud.ibm.com/docs/watson-assistant)

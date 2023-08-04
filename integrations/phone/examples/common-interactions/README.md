@@ -1,61 +1,61 @@
 ## Phone Starter Kit
 
-This example contains Watson Assistant phone integration actions that demonstrate how to:
+This example contains Watson Assistant phone integration actions that demonstrate:
 
-- How to use the phone and SMS channel for 2-factor authentication via the [send a text message](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-phone-actions#phone-actions-sms.)
-- How to tune the Watson Speech-To-Text parameters in the Greetings action for background noise (`background_audio_suppression`) and increase the speech capture time (`end_of_phrase_silence_time`) by using the [speech_to_text](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-phone-actions#phone-actions-speech-advanced) response type.
+- How to use the phone and SMS channel for two-factor authentication via the [send a text message](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-phone-actions#phone-actions-sms.)
+- How to tune the Watson Speech-to-Text parameters in the Greetings action for background noise (`background_audio_suppression`) and increase the speech capture time (`end_of_phrase_silence_time`) by using the [speech_to_text](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-phone-actions#phone-actions-speech-advanced) response type.
 - How to disable and enable Text-to-Speech barge-in via the [text_to_speech](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-phone-actions#phone-actions-text-advanced) response type.
 - How to handle the input timeout from the phone channel via the `vgwPostResponseTimeout` keyword.
-- How to disconnect the call when the caller is done using the [end_session](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-phone-actions#phone-actions-hangup) response type.
-- How to transfer a call via a SIP Transfer using the [Connect To Agent Resolver](#transferring-the-call-via-the-sip-transfer-option-in-the-connect-to-agent-resolver)
+- How to disconnect the call when the caller is done, using the [end_session](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-phone-actions#phone-actions-hangup) response type.
+- How to transfer a call via session-initiated protocol (SIP) transfer using the [Connect to Agent Resolver](#transferring-the-call-via-the-sip-transfer-option-in-the-connect-to-agent-resolver).
 
 ### Setting up your own assistant
 
-This example is configured to use an existing assistant set up for common use by anyone running this example. If you want to set up your own assistant, you'll need to perform the following steps.
+This example is configured to use an existing assistant set up for common use. If you want to set up your own assistant, you need to perform the following steps:
 
-- Import the [actions.json](./action.json) file located in the repository for this example.
-- Optionally, to utilize the phone and SMS channel for 2-factor authentication, please create an [SMS integration](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-deploy-sms)
-- For user input timeouts to be handled as digressions, go to your `Actions Settings > Change Conversation Topic > Conversation Topic` and enable `Allow changing the conversation topic for all actions.`
-- Go to the `Actions > All items > Created by you` and you will see a `Phone Utilities` folder with a list of actions that can be used for phone interactions.
+1. Import the [actions.json](./action.json) file located in the repository for this example.
+2. Create an [SMS integration](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-deploy-sms) to use the phone and SMS channel for two-factor authentication (optional).
+3. Go to `Actions Settings > Change Conversation Topic > Conversation Topic` and enable `Allow changing the conversation topic for all actions` to handle user-input timeouts as digressions.
+4. Go to the `Actions > All items > Created by you` to view a `Phone Utilities` folder with a list of actions that can be used for phone interactions.
 
 <img src="./assets/phone-utilities-actions.png" />
 
 ### Using the phone channel
 
-Once you've setup the starter kit, if you haven't provisioned a phone integration, you can deploy one following [these steps](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-deploy-phone).
+Once you've set up the starter kit, you can deploy a [phone integration](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-deploy-phone) if you don't yet have one provisioned.
 
-Here are some example phrases you can do to trigger the different phone utilities while on the phone with your Watson Assistant:
+Here are some example phrases you can use to trigger the different phone utilities while on the phone with your Watson Assistant:
 
-| Utterance | Phone Behavior | Action Title |
+| Utterance | Phone behavior | Action title |
 | --- | --- | --- |
 | `Goodbye` or `You've answered all of my questions` | Watson Assistant will disconnect the call. | `Call Completion` |
 | `<<< SILENCE >>>` | Watson Assistant will reprompt on the phone. | `vgwPostResponseTimeout` |
-| `can I speak to an agent` | Watson Assistant will attempt to transfer your call. | `Connect To Agent` |
+| `Can I speak to an agent` | Watson Assistant will attempt to transfer your call. | `Connect to Agent` |
 
 
 
 ### Starter Kit Details
-#### Transferring the call via the SIP Transfer option in the Connect To Agent Resolver
+#### Transferring a call via SIP transfer in the Connect to Agent Resolver
 
-For phone interactions, typically a SIP transfer is required for transferring the call to an upstream SIP provider. In the Watson Assistant actions, you can use the SIP Transfer Option in the Connect To Agent ressolver to achieve this. 
+For phone interactions, typically a SIP transfer is required for transferring the call to an upstream SIP provider. In the Watson Assistant actions, you can use the SIP Transfer option in the Connect to Agent resolver to achieve this. 
 
-1. Go to the "Connect To Agent" action, click on the first Action Step and click on `Edit Settings` under the `Connect to Agent Resolver`
+1. Go to the "Connect to Agent" action, click the first Action Step and click`Edit Settings` under the `Connect to Agent Resolver`.
 
 <img src="./assets/connect-to-agent-resolver.png" />
 
-2. To add your SIP Transfer information you can edit the fields such as `uri` and add other SIP headers in the configuration options of the Connect To Agent Resolver:
+2. Add your SIP transfer information by editing fields such as `uri` and adding SIP headers in the configuration options of the Connect to Agent Resolver:
 
 <img src="./assets/sip-transfer-option.png" />
 
-You can find  more details on call transfers on the [Transferring a call to a human agent](https://cloud.ibm.com/docs/assistant?topic=assistant-dialog-voice-actions#dialog-voice-actions-transfer) documentation.
+For more information on call transfers, see [Transferring a call to a human agent](https://cloud.ibm.com/docs/assistant?topic=assistant-dialog-voice-actions#dialog-voice-actions-transfer) documentation.
 
 
 #### Speech Recognition Settings
 
-For phone interactions, there may be cases depending on the use case where you need to tune the speech recognition parameters an example of this can be seen in the `Greeting` action (`Actions > Set by Assistant > Greeting`), specifying a `speech_to_text` response type allows you to modify the Speech recognition settings for the interactions with Watson Assistant over the phone:
+There may be use cases when you need to tune the speech recognition parameters for phone interactions. For example, in the `Greeting` action (`Actions > Set by Assistant > Greeting`), specifying a `speech_to_text` response type allows you to modify the speech recognition settings for interactions with Watson Assistant over the phone.
 
 <img src="./assets/greeting-speech-to-text.png"/>
 
-For more information on modifying the Speech recognition settings, you can find the documentation in the [docs for the service](https://cloud.ibm.com/docs/assistant?topic=assistant-dialog-voice-actions#dialog-voice-actions-speech-advanced)
+For more information on modifying speech recognition settings, see [Applying advanced settings to the Speech to Text service](https://cloud.ibm.com/docs/assistant?topic=assistant-dialog-voice-actions#dialog-voice-actions-speech-advanced). 
 
 
