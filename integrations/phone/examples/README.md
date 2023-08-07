@@ -7,7 +7,7 @@ This folder contains a set of examples that are intended to demonstrate how to u
 
 ### [Common Interactions](./common-interactions/)
 
- This example contains Watson Assistant phone integration actions that demonstrate:
+This example contains Watson Assistant phone integration actions that demonstrate:
 
 - How to use the phone and SMS channel for two-factor authentication.
 - How to tune the Watson Speech-To-Text parameters in the Greetings action for background noise (`background_audio_suppression`) and increase the speech capture time (`end_of_phrase_silence_time`).
