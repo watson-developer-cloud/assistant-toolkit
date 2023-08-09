@@ -49,6 +49,19 @@ To use the sample actions:
 
 1. Use **Actions Global Settings** to upload the JSON file to your assistant. For more information, see [Uploading](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import).
 
+> ⛔️
+> **Caution**
+
+- Please note that you **should not upload** the example actions directly into an _existing_ assistant because doing so will overwrite your existing actions.
+  > Instead:
+  >
+  > - Create a new assistant in the same instance.
+  > - Upload starter kit .json actions files to the new assistant.
+  > - [Copy the actions from the new assistant to your main assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-copy-action)
+
+> ⛔️
+> **Caution**
+
 1. Under "Variables"/"Created by you" (within the Actions page), set the `discovery_project_id` session variable using the project ID value you obtained [when configuring Watson Discovery above](#configure-watson-discovery-extension). You must also set `watsonx_project_id` to the [watsonx project id](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html) that you want to use for answer generation.
 
 **NOTE**: If you import the actions _before_ configuring the extensions, you will see some errors on the actions because it could not find the extensions. Simply configure the extensions as described above and re-import the action JSON file.
