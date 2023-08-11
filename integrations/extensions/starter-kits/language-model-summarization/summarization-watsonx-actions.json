@@ -1,0 +1,1229 @@
+{
+  "name": "summarization_watsonx-action",
+  "type": "action",
+  "valid": true,
+  "status": "Available",
+  "created": "2023-08-10T13:40:04.966Z",
+  "updated": "2023-08-11T18:32:13.748Z",
+  "language": "en",
+  "skill_id": "b4043909-3a4c-4490-8cce-5b2171609955",
+  "workspace": {
+    "actions": [
+      {
+        "steps": [
+          {
+            "step": "step_770",
+            "output": {
+              "generic": []
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${system_session_history}.transform(\"author\",\"USER\",\"AI\")"
+                  },
+                  "skill_variable": "session_history_ai_format"
+                },
+                {
+                  "value": {
+                    "expression": "\"Provide a summary in plain English of the following conversation between a chatbot and a user \" + ${session_history_ai_format}.toString().replace('\"', '')"
+                  },
+                  "skill_variable": "model_prompt"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action",
+              "invoke_action": {
+                "action": "action_25675-2-2",
+                "policy": "default",
+                "parameters": null,
+                "result_variable": "step_770_result_1"
+              }
+            },
+            "variable": "step_770",
+            "condition": {
+              "and": [
+                {
+                  "exists": {
+                    "system_variable": "session_history"
+                  }
+                },
+                {
+                  "expression": "${system_session_history}.size>0"
+                }
+              ]
+            },
+            "next_step": "step_236"
+          },
+          {
+            "step": "step_236",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Calling model with "
+                          },
+                          {
+                            "skill_variable": "model_prompt"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_236",
+            "condition": {
+              "eq": [
+                {
+                  "skill_variable": "verbose"
+                },
+                {
+                  "scalar": true
+                }
+              ]
+            },
+            "next_step": "step_479"
+          },
+          {
+            "step": "step_479",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Sorry I could not help!  I will get a human agent.  Here is a summary of our discussion so far (which will be sent to the agent for awareness):\n\n<br />\n\n\n\n\n\n"
+                          },
+                          {
+                            "skill_variable": "model_response"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you"
+                },
+                "message_to_human_agent": "${model_response}"
+              }
+            },
+            "variable": "step_479",
+            "condition": {
+              "exists": {
+                "skill_variable": "model_response"
+              }
+            },
+            "next_step": "step_850"
+          },
+          {
+            "step": "step_850",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Sorry I could not help!  I will get a human agent."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "connect_to_agent",
+              "response": {
+                "transfer_info": {
+                  "target": {}
+                },
+                "agent_available": {
+                  "message": "Let's send you to an available agent."
+                },
+                "agent_unavailable": {
+                  "message": "There are no agents available at this time. When one becomes available, we'll connect you"
+                },
+                "message_to_human_agent": "${model_response}"
+              }
+            },
+            "variable": "step_850",
+            "condition": {
+              "not": {
+                "exists": {
+                  "skill_variable": "model_response"
+                }
+              }
+            }
+          }
+        ],
+        "title": "Escalate to Agent",
+        "action": "action_11673-2",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_11673_intent_33832-2"
+        },
+        "variables": [
+          {
+            "title": "Calling model with {variable}",
+            "variable": "step_236",
+            "data_type": "any"
+          },
+          {
+            "title": "Sorry I could not help! I will get a human agent. Here is a summ",
+            "variable": "step_479",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_770",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_770_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Sorry I could not help! I will get a human agent.",
+            "variable": "step_850",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_25675-2-2",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true,
+          "never_return": false
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_126",
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${model_prompt}.toString()"
+                  },
+                  "skill_variable": "model_input_string"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/ml/v1-beta/generation/text",
+                "type": "integration_interaction",
+                "method": "POST",
+                "internal": {
+                  "spec_hash_id": "cc50493e455de183d661b95360196ddb468a02051add6dcaf4a6479b34900be5",
+                  "catalog_item_id": "c1ef8434-49e5-45c3-9ae7-b82956963fbc"
+                },
+                "request_mapping": {
+                  "body": [
+                    {
+                      "value": {
+                        "skill_variable": "model_input_string"
+                      },
+                      "parameter": "input"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_id"
+                      },
+                      "parameter": "model_id"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "watsonx_project_id"
+                      },
+                      "parameter": "project_id"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_parameters_temperature"
+                      },
+                      "parameter": "parameters.temperature"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_parameters_max_new_tokens"
+                      },
+                      "parameter": "parameters.max_new_tokens"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_parameter_min_new_tokens"
+                      },
+                      "parameter": "parameters.min_new_tokens"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_parameters_stop_sequences"
+                      },
+                      "parameter": "parameters.stop_sequences"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_parameters_repetition_penalty"
+                      },
+                      "parameter": "parameters.repetition_penalty"
+                    }
+                  ],
+                  "query": [
+                    {
+                      "value": {
+                        "skill_variable": "watsonx_api_version"
+                      },
+                      "parameter": "version"
+                    }
+                  ]
+                },
+                "result_variable": "step_126_result_1"
+              }
+            },
+            "variable": "step_126",
+            "next_step": "step_973"
+          },
+          {
+            "step": "step_973",
+            "output": {
+              "generic": []
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${step_126_result_1.body.results}[0].generated_text"
+                  },
+                  "skill_variable": "model_response"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_973",
+            "condition": {
+              "and": [
+                {
+                  "eq": [
+                    {
+                      "variable": "step_126_result_1",
+                      "variable_path": "success"
+                    },
+                    {
+                      "scalar": true
+                    }
+                  ]
+                },
+                {
+                  "expression": "${step_126_result_1}.body.results.size() > 0"
+                }
+              ]
+            },
+            "next_step": "step_416"
+          },
+          {
+            "step": "step_416",
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "null"
+                  },
+                  "skill_variable": "model_response"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_416"
+          }
+        ],
+        "title": "Invoke watsonx Generation API",
+        "action": "action_25675-2-2",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_25675_intent_42103-2-2"
+        },
+        "variables": [
+          {
+            "title": "No response",
+            "variable": "step_126",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_126_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_416",
+            "data_type": "any"
+          },
+          {
+            "title": "",
+            "variable": "step_973",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "fallback",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true,
+          "never_return": false
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_838",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "To get started, please enter your **order number**"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential",
+                  "repeat_on_reprompt": false
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text_expression": {
+                            "concat": [
+                              {
+                                "scalar": "I didn't catch that. Enter a number."
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "response_type": "text",
+                      "selection_policy": "incremental"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "entity": "sys-number",
+              "max_tries": 3
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_838",
+            "next_step": "step_655"
+          },
+          {
+            "step": "step_655",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Thanks! There is a problem checking the status for your order "
+                          },
+                          {
+                            "variable": "step_838"
+                          },
+                          {
+                            "scalar": " \\n\n\nDo you mind if I escalate to an agent?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential",
+                  "repeat_on_reprompt": false
+                },
+                {
+                  "options": [
+                    {
+                      "label": "Yes",
+                      "value": {
+                        "input": {
+                          "text": "Yes"
+                        }
+                      }
+                    },
+                    {
+                      "label": "No",
+                      "value": {
+                        "input": {
+                          "text": "No"
+                        }
+                      }
+                    }
+                  ],
+                  "response_type": "option",
+                  "repeat_on_reprompt": true
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text_expression": {
+                            "concat": [
+                              {
+                                "scalar": "I'm sorry, I did not catch that, please restate your response."
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "response_type": "text",
+                      "selection_policy": "incremental"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "entity": "sys-yes-no",
+              "max_tries": 3,
+              "response_collection_behavior": "always_ask"
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_655",
+            "next_step": "step_307"
+          },
+          {
+            "step": "step_307",
+            "output": {
+              "generic": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "action": "action_11673-2",
+                "policy": "default",
+                "parameters": null,
+                "result_variable": "step_307_result_1"
+              }
+            },
+            "variable": "step_307",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_655"
+                },
+                {
+                  "scalar": "no"
+                }
+              ]
+            },
+            "next_step": "step_320"
+          },
+          {
+            "step": "step_320",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Ok, I will not escalate this issue. Please try again later!"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_320",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_655"
+                },
+                {
+                  "scalar": "yes"
+                }
+              ]
+            }
+          }
+        ],
+        "title": "Check order status",
+        "action": "action_25733",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_25733_intent_37535"
+        },
+        "variables": [
+          {
+            "title": "",
+            "variable": "step_307",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_307_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Ok, I will not escalate this issue. Please try again later!",
+            "variable": "step_320",
+            "data_type": "any"
+          },
+          {
+            "title": "Thanks! There is a problem checking the status for your order {v",
+            "variable": "step_655",
+            "data_type": "yes_no"
+          },
+          {
+            "title": "To get started, please enter your **order number**",
+            "variable": "step_838",
+            "data_type": "number"
+          }
+        ],
+        "launch_mode": "learning",
+        "next_action": "action_11673-2",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true,
+          "never_return": false
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_394",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": ""
+                          },
+                          {
+                            "skill_variable": "response"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "input.text"
+                  },
+                  "skill_variable": "query_text"
+                },
+                {
+                  "value": {
+                    "scalar": "Sorry, I do not understand."
+                  },
+                  "skill_variable": "response"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "action": null,
+                "policy": "default",
+                "parameters": null,
+                "result_variable": "step_394_result_1"
+              }
+            },
+            "variable": "step_394"
+          }
+        ],
+        "title": "No action matches",
+        "action": "anything_else",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "expression": "anything_else"
+        },
+        "variables": [
+          {
+            "title": "{variable}",
+            "variable": "step_394",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_394_result_1",
+            "data_type": "any"
+          }
+        ],
+        "disambiguation_opt_out": true
+      },
+      {
+        "steps": [
+          {
+            "step": "step_855",
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "action": "action_11673-2",
+                "policy": "default",
+                "parameters": null,
+                "result_variable": "step_855_result_1"
+              }
+            },
+            "variable": "step_855"
+          }
+        ],
+        "title": "Fallback",
+        "action": "fallback",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "fallback_connect_to_agent"
+        },
+        "variables": [
+          {
+            "title": "No response",
+            "variable": "step_855",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_855_result_1",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "run_always",
+        "disambiguation_opt_out": true
+      },
+      {
+        "steps": [
+          {
+            "step": "danger_word_detected",
+            "title": "Connect to agent",
+            "handlers": [],
+            "resolver": {
+              "type": "fallback"
+            },
+            "variable": "danger_word_detected_variable",
+            "condition": {
+              "entity": "danger_words"
+            },
+            "next_step": "profanity_detected"
+          },
+          {
+            "step": "profanity_detected",
+            "title": "Show warning",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Please use appropriate language when interacting with the assistant."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "max_hits",
+                "handler": "max_hits_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "max_hits": 2,
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "profanity_detected_variable",
+            "condition": {
+              "entity": "profane_words"
+            }
+          }
+        ],
+        "title": "Trigger word detected",
+        "action": "run_always",
+        "boosts": [],
+        "handlers": [],
+        "variables": [
+          {
+            "title": "Profanity detected",
+            "variable": "danger_word_detected_variable",
+            "data_type": "any"
+          },
+          {
+            "title": "Profane word detected",
+            "variable": "profanity_detected_variable",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "anything_else"
+      },
+      {
+        "steps": [
+          {
+            "step": "step_001",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "Welcome, how can I assist you?"
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_001"
+          }
+        ],
+        "title": "Greet customer",
+        "action": "welcome",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "expression": "welcome"
+        },
+        "variables": [
+          {
+            "variable": "step_001",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_25733",
+        "disambiguation_opt_out": true
+      }
+    ],
+    "intents": [
+      {
+        "intent": "action_11673_intent_33832-2",
+        "examples": []
+      },
+      {
+        "intent": "action_25675_intent_42103-2-2",
+        "examples": []
+      },
+      {
+        "intent": "action_25733_intent_37535",
+        "examples": [
+          {
+            "text": "I want to check my order status"
+          }
+        ]
+      },
+      {
+        "intent": "fallback_connect_to_agent",
+        "examples": [
+          {
+            "text": "Agent help"
+          },
+          {
+            "text": "Call agent"
+          },
+          {
+            "text": "Can I connect to an agent?"
+          },
+          {
+            "text": "I would like to speak to a human"
+          },
+          {
+            "text": "I would like to speak to someone"
+          }
+        ],
+        "description": "Please transfer me to an agent"
+      }
+    ],
+    "entities": [
+      {
+        "entity": "danger_words",
+        "values": [],
+        "fuzzy_match": false
+      },
+      {
+        "entity": "profane_words",
+        "values": [],
+        "fuzzy_match": false
+      },
+      {
+        "entity": "sys-number",
+        "values": []
+      },
+      {
+        "entity": "sys-yes-no",
+        "values": []
+      }
+    ],
+    "metadata": {
+      "api_version": {
+        "major_version": "v2",
+        "minor_version": "2021-11-27"
+      }
+    },
+    "variables": [
+      {
+        "title": "model_id",
+        "variable": "model_id",
+        "data_type": "any",
+        "description": "",
+        "initial_value": {
+          "scalar": "google/flan-ul2"
+        }
+      },
+      {
+        "title": "model_input_string",
+        "variable": "model_input_string",
+        "data_type": "string",
+        "description": ""
+      },
+      {
+        "title": "model_parameter_min_new_tokens",
+        "variable": "model_parameter_min_new_tokens",
+        "data_type": "number",
+        "description": "",
+        "initial_value": {
+          "scalar": 1
+        }
+      },
+      {
+        "title": "model_parameters_max_new_tokens",
+        "variable": "model_parameters_max_new_tokens",
+        "data_type": "number",
+        "description": "",
+        "initial_value": {
+          "scalar": 300
+        }
+      },
+      {
+        "title": "model_parameters_repetition_penalty",
+        "variable": "model_parameters_repetition_penalty",
+        "data_type": "number",
+        "description": "",
+        "initial_value": {
+          "scalar": 1.1
+        }
+      },
+      {
+        "title": "model_parameters_stop_sequences",
+        "variable": "model_parameters_stop_sequences",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "model_parameters_temperature",
+        "variable": "model_parameters_temperature",
+        "data_type": "number",
+        "description": "",
+        "initial_value": {
+          "scalar": 0
+        }
+      },
+      {
+        "title": "model_prompt",
+        "variable": "model_prompt",
+        "data_type": "string",
+        "description": ""
+      },
+      {
+        "title": "model_response",
+        "variable": "model_response",
+        "data_type": "string",
+        "description": ""
+      },
+      {
+        "title": "query_text",
+        "variable": "query_text",
+        "data_type": "string",
+        "description": ""
+      },
+      {
+        "title": "response",
+        "variable": "response",
+        "data_type": "string",
+        "description": ""
+      },
+      {
+        "title": "session_history_ai_format",
+        "variable": "session_history_ai_format",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "verbose",
+        "variable": "verbose",
+        "data_type": "boolean",
+        "description": "",
+        "initial_value": {
+          "scalar": false
+        }
+      },
+      {
+        "title": "watsonx_api_version",
+        "variable": "watsonx_api_version",
+        "data_type": "any",
+        "description": "",
+        "initial_value": {
+          "scalar": "2023-05-29"
+        }
+      },
+      {
+        "title": "watsonx_project_id",
+        "variable": "watsonx_project_id",
+        "data_type": "any",
+        "description": "",
+        "initial_value": {
+          "scalar": "3e992422-d337-47f9-869a-0928e49a3ea5"
+        }
+      }
+    ],
+    "data_types": [],
+    "collections": [],
+    "counterexamples": [],
+    "system_settings": {
+      "variable": {
+        "format": {
+          "time": {
+            "pattern": "short"
+          },
+          "currency": {
+            "fraction_digits": 2
+          }
+        }
+      },
+      "off_topic": {
+        "enabled": true
+      },
+      "topic_switch": {
+        "enabled": true,
+        "messages": {
+          "enable_confirmation": true,
+          "confirmation_failure": {
+            "generic": [
+              {
+                "values": [
+                  {
+                    "text_expression": {
+                      "concat": [
+                        {
+                          "scalar": "I'm sorry, I did not catch that, please confirm."
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "response_type": "text",
+                "selection_policy": "sequential"
+              }
+            ]
+          },
+          "confirmation_request": {
+            "generic": [
+              {
+                "values": [
+                  {
+                    "text_expression": {
+                      "concat": [
+                        {
+                          "scalar": "Do you want to continue with the previous topic: "
+                        },
+                        {
+                          "system_variable": "digressed_from"
+                        },
+                        {
+                          "scalar": "?"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "response_type": "text",
+                "selection_policy": "sequential"
+              },
+              {
+                "options": [
+                  {
+                    "label": "Yes",
+                    "value": {
+                      "input": {
+                        "text": "Yes"
+                      }
+                    }
+                  },
+                  {
+                    "label": "No",
+                    "value": {
+                      "input": {
+                        "text": "No"
+                      }
+                    }
+                  }
+                ],
+                "response_type": "option",
+                "repeat_on_reprompt": true
+              }
+            ]
+          }
+        },
+        "max_tries": 3
+      },
+      "disambiguation": {
+        "prompt": "Did you mean:",
+        "enabled": true,
+        "randomize": true,
+        "max_suggestions": 5,
+        "suggestion_text_policy": "title",
+        "none_of_the_above_prompt": "None of the above",
+        "use_connect_to_support_prompt": "connect to support",
+        "single_answer_clarification_prompt": "Something else"
+      },
+      "intent_classification": {
+        "training_backend_version": "v2"
+      },
+      "spelling_auto_correct": true
+    },
+    "learning_opt_out": true
+  },
+  "description": "created for assistant a66a897a-ee82-4e70-bbf9-4d54b1b20b94",
+  "assistant_id": "39e4fcac-3ccf-4687-8994-d85649be5f1a",
+  "workspace_id": "b4043909-3a4c-4490-8cce-5b2171609955",
+  "dialog_settings": {},
+  "next_snapshot_version": "1"
+}
