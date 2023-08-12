@@ -104,11 +104,37 @@ Follow the steps in the following sections for the custom extensions setup befor
 
 ### Configure the Hugging Face Hub Embeddings extension
 
-Follow [these steps to configure the Hugging Face Hub Embeddings extension](#configure-the-hugging-face-hub-embeddings-extension).
+
+1. Sign up at [Hugging Face](https://huggingface.co/) and follow the instructions there to get an API key. Save this API key somewhere safe and accessible.
+
+1. Download [the Hugging Face Hub OpenAPI specification file](hugging-face-hub-embed-openapi.json) from this starter kit. You use this specification file to create and add the Hugging Face Hub Embeddings extension to your assistant.
+
+1. In your assistant, on the **Integrations** page, click **Build custom extension** and use the OpenAPI specification file to build a custom extension named `Hugging Face Hub Embeddings`. For general instructions on building any custom extension, see [Building the custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension).
+
+1. After you build the Hugging Face Hub Embeddings extension and it appears on your **Integrations** page, click **Add** to add it to your assistant. For general instructions on adding any custom extension, see [Adding an extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension).
+
+1. In **Authentication**, choose **Bearer auth**. Copy and paste your Hugging Face API key into the **Token** field.
+
+1. The setup of your extension is now complete. For more information about the extension parameters, see the [Hugging Face API Reference](https://huggingface.co/docs/hub/api).
+
 
 ### Configure the Milvus semantic search extension
 
-Follow [these steps to configure the Milvus semantic search extension](#configure-the-milvus-semantic-search-extension).
+Milvus is an open-source vector database for semantic search.
+
+1. Follow the instructions at [Milvus](https://milvus.io) to [install it](https://milvus.io/docs/install_standalone-docker.md) somewhere that your assistant can access it. You will need the server variables (ip-address and REST port) to connect it with your assistant. One option for where to host is an [IBM virtual server](https://www.ibm.com/cloud/virtual-servers). Another is [IBM code engine](https://www.ibm.com/cloud/code-engine). However, it can also be installed on a separate machine as long as it is connected to the internet. Alternatively, Milvus can be run on a different cloud such as AWS. You need to record the IP address of the machine where it's installed Milvus and the port where it is running. Note that there are 2 Milvus ports. One port is for the REST API which is the one used for the assistant extension connection, and it defaults to 9091. The other port is for gRPC requests used for indexing the documents, and it defaults to 19530.
+
+1. Add your content to Milvus. In this example, we use Milvus to search a document collection that we previously indexed with [this python script](index-with-milvus.py). We include this script as an example for reference, together with a [requirements.txt](requirements.txt) file that will install the required dependencies for the python script when you run the command `pip install -r requirements.txt`. In our example we use `.pdf` documents; the script can be modified to use other text formats. We have not included sample documents for search because we encourage you to use your own and modify the script accordingly.
+
+1. Download [the Milvus OpenAPI specification file](milvus-openapi.json) from this starter kit. You use this specification file to create and add the Milvus extension to your assistant.
+
+1. In your assistant, on the **Integrations** page, click **Build custom extension** and use the OpenAPI specification file to build a custom extension named `Milvus`. For general instructions on building any custom extension, see [Building the custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension).
+
+1. After you build the Milvus extension and it appears on your **Integrations** page, click **Add** to add it to your assistant. For general instructions on adding any custom extension, see [Adding an extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension).
+
+1. In **Authentication**, choose **No authentication** and enter values for your Milvus server variables (i.e., ip-address:rest-port, e.g., `123.456.78.910:9091`) to create a valid generated URL for requests. However, if you configured Milvus to require basic authentication, then choose **Basic auth** and enter your Milvus credentials.
+
+1. The setup of your Milvus extension for Watson Assistant is complete. For more information about the extension parameters, see the [Milvus API Reference](https://milvus.io/docs/search.md).
 
 ### Configure the watsonx extension
 
@@ -247,35 +273,11 @@ Follow the steps in the following sections for the custom extensions setup befor
 
 ### Configure the Hugging Face Hub Embeddings extension
 
-1. Sign up at [Hugging Face](https://huggingface.co/) and follow the instructions there to get an API key. Save this API key somewhere safe and accessible.
-
-1. Download [the Hugging Face Hub OpenAPI specification file](hugging-face-hub-embed-openapi.json) from this starter kit. You use this specification file to create and add the Hugging Face Hub Embeddings extension to your assistant.
-
-1. In your assistant, on the **Integrations** page, click **Build custom extension** and use the OpenAPI specification file to build a custom extension named `Hugging Face Hub Embeddings`. For general instructions on building any custom extension, see [Building the custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension).
-
-1. After you build the Hugging Face Hub Embeddings extension and it appears on your **Integrations** page, click **Add** to add it to your assistant. For general instructions on adding any custom extension, see [Adding an extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension).
-
-1. In **Authentication**, choose **Bearer auth**. Copy and paste your Hugging Face API key into the **Token** field.
-
-1. The setup of your extension is now complete. For more information about the extension parameters, see the [Hugging Face API Reference](https://huggingface.co/docs/hub/api).
+Follow [these steps to configure the Hugging Face Hub Embeddings extension](#configure-the-hugging-face-hub-embeddings-extension).
 
 ### Configure the Milvus semantic search extension
 
-Milvus is an open-source vector database for semantic search.
-
-1. Follow the instructions at [Milvus](https://milvus.io) to [install it](https://milvus.io/docs/install_standalone-docker.md) somewhere that your assistant can access it. You will need the server variables (ip-address and REST port) to connect it with your assistant. One option for where to host is an [IBM virtual server](https://www.ibm.com/cloud/virtual-servers). Another is [IBM code engine](https://www.ibm.com/cloud/code-engine). However, it can also be installed on a separate machine as long as it is connected to the internet. Alternatively, Milvus can be run on a different cloud such as AWS. You need to record the IP address of the machine where it's installed Milvus and the port where it is running. Note that there are 2 Milvus ports. One port is for the REST API which is the one used for the assistant extension connection, and it defaults to 9091. The other port is for gRPC requests used for indexing the documents, and it defaults to 19530.
-
-1. Add your content to Milvus. In this example, we use Milvus to search a document collection that we previously indexed with [this python script](index-with-milvus.py). We include this script as an example for reference, together with a [requirements.txt](requirements.txt) file that will install the required dependencies for the python script when you run the command `pip install -r requirements.txt`. In our example we use `.pdf` documents; the script can be modified to use other text formats. We have not included sample documents for search because we encourage you to use your own and modify the script accordingly.
-
-1. Download [the Milvus OpenAPI specification file](milvus-openapi.json) from this starter kit. You use this specification file to create and add the Milvus extension to your assistant.
-
-1. In your assistant, on the **Integrations** page, click **Build custom extension** and use the OpenAPI specification file to build a custom extension named `Milvus`. For general instructions on building any custom extension, see [Building the custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension).
-
-1. After you build the Milvus extension and it appears on your **Integrations** page, click **Add** to add it to your assistant. For general instructions on adding any custom extension, see [Adding an extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension).
-
-1. In **Authentication**, choose **No authentication** and enter values for your Milvus server variables (i.e., ip-address:rest-port, e.g., `123.456.78.910:9091`) to create a valid generated URL for requests. However, if you configured Milvus to require basic authentication, then choose **Basic auth** and enter your Milvus credentials.
-
-1. The setup of your Milvus extension for Watson Assistant is complete. For more information about the extension parameters, see the [Milvus API Reference](https://milvus.io/docs/search.md).
+Follow [these steps to configure the Milvus semantic search extension](#configure-the-milvus-semantic-search-extension).
 
 ### Configure the OpenAI answer generation extension
 
