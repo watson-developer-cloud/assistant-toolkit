@@ -10,8 +10,7 @@ This example demonstrates how to use a custom element to change the size and pos
 
 It demonstrates:
 
-- How to use a [**window:open**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#windowclose) event handler to show the main web chat window when web chat is opened.
-- How to use a [**window:close**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#windowclose) event handler to hide the main web chat window when web chat is closed.
+- How to use a [**view:change**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#viewchange) event handler to show or hide the main web chat window when it is opened or closed.
 - How to use the [**element**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-configuration#configurationobject) configuration property to specify which custom element to use.
 - How to apply custom animation to the entrance and exit of web chat.
 

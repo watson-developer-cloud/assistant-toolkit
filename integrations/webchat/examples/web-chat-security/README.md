@@ -11,7 +11,7 @@ It demonstrates:
 - How to generate public and private keys that are required for creating JWTs.
 - How to use a NodeJS Express server for creating a JWT from your private key.
 - How to use an [**identityTokenExpired**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#identityexpired) event handler to request a new JWT from your server.
-- How to use the [**updateIdentityToken**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#updateidentity) instance function to send update web chat with a new JWT when the user has changed.
+- How to use the [**updateIdentityToken**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#updateidentity) instance method to send update web chat with a new JWT when the user has changed.
 - How to set the user ID used by web chat.
 - How to encrypt a payload in a JWT so that secret information can be sent to the assistant.
 - How to use a custom variable to change the user ID in the middle of a session.

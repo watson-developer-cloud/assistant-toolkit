@@ -16,7 +16,7 @@ function App() {
   // TODO: Remove this if not needed.
   const [instance, setInstance] = useState(null);
 
-  // You can also provide a custom onBeforeRender if you need to call instance function to enable customizations for
+  // You can also provide a custom onBeforeRender if you need to call instance method to enable customizations for
   // web chat before it is rendered.
   return (
     <>

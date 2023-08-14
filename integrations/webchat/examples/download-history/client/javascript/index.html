@@ -134,7 +134,7 @@
     /**
      * This is the function that is called when the web chat code has been loaded and it is ready to be rendered.
      */
-    function onLoad(instance) {
+    async function onLoad(instance) {
       // Listen for the send and receive events which will allow us to save the history so it can be downloaded later.
       // See https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#summary for more
       // about our events.
@@ -148,7 +148,7 @@
       instance.updateCustomMenuOptions('bot', [{ text: 'Download transcript', handler: doDownload }]);
       instance.updateCustomMenuOptions('agent', [{ text: 'Download transcript', handler: doDownload }]);
 
-      instance.render();
+      await instance.render();
     }
 
     // This is the standard web chat configuration object. You can modify these values with the embed code for your

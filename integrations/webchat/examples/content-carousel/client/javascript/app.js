@@ -26,7 +26,7 @@ function addWebChat() {
 /**
  * This function is called when web chat has been loaded and is ready to be displayed.
  */
-function webChatOnLoad(instance) {
+async function webChatOnLoad(instance) {
   instance.on({
     type: 'customResponse',
     handler: (event, instance) => {
@@ -38,7 +38,7 @@ function webChatOnLoad(instance) {
       }
     },
   });
-  instance.render();
+  await instance.render();
 }
 
 // Launch web chat as soon as this script has loaded.
