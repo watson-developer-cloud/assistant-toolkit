@@ -3,10 +3,10 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-08-02T17:06:19.559Z",
-  "updated": "2023-08-06T03:32:53.128Z",
+  "created": "2023-08-14T16:49:24.410Z",
+  "updated": "2023-08-15T22:15:33.082Z",
   "language": "en",
-  "skill_id": "95f30366-5acd-4de0-b58c-de54e19ebac0",
+  "skill_id": "d6a375e3-6ad2-4d6c-90d6-41525873938a",
   "workspace": {
     "actions": [
       {
@@ -556,40 +556,18 @@
                 }
               }
             },
-            "next_step": "step_503"
+            "next_step": "step_758"
           },
           {
-            "step": "step_503",
+            "step": "step_758",
             "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": ""
-                          },
-                          {
-                            "skill_variable": "model_response"
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "context": {
-              "variables": []
+              "generic": []
             },
             "handlers": [],
             "resolver": {
               "type": "end_action"
             },
-            "variable": "step_503"
+            "variable": "step_758"
           }
         ],
         "title": "Generate Answer",
@@ -601,13 +579,17 @@
         },
         "variables": [
           {
+            "variable": "step_313_result_1",
+            "data_type": "any"
+          },
+          {
             "title": "I'm sorry, I encountered a connection error.",
             "variable": "step_483",
             "data_type": "any"
           },
           {
-            "title": "{variable}",
-            "variable": "step_503",
+            "title": "",
+            "variable": "step_758",
             "data_type": "any"
           },
           {
@@ -658,7 +640,7 @@
             },
             "handlers": [],
             "resolver": {
-              "type": "invoke_another_action_and_end",
+              "type": "invoke_another_action",
               "invoke_action": {
                 "action": "action_41261-2",
                 "policy": "default",
@@ -666,7 +648,75 @@
                 "result_variable": "step_429_result_1"
               }
             },
-            "variable": "step_429"
+            "variable": "step_429",
+            "next_step": "step_217"
+          },
+          {
+            "step": "step_217",
+            "output": {
+              "generic": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "policy": "dynamic"
+              }
+            },
+            "variable": "step_217",
+            "condition": {
+              "contains": [
+                {
+                  "skill_variable": "model_response"
+                },
+                {
+                  "scalar": "I don't know",
+                  "options": {
+                    "ignore_case": true
+                  }
+                }
+              ]
+            },
+            "next_step": "step_881"
+          },
+          {
+            "step": "step_881",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": ""
+                          },
+                          {
+                            "skill_variable": "model_response"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "question": {
+              "free_text": true,
+              "response_collection_behavior": "always_ask"
+            },
+            "resolver": {
+              "type": "replay",
+              "clear": [
+                {
+                  "variable": "step_429"
+                }
+              ]
+            },
+            "variable": "step_881"
           }
         ],
         "title": "TV Plan Questions",
@@ -678,12 +728,30 @@
         },
         "variables": [
           {
-            "title": "No response",
+            "title": "",
+            "variable": "step_217",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_217_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "",
             "variable": "step_429",
             "data_type": "any"
           },
           {
             "variable": "step_429_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "{variable}",
+            "variable": "step_881",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_881_result_1",
             "data_type": "any"
           }
         ],
@@ -720,7 +788,7 @@
             },
             "handlers": [],
             "resolver": {
-              "type": "invoke_another_action_and_end",
+              "type": "invoke_another_action",
               "invoke_action": {
                 "action": "action_41261-2",
                 "policy": "default",
@@ -728,7 +796,75 @@
                 "result_variable": "step_365_result_2"
               }
             },
-            "variable": "step_365"
+            "variable": "step_365",
+            "next_step": "step_802"
+          },
+          {
+            "step": "step_802",
+            "output": {
+              "generic": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "policy": "dynamic"
+              }
+            },
+            "variable": "step_802",
+            "condition": {
+              "contains": [
+                {
+                  "skill_variable": "model_response"
+                },
+                {
+                  "scalar": "I don't know",
+                  "options": {
+                    "ignore_case": true
+                  }
+                }
+              ]
+            },
+            "next_step": "step_744"
+          },
+          {
+            "step": "step_744",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": ""
+                          },
+                          {
+                            "skill_variable": "model_response"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "question": {
+              "free_text": true,
+              "response_collection_behavior": "always_ask"
+            },
+            "resolver": {
+              "type": "replay",
+              "clear": [
+                {
+                  "variable": "step_365"
+                }
+              ]
+            },
+            "variable": "step_744"
           }
         ],
         "title": "Internet Plan Questions",
@@ -740,12 +876,26 @@
         },
         "variables": [
           {
-            "title": "No response",
+            "title": "",
             "variable": "step_365",
             "data_type": "any"
           },
           {
             "variable": "step_365_result_2",
+            "data_type": "any"
+          },
+          {
+            "title": "{variable}",
+            "variable": "step_744",
+            "data_type": "any"
+          },
+          {
+            "title": "",
+            "variable": "step_802",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_802_result_1",
             "data_type": "any"
           }
         ],
@@ -773,7 +923,7 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "cc50493e455de183d661b95360196ddb468a02051add6dcaf4a6479b34900be5",
-                  "catalog_item_id": "266e3a60-cf6b-4bdf-976f-7c529fb4e411"
+                  "catalog_item_id": "67ad4d93-b267-4a1c-bd57-5a028f5e27c7"
                 },
                 "request_mapping": {
                   "body": [
@@ -906,58 +1056,30 @@
         "steps": [
           {
             "step": "step_713",
-            "handlers": [],
-            "resolver": {
-              "type": "invoke_another_action_and_end",
-              "invoke_action": {
-                "action": "action_41495",
-                "policy": "default",
-                "parameters": null,
-                "result_variable": "step_713_result_1"
-              }
-            },
-            "variable": "step_713",
-            "condition": {
-              "contains": [
+            "output": {
+              "generic": [
                 {
-                  "skill_variable": "last_action_accessed"
-                },
-                {
-                  "scalar": "TV Plan Questions",
-                  "options": {
-                    "ignore_case": true
-                  }
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "\"I don't know and it is not in my knowledgebase\""
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
                 }
               ]
             },
-            "next_step": "step_279"
-          },
-          {
-            "step": "step_279",
             "handlers": [],
             "resolver": {
-              "type": "invoke_another_action_and_end",
-              "invoke_action": {
-                "action": "action_41495-2",
-                "policy": "default",
-                "parameters": null,
-                "result_variable": "step_279_result_1"
-              }
+              "type": "end_action"
             },
-            "variable": "step_279",
-            "condition": {
-              "contains": [
-                {
-                  "skill_variable": "last_action_accessed"
-                },
-                {
-                  "scalar": "Internet Plan Questions",
-                  "options": {
-                    "ignore_case": true
-                  }
-                }
-              ]
-            }
+            "variable": "step_713"
           }
         ],
         "title": "No action matches",
@@ -969,21 +1091,8 @@
         },
         "variables": [
           {
-            "title": "No response",
-            "variable": "step_279",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_279_result_1",
-            "data_type": "any"
-          },
-          {
-            "title": "No response",
+            "title": "\"I don't know and it is not in my knowledgebase\"",
             "variable": "step_713",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_713_result_1",
             "data_type": "any"
           }
         ],
@@ -1126,23 +1235,27 @@
           {
             "step": "step_003",
             "output": {
-              "generic": []
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Unfortunately, I don't know since this is not a relevant question. please feel free to ask a different question."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
             },
             "handlers": [],
             "resolver": {
-              "type": "connect_to_agent",
-              "response": {
-                "transfer_info": {
-                  "target": {}
-                },
-                "agent_available": {
-                  "message": "Let's send you to an available agent."
-                },
-                "agent_unavailable": {
-                  "message": "There are no agents available at this time. When one becomes available, we'll connect you."
-                },
-                "message_to_human_agent": ""
-              }
+              "type": "end_action"
             },
             "variable": "step_003",
             "condition": {
@@ -1269,7 +1382,7 @@
             "data_type": "any"
           },
           {
-            "title": "No response",
+            "title": "Unfortunately, I don't know since this is not a relevant questio",
             "variable": "step_003",
             "data_type": "any"
           },
@@ -1662,7 +1775,7 @@
         "data_type": "any",
         "description": "",
         "initial_value": {
-          "expression": "\"You are an agent for a cable provider that helps customers determine which internet plan is best for them.  Limit your response to 30 words and only discuss which plans are best for that customer unless prompted otherwise. The three plans are 1) The 100 Mbps plan which cost $30; 2) The 500 Mbps which cost $40; 3) The 1 Gbps plan which cost $50\""
+          "expression": "\"You are an agent for a cable provider that helps customers determine which internet plan is best for them.  Limit your response to 30 words and only discuss which plans are best for that customer unless prompted otherwise. If you don't find anything relevant, only & only say 'I don't know' and nothing additional. The three plans are 1) The 100 Mbps plan which cost $30; 2) The 500 Mbps which cost $40; 3) The 1 Gbps plan which cost $50\""
         }
       },
       {
@@ -1698,7 +1811,7 @@
         "data_type": "number",
         "description": "",
         "initial_value": {
-          "scalar": 10
+          "scalar": 1
         }
       },
       {
@@ -1746,7 +1859,7 @@
         "data_type": "any",
         "description": "",
         "initial_value": {
-          "scalar": "You are an agent for a cable provider that helps customers determine which TV plan is best for them. The plan to recommend should include all of the channels they request. Limit your response to 30 words and only discuss which plans are best for that customer unless prompted otherwise. Here are the plans: \n Plan ID: Bronze \n Channels: A&E HD East, AMC, Bravo HD, CNBC HD, CNN HD, Comedy Central, Cooking Channel, E! Entertainment Television, Esquire HD, Food Network, Fox Business HD, Fox News Channel, Fuse, FX HD, Hallmark Channel HD, HLN HD, HGTV HD, HSN HD, Lifetime HD, MSNBC HD, NewsNation SD, Nickelodeon, Olympic Channel, Paramount Network HD, QVC, SYFY HD, Golf Channel HD, Travel Channel, Weather Channel HD, TLC HD, truTV HD, USA Network HD, WEtv HD \n Cost: $60 Plan ID: Silver Channels: A&E HD East, AMC, AMC Pacific, Animal Planet Pacific, ASPiRE, BBC America, BBC News North America, Bloomberg Business Television, Bravo, Bravo HD, CNN, Cartoon Network, CMT Pacific, CNBC, Comedy Central, Cooking Channel, C-SPAN2, C-SPAN3, Discovery Channel, E! Entertainment Television, E! Entertainment Television Pacific, E! Entertainment Television HD, Esquire HD, Food Network, Food Network Pacific, Food Network HD, Fox Business, Fox News Channel, Freeform, Fuse, FX, FX HD, Game Show Network, Game Show Network HD, Great American Family, Hallmark Channel, Hallmark Channel Pacific, Hallmark Channel HD, HLN HD, HGTV HD, HSN, HSN HD, Investigation Discovery, Lifetime, Lifetime HD, LMN, Military History Channel, MSNBC, MSNBC HD, MTV Classic Pacific, National Geographic USA, NewsNation SD, Nickelodeon, Nicktoons, Olympic Channel, Outdoor Channel, Oxygen True Crime, Paramount Network HD, QVC, SYFY HD, Golf Channel HD, Travel Channel, Weather Channel HD, TLC HD, truTV HD, TV ONE, Universal Kids, USA Network HD, WEtv, WEtv HD, Xfinity Help & Services \n Cost: $80 \n Plan ID: Gold \n Channels: A&E HD East, AMC, AMC Pacific, American Heroes Channel, Animal Planet Pacific, ASPiRE, BBC America, BBC News North America, BETHer, BET Jams, BET Soul, Bloomberg Business Television, Bravo, Bravo HD, CNN, Cartoon Network, CMT Pacific, CMT Music, CNBC, Comedy Central, Cooking Channel, Crime+Investigation, C-SPAN2, C-SPAN3, Destination America, Discovery Channel, Discovery Family Channel, Disney XD, E! Entertainment Television, E! Entertainment Television Pacific, E! Entertainment Television HD, ESPNEWS, Esquire HD, Flix, Food Network, Food Network Pacific, Food Network HD, Fox Business, Fox News Channel, Freeform, Fuse, FX, FX HD, FYI, Game Show Network, Game Show Network HD, Great American Family, Hallmark Channel, Hallmark Channel Pacific, Hallmark Channel HD, HLN HD, HGTV HD, HSN, HSN HD, Investigation Discovery, Lifetime, Lifetime HD, LMN, Logo, Military History Channel, MSNBC, MSNBC HD, MTV Classic, MTV Classic Pacific, MTV2: Music Television, National Geographic USA, NewsNation SD, NFL RedZone, Nick Jr., Nick Music, NickToo East, Nickelodeon, Nicktoons, Olympic Channel, Outdoor Channel, Outdoor Channel HD, Ovation, Oxygen True Crime, Paramount Network, Paramount Network HD, QVC, SYFY HD, Science, Starz Encore Pacific, Starz Encore Classic, Starz Encore Suspense, SundanceTV, SYFY HD, TeenNick, Tennis Channel, Golf Channel HD, Travel Channel, Weather Channel HD, TLC, TLC HD, Tr3s: MTV, Música y Más, truTV HD, TV ONE, Universal Kids, USA Network HD, Vice, WEtv, WEtv HD, Xfinity Help & Services \n Cost: $100 \n When more than two plans meet the query, always suggest the more expensive plan first. Lastly, there are no contracts with any of these plans."
+          "scalar": "You are an agent for a cable provider that helps customers determine which TV plan is best for them. The plan to recommend should include all of the channels they request. Limit your response to 30 words and only discuss which plans are best for that customer unless prompted otherwise. If you don't find anything relevant, only & only say 'I don't know' and nothing additional. Here are the plans: \n Plan ID: Bronze \n Channels: A&E HD East, AMC, Bravo HD, CNBC HD, CNN HD, Comedy Central, Cooking Channel, E! Entertainment Television, Esquire HD, Food Network, Fox Business HD, Fox News Channel, Fuse, FX HD, Hallmark Channel HD, HLN HD, HGTV HD, HSN HD, Lifetime HD, MSNBC HD, NewsNation SD, Nickelodeon, Olympic Channel, Paramount Network HD, QVC, SYFY HD, Golf Channel HD, Travel Channel, Weather Channel HD, TLC HD, truTV HD, USA Network HD, WEtv HD \n Cost: $60 Plan ID: Silver Channels: A&E HD East, AMC, AMC Pacific, Animal Planet Pacific, ASPiRE, BBC America, BBC News North America, Bloomberg Business Television, Bravo, Bravo HD, CNN, Cartoon Network, CMT Pacific, CNBC, Comedy Central, Cooking Channel, C-SPAN2, C-SPAN3, Discovery Channel, E! Entertainment Television, E! Entertainment Television Pacific, E! Entertainment Television HD, Esquire HD, Food Network, Food Network Pacific, Food Network HD, Fox Business, Fox News Channel, Freeform, Fuse, FX, FX HD, Game Show Network, Game Show Network HD, Great American Family, Hallmark Channel, Hallmark Channel Pacific, Hallmark Channel HD, HLN HD, HGTV HD, HSN, HSN HD, Investigation Discovery, Lifetime, Lifetime HD, LMN, Military History Channel, MSNBC, MSNBC HD, MTV Classic Pacific, National Geographic USA, NewsNation SD, Nickelodeon, Nicktoons, Olympic Channel, Outdoor Channel, Oxygen True Crime, Paramount Network HD, QVC, SYFY HD, Golf Channel HD, Travel Channel, Weather Channel HD, TLC HD, truTV HD, TV ONE, Universal Kids, USA Network HD, WEtv, WEtv HD, Xfinity Help & Services \n Cost: $80 \n Plan ID: Gold \n Channels: A&E HD East, AMC, AMC Pacific, American Heroes Channel, Animal Planet Pacific, ASPiRE, BBC America, BBC News North America, BETHer, BET Jams, BET Soul, Bloomberg Business Television, Bravo, Bravo HD, CNN, Cartoon Network, CMT Pacific, CMT Music, CNBC, Comedy Central, Cooking Channel, Crime+Investigation, C-SPAN2, C-SPAN3, Destination America, Discovery Channel, Discovery Family Channel, Disney XD, E! Entertainment Television, E! Entertainment Television Pacific, E! Entertainment Television HD, ESPNEWS, Esquire HD, Flix, Food Network, Food Network Pacific, Food Network HD, Fox Business, Fox News Channel, Freeform, Fuse, FX, FX HD, FYI, Game Show Network, Game Show Network HD, Great American Family, Hallmark Channel, Hallmark Channel Pacific, Hallmark Channel HD, HLN HD, HGTV HD, HSN, HSN HD, Investigation Discovery, Lifetime, Lifetime HD, LMN, Logo, Military History Channel, MSNBC, MSNBC HD, MTV Classic, MTV Classic Pacific, MTV2: Music Television, National Geographic USA, NewsNation SD, NFL RedZone, Nick Jr., Nick Music, NickToo East, Nickelodeon, Nicktoons, Olympic Channel, Outdoor Channel, Outdoor Channel HD, Ovation, Oxygen True Crime, Paramount Network, Paramount Network HD, QVC, SYFY HD, Science, Starz Encore Pacific, Starz Encore Classic, Starz Encore Suspense, SundanceTV, SYFY HD, TeenNick, Tennis Channel, Golf Channel HD, Travel Channel, Weather Channel HD, TLC, TLC HD, Tr3s: MTV, Música y Más, truTV HD, TV ONE, Universal Kids, USA Network HD, Vice, WEtv, WEtv HD, Xfinity Help & Services \n Cost: $100 \n When more than two plans meet the query, always suggest the more expensive plan first. Lastly, there are no contracts with any of these plans."
         }
       },
       {
@@ -1883,8 +1996,8 @@
     "learning_opt_out": true
   },
   "description": "created for assistant 4fec3f06-cc09-4398-82af-6ab377d02783",
-  "assistant_id": "f645816c-fd86-4875-8ecc-700c0029b673",
-  "workspace_id": "95f30366-5acd-4de0-b58c-de54e19ebac0",
+  "assistant_id": "ac63df7c-b413-4bd6-816f-54ecbc68a1f5",
+  "workspace_id": "d6a375e3-6ad2-4d6c-90d6-41525873938a",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }
