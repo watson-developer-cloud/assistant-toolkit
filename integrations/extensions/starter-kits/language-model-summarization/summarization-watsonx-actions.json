@@ -4,7 +4,7 @@
   "valid": true,
   "status": "Available",
   "created": "2023-08-10T13:40:04.966Z",
-  "updated": "2023-08-11T18:32:13.748Z",
+  "updated": "2023-08-15T18:55:59.242Z",
   "language": "en",
   "skill_id": "b4043909-3a4c-4490-8cce-5b2171609955",
   "workspace": {
@@ -514,7 +514,7 @@
                             "variable": "step_838"
                           },
                           {
-                            "scalar": " \\n\n\nDo you mind if I escalate to an agent?"
+                            "scalar": "\n\n<br />\n\n\n\nWould you like me to escalate to an agent?"
                           }
                         ]
                       }
@@ -619,7 +619,7 @@
                   "variable": "step_655"
                 },
                 {
-                  "scalar": "no"
+                  "scalar": "yes"
                 }
               ]
             },
@@ -657,7 +657,7 @@
                   "variable": "step_655"
                 },
                 {
-                  "scalar": "yes"
+                  "scalar": "no"
                 }
               ]
             }

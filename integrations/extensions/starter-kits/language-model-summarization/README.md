@@ -4,8 +4,8 @@ This starter kit uses a generative language model to collect and summarize a cus
 
 This starter kit includes examples of how to configure different language models with Watson Assistant for summarization.
 
-1. The first example shows how to use [OpenAI for summarization](#example-1-connect-your-assistant-to-openai-using-a-custom-extension)
-1. The second example shows how to use [watsonx for summarization](#example-2-connect-your-assstant-to-watsonx-via-a-custom-extensions)
+1. The first example shows how to use [OpenAI for summarization](#example-1-openai)
+1. The second example shows how to use [watsonx for summarization](#example-2-watsonx)
 
 ## Prerequisites
 
@@ -13,11 +13,13 @@ This starter kit requires that you use the [new Watson Assistant](https://cloud.
 
 Create a new, empty assistant that you can use to test this starter kit. For more information, see [Adding more assistants](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-assistant-add).
 
-## Example 1: Connect your assistant to OpenAI using a custom extension
+## Example 1: OpenAI
 
-You connect your assistant by using an OpenAPI specification to add a custom extension. You can see an example of how to do this in the [OpenAI starter kit](../language-model-openai), which shows how to connect to OpenAI models like GPT 3.5 and 4. However, you can also do the same thing with any other generative language model that has a REST API using the same approach. For details on how to use an alternative language model, see below.
+### Connect your assistant to OpenAI using a custom extension
 
-## Upload sample actions
+You connect your assistant by using an OpenAPI specification to add a custom extension. You can see an example of how to do this in the [OpenAI starter kit](../language-model-openai), which shows how to connect to OpenAI models like GPT 3.5 and 4.
+
+### Upload sample actions
 
 Use **Actions Global Settings** to upload the [summarization-openai-actions.json](summarization-openai-actions.json) file in this kit to your assistant. For more information, see [Uploading](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import). You may also need to refresh the action Preview chat after uploading in order to get all the session variables initialized before these actions will work correctly.
 
@@ -35,7 +37,7 @@ To use the sample actions:
 
 1. Use **Actions Global Settings** to upload the JSON file to your assistant. For more information, see [Uploading](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import).
 
-## Preview the sample actions
+### Preview the sample actions
 
 To preview the sample actions, you'll use the `Check order status` action to start a conversation, which WA will then escalate to an agent to see a summary provided by OpenAI.
 
@@ -54,6 +56,34 @@ An example response might look something like this: `The user asks about the sta
 1. After showing the summary to the user, it then initiates a transfer to a human agent. Unless you have configured a contact center, this will not work, but it is included in the kit to show how it would be invoked if you did have one configured. See details in the next section.
 
 1. If the user declines to escalate to an agent, the transaction ends.
+
+# Example 2: watsonx
+
+### Connect your assistant to watsonx using a custom extension
+
+You connect your assistant by using an OpenAPI specification to add a custom extension. You can see an example of how to do this in the [watsonx starter kit](../language-model-watsonx), which shows how to connect to watsonx models like `google/flan-ul2`.
+
+### Upload sample actions
+
+Use **Actions Global Settings** to upload the [summarization-watsonx-actions.json](summarization-watsonx-actions.json) file in this kit to your assistant. For more information, see [Uploading](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import). You may also need to refresh the action Preview chat after uploading in order to get all the session variables initialized before these actions will work correctly.
+
+The starter kit includes a JSON file with these sample actions:
+
+| Action                        | Description                                                                                                                                                                                                                                                                                                    |
+| ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Check order status            | A simple action to check the status of a customer order.                                                                                                                                                                                                                                                       |
+| Escalate to Agent             | Simple example of how OpenAI can be used to provide a summary of a customer conversation. Connects to OpenAI using the `Invoke watsonx Generation API` action and shows the summary to the user. It also triggers an escalation to a customer service agent with the summary in the message sent to the agent. |
+| Invoke watsonx Generation API | Connects to watsonx with the `google/flan-ul2` model.                                                                                                                                                                                                                                                          |
+
+To use the sample actions:
+
+1. Download the sample actions from this starter kit: [summarization-watsonx-actions.json](summarization-watsonx-actions.json).
+
+1. Use **Actions Global Settings** to upload the JSON file to your assistant. For more information, see [Uploading](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import).
+
+### Preview the sample actions
+
+The steps to preview the sample actions with watsonx are the same as the [OpenAI use case](#preview-the-sample-actions)
 
 ## Technical Details
 
