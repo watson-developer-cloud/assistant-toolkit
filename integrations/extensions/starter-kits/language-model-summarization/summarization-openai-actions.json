@@ -4,7 +4,7 @@
   "valid": true,
   "status": "Available",
   "created": "2023-08-07T15:27:32.833Z",
-  "updated": "2023-08-09T18:33:45.276Z",
+  "updated": "2023-08-15T16:38:11.889Z",
   "language": "en",
   "skill_id": "109a8486-a474-4329-94ec-48f65190400f",
   "workspace": {
@@ -22,11 +22,11 @@
                   "value": {
                     "expression": "${system_session_history}.transform(\"role\",\"user\",\"assistant\")"
                   },
-                  "skill_variable": "session_history_openai_format"
+                  "skill_variable": "session_history_ai_format"
                 },
                 {
                   "value": {
-                    "expression": "\"Provide a concise summary in plain English of the following conversation between a chatbot and a user: \" + ${session_history_openai_format}"
+                    "expression": "\"Provide a concise summary in plain English of the following conversation between a chatbot and a user: \" + ${session_history_ai_format}"
                   },
                   "skill_variable": "model_prompt"
                 }
@@ -70,7 +70,7 @@
                             "scalar": "Calling model with "
                           },
                           {
-                            "skill_variable": "session_history_openai_format"
+                            "skill_variable": "session_history_ai_format"
                           }
                         ]
                       }
@@ -244,6 +244,9 @@
         "steps": [
           {
             "step": "step_126",
+            "output": {
+              "generic": []
+            },
             "context": {
               "variables": [
                 {
@@ -361,7 +364,7 @@
         },
         "variables": [
           {
-            "title": "No response",
+            "title": "",
             "variable": "step_126",
             "data_type": "any"
           },
@@ -470,13 +473,131 @@
                       "text_expression": {
                         "concat": [
                           {
-                            "scalar": "Thanks!\n\nThere is a problem checking the status for your order "
+                            "scalar": "Thanks! There is a problem checking the status for your order "
                           },
                           {
                             "variable": "step_838"
                           },
                           {
-                            "scalar": ".\n\nI will escalate this issue to an agent."
+                            "scalar": "\n\n<br />\n\n\n\nWould you like me to escalate to an agent?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential",
+                  "repeat_on_reprompt": false
+                },
+                {
+                  "options": [
+                    {
+                      "label": "Yes",
+                      "value": {
+                        "input": {
+                          "text": "Yes"
+                        }
+                      }
+                    },
+                    {
+                      "label": "No",
+                      "value": {
+                        "input": {
+                          "text": "No"
+                        }
+                      }
+                    }
+                  ],
+                  "response_type": "option",
+                  "repeat_on_reprompt": true
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text_expression": {
+                            "concat": [
+                              {
+                                "scalar": "I'm sorry, I did not catch that, please restate your response."
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "response_type": "text",
+                      "selection_policy": "incremental"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "entity": "sys-yes-no",
+              "max_tries": 3,
+              "response_collection_behavior": "always_ask"
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_307",
+            "next_step": "step_440"
+          },
+          {
+            "step": "step_440",
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "action": "action_11673-2",
+                "policy": "default",
+                "parameters": null,
+                "result_variable": "step_440_result_1"
+              }
+            },
+            "variable": "step_440",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_307"
+                },
+                {
+                  "scalar": "yes"
+                }
+              ]
+            },
+            "next_step": "step_296"
+          },
+          {
+            "step": "step_296",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "I'm sorry that I could not help you. Please try again later."
                           }
                         ]
                       }
@@ -489,15 +610,19 @@
             },
             "handlers": [],
             "resolver": {
-              "type": "invoke_another_action_and_end",
-              "invoke_action": {
-                "action": "action_11673-2",
-                "policy": "default",
-                "parameters": null,
-                "result_variable": "step_307_result_1"
-              }
+              "type": "end_action"
             },
-            "variable": "step_307"
+            "variable": "step_296",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_307"
+                },
+                {
+                  "scalar": "no"
+                }
+              ]
+            }
           }
         ],
         "title": "Check order status",
@@ -509,12 +634,22 @@
         },
         "variables": [
           {
-            "title": "Thanks! There is a problem checking the status for your order {v",
-            "variable": "step_307",
+            "title": "I'm sorry that I could not help you. Please try again later.",
+            "variable": "step_296",
             "data_type": "any"
           },
           {
-            "variable": "step_307_result_1",
+            "title": "Thanks! There is a problem checking the status for your order {v",
+            "variable": "step_307",
+            "data_type": "yes_no"
+          },
+          {
+            "title": "No response",
+            "variable": "step_440",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_440_result_1",
             "data_type": "any"
           },
           {
@@ -875,9 +1010,9 @@
         "description": ""
       },
       {
-        "title": "session_history_openai_format",
-        "variable": "session_history_openai_format",
-        "data_type": "any",
+        "title": "session_history_ai_format",
+        "variable": "session_history_ai_format",
+        "data_type": "string",
         "description": ""
       },
       {
