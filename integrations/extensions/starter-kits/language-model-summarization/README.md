@@ -1,6 +1,6 @@
 # Language Model Summarization starter kit
 
-This starter kit uses a generative language model to collect and summarize a customer's answers via the Watson Assistant [session_history variable](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-publish-overview#publish-overview-environment-settings-session-history). It sends the summary to a customer service agent when the assistant escalates to an agent. This can enable a customer service agent who enters a chat session to have an overview of what has been said in the chat so far without having to read an entire transcript.
+This starter kit uses a generative language model to summarize the interaction between an assistant and a user via the Watson Assistant [session_history variable](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-publish-overview#publish-overview-environment-settings-session-history). The assistant includes the AI-generated summary when it escalates to a human agent. A summary of session history can enable a customer service agent who enters a chat session to have an overview of what has been said in the chat so far without having to read an entire transcript.
 
 This starter kit includes examples of how to configure different language models with Watson Assistant for summarization.
 
@@ -29,7 +29,7 @@ The starter kit includes a JSON file with these sample actions:
 | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Check order status             | A simple action to check the status of a customer order.                                                                                                                                                                                                                                                        |
 | Escalate to Agent              | Simple example of how OpenAI can be used to provide a summary of a customer conversation. Connects to OpenAI using the `Invoke GPT Chat Completion API` action and shows the summary to the user. It also triggers an escalation to a customer service agent with the summary in the message sent to the agent. |
-| Invoke GPT Chat Completion API | Connects to OpenAI with the `gpt-3.5-turbo` model, which provides a level of quality that is nearly as good as `text-davinci-003` at a much lower cost.                                                                                                                                                         |
+| Invoke GPT Chat Completion API | Connects to OpenAI with the `gpt-3.5-turbo` model.                                                                                                                                                                                                                                                              |
 
 ### Session variables
 
@@ -51,7 +51,7 @@ To use the sample actions:
 
 ### Preview the sample actions
 
-To preview the sample actions, you'll use the `Check order status` action to start a conversation, which WA will then escalate to an agent to see a summary provided by OpenAI.
+To preview the sample actions, use the `Check order status` action to start a conversation, which the assistant will then escalate to an agent together with a summary provided by by the generative language model.
 
 1. On the **Actions** page, click **Preview**.
 
@@ -72,7 +72,7 @@ To preview the sample actions, you'll use the `Check order status` action to sta
 
 ### Connect your assistant to watsonx using a custom extension
 
-You connect your assistant by using an OpenAPI specification to add a custom extension. You can see an example of how to do this in the [watsonx starter kit](../language-model-watsonx), which shows how to connect to watsonx models like `google/flan-ul2`.
+You connect your assistant by using an OpenAPI specification to add a custom extension. You can see an example of how to do this in the [watsonx starter kit](../language-model-watsonx), which shows how to connect to watsonx models such as `google/flan-ul2`.
 
 ### Upload sample actions
 
@@ -115,7 +115,7 @@ The steps to preview the sample actions with watsonx are the same as the [OpenAI
 
 ## Technical Details
 
-The interaction between the assistant and the user is recorded in the [session_history_variable](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-publish-overview#publish-overview-environment-settings-session-history).Here is an example of the session history for the check order status use case: `[{"a":"Welcome, how can I assist you?"},{"u":"order status","n":true},{"a":"To get started, please enter your order number"},{"u":"1234"},{"a":"Thanks! There is a problem checking the status for your order 1234\n\n
+The interaction between the assistant and the user is recorded in the [session_history_variable](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-publish-overview#publish-overview-environment-settings-session-history). This is an example of the session history for the check order status use case: `[{"a":"Welcome, how can I assist you?"},{"u":"order status","n":true},{"a":"To get started, please enter your order number"},{"u":"1234"},{"a":"Thanks! There is a problem checking the status for your order 1234\n\n
 \n\n\n\nWould you like me to escalate to an agent?\noption: ["Yes","No"]"},{"u":"Yes"}]`.
 
 This use case has configured the human agent escalation process to use the language model to summarize the session and present the summary to both the user and the human agent. You can see that the model response is sent to the agent by going to step 3 of the `Escalate to Agent` action and clicking on "Edit settings" in the "Connect to agent" block at the bottom of the step. You should see this:
