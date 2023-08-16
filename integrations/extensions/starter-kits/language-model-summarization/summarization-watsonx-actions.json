@@ -4,7 +4,7 @@
   "valid": true,
   "status": "Available",
   "created": "2023-08-10T13:40:04.966Z",
-  "updated": "2023-08-16T14:34:47.192Z",
+  "updated": "2023-08-16T15:44:58.357Z",
   "language": "en",
   "skill_id": "b4043909-3a4c-4490-8cce-5b2171609955",
   "workspace": {
@@ -1018,7 +1018,10 @@
         "title": "model_parameters_stop_sequences",
         "variable": "model_parameters_stop_sequences",
         "data_type": "any",
-        "description": ""
+        "description": "",
+        "initial_value": {
+          "expression": "[  \"\\n\\n\"]"
+        }
       },
       {
         "title": "model_parameters_temperature",
@@ -1063,10 +1066,7 @@
         "title": "watsonx_project_id",
         "variable": "watsonx_project_id",
         "data_type": "any",
-        "description": "",
-        "initial_value": {
-          "scalar": ""
-        }
+        "description": ""
       }
     ],
     "data_types": [],
