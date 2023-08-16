@@ -1,10 +1,10 @@
 {
-  "name": "summarization_with_session_history-action",
+  "name": "summarization-openai-actions",
   "type": "action",
   "valid": true,
   "status": "Available",
   "created": "2023-08-07T15:27:32.833Z",
-  "updated": "2023-08-15T16:38:11.889Z",
+  "updated": "2023-08-16T14:30:33.503Z",
   "language": "en",
   "skill_id": "109a8486-a474-4329-94ec-48f65190400f",
   "workspace": {
@@ -403,7 +403,7 @@
                       "text_expression": {
                         "concat": [
                           {
-                            "scalar": "To get started, please enter your **order number**"
+                            "scalar": "Certainly, I can help with that.\n\n<br />\n\n\n\nTo get started, please enter your **order number**"
                           }
                         ]
                       }
@@ -597,7 +597,7 @@
                       "text_expression": {
                         "concat": [
                           {
-                            "scalar": "I'm sorry that I could not help you. Please try again later."
+                            "scalar": "Ok, I won't escalate to an agent. \n\nI'm sorry that I could not help you. Please try again later."
                           }
                         ]
                       }
@@ -634,7 +634,7 @@
         },
         "variables": [
           {
-            "title": "I'm sorry that I could not help you. Please try again later.",
+            "title": "Ok, I won't escalate to an agent. I'm sorry that I could not hel",
             "variable": "step_296",
             "data_type": "any"
           },
@@ -653,7 +653,7 @@
             "data_type": "any"
           },
           {
-            "title": "To get started, please enter your **order number**",
+            "title": "Certainly, I can help with that. <br /> To get started, please e",
             "variable": "step_838",
             "data_type": "number"
           }
@@ -679,10 +679,7 @@
                       "text_expression": {
                         "concat": [
                           {
-                            "scalar": ""
-                          },
-                          {
-                            "skill_variable": "response"
+                            "scalar": "Sorry, I don't understand."
                           }
                         ]
                       }
@@ -694,30 +691,11 @@
               ]
             },
             "context": {
-              "variables": [
-                {
-                  "value": {
-                    "expression": "input.text"
-                  },
-                  "skill_variable": "query_text"
-                },
-                {
-                  "value": {
-                    "scalar": "Sorry, I do not understand."
-                  },
-                  "skill_variable": "response"
-                }
-              ]
+              "variables": []
             },
             "handlers": [],
             "resolver": {
-              "type": "invoke_another_action_and_end",
-              "invoke_action": {
-                "action": null,
-                "policy": "default",
-                "parameters": null,
-                "result_variable": "step_394_result_1"
-              }
+              "type": "end_action"
             },
             "variable": "step_394"
           }
@@ -731,12 +709,8 @@
         },
         "variables": [
           {
-            "title": "{variable}",
+            "title": "Sorry, I don't understand.",
             "variable": "step_394",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_394_result_1",
             "data_type": "any"
           }
         ],
@@ -994,18 +968,6 @@
       {
         "title": "model_response",
         "variable": "model_response",
-        "data_type": "string",
-        "description": ""
-      },
-      {
-        "title": "query_text",
-        "variable": "query_text",
-        "data_type": "string",
-        "description": ""
-      },
-      {
-        "title": "response",
-        "variable": "response",
         "data_type": "string",
         "description": ""
       },

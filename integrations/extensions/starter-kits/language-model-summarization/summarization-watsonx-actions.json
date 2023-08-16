@@ -4,7 +4,7 @@
   "valid": true,
   "status": "Available",
   "created": "2023-08-10T13:40:04.966Z",
-  "updated": "2023-08-15T18:55:59.242Z",
+  "updated": "2023-08-16T14:34:47.192Z",
   "language": "en",
   "skill_id": "b4043909-3a4c-4490-8cce-5b2171609955",
   "workspace": {
@@ -28,7 +28,7 @@
                   "value": {
                     "expression": "\"Provide a summary in plain English of the following conversation between a chatbot and a user \" + ${session_history_ai_format}.toString().replace('\"', '')"
                   },
-                  "skill_variable": "model_prompt"
+                  "skill_variable": "model_input"
                 }
               ]
             },
@@ -67,10 +67,16 @@
                       "text_expression": {
                         "concat": [
                           {
-                            "scalar": "Calling model with "
+                            "scalar": "Session history is "
                           },
                           {
-                            "skill_variable": "model_prompt"
+                            "system_variable": "session_history"
+                          },
+                          {
+                            "scalar": "\n\n<br />\n\n\n\nCalling model with "
+                          },
+                          {
+                            "skill_variable": "model_input"
                           }
                         ]
                       }
@@ -208,7 +214,7 @@
         },
         "variables": [
           {
-            "title": "Calling model with {variable}",
+            "title": "Session history is {variable} <br /> Calling model with {variabl",
             "variable": "step_236",
             "data_type": "any"
           },
@@ -245,14 +251,7 @@
           {
             "step": "step_126",
             "context": {
-              "variables": [
-                {
-                  "value": {
-                    "expression": "${model_prompt}.toString()"
-                  },
-                  "skill_variable": "model_input_string"
-                }
-              ]
+              "variables": []
             },
             "handlers": [],
             "resolver": {
@@ -269,7 +268,7 @@
                   "body": [
                     {
                       "value": {
-                        "skill_variable": "model_input_string"
+                        "skill_variable": "model_input"
                       },
                       "parameter": "input"
                     },
@@ -438,7 +437,7 @@
                       "text_expression": {
                         "concat": [
                           {
-                            "scalar": "To get started, please enter your **order number**"
+                            "scalar": "Certainly, I can help with that.\n\nTo get started, please enter your **order number**"
                           }
                         ]
                       }
@@ -691,7 +690,7 @@
             "data_type": "yes_no"
           },
           {
-            "title": "To get started, please enter your **order number**",
+            "title": "Certainly, I can help with that. To get started, please enter yo",
             "variable": "step_838",
             "data_type": "number"
           }
@@ -708,7 +707,7 @@
       {
         "steps": [
           {
-            "step": "step_394",
+            "step": "step_500",
             "output": {
               "generic": [
                 {
@@ -717,10 +716,7 @@
                       "text_expression": {
                         "concat": [
                           {
-                            "scalar": ""
-                          },
-                          {
-                            "skill_variable": "response"
+                            "scalar": "Sorry, I do not understand."
                           }
                         ]
                       }
@@ -732,32 +728,13 @@
               ]
             },
             "context": {
-              "variables": [
-                {
-                  "value": {
-                    "expression": "input.text"
-                  },
-                  "skill_variable": "query_text"
-                },
-                {
-                  "value": {
-                    "scalar": "Sorry, I do not understand."
-                  },
-                  "skill_variable": "response"
-                }
-              ]
+              "variables": []
             },
             "handlers": [],
             "resolver": {
-              "type": "invoke_another_action_and_end",
-              "invoke_action": {
-                "action": null,
-                "policy": "default",
-                "parameters": null,
-                "result_variable": "step_394_result_1"
-              }
+              "type": "end_action"
             },
-            "variable": "step_394"
+            "variable": "step_500"
           }
         ],
         "title": "No action matches",
@@ -769,12 +746,8 @@
         },
         "variables": [
           {
-            "title": "{variable}",
-            "variable": "step_394",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_394_result_1",
+            "title": "Sorry, I do not understand.",
+            "variable": "step_500",
             "data_type": "any"
           }
         ],
@@ -1009,8 +982,8 @@
         }
       },
       {
-        "title": "model_input_string",
-        "variable": "model_input_string",
+        "title": "model_input",
+        "variable": "model_input",
         "data_type": "string",
         "description": ""
       },
@@ -1020,7 +993,7 @@
         "data_type": "number",
         "description": "",
         "initial_value": {
-          "scalar": 1
+          "scalar": 20
         }
       },
       {
@@ -1057,26 +1030,8 @@
         }
       },
       {
-        "title": "model_prompt",
-        "variable": "model_prompt",
-        "data_type": "string",
-        "description": ""
-      },
-      {
         "title": "model_response",
         "variable": "model_response",
-        "data_type": "string",
-        "description": ""
-      },
-      {
-        "title": "query_text",
-        "variable": "query_text",
-        "data_type": "string",
-        "description": ""
-      },
-      {
-        "title": "response",
-        "variable": "response",
         "data_type": "string",
         "description": ""
       },
