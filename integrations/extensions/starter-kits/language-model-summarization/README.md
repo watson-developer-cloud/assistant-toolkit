@@ -33,7 +33,7 @@ The starter kit includes a JSON file with these sample actions:
 
 ### Session variables
 
-These are the session variables used in the openai example.
+Below is a list of the session variables used in this example. Most of them are automatically set with defaults in the sample actions file that you downloaded, so you do not need to set them yourself unless you want to make changes.
 
 - `messages` : Input to the OpenAI model; includes the `search_results` and the `model_prompt`.
 - `model_for_chat` : The OpenAI model used, defaults to `gpt-3.5-turbo`.
@@ -88,7 +88,7 @@ The starter kit includes a JSON file with these sample actions:
 
 ### Session variables
 
-These are the session variables used in the watsonx example.
+Below is a list of the session variables used in this example. Most of them are automatically set with defaults in the sample actions file that you downloaded, so you do not need to set them yourself unless you want to make changes. You **must**, however, set the `watsonx_project_id` to the watsonx project id that you want to use for answer generation.
 
 - `model_id`: The ID of the watsonx model that you select for this action. Defaults to `google/flan-ul2`.
 - `model_input`: The input to the model.
