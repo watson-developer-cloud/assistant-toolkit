@@ -4,8 +4,8 @@ This starter kit uses a generative language model to summarize the interaction b
 
 This starter kit includes examples of how to configure different language models with Watson Assistant for summarization.
 
-1. The first example shows how to use [OpenAI for summarization](#example-1-openai)
-1. The second example shows how to use [watsonx for summarization](#example-2-watsonx)
+1. The first example shows how to use [watsonx for summarization](#example-1-watsonx)
+1. The second example shows how to use [OpenAI for summarization](#example-2-openai)
 
 ## Prerequisites
 
@@ -13,45 +13,44 @@ This starter kit requires that you use the [new Watson Assistant](https://cloud.
 
 Create a new, empty assistant that you can use to test this starter kit. For more information, see [Adding more assistants](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-assistant-add).
 
-## Example 1: OpenAI
+# Example 1: watsonx
 
-### Connect your assistant to OpenAI using a custom extension
+### Connect your assistant to watsonx using a custom extension
 
-You connect your assistant by using an OpenAPI specification to add a custom extension. You can see an example of how to do this in the [OpenAI starter kit](../language-model-openai), which shows how to connect to OpenAI models like GPT 3.5 and 4.
+You connect your assistant by using an OpenAPI specification to add a custom extension. You can see an example of how to do this in the [watsonx starter kit](../language-model-watsonx/README.md), which shows how to connect to watsonx models such as `google/flan-ul2`.
 
 ### Upload sample actions
 
-Use **Actions Global Settings** to upload the [summarization-openai-actions.json](summarization-openai-actions.json) file in this kit to your assistant. For more information, see [Uploading](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import). You may also need to refresh the action Preview chat after uploading in order to get all the session variables initialized before these actions will work correctly.
+Use **Actions Global Settings** to upload the [summarization-watsonx-actions.json](summarization-watsonx-actions.json) file in this kit to your assistant. For more information, see [Uploading](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import). You may also need to refresh the action Preview chat after uploading in order to get all the session variables initialized before these actions will work correctly.
 
 The starter kit includes a JSON file with these sample actions:
 
-| Action                         | Description                                                                                                                                                                                                                                                                                                     |
-| ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Check order status             | A simple action to check the status of a customer order.                                                                                                                                                                                                                                                        |
-| Escalate to Agent              | Simple example of how OpenAI can be used to provide a summary of a customer conversation. Connects to OpenAI using the `Invoke GPT Chat Completion API` action and shows the summary to the user. It also triggers an escalation to a customer service agent with the summary in the message sent to the agent. |
-| Invoke GPT Chat Completion API | Connects to OpenAI with the `gpt-3.5-turbo` model.                                                                                                                                                                                                                                                              |
+| Action                        | Description                                                                                                                                                                                                                                                                                                    |
+| ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Check order status            | A simple action to check the status of a customer order.                                                                                                                                                                                                                                                       |
+| Escalate to Agent             | Simple example of how OpenAI can be used to provide a summary of a customer conversation. Connects to OpenAI using the `Invoke watsonx Generation API` action and shows the summary to the user. It also triggers an escalation to a customer service agent with the summary in the message sent to the agent. |
+| Invoke watsonx Generation API | Connects to watsonx with the `google/flan-ul2` model.                                                                                                                                                                                                                                                          |
 
 ### Session variables
 
-Below is a list of the session variables used in this example. Most of them are automatically set with defaults in the sample actions file that you downloaded, so you do not need to set them yourself unless you want to make changes.
+Below is a list of the session variables used in this example. Most of them are automatically set with defaults in the sample actions json file that you downloaded, so you do not need to set them yourself unless you want to make changes. You **must**, however, set the `watsonx_project_id` to the watsonx project id that you want to use for answer generation.
 
-- `messages` : Input to the OpenAI model; includes the `search_results` and the `model_prompt`.
-- `model_for_chat` : The OpenAI model used, defaults to `gpt-3.5-turbo`.
-- `model_max_tokens` : The maximum number of text fragments to input to the model. The starter kit uses 200.
-- `model_prompt`: You MAY change this to do prompt engineering, but a default will be used by the model if you don’t pass a prompt here.
-- `model_response`: The text generated by the model in response to the `messages`.
+- `model_id`: The ID of the watsonx model that you select for this action. Defaults to `google/flan-ul2`.
+- `model_input`: The input to the model.
+- `model_parameters_min_new_tokens`: The minimum number of the new tokens to be generated. Defaults to 20.
+- `model_parameters_max_new_tokens` : The maximum number of new tokens to be generated. Defaults to 300.
+- `model_parameters_repetition_penalty`: Represents the penalty for penalizing tokens that have already been generated or belong to the context. The range is 1.0 to 2.0 and defaults to 1.1.
+- `model_parameters_stop_sequences`: Stop sequences are one or more strings which will cause the text generation to stop if/when they are produced as part of the output. Stop sequences encountered prior to the minimum number of tokens being generated will be ignored. The list may contain up to 6 strings. Defaults to ["\n\n"]
+- `model_parameters_temperature` : The value used to control the next token probabilities. The range is from 0.05 to 1.00; 0 makes it _mostly_ deterministic.
+- `model_response`: The text generated by the model in response to the `model_input`.
 - `session_history_ai_format`: the session history variable formatted for the ai model.
 - `verbose`: Boolean variable that when `true` prints debug output from the assistant. Defaults to `false`.
-
-To use the sample actions:
-
-1. Download the sample actions from this starter kit: [summarization-openai-actions.json](summarization-openai-actions.json).
-
-1. Use **Actions Global Settings** to upload the JSON file to your assistant. For more information, see [Uploading](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import).
+- `watsonx_api_version` - watsonx api date version. It currently defaults to `2023-05-29`.
+- `watsonx_project_id`: You **MUST** set this value to your own [a project ID value from watsonx](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html). Typically, this is a [sandbox project id](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/sandbox.html) that is automatically created for you when you sign up for watsonx.ai.
 
 ### Preview the sample actions
 
-To preview the sample actions, use the `Check order status` action to start a conversation, which the assistant will then escalate to an agent together with a summary provided by by the generative language model.
+To preview the sample actions, use the `Check order status` action to start a conversation regarding the user's order. The assistant will then escalate to an agent together with a summary provided by the generative language model.
 
 1. On the **Actions** page, click **Preview**.
 
@@ -68,50 +67,39 @@ To preview the sample actions, use the `Check order status` action to start a co
 
 1. If the user declines to escalate to an agent, the transaction ends.
 
-# Example 2: watsonx
+## Example 2: OpenAI
 
-### Connect your assistant to watsonx using a custom extension
+### Connect your assistant to OpenAI using a custom extension
 
-You connect your assistant by using an OpenAPI specification to add a custom extension. You can see an example of how to do this in the [watsonx starter kit](../language-model-watsonx), which shows how to connect to watsonx models such as `google/flan-ul2`.
+You connect your assistant by using an OpenAPI specification to add a custom extension. You can see an example of how to do this in the [OpenAI starter kit](../language-model-openai/README.md), which shows how to connect to OpenAI models like GPT 3.5 and 4.
 
 ### Upload sample actions
 
-Use **Actions Global Settings** to upload the [summarization-watsonx-actions.json](summarization-watsonx-actions.json) file in this kit to your assistant. For more information, see [Uploading](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import). You may also need to refresh the action Preview chat after uploading in order to get all the session variables initialized before these actions will work correctly.
+Use **Actions Global Settings** to upload the [summarization-openai-actions.json](summarization-openai-actions.json) file in this kit to your assistant. For more information, see [Uploading](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import). You may also need to refresh the action Preview chat after uploading in order to get all the session variables initialized before these actions will work correctly.
 
 The starter kit includes a JSON file with these sample actions:
 
-| Action                        | Description                                                                                                                                                                                                                                                                                                    |
-| ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Check order status            | A simple action to check the status of a customer order.                                                                                                                                                                                                                                                       |
-| Escalate to Agent             | Simple example of how OpenAI can be used to provide a summary of a customer conversation. Connects to OpenAI using the `Invoke watsonx Generation API` action and shows the summary to the user. It also triggers an escalation to a customer service agent with the summary in the message sent to the agent. |
-| Invoke watsonx Generation API | Connects to watsonx with the `google/flan-ul2` model.                                                                                                                                                                                                                                                          |
+| Action                         | Description                                                                                                                                                                                                                                                                                                     |
+| ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Check order status             | A simple action to check the status of a customer order.                                                                                                                                                                                                                                                        |
+| Escalate to Agent              | Simple example of how OpenAI can be used to provide a summary of a customer conversation. Connects to OpenAI using the `Invoke GPT Chat Completion API` action and shows the summary to the user. It also triggers an escalation to a customer service agent with the summary in the message sent to the agent. |
+| Invoke GPT Chat Completion API | Connects to OpenAI with the `gpt-3.5-turbo` model.                                                                                                                                                                                                                                                              |
 
 ### Session variables
 
-Below is a list of the session variables used in this example. Most of them are automatically set with defaults in the sample actions file that you downloaded, so you do not need to set them yourself unless you want to make changes. You **must**, however, set the `watsonx_project_id` to the watsonx project id that you want to use for answer generation.
+Below is a list of the session variables used in this example. They are automatically set with defaults in the sample actions json file that you downloaded, so you do not need to set them yourself unless you want to make changes.
 
-- `model_id`: The ID of the watsonx model that you select for this action. Defaults to `google/flan-ul2`.
-- `model_input`: The input to the model.
-- `model_parameters_min_new_tokens`: The minimum number of the new tokens to be generated. Defaults to 20.
-- `model_parameters_max_new_tokens` : The maximum number of new tokens to be generated. Defaults to 300.
-- `model_parameters_repetition_penalty`: Represents the penalty for penalizing tokens that have already been generated or belong to the context. The range is 1.0 to 2.0 and defaults to 1.1.
-- `model_parameters_stop_sequences`: Stop sequences are one or more strings which will cause the text generation to stop if/when they are produced as part of the output. Stop sequences encountered prior to the minimum number of tokens being generated will be ignored. The list may contain up to 6 strings. Defaults to ["\n\n"]
-- `model_parameters_temperature` : The value used to control the next token probabilities. The range is from 0.05 to 1.00; 0 makes it _mostly_ deterministic.
-- `model_response`: The text generated by the model in response to the `model_input`.
+- `messages` : Input to the OpenAI model; includes the `search_results` and the `model_prompt`.
+- `model_for_chat` : The OpenAI model used, defaults to `gpt-3.5-turbo`.
+- `model_max_tokens` : The maximum number of text fragments to input to the model. The starter kit uses 200.
+- `model_prompt`: You MAY change this to do prompt engineering, but a default will be used by the model if you don’t pass a prompt here.
+- `model_response`: The text generated by the model in response to the `messages`.
 - `session_history_ai_format`: the session history variable formatted for the ai model.
 - `verbose`: Boolean variable that when `true` prints debug output from the assistant. Defaults to `false`.
-- `watsonx_api_version` - watsonx api date version. It currently defaults to `2023-05-29`.
-- `watsonx_project_id`: You **MUST** set this value to your own [a project ID value from watsonx](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html). Typically, this is a [sandbox project id](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/sandbox.html) that is automatically created for you when you sign up for watsonx.ai.
-
-To use the sample actions:
-
-1. Download the sample actions from this starter kit: [summarization-watsonx-actions.json](summarization-watsonx-actions.json).
-
-1. Use **Actions Global Settings** to upload the JSON file to your assistant. For more information, see [Uploading](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import).
 
 ### Preview the sample actions
 
-The steps to preview the sample actions with watsonx are the same as the [OpenAI use case](#preview-the-sample-actions)
+The steps to preview the sample actions with OpenAI are the same as the [watsonx use case](#preview-the-sample-actions).
 
 ## Technical Details
 
