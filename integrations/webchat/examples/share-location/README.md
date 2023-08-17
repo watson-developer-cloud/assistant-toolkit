@@ -9,7 +9,7 @@ This example demonstrates how to share the user's geographic location with the a
 It demonstrates:
 
 - How to use the [**receive**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#receive) event handlers to identify messages from the assistant that should trigger an action by the browser.
-- How to use the [**send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#send) instance function to send messages to the assistant and how to set context/skill variables.
+- How to use the [**send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#send) instance method to send messages to the assistant and how to set context/skill variables.
 - How to use the browser's built-in geolocation functionality to obtain the user's current location.
 - How to use a variable in an action to set the source/URL of an I-frame response.
 

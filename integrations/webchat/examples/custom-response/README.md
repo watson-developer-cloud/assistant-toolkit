@@ -12,7 +12,7 @@ It demonstrates:
 - How to assign data from the extension response to action variables.
 - How to return a custom response (`user_defined`) from an action.
 - How to use a [**customResponse**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#customresponse) event handler to display a custom card.
-- How to use the [**send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#send) instance function to send a message to the assistant and include context variables with user input.
+- How to use the [**send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#send) instance method to send a message to the assistant and include context variables with user input.
 - How to access action variables in a custom response.
 
 ## Running the Code

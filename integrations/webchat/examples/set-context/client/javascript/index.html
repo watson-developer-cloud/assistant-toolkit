@@ -26,12 +26,12 @@
     /**
      * This is the function that is called when the web chat code has been loaded and it is ready to be rendered.
      */
-    function onLoad(instance) {
+    async function onLoad(instance) {
       // Listen for the pre:send event that will allow us to set the context variable on the message before it is sent.
       // See https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#summary for more about our
       // events.
       instance.on({ type: 'pre:send', handler: preSendHandler });
-      instance.render();
+      await instance.render();
     }
 
     // A web chat configuration options object as documented at

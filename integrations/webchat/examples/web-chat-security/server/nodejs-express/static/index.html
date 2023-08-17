@@ -74,10 +74,10 @@
     /**
      * This is the function that is called when the web chat code has been loaded and it is ready to be rendered.
      */
-    function onLoad(instance) {
+    async function onLoad(instance) {
       webChatInstance = instance;
       instance.on({ type: 'identityTokenExpired', handler: getIdentityToken });
-      instance.render();
+      await instance.render();
     }
 
     /**
