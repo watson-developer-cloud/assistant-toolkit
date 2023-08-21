@@ -12,6 +12,8 @@ Create a new, empty assistant that you can use to test this starter kit. For mor
 
 ## Example 1: Connect your assistant to watsonx
 
+**_Before you begin: This example uses "let assistant decide" feature which is in early access. Please email arnesh.batlaw@ibm.com with the region and ID of your instance if you would like to try this feature._**
+
 This starter kit uses [watsonx](https://www.ibm.com/watsonx) to generate natural language answers for queries over specific topics where all relevant text is loaded directly into the model.
 
 Before you upload the sample actions for this starter kit, you first need to configure a [custom extension for watsonx](../language-model-watsonx/README.md).
