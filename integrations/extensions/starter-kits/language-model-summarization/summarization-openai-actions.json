@@ -3,10 +3,10 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-08-07T15:27:32.833Z",
-  "updated": "2023-08-16T14:30:33.503Z",
+  "created": "2023-08-21T13:36:41.060Z",
+  "updated": "2023-08-21T14:46:02.456Z",
   "language": "en",
-  "skill_id": "109a8486-a474-4329-94ec-48f65190400f",
+  "skill_id": "40e039ea-315d-4d2a-bb62-c1dda73a9a0e",
   "workspace": {
     "actions": [
       {
@@ -20,13 +20,7 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "${system_session_history}.transform(\"role\",\"user\",\"assistant\")"
-                  },
-                  "skill_variable": "session_history_ai_format"
-                },
-                {
-                  "value": {
-                    "expression": "\"Provide a concise summary in plain English of the following conversation between a chatbot and a user: \" + ${session_history_ai_format}"
+                    "expression": "\"Provide a concise summary in plain English of the current conversation between a chatbot and a user.\""
                   },
                   "skill_variable": "model_prompt"
                 }
@@ -36,7 +30,7 @@
             "resolver": {
               "type": "invoke_another_action",
               "invoke_action": {
-                "action": "action_25675-2",
+                "action": "action_25675-2-2",
                 "policy": "default",
                 "parameters": null,
                 "result_variable": "step_770_result_2"
@@ -52,47 +46,6 @@
                 },
                 {
                   "expression": "${system_session_history}.size>0"
-                }
-              ]
-            },
-            "next_step": "step_236"
-          },
-          {
-            "step": "step_236",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "Calling model with "
-                          },
-                          {
-                            "skill_variable": "session_history_ai_format"
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "continue"
-            },
-            "variable": "step_236",
-            "condition": {
-              "eq": [
-                {
-                  "skill_variable": "verbose"
-                },
-                {
-                  "scalar": true
                 }
               ]
             },
@@ -208,17 +161,12 @@
         },
         "variables": [
           {
-            "title": "Calling model with {variable}",
-            "variable": "step_236",
-            "data_type": "any"
-          },
-          {
             "title": "Sorry I could not help! I will get a human agent. Here is a summ",
             "variable": "step_479",
             "data_type": "any"
           },
           {
-            "title": "",
+            "title": "No response",
             "variable": "step_770",
             "data_type": "any"
           },
@@ -232,7 +180,7 @@
             "data_type": "any"
           }
         ],
-        "next_action": "action_25675-2",
+        "next_action": "action_25675-2-2",
         "topic_switch": {
           "allowed_from": true,
           "allowed_into": true,
@@ -243,19 +191,81 @@
       {
         "steps": [
           {
-            "step": "step_126",
-            "output": {
-              "generic": []
-            },
+            "step": "step_766",
             "context": {
               "variables": [
                 {
                   "value": {
-                    "expression": "[{\"role\": \"user\", \"content\": \"${model_prompt}\"}]"
+                    "expression": " ${system_session_history}.transform(\"role\", \"user\", \"assistant\")"
+                  },
+                  "skill_variable": "messages"
+                },
+                {
+                  "value": {
+                    "expression": "${messages}.append({\"role\": \"system\", \"content\": \"${model_prompt}\"})"
                   },
                   "skill_variable": "messages"
                 }
               ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_766",
+            "next_step": "step_126"
+          },
+          {
+            "step": "step_126",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Sending messages to the model:\n\n\n\n"
+                          },
+                          {
+                            "skill_variable": "messages"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_126",
+            "condition": {
+              "eq": [
+                {
+                  "skill_variable": "verbose"
+                },
+                {
+                  "scalar": true
+                }
+              ]
+            },
+            "next_step": "step_345"
+          },
+          {
+            "step": "step_345",
+            "output": {
+              "generic": []
+            },
+            "context": {
+              "variables": []
             },
             "handlers": [],
             "resolver": {
@@ -266,7 +276,7 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "52abfcce168af45904bbec67aa72171f74fe00fccc025503d374dbe9d83f0898",
-                  "catalog_item_id": "2d736321-22f3-4f77-88f0-a0459c3ac463"
+                  "catalog_item_id": "22024121-2f53-40d7-89a8-46ceea2251f9"
                 },
                 "request_mapping": {
                   "body": [
@@ -290,10 +300,10 @@
                     }
                   ]
                 },
-                "result_variable": "step_126_result_1"
+                "result_variable": "step_345_result_1"
               }
             },
-            "variable": "step_126",
+            "variable": "step_345",
             "next_step": "step_973"
           },
           {
@@ -305,7 +315,7 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "${step_126_result_1}.body.choices[0].message.content"
+                    "expression": "${step_345_result_1}.body.choices[0].message.content"
                   },
                   "skill_variable": "model_response"
                 }
@@ -321,7 +331,7 @@
                 {
                   "eq": [
                     {
-                      "variable": "step_126_result_1",
+                      "variable": "step_345_result_1",
                       "variable_path": "success"
                     },
                     {
@@ -330,7 +340,7 @@
                   ]
                 },
                 {
-                  "expression": "${step_126_result_1}.body.choices.size() > 0"
+                  "expression": "${step_345_result_1.body.choices}.size() > 0"
                 }
               ]
             },
@@ -355,26 +365,36 @@
             "variable": "step_416"
           }
         ],
-        "title": "Invoke GPT Chat Completion API",
-        "action": "action_25675-2",
+        "title": "Invoke GPT Chat Completion API with history",
+        "action": "action_25675-2-2",
         "boosts": [],
         "handlers": [],
         "condition": {
-          "intent": "action_25675_intent_42103-2"
+          "intent": "action_25675_intent_42103-2-2"
         },
         "variables": [
           {
-            "title": "",
+            "title": "Sending messages to the model: {variable}",
             "variable": "step_126",
             "data_type": "any"
           },
           {
-            "variable": "step_126_result_1",
+            "title": "",
+            "variable": "step_345",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_345_result_1",
             "data_type": "any"
           },
           {
             "title": "No response",
             "variable": "step_416",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_766",
             "data_type": "any"
           },
           {
@@ -875,7 +895,7 @@
         "examples": []
       },
       {
-        "intent": "action_25675_intent_42103-2",
+        "intent": "action_25675_intent_42103-2-2",
         "examples": []
       },
       {
@@ -968,12 +988,6 @@
       {
         "title": "model_response",
         "variable": "model_response",
-        "data_type": "string",
-        "description": ""
-      },
-      {
-        "title": "session_history_ai_format",
-        "variable": "session_history_ai_format",
         "data_type": "string",
         "description": ""
       },
@@ -1095,8 +1109,8 @@
     "learning_opt_out": true
   },
   "description": "created for assistant a66a897a-ee82-4e70-bbf9-4d54b1b20b94",
-  "assistant_id": "075884d1-4d4f-4621-8b9c-a49d28e6f14b",
-  "workspace_id": "109a8486-a474-4329-94ec-48f65190400f",
+  "assistant_id": "9b7cbabb-5eb9-4344-bedd-cd62ac0268d8",
+  "workspace_id": "40e039ea-315d-4d2a-bb62-c1dda73a9a0e",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }
