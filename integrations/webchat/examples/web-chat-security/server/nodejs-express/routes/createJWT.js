@@ -37,6 +37,9 @@ function createJWTString(anonymousUserID, sessionInfo) {
   // This is the content of the JWT. You would normally look up the user information from a user profile.
   const jwtContent = {
     // This is the subject of the JWT which will be the ID of the user.
+    //
+    // This user ID will be available under integrations.channel.private.user.id in dialog and
+    // system_integrations.channel.private.user.id in actions.
     sub: anonymousUserID,
     // This object is optional and contains any data you wish to include as part of the JWT. This data will be
     // encrypted using IBM's public key so it will not be visible to your users. Watson Assistant will decrypt this
