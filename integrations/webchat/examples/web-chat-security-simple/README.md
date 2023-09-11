@@ -1,12 +1,12 @@
-# Enabling security for Watson Assistant web chat
+# Enabling security for Watson Assistant web chat (simple)
 
 **For a full walk through of how this code works, please visit the [tutorial page](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-develop-security) in the Watson Assistant documentation or view the [security overview](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-security).**
 
 This code is for extending the Watson Assistant web chat. If you are new to developing with web chat, please start with the [web chat development overview](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-develop). The code in this folder is commented with links and references to the web chat APIs used.
 
-This example demonstrates how to enable security with web chat. It will show how to create a JWT that can be used to securely authorize a webpage to access your web chat. It also demonstrates how to use a new JWT for the use case when a user logs into a site in the middle of a Watson Assistant chat session as well as how to send the user's ID to Watson Assistant so it can be used in an action or an extension.
+This example demonstrates how to enable security with web chat. It will show how to create a JWT that can be used to securely authorize a webpage to access your web chat.
 
-This example is a full example that demonstrates how to use an encrypted payload in a JWT as well as how to handle the case where the user logs into a site in the middle of a session. For a simpler example that only demonstrates how to authenticate an already logged-in user to Watson Assistant and without including an encrypted payload, look at our [Enabling security for Watson Assistant web chat (simple)](../web-chat-security-simple) example.
+This example only demonstrates how to authenticate an already logged-in user to Watson Assistant. If you need an example demonstrating how to handle the case where a user logs into a site in the middle of a session or if you want to see how to include encrypted payloads as part of the JWT, review our full [Enabling security for Watson Assistant web chat](../web-chat-security) example.
 
 It demonstrates:
 
@@ -15,8 +15,6 @@ It demonstrates:
 - How to use an [**identityTokenExpired**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#identityexpired) event handler to request a new JWT from your server.
 - How to use the [**updateIdentityToken**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#updateidentity) instance method to send update web chat with a new JWT when the user has changed.
 - How to set the user ID used by web chat.
-- How to encrypt a payload in a JWT so that secret information can be sent to the assistant.
-- How to use a custom variable to change the user ID in the middle of a session.
 
 The server code for generating a JWT can be found in [createJWT.js](server/nodejs-express/routes/createJWT.js). The web chat code that uses the JWT can be found in [index.html](server/nodejs-express/static/index.html).
 
@@ -44,7 +42,7 @@ The server is required for creating the JWTs that are required to enable securit
 ### Running the JavaScript Example
 
 - After starting the server, open [http://localhost:3001/index.html](http://localhost:3001/index.html).
-- Open web chat and click or type "Send something secure".
+- Open web chat and click or type "What is my user ID?".
 - Click the login/logout button to log in or out of the site and use web chat to send "Send something secure" to see Watson Assistant get updated with the changing user ID.
 
 ## Setting up your own assistant
