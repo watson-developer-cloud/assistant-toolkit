@@ -14,7 +14,7 @@ It demonstrates:
 - How to use the [**updateIdentityToken**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#updateidentity) instance method to send update web chat with a new JWT when the user has changed.
 - How to set the user ID used by web chat.
 - How to encrypt a payload in a JWT so that secret information can be sent to the assistant.
-- How to use a custom variable to change the user ID in the middle of a session.
+- How to use a custom variable to change the user ID in the middle of a session (e.g. the user goes from anonymous to logged in).
 
 The server code for generating a JWT can be found in [createJWT.js](server/nodejs-express/routes/createJWT.js). The web chat code that uses the JWT can be found in [index.html](server/nodejs-express/static/index.html).
 
