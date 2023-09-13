@@ -72,8 +72,8 @@ Below is a list of the session variables used in this example. Most of them are 
 
 - `discovery_date_version` - Discovery date versions are documented in the [release notes](https://cloud.ibm.com/docs/discovery-data?topic=discovery-data-release-notes).
 - `discovery_project_id`: You **MUST** set this value to be the project ID obtained [when configuring Watson Discovery above](#configure-watson-discovery-extension).
-- `model_id`: The id of the watsonx model that you select for this action. Defaults to `google/flan-ul2`.
-- `model_input`: The input to the watsonx model. You MAY change this to do prompt engineering, but a default will be used by the model if you don’t pass a prompt here.
+- `model_id`: The id of the watsonx model that you select for this action. Defaults to `meta-llama/llama-2-70b-chat`.  If you keep this default, be sure to comply with the [Acceptable Use Policy for this model](https://ai.meta.com/llama/use-policy/).
+- `model_input`: The input to the watsonx model. This is set in an expression in Step 5 of the "Generate Answer" action.  You MAY change that expression to do prompt engineering.  If you wish to do so and are using the default model, be sure to research [guidelines for prompting Llama 2](https://www.pinecone.io/learn/llama-2/).
 - `model_parameters_max_new_tokens` : The maximum number of new tokens to be generated. Defaults to 300.
 - `model_parameters_min_new_tokens`: The minimum number of the new tokens to be generated. Defaults to 1.
 - `model_parameters_repetition_penalty`: Represents the penalty for penalizing tokens that have already been generated or belong to the context. The range is 1.0 to 2.0 and defaults to 1.1.
@@ -162,8 +162,8 @@ These are the session variables used in this example. Most of the values are set
 
 - `collection_name`: This **MUST** be set to the name of the document collection in Milvus to be searched.
 - `embedding_model_id` : ID of the model to use for generating embeddings for the query.
-- `model_id`: The id of the watsonx model that you select for this action. Defaults to `google/flan-ul2`.
-- `model_input`: The input to the watsonx model. You MAY change this to do prompt engineering, but a default will be used by the model if you don’t pass a prompt here.
+- `model_id`: The id of the watsonx model that you select for this action. Defaults to `meta-llama/llama-2-70b-chat`.  If you keep this default, be sure to comply with the [Acceptable Use Policy for this model](https://ai.meta.com/llama/use-policy/).
+- `model_input`: The input to the watsonx model. This is set in an expression in Step 5 of the "Generate Answer" action.  You MAY change that expression to do prompt engineering.  If you wish to do so and are using the default model, be sure to research [guidelines for prompting Llama 2](https://www.pinecone.io/learn/llama-2/).
 - `model_parameters_max_new_tokens` : The maximum number of new tokens to be generated. Defaults to 300.
 - `model_parameters_min_new_tokens`: The minimum number of the new tokens to be generated. Defaults to 1.
 - `model_parameters_repetition_penalty`: Represents the penalty for penalizing tokens that have already been generated or belong to the context. The range is 1.0 to 2.0 and defaults to 1.1.
