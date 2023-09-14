@@ -163,7 +163,8 @@ These are the session variables used in this example. Most of the values are set
 - `collection_name`: This **MUST** be set to the name of the document collection in Milvus to be searched.
 - `embedding_model_id` : ID of the model to use for generating embeddings for the query.
 - `model_id`: The id of the watsonx model that you select for this action. Defaults to `meta-llama/llama-2-70b-chat`.  If you keep this default, be sure to comply with the [Acceptable Use Policy for this model](https://ai.meta.com/llama/use-policy/).
-- `model_input`: The input to the watsonx model. This is set in an expression in Step 5 of the "Generate Answer" action.  You MAY change that expression to do prompt engineering.  If you wish to do so and are using the default model, be sure to research [guidelines for prompting Llama 2](https://www.pinecone.io/learn/llama-2/).
+- `model_input`: The input to the watsonx model. This is set in an expression in Step 5 of the "Generate Answer" action.  You MAY change that expression to do prompt engineering.  If you wish to do so and are using the default model, be sure to research [guidelines for prompting Llama 2](https://www.pinecone.io/learn/llama-2/).  In our experience, this combination of prompt and model is quite effective at producing high-quality answers when it has useful content and it does _often_ say that it doesn't know when it does not have useful content (as instructed in our prompt).  However, it does _sometimes_ provide answers that are not supported by its evidence so consider other models, prompt expressions, or additional logic to reduce the generation of answers that are not
+- `model_parameters_max_new_tokens` : The maximum number of new tokens to be generated. Defaults to 300.
 - `model_parameters_max_new_tokens` : The maximum number of new tokens to be generated. Defaults to 300.
 - `model_parameters_min_new_tokens`: The minimum number of the new tokens to be generated. Defaults to 1.
 - `model_parameters_repetition_penalty`: Represents the penalty for penalizing tokens that have already been generated or belong to the context. The range is 1.0 to 2.0 and defaults to 1.1.
@@ -174,7 +175,7 @@ These are the session variables used in this example. Most of the values are set
 - `query_text`: By default the Search action passes the user’s input.text directly.
 - `search_results` : Results from the semantic search for the query. These will be input to the watsonx extension model.
 - `snippet` : Top results from the semantic search.
-- `verbose`: A boolean that will print debugging output if true. Default is false.
+- `verbose`: A boolean that will print debugging output if true. Default is false.  Note that if you turn this on, you will see the prompt we send to the model rendered as if it were HTML, which looks messy (all the text is crossed out because the start of the prompt is a tag that Llama uses to represent the start of a message but represents strike-through in HTML).
 - `watsonx_api_version` - watsonx api date version. It currently defaults to `2023-05-29`.
 - `watsonx_project_id`: You **MUST** set this value to be [a project ID value from watsonx](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html). By default, this is a [sandbox project id](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/sandbox.html) that is automatically created for you when you sign up for watsonx.ai.
 
