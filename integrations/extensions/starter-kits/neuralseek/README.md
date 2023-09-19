@@ -44,54 +44,14 @@ Once this is done, skip over the "Setup in an existing Assistant" subsection bel
 
 ### Setup in an existing Assistant
 
-As above, you can follow the simple instructions for setting up NeuralSeek in "Integrate" page.  Alternatively, you can try to replicate the behavior of the actions JSON file (`neuralseek-actions.json`) in this starter kit.  You should not upload this file directly to an existing assistant because that would overwrite your existing actions, but you can recreate the actions from `neuralseek-actions.json` using the following steps:
+As above, you can follow the simple instructions for setting up NeuralSeek in the "Integrate" page of the NeuralSeek UI.  Alternatively, you can add this kit to your assistant using the following process:
 
-- Create a new action named `NeuralSeek`
-- Remove everything from the "Customer starts with" list so that the action _only_ triggers when it is invoked from another action.
-- Within step 1, click the fx button to add a variable and add new session variable `query_text` and select "Expression" type and then put `input.original_text` as the expression. As noted in the [documentation for spell checking](https://cloud.ibm.com/docs/assistant?topic=assistant-dialog-runtime-spell-check#dialog-runtime-spell-check-how-it-works), `input.original_text` is set _only_ if the utterance from the user was altered due to spell correction and then it records the original request from the user and not the spell corrected text.
+- You should not upload this file directly to an existing assistant because that would overwrite your existing actions.  
+- Instead, you can create a new assistant in the same instance of the Watson Assistant product, then set up the kit in that new assistant, and then in that assistant copy the `NeuralSeek search` action to your existing assistant as shown below:
 
 ![Step 1](./assets/neuralseek-step-1.png)<br>
 
-- Add step 2, and in step 2 change "without conditions" to "with conditions" and set the condition `query_text` is not defined. Then set the variable `query_text` to `input.text`. This is needed because the `input.original_text` is only set when spell correction changed the text. When there was no spell correction, you need to use `input.text` instead. After step 2, `query_text` is guaranteed to be the exact original query issued by the user.
-
-![Step 2](./assets/neuralseek-step-2.png)<br>
-
-- Add step 3.
-  - In "And then", select "Use an extension".
-    - Select the NeuralSeek extension.
-    - Select "Seek an answer from NeuralSeek" as the endpoint at this step.
-    - Set the `question` parameter to the `query_text` session variable.
-    - Set the optional `context` parameter to the `query_context` session variable.
-    - You may want to also set the optional `language` parameter to an expression containing the 2-letter language code.  See the "Integrate" page in the NeuralSeek application for a list of valid language codes.
-
-![Step 3](./assets/neuralseek-step-3.png)<br>
-
-- Add step 4.
-  - Change "without conditions" to "with conditions" and set the condition `Ran successfully` is `false`.
-  - In the "Assistant says" box, enter `I tried searching my knowledge base, but it does not seem to be working at the moment.  Sorry!`.
-  - Click on "And then" and select "Go to another action" and select `End the action`.
-
-![Step 4](./assets/neuralseek-step-4.png)<br>
-
-- Add step 5.  
-  - Change "without conditions" to "with conditions", and set "Ran successfully" to "true"
-  - In the "Assistant says" box, type a `$` character to get a list of variables and select `3. body.answer`.
-
-![Step 5](./assets/neuralseek-step-5.png)<br>
-
-- Add step 6.
-  - In "Assistant says" type a `$` character and select "Ran Successfully" and then click on `</>` in the upper right of that box to see the full JSON for the response.  In there, you should see a field called `variable` with a value that looks something like `step_123_result_1`.  Copy that value.
-  - Click "abc" in the upper right and delete the variable in "Assistant says" (we only put it there to copy the variable name).
-  - Change "without conditions" to "with conditions", and set the following:
-    - `3. body.url` is `defined`
-    - An expression of the form `${step_123_result_1}.body.score > 0.1` where `step_123_result_1` is replaced with the actual variable name you copied above
-  - In the "Assistant says" box, type in `For more information, see <a href="${step_123_result_1}.body.score"target="_blank">this help article</a>` except again replace `step_123_result_1` with the actual variable name you copied above.
-  - In the "And then" box, select "End the action".
-  - As noted earlier, this step provides links to end users after the answer is provided.  We recommend trying this out and seeing if the links tend to be useful in your application.  If not, feel free to delete step 6 and just end when the answer is provided in Step 5.
-
-![Step 6](./assets/neuralseek-step-6.png)<br>
-
-- Go to "Actions" > "Set by assistant" > "No action matches" and remove all the steps from the action.  Add in a new step.  Under "And then" select "Go to another action" and select "NeuralSeek" and click "End this action after the subaction is completed".
+- Next, go to "Actions" > "Set by assistant" > "No action matches" and remove all the steps from the action.  Add in a new step.  Under "And then" select "Go to another action" and select "NeuralSeek" and click "End this action after the subaction is completed".
 - You may also want to go to "Actions" > "Set by assistant" > "Fallback" and do the same thing as in the previous step.  Note, however, that this will prevent your assistant from escalating to a human agent when a customer asks to connect to a human agent (which is part of the default behavior for "Fallback") so only do this if you do not have your bot connected to a human agent chat service.  For more details on connecting to human agents within Watson Assistant see [our documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-human-agent) and [blog post](https://medium.com/ibm-watson/bring-your-own-service-desk-to-watson-assistant-b39bc920075c).
 
 ## Using this Starter Kit
