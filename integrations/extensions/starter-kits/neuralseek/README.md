@@ -49,7 +49,7 @@ As above, you can follow the simple instructions for setting up NeuralSeek in th
 - You should not upload this file directly to an existing assistant because that would overwrite your existing actions.  
 - Instead, you can create a new assistant in the same instance of the Watson Assistant product, then set up the kit in that new assistant, and then in that assistant copy the `NeuralSeek search` action to your existing assistant as shown below:
 
-![Step 1](./assets/neuralseek-step-1.png)<br>
+![Step 1](./assets/neuralseek-copy.png)<br>
 
 - Next, go to "Actions" > "Set by assistant" > "No action matches" and remove all the steps from the action.  Add in a new step.  Under "And then" select "Go to another action" and select "NeuralSeek" and click "End this action after the subaction is completed".
 - You may also want to go to "Actions" > "Set by assistant" > "Fallback" and do the same thing as in the previous step.  Note, however, that this will prevent your assistant from escalating to a human agent when a customer asks to connect to a human agent (which is part of the default behavior for "Fallback") so only do this if you do not have your bot connected to a human agent chat service.  For more details on connecting to human agents within Watson Assistant see [our documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-human-agent) and [blog post](https://medium.com/ibm-watson/bring-your-own-service-desk-to-watson-assistant-b39bc920075c).
