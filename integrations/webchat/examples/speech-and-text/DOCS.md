@@ -1,6 +1,6 @@
-Note: This document is in a temporary location until this content is moved into the [main Watson Assistant documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-overview) tutorials section.
+Note: This document is in a temporary location until this content is moved into the [main IBM watsonx Assistant documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-overview) tutorials section.
 
-This will cover how to extend Watson Assistant web chat to be able to use the Watson Speech service to convert speech to text and text to speech.
+This will cover how to extend IBM watsonx Assistant web chat to be able to use the Watson Speech service to convert speech to text and text to speech.
 
 These steps assume that you have already created a Watson Speech service instance.
 
@@ -25,7 +25,7 @@ function generateTextFromMessage(message) {
   return message.output.generic.map(message => message.text).join(' ');
 }
 ```
-2. Create a handler that can listen for messages received from Watson Assistant by web chat.
+2. Create a handler that can listen for messages received from IBM watsonx Assistant by web chat.
 ```javascript
 instance.on({ type: 'receive', handler: handleMessageReceive })
 ```
@@ -42,7 +42,7 @@ function handleMessageReceive(event) {
 
 For the second part, we will explain how to use speech to text.
 
-1. Create a function that will send the final text to Watson Assistant after it is converted to speech.
+1. Create a function that will send the final text to IBM watsonx Assistant after it is converted to speech.
 ```javascript
 function sendTextToAssistant(text) {
   const sendObject = { input: { text } };

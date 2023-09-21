@@ -1,10 +1,10 @@
-# Download history for Watson Assistant web chat
+# Download history for IBM watsonx Assistant web chat
 
-**For a full walk through of how this code works, please visit the [tutorial page](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-develop-download-transcript) in the Watson Assistant documentation.**
+**For a full walk through of how this code works, please visit the [tutorial page](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-develop-download-transcript) in the IBM watsonx Assistant documentation.**
 
-This code is for extending the Watson Assistant web chat. If you are new to developing with web chat, please start with the [web chat development overview](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-develop). The code in this folder is commented with links and references to the web chat APIs used.
+This code is for extending the IBM watsonx Assistant web chat. If you are new to developing with web chat, please start with the [web chat development overview](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-develop). The code in this folder is commented with links and references to the web chat APIs used.
 
-This example demonstrates how to capture the conversation history for both Watson Assistant and for conversation with a human agent at a service desk and provide an option for the user to download them. It will add a custom menu option to the web chat header for the user to do this.
+This example demonstrates how to capture the conversation history for both IBM watsonx Assistant and for conversation with a human agent at a service desk and provide an option for the user to download them. It will add a custom menu option to the web chat header for the user to do this.
 
 It demonstrates:
 
@@ -12,7 +12,7 @@ It demonstrates:
 - How to use the [**agent:receive**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#agentreceive) and [**agent:send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#agentsend) event handlers to capture the messages that are sent to and received from a human agent using a service desk integration.
 - How to use a [**history:begin**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#historybegin) event handler to capture messages that were loaded from session history.
 - How to use the [**updateCustomMenuOptions**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#updatecustommenuoptions) instance method to add a "Download history" option to the header.
-- How to convert [**Watson Assistant messages**](https://cloud.ibm.com/apidocs/assistant/assistant-v2#message) into a text format that can be downloaded.
+- How to convert [**IBM watsonx Assistant messages**](https://cloud.ibm.com/apidocs/assistant/assistant-v2#message) into a text format that can be downloaded.
 - How to use the built-in `Blob` and `URL` objects to construct a downloadable link.
 
 ## Running the Code

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Speech and text - Watson Assistant web chat toolkit</title>
+  <title>Speech and text - IBM watsonx Assistant web chat toolkit</title>
   <!-- This is the external library provided by Watson Speech that provides the TTS and STT functionality. You can
   find more details about this library here: https://github.com/watson-developer-cloud/speech-javascript-sdk. You can
   download a copy of this library for your own site or use a package manager like npm to install it. -->
@@ -40,7 +40,7 @@
     let isRecording = false;
 
     /**
-     * This function will take the given message response received from Watson Assistant and generate the text from it
+     * This function will take the given message response received from IBM watsonx Assistant and generate the text from it
      * that we wish to be converted to speech.
      */
     function generateTextFromMessage(message) {
@@ -51,7 +51,7 @@
     }
 
     /**
-     * This code is the handler that is called when web chat receives a message response from Watson Assistant. It will
+     * This code is the handler that is called when web chat receives a message response from IBM watsonx Assistant. It will
      * convert that response into text and then use Watson Speech to convert the text into speech and play it from the
      * browser.
      */

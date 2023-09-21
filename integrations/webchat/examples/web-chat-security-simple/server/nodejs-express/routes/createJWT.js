@@ -13,7 +13,7 @@ const router = express.Router();
 // *** DO NOT USE THE PUBLIC AND PRIVATE KEYS FROM THIS EXAMPLE FOR PRODUCTION USE! ***
 
 // This is your private key that you will keep on your server. This is used to sign the jwt. You will paste your public
-// key into the appropriate field on the Security tab of the web chat settings page. Watson Assistant will use your
+// key into the appropriate field on the Security tab of the web chat settings page. IBM watsonx Assistant will use your
 // public key to validate the signature on the jwt.
 const PRIVATE_KEY = fs.readFileSync(path.join(__dirname, '../keys/example-jwtRS256.key'));
 

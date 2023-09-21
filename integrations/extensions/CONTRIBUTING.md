@@ -1,6 +1,6 @@
 # Contributing
 
-We welcome contributions that show ways to extend Watson Assistant with a custom extension.
+We welcome contributions that show ways to extend IBM watsonx Assistant with a custom extension.
 
 Please [review the rules for contributing to this repository](../../CONTRIBUTING.md) before submitting code for information about legal requirements, project start process and pull request process.
 
@@ -11,7 +11,7 @@ Each starter kit should include:
 
 - Instructions on how to set up starter kit in a README.md document
 - Instructions on how to tailor starter kit for a specific use case/example
-- Appropriate Actions file(s) and OpenAPI spec(s) to allow someone to run the example(s) in their Watson Assistant instance. These JSON files should be properly formatted using a beautification tool.
+- Appropriate Actions file(s) and OpenAPI spec(s) to allow someone to run the example(s) in their IBM watsonx Assistant instance. These JSON files should be properly formatted using a beautification tool.
 - Basic screenshot/gif/video of what the starter kit is showing
 
 ## Structure

@@ -18,7 +18,7 @@ function FormContainer({ instance }) {
 
   // The name that the user entered into the pre-chat form. We will save this so we can send it when the first message
   // is sent. We also save this in session storage so it'll be available if the user reloads the page and starts a
-  // new Watson Assistant session.
+  // new IBM watsonx Assistant session.
   const fullNameRef = useRef(sessionStorage.getItem('FULL_NAME'));
 
   // This indicates if the user has sent a (non-welcome) message to the assistant. We use this so we only show the
@@ -166,7 +166,7 @@ function FormContainer({ instance }) {
     fullNameRef.current = fullName;
 
     // Save the full name in session storage. This will allow us to preserve this value in the event that the page
-    // is reloaded and a new session with Watson Assistant is started.
+    // is reloaded and a new session with IBM watsonx Assistant is started.
     sessionStorage.setItem('FULL_NAME', fullName);
 
     changePanel(null);
@@ -183,7 +183,7 @@ function FormContainer({ instance }) {
 
   const onPostChatSubmit = useCallback((satisfactionRating, feedback) => {
     // Here you would send the feedback to whatever system is appropriate for your application. If you want to send
-    // the information to Watson Assistant, you can use the web chat "instance.send" function. Or you can call an
+    // the information to IBM watsonx Assistant, you can use the web chat "instance.send" function. Or you can call an
     // endpoint of your own to save this information.
     console.log(`The user selected a rating of "${satisfactionRating}" and optional feedback "${feedback}".`);
 

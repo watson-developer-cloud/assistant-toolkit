@@ -1,19 +1,19 @@
-# Multi-Assistant Routing with Watson Assistant
-This directory contains sample code that can be used to build a multi-Assistant solution using Watson Assistant. This is needed by teams of Watson Assistant developers who wish to separate their content across multiple skills while making all the content accessible within a single user conversation.
+# Multi-Assistant Routing with IBM watsonx Assistant
+This directory contains sample code that can be used to build a multi-Assistant solution using IBM watsonx Assistant. This is needed by teams of IBM watsonx Assistant developers who wish to separate their content across multiple skills while making all the content accessible within a single user conversation.
 
 A very detailed explanation of how this sample code works can be found at this [blog](). 
 
 In this folder you will find the following:
 
-- Primary (root) Watson Assistant Skill 
-- Secondary Payment Watson Assistant Skill
-- Secondary Support Watson Assistant Skill
-- Node-RED Flow for pre-webhook for Watson Assistant 
-- Node-RED Flow for post-webhook for Watson Assistant 
+- Primary (root) IBM watsonx Assistant Skill 
+- Secondary Payment IBM watsonx Assistant Skill
+- Secondary Support IBM watsonx Assistant Skill
+- Node-RED Flow for pre-webhook for IBM watsonx Assistant 
+- Node-RED Flow for post-webhook for IBM watsonx Assistant 
 
 ## Requirements
 - Instance of Node-RED that is accessible on the public internet.
-- A single instance of Watson Assistant. Go [here](https://cloud.ibm.com/catalog/services/watson-assistant) to get started.
+- A single instance of IBM watsonx Assistant. Go [here](https://cloud.ibm.com/catalog/services/watson-assistant) to get started.
 - The above 5 files contained in this repo. 
 
 ## Message flow
@@ -28,7 +28,7 @@ The conversation shown here starts with the Primary Assistant and is then re-dir
 Follow these steps to deploy this sample after you've cloned this repository to your local drive.
 
 ### Import the skills
-1. Import the three Skills into a single Watson Assistant instance. 
+1. Import the three Skills into a single IBM watsonx Assistant instance. 
 2. Create 3 Assistants that correspond to each of these Skills.
 3. From within each of these 3 Assistants go ahead and associate the 3 skills.
 
@@ -39,7 +39,7 @@ Follow these steps to deploy this sample after you've cloned this repository to 
 ### Deploy the pre and post webhooks to Node-RED
 5. Setting up a Node-RED instance is beyond the scope of this document but you can quickly setup a hosted Node-RED service instance in IBM cloud by following these [IBM Cloud Node-RED instructions](https://cloud.ibm.com/developer/appservice/create-app?starterKit=59c9d5bd-4d31-3611-897a-f94eea80dc9f&defaultLanguage=undefined) or if you prefer to stand up your on Node.js instance along with Node-RED you can follow these [Node-RED stand alone instructions](https://nodered.org/docs/getting-started/local). 
 6. After you have a Node-RED instance running you will neeed to import the pre and post webhook Node-RED flows you cloned to your local drive.
-7. Next copy the API_KEY associated with your Watson Assistant instance into a copy buffer. You can get to the API_KEY on any one of your Assistant "Settings" panels. The API_KEY is the same for every Assistant in your instance.
+7. Next copy the API_KEY associated with your IBM watsonx Assistant instance into a copy buffer. You can get to the API_KEY on any one of your Assistant "Settings" panels. The API_KEY is the same for every Assistant in your instance.
 8. Go into the pre-webhook flow and open the "Pre Sub Message Request" and paste the API_KEY into the "Password" field for that node.
 9. Go into the post-webhook flow and paste the same API_KEY into the "Password" field of both the "Sub Session Create" and the "Sub Message Request" nodes.
 

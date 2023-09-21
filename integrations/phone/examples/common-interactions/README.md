@@ -1,6 +1,6 @@
 ## Phone Starter Kit
 
-This example contains Watson Assistant phone integration actions that demonstrate:
+This example contains IBM watsonx Assistant phone integration actions that demonstrate:
 
 - How to use the phone and SMS channel for two-factor authentication via the [send a text message](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-phone-actions#phone-actions-sms.)
 - How to tune the Watson Speech-to-Text parameters in the Greetings action for background noise (`background_audio_suppression`) and increase the speech capture time (`end_of_phrase_silence_time`) by using the [speech_to_text](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-phone-actions#phone-actions-speech-advanced) response type.
@@ -24,20 +24,20 @@ This example is configured to use an existing assistant set up for common use. I
 
 Once you've set up the starter kit, you can deploy a [phone integration](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-deploy-phone) if you don't yet have one provisioned.
 
-Here are some example phrases you can use to trigger the different phone utilities while on the phone with your Watson Assistant:
+Here are some example phrases you can use to trigger the different phone utilities while on the phone with your IBM watsonx Assistant:
 
 | Utterance | Phone behavior | Action title |
 | --- | --- | --- |
-| `Goodbye` or `You've answered all of my questions` | Watson Assistant will disconnect the call. | `Call Completion` |
-| `<<< SILENCE >>>` | Watson Assistant will reprompt on the phone. | `vgwPostResponseTimeout` |
-| `Can I speak to an agent` | Watson Assistant will attempt to transfer your call. | `Connect to Agent` |
+| `Goodbye` or `You've answered all of my questions` | IBM watsonx Assistant will disconnect the call. | `Call Completion` |
+| `<<< SILENCE >>>` | IBM watsonx Assistant will reprompt on the phone. | `vgwPostResponseTimeout` |
+| `Can I speak to an agent` | IBM watsonx Assistant will attempt to transfer your call. | `Connect to Agent` |
 
 
 
 ### Starter Kit Details
 #### Transferring a call via SIP transfer in the Connect to Agent Resolver
 
-For phone interactions, typically a SIP transfer is required for transferring the call to an upstream SIP provider. In the Watson Assistant actions, you can use the SIP Transfer option in the Connect to Agent resolver to achieve this. 
+For phone interactions, typically a SIP transfer is required for transferring the call to an upstream SIP provider. In the IBM watsonx Assistant actions, you can use the SIP Transfer option in the Connect to Agent resolver to achieve this. 
 
 1. Go to the "Connect to Agent" action, click the first Action Step and click`Edit Settings` under the `Connect to Agent Resolver`.
 
@@ -52,7 +52,7 @@ For more information on call transfers, see [Transferring a call to a human agen
 
 #### Speech Recognition Settings
 
-There may be use cases when you need to tune the speech recognition parameters for phone interactions. For example, in the `Greeting` action (`Actions > Set by Assistant > Greeting`), specifying a `speech_to_text` response type allows you to modify the speech recognition settings for interactions with Watson Assistant over the phone.
+There may be use cases when you need to tune the speech recognition parameters for phone interactions. For example, in the `Greeting` action (`Actions > Set by Assistant > Greeting`), specifying a `speech_to_text` response type allows you to modify the speech recognition settings for interactions with IBM watsonx Assistant over the phone.
 
 <img src="./assets/greeting-speech-to-text.png"/>
 

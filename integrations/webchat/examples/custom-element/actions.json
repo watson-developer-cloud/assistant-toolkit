@@ -71,7 +71,7 @@
                       "text_expression": {
                         "concat": [
                           {
-                            "scalar": "I'm doing great teaching people how to use Watson Assistant! (okay, that was sappy)"
+                            "scalar": "I'm doing great teaching people how to use IBM watsonx Assistant! (okay, that was sappy)"
                           }
                         ]
                       }
@@ -97,7 +97,7 @@
         },
         "variables": [
           {
-            "title": "I'm doing great teaching people how to use Watson Assistant! (ok",
+            "title": "I'm doing great teaching people how to use IBM watsonx Assistant! (ok",
             "variable": "step_277",
             "data_type": "any"
           }

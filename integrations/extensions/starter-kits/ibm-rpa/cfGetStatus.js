@@ -15,7 +15,7 @@ async function main(params) {
   if (guid == appGUID) {
     var rpaLoginToken = await getIBMRPALoginToken(apiURL, workspaceAPIID, username, password);
     
-    //This is the data we send from watson assistant
+    //This is the data we send from IBM watsonx Assistant
     var instanceID = params.instanceID;
     var rpaInstanceStatus = await queryInstanceStatus(instanceID, rpaLoginToken);
     
