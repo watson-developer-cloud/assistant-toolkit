@@ -3,10 +3,10 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-07-19T17:45:42.993Z",
-  "updated": "2023-09-15T20:24:08.552Z",
+  "created": "2023-09-22T14:56:32.397Z",
+  "updated": "2023-09-22T15:16:23.513Z",
   "language": "en",
-  "skill_id": "a8bce6da-f4af-4470-97c6-5689418e5308",
+  "skill_id": "500d036d-a551-4e8a-aabe-d376863aeb92",
   "workspace": {
     "actions": [
       {
@@ -159,7 +159,7 @@
                 },
                 {
                   "value": {
-                    "expression": "(\"<s>[INST] <<SYS>>\\nYou are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe. Be brief in your answers. Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature.\\n\\nIf a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don’t know the answer to a question, please don’t share false information.\\n<</SYS>>\\n\\nGenerate the next agent response by answering the question. You are provided several documents with titles. If the answer comes from different documents please mention all possibilities and use the titles of documents to separate between topics or domains. If you cannot base your answer on the given documents, please state that you do not have an answer.\\n\\n\").concat(${passages}).concat(\"\\n\\n\").concat(${query_text}).concat(\"[/INST]\")"
+                    "expression": "(\"<s>[INST] <<SYS>>\\nYou are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe. Be brief in your answers. Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature.\\n\\nIf a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don’t know the answer to a question, please don’t share false information.\\n<</SYS>>\\n\\nGenerate the next agent response by answering the question. You are provided several documents with titles. If the answer comes from different documents please mention all possibilities and use the titles of documents to separate between topics or domains. If you cannot base your answer on the given documents, please state that you do not have an answer.\\n\\n\").concat(${passages}).concat(\"\\n\\n[question]: \").concat(${query_text}).concat(\"[/INST]\")"
                   },
                   "skill_variable": "model_input"
                 }
@@ -495,7 +495,7 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "cc50493e455de183d661b95360196ddb468a02051add6dcaf4a6479b34900be5",
-                  "catalog_item_id": "6e9e631e-fcaa-48d0-a26a-20a4e9140e66"
+                  "catalog_item_id": "85aedc5e-8c3a-4e5e-81e8-f8fc1b9c9942"
                 },
                 "request_mapping": {
                   "body": [
@@ -914,7 +914,7 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "8566081a305e8f8ade4e9bd3887da0600e87948417fc10ba38ee121426f8c50b",
-                  "catalog_item_id": "ac478814-4fa8-432b-8d1f-8d7535db269d"
+                  "catalog_item_id": "1c2ee732-4d00-4f21-a05a-83b03d5b0289"
                 },
                 "request_mapping": {
                   "body": [
@@ -1874,7 +1874,10 @@
         "title": "discovery_project_id",
         "variable": "discovery_project_id",
         "data_type": "string",
-        "description": "You MUST set this value to the project ID of the Discovery project containing your data"
+        "description": "You MUST set this value to the project ID of the Discovery project containing your data",
+        "initial_value": {
+          "scalar": "272be6e4-5b18-4709-9d80-60d326aac061"
+        }
       },
       {
         "title": "model_id",
@@ -1988,7 +1991,10 @@
         "title": "watsonx_project_id",
         "variable": "watsonx_project_id",
         "data_type": "any",
-        "description": "You MUST set this to your watsonx project id"
+        "description": "You MUST set this to your watsonx project id",
+        "initial_value": {
+          "scalar": "e7396031-c53f-4fdd-8719-7bebfe1dd3f0"
+        }
       }
     ],
     "data_types": [],
@@ -2096,8 +2102,8 @@
     "learning_opt_out": true
   },
   "description": "created for assistant 1c76effb-2430-4334-8897-6cdad3c6282b",
-  "assistant_id": "7e056d64-befc-4c71-9c27-bc60c5349073",
-  "workspace_id": "a8bce6da-f4af-4470-97c6-5689418e5308",
+  "assistant_id": "5b3def48-c1ea-4bfd-aec4-6ef0dbd254c6",
+  "workspace_id": "500d036d-a551-4e8a-aabe-d376863aeb92",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }
