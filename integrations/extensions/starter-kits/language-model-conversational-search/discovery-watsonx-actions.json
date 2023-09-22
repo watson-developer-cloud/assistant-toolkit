@@ -1,12 +1,12 @@
 {
-  "name": "discovery watsonx sample actions",
+  "name": "wd->llama-action",
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-07-24T14:34:28.109Z",
-  "updated": "2023-07-25T05:18:44.642Z",
+  "created": "2023-09-22T14:56:32.397Z",
+  "updated": "2023-09-22T15:16:23.513Z",
   "language": "en",
-  "skill_id": "b9406366-1512-4553-ae35-60ba0ebe0bb9",
+  "skill_id": "500d036d-a551-4e8a-aabe-d376863aeb92",
   "workspace": {
     "actions": [
       {
@@ -39,7 +39,7 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "${search_results}.get(0).document_passages.get(0).passage_text"
+                    "expression": "\"[title]: \"+ ${search_results}.get(0).title + \"\\n\" +\n\"[document]: \"+ ${search_results}.get(0).document_passages.get(0).passage_text + \"\\n\""
                   },
                   "skill_variable": "snippet"
                 },
@@ -77,7 +77,7 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "${search_results}.get(1).document_passages.get(0).passage_text"
+                    "expression": "\"[title]: \"+ ${search_results}.get(1).title + \"\\n\" +\n\"[document]: \"+ ${search_results}.get(1).document_passages.get(0).passage_text + \"\\n\""
                   },
                   "skill_variable": "snippet"
                 },
@@ -115,7 +115,7 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "${search_results}.get(2).document_passages.get(0).passage_text"
+                    "expression": "\"[title]: \"+ ${search_results}.get(2).title + \"\\n\" +\n\"[document]: \"+ ${search_results}.get(2).document_passages.get(0).passage_text + \"\\n\""
                   },
                   "skill_variable": "snippet"
                 },
@@ -159,7 +159,7 @@
                 },
                 {
                   "value": {
-                    "expression": "(\"Agent: Okay, I am awaiting your instructions\\nUser: Watson, here are your instructions:\\n1. You will be given a document that should be used to reply to user questions.\\n2. You should generate the next response using information available in the document.\\n3. If you can't find an answer, say \\\"I don't know\\\".\\n4. Your responses should not be long and just have about 1-2 sentences.\\n5. You should not repeat your answers.\\n6. Do not use any other knowledge.\\n\\nPlease repeat the instructions back to me so that I know you understood.\\n\\nAgent: Ok, here are my instructions:\\n\\n1. I will be given a document that should be used to reply to user questions.\\n2. I should generate the next response using information available in the document.\\n3. If you can't find an answer, say \\\"I don't know\\\".\\n4. My responses should not be long and just have about 1-2 sentences.\\n5. I should not repeat your answers.\\n6. I will not use any other knowledge.\\n\\nI am ready, please give me the document.\\n\\nUser: Here's the document: \\n\").concat(${passages}).concat(\"\\nAgent: I am ready to answer your questions from the document. I will not repeat answers I have given.\\nUser:\").concat(${query_text}).concat(\"\\n\\nAgent:\")"
+                    "expression": "(\"<s>[INST] <<SYS>>\\nYou are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe. Be brief in your answers. Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature.\\n\\nIf a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don’t know the answer to a question, please don’t share false information.\\n<</SYS>>\\n\\nGenerate the next agent response by answering the question. You are provided several documents with titles. If the answer comes from different documents please mention all possibilities and use the titles of documents to separate between topics or domains. If you cannot base your answer on the given documents, please state that you do not have an answer.\\n\\n\").concat(${passages}).concat(\"\\n\\n[question]: \").concat(${query_text}).concat(\"[/INST]\")"
                   },
                   "skill_variable": "model_input"
                 }
@@ -495,7 +495,7 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "cc50493e455de183d661b95360196ddb468a02051add6dcaf4a6479b34900be5",
-                  "catalog_item_id": "f6a34340-796b-4d64-8186-06f61391e61e"
+                  "catalog_item_id": "85aedc5e-8c3a-4e5e-81e8-f8fc1b9c9942"
                 },
                 "request_mapping": {
                   "body": [
@@ -731,6 +731,122 @@
       {
         "steps": [
           {
+            "step": "step_546",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "***WARNING***\n\n<br />\n\n\n\n**discovery_project_id** is not defined, which will cause queries to **Watson Discovery** to fail.\n\n<br />\n\n\n\nTo find your Watson Discovery project_id, please open [your Watson Discovery instance](https://cloud.ibm.com/resources), open your Watson Discovery project, navigate to 'Integrate and deploy', then click 'API Information', then copy the Project ID.\n\n<br />\n\n\n\nThen,"
+                          },
+                          {
+                            "scalar": " set the initial value of discovery_project_id to this copied Project ID by opening your Assistant instance, navigating to the Actions page, clicking 'Created by me' under 'Variables', clicking discovery_project_id, pasting the Project ID as the Initial value, and clicking Save.\n\n<br />\n\n\n\n--\n\nNeed more help? Contact your IBM representative, [book a call](https://www.ibm."
+                          },
+                          {
+                            "scalar": "com/account/reg/signup?formid=MAIL-watson), or [email our team](https://www.ibm.com/account/reg/us-en/signup?formid=MAIL-watsonassistant) for support."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_546",
+            "condition": {
+              "and": [
+                {
+                  "not": {
+                    "exists": {
+                      "skill_variable": "discovery_project_id"
+                    }
+                  }
+                },
+                {
+                  "contains": [
+                    {
+                      "system_variable": "last_seen_at"
+                    },
+                    {
+                      "scalar": "ibm.com",
+                      "options": {
+                        "ignore_case": true
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "next_step": "step_325"
+          },
+          {
+            "step": "step_325",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "***WARNING***\n\n<br />\n\n\n\n**watsonx_project_id** is not defined, which will cause calls to **watsonx** to fail.\n\n<br />\n\n\n\nTo find your watsonx project_id, please open [your watsonx instance](https://dataplatform.cloud.ibm.com/wx/home?context=wx), click your watsonx project, navigate to 'Manage', then click 'General', then copy the Project ID.\n\n<br />\n\n\n\nThen,"
+                          },
+                          {
+                            "scalar": " set the initial value of watsonx_project_id to this copied Project ID by opening your Assistant instance, navigating to the Actions page, clicking 'Created by me' under 'Variables', clicking watsonx_project_id, pasting the Project ID as the Initial value, and clicking Save.\n\n<br />\n\n\n\n--\n\nNeed more help? Contact your IBM representative, [book a call](https://www.ibm."
+                          },
+                          {
+                            "scalar": "com/account/reg/signup?formid=MAIL-watson), or [email our team](https://www.ibm.com/account/reg/us-en/signup?formid=MAIL-watsonassistant) for support."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_325",
+            "condition": {
+              "and": [
+                {
+                  "not": {
+                    "exists": {
+                      "skill_variable": "watsonx_project_id"
+                    }
+                  }
+                },
+                {
+                  "contains": [
+                    {
+                      "system_variable": "last_seen_at"
+                    },
+                    {
+                      "scalar": "ibm.com",
+                      "options": {
+                        "ignore_case": true
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "next_step": "step_774"
+          },
+          {
             "step": "step_774",
             "output": {
               "generic": []
@@ -798,7 +914,7 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "8566081a305e8f8ade4e9bd3887da0600e87948417fc10ba38ee121426f8c50b",
-                  "catalog_item_id": "39268001-1084-4b65-ac57-7fd9fd1e67e5"
+                  "catalog_item_id": "1c2ee732-4d00-4f21-a05a-83b03d5b0289"
                 },
                 "request_mapping": {
                   "body": [
@@ -849,6 +965,12 @@
                         "skill_variable": "query_text"
                       },
                       "parameter": "natural_language_query"
+                    },
+                    {
+                      "value": {
+                        "scalar": true
+                      },
+                      "parameter": "passages.per_document"
                     }
                   ],
                   "path": [
@@ -1046,6 +1168,11 @@
             "data_type": "any"
           },
           {
+            "title": "***WARNING*** <br /> **watsonx_project_id** is not defined, whic",
+            "variable": "step_325",
+            "data_type": "any"
+          },
+          {
             "variable": "step_338_result_1",
             "data_type": "any"
           },
@@ -1072,6 +1199,11 @@
           },
           {
             "variable": "step_543_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "***WARNING*** <br /> **discovery_project_id** is not defined, wh",
+            "variable": "step_546",
             "data_type": "any"
           },
           {
@@ -1725,7 +1857,7 @@
     "metadata": {
       "api_version": {
         "major_version": "v2",
-        "minor_version": "2021-11-27"
+        "minor_version": "2018-11-08"
       }
     },
     "variables": [
@@ -1742,15 +1874,18 @@
         "title": "discovery_project_id",
         "variable": "discovery_project_id",
         "data_type": "string",
-        "description": "You MUST set this value to the project ID of the Discovery project containing your data"
+        "description": "You MUST set this value to the project ID of the Discovery project containing your data",
+        "initial_value": {
+          "scalar": "272be6e4-5b18-4709-9d80-60d326aac061"
+        }
       },
       {
         "title": "model_id",
         "variable": "model_id",
         "data_type": "string",
-        "description": "The ID of the model to be used for this user prompt. Please refer to the list of models at https://bam.res.ibm.com/docs/models",
+        "description": "The ID of the model to be used for this user prompt.",
         "initial_value": {
-          "scalar": "google/flan-ul2"
+          "scalar": "meta-llama/llama-2-70b-chat"
         }
       },
       {
@@ -1856,7 +1991,10 @@
         "title": "watsonx_project_id",
         "variable": "watsonx_project_id",
         "data_type": "any",
-        "description": "You MUST set this to your watsonx project id"
+        "description": "You MUST set this to your watsonx project id",
+        "initial_value": {
+          "scalar": "e7396031-c53f-4fdd-8719-7bebfe1dd3f0"
+        }
       }
     ],
     "data_types": [],
@@ -1964,8 +2102,8 @@
     "learning_opt_out": true
   },
   "description": "created for assistant 1c76effb-2430-4334-8897-6cdad3c6282b",
-  "assistant_id": "1e6040e4-c997-4ef9-a16f-b101bdbef59f",
-  "workspace_id": "b9406366-1512-4553-ae35-60ba0ebe0bb9",
+  "assistant_id": "5b3def48-c1ea-4bfd-aec4-6ef0dbd254c6",
+  "workspace_id": "500d036d-a551-4e8a-aabe-d376863aeb92",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }

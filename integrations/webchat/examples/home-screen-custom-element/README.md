@@ -9,7 +9,7 @@ This example demonstrates how to add custom content to the home screen by using 
 It demonstrates:
 
 - How to use the [**writeableElements**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#writeableelements) instance property to add a custom element to the home screen below the starters.
-- How to use the [**send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#send) instance function to send a message to the assistant.
+- How to use the [**send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#send) instance method to send a message to the assistant.
 
 ## Running the Code
 

@@ -53,7 +53,7 @@ function CustomButton({ messageItem, fullMessage, disabled, instance, index }) {
         // Send a message to the assistant with the label of the button. You can also add "{ silent: true }" as the second
         // argument if you don't want this message to appear as a "sent" bubble from the user. See
         // https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods for more
-        // information about the instance functions.
+        // information about the instance methods.
         instance.send({ input: { text: label } });
 
         // Send an update event to the assistant. This will update session history for this message so it remembers what

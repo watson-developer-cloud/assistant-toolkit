@@ -1,6 +1,11 @@
 # Language Model Summarization starter kit
 
-This starter kit uses a generative language model to collect and summarize a customer's answers.  It sends the summary to a customer service agent when the assistant escalates to an agent.  This can enable a customer service agent who enters a chat session to have an overview of what has been said in the chat so far without having to read an entire transcript.
+This starter kit uses a generative language model to summarize the interaction between an assistant and a user via the Watson Assistant [session_history variable](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-publish-overview#publish-overview-environment-settings-session-history). The assistant includes the AI-generated summary when it escalates to a human agent. A summary of session history can enable a customer service agent who enters a chat session to have an overview of what has been said in the chat so far without having to read an entire transcript.
+
+This starter kit includes examples of how to configure different language models with Watson Assistant for summarization.
+
+1. The first example shows how to use [watsonx for summarization](#example-1-watsonx)
+1. The second example shows how to use [OpenAI for summarization](#example-2-openai)
 
 ## Prerequisites
 
@@ -8,72 +13,113 @@ This starter kit requires that you use the [new Watson Assistant](https://cloud.
 
 Create a new, empty assistant that you can use to test this starter kit. For more information, see [Adding more assistants](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-assistant-add).
 
-## Connect your assistant to a language model using a custom extension
+# Example 1: watsonx
 
-You connect your assistant by using an OpenAPI specification to add a custom extension. You can see an example of how to do this in the [OpenAI starter kit](../language-model-openai), which shows how to connect to OpenAI models like GPT 3.5 and 4. However, you can also do the same thing with any other generative language model that has a REST API using the same approach. For details on how to use an alternative language model, see below.
+### Connect your assistant to watsonx using a custom extension
 
-## Upload sample actions
+You connect your assistant by using an OpenAPI specification to add a custom extension. You can see an example of how to do this in the [watsonx starter kit](../language-model-watsonx/README.md), which shows how to connect to watsonx models such as `google/flan-ul2`.
 
-Use **Actions Global Settings** to upload the `Transcript-Summary-Using-LLMs-action.json` file in this kit to your assistant. For more information, see [Uploading](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import).  You may also need to refresh the action Preview chat after uploading in order to get all the session variables initialized before these actions will work correctly.
+### Upload sample actions
+
+Use **Actions Global Settings** to upload the [summarization-watsonx-actions.json](summarization-watsonx-actions.json) file in this kit to your assistant. For more information, see [Uploading](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import). You may also need to refresh the action Preview chat after uploading in order to get all the session variables initialized before these actions will work correctly.
 
 The starter kit includes a JSON file with these sample actions:
 
-| Action | Description |
-| --- | --- |
-| Invoke GPT Chat Completion API | Connects to OpenAI with the `gpt-3.5-turbo` model, which provides a level of quality that is nearly as good as `text-davinci-003` at a much lower cost. |
-| Invoke GPT Completion API | Connects to OpenAI with the `text-davinci-003` model. For more information, see [OpenAI Pricing](https://openai.com/pricing). |
-| Tell a joke | Simple action to test the conversation and call the *Record context* action |
-| Record context | Uses a variable that collects the session history of the conversation. |
-| Escalate to Agent | Simple example of how OpenAI can be used to provide a summary of a customer conversation. Connects to OpenAI using the `Invoke GPT Chat Completion API` action and shows the summary to the user.  It also triggers an escalation to a customer service agent with the summary in the message sent to the agent. |
-| Tell a joke without recording context | Simple action without any context recording. Included as a comparison to the *Tell a joke* action. |
+| Action                        | Description                                                                                                                                                                                                                                                                                                                                                               |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Check order status            | Simple action to check the status of a customer order.                                                                                                                                                                                                                                                                                                                    |
+| Escalate to Agent             | Simple example of how watsonx can be used to provide a summary of a customer conversation. Connects to watsonx using the `Invoke watsonx Generation API` action to summarize the session history and then shows the summary to the user. It triggers an escalation to a customer service agent and includes the session history summary in the message sent to the agent. |
+| Invoke watsonx Generation API | Connects to watsonx with the `google/flan-ul2` model.                                                                                                                                                                                                                                                                                                                     |
 
-To use the sample actions:
+### Session variables
 
-1. Download the sample actions from this starter kit: [Transcript-Summary-Using-LLMs-action.json](./Transcript-Summary-Using-LLMs-action.json).
+Below is a list of the session variables used in this example. Most of them are automatically set with defaults in the sample actions JSON file that you uploaded, so you do not need to set them yourself unless you want to make changes. You **must**, however, set the `watsonx_project_id` to the watsonx project id that you want to use for answer generation.
 
-1. Use **Actions Global Settings** to upload the JSON file to your assistant. For more information, see [Uploading](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import).
+- `model_id`: The ID of the watsonx model that you select for this action. Defaults to `google/flan-ul2`.
+- `model_input`: The input to the model.
+- `model_parameters_min_new_tokens`: The minimum number of the new tokens to be generated. Defaults to 20.
+- `model_parameters_max_new_tokens` : The maximum number of new tokens to be generated. Defaults to 300.
+- `model_parameters_repetition_penalty`: Represents the penalty for penalizing tokens that have already been generated or belong to the context. The range is 1.0 to 2.0 and defaults to 1.1.
+- `model_parameters_stop_sequences`: Stop sequences are one or more strings which will cause the text generation to stop if/when they are produced as part of the output. Stop sequences encountered prior to the minimum number of tokens being generated will be ignored. The list may contain up to 6 strings. Defaults to ["\n\n"]
+- `model_parameters_temperature` : The value used to control the next token probabilities. The range is from 0.05 to 1.00; 0 makes it _mostly_ deterministic.
+- `model_response`: The text generated by the model in response to the `model_input`.
+- `session_history_ai_format`: The session history variable formatted for the ai model.
+- `verbose`: Boolean variable that when `true` prints debug output from the assistant. Defaults to `false`.
+- `watsonx_api_version` - watsonx api date version. It currently defaults to `2023-05-29`.
+- `watsonx_project_id`: You **MUST** set this value to your own [project ID value from watsonx](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html). Typically, this is a [sandbox project id](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/sandbox.html) that is automatically created for you when you sign up for watsonx.ai.
 
-## Preview the sample actions
+### Preview the sample actions
 
-To preview the sample actions, you'll use the Tell a joke action to simulate a conversation, then ask to escalate to an agent to see a summary provided by OpenAI.
+To preview the sample actions, use the `Check order status` action to start a conversation regarding the user's order. The assistant will then escalate to an agent together with a summary provided by the generative language model.
 
 1. On the **Actions** page, click **Preview**.
 
-1. Enter `Tell a joke`. The assistant says `Why did the chicken cross the road?`.
+1. Enter `Check order status`.
 
-1. Enter something silly, such as `I like chicken salad`. The assistant answers `If you want to get the answer, you need to ask "why"!` and tells the joke again. Wait to use the word `why` until later.
+1. Enter an order number when prompted by the assistant.
 
-1. Enter something unrelated, such as `I want to close my bank account`.
+1. The assistant will report that there is a problem checking the order status and ask if it's ok to escalate to a human agent.
 
-1. Enter something funny, such as `It was the path to freedom`.
+1. If the user response is yes, the system escalates to a human agent with a summary of the interaction. An example summary might look something like this:
+   `The user asks about the status of their order. The chatbot asks for the order number. The user provides the order number, but the chatbot tells them there is a problem checking the status. The chatbot offers to escalate the issue to a human agent and asks if the user wants to do this. The user agrees to escalate the issue.`
 
-1. To complete the conversation, enter something like `Tell me why`. The assistant says `To get to the other side!` and the action ends.
+1. The assistant shows the summary to the user and then initiates a transfer to a human agent. Unless you have configured a contact center, this will not work, but it is included in the kit to show how it would be invoked if you did have one configured. See details in the next section.
 
-1. To see the summary, enter `human agent`. This causes Watson Assistant to invoke the `Fallback` action, which is configured to call the `Escalate to Agent` action.  This then triggers the `Invoke GPT Chat Completion API` action and shows the response that is returned.
+1. If the user declines to escalate to an agent, the transaction ends.
 
-An example response might look something like this: `The user asked the chatbot to tell a joke. The chatbot asked "Why did the chicken cross the road?" but the user talked about liking chicken salad instead. The chatbot repeated the joke question and the user asked to close their bank account. The chatbot kept asking the same question until finally revealing the classic punchline - the chicken crossed the road to get to the other side.`
+#### Troubleshooting
 
-1. After showing the summary to the user, it then initiates a transfer to a human agent. Unless you have configured a contact center, this will not work, but it is included in the kit to show how it would be invoked if you did have one configured.  See details in the next section.
+Tips if the sample actions do not work as described:
+
+1. Make sure you have set the value of your `watsonx_project_id` as described [above](#session-variables).
+1. Refresh the preview
+
+## Example 2: OpenAI
+
+### Connect your assistant to OpenAI using a custom extension
+
+You connect your assistant by using an OpenAPI specification to add a custom extension. You can see an example of how to do this in the [OpenAI starter kit](../language-model-openai/README.md), which shows how to connect to OpenAI models like GPT 3.5 and 4.
+
+### Upload sample actions
+
+Use **Actions Global Settings** to upload the [summarization-openai-actions.json](summarization-openai-actions.json) file in this kit to your assistant. For more information, see [Uploading](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import). You may also need to refresh the action Preview chat after uploading in order to get all the session variables initialized before these actions will work correctly.
+
+The starter kit includes a JSON file with these sample actions:
+
+| Action                                      | Description                                                                                                                                                                                                                                                                                                                                                   |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Check order status                          | Simple action to check the status of a customer order.                                                                                                                                                                                                                                                                                                        |
+| Escalate to Agent                           | Simple example of how OpenAI can be used to provide a summary of a customer conversation. Connects to OpenAI using the `Invoke GPT Chat Completion API` action to summarize the session history and then shows the summary to the user. It also triggers an escalation to a customer service agent and includes the summary in the message sent to the agent. |
+| Invoke GPT Chat Completion API with history | Connects to OpenAI with the `gpt-3.5-turbo` model.                                                                                                                                                                                                                                                                                                            |
+
+### Session variables
+
+Below is a list of the session variables used in this example. They are automatically set with defaults in the sample actions JSON file that you uploaded, so you do not need to set them yourself unless you want to make changes.
+
+- `messages` : Input to the OpenAI model; includes the `search_results` and the `model_prompt`.
+- `model_for_chat` : The OpenAI model used, defaults to `gpt-3.5-turbo`.
+- `model_max_tokens` : The maximum number of text fragments to input to the model. The starter kit uses 200.
+- `model_prompt`: You MAY change this to do prompt engineering, but a default will be used by the model if you don’t pass a prompt here.
+- `model_response`: The text generated by the model in response to the `messages`.
+- `verbose`: Boolean variable that when `true` prints debug output from the assistant. Defaults to `false`.
+
+### Preview the sample actions
+
+The steps to preview the sample actions with OpenAI are the same as the [watsonx use case](#preview-the-sample-actions).
 
 ## Technical Details
 
-You can see how session history recording is enabled by contrasting the `Tell a joke` action with the `Tell a joke without recording context` action.  The assistant in the starter kit also has session history recording in the "No action matches" action (in the "Set by assistant" section of the actions list).  As you can see in the examples, you can enable this behavior in your own actions by applying the following changes:
+The interaction between the assistant and the user is recorded in the [session_history_variable](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-publish-overview#publish-overview-environment-settings-session-history). This is an example of the session history for the check order status use case: `[{"a":"Welcome, how can I assist you?"},{"u":"order status","n":true},{"a":"To get started, please enter your order number"},{"u":"1234"},{"a":"Thanks! There is a problem checking the status for your order 1234\n\n
+\n\n\n\nWould you like me to escalate to an agent?\noption: ["Yes","No"]"},{"u":"Yes"}]`.
 
-1. Add the `Record context` action to your assistant by copying the one in the kit.
-2. At each step in each action that you want to record:
-  - Set the `query_text` session variable to the text that the user says to the assistant (or empty string if there is no user input at that step)
-  - Set the `response` session variable to the the text that the assistant says to the user (or empty string if there is no assistant output at that step) -- you can then use that session variable in the "Assistant says" portion of the step so you are not repeating the same text twice.
-  - In the "And then" portion of the step, go to the `Record context` action and then continue after that action completes.
-  - If your existing step had something other than continuing to the next step in the "And then" portion, add a _new_ step that just does that additional "And then" behavior.  For example, step 3 in `Tell a joke without recording context` says "If you want to get the answer, you need to ask 'why'!" and then goes back to step 1.  When this is converted into `Tell a joke`, it gets split into two steps: the first says the same thing and records the context and the second goes back to step 1.
-
-Recording the context at each step of each action can be extremely tedious for a complex assistant with many actions.  In the future, Watson Assistant might add a feature that collects the history in a session variable automatically.  If it does, we will update the kit, and it will be much simpler and easier to use.
-
-Once the context is recorded, we've configured the human agent escalation process to use the language model to summarize the session and present the summary to both the user and the human agent.  You can see that the model response is sent to the agent by going to step 3 of the `Escalate to Agent` action and clicking on "Edit settings" in the "Connect to agent" block at the bottom of the step.  You should see this:
+This use case has configured the human agent escalation process to use a language model to summarize the session and present the summary to both the user and the human agent. You can see that the model response is sent to the agent by going to step 3 of the `Escalate to Agent` action and clicking on "Edit settings" in the "Connect to agent" block at the bottom of the step. You should see this:
 
 <img src="./assets/connect.png" width="500"/>
 
 As you can see, the "Message to agent" field is set to the `model_response`, i.e., the summary that the language model generated.
 
-In the starter kit, this is not configured to a real contact center, so no actual human agent is contacted.  See [Adding contact center support](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-deploy-web-chat-haa) in the Watson Assistant documentation for details on how to connect to a real contact center.  Here is what the output looks like in the Preview page of Watson Assistant (including the error message because no contact center has been configured):
+In the starter kit, this is not configured to a real contact center, so no actual human agent is contacted. See [Adding contact center support](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-deploy-web-chat-haa) in the Watson Assistant documentation for details on how to connect to a real contact center.
 
-<img src="./assets/sample.png" width="300"/>
+Here is what the output looks like in the Preview page of Watson Assistant (including the error message because no contact center has been configured):
+
+<img src="./assets/summarization-flow.png" width="300"/>

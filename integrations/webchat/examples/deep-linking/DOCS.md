@@ -19,8 +19,8 @@ window.watsonAssistantChatOptions = {
       },
     }
   },
-  onLoad: function(instance) {
-    instance.render();
+  onLoad: async (instance) => {
+    await instance.render();
   }
 };
 ```

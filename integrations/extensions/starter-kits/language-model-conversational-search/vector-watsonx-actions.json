@@ -1,12 +1,12 @@
 {
-  "name": "semantic search watsonx actions",
+  "name": "milvus->llama-action",
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-07-25T05:34:50.881Z",
-  "updated": "2023-07-25T05:53:36.816Z",
+  "created": "2023-09-13T17:39:16.824Z",
+  "updated": "2023-09-13T21:08:40.114Z",
   "language": "en",
-  "skill_id": "89e3344e-5a0b-47c7-a823-d3bea6f0696c",
+  "skill_id": "86071b3f-283e-4149-8fbc-5c859cb4cb21",
   "workspace": {
     "actions": [
       {
@@ -39,7 +39,7 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "${search_results}.get(0).Field.Scalars.Data.StringData.data.get(0)"
+                    "expression": "\"[title]: \"+ ${search_results}.get(1).Field.Scalars.Data.StringData.data.get(0) + \"\\n\" +\n\"[document]: \"+ ${search_results}.get(0).Field.Scalars.Data.StringData.data.get(0) + \"\\n\""
                   },
                   "skill_variable": "snippet"
                 },
@@ -70,7 +70,7 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "${search_results}.get(0).Field.Scalars.Data.StringData.data.get(1)"
+                    "expression": "\"[title]: \"+ ${search_results}.get(1).Field.Scalars.Data.StringData.data.get(1) + \"\\n\" +\n\"[document]: \"+ ${search_results}.get(0).Field.Scalars.Data.StringData.data.get(1) + \"\\n\""
                   },
                   "skill_variable": "snippet"
                 },
@@ -101,7 +101,7 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "${search_results}.get(0).Field.Scalars.Data.StringData.data.get(2)"
+                    "expression": "\"[title]: \"+ ${search_results}.get(1).Field.Scalars.Data.StringData.data.get(2) + \"\\n\" +\n\"[document]: \"+ ${search_results}.get(0).Field.Scalars.Data.StringData.data.get(2) + \"\\n\""
                   },
                   "skill_variable": "snippet"
                 },
@@ -132,7 +132,7 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "(\"Agent: Okay, I am awaiting your instructions\\nUser: Watson, here are your instructions:\\n1. You will be given a document that should be used to reply to user questions.\\n2. You should generate the next response using information available in the document.\\n3. If you can't find an answer, say \\\"I don't know\\\".\\n4. Your responses should not be long and just have about 1-2 sentences.\\n5. You should not repeat your answers.\\n6. Do not use any other knowledge.\\n\\nPlease repeat the instructions back to me so that I know you understood.\\n\\nAgent: Ok, here are my instructions:\\n\\n1. I will be given a document that should be used to reply to user questions.\\n2. I should generate the next response using information available in the document.\\n3. If you can't find an answer, say \\\"I don't know\\\".\\n4. My responses should not be long and just have about 1-2 sentences.\\n5. I should not repeat your answers.\\n6. I will not use any other knowledge.\\n\\nI am ready, please give me the document.\\n\\nUser: Here's the document: \\n\").concat(${passages}).concat(\"\\nAgent: I am ready to answer your questions from the document. I will not repeat answers I have given.\\nUser:\").concat(${query_text}).concat(\"\\n\\nAgent:\")"
+                    "expression": "(\"<s>[INST] <<SYS>>\\nYou are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe. Be brief in your answers. Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature.\\n\\nIf a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don’t know the answer to a question, please don’t share false information.\\n<</SYS>>\\n\\nGenerate the next agent response by answering the question. You are provided several documents with titles. If the answer comes from different documents please mention all possibilities and use the titles of documents to separate between topics or domains. If you cannot base your answer on the given documents, please state that you do not have an answer.\\n\\n\").concat(${passages}).concat(\"\\n\\n[question]: \").concat(${query_text}).concat(\"[/INST]\")"
                   },
                   "skill_variable": "model_input"
                 }
@@ -468,7 +468,7 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "cc50493e455de183d661b95360196ddb468a02051add6dcaf4a6479b34900be5",
-                  "catalog_item_id": "e67a4e51-f70f-447e-b507-fdd68bf5952b"
+                  "catalog_item_id": "c33b11d4-656d-4500-bcc3-b6cefab75469"
                 },
                 "request_mapping": {
                   "body": [
@@ -701,7 +701,7 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "c957ef2a69e23cd1f24311557dc72969a683b34a016faa4f4fde886fc9872b75",
-                  "catalog_item_id": "311c0877-2c95-4bb7-85e4-f333f98a83b3"
+                  "catalog_item_id": "07d6bcf8-0793-4cef-9fd8-da46dc5a7d5e"
                 },
                 "request_mapping": {
                   "body": [
@@ -799,7 +799,7 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "6c94004d2d26e57dd1c7662f7d2dfb15d6ca268f9da810859a137a331be96cb1",
-                  "catalog_item_id": "0caae514-f025-4f0d-b42e-a407cd974524"
+                  "catalog_item_id": "20b31055-85c3-491a-b167-dbb514da4ea6"
                 },
                 "request_mapping": {
                   "body": [
@@ -818,7 +818,7 @@
                     },
                     {
                       "value": {
-                        "expression": "[ \"text\" ]"
+                        "expression": "[ \"text\", \"title\" ]"
                       },
                       "parameter": "output_fields"
                     },
@@ -1023,7 +1023,7 @@
             "data_type": "any"
           },
           {
-            "title": "",
+            "title": "No response",
             "variable": "step_377",
             "data_type": "any"
           },
@@ -1707,7 +1707,7 @@
     "metadata": {
       "api_version": {
         "major_version": "v2",
-        "minor_version": "2021-11-27"
+        "minor_version": "2018-11-08"
       }
     },
     "variables": [
@@ -1715,10 +1715,7 @@
         "title": "collection_name",
         "variable": "collection_name",
         "data_type": "string",
-        "description": "This MUST be set to the name of a collection in your Milvus instance.  You can list collections in Milvus via api/v1/collections.",
-        "initial_value": {
-          "scalar": "Lendyr3"
-        }
+        "description": "This MUST be set to the name of a collection in your Milvus instance.  You can list collections in Milvus via api/v1/collections."
       },
       {
         "title": "embedding_model_id",
@@ -1735,7 +1732,7 @@
         "data_type": "string",
         "description": "",
         "initial_value": {
-          "scalar": "google/flan-ul2"
+          "scalar": "meta-llama/llama-2-70b-chat"
         }
       },
       {
@@ -1955,8 +1952,8 @@
     "learning_opt_out": true
   },
   "description": "created for assistant 1c76effb-2430-4334-8897-6cdad3c6282b",
-  "assistant_id": "2483966d-5473-49bb-9d3c-3430b858042e",
-  "workspace_id": "89e3344e-5a0b-47c7-a823-d3bea6f0696c",
+  "assistant_id": "e5fcc635-fca4-498b-b4c3-5a8bf69b4694",
+  "workspace_id": "86071b3f-283e-4149-8fbc-5c859cb4cb21",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }

@@ -1,15 +1,17 @@
 # IBM watsonx language model starter kit
 
-*WARNING*: There is a bug in Watson Assistant that causes this kit to stop working after an hour or more. You can use this kit until it stops working, and then any calls to this extension will fail with a authentication_token_expired error because Watson Assisant is failing to properly refresh authentication tokens. We are working on a fix for this problem and will delete this warning when the fix is deployed.
-
 Watsonx is our enterprise-ready AI and data platform designed to multiply the impact of AI across your business. It provides an API for interacting with generative language models. You can use this starter kit to connect IBM Watson Assistant to the watsonx API.
 
-This starter kit does not provide examples of anything that you can _do_ with this extension. It can be used for specific use cases as the generative language model component.
+## Example use cases with the watsonx custom extension
+
+- [Complex informational tasks: Use watsonx to generate natural language answers for specific topics with only a small amount of relevant text](../language-model-complex-informational-tasks/README.md)
+- [Conversational Search: Use watsonx to answer natural language queries for document search](../language-model-conversational-search/README.md)
+- [Summarization: Use watsonx to summarize conversational interaction](../language-model-summarization/README.md)
 
 The watsonx specification in the starter kit describes one endpoint and a few of the most important of the configuration options that this endpoint provides.
 
-| Endpoint   | Description                                                                                                                                                                 |
-| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Endpoint   | Description                                                                                                                                                                  |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Generation | Used with watsonx text completion models such as `google/flan-ul2` and `google/flan-t5-xxl`. You provide text as a prompt, and it returns the text that follows that prompt. |
 
 ## Prerequisites
@@ -17,8 +19,7 @@ The watsonx specification in the starter kit describes one endpoint and a few of
 ### Create an API key and a project ID
 
 1. Log in to [watsonx](https://dataplatform.cloud.ibm.com/wx/home?context=wx&apps=cos&nocache=true&onboarding=true&quick_start_target=watsonx) and [generate an API key](https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/ml-authentication.html?context=cpdaas). Save this API key somewhere safe and accessible. You need this API key to set up the watsonx custom extension later.
-1. To find your watsonx project ID, go to [your projects](https://dataplatform.cloud.ibm.com/projects/). Open the project you would like to work in, and go to the Manage tab and the Services and integrations tab. Click Associate service + and associate an instance of Watson Machine Learning (WML).
-   If you do not have an instance of WML, you can provision a Lite instance from the [IBM Cloud catalog](https://cloud.ibm.com/catalog/services/watson-machine-learning). Then complete this step using the new Lite instance.
+1. To find your watsonx project id, go to [watsonx.ai](https://dataplatform.test.cloud.ibm.com/wx) and find Projects/<project-name> (this could be your `sandbox`, which is created for you by default). Click on the <project-name> link, then follow the Project's Manage tab (Project -> Manage -> General -> Details) to find the project id.
 
 ### Create an assistant
 

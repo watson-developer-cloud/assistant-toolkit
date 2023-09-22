@@ -33,12 +33,12 @@
     /**
      * This is the function that is called when the web chat code has been loaded and it is ready to be rendered.
      */
-    function onLoad(instance) {
+    async function onLoad(instance) {
       // This will register a listener that will be called whenever web chat tries to determine if any agents are
       // online/available.
       instance.on({ type: 'agent:areAnyAgentsOnline', handler: agentsOnlineHandler });
 
-      instance.render();
+      await instance.render();
     }
 
     // This is the standard web chat configuration object. You can modify these values with the embed code for your

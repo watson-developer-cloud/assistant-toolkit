@@ -7,8 +7,8 @@ This code is for extending the Watson Assistant web chat. If you are new to deve
 This example demonstrates how to create your own launcher that can be used to open web chat.
 
 - How to use the [**showLauncher**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-configuration#configurationobject) configuration property to hide the default launcher.
-- How to use a [**window:open**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#windowopen) event handler to listen for when web chat is opened so you can hide your custom launcher.
-- How to use a [**window:close**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#windowclose) event handler to listen for when web chat is closed so you can show your custom launcher.
+- How to use a [**view:change**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#viewchange) event handler to show or hide the custom launcher when the main web chat window is opened or closed.
+- How to use the [**changeView**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#changeview) instance method to open the main window when the user clicks on the custom launcher.
 
 ## Running the Code
 

@@ -69,11 +69,11 @@
     /**
      * This is the function that is called when the web chat code has been loaded and it is ready to be rendered.
      */
-    function onLoad(instance) {
+    async function onLoad(instance) {
       // We will need to listen for the "receive" event so we can ask for the user's location when needed.
       instance.on({ type: 'receive', handler: receiveHandler });
 
-      instance.render();
+      await instance.render();
     }
 
     // This is the standard web chat configuration object. You can modify these values with the embed code for your

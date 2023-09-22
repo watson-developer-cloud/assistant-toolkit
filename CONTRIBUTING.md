@@ -9,7 +9,7 @@ We take intellectual property seriously. We need to be sure of the provenance of
 If your code is part of an IBM offering or is part of an IBM contracted services engagement please include this information in the issue and PR. It may not be an issue, but because this code can end up in our commercially licensed cloud and on premise offerings, we need to be sure of the provenance of your contribution and that we have the ability to use it and redistribute it.
 
 
-## Submittion Guideline
+## Submission Guideline
 1. Fork the repo
 2. Create a local branch for your change, e.g. `git checkout -b my-new-feature-branch`
 3. Test your changes
