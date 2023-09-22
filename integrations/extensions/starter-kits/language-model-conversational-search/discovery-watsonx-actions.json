@@ -3,10 +3,10 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-09-13T22:07:47.826Z",
-  "updated": "2023-09-13T22:50:24.993Z",
+  "created": "2023-07-19T17:45:42.993Z",
+  "updated": "2023-09-15T20:24:08.552Z",
   "language": "en",
-  "skill_id": "ad9c8a39-6d67-45ed-ae65-400435b99335",
+  "skill_id": "a8bce6da-f4af-4470-97c6-5689418e5308",
   "workspace": {
     "actions": [
       {
@@ -495,7 +495,7 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "cc50493e455de183d661b95360196ddb468a02051add6dcaf4a6479b34900be5",
-                  "catalog_item_id": "bac92002-04e5-46c6-9a15-4cf7c0d8fbdb"
+                  "catalog_item_id": "6e9e631e-fcaa-48d0-a26a-20a4e9140e66"
                 },
                 "request_mapping": {
                   "body": [
@@ -731,6 +731,122 @@
       {
         "steps": [
           {
+            "step": "step_546",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "***WARNING***\n\n<br />\n\n\n\n**discovery_project_id** is not defined, which will cause queries to **Watson Discovery** to fail.\n\n<br />\n\n\n\nTo find your Watson Discovery project_id, please open [your Watson Discovery instance](https://cloud.ibm.com/resources), open your Watson Discovery project, navigate to 'Integrate and deploy', then click 'API Information', then copy the Project ID.\n\n<br />\n\n\n\nThen,"
+                          },
+                          {
+                            "scalar": " set the initial value of discovery_project_id to this copied Project ID by opening your Assistant instance, navigating to the Actions page, clicking 'Created by me' under 'Variables', clicking discovery_project_id, pasting the Project ID as the Initial value, and clicking Save.\n\n<br />\n\n\n\n--\n\nNeed more help? Contact your IBM representative, [book a call](https://www.ibm."
+                          },
+                          {
+                            "scalar": "com/account/reg/signup?formid=MAIL-watson), or [email our team](https://www.ibm.com/account/reg/us-en/signup?formid=MAIL-watsonassistant) for support."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_546",
+            "condition": {
+              "and": [
+                {
+                  "not": {
+                    "exists": {
+                      "skill_variable": "discovery_project_id"
+                    }
+                  }
+                },
+                {
+                  "contains": [
+                    {
+                      "system_variable": "last_seen_at"
+                    },
+                    {
+                      "scalar": "ibm.com",
+                      "options": {
+                        "ignore_case": true
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "next_step": "step_325"
+          },
+          {
+            "step": "step_325",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "***WARNING***\n\n<br />\n\n\n\n**watsonx_project_id** is not defined, which will cause calls to **watsonx** to fail.\n\n<br />\n\n\n\nTo find your watsonx project_id, please open [your watsonx instance](https://dataplatform.cloud.ibm.com/wx/home?context=wx), click your watsonx project, navigate to 'Manage', then click 'General', then copy the Project ID.\n\n<br />\n\n\n\nThen,"
+                          },
+                          {
+                            "scalar": " set the initial value of watsonx_project_id to this copied Project ID by opening your Assistant instance, navigating to the Actions page, clicking 'Created by me' under 'Variables', clicking watsonx_project_id, pasting the Project ID as the Initial value, and clicking Save.\n\n<br />\n\n\n\n--\n\nNeed more help? Contact your IBM representative, [book a call](https://www.ibm."
+                          },
+                          {
+                            "scalar": "com/account/reg/signup?formid=MAIL-watson), or [email our team](https://www.ibm.com/account/reg/us-en/signup?formid=MAIL-watsonassistant) for support."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_325",
+            "condition": {
+              "and": [
+                {
+                  "not": {
+                    "exists": {
+                      "skill_variable": "watsonx_project_id"
+                    }
+                  }
+                },
+                {
+                  "contains": [
+                    {
+                      "system_variable": "last_seen_at"
+                    },
+                    {
+                      "scalar": "ibm.com",
+                      "options": {
+                        "ignore_case": true
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "next_step": "step_774"
+          },
+          {
             "step": "step_774",
             "output": {
               "generic": []
@@ -798,7 +914,7 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "8566081a305e8f8ade4e9bd3887da0600e87948417fc10ba38ee121426f8c50b",
-                  "catalog_item_id": "db377446-9cda-42bd-93d6-c6404c1f6e5e"
+                  "catalog_item_id": "ac478814-4fa8-432b-8d1f-8d7535db269d"
                 },
                 "request_mapping": {
                   "body": [
@@ -1052,6 +1168,11 @@
             "data_type": "any"
           },
           {
+            "title": "***WARNING*** <br /> **watsonx_project_id** is not defined, whic",
+            "variable": "step_325",
+            "data_type": "any"
+          },
+          {
             "variable": "step_338_result_1",
             "data_type": "any"
           },
@@ -1078,6 +1199,11 @@
           },
           {
             "variable": "step_543_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "***WARNING*** <br /> **discovery_project_id** is not defined, wh",
+            "variable": "step_546",
             "data_type": "any"
           },
           {
@@ -1970,8 +2096,8 @@
     "learning_opt_out": true
   },
   "description": "created for assistant 1c76effb-2430-4334-8897-6cdad3c6282b",
-  "assistant_id": "22d85a66-a785-4e59-b44c-814ccce959bb",
-  "workspace_id": "ad9c8a39-6d67-45ed-ae65-400435b99335",
+  "assistant_id": "7e056d64-befc-4c71-9c27-bc60c5349073",
+  "workspace_id": "a8bce6da-f4af-4470-97c6-5689418e5308",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }
