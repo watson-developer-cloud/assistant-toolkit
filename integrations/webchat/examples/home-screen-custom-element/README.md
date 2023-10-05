@@ -1,8 +1,8 @@
-# Home screen custom elements for Watson Assistant web chat
+# Home screen custom elements for IBM watsonx Assistant web chat
 
-**For a full walk through of how this code works, please visit the [tutorial page](DOCS.md) in the Watson Assistant documentation.**
+**For a full walk through of how this code works, please visit the [tutorial page](DOCS.md) in the IBM watsonx Assistant documentation.**
 
-This code is for extending the Watson Assistant web chat. If you are new to developing with web chat, please start with the [web chat development overview](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-develop). The code in this folder is commented with links and references to the web chat APIs used.
+This code is for extending the IBM watsonx Assistant web chat. If you are new to developing with web chat, please start with the [web chat development overview](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-develop). The code in this folder is commented with links and references to the web chat APIs used.
 
 This example demonstrates how to add custom content to the home screen by using a custom writeable element. It will add a number of custom buttons which, when clicked, will send a message to the assistant.
 

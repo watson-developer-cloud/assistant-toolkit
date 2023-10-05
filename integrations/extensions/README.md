@@ -1,14 +1,14 @@
-# Watson Assistant Extensions Starter Kit
+# IBM watsonx Assistant Extensions Starter Kit
 
 ## Introducing Extensions :tada:
 
-Welcome to Watson Assistant Custom Extensions starter kits!
+Welcome to IBM watsonx Assistant Custom Extensions starter kits!
 
 Custom extensions eliminate the need to create a proxy or a middleware layer between your assistant and other APIs by connecting REST API calls to your skill from within your assistant build. Moreover, all of your custom extensions are organized for ease of access via our integrations catalog, and you can work with them in the same way you work with variables when building your bot. In short, this feature combines the flexibility and power of integrating with APIs, with a significantly improved ease-of-use for developer and content authors alike.
 
 These starter kits provide everything you need to create assistants that use custom extensions to access external REST APIs. Each include:
 
-- A valid OpenAPI 3.0 specification describing the REST API of a third-party service. These OpenAPI documents have been tested and validated with Watson Assistant.
+- A valid OpenAPI 3.0 specification describing the REST API of a third-party service. These OpenAPI documents have been tested and validated with IBM watsonx Assistant.
 - An actions skill JSON file that uses the extension created from the OpenAPI spec. You can import this file into an assistant and then edit these actions to access the extension you create.
 - A README containing API specific instructions on how to set up the extension.
 
@@ -52,7 +52,7 @@ Then we have our **additional starter kits**. These focus on showcasing the brea
    - We recommend you start with [HubSpot basic](./starter-kits/hubspot/basic) if this is your first custom extension.
 1. Navigate to the appropriate directory and download the OpenAPI spec (ending in `.openapi.json`) and actions skill (ending in `.skill.json`).
 1. Create an extension.
-   - Go to your Watson Assistant instance.
+   - Go to your IBM watsonx Assistant instance.
    - Navigate to the **Integrations** page.
    - Click `Build custom extension` > `Next`
    - Give your extension a name and a description, then press `Next`.
@@ -78,7 +78,7 @@ Feel free to modify the skill and response variables to get a better grasp of ho
 ### **Method 1**: For simple actions skills
 
 1. Upload your actions skill.
-   - Navigate to the **Actions** tab in Watson Assistant.
+   - Navigate to the **Actions** tab in IBM watsonx Assistant.
    - Click the cog icon on the top right corner.
    - Select your actions skill file from the previous step, and click `Upload`.
 1. Link your extension to your skill.
@@ -106,6 +106,6 @@ Feel free to modify the skill and response variables to get a better grasp of ho
    ![modify-skill](./assets/modify-skill.gif)
 
 1. Upload your modified actions skill.
-   - Navigate to the **Actions** tab in Watson Assistant.
+   - Navigate to the **Actions** tab in IBM watsonx Assistant.
    - Click the cog icon on the top right corner.
    - Select your actions skill file from the previous step, and click `Upload`.

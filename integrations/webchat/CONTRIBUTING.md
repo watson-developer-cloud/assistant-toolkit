@@ -1,6 +1,6 @@
 # Contributing
 
-We welcome contributions that show ways to extend and customize Watson Assistant web chat.
+We welcome contributions that show ways to extend and customize IBM watsonx Assistant web chat.
 
 Please [review the rules for contributing to this repository](../../CONTRIBUTING.md) before submitting code for information about legal requirements, project start process and pull request process.
 

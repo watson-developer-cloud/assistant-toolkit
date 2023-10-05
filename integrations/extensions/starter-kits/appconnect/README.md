@@ -5,7 +5,7 @@ IBM App Connect is an Integration Platform as a Service (or iPaaS) product that 
 ## Pre-Req: Setting Up
 The extension included with this starter kit is discussed in detail in the following [blog article](https://medium.com/ibm-watson/watson-assistant-just-got-connected-a1f46dc9b130).
 
-You'll find in that article that after you have built out a flow in IBM App Connect, you can export an OpenAPI definition of your new flow. After converting the spec from Swagger 2.0 to OpenApi 3.0, you can then import it into Watson Assistant to create the extension. 
+You'll find in that article that after you have built out a flow in IBM App Connect, you can export an OpenAPI definition of your new flow. After converting the spec from Swagger 2.0 to OpenApi 3.0, you can then import it into IBM watsonx Assistant to create the extension. 
 
 ## Using this Starter Kit
 

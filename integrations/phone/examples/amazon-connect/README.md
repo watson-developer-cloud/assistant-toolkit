@@ -2,7 +2,7 @@
 
 # Contact Control Panel (CCP) example
 
-These instructions provide an example of how to build a custom contact control panel (CCP) that grabs the data from an Amazon Connect flow and uses it to display the conversation history with Watson Assistant. It can be used as a reference for more complex and customer-specific use cases.
+These instructions provide an example of how to build a custom contact control panel (CCP) that grabs the data from an Amazon Connect flow and uses it to display the conversation history with IBM watsonx Assistant. It can be used as a reference for more complex and customer-specific use cases.
 
 The example used in these instructions is based on this [blog](https://aws.amazon.com/blogs/contact-center/perform-an-external-screen-pop-with-amazon-connect/). 
 
@@ -94,7 +94,7 @@ To log in:
 1.  After the authentication completes, you are asked to allow notifications and microphone access. Grant both.
 1.  Close the new tab.
 1.  Make sure you (the agent) are in the Available state. If you are not set to **Available**, select the status dropdown menu and select **Available**.
-1. Now you can take calls using the custom CCP when Watson Assistant transfers a customer to the Amazon Connect contact center.
+1. Now you can take calls using the custom CCP when IBM watsonx Assistant transfers a customer to the Amazon Connect contact center.
 
 
 ![Contact Control Panel](images/ccp.png)

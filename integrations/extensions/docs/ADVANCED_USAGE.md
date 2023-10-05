@@ -6,7 +6,7 @@ In [Getting Started](../README.md#getting-started), we used simple OpenAPI specs
 - [Topic 3](#parameters-variables-and-complex-actions): Using parameters and variables
 - [Topic 4](#linking-multiple-extensions): Linking multiple extensions in your Actions skill
 
-These topics will help you expand and exercise various capabilities of custom extensions, and hopefully will inspire more creative ways to use Watson Assistant through extensions.
+These topics will help you expand and exercise various capabilities of custom extensions, and hopefully will inspire more creative ways to use IBM watsonx Assistant through extensions.
 
 Some notes before you get started:
 
@@ -75,7 +75,7 @@ To add server variables in your OpenAPI spec, you can write something similar to
 Then, the respective fillable fields will render as an option in your `Authentication` setup step.
 
 ## Parameters, Variables, and Complex Actions
-In your actions skills, you are able to parse the response information from the extension in any consequent steps. For instance, you can observe in `Action 2` of the [MetaWeather (advanced) skill](../starter-kits/docs/metaweather-deprecated/README.md#using-this-starter-kit) how the WOE-ID returned from the first extension step is retrieved, then passed in as an argument to the second extension step. This allows you to build your own flexible workflow around the API, directly inside Watson Assistant.
+In your actions skills, you are able to parse the response information from the extension in any consequent steps. For instance, you can observe in `Action 2` of the [MetaWeather (advanced) skill](../starter-kits/docs/metaweather-deprecated/README.md#using-this-starter-kit) how the WOE-ID returned from the first extension step is retrieved, then passed in as an argument to the second extension step. This allows you to build your own flexible workflow around the API, directly inside IBM watsonx Assistant.
 
 To do this, you want to access the response variables from an extension. These can be accessed in various places, including your condition statements:
 

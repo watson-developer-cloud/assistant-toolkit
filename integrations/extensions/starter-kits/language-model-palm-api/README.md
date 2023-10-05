@@ -19,7 +19,7 @@ The OpenAPI specification in the starter kit describes three endpoints, and a fe
 
 ### Create an assistant
 
-This starter kit requires that you use the [new Watson Assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-welcome-new-assistant).
+This starter kit requires that you use the [new IBM watsonx Assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-welcome-new-assistant).
 
 Create a new, empty assistant that you can use to test this starter kit. For more information, see [Adding more assistants](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-assistant-add).
 
@@ -72,6 +72,6 @@ Here is an example of how to use the `Test model` action:
 
 ## Use at your own risk
 
-You can get either of these actions to just respond to _anything_ a user says by updating "No action matches" (and optionally "Fallback") built-in actions in Watson Assistant to set `model_prompt` to `input.text`, call one of these actions, and then put the `model_response` in "Assistant says". With more work, you can even keep track of things the assistant and the user have said to each other and put them into the prompt too; the result would be something similar to the PaLM experience in which you would have an ongoing conversation with the model. This can be a fun thing to try out, but _we strongly recommend that you do not do this for any serious chatbot that you use to represent your enterprise_, since you would have no control over what it will say.
+You can get either of these actions to just respond to _anything_ a user says by updating "No action matches" (and optionally "Fallback") built-in actions in IBM watsonx Assistant to set `model_prompt` to `input.text`, call one of these actions, and then put the `model_response` in "Assistant says". With more work, you can even keep track of things the assistant and the user have said to each other and put them into the prompt too; the result would be something similar to the PaLM experience in which you would have an ongoing conversation with the model. This can be a fun thing to try out, but _we strongly recommend that you do not do this for any serious chatbot that you use to represent your enterprise_, since you would have no control over what it will say.
 
 For detailed information about the Google PaLM API and its capabilities, refer to the official documentation: [Google PaLM API Documentation](https://developers.generativeai.google/guide/palm_api_overview)

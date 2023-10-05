@@ -1,6 +1,6 @@
 # Examples
 
-This folder contains a set of examples that are intended to demonstrate how to use various features of Watson Assistant web chat. Below is a list of these examples, along with a brief explanation of each and the different features that each example demonstrates.
+This folder contains a set of examples that are intended to demonstrate how to use various features of IBM watsonx Assistant web chat. Below is a list of these examples, along with a brief explanation of each and the different features that each example demonstrates.
 
 Most of the examples only require downloading an individual index.html file and then opening that file in your web browser but other examples have more pieces to them. To run all the examples in this repository, download a clone of the repository and follow the instructions in each example.
 
@@ -14,9 +14,9 @@ It demonstrates:
 - How to use [**updateLauncherGreetingMessage**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#updateLauncherGreetingMessage) to change the text that is displayed in the launcher.
 - How to use [**updateHomeScreenConfig**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#homescreen) to change the greeting text as well as the starter buttons that are displayed on the home screen.
 
-## [Content carousel for Watson Assistant web chat](content-carousel/README.md)
+## [Content carousel for IBM watsonx Assistant web chat](content-carousel/README.md)
 
-The example will display an interactive content carousel for data returned from Watson Assistant. The items in the carousel includes buttons that will send a message to the Assistant to provide additional information for each item.
+The example will display an interactive content carousel for data returned from IBM watsonx Assistant. The items in the carousel includes buttons that will send a message to the Assistant to provide additional information for each item.
 
 It demonstrates:
 
@@ -77,7 +77,7 @@ It demonstrates:
 
 ## [Download history](download-history/README.md)
 
-This example demonstrates how to capture the conversation history for both Watson Assistant and for conversation with a human agent at a service desk and provide an option for the user to download them. It will add a custom menu option to the web chat header for the user to do this.
+This example demonstrates how to capture the conversation history for both IBM watsonx Assistant and for conversation with a human agent at a service desk and provide an option for the user to download them. It will add a custom menu option to the web chat header for the user to do this.
 
 It demonstrates:
 
@@ -85,7 +85,7 @@ It demonstrates:
 - How to use the [**agent:receive**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#agentreceive) and [**agent:send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#agentsend) event handlers to capture the messages that are sent to and received from a human agent using a service desk integration.
 - How to use a [**history:begin**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#historybegin) event handler to capture messages that were loaded from session history.
 - How to use the [**updateCustomMenuOptions**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#updatecustommenuoptions) instance method to add a "Download history" option to the header.
-- How to convert [**Watson Assistant messages**](https://cloud.ibm.com/apidocs/assistant/assistant-v2#message) into a text format that can be downloaded.
+- How to convert [**IBM watsonx Assistant messages**](https://cloud.ibm.com/apidocs/assistant/assistant-v2#message) into a text format that can be downloaded.
 - How to use the built-in `Blob` and `URL` objects to construct a downloadable link.
 
 ## [Handling agents unavailable](agents-unavailable/README.md)
@@ -191,7 +191,7 @@ It demonstrates:
 
 ## [Web chat security](web-chat-security/README.md)
 
-This example demonstrates how to enable security with web chat. It will show how to create a JWT that can be used to securely authorize a webpage to access your web chat. It also demonstrates how to use a new JWT for the use case when a user logs into a site in the middle of a Watson Assistant chat session as well as how to send the user's ID to Watson Assistant so it can be used in an action or an extension.
+This example demonstrates how to enable security with web chat. It will show how to create a JWT that can be used to securely authorize a webpage to access your web chat. It also demonstrates how to use a new JWT for the use case when a user logs into a site in the middle of a IBM watsonx Assistant chat session as well as how to send the user's ID to IBM watsonx Assistant so it can be used in an action or an extension.
 
 It demonstrates:
 

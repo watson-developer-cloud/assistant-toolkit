@@ -2,7 +2,7 @@
 
 The IBM Robotic Process Automation (RPA) offering helps automate business and IT processes at scale with the ease and speed of traditional RPA. Software robots, or bots, can act on AI insights to complete tasks with no lag time and enable you to achieve digital transformation.
 
-This extension starter kits shows how to integrate IBM RPA into a conversational flow built with Watson Assistant. The integration relies on two cloud functions included with this starter kit that sit between Watson Assistant and IBM RPA. These cloud functions handle things like IBM RPA authentication and conversion of the REST API calls defined in the OpenAPI spec imported into Watson Assistant (also included in the start kit) to APIs supported by IBM RPA.
+This extension starter kits shows how to integrate IBM RPA into a conversational flow built with IBM watsonx Assistant. The integration relies on two cloud functions included with this starter kit that sit between IBM watsonx Assistant and IBM RPA. These cloud functions handle things like IBM RPA authentication and conversion of the REST API calls defined in the OpenAPI spec imported into IBM watsonx Assistant (also included in the start kit) to APIs supported by IBM RPA.
 
 One important caveate about this starter kit is that it does not contain the backend RPA distribution needed to complete an end-to-end demo. The purpose of the starter kit is to provide template assets needed to start building the integration but practitioners may need help from the IBM RPA client engineering team to build a working demo. IBM employees can put in a request for help through the Customer Care Jumpstart program. Please check the [intake process here through ISC](https://ibm.box.com/s/m715465sjeai35dz58rdp72t35z4z58m).
 
@@ -18,17 +18,17 @@ Here is a list of the components included with this starter kit along with detai
 |-----------|---------|
 |cfInsert.js| Cloud function template used to insert an RPA item (e.g. job) into a queue to be executed. |
 |cfGetStatus.js| Cloud function template used to query RPA for item status. This is needed because RPA jobs can take longer than 30 seconds to complete which means you most poll this cloud function for the jobs completion status. |
-|ibm-rpa.openapi.json| OpenAPI spec template that needs to be imported into Watson Assistant in order to integrate with the two cloud functions.|
-|RPAWA Integration.mp4| Very short video showing what this integration looks like when using the Watson Assistant preview panel.|
+|ibm-rpa.openapi.json| OpenAPI spec template that needs to be imported into IBM watsonx Assistant in order to integrate with the two cloud functions.|
+|RPAWA Integration.mp4| Very short video showing what this integration looks like when using the IBM watsonx Assistant preview panel.|
 |ibm-rpa.actions.json| Action skill sample that calls out to the RPA cloud functions using the above OpenAPI spec. |
 
 Note that the above templates will need to be modified according to the steps outlined below.
 
 ## Pre-Requisite Steps
 
-To complete an end-to-end setup of this integration between Watson Assistant and IBM RPA you will need to provision accounts for all of the following:
+To complete an end-to-end setup of this integration between IBM watsonx Assistant and IBM RPA you will need to provision accounts for all of the following:
 
- - Watson Assistant (a trial account)
+ - IBM watsonx Assistant (a trial account)
  - IBM RPA
  - IBM Cloud Functions (or some equivalent)
 
@@ -88,9 +88,9 @@ Next update the OpenAPI spec template included with this starter kit:
 ![open-api-parameters](./assets/open-api-parameters.png)
 3. Save changes
 
-### Setup Watson Assistant
+### Setup IBM watsonx Assistant
 
-1. Within your new Watson Assistant instance, start by creating a new assistant. You can do this by importing the ibm-rpa.actions.json file. Note that the parameters and endpoints related to the RPA extension defined within this JSON file will have to be setup again after you import the Extension. 
+1. Within your new IBM watsonx Assistant instance, start by creating a new assistant. You can do this by importing the ibm-rpa.actions.json file. Note that the parameters and endpoints related to the RPA extension defined within this JSON file will have to be setup again after you import the Extension. 
 
 2. After you create your assistant, you can upload the OpenAPI specification that you edited above to your assistant by following these [instructions](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension).
 

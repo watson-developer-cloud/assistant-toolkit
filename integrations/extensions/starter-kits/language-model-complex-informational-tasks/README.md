@@ -1,12 +1,12 @@
 # Language Model Complex Informational Tasks Starter Kit
 
-This starter kit has three examples of how to connect Watson Assistant with large language models (LLMs) to generate natural language answers for specific topics when there is only a small amount of relevant text available. For use cases that require only a small amount of text, all of the text can be sent directly into the model so there is no need to support document search. [The first example uses watsonx](#example-1-connect-your-assistant-to-watsonx), [The second example uses OpenAI](#example-2-connect-your-assistant-to-openai) and [the second example uses Google PaLM](#example-3-connect-your-assistant-to-palm).
+This starter kit has three examples of how to connect IBM watsonx Assistant with large language models (LLMs) to generate natural language answers for specific topics when there is only a small amount of relevant text available. For use cases that require only a small amount of text, all of the text can be sent directly into the model so there is no need to support document search. [The first example uses watsonx](#example-1-connect-your-assistant-to-watsonx), [The second example uses OpenAI](#example-2-connect-your-assistant-to-openai) and [the second example uses Google PaLM](#example-3-connect-your-assistant-to-palm).
 
 These examples demonstrate an assistant that is configured with a mix of conventional actions and generative answering actions. The conventional actions are designed to assist users with programmatic tasks that can be accomplished with specific steps that have limited options, such as purchasing a TV plan or opening a bank account. Generative answering actions have more flexibility to provide a more powerful general question answering capability, illustrated in this kit with the "TV Plan Questions" and "Internet Plan Questions" actions.
 
 ## Prerequisites
 
-This starter kit requires that you use the [new Watson Assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-welcome-new-assistant).
+This starter kit requires that you use the [new IBM watsonx Assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-welcome-new-assistant).
 
 Create a new, empty assistant that you can use to test this starter kit. For more information, see [Adding more assistants](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-assistant-add).
 

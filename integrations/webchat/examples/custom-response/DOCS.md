@@ -1,4 +1,4 @@
-Note: This document is in a temporary location until this content is moved into the [main Watson Assistant documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-overview) tutorials section.
+Note: This document is in a temporary location until this content is moved into the [main IBM watsonx Assistant documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-overview) tutorials section.
 
 To display information from an extension in a custom response, follow these steps. The extension used in this tutorial is an API provided by the National Bank of Poland that allows you to obtain the currency exchange rate between a currency of your choosing and the Polish złoty.
 

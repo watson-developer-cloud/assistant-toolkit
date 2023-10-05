@@ -1,17 +1,17 @@
 # Agent Verify
 
 ## Background
-This agent-assist starter kit combines Watson Assistant's webchat with a wraper application that monitors real-time caller/agent transcriptions to provide the following features:
+This agent-assist starter kit combines IBM watsonx Assistant's webchat with a wraper application that monitors real-time caller/agent transcriptions to provide the following features:
 
 1. Agent prompting based on customer input.
 2. Verification that the agent speaks certain prompts back to the caller verbatim.
-3. The ability to use caller's speech transcriptions as input to Watson Assistant.
+3. The ability to use caller's speech transcriptions as input to IBM watsonx Assistant.
 
 The real-time transcriptions are delivered to the agent-verify application. This sample does NOT include Watson speech support for delivering the real-time transcriptions.
 
 The client application that comes with this starter kit can be embedded into the following agent dashboards:
 
-1. Genesys Cloud CX: This version of the client application relies on Genesys voice transcriptions to drive the Watson Assistant conversational flow.
+1. Genesys Cloud CX: This version of the client application relies on Genesys voice transcriptions to drive the IBM watsonx Assistant conversational flow.
 2. Dashboard Simulator - The starter kit includes a simulator application that can be used for testing outside the chosen CCaaS.
 
 ## Structure of the Agent Verify Sample
@@ -19,7 +19,7 @@ The client application that comes with this starter kit can be embedded into the
 Below this directory you will find the following two directories:
 
 1. `client` - This directory includes both the HTML and JavaScript files that are used to launch the embedded client applciation.
-2. `sample` - This directory contains a sample Watson Assistant actions skill that can be used to demonstrate the fuctionality of this starter kit.
+2. `sample` - This directory contains a sample IBM watsonx Assistant actions skill that can be used to demonstrate the fuctionality of this starter kit.
 3. `images` - Images contained in this README.
 4. `videos` - Contains videos that demo this application.
 
@@ -27,7 +27,7 @@ Here is a quick rundown of all the relevant files:
 
 - `.\client\genesys-agent-assist-verify.html` - Loads the agent-verify app along with the Genesys connector. Can be loaded into the Genesys agent dashboard.
 - `.\client\simulator-agent-assist-verify.html` - Loads both a simulator and the agent-verify application. Can be loaded directly into a browser to locally test the application. 
-- `.\client\javascript\agent-verify.js` - Contains the wrapper for the Watson Assistant webchat app. It handles the real-time transcription events published from the various connectors.
+- `.\client\javascript\agent-verify.js` - Contains the wrapper for the IBM watsonx Assistant webchat app. It handles the real-time transcription events published from the various connectors.
 - `.\client\javascript\agent-verify.css` - Used to render the agent-verify app.
 - `.\client\javascript\connectors\genesys-transcription-connector.js` - This is the code that interfaces with the Genesys notification APIs to receive voice transcription events. It publishes these events directly to the agent-verify application.
 - `.\sample\agent-assistant-atlas-airlines.actions.json` - Sample Action skill that can be used to test the agent-verify app.
@@ -36,7 +36,7 @@ Here is a quick rundown of all the relevant files:
 
 ## Pre-Requisites
 
-To test this application with a particular Contact Center as a Server (CCaaS) provider requires an account with that provider. It may also require specific permissions within the account. In addition, you will need a Watson Assistant instance.
+To test this application with a particular Contact Center as a Server (CCaaS) provider requires an account with that provider. It may also require specific permissions within the account. In addition, you will need a IBM watsonx Assistant instance.
 
 ### Genesys
 Genesys Voice Transcription requires customers to have Genesys Cloud CX 1 WEM Add-on II, Genesys Cloud CX 2 WEM Add-on I, or Genesys Cloud CX 3 licenses. You will need voice transcription to be enabled to run this demo. Go here for details on the [Genesys Fair Use Policy](https://help.mypurecloud.com/articles/genesys-cloud-fair-use-policy/). This demo was built using [Genesys Transcription Notifications](https://developer.genesys.cloud/analyticsdatamanagement/speechtextanalytics/transcription-notifications).
@@ -49,9 +49,9 @@ The Genesys connector included with this sample relies on a type of OAuth called
 #### Agent Groups
 You must define a group that will contain agents within the Genesys Admin dashboard. Please refer to Genesys documentation for how to set this up. Note that you will need this group when configuring the agent-verify Interation Widget.
 
-## Watson Assistant Setup
+## IBM watsonx Assistant Setup
 
-This sample relies on a context variable called `custom_command` received from Watson Assistant to initiate the verbatim check. For any response you wish for the agent to read back verbatim, you can program the Action (or Dialog) step to return the `custom_command` context variable set to `read-verbatim` and the application will display the response in red and convert the response color to green after it receives an agent transcription that closely matches the response from Watson Assistant.
+This sample relies on a context variable called `custom_command` received from IBM watsonx Assistant to initiate the verbatim check. For any response you wish for the agent to read back verbatim, you can program the Action (or Dialog) step to return the `custom_command` context variable set to `read-verbatim` and the application will display the response in red and convert the response color to green after it receives an agent transcription that closely matches the response from IBM watsonx Assistant.
 
 Additionally, you will need to modify the `.\client\javascript\agent-verify.js` to configure the following variables that can be pulled from the Web Chat `Embed` tab that is associated with your Assistant:
 
@@ -60,7 +60,7 @@ Additionally, you will need to modify the `.\client\javascript\agent-verify.js` 
 - serviceInstanceID
 
 ## Test Simulator Setup
-Before setting up this sample application with a specific CCaaS service provider, its best to setup and run the test simulator on your agent-verify Watson Assistant Actions. After setting up Watson Assistant as described above, simply load the `simulator-agent-assist-verify.html` file into a browser. Once loaded you can enter both caller and agent input into the text boxes on the left side of the screen and observe the Watson Assistant responses on the right.
+Before setting up this sample application with a specific CCaaS service provider, its best to setup and run the test simulator on your agent-verify IBM watsonx Assistant Actions. After setting up IBM watsonx Assistant as described above, simply load the `simulator-agent-assist-verify.html` file into a browser. Once loaded you can enter both caller and agent input into the text boxes on the left side of the screen and observe the IBM watsonx Assistant responses on the right.
 
 You can use the sample Actions skill and transcript included in the samples directory to test if you'd like.
 
@@ -173,7 +173,7 @@ On this page you will need to enable voice transcriptions and `Low Latency Trans
 
 After completing these steps you will need to setup a call flow to test that the agent-verify widget is being loaded into the Agent Desktop. Here are a few links to help you get started:
 
-- [Integrating Watson Assistant with phone and Genesys Cloud](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-deploy-phone-genesys)
+- [Integrating IBM watsonx Assistant with phone and Genesys Cloud](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-deploy-phone-genesys)
 - [Genesys: Create a trunk under BYOC Cloud](https://help.mypurecloud.com/articles/create-a-byoc-cloud-trunk/)
 - [About Genesys Cloud Voice](https://help.mypurecloud.com/articles/about-genesys-cloud-voice/)
 - [Details on Genesys Voice Transcription](https://help.mypurecloud.com/articles/about-voice-transcription/)

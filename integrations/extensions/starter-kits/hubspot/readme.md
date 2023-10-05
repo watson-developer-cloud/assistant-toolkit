@@ -22,7 +22,7 @@ The `basic` kit implements a single yet useful API call for retrieving contact i
 
 ## Pre-Req 1: Getting Private Apps Access Token
 
-Hubspot has increased their level of security for making API calls. They no longer support one API Key but rather support keys per Application. Hubspot now support two types of Apps: Private and Public. Public Apps require OAuth authentication which currently IBM Watson Assistant does not support. For the time being, we recommend using Private Apps which are based on Bearer Authentication. Please note, to follow Hubspot guidelines on sharing this Bearer token.
+Hubspot has increased their level of security for making API calls. They no longer support one API Key but rather support keys per Application. Hubspot now support two types of Apps: Private and Public. Public Apps require OAuth authentication which currently IBM watsonx Assistant does not support. For the time being, we recommend using Private Apps which are based on Bearer Authentication. Please note, to follow Hubspot guidelines on sharing this Bearer token.
 
 First, we need to create a Hubspot account.
 

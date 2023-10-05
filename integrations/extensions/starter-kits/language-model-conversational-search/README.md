@@ -1,6 +1,6 @@
 # Language Model Conversational Search starter kit
 
-This starter kit has multiple examples of how to configure language models with Watson Assistant for conversational search.
+This starter kit has multiple examples of how to configure language models with IBM watsonx Assistant for conversational search.
 
 1. The first example shows how to use [Watson Discovery search as input to a watsonx model](#example-1-connect-your-assistant-to-watson-discovery-and-watsonx-via-custom-extensions)
 1. The second example shows how to use [semantic search output as input to a watsonx model](#example-2-connect-your-assistant-to-hugging-face-milvus-and-watsonx-via-custom-extensions)
@@ -9,11 +9,11 @@ This starter kit has multiple examples of how to configure language models with 
 1. The fifth example shows how to use [Watson Discovery search as input to an OpenAI model](#example-5-connect-your-assistant-to-watson-discovery-and-openai-via-custom-extensions)
 1. The sixth example shows how to use [Watson Discovery search as input to Google PaLM](#example-6-connect-your-assistant-to-watson-discovery-and-palm-via-custom-extensions)
 
-The [prerequisite for a new Watson Assistant](#prerequisites) applies for all examples.
+The [prerequisite for a new IBM watsonx Assistant](#prerequisites) applies for all examples.
 
 ## Prerequisites
 
-All examples in this starter kit require that you use the [new Watson Assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-welcome-new-assistant).
+All examples in this starter kit require that you use the [new IBM watsonx Assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-welcome-new-assistant).
 
 Create a new, empty assistant that you can use to test this starter kit. For more information, see [Adding more assistants](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-assistant-add).
 
@@ -134,7 +134,7 @@ Milvus is an open-source vector database for semantic search.
 
 1. In **Authentication**, choose **No authentication** and enter values for your Milvus server variables (i.e., ip-address:rest-port, e.g., `123.456.78.910:9091`) to create a valid generated URL for requests. However, if you configured Milvus to require basic authentication, then choose **Basic auth** and enter your Milvus credentials.
 
-1. The setup of your Milvus extension for Watson Assistant is complete. For more information about the extension parameters, see the [Milvus API Reference](https://milvus.io/docs/search.md).
+1. The setup of your Milvus extension for IBM watsonx Assistant is complete. For more information about the extension parameters, see the [Milvus API Reference](https://milvus.io/docs/search.md).
 
 ### Configure the watsonx extension
 

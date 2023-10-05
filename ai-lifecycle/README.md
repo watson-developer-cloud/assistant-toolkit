@@ -3,7 +3,7 @@
 ## Introduction
 We want to help you build unique conversational experiences which work seamlessly with your end users. We want to help get your projects off the ground quickly, and build virtual conversational assistants which impact the KPIs you care about most.
 
-We believe that if we can help you leverage all of the capabilities available within Watson Assistant, you will be able to build highly effective AI solutions for your business. To that end, experts from the Watson Assistant team have compiled a set of guidelines that are covered in this lifecycle document. The guidelines incorporate expertise that the team has gained from real world engagements with clients from around the world. We hope it helps you to discover ways to get the most out of your own AI implementation.
+We believe that if we can help you leverage all of the capabilities available within IBM watsonx Assistant, you will be able to build highly effective AI solutions for your business. To that end, experts from the IBM watsonx Assistant team have compiled a set of guidelines that are covered in this lifecycle document. The guidelines incorporate expertise that the team has gained from real world engagements with clients from around the world. We hope it helps you to discover ways to get the most out of your own AI implementation.
  
 ## Phases of the AI lifecycle
 The AI lifecycle has six phases. The phases are repeated to form an iterative process that you follow to build, manage, and incrementally improve your assistant
@@ -39,7 +39,7 @@ Use the test set with the notebook to generate quantitative metrics about how th
 In this phase of the lifecycle, you have gone through the process of creating, analyzing and then updating your virtual assistant multiple times and are now interested in creating deployment processes for your virtual assistant. 
 
 
-In this phase, we recommend that you go through the documentation related to deploying a virtual assistant. Reviewing the section on how to call out to your virtual assistants from within your use cases using the Watson Assistant APIs can help with the integration of the dialog skill into the final business process. Documentation related to [Software Development Kits (SDK)](https://cloud.ibm.com/docs/services/assistant?topic=watson-using-sdks) currently supported in various programming languages can also be found there
+In this phase, we recommend that you go through the documentation related to deploying a virtual assistant. Reviewing the section on how to call out to your virtual assistants from within your use cases using the IBM watsonx Assistant APIs can help with the integration of the dialog skill into the final business process. Documentation related to [Software Development Kits (SDK)](https://cloud.ibm.com/docs/services/assistant?topic=watson-using-sdks) currently supported in various programming languages can also be found there
 
 
 ## Phase 4: Measure live system
@@ -56,7 +56,7 @@ As an output of the Measure notebook, you can also generate a subset of problema
 
 ## Phase 5: Analyze effectiveness and coverage
 
-With measurements of your live system in hand, you can focus on understanding the patterns that lead to low performance. If you decide to improve the Coverage measurement, you’ll want to use the [Intent Recommendations](https://cloud.ibm.com/docs/services/assistant?topic=assistant-intent-recommendations) feature in Watson Assistant, which uses your logs to help you create new intents or expand existing intents with more training examples. 
+With measurements of your live system in hand, you can focus on understanding the patterns that lead to low performance. If you decide to improve the Coverage measurement, you’ll want to use the [Intent Recommendations](https://cloud.ibm.com/docs/services/assistant?topic=assistant-intent-recommendations) feature in IBM watsonx Assistant, which uses your logs to help you create new intents or expand existing intents with more training examples. 
 
 If you turn your attention to improve the Effectiveness measurement, you can choose to either analyze the quality of intent and entity detection using the [Analyze Effectiveness Notebook](https://github.com/watson-developer-cloud/assistant-improve-recommendations-notebook) or focus instead on the quality of your dialog flows using the [Dialog Flow Analysis Notebook](https://github.com/watson-developer-cloud/assistant-dialog-flow-analysis). 
 
@@ -70,4 +70,4 @@ In this phase of the lifecycle, you make further improvements to your virtual as
 
 
 ## In Conclusion
-We hope that the guidance provided here helps you on your conversational AI journey with Watson Assistant. We also welcome feedback based on your experience designing, deploying and maintaining an assistant that supports your business process.
+We hope that the guidance provided here helps you on your conversational AI journey with IBM watsonx Assistant. We also welcome feedback based on your experience designing, deploying and maintaining an assistant that supports your business process.

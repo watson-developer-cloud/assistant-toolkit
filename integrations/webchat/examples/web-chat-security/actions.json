@@ -27,7 +27,7 @@
                             "skill_variable": "Encrypted_Message"
                           },
                           {
-                            "scalar": "\n\n<br/>\nYour Watson Assistant user ID is \""
+                            "scalar": "\n\n<br/>\nYour IBM watsonx Assistant user ID is \""
                           },
                           {
                             "skill_variable": "Default_User_ID"

@@ -1,10 +1,10 @@
 # Language Model Personalization starter kit
 
-You can use this starter kit to try a simple example of how a generative language model can be used to provide a personalized response to a customer.  It illustrates the power of doing so, but it also demonstrates some disturbing and ethically dubious issues with some serious potential consequences.  The purpose of this kit is _not_ to illustrate a best-practice that we would recommend that someone follow.  Quite the contrary: we are putting this out there because we believe that users are starting to do these sorts of things with Watson Assistant right now, and we want to illustrate the power _and_ the dangers and provide guidelines for using this power more responsibly.  Furthermore, we intend in the future to add more examples that illustrate more cautious, responsible applications of this kind of capability.  See the "Responsible Use" section at the end of this README file for more details on this subject.
+You can use this starter kit to try a simple example of how a generative language model can be used to provide a personalized response to a customer.  It illustrates the power of doing so, but it also demonstrates some disturbing and ethically dubious issues with some serious potential consequences.  The purpose of this kit is _not_ to illustrate a best-practice that we would recommend that someone follow.  Quite the contrary: we are putting this out there because we believe that users are starting to do these sorts of things with IBM watsonx Assistant right now, and we want to illustrate the power _and_ the dangers and provide guidelines for using this power more responsibly.  Furthermore, we intend in the future to add more examples that illustrate more cautious, responsible applications of this kind of capability.  See the "Responsible Use" section at the end of this README file for more details on this subject.
 
 ## Prerequisites
 
-This starter kit requires that you use the [new Watson Assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-welcome-new-assistant).
+This starter kit requires that you use the [new IBM watsonx Assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-welcome-new-assistant).
 
 Create a new, empty assistant that you can use to test this starter kit. For more information, see [Adding more assistants](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-assistant-add).
 
@@ -70,13 +70,13 @@ What we see when we use this model with models like the GPT 3.5 and 4 models is 
 
 > User: close bank account
 
-> Watson Assistant: I'm sorry to hear that you want to close your bank account. Why do you want to close your account?
+> IBM watsonx Assistant: I'm sorry to hear that you want to close your bank account. Why do you want to close your account?
 
 > User: I am moving to London
 
-> Watson Assistant: Hello Jane, we're sorry to hear that you're planning to close your savings account as you move to London. Did you know that our bank has a wide network and presence in London? By keeping your savings account with us, you can continue to enjoy our competitive interest rates and access to our services. We'd love to keep you as a customer and help you with your banking needs. Let us know if there's anything we can do to make banking with us easier for you in London.
+> IBM watsonx Assistant: Hello Jane, we're sorry to hear that you're planning to close your savings account as you move to London. Did you know that our bank has a wide network and presence in London? By keeping your savings account with us, you can continue to enjoy our competitive interest rates and access to our services. We'd love to keep you as a customer and help you with your banking needs. Let us know if there's anything we can do to make banking with us easier for you in London.
 
-> Watson Assistant: I hope that helps. Do you still want to close your account? Or would you like to talk to a representative and discuss your options?
+> IBM watsonx Assistant: I hope that helps. Do you still want to close your account? Or would you like to talk to a representative and discuss your options?
 
 It is very impressive that the model (`gpt-3.5-turbo` in this example) is able to directly respond to the specific issue that the customer has and make claims that respond directly to the concerns the user has.  Note, however, that the model says things like "Did you know that our bank has a wide network and presence in London?", but we never sent the model any information that suggests that the (hypothetical) bank for this sample chatbot has any presence in London.  This is coming from the model for two reasons:
 

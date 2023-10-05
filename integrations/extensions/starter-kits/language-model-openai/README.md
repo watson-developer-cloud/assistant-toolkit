@@ -1,6 +1,6 @@
 # OpenAI language model starter kit
 
-OpenAI is an AI research and deployment company, which is best known for the [ChatGPT](https://openai.com/blog/chatgpt) conversational application.OpenAI provides an [API](https://platform.openai.com/docs/api-reference) for interacting with their generative language models. Azure OpenAI also provides an [API](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/reference). You can use this starter kit to connect IBM Watson Assistant to the [OpenAI API](#openai-starter-kit-set-up-instructions) directly, or with [Azure](#azure-openai-starter-kit-set-up-instructions).
+OpenAI is an AI research and deployment company, which is best known for the [ChatGPT](https://openai.com/blog/chatgpt) conversational application.OpenAI provides an [API](https://platform.openai.com/docs/api-reference) for interacting with their generative language models. Azure OpenAI also provides an [API](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/reference). You can use this starter kit to connect IBM watsonx Assistant to the [OpenAI API](#openai-starter-kit-set-up-instructions) directly, or with [Azure](#azure-openai-starter-kit-set-up-instructions).
 
 This starter kit does not provide any examples of anything that you can _do_ with this extension. Instead, we have three general-purpose kits that show _use cases_ for generative language models, and we may add more in the future. The three use case starter kits we have now are:
 
@@ -24,7 +24,7 @@ The OpenAPI specifications in this starter kit describe two endpoints, and a few
 
 ### Create an assistant
 
-This starter kit requires that you use the [new Watson Assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-welcome-new-assistant).
+This starter kit requires that you use the [new IBM watsonx Assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-welcome-new-assistant).
 
 Create a new, empty assistant that you can use to test this starter kit. For more information, see [Adding more assistants](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-assistant-add).
 
@@ -129,4 +129,4 @@ Here is an example of how to use the `Test model` action:
 
 ## Use at your own risk
 
-You can get the actions to just respond to _anything_ a user says by updating "No action matches" (and optionally "Fallback") built-in actions in Watson Assistant to set `model_prompt` to `input.text`, call one of these actions, and then put the `model_response` in "Assistant says". With more work, you can even keep track of things the assistant and the user have said to each other and put them into the prompt too, ideally as separate entries in the `messages` list of the chat completion API as described in the [chat completion API documentation](https://platform.openai.com/docs/api-reference/chat) and [Azure OpenAI API Reference](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/reference#chat-completions); the result would be something similar to the ChatGPT experience in which you would have an ongoing conversation with the model. This can be a fun thing to try out, but _we strongly recommend that you do not do this for any serious chatbot that you use to represent your enterprise_, since you would have no control over what it will say.
+You can get the actions to just respond to _anything_ a user says by updating "No action matches" (and optionally "Fallback") built-in actions in IBM watsonx Assistant to set `model_prompt` to `input.text`, call one of these actions, and then put the `model_response` in "Assistant says". With more work, you can even keep track of things the assistant and the user have said to each other and put them into the prompt too, ideally as separate entries in the `messages` list of the chat completion API as described in the [chat completion API documentation](https://platform.openai.com/docs/api-reference/chat) and [Azure OpenAI API Reference](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/reference#chat-completions); the result would be something similar to the ChatGPT experience in which you would have an ongoing conversation with the model. This can be a fun thing to try out, but _we strongly recommend that you do not do this for any serious chatbot that you use to represent your enterprise_, since you would have no control over what it will say.

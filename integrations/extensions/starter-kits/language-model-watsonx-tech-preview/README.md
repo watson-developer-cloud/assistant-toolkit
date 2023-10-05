@@ -9,7 +9,7 @@
 > ⛔️
 > **Warning: Deprecated**
 
-Watsonx is our upcoming enterprise-ready AI and data platform designed to multiply the impact of AI across your business. It provides an [API](https://bam.res.ibm.com/docs/api-reference) for interacting with their generative language models. You can use this starter kit to connect IBM Watson Assistant to the watsonx API.
+Watsonx is our upcoming enterprise-ready AI and data platform designed to multiply the impact of AI across your business. It provides an [API](https://bam.res.ibm.com/docs/api-reference) for interacting with their generative language models. You can use this starter kit to connect IBM watsonx Assistant to the watsonx API.
 
 This starter kit does not provide any examples of anything that you can _do_ with this extension. Instead, we have one general-purpose kit that shows a _use case_ for generative language models, and we may add more in the future. The use case starter kit we have now is:
 
@@ -30,7 +30,7 @@ The watsonx tech preview specification in the starter kit describes one endpoint
 
 ### Create an assistant
 
-This starter kit requires that you use the [new Watson Assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-welcome-new-assistant).
+This starter kit requires that you use the [new IBM watsonx Assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-welcome-new-assistant).
 
 Create a new, empty assistant that you can use to test this starter kit. For more information, see [Adding more assistants](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-assistant-add).
 

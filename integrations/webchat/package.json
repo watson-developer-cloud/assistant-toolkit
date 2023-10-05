@@ -1,7 +1,7 @@
 {
   "name": "watson-assistant-toolkit-for-web-chat",
   "version": "1.0.0",
-  "description": "A set of examples for extending and customizing the web chat feature in Watson Assistant",
+  "description": "A set of examples for extending and customizing the web chat feature in IBM watsonx Assistant",
   "scripts": {
     "lint": "eslint \"./{examples,contributing}/**/*.{js,jsx}\"",
     "lint:fix": "eslint \"./{examples,contributing}/**/*.{js,jsx}\" --fix",

@@ -1,15 +1,15 @@
 # Language Model Summarization starter kit
 
-This starter kit uses a generative language model to summarize the interaction between an assistant and a user via the Watson Assistant [session_history variable](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-publish-overview#publish-overview-environment-settings-session-history). The assistant includes the AI-generated summary when it escalates to a human agent. A summary of session history can enable a customer service agent who enters a chat session to have an overview of what has been said in the chat so far without having to read an entire transcript.
+This starter kit uses a generative language model to summarize the interaction between an assistant and a user via the IBM watsonx Assistant [session_history variable](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-publish-overview#publish-overview-environment-settings-session-history). The assistant includes the AI-generated summary when it escalates to a human agent. A summary of session history can enable a customer service agent who enters a chat session to have an overview of what has been said in the chat so far without having to read an entire transcript.
 
-This starter kit includes examples of how to configure different language models with Watson Assistant for summarization.
+This starter kit includes examples of how to configure different language models with IBM watsonx Assistant for summarization.
 
 1. The first example shows how to use [watsonx for summarization](#example-1-watsonx)
 1. The second example shows how to use [OpenAI for summarization](#example-2-openai)
 
 ## Prerequisites
 
-This starter kit requires that you use the [new Watson Assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-welcome-new-assistant).
+This starter kit requires that you use the [new IBM watsonx Assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-welcome-new-assistant).
 
 Create a new, empty assistant that you can use to test this starter kit. For more information, see [Adding more assistants](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-assistant-add).
 
@@ -118,8 +118,8 @@ This use case has configured the human agent escalation process to use a languag
 
 As you can see, the "Message to agent" field is set to the `model_response`, i.e., the summary that the language model generated.
 
-In the starter kit, this is not configured to a real contact center, so no actual human agent is contacted. See [Adding contact center support](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-deploy-web-chat-haa) in the Watson Assistant documentation for details on how to connect to a real contact center.
+In the starter kit, this is not configured to a real contact center, so no actual human agent is contacted. See [Adding contact center support](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-deploy-web-chat-haa) in the IBM watsonx Assistant documentation for details on how to connect to a real contact center.
 
-Here is what the output looks like in the Preview page of Watson Assistant (including the error message because no contact center has been configured):
+Here is what the output looks like in the Preview page of IBM watsonx Assistant (including the error message because no contact center has been configured):
 
 <img src="./assets/summarization-flow.png" width="300"/>
