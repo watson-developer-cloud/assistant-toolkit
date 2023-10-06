@@ -1774,7 +1774,7 @@
         "data_type": "any",
         "description": "",
         "initial_value": {
-          "expression": "[\"\\n\\n\"]"
+          "expression": "[]"
         }
       },
       {
