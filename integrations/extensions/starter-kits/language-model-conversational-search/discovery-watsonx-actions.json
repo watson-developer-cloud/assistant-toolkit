@@ -1874,10 +1874,7 @@
         "title": "discovery_project_id",
         "variable": "discovery_project_id",
         "data_type": "string",
-        "description": "You MUST set this value to the project ID of the Discovery project containing your data",
-        "initial_value": {
-          "scalar": "272be6e4-5b18-4709-9d80-60d326aac061"
-        }
+        "description": "You MUST set this value to the project ID of the Discovery project containing your data"
       },
       {
         "title": "model_id",
@@ -1927,7 +1924,7 @@
         "data_type": "any",
         "description": "",
         "initial_value": {
-          "expression": "[ \"\\n\\n\"]"
+          "expression": "[]"
         }
       },
       {
@@ -1991,10 +1988,7 @@
         "title": "watsonx_project_id",
         "variable": "watsonx_project_id",
         "data_type": "any",
-        "description": "You MUST set this to your watsonx project id",
-        "initial_value": {
-          "scalar": "e7396031-c53f-4fdd-8719-7bebfe1dd3f0"
-        }
+        "description": "You MUST set this to your watsonx project id"
       }
     ],
     "data_types": [],
