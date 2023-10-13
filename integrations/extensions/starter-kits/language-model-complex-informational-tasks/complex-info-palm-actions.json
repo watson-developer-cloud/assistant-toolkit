@@ -3,10 +3,10 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-07-10T16:29:30.851Z",
-  "updated": "2023-07-11T21:26:22.651Z",
+  "created": "2023-10-13T16:17:07.124Z",
+  "updated": "2023-10-13T16:28:37.842Z",
   "language": "en",
-  "skill_id": "24919274-bceb-4d57-b597-142b7cc78a52",
+  "skill_id": "ec30cd63-d66b-440f-b02a-6e5020dd60a2",
   "workspace": {
     "actions": [
       {
@@ -23,20 +23,32 @@
             "resolver": {
               "type": "callout",
               "callout": {
-                "path": "/models/text-bison-001:generateText",
+                "path": "/models/chat-bison-001:generateMessage",
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "ae69c1b32eff9ff2e6ff0f2e1153b156bb7579540046314d898a6c66f6d09445",
-                  "catalog_item_id": "a924ad47-67bb-493b-aaf3-028308a62b20"
+                  "spec_hash_id": "35f53f6965f69746719199cc3fd92ace51fa2b9eb0ef3fe86763b2c1744444f1",
+                  "catalog_item_id": "f66f7f5e-be88-4f81-889e-32f021a1a9ce"
                 },
                 "request_mapping": {
                   "body": [
                     {
                       "value": {
-                        "skill_variable": "model_prompt"
+                        "expression": "${messages}.append({content: \"NEXT REQUEST\"})"
                       },
-                      "parameter": "prompt.text"
+                      "parameter": "prompt.messages"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "context"
+                      },
+                      "parameter": "prompt.context"
+                    },
+                    {
+                      "value": {
+                        "scalar": 0.25
+                      },
+                      "parameter": "temperature"
                     }
                   ]
                 },
@@ -55,7 +67,7 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "${step_533_result_1}.body.candidates.get(0).output"
+                    "expression": "${step_533_result_1}.body.candidates.get(0).content"
                   },
                   "skill_variable": "model_response"
                 }
@@ -63,7 +75,7 @@
             },
             "handlers": [],
             "resolver": {
-              "type": "continue"
+              "type": "end_action"
             },
             "variable": "step_832",
             "condition": {
@@ -76,7 +88,26 @@
                   "scalar": true
                 }
               ]
-            }
+            },
+            "next_step": "step_626"
+          },
+          {
+            "step": "step_626",
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "scalar": "null"
+                  },
+                  "skill_variable": "model_response"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_626"
           }
         ],
         "title": "Invoke PaLM API",
@@ -88,7 +119,7 @@
         },
         "variables": [
           {
-            "title": "No response",
+            "title": "",
             "variable": "step_533",
             "data_type": "any"
           },
@@ -97,7 +128,12 @@
             "data_type": "any"
           },
           {
-            "title": "",
+            "title": "No response",
+            "variable": "step_626",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
             "variable": "step_832",
             "data_type": "any"
           }
@@ -566,18 +602,6 @@
       {
         "steps": [
           {
-            "step": "step_660",
-            "context": {
-              "variables": []
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "continue"
-            },
-            "variable": "step_660",
-            "next_step": "step_821"
-          },
-          {
             "step": "step_821",
             "output": {
               "generic": [
@@ -587,10 +611,10 @@
                       "text_expression": {
                         "concat": [
                           {
-                            "scalar": "Invoking PaLM with the following prompt: "
+                            "scalar": "Invoking PaLM with  "
                           },
                           {
-                            "skill_variable": "model_prompt"
+                            "skill_variable": "messages"
                           }
                         ]
                       }
@@ -628,6 +652,7 @@
               "type": "invoke_another_action",
               "invoke_action": {
                 "action": "action_14002",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_949_result_1"
               }
@@ -695,7 +720,14 @@
               ]
             },
             "context": {
-              "variables": []
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${messages}.append({content: ${model_response}})"
+                  },
+                  "skill_variable": "messages"
+                }
+              ]
             },
             "handlers": [],
             "resolver": {
@@ -723,12 +755,7 @@
             "data_type": "any"
           },
           {
-            "title": "No response",
-            "variable": "step_660",
-            "data_type": "any"
-          },
-          {
-            "title": "Invoking PaLM with the following prompt: {variable}",
+            "title": "Invoking PaLM with {variable}",
             "variable": "step_821",
             "data_type": "any"
           },
@@ -753,6 +780,50 @@
       {
         "steps": [
           {
+            "step": "step_573",
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${tv_plan_messages}.append({content: input.text})"
+                  },
+                  "skill_variable": "tv_plan_messages"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_573",
+            "condition": {
+              "expression": "${tv_plan_messages}.size()>0"
+            },
+            "next_step": "step_259"
+          },
+          {
+            "step": "step_259",
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "[{content: input.text}]"
+                  },
+                  "skill_variable": "tv_plan_messages"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_259",
+            "condition": {
+              "expression": "${tv_plan_messages}.size()==0"
+            },
+            "next_step": "step_429"
+          },
+          {
             "step": "step_429",
             "output": {
               "generic": []
@@ -761,9 +832,21 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "(${tv_plan_prompt}).concat(\"\\n \").concat(input.text)"
+                    "scalar": "TV Plan Questions"
                   },
-                  "skill_variable": "model_prompt"
+                  "skill_variable": "last_action_accessed"
+                },
+                {
+                  "value": {
+                    "skill_variable": "tv_plan_prompt"
+                  },
+                  "skill_variable": "context"
+                },
+                {
+                  "value": {
+                    "skill_variable": "tv_plan_messages"
+                  },
+                  "skill_variable": "messages"
                 }
               ]
             },
@@ -772,6 +855,7 @@
               "type": "invoke_another_action",
               "invoke_action": {
                 "action": "action_41261-2",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_429_result_1"
               }
@@ -782,7 +866,14 @@
           {
             "step": "step_916",
             "context": {
-              "variables": []
+              "variables": [
+                {
+                  "value": {
+                    "skill_variable": "messages"
+                  },
+                  "skill_variable": "tv_plan_messages"
+                }
+              ]
             },
             "handlers": [],
             "resolver": {
@@ -801,11 +892,21 @@
         "variables": [
           {
             "title": "No response",
+            "variable": "step_259",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
             "variable": "step_429",
             "data_type": "any"
           },
           {
             "variable": "step_429_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_573",
             "data_type": "any"
           },
           {
@@ -825,6 +926,53 @@
       {
         "steps": [
           {
+            "step": "step_418",
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${internet_plan_messages}.append({content: input.text})"
+                  },
+                  "skill_variable": "internet_plan_messages"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_418",
+            "condition": {
+              "expression": "${internet_plan_messages}.size()>0"
+            },
+            "next_step": "step_246"
+          },
+          {
+            "step": "step_246",
+            "output": {
+              "generic": []
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "[{content: input.text}]"
+                  },
+                  "skill_variable": "internet_plan_messages"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_246",
+            "condition": {
+              "expression": "${internet_plan_messages}.size()==0"
+            },
+            "next_step": "step_365"
+          },
+          {
             "step": "step_365",
             "output": {
               "generic": []
@@ -833,22 +981,57 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "(${internet_plan_prompt}).concat(\"\\n \").concat(input.text)"
+                    "scalar": "Internet Plan Questions"
                   },
-                  "skill_variable": "model_prompt"
+                  "skill_variable": "last_action_accessed"
+                },
+                {
+                  "value": {
+                    "skill_variable": "internet_plan_prompt"
+                  },
+                  "skill_variable": "context"
+                },
+                {
+                  "value": {
+                    "skill_variable": "internet_plan_messages"
+                  },
+                  "skill_variable": "messages"
                 }
               ]
             },
             "handlers": [],
             "resolver": {
-              "type": "invoke_another_action_and_end",
+              "type": "invoke_another_action",
               "invoke_action": {
                 "action": "action_41261-2",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_365_result_2"
               }
             },
-            "variable": "step_365"
+            "variable": "step_365",
+            "next_step": "step_185"
+          },
+          {
+            "step": "step_185",
+            "output": {
+              "generic": []
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "skill_variable": "messages"
+                  },
+                  "skill_variable": "internet_plan_messages"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_185"
           }
         ],
         "title": "Internet Plan Questions",
@@ -860,12 +1043,27 @@
         },
         "variables": [
           {
-            "title": "No response",
+            "title": "",
+            "variable": "step_185",
+            "data_type": "any"
+          },
+          {
+            "title": "",
+            "variable": "step_246",
+            "data_type": "any"
+          },
+          {
+            "title": "",
             "variable": "step_365",
             "data_type": "any"
           },
           {
             "variable": "step_365_result_2",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_418",
             "data_type": "any"
           }
         ],
@@ -878,7 +1076,63 @@
         "disambiguation_opt_out": false
       },
       {
-        "steps": [],
+        "steps": [
+          {
+            "step": "step_854",
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action",
+              "invoke_action": {
+                "action": "action_41495",
+                "policy": "default",
+                "parameters": null,
+                "result_variable": "step_854_result_1"
+              }
+            },
+            "variable": "step_854",
+            "condition": {
+              "contains": [
+                {
+                  "skill_variable": "last_action_accessed"
+                },
+                {
+                  "scalar": "TV Plan Questions",
+                  "options": {
+                    "ignore_case": true
+                  }
+                }
+              ]
+            },
+            "next_step": "step_659"
+          },
+          {
+            "step": "step_659",
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action",
+              "invoke_action": {
+                "action": "action_41495-2",
+                "policy": "default",
+                "parameters": null,
+                "result_variable": "step_659_result_1"
+              }
+            },
+            "variable": "step_659",
+            "condition": {
+              "contains": [
+                {
+                  "skill_variable": "last_action_accessed"
+                },
+                {
+                  "scalar": "Internet Plan Questions",
+                  "options": {
+                    "ignore_case": true
+                  }
+                }
+              ]
+            }
+          }
+        ],
         "title": "No action matches",
         "action": "anything_else",
         "boosts": [],
@@ -886,7 +1140,26 @@
         "condition": {
           "expression": "anything_else"
         },
-        "variables": [],
+        "variables": [
+          {
+            "title": "No response",
+            "variable": "step_659",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_659_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "variable": "step_854",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_854_result_1",
+            "data_type": "any"
+          }
+        ],
         "disambiguation_opt_out": true
       },
       {
@@ -1423,13 +1696,13 @@
             "text": "Which plans have"
           },
           {
+            "text": "Which TV plan"
+          },
+          {
             "text": "Which TV plan has the most channels"
           },
           {
             "text": "Which TV plan has these channels"
-          },
-          {
-            "text": "Which TV plan is the cheapest"
           },
           {
             "text": "Which TV plan would be best"
@@ -1557,13 +1830,40 @@
     },
     "variables": [
       {
+        "title": "context",
+        "variable": "context",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "internet_plan_messages",
+        "variable": "internet_plan_messages",
+        "data_type": "any",
+        "description": "",
+        "initial_value": {
+          "expression": "[]"
+        }
+      },
+      {
         "title": "internet_plan_prompt",
         "variable": "internet_plan_prompt",
         "data_type": "any",
         "description": "",
         "initial_value": {
-          "expression": "\"You are an agent for a cable provider that helps customers determine which internet plan is best for them.  Limit your response to 30 words and only discuss which plans are best for that customer unless prompted otherwise. The three plans are 1) The 100 Mbps plan which cost $30; 2) The 500 Mbps which cost $40; 3) The 1 Gbps plan which cost $50\""
+          "expression": "\"You are an agent for a cable provider that helps customers determine which internet plan is best for them. Strictly limit your response to 30 words and only discuss which plans are best for that customer unless prompted otherwise. The three plans are 1) The 100 Mbps plan which cost $30; 2) The 500 Mbps which cost $40; 3) The 1 Gbps plan which cost $50\""
         }
+      },
+      {
+        "title": "last_action_accessed",
+        "variable": "last_action_accessed",
+        "data_type": "string",
+        "description": ""
+      },
+      {
+        "title": "messages",
+        "variable": "messages",
+        "data_type": "any",
+        "description": ""
       },
       {
         "title": "model_prompt",
@@ -1578,13 +1878,28 @@
         "description": ""
       },
       {
+        "title": "tv_plan_messages",
+        "variable": "tv_plan_messages",
+        "data_type": "any",
+        "description": "",
+        "initial_value": {
+          "expression": "[]"
+        }
+      },
+      {
         "title": "tv_plan_prompt",
         "variable": "tv_plan_prompt",
         "data_type": "any",
         "description": "",
         "initial_value": {
-          "scalar": "You are an agent for a cable provider that helps customers determine which TV plan is best for them. The plan to recommend should include all of the channels they request. Limit your response to 30 words and only discuss which plans are best for that customer unless prompted otherwise. The plans are listed below in the following JSON schema: {\"_id\":\"PlanID\",\"channel\":[\"List of channels\"],\"cost\":\"cost of the plan\"} Here are the plans: {\"_id\":\"Bronze\",\"channel\":[\"A&EHDEast(A&E)\",\"AMC\",\"BravoHD(Bravo)\",\"CNBCHD(CNBC)\",\"CNNHD(CNN)\",\"ComedyCentral\",\"ComedyCentralHD(ComedyCentral)\",\"CookingChannel\",\"E!EntertainmentTelevision(Pacific)(E!)\",\"E!EntertainmentTelevisionHD(E!)\",\"EsquireHD(EsquireNetwork)\",\"FoodNetwork\",\"FoodNetworkHD(FoodNetwork)\",\"FoxBusinessHD(FoxBusiness)\",\"FoxNewsChannel(FoxNews)\",\"FoxNewsChannelHD(FoxNews)\",\"Fuse\",\"FXHD(FX)\",\"HallmarkChannelHD(HallmarkChannel)\",\"HLNHD(HLN)\",\"Home&GardenTelevisionHD(HGTV)\",\"HSNHD(HSN)\",\"LifetimeHD(Lifetime)\",\"MilitaryHistoryChannel\",\"MSNBCHD(MSNBC)\",\"NewsNationSD(NewsNation)\",\"Nickelodeon\",\"OlympicChannel\",\"ParamountNetworkHD(ParamountNetwork)\",\"QVC\",\"QVCHD(QVC)\",\"SyfyHD(SYFY)\",\"TheGolfChannelHD(GolfChannel)\",\"TheTravelChannel(TravelChannel)\",\"TheTravelChannelHD(TravelChannel)\",\"TheWeatherChannelHD(WeatherChannel)\",\"TLCHD(US)(TLC)\",\"truTVHD(truTV)\",\"USANetworkHD(USA)\",\"WEtvHD(WEtv)\"],\"cost\":60} {\"_id\":\"Silver\",\"_rev\":\"4-de6232a1df2de73ebdfe7417dfccd98c\",\"channels\":[\"A&EHDEast(A&E)\",\"AMC\",\"AMC(Pacific)(AMC)\",\"AnimalPlanet(Pacific)(AnimalPlanet)\",\"ASPiRE\",\"BBCAmerica\",\"BBCNews(NorthAmerica)(BBCNews)\",\"BloombergBusinessTelevision(Bloomberg)\",\"BloombergHD(Bloomberg)\",\"Bravo\",\"BravoHD(Bravo)\",\"CableNewsNetwork(CNN)\",\"CartoonNetwork\",\"CartoonNetwork(Pacific)(CartoonNetwork)\",\"CMT(Pacific)(CMT)\",\"CNBC\",\"CNBCHD(CNBC)\",\"CNNHD(CNN)\",\"ComedyCentral\",\"ComedyCentral(Pacific)(ComedyCentral)\",\"ComedyCentralHD(ComedyCentral)\",\"CookingChannel\",\"CSPAN2(C-SPAN)\",\"CSPAN3(C-SPAN)\",\"DiscoveryChannel\",\"E!EntertainmentTelevision(E!)\",\"E!EntertainmentTelevision(Pacific)(E!)\",\"E!EntertainmentTelevisionHD(E!)\",\"EsquireHD(EsquireNetwork)\",\"FoodNetwork\",\"FoodNetwork(Pacific)(FoodNetwork)\",\"FoodNetworkHD(FoodNetwork)\",\"FoxBusiness\",\"FoxBusinessHD(FoxBusiness)\",\"FoxNewsChannel(FoxNews)\",\"FoxNewsChannelHD(FoxNews)\",\"Freeform\",\"Fuse\",\"FX\",\"FXHD(FX)\",\"GameShowNetwork\",\"GameShowNetworkHD(GameShowNetwork)\",\"GreatAmericanFamily\",\"HallmarkChannel\",\"HallmarkChannel(Pacific)(HallmarkChannel)\",\"HallmarkChannelHD(HallmarkChannel)\",\"HLNHD(HLN)\",\"Home&GardenTelevisionHD(HGTV)\",\"HomeShoppingNetwork(HSN)\",\"HSNHD(HSN)\",\"InvestigationDiscovery\",\"Lifetime\",\"LifetimeHD(Lifetime)\",\"LMN(LifetimeMovies)\",\"MilitaryHistoryChannel\",\"MSNBC\",\"MSNBCHD(MSNBC)\",\"MTVClassic(Pacific)(MTVClassic)\",\"NationalGeographicUSA(NatGeo)\",\"NewsNationSD(NewsNation)\",\"Nickelodeon\",\"Nicktoons(Nickelodeon)\",\"OlympicChannel\",\"OutdoorChannel\",\"OxygenTrueCrime\",\"ParamountNetworkHD(ParamountNetwork)\",\"QVC\",\"QVCHD(QVC)\",\"StarzEncore(Pacific)(STARZ)\",\"SyfyHD(SYFY)\",\"TheGolfChannelHD(GolfChannel)\",\"TheTravelChannel(TravelChannel)\",\"TheTravelChannelHD(TravelChannel)\",\"TheWeatherChannelHD(WeatherChannel)\",\"TLCHD(US)(TLC)\",\"truTVHD(truTV)\",\"TVONE\",\"UniversalKids\",\"USANetworkHD(USA)\",\"WEtv\",\"WEtvHD(WEtv)\",\"Xfinity(Help&Services)\"],\"cost\":80} {\"_id\":\"Gold\",\"_rev\":\"3-934714e38351f0e760f2961050c63732\",\"channels\":[\"A&EHDEast(A&E)\",\"AMC\",\"AMC(Pacific)(AMC)\",\"AmericanHeroesChannel(AmericanHeroes)\",\"AnimalPlanet(Pacific)(AnimalPlanet)\",\"ASPiRE\",\"BBCAmerica\",\"BBCNews(NorthAmerica)(BBCNews)\",\"BETHer\",\"BETJams(BET)\",\"BETSoul(BET)\",\"BloombergBusinessTelevision(Bloomberg)\",\"BloombergHD(Bloomberg)\",\"Bravo\",\"BravoHD(Bravo)\",\"CableNewsNetwork(CNN)\",\"CartoonNetwork\",\"CartoonNetwork(Pacific)(CartoonNetwork)\",\"CMT(Pacific)(CMT)\",\"CMTMusic(CMT)\",\"CNBC\",\"CNBCHD(CNBC)\",\"CNNHD(CNN)\",\"ComedyCentral\",\"ComedyCentral(Pacific)(ComedyCentral)\",\"ComedyCentralHD(ComedyCentral)\",\"CookingChannel\",\"Crime+Investigation(ci)\",\"CSPAN2(C-SPAN)\",\"CSPAN3(C-SPAN)\",\"DestinationAmerica\",\"DiscoveryChannel\",\"DiscoveryFamilyChannel(DiscoveryFamily)\",\"DisneyXD\",\"E!EntertainmentTelevision(E!)\",\"E!EntertainmentTelevision(Pacific)(E!)\",\"E!EntertainmentTelevisionHD(E!)\",\"ESPNEWS(ESPN)\",\"EsquireHD(EsquireNetwork)\",\"Flix\",\"FoodNetwork\",\"FoodNetwork(Pacific)(FoodNetwork)\",\"FoodNetworkHD(FoodNetwork)\",\"FoxBusiness\",\"FoxBusinessHD(FoxBusiness)\",\"FoxNewsChannel(FoxNews)\",\"FoxNewsChannelHD(FoxNews)\",\"Freeform\",\"Fuse\",\"FX\",\"FXHD(FX)\",\"FYI(fyi,)\",\"GameShowNetwork\",\"GameShowNetworkHD(GameShowNetwork)\",\"GreatAmericanFamily\",\"HallmarkChannel\",\"HallmarkChannel(Pacific)(HallmarkChannel)\",\"HallmarkChannelHD(HallmarkChannel)\",\"HLNHD(HLN)\",\"Home&GardenTelevisionHD(HGTV)\",\"HomeShoppingNetwork(HSN)\",\"HSNHD(HSN)\",\"InvestigationDiscovery\",\"Lifetime\",\"LifetimeHD(Lifetime)\",\"LMN(LifetimeMovies)\",\"Logo\",\"MilitaryHistoryChannel\",\"MSNBC\",\"MSNBCHD(MSNBC)\",\"MTVClassic\",\"MTVClassic(Pacific)(MTVClassic)\",\"MTV2:MusicTelevision(MTV2)\",\"NationalGeographicUSA(NatGeo)\",\"NewsNationSD(NewsNation)\",\"NFLRedZone\",\"NickJr(NickJr.)\",\"NickMusic(Nickelodeon)\",\"NickTooEast(Nickelodeon)\",\"Nickelodeon\",\"Nicktoons(Nickelodeon)\",\"OlympicChannel\",\"OutdoorChannel\",\"OutdoorChannelHD(OutdoorChannel)\",\"Ovation\",\"OxygenTrueCrime\",\"ParamountNetwork\",\"ParamountNetworkHD(ParamountNetwork)\",\"QVC\",\"QVCHD(QVC)\",\"Science(ScienceChannel)\",\"StarzEncore(Pacific)(STARZ)\",\"StarzEncoreClassic(STARZ)\",\"StarzEncoreSuspense(STARZ)\",\"SundanceTV\",\"SyfyHD(SYFY)\",\"TeenNick(TeenNick)\",\"TennisChannel\",\"TheGolfChannelHD(GolfChannel)\",\"TheTravelChannel(TravelChannel)\",\"TheTravelChannelHD(TravelChannel)\",\"TheWeatherChannelHD(WeatherChannel)\",\"TLC\",\"TLCHD(US)(TLC)\",\"Tr3s:MTV,MusicayMas(Tr3s)\",\"truTVHD(truTV)\",\"TVONE\",\"UniversalKids\",\"USANetworkHD(USA)\",\"Vice\",\"WEtv\",\"WEtvHD(WEtv)\",\"Xfinity(Help&Services)\"],\"cost\":100} When more than two plans meet the query always suggest the more expensive plan first. Lastly, there are no contracts with any of these plans."
+          "scalar": "You are an agent for a cable provider that helps customers determine which TV plan is best for them. The plan to recommend should include all of the channels they request. Strictly limit your response to 30 words and only discuss which plans are best for that customer unless prompted otherwise. When more than two plans meet the query always suggest the more expensive plan first. Lastly, there are no contracts with any of these plans. \n The plans are listed below in the following JSON schema: \n {\"_id\":\"PlanID\",\"channel\":[\"List of channels\"],\"cost\":\"cost of the plan\"} Here are the plans: {\"_id\":\"Bronze\",\"channel\":[\"A&EHDEast(A&E)\",\"AMC\",\"BravoHD(Bravo)\",\"CNBCHD(CNBC)\",\"CNNHD(CNN)\",\"ComedyCentral\",\"ComedyCentralHD(ComedyCentral)\",\"CookingChannel\",\"E!EntertainmentTelevision(Pacific)(E!)\",\"E!EntertainmentTelevisionHD(E!)\",\"EsquireHD(EsquireNetwork)\",\"FoodNetwork\",\"FoodNetworkHD(FoodNetwork)\",\"FoxBusinessHD(FoxBusiness)\",\"FoxNewsChannel(FoxNews)\",\"FoxNewsChannelHD(FoxNews)\",\"Fuse\",\"FXHD(FX)\",\"HallmarkChannelHD(HallmarkChannel)\",\"HLNHD(HLN)\",\"Home&GardenTelevisionHD(HGTV)\",\"HSNHD(HSN)\",\"LifetimeHD(Lifetime)\",\"MilitaryHistoryChannel\",\"MSNBCHD(MSNBC)\",\"NewsNationSD(NewsNation)\",\"Nickelodeon\",\"OlympicChannel\",\"ParamountNetworkHD(ParamountNetwork)\",\"QVC\",\"QVCHD(QVC)\",\"SyfyHD(SYFY)\",\"TheGolfChannelHD(GolfChannel)\",\"TheTravelChannel(TravelChannel)\",\"TheTravelChannelHD(TravelChannel)\",\"TheWeatherChannelHD(WeatherChannel)\",\"TLCHD(US)(TLC)\",\"truTVHD(truTV)\",\"USANetworkHD(USA)\",\"WEtvHD(WEtv)\"],\"cost\":60} {\"_id\":\"Silver\",\"_rev\":\"4-de6232a1df2de73ebdfe7417dfccd98c\",\"channels\":[\"A&EHDEast(A&E)\",\"AMC\",\"AMC(Pacific)(AMC)\",\"AnimalPlanet(Pacific)(AnimalPlanet)\",\"ASPiRE\",\"BBCAmerica\",\"BBCNews(NorthAmerica)(BBCNews)\",\"BloombergBusinessTelevision(Bloomberg)\",\"BloombergHD(Bloomberg)\",\"Bravo\",\"BravoHD(Bravo)\",\"CableNewsNetwork(CNN)\",\"CartoonNetwork\",\"CartoonNetwork(Pacific)(CartoonNetwork)\",\"CMT(Pacific)(CMT)\",\"CNBC\",\"CNBCHD(CNBC)\",\"CNNHD(CNN)\",\"ComedyCentral\",\"ComedyCentral(Pacific)(ComedyCentral)\",\"ComedyCentralHD(ComedyCentral)\",\"CookingChannel\",\"CSPAN2(C-SPAN)\",\"CSPAN3(C-SPAN)\",\"DiscoveryChannel\",\"E!EntertainmentTelevision(E!)\",\"E!EntertainmentTelevision(Pacific)(E!)\",\"E!EntertainmentTelevisionHD(E!)\",\"EsquireHD(EsquireNetwork)\",\"FoodNetwork\",\"FoodNetwork(Pacific)(FoodNetwork)\",\"FoodNetworkHD(FoodNetwork)\",\"FoxBusiness\",\"FoxBusinessHD(FoxBusiness)\",\"FoxNewsChannel(FoxNews)\",\"FoxNewsChannelHD(FoxNews)\",\"Freeform\",\"Fuse\",\"FX\",\"FXHD(FX)\",\"GameShowNetwork\",\"GameShowNetworkHD(GameShowNetwork)\",\"GreatAmericanFamily\",\"HallmarkChannel\",\"HallmarkChannel(Pacific)(HallmarkChannel)\",\"HallmarkChannelHD(HallmarkChannel)\",\"HLNHD(HLN)\",\"Home&GardenTelevisionHD(HGTV)\",\"HomeShoppingNetwork(HSN)\",\"HSNHD(HSN)\",\"InvestigationDiscovery\",\"Lifetime\",\"LifetimeHD(Lifetime)\",\"LMN(LifetimeMovies)\",\"MilitaryHistoryChannel\",\"MSNBC\",\"MSNBCHD(MSNBC)\",\"MTVClassic(Pacific)(MTVClassic)\",\"NationalGeographicUSA(NatGeo)\",\"NewsNationSD(NewsNation)\",\"Nickelodeon\",\"Nicktoons(Nickelodeon)\",\"OlympicChannel\",\"OutdoorChannel\",\"OxygenTrueCrime\",\"ParamountNetworkHD(ParamountNetwork)\",\"QVC\",\"QVCHD(QVC)\",\"StarzEncore(Pacific)(STARZ)\",\"SyfyHD(SYFY)\",\"TheGolfChannelHD(GolfChannel)\",\"TheTravelChannel(TravelChannel)\",\"TheTravelChannelHD(TravelChannel)\",\"TheWeatherChannelHD(WeatherChannel)\",\"TLCHD(US)(TLC)\",\"truTVHD(truTV)\",\"TVONE\",\"UniversalKids\",\"USANetworkHD(USA)\",\"WEtv\",\"WEtvHD(WEtv)\",\"Xfinity(Help&Services)\"],\"cost\":80} {\"_id\":\"Gold\",\"_rev\":\"3-934714e38351f0e760f2961050c63732\",\"channels\":[\"A&EHDEast(A&E)\",\"AMC\",\"AMC(Pacific)(AMC)\",\"AmericanHeroesChannel(AmericanHeroes)\",\"AnimalPlanet(Pacific)(AnimalPlanet)\",\"ASPiRE\",\"BBCAmerica\",\"BBCNews(NorthAmerica)(BBCNews)\",\"BETHer\",\"BETJams(BET)\",\"BETSoul(BET)\",\"BloombergBusinessTelevision(Bloomberg)\",\"BloombergHD(Bloomberg)\",\"Bravo\",\"BravoHD(Bravo)\",\"CableNewsNetwork(CNN)\",\"CartoonNetwork\",\"CartoonNetwork(Pacific)(CartoonNetwork)\",\"CMT(Pacific)(CMT)\",\"CMTMusic(CMT)\",\"CNBC\",\"CNBCHD(CNBC)\",\"CNNHD(CNN)\",\"ComedyCentral\",\"ComedyCentral(Pacific)(ComedyCentral)\",\"ComedyCentralHD(ComedyCentral)\",\"CookingChannel\",\"Crime+Investigation(ci)\",\"CSPAN2(C-SPAN)\",\"CSPAN3(C-SPAN)\",\"DestinationAmerica\",\"DiscoveryChannel\",\"DiscoveryFamilyChannel(DiscoveryFamily)\",\"DisneyXD\",\"E!EntertainmentTelevision(E!)\",\"E!EntertainmentTelevision(Pacific)(E!)\",\"E!EntertainmentTelevisionHD(E!)\",\"ESPNEWS(ESPN)\",\"EsquireHD(EsquireNetwork)\",\"Flix\",\"FoodNetwork\",\"FoodNetwork(Pacific)(FoodNetwork)\",\"FoodNetworkHD(FoodNetwork)\",\"FoxBusiness\",\"FoxBusinessHD(FoxBusiness)\",\"FoxNewsChannel(FoxNews)\",\"FoxNewsChannelHD(FoxNews)\",\"Freeform\",\"Fuse\",\"FX\",\"FXHD(FX)\",\"FYI(fyi,)\",\"GameShowNetwork\",\"GameShowNetworkHD(GameShowNetwork)\",\"GreatAmericanFamily\",\"HallmarkChannel\",\"HallmarkChannel(Pacific)(HallmarkChannel)\",\"HallmarkChannelHD(HallmarkChannel)\",\"HLNHD(HLN)\",\"Home&GardenTelevisionHD(HGTV)\",\"HomeShoppingNetwork(HSN)\",\"HSNHD(HSN)\",\"InvestigationDiscovery\",\"Lifetime\",\"LifetimeHD(Lifetime)\",\"LMN(LifetimeMovies)\",\"Logo\",\"MilitaryHistoryChannel\",\"MSNBC\",\"MSNBCHD(MSNBC)\",\"MTVClassic\",\"MTVClassic(Pacific)(MTVClassic)\",\"MTV2:MusicTelevision(MTV2)\",\"NationalGeographicUSA(NatGeo)\",\"NewsNationSD(NewsNation)\",\"NFLRedZone\",\"NickJr(NickJr.)\",\"NickMusic(Nickelodeon)\",\"NickTooEast(Nickelodeon)\",\"Nickelodeon\",\"Nicktoons(Nickelodeon)\",\"OlympicChannel\",\"OutdoorChannel\",\"OutdoorChannelHD(OutdoorChannel)\",\"Ovation\",\"OxygenTrueCrime\",\"ParamountNetwork\",\"ParamountNetworkHD(ParamountNetwork)\",\"QVC\",\"QVCHD(QVC)\",\"Science(ScienceChannel)\",\"StarzEncore(Pacific)(STARZ)\",\"StarzEncoreClassic(STARZ)\",\"StarzEncoreSuspense(STARZ)\",\"SundanceTV\",\"SyfyHD(SYFY)\",\"TeenNick(TeenNick)\",\"TennisChannel\",\"TheGolfChannelHD(GolfChannel)\",\"TheTravelChannel(TravelChannel)\",\"TheTravelChannelHD(TravelChannel)\",\"TheWeatherChannelHD(WeatherChannel)\",\"TLC\",\"TLCHD(US)(TLC)\",\"Tr3s:MTV,MusicayMas(Tr3s)\",\"truTVHD(truTV)\",\"TVONE\",\"UniversalKids\",\"USANetworkHD(USA)\",\"Vice\",\"WEtv\",\"WEtvHD(WEtv)\",\"Xfinity(Help&Services)\"],\"cost\":100} "
         }
+      },
+      {
+        "title": "user_message",
+        "variable": "user_message",
+        "data_type": "any",
+        "description": ""
       },
       {
         "title": "verbose",
@@ -1705,8 +2020,8 @@
     "learning_opt_out": true
   },
   "description": "created for assistant 4fec3f06-cc09-4398-82af-6ab377d02783",
-  "assistant_id": "4333e993-e7a3-4b14-95ba-083bed69c649",
-  "workspace_id": "24919274-bceb-4d57-b597-142b7cc78a52",
+  "assistant_id": "718f80ae-e052-4a6b-83c7-b377952d3d5a",
+  "workspace_id": "ec30cd63-d66b-440f-b02a-6e5020dd60a2",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }

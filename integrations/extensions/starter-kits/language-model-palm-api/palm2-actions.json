@@ -3,10 +3,10 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-06-23T20:09:40.441Z",
-  "updated": "2023-06-27T19:06:52.294Z",
+  "created": "2023-06-30T16:24:01.110Z",
+  "updated": "2023-10-13T16:56:23.077Z",
   "language": "en",
-  "skill_id": "eaf2528d-8c8d-47b9-8f60-c9fd3c5cbd8d",
+  "skill_id": "adeb04d4-f090-480c-9c89-7b4557940a78",
   "workspace": {
     "actions": [
       {
@@ -21,8 +21,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "ae69c1b32eff9ff2e6ff0f2e1153b156bb7579540046314d898a6c66f6d09445",
-                  "catalog_item_id": "4b5ac21e-b9a1-49d5-9af2-b4ccee9e40db"
+                  "spec_hash_id": "35f53f6965f69746719199cc3fd92ace51fa2b9eb0ef3fe86763b2c1744444f1",
+                  "catalog_item_id": "f1a3b19e-735c-44b1-adc9-a879e16e1302"
                 },
                 "request_mapping": {
                   "body": [
@@ -114,8 +114,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "ae69c1b32eff9ff2e6ff0f2e1153b156bb7579540046314d898a6c66f6d09445",
-                  "catalog_item_id": "4b5ac21e-b9a1-49d5-9af2-b4ccee9e40db"
+                  "spec_hash_id": "35f53f6965f69746719199cc3fd92ace51fa2b9eb0ef3fe86763b2c1744444f1",
+                  "catalog_item_id": "f1a3b19e-735c-44b1-adc9-a879e16e1302"
                 },
                 "request_mapping": {
                   "body": [
@@ -220,8 +220,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "ae69c1b32eff9ff2e6ff0f2e1153b156bb7579540046314d898a6c66f6d09445",
-                  "catalog_item_id": "4b5ac21e-b9a1-49d5-9af2-b4ccee9e40db"
+                  "spec_hash_id": "35f53f6965f69746719199cc3fd92ace51fa2b9eb0ef3fe86763b2c1744444f1",
+                  "catalog_item_id": "f1a3b19e-735c-44b1-adc9-a879e16e1302"
                 },
                 "request_mapping": {
                   "body": [
@@ -230,6 +230,12 @@
                         "expression": "[{\"content\": ${model_prompt}}]"
                       },
                       "parameter": "prompt.messages"
+                    },
+                    {
+                      "value": {
+                        "scalar": "You are a chat agent. Always stick to the context of the question asked. If you do not know the answer please say I do not know"
+                      },
+                      "parameter": "prompt.context"
                     },
                     {
                       "value": {
@@ -726,6 +732,7 @@
               "type": "invoke_another_action",
               "invoke_action": {
                 "action": "action_38580",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_991_result_1"
               }
@@ -751,6 +758,7 @@
               "type": "invoke_another_action",
               "invoke_action": {
                 "action": "action_45716",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_981_result_1"
               }
@@ -776,6 +784,7 @@
               "type": "invoke_another_action",
               "invoke_action": {
                 "action": "action_23014",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_116_result_1"
               }
@@ -964,6 +973,7 @@
               "type": "invoke_another_action_and_end",
               "invoke_action": {
                 "action": "fallback",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_002_result_1"
               }
@@ -1527,7 +1537,7 @@
     "metadata": {
       "api_version": {
         "major_version": "v2",
-        "minor_version": "2018-11-08"
+        "minor_version": "2021-11-27"
       }
     },
     "variables": [
@@ -1664,11 +1674,11 @@
       },
       "spelling_auto_correct": true
     },
-    "learning_opt_out": false
+    "learning_opt_out": true
   },
   "description": "created for assistant a63745c3-18f3-4e69-b405-c50cffc4c46c",
-  "assistant_id": "4d592ec8-fa71-4f04-b8a5-417ed406f9bb",
-  "workspace_id": "eaf2528d-8c8d-47b9-8f60-c9fd3c5cbd8d",
+  "assistant_id": "5947e1c7-309c-4667-864e-b87b097446e9",
+  "workspace_id": "adeb04d4-f090-480c-9c89-7b4557940a78",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }

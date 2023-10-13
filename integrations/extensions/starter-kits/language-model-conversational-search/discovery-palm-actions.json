@@ -3,10 +3,10 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-06-27T05:54:00.203Z",
-  "updated": "2023-07-06T19:22:03.970Z",
+  "created": "2023-06-30T16:24:01.110Z",
+  "updated": "2023-10-13T17:06:21.876Z",
   "language": "en",
-  "skill_id": "862dc847-bfa1-43be-96b2-d55e4eee05e1",
+  "skill_id": "adeb04d4-f090-480c-9c89-7b4557940a78",
   "workspace": {
     "actions": [
       {
@@ -179,6 +179,7 @@
               "type": "invoke_another_action",
               "invoke_action": {
                 "action": "action_24958",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_657_result_2"
               }
@@ -444,8 +445,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "ae69c1b32eff9ff2e6ff0f2e1153b156bb7579540046314d898a6c66f6d09445",
-                  "catalog_item_id": "43ea8d30-7a0e-48c1-9b03-f44b9c61635c"
+                  "spec_hash_id": "35f53f6965f69746719199cc3fd92ace51fa2b9eb0ef3fe86763b2c1744444f1",
+                  "catalog_item_id": "f1a3b19e-735c-44b1-adc9-a879e16e1302"
                 },
                 "request_mapping": {
                   "body": [
@@ -457,7 +458,7 @@
                     },
                     {
                       "value": {
-                        "scalar": 0.8
+                        "scalar": 0.25
                       },
                       "parameter": "temperature"
                     }
@@ -618,7 +619,7 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "8566081a305e8f8ade4e9bd3887da0600e87948417fc10ba38ee121426f8c50b",
-                  "catalog_item_id": "e3929610-67f9-453d-9764-6bc1c9241f3f"
+                  "catalog_item_id": "625eaf3b-0a53-4d00-a09e-95bec24e308f"
                 },
                 "request_mapping": {
                   "body": [
@@ -756,6 +757,7 @@
               "type": "invoke_another_action",
               "invoke_action": {
                 "action": "action_20548-2",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_237_result_2"
               }
@@ -956,6 +958,7 @@
               "type": "invoke_another_action_and_end",
               "invoke_action": {
                 "action": "action_44059-2",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_558_result_1"
               }
@@ -1015,6 +1018,7 @@
               "type": "invoke_another_action_and_end",
               "invoke_action": {
                 "action": "fallback",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_002_result_1"
               }
@@ -1563,10 +1567,7 @@
         "title": "discovery_project_id",
         "variable": "discovery_project_id",
         "data_type": "string",
-        "description": "You MUST set this value to the project ID of the Discovery project containing your data",
-        "initial_value": {
-          "scalar": ""
-        }
+        "description": "You MUST set this value to the project ID of the Discovery project containing your data"
       },
       {
         "title": "model_prompt",
@@ -1710,8 +1711,8 @@
     "learning_opt_out": true
   },
   "description": "created for assistant 1c76effb-2430-4334-8897-6cdad3c6282b",
-  "assistant_id": "04f1f830-2aaa-44d9-b0c9-b05db00b3468",
-  "workspace_id": "862dc847-bfa1-43be-96b2-d55e4eee05e1",
+  "assistant_id": "5947e1c7-309c-4667-864e-b87b097446e9",
+  "workspace_id": "adeb04d4-f090-480c-9c89-7b4557940a78",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }
