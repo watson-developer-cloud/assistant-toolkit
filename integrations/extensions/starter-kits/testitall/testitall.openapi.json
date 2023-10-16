@@ -1,0 +1,635 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "The Test It All Integration API",
+    "version": "1.0.0",
+    "description": "Examples of all the features supported by Watson Assistant when using an Extension.",
+    "contact": {}
+  },
+  "servers": [
+    {
+      "url": "https://custom-ext-testitall-ce.vkgqdtxxpfe.us-south.codeengine.appdomain.cloud",
+      "description": "IBM Hosted Mock API Server"
+    },
+    {
+      "url": "https://{ngrok_uuid}.ngrok-free.app",
+      "description": "ngrok free server",
+      "variables": {
+        "ngrok_uuid": {
+          "description": "ngrok domain prefix (uuid)",
+          "default": ""
+        }
+      }
+    },
+    {
+      "url": "https://{ngrok_uuid}.ngrok.io",
+      "description": "ngrok server",
+      "variables": {
+        "ngrok_uuid": {
+          "description": "ngrok domain prefix (uuid)",
+          "default": ""
+        }
+      }
+    },
+    {
+      "url": "http://{host}:{port}",
+      "description": "Your API server",
+      "variables": {
+        "host": {
+          "default": "localhost",
+          "description": "Hostname of the API server"
+        },
+        "port": {
+          "default": "4000",
+          "description": "Port of the API server"
+        }
+      }
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "BasicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      },
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      },
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key"
+      },
+      "OAuth2": {
+        "type": "oauth2",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://custom-ext-testitall-ce.vkgqdtxxpfe.us-south.codeengine.appdomain.cloud/oauth2-provider/auth-code/authorize",
+            "tokenUrl": "https://custom-ext-testitall-ce.vkgqdtxxpfe.us-south.codeengine.appdomain.cloud/oauth2-provider/auth-code/token",
+            "refreshUrl": "https://custom-ext-testitall-ce.vkgqdtxxpfe.us-south.codeengine.appdomain.cloud/oauth2-provider/auth-code/token",
+            "scopes": {
+              "read": "Read access to protected resources",
+              "custom": "Add your own scope"
+            }
+          },
+          "password": {
+            "tokenUrl": "https://custom-ext-testitall-ce.vkgqdtxxpfe.us-south.codeengine.appdomain.cloud/oauth2-provider/password/token",
+            "refreshUrl": "https://custom-ext-testitall-ce.vkgqdtxxpfe.us-south.codeengine.appdomain.cloud/oauth2-provider/password/token",
+            "scopes": {
+              "read": "Read access to protected resources",
+              "custom": "Add your own scope"
+            }
+          },
+          "clientCredentials": {
+            "tokenUrl": "https://custom-ext-testitall-ce.vkgqdtxxpfe.us-south.codeengine.appdomain.cloud/oauth2-provider/client-cred/token",
+            "refreshUrl": "https://custom-ext-testitall-ce.vkgqdtxxpfe.us-south.codeengine.appdomain.cloud/oauth2-provider/client-cred/token",
+            "scopes": {
+              "read": "Read access to protected resources",
+              "custom": "Add your own scope"
+            }
+          },
+          "x-apikey": {
+            "tokenUrl": "https://custom-ext-testitall-ce.vkgqdtxxpfe.us-south.codeengine.appdomain.cloud/oauth2-provider/custom-apikey/token",
+            "refreshUrl": "https://custom-ext-testitall-ce.vkgqdtxxpfe.us-south.codeengine.appdomain.cloud/oauth2-provider/custom-apikey/token",
+            "grantType": "custom_apikey",
+            "secretKeys": [
+              "apikey_secret"
+            ],
+            "scopes": {
+              "read": "Read access to protected resources",
+              "custom": "Add your own scope"
+            }
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "BasicAuth": []
+    },
+    {
+      "BearerAuth": []
+    },
+    {
+      "ApiKeyAuth": []
+    },
+    {
+      "OAuth2": [
+        "read",
+        "custom"
+      ]
+    }
+  ],
+  "paths": {
+    "/delay": {
+      "post": {
+        "tags": [
+          "API"
+        ],
+        "summary": "Test response with a delay",
+        "description": "The server will wait for specified time before response. If sleep_time is above 30 seconds, you will receive a 408 error as the response time exceeds the Watson assistant's limit for extension calls.",
+        "operationId": "delay",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "sleep_time": {
+                    "type": "number",
+                    "example": 25
+                  }
+                },
+                "required": [
+                  "sleep_time"
+                ]
+              },
+              "example": {
+                "sleep_time": 25
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "delay response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "sleep_duration": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Timeout, in case sleep time is above 30"
+          }
+        }
+      }
+    },
+    "/test": {
+      "get": {
+        "tags": [
+          "API"
+        ],
+        "summary": "Test HTTP GET",
+        "description": "TEST GET",
+        "operationId": "testGet",
+        "responses": {
+          "200": {
+            "description": "GET response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "API"
+        ],
+        "summary": "Test HTTP PUT",
+        "description": "TEST PUT",
+        "operationId": "testPut",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "some_content": {
+                    "type": "string",
+                    "example": "25"
+                  }
+                }
+              },
+              "example": {
+                "sleep_time": "25"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "PUT response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "API"
+        ],
+        "summary": "Test HTTP POST",
+        "description": "TEST POST",
+        "operationId": "testPost",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "some_content": {
+                    "type": "string",
+                    "example": "25"
+                  }
+                }
+              },
+              "example": {
+                "sleep_time": "25"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "POST response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "API"
+        ],
+        "summary": "Test HTTP DELETE",
+        "description": "TEST DELETE",
+        "operationId": "testDelete",
+        "responses": {
+          "200": {
+            "description": "DELETE response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/test/arrays-object": {
+      "post": {
+        "tags": [
+          "API"
+        ],
+        "summary": "Test parse array inside object",
+        "description": "Test to send an array inside an object and receive an array inside an object",
+        "operationId": "arraysObj",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "my_array": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Reversed array",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "reverse_array": {
+                      "type": "array"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/test/arrays-root": {
+      "post": {
+        "tags": [
+          "API"
+        ],
+        "summary": "Test parse array as object root",
+        "description": "Test to send an array as root and receive an array as root of the response",
+        "operationId": "arraysRoot",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Reversed array",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/test/error": {
+      "post": {
+        "tags": [
+          "API"
+        ],
+        "summary": "Test handle error in response",
+        "description": "Test handle error in response",
+        "operationId": "testError",
+        "responses": {
+          "200": {
+            "description": "should never be returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "this is the only response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/test/params/{path_param}": {
+      "post": {
+        "tags": [
+          "API"
+        ],
+        "summary": "Test post with parameters",
+        "description": "Test we handle params  path, query, header",
+        "operationId": "testParams",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "query_param",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "path_param",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "header_param",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "echoes back the params values",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "path_param": {
+                      "type": "string"
+                    },
+                    "query_param": {
+                      "type": "string"
+                    },
+                    "header_param": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/test/auth_header": {
+      "post": {
+        "tags": [
+          "API"
+        ],
+        "summary": "Test to pass auth header",
+        "description": "Test to read the auth header and return it in the response",
+        "operationId": "testAuthHeader",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "echoes back the auth header",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "auth_header": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/test/context-too-large": {
+      "post": {
+        "tags": [
+          "API"
+        ],
+        "summary": "Test handle a too large response",
+        "description": "Return a context that is too large to test WA's error handling",
+        "operationId": "testContextTooLarge",
+        "responses": {
+          "200": {
+            "description": "echoes back the params values",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/test/context-almost-too-large": {
+      "post": {
+        "tags": [
+          "API"
+        ],
+        "summary": "Test handle an almost too large response",
+        "description": "Return a context that is almost too large to test WA's error handling",
+        "operationId": "testContextAlmostTooLarge",
+        "responses": {
+          "200": {
+            "description": "echoes back the params values",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/security/{method}": {
+      "post": {
+        "tags": [
+          "API"
+        ],
+        "summary": "Test calling extension with different authentication methods",
+        "description": "Test we handle authentication for basic, bearer, api-key and oauth2",
+        "operationId": "testSecurity",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "method",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "echoes back the params values",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "API"
+    }
+  ]
+}

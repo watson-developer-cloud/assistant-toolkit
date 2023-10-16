@@ -41,6 +41,7 @@ Then we have our **additional starter kits**. These focus on showcasing the brea
    - [Mailchimp Campaign Management](./starter-kits/mailchimp/)
    - [Service Now](./starter-kits/servicenow/)
    - [Spotify](./starter-kits/spotify/)
+   - [Test It ALL](./starter-kits/testitall/)
    - [Zendesk Guide](./starter-kits/zendesk-guide/)
    - [Zendesk Support](./starter-kits/zendesk-support/)
 1. [Create a Custom Extension](#getting-started)
