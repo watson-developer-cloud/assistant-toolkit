@@ -105,6 +105,39 @@
                           },
                           "required": ["content"]
                         }
+                      },
+                      "context": {
+                        "type": "string",
+                        "example": "You are an agent for a cable provider that helps customers determine which TV plan is best for them."
+                      },
+                      "examples": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "input": {
+                              "type": "object",
+                              "properties": {
+                                "content": {
+                                  "type": "string",
+                                  "example": "Which is the cheapest TV plan"
+                                }
+                              },
+                              "required": ["content"]
+                            },
+                            "output": {
+                              "type": "object",
+                              "properties": {
+                                "content": {
+                                  "type": "string",
+                                  "example": "Cheapest TV plan is the Bronze plan, which costs $60"
+                                }
+                              },
+                              "required": ["content"]
+                            }
+                          },
+                          "required": ["input", "output"]
+                        }
                       }
                     },
                     "required": ["messages"]
