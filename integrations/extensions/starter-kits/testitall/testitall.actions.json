@@ -2,8 +2,8 @@
   "name": "TestItALL Extension Actions",
   "type": "action",
   "counts": {
-    "actions": 18,
-    "intents": 16,
+    "actions": 19,
+    "intents": 17,
     "entities": 5,
     "data_types": 0,
     "collections": 4,
@@ -14,138 +14,6 @@
   "skill_id": "ff4e158f-ef28-4525-9075-cf7820644b12",
   "workspace": {
     "actions": [
-      {
-        "steps": [
-          {
-            "step": "step_138",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "this is a post"
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "callout",
-              "callout": {
-                "path": "/test",
-                "type": "integration_interaction",
-                "method": "POST",
-                "internal": {
-                  "spec_hash_id": "a41be063157fb8d5262a3d76dc51afa0019b60eaecdfa7bed590ff86faf1df8d",
-                  "catalog_item_id": "a5af7399-4346-4f6b-b689-24833f6f0dbc"
-                },
-                "request_mapping": {
-                  "body": [
-                    {
-                      "value": {
-                        "scalar": "blablabla"
-                      },
-                      "parameter": "some_content"
-                    }
-                  ]
-                },
-                "result_variable": "step_138_result_1"
-              }
-            },
-            "variable": "step_138",
-            "next_step": "step_386"
-          },
-          {
-            "step": "step_386",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "Indeed it was posted - result is:  "
-                          },
-                          {
-                            "variable": "step_138_result_1",
-                            "variable_path": "body"
-                          },
-                          {
-                            "scalar": "   status code:  "
-                          },
-                          {
-                            "variable": "step_138_result_1",
-                            "variable_path": "body.status"
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "context": {
-              "variables": []
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "continue"
-            },
-            "variable": "step_386"
-          }
-        ],
-        "title": "Test HTTP POST",
-        "action": "action_20585",
-        "boosts": [],
-        "handlers": [],
-        "condition": {
-          "intent": "action_20585_intent_24221"
-        },
-        "variables": [
-          {
-            "title": "aggregated variable",
-            "variable": "operation_result",
-            "data_type": "any"
-          },
-          {
-            "title": "aggregated variable",
-            "variable": "operation_result_status",
-            "data_type": "any"
-          },
-          {
-            "title": "this is a post",
-            "variable": "step_138",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_138_result_1",
-            "data_type": "any"
-          },
-          {
-            "title": "Indeed it was posted - result is: status code: {variable}",
-            "variable": "step_386",
-            "data_type": "any"
-          }
-        ],
-        "next_action": "fallback",
-        "topic_switch": {
-          "allowed_from": true,
-          "allowed_into": true
-        },
-        "disambiguation_opt_out": false
-      },
       {
         "steps": [
           {
@@ -396,8 +264,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "a41be063157fb8d5262a3d76dc51afa0019b60eaecdfa7bed590ff86faf1df8d",
-                  "catalog_item_id": "a5af7399-4346-4f6b-b689-24833f6f0dbc"
+                  "spec_hash_id": "fc4e09b275e84d0e5254cbc3f1d7a64eb42592b1c18335402a4c19d30555c1c8",
+                  "catalog_item_id": "b9443027-332c-4297-a597-e2bba3509dc0"
                 },
                 "request_mapping": {
                   "body": [
@@ -542,8 +410,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "a41be063157fb8d5262a3d76dc51afa0019b60eaecdfa7bed590ff86faf1df8d",
-                  "catalog_item_id": "a5af7399-4346-4f6b-b689-24833f6f0dbc"
+                  "spec_hash_id": "fc4e09b275e84d0e5254cbc3f1d7a64eb42592b1c18335402a4c19d30555c1c8",
+                  "catalog_item_id": "b9443027-332c-4297-a597-e2bba3509dc0"
                 },
                 "result_variable": "step_658_result_1"
               }
@@ -647,8 +515,8 @@
                 "type": "integration_interaction",
                 "method": "PUT",
                 "internal": {
-                  "spec_hash_id": "a41be063157fb8d5262a3d76dc51afa0019b60eaecdfa7bed590ff86faf1df8d",
-                  "catalog_item_id": "a5af7399-4346-4f6b-b689-24833f6f0dbc"
+                  "spec_hash_id": "fc4e09b275e84d0e5254cbc3f1d7a64eb42592b1c18335402a4c19d30555c1c8",
+                  "catalog_item_id": "b9443027-332c-4297-a597-e2bba3509dc0"
                 },
                 "request_mapping": {
                   "body": [
@@ -783,8 +651,8 @@
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "spec_hash_id": "a41be063157fb8d5262a3d76dc51afa0019b60eaecdfa7bed590ff86faf1df8d",
-                  "catalog_item_id": "a5af7399-4346-4f6b-b689-24833f6f0dbc"
+                  "spec_hash_id": "fc4e09b275e84d0e5254cbc3f1d7a64eb42592b1c18335402a4c19d30555c1c8",
+                  "catalog_item_id": "b9443027-332c-4297-a597-e2bba3509dc0"
                 },
                 "result_variable": "step_628_result_1"
               }
@@ -951,8 +819,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "a41be063157fb8d5262a3d76dc51afa0019b60eaecdfa7bed590ff86faf1df8d",
-                  "catalog_item_id": "a5af7399-4346-4f6b-b689-24833f6f0dbc"
+                  "spec_hash_id": "fc4e09b275e84d0e5254cbc3f1d7a64eb42592b1c18335402a4c19d30555c1c8",
+                  "catalog_item_id": "b9443027-332c-4297-a597-e2bba3509dc0"
                 },
                 "request_mapping": {
                   "path": [
@@ -1186,8 +1054,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "a41be063157fb8d5262a3d76dc51afa0019b60eaecdfa7bed590ff86faf1df8d",
-                  "catalog_item_id": "a5af7399-4346-4f6b-b689-24833f6f0dbc"
+                  "spec_hash_id": "fc4e09b275e84d0e5254cbc3f1d7a64eb42592b1c18335402a4c19d30555c1c8",
+                  "catalog_item_id": "b9443027-332c-4297-a597-e2bba3509dc0"
                 },
                 "request_mapping": {
                   "body": [
@@ -1593,8 +1461,8 @@
                 "type": "integration_interaction",
                 "method": "DELETE",
                 "internal": {
-                  "spec_hash_id": "a41be063157fb8d5262a3d76dc51afa0019b60eaecdfa7bed590ff86faf1df8d",
-                  "catalog_item_id": "a5af7399-4346-4f6b-b689-24833f6f0dbc"
+                  "spec_hash_id": "fc4e09b275e84d0e5254cbc3f1d7a64eb42592b1c18335402a4c19d30555c1c8",
+                  "catalog_item_id": "b9443027-332c-4297-a597-e2bba3509dc0"
                 },
                 "result_variable": "step_863_result_1"
               }
@@ -1849,8 +1717,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "a41be063157fb8d5262a3d76dc51afa0019b60eaecdfa7bed590ff86faf1df8d",
-                  "catalog_item_id": "a5af7399-4346-4f6b-b689-24833f6f0dbc"
+                  "spec_hash_id": "fc4e09b275e84d0e5254cbc3f1d7a64eb42592b1c18335402a4c19d30555c1c8",
+                  "catalog_item_id": "b9443027-332c-4297-a597-e2bba3509dc0"
                 },
                 "request_mapping": {
                   "path": [
@@ -2060,8 +1928,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "a41be063157fb8d5262a3d76dc51afa0019b60eaecdfa7bed590ff86faf1df8d",
-                  "catalog_item_id": "a5af7399-4346-4f6b-b689-24833f6f0dbc"
+                  "spec_hash_id": "fc4e09b275e84d0e5254cbc3f1d7a64eb42592b1c18335402a4c19d30555c1c8",
+                  "catalog_item_id": "b9443027-332c-4297-a597-e2bba3509dc0"
                 },
                 "result_variable": "step_588_result_1"
               }
@@ -2250,8 +2118,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "a41be063157fb8d5262a3d76dc51afa0019b60eaecdfa7bed590ff86faf1df8d",
-                  "catalog_item_id": "a5af7399-4346-4f6b-b689-24833f6f0dbc"
+                  "spec_hash_id": "fc4e09b275e84d0e5254cbc3f1d7a64eb42592b1c18335402a4c19d30555c1c8",
+                  "catalog_item_id": "b9443027-332c-4297-a597-e2bba3509dc0"
                 },
                 "request_mapping": {
                   "header": [
@@ -2418,8 +2286,8 @@
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "spec_hash_id": "a41be063157fb8d5262a3d76dc51afa0019b60eaecdfa7bed590ff86faf1df8d",
-                  "catalog_item_id": "a5af7399-4346-4f6b-b689-24833f6f0dbc"
+                  "spec_hash_id": "fc4e09b275e84d0e5254cbc3f1d7a64eb42592b1c18335402a4c19d30555c1c8",
+                  "catalog_item_id": "b9443027-332c-4297-a597-e2bba3509dc0"
                 },
                 "result_variable": "step_646_result_1"
               }
@@ -2463,8 +2331,8 @@
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "spec_hash_id": "a41be063157fb8d5262a3d76dc51afa0019b60eaecdfa7bed590ff86faf1df8d",
-                  "catalog_item_id": "a5af7399-4346-4f6b-b689-24833f6f0dbc"
+                  "spec_hash_id": "fc4e09b275e84d0e5254cbc3f1d7a64eb42592b1c18335402a4c19d30555c1c8",
+                  "catalog_item_id": "b9443027-332c-4297-a597-e2bba3509dc0"
                 },
                 "result_variable": "step_507_result_1"
               }
@@ -2508,8 +2376,8 @@
                 "type": "integration_interaction",
                 "method": "DELETE",
                 "internal": {
-                  "spec_hash_id": "a41be063157fb8d5262a3d76dc51afa0019b60eaecdfa7bed590ff86faf1df8d",
-                  "catalog_item_id": "a5af7399-4346-4f6b-b689-24833f6f0dbc"
+                  "spec_hash_id": "fc4e09b275e84d0e5254cbc3f1d7a64eb42592b1c18335402a4c19d30555c1c8",
+                  "catalog_item_id": "b9443027-332c-4297-a597-e2bba3509dc0"
                 },
                 "result_variable": "step_154_result_1"
               }
@@ -2630,8 +2498,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "a41be063157fb8d5262a3d76dc51afa0019b60eaecdfa7bed590ff86faf1df8d",
-                  "catalog_item_id": "a5af7399-4346-4f6b-b689-24833f6f0dbc"
+                  "spec_hash_id": "fc4e09b275e84d0e5254cbc3f1d7a64eb42592b1c18335402a4c19d30555c1c8",
+                  "catalog_item_id": "b9443027-332c-4297-a597-e2bba3509dc0"
                 },
                 "result_variable": "step_526_result_1"
               }
@@ -2974,12 +2842,299 @@
           "never_return": false
         },
         "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_138",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "this is a post"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/test",
+                "type": "integration_interaction",
+                "method": "POST",
+                "internal": {
+                  "spec_hash_id": "fc4e09b275e84d0e5254cbc3f1d7a64eb42592b1c18335402a4c19d30555c1c8",
+                  "catalog_item_id": "b9443027-332c-4297-a597-e2bba3509dc0"
+                },
+                "request_mapping": {
+                  "body": [
+                    {
+                      "value": {
+                        "scalar": "blablabla"
+                      },
+                      "parameter": "some_content"
+                    }
+                  ]
+                },
+                "result_variable": "step_138_result_1"
+              }
+            },
+            "variable": "step_138",
+            "next_step": "step_386"
+          },
+          {
+            "step": "step_386",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Indeed it was posted - result is:  "
+                          },
+                          {
+                            "variable": "step_138_result_1",
+                            "variable_path": "body"
+                          },
+                          {
+                            "scalar": "   status code:  "
+                          },
+                          {
+                            "variable": "step_138_result_1",
+                            "variable_path": "body.status"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_386"
+          }
+        ],
+        "title": "Test HTTP POST",
+        "action": "action_20585",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_20585_intent_24221"
+        },
+        "variables": [
+          {
+            "title": "aggregated variable",
+            "variable": "operation_result",
+            "data_type": "any"
+          },
+          {
+            "title": "aggregated variable",
+            "variable": "operation_result_status",
+            "data_type": "any"
+          },
+          {
+            "title": "this is a post",
+            "variable": "step_138",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_138_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Indeed it was posted - result is: status code: {variable}",
+            "variable": "step_386",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_1543-2",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "steps": [
+          {
+            "step": "step_863",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "let me patch it"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/test",
+                "type": "integration_interaction",
+                "method": "PATCH",
+                "internal": {
+                  "spec_hash_id": "fc4e09b275e84d0e5254cbc3f1d7a64eb42592b1c18335402a4c19d30555c1c8",
+                  "catalog_item_id": "b9443027-332c-4297-a597-e2bba3509dc0"
+                },
+                "result_variable": "step_863_result_1"
+              }
+            },
+            "variable": "step_863",
+            "next_step": "step_509"
+          },
+          {
+            "step": "step_509",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Indeed I patched it- result is:"
+                          },
+                          {
+                            "variable": "step_863_result_1",
+                            "variable_path": "body"
+                          },
+                          {
+                            "scalar": "   status code:  "
+                          },
+                          {
+                            "variable": "step_863_result_1",
+                            "variable_path": "body.status"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_509"
+          }
+        ],
+        "title": "Test HTTP PATCH",
+        "action": "action_1543-2",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_1543_intent_5385-2"
+        },
+        "variables": [
+          {
+            "title": "aggregated variable",
+            "variable": "operation_result",
+            "data_type": "any"
+          },
+          {
+            "title": "aggregated variable",
+            "variable": "operation_result_status",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_138_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Indeed I patched it- result is:{variable} status code: {variable",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_509",
+            "data_type": "any"
+          },
+          {
+            "title": "let me patch it",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_863",
+            "data_type": "any"
+          },
+          {
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_863_result_1",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "fallback",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
       }
     ],
     "intents": [
       {
+        "intent": "action_40637_intent_11889",
+        "examples": [
+          {
+            "text": "pre-message"
+          },
+          {
+            "text": "Test pre-message webhook"
+          },
+          {
+            "text": "pre-webhook"
+          },
+          {
+            "text": "pre-message webhook"
+          }
+        ]
+      },
+      {
         "intent": "fallback_connect_to_agent",
         "examples": [
+          {
+            "text": "Can I connect to an agent?"
+          },
           {
             "text": "I would like to speak to someone"
           },
@@ -2991,24 +3146,27 @@
           },
           {
             "text": "Agent help"
-          },
-          {
-            "text": "Can I connect to an agent?"
           }
         ],
         "description": "Please transfer me to an agent"
       },
       {
-        "intent": "action_12249_intent_48727",
+        "intent": "action_1543_intent_5385",
         "examples": [
           {
-            "text": "Context Almost Too Large"
+            "text": "pld delete"
           },
           {
-            "text": "ContextAlmostTooLarge"
+            "text": "can u delete"
           },
           {
-            "text": "Almost Too Large Context"
+            "text": "just delete it"
+          },
+          {
+            "text": "how about deleting it"
+          },
+          {
+            "text": "DELETE"
           }
         ]
       },
@@ -3019,13 +3177,47 @@
             "text": "multiple calls"
           },
           {
-            "text": "consecutive calls"
-          },
-          {
             "text": "consecutive"
           },
           {
             "text": "Test consecutive extension calls"
+          },
+          {
+            "text": "consecutive calls"
+          }
+        ]
+      },
+      {
+        "intent": "action_1543_intent_5385-2",
+        "examples": [
+          {
+            "text": "go patch it"
+          },
+          {
+            "text": "PATCH"
+          },
+          {
+            "text": "patch it"
+          },
+          {
+            "text": "http patch"
+          }
+        ]
+      },
+      {
+        "intent": "action_3462_intent_18095",
+        "examples": [
+          {
+            "text": "post-message"
+          },
+          {
+            "text": "post-message webhook"
+          },
+          {
+            "text": "Test post-message webhook"
+          },
+          {
+            "text": "post-webhook"
           }
         ]
       },
@@ -3050,45 +3242,45 @@
         ]
       },
       {
-        "intent": "action_20585_intent_24221",
+        "intent": "action_22832_intent_9949",
         "examples": [
           {
-            "text": "poster it"
+            "text": "bearer auth"
           },
           {
-            "text": "I want to post"
+            "text": "authentication"
           },
           {
-            "text": "nail it"
+            "text": "basic auth"
           },
           {
-            "text": "just post it"
+            "text": "oauth"
           },
           {
-            "text": "POST"
+            "text": "api key auth"
+          },
+          {
+            "text": "security"
           }
         ]
       },
       {
-        "intent": "action_45207_intent_43212",
+        "intent": "action_30035_intent_49329",
         "examples": [
           {
-            "text": "more more time"
+            "text": "put is the name"
           },
           {
-            "text": "delay the request for at least 30 seconds"
+            "text": "Just put it"
           },
           {
-            "text": "long time"
+            "text": "put operation"
           },
           {
-            "text": "delay request"
+            "text": "PUT"
           },
           {
-            "text": "delay"
-          },
-          {
-            "text": "pls long request"
+            "text": "PUT IT"
           }
         ]
       },
@@ -3107,42 +3299,11 @@
         ]
       },
       {
-        "intent": "action_11679_intent_29725",
-        "examples": [
-          {
-            "text": "Context Too Large"
-          },
-          {
-            "text": "Large Context"
-          },
-          {
-            "text": "ContextTooLarge"
-          }
-        ]
-      },
-      {
-        "intent": "action_30035_intent_49329",
-        "examples": [
-          {
-            "text": "Just put it"
-          },
-          {
-            "text": "put operation"
-          },
-          {
-            "text": "PUT"
-          },
-          {
-            "text": "PUT IT"
-          },
-          {
-            "text": "put is the name"
-          }
-        ]
-      },
-      {
         "intent": "action_34746_intent_20809",
         "examples": [
+          {
+            "text": "GO Get it"
+          },
           {
             "text": "he got it"
           },
@@ -3156,10 +3317,95 @@
             "text": "just get it"
           },
           {
-            "text": "GO Get it"
+            "text": "get operation"
+          }
+        ]
+      },
+      {
+        "intent": "action_20585_intent_24221",
+        "examples": [
+          {
+            "text": "just post it"
           },
           {
-            "text": "get operation"
+            "text": "POST"
+          },
+          {
+            "text": "nail it"
+          },
+          {
+            "text": "I want to post"
+          },
+          {
+            "text": "poster it"
+          }
+        ]
+      },
+      {
+        "intent": "action_38662_intent_45880",
+        "examples": [
+          {
+            "text": "post with parameters"
+          },
+          {
+            "text": "params"
+          },
+          {
+            "text": "parameters"
+          },
+          {
+            "text": "Test post with parameters"
+          }
+        ]
+      },
+      {
+        "intent": "action_45207_intent_43212",
+        "examples": [
+          {
+            "text": "delay request"
+          },
+          {
+            "text": "delay the request for at least 30 seconds"
+          },
+          {
+            "text": "more more time"
+          },
+          {
+            "text": "pls long request"
+          },
+          {
+            "text": "delay"
+          },
+          {
+            "text": "long time"
+          }
+        ]
+      },
+      {
+        "intent": "action_11679_intent_29725",
+        "examples": [
+          {
+            "text": "Context Too Large"
+          },
+          {
+            "text": "ContextTooLarge"
+          },
+          {
+            "text": "Large Context"
+          }
+        ]
+      },
+      {
+        "intent": "action_12249_intent_48727",
+        "examples": [
+          {
+            "text": "Almost Too Large Context"
+          },
+          {
+            "text": "ContextAlmostTooLarge"
+          },
+          {
+            "text": "Context Almost Too Large"
           }
         ]
       },
@@ -3176,123 +3422,35 @@
             "text": "Wrong"
           },
           {
+            "text": "Just show me how u handle error"
+          },
+          {
             "text": "Error"
           },
           {
             "text": "integration sent back an error"
           },
           {
-            "text": "Just show me how u handle error"
-          },
-          {
             "text": "Exception"
-          }
-        ]
-      },
-      {
-        "intent": "action_22832_intent_9949",
-        "examples": [
-          {
-            "text": "api key auth"
-          },
-          {
-            "text": "basic auth"
-          },
-          {
-            "text": "oauth"
-          },
-          {
-            "text": "authentication"
-          },
-          {
-            "text": "security"
-          },
-          {
-            "text": "bearer auth"
-          }
-        ]
-      },
-      {
-        "intent": "action_40637_intent_11889",
-        "examples": [
-          {
-            "text": "pre-message"
-          },
-          {
-            "text": "pre-message webhook"
-          },
-          {
-            "text": "pre-webhook"
-          },
-          {
-            "text": "Test pre-message webhook"
-          }
-        ]
-      },
-      {
-        "intent": "action_1543_intent_5385",
-        "examples": [
-          {
-            "text": "pld delete"
-          },
-          {
-            "text": "DELETE"
-          },
-          {
-            "text": "how about deleting it"
-          },
-          {
-            "text": "just delete it"
-          },
-          {
-            "text": "can u delete"
-          }
-        ]
-      },
-      {
-        "intent": "action_3462_intent_18095",
-        "examples": [
-          {
-            "text": "post-message webhook"
-          },
-          {
-            "text": "Test post-message webhook"
-          },
-          {
-            "text": "post-webhook"
-          },
-          {
-            "text": "post-message"
-          }
-        ]
-      },
-      {
-        "intent": "action_38662_intent_45880",
-        "examples": [
-          {
-            "text": "params"
-          },
-          {
-            "text": "parameters"
-          },
-          {
-            "text": "post with parameters"
-          },
-          {
-            "text": "Test post with parameters"
           }
         ]
       }
     ],
     "entities": [
       {
-        "entity": "entity_6835",
+        "entity": "entity_48298",
         "values": [
           {
             "type": "synonyms",
-            "value": "oauth2-authCode",
+            "value": "Yes",
             "synonyms": []
-          },
+          }
+        ],
+        "fuzzy_match": true
+      },
+      {
+        "entity": "entity_6835",
+        "values": [
           {
             "type": "synonyms",
             "value": "basic",
@@ -3315,20 +3473,21 @@
           },
           {
             "type": "synonyms",
-            "value": "oauth2-clientCred",
+            "value": "oauth2-authCode",
             "synonyms": []
           },
           {
             "type": "synonyms",
             "value": "apikey",
             "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "oauth2-clientCred",
+            "synonyms": []
           }
         ],
         "fuzzy_match": true
-      },
-      {
-        "entity": "sys-yes-no",
-        "values": []
       },
       {
         "entity": "sys-number",
@@ -3346,22 +3505,15 @@
         "fuzzy_match": true
       },
       {
-        "entity": "entity_48298",
-        "values": [
-          {
-            "type": "synonyms",
-            "value": "Yes",
-            "synonyms": []
-          }
-        ],
-        "fuzzy_match": true
+        "entity": "sys-yes-no",
+        "values": []
       }
     ],
     "metadata": {
       "skill": {
         "counts": {
-          "actions": 18,
-          "intents": 16,
+          "actions": 19,
+          "intents": 17,
           "entities": 5,
           "data_types": 0,
           "collections": 4,
@@ -3424,46 +3576,28 @@
         "collection": "collection_41346",
         "action_references": [
           {
+            "action": "action_38662"
+          },
+          {
             "action": "action_45207"
-          },
-          {
-            "action": "action_22557"
-          },
-          {
-            "action": "action_39186"
-          },
-          {
-            "action": "action_12249"
           },
           {
             "action": "action_21392"
           },
           {
+            "action": "action_11679"
+          },
+          {
+            "action": "action_39186"
+          },
+          {
+            "action": "action_22557"
+          },
+          {
             "action": "action_26118"
           },
           {
-            "action": "action_38662"
-          },
-          {
-            "action": "action_11679"
-          }
-        ]
-      },
-      {
-        "title": "HTTP Methods",
-        "collection": "collection_48238",
-        "action_references": [
-          {
-            "action": "action_34746"
-          },
-          {
-            "action": "action_30035"
-          },
-          {
-            "action": "action_20585"
-          },
-          {
-            "action": "action_1543"
+            "action": "action_12249"
           }
         ]
       },
@@ -3476,6 +3610,27 @@
           },
           {
             "action": "action_3462"
+          }
+        ]
+      },
+      {
+        "title": "HTTP Methods",
+        "collection": "collection_48238",
+        "action_references": [
+          {
+            "action": "action_34746"
+          },
+          {
+            "action": "action_20585"
+          },
+          {
+            "action": "action_1543-2"
+          },
+          {
+            "action": "action_1543"
+          },
+          {
+            "action": "action_30035"
           }
         ]
       }
@@ -3506,9 +3661,9 @@
   "dialog_settings": {
     "source_assistant": "fc410b48-17a1-4d7d-a7a2-da7ad71edd87"
   },
-  "created": "2023-09-19T21:07:19.970Z",
-  "updated": "2023-09-19T21:07:19.970Z",
-  "snapshot": "12",
+  "created": "2024-02-22T10:25:34.315Z",
+  "updated": "2024-02-22T10:25:34.315Z",
+  "snapshot": "15",
   "assistant_id": "a86f6d8f-0434-4352-aff6-c3bbe8171501",
   "assistant_references": [
     {

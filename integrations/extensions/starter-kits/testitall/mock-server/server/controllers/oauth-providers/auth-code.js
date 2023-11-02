@@ -8,7 +8,7 @@ function issueAccessToken() {
   const accessToken = Math.random().toString(36).slice(-8)
   const accessExpireTime = Date.now() + 1000 * parseInt(process.env.OAUTH_ACCESS_TOKEN_EXPIRES, 10)
   accessTokensAuthCode.set(accessToken, accessExpireTime)
-  console.log('[auth code] Issuing token:', accessToken)
+  console.log(`[auth code] Issuing token: ${accessToken}, expires: ${new Date(accessExpireTime)}`)
 
   return accessToken
 }

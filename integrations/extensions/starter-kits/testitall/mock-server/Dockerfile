@@ -10,8 +10,6 @@ RUN npm install --only=production
 
 # Bundle app source
 COPY . .
-# Copy .env-sample to .env
-COPY .env-sample .env
 
 EXPOSE 4000
 

@@ -9,6 +9,7 @@ router.delete('', testController.deleteTest);
 router.get('', testController.getTest);
 router.put('', testController.putTest);
 router.post('', testController.postTest);
+router.patch('', testController.patchTest);
 router.post('/error', testController.errorTest);
 router.post('/params/:path_param', testController.postTest);
 router.post('/auth_header', testController.authHeaderTest);

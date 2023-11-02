@@ -32,6 +32,12 @@ export function postTest(req, res) {
   }
 }
 
+export function patchTest(req, res) {
+  return res.json({
+    status: 'PATCHED',
+  });
+}
+
 export function authHeaderTest(req, res) {
   return res.json({
     auth_header: req.header('Authorization') || 'No Authorization header provided',
@@ -39,8 +45,9 @@ export function authHeaderTest(req, res) {
 }
 
 export function arraysInObjectTest(req, res) {
+  const my_array = req.body.my_array || [];
   return res.json({
-    my_chosen_item: req.body.item, reverse_array: req.body.my_array.reverse(), status: 'POST Array Object',
+    my_chosen_item: req.body.item, reverse_array: my_array.reverse(), status: 'POST Array Object',
   });
 }
 
@@ -59,7 +66,7 @@ export function errorTest(req, res) {
 
 
 export function contextTooLargeTest(req, res) {
-  const fakeData = 'x'.repeat(parseInt(process.env.RESPONSE_SIZE_LIMIT, 10) * 5); // Default: 500KB
+  const fakeData = 'x'.repeat(parseInt(process.env.RESPONSE_SIZE_LIMIT, 10) * 5); // Default: 130KB * 5 = 650KB
   const response = {
     data: fakeData
   }
@@ -68,7 +75,7 @@ export function contextTooLargeTest(req, res) {
 }
 
 export function contextAlmostTooLargeTest(req, res) {
-  const fakeData = 'x'.repeat(parseInt(process.env.RESPONSE_SIZE_LIMIT, 10) - 1024); // Default: 99KB
+  const fakeData = 'x'.repeat(parseInt(process.env.RESPONSE_SIZE_LIMIT, 10) - 1024); // Default: 130KB - 1KB = 129KB
 
   const response = {
     data: fakeData

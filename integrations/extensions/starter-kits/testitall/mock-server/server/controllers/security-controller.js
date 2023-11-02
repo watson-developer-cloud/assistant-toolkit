@@ -27,10 +27,11 @@ export function basicTest(req, res) {
 // Bearer Auth Middleware
 export function bearerAuthMiddleware(req, res, next) {
   // parse login and password from headers
-  const token = (req.headers.authorization || '').split(' ')[1] || ''
+  const authHeader = req.headers.authorization || ''
+  const token = authHeader.split(' ')[1] || ''
 
   // Verify login and password are set and correct
-  if (req.headers.authorization.toLowerCase().startsWith("bearer") && token === process.env.AUTH_TOKEN) {
+  if (authHeader.toLowerCase().startsWith("bearer") && token === process.env.AUTH_TOKEN) {
     // Access granted...
     return next()
   }
