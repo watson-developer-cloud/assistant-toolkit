@@ -8,31 +8,7 @@
   },
   "servers": [
     {
-      "url": "https://custom-ext-testitall-ce.vkgqdtxxpfe.us-south.codeengine.appdomain.cloud",
-      "description": "IBM Hosted Mock API Server"
-    },
-    {
-      "url": "https://{ngrok_uuid}.ngrok-free.app",
-      "description": "ngrok free server",
-      "variables": {
-        "ngrok_uuid": {
-          "description": "ngrok domain prefix (uuid)",
-          "default": ""
-        }
-      }
-    },
-    {
-      "url": "https://{ngrok_uuid}.ngrok.io",
-      "description": "ngrok server",
-      "variables": {
-        "ngrok_uuid": {
-          "description": "ngrok domain prefix (uuid)",
-          "default": ""
-        }
-      }
-    },
-    {
-      "url": "http://{host}:{port}",
+      "url": "https://{host}:{port}",
       "description": "Your API server",
       "variables": {
         "host": {
@@ -40,7 +16,7 @@
           "description": "Hostname of the API server"
         },
         "port": {
-          "default": "4000",
+          "default": "443",
           "description": "Port of the API server"
         }
       }
@@ -48,50 +24,50 @@
   ],
   "components": {
     "securitySchemes": {
-      "BasicAuth": {
+      "basic": {
         "type": "http",
         "scheme": "basic"
       },
-      "BearerAuth": {
+      "bearer": {
         "type": "http",
         "scheme": "bearer"
       },
-      "ApiKeyAuth": {
+      "api_key": {
         "type": "apiKey",
         "in": "header",
         "name": "X-API-Key"
       },
-      "OAuth2": {
+      "oauth2": {
         "type": "oauth2",
         "flows": {
           "authorizationCode": {
-            "authorizationUrl": "https://custom-ext-testitall-ce.vkgqdtxxpfe.us-south.codeengine.appdomain.cloud/oauth2-provider/auth-code/authorize",
-            "tokenUrl": "https://custom-ext-testitall-ce.vkgqdtxxpfe.us-south.codeengine.appdomain.cloud/oauth2-provider/auth-code/token",
-            "refreshUrl": "https://custom-ext-testitall-ce.vkgqdtxxpfe.us-south.codeengine.appdomain.cloud/oauth2-provider/auth-code/token",
+            "authorizationUrl": "/oauth2-provider/auth-code/authorize",
+            "tokenUrl": "/oauth2-provider/auth-code/token",
+            "refreshUrl": "/oauth2-provider/auth-code/token",
             "scopes": {
               "read": "Read access to protected resources",
               "custom": "Add your own scope"
             }
           },
           "password": {
-            "tokenUrl": "https://custom-ext-testitall-ce.vkgqdtxxpfe.us-south.codeengine.appdomain.cloud/oauth2-provider/password/token",
-            "refreshUrl": "https://custom-ext-testitall-ce.vkgqdtxxpfe.us-south.codeengine.appdomain.cloud/oauth2-provider/password/token",
+            "tokenUrl": "/oauth2-provider/password/token",
+            "refreshUrl": "/oauth2-provider/password/token",
             "scopes": {
               "read": "Read access to protected resources",
               "custom": "Add your own scope"
             }
           },
           "clientCredentials": {
-            "tokenUrl": "https://custom-ext-testitall-ce.vkgqdtxxpfe.us-south.codeengine.appdomain.cloud/oauth2-provider/client-cred/token",
-            "refreshUrl": "https://custom-ext-testitall-ce.vkgqdtxxpfe.us-south.codeengine.appdomain.cloud/oauth2-provider/client-cred/token",
+            "tokenUrl": "/oauth2-provider/client-cred/token",
+            "refreshUrl": "/oauth2-provider/client-cred/token",
             "scopes": {
               "read": "Read access to protected resources",
               "custom": "Add your own scope"
             }
           },
           "x-apikey": {
-            "tokenUrl": "https://custom-ext-testitall-ce.vkgqdtxxpfe.us-south.codeengine.appdomain.cloud/oauth2-provider/custom-apikey/token",
-            "refreshUrl": "https://custom-ext-testitall-ce.vkgqdtxxpfe.us-south.codeengine.appdomain.cloud/oauth2-provider/custom-apikey/token",
+            "tokenUrl": "/oauth2-provider/custom-apikey/token",
+            "refreshUrl": "/oauth2-provider/custom-apikey/token",
             "grantType": "custom_apikey",
             "secretKeys": [
               "apikey_secret"
@@ -107,16 +83,16 @@
   },
   "security": [
     {
-      "BasicAuth": []
+      "basic": []
     },
     {
-      "BearerAuth": []
+      "bearer": []
     },
     {
-      "ApiKeyAuth": []
+      "api_key": []
     },
     {
-      "OAuth2": [
+      "oauth2": [
         "read",
         "custom"
       ]
@@ -299,6 +275,31 @@
         "responses": {
           "200": {
             "description": "DELETE response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "API"
+        ],
+        "summary": "Test HTTP PATCH",
+        "description": "TEST PATCH",
+        "operationId": "testPatch",
+        "responses": {
+          "200": {
+            "description": "PATCH response",
             "content": {
               "application/json": {
                 "schema": {

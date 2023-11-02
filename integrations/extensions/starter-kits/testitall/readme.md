@@ -26,87 +26,35 @@ Assistant:
 
 ## Mock API Server
 
-The custom extension requires a running API server to test the OpenAPI specification. We provide an existing mock 
-server or the ability to deploy your own.
+The custom extension requires a running API server to test the OpenAPI specification.
 
-### Use IBM Hosted Mock API Server
+### Local Deployment
 
-We provide a hosted mock API server for you to test the OpenAPI specification. To use that server, please select
-`https://custom-ext-testitall-ce.vkgqdtxxpfe.us-south.codeengine.appdomain.cloud` in the Servers dropdown on the Authentication tab
-while adding the extension to your Watson Assistant.
+1. Install [Node.js](https://nodejs.org/en/download/).
+2. Clone the repo and navigate to the `testitall/mock-server` folder.
+3. Run `npm install` to install the dependencies.
+4. Copy the `.env-sample` file to `.env`, and update the environment variables if needed.
+5. Run `npm start` to start the server at port `4000`.
+6. The server is now running at `http://localhost:4000`. You should see "The mock API server is up and running" when
+   open the URL in your browser.
 
-### Deploy the Mock API Server by yourself
+To allow Watson Assistant to access the API server, you need to expose the server to the internet. You can use tools
+like
+[ngrok](https://ngrok.com/) to do that. After installing ngrok, run `ngrok http 4000` to expose the server to the
+internet.
 
-1. Deploy the express.js application to your server.
-    - In a terminal, navigate to the `testitall/mock-server` folder.
-    - Run `npm install` to install the dependencies.
-    - Copy the `.env-sample` file to `.env`, and update the environment variables if needed.
-    - Run `npm start` to start the server at port `4000`.
-2. Update the server URLs in the OpenAPI specification file `testitall.openapi.json` to point to your server.
-    - Assume your API server is running at `https://myserver.com:4000`
-        - If you would like to test the OAuth2 related feature, then the API server must be running with HTTPS.
-          - This mock server doesn't come with HTTPS support by itself, please consider to deploy with reverse proxy or third-party proxy service (e.g. ngrok) to
-            enable HTTPS.
-        - The server URL should NOT contain the tailing slash.
-    - Update the `servers` section in the OpenAPI specification file to:
-      ```json
-      "servers": [
-        {
-          "url": "https://myserver.com:4000",
-          "description": "Your API server",
-          "variables": {}
-        }
-      ]
-      ```
-    - If you would like to test the OAuth2 related feature, update the `components/securitySchemes/OAuth2` section to:
-      ```json
-      "OAuth2": {
-        "type": "oauth2",
-        "flows": {
-          "authorizationCode": {
-            "authorizationUrl": "https://myserver.com:4000/oauth2-provider/auth-code/authorize",
-            "tokenUrl": "https://myserver.com:4000/oauth2-provider/auth-code/token",
-            "refreshUrl": "https://myserver.com:4000/oauth2-provider/auth-code/token",
-            "scopes": {
-              "read": "Read access to protected resources",
-              "custom": "Add your own scope"
-            }
-          },
-          "password": {
-            "tokenUrl": "https://myserver.com:4000/oauth2-provider/password/token",
-            "refreshUrl": "https://myserver.com:4000/oauth2-provider/password/token",
-            "scopes": {
-              "read": "Read access to protected resources",
-              "custom": "Add your own scope"
-            }
-          },
-          "clientCredentials": {
-            "tokenUrl": "https://myserver.com:4000/oauth2-provider/client-cred/token",
-            "refreshUrl": "https://myserver.com:4000/oauth2-provider/client-cred/token",
-            "scopes": {
-              "read": "Read access to protected resources",
-              "custom": "Add your own scope"
-            }
-          },
-          "x-apikey": {
-            "tokenUrl": "https://myserver.com:4000/oauth2-provider/custom-apikey/token",
-            "refreshUrl": "https://myserver.com:4000/oauth2-provider/custom-apikey/token",
-            "grantType": "custom_apikey",
-            "secretKeys": [
-              "apikey_secret"
-            ],
-            "scopes": {
-              "read": "Read access to protected resources",
-              "custom": "Add your own scope"
-            }
-          }
-        }
-      }
-        ```
-    - Upload the updated OpenAPI specification file to create a new custom extension, and add it to your Watson
-      Assistant.
-    - Upload actions to your Watson Assistant.
-    - After the actions were uploaded, **edit each action to use the extension**.
+### IBM Cloud Code Engine Deployment
+
+The server comes with the Dockerfile for Code Engine deployment. To deploy the server to Code Engine, please follow the
+steps below:
+
+1. Build the docker image
+    1. Copy the `.env-sample` file to `.env` and fill in the required information
+    2. Build the image with `docker build -t <image-name> .` The image name should follow the format
+       of `<registry>/<namespace>/<image-name>:<tag>`. For example, `us.icr.io/testitall_ns/testitall_server:latest`.
+2. Push the image to the container registry with `docker push <image-name>`
+3. Create a Code Engine project
+   and [deploy the image](https://cloud.ibm.com/docs/codeengine?topic=codeengine-deploy-app-crimage)
 
 ## WA Actions and corresponding OpenAPI Endpoints
 
@@ -118,10 +66,11 @@ The example provides a set of actions to test the specification:
 | Test HTTP POST                                               | "POST"                     | `/test`                          | Test HTTP POST.                                                                                                                                                                                                                                                                                              |
 | Test HTTP PUT                                                | "PUT"                      | `/test`                          | Test HTTP PUT.                                                                                                                                                                                                                                                                                               |
 | Test HTTP DELETE                                             | "DELETE"                   | `/test`                          | Test HTTP DELETE.                                                                                                                                                                                                                                                                                            |
+| Test HTTP PATCH                                              | "PATCH"                    | `/test`                          | Test HTTP PATCH.                                                                                                                                                                                                                                                                                             |
 | Test handle error in response                                | "Error"                    | `/test/error`                    | The API server will return a 404 error to test error handling in WA.                                                                                                                                                                                                                                         |
 | Test parse array inside object                               | "Arrays Object"            | `/test/arrays-object`            | The API server will reverse the array inside the object.                                                                                                                                                                                                                                                     |
-| Test handle an almost too large response                     | "Context Almost Too Large" | `/test/context-almost-too-large` | The API server will return a response that is almost too large (99KB). The extension call itself should succeed. The action will try to store the response into a session variable which will cause any following conversation to produce a 413 error.                                                       |
-| Test handle a too large response                             | "Context Too Large"        | `/test/context-too-large`        | The API server will return a response that is too large (500KB). The extension call should fail.                                                                                                                                                                                                             |
+| Test handle an almost too large response                     | "Context Almost Too Large" | `/test/context-almost-too-large` | The API server will return a response that is almost too large (129KB). The extension call itself should succeed. The action will try to store the response into a session variable which will cause any following conversation to produce a 413 error.                                                      |
+| Test handle a too large response                             | "Context Too Large"        | `/test/context-too-large`        | The API server will return a response that is too large (650KB). The extension call should fail.                                                                                                                                                                                                             |
 | Test set auth header with context variable                   | "Auth Header"              | `/test/auth-header`              | **Please make sure you've selected `No authentication` option in extension configuration, otherwise the auth header will be overridden.**<br/>The WA will set the Authorization header with the value provided by the user. The API server will echo the Authorization header in the response.               |
 | Test post with parameters                                    | "Params"                   | `/test/params/{path_param}`      | WA will send a POST request with parameters in the query string, header and URL path. The API server will echo the parameters in the response.                                                                                                                                                               |
 | Test response with a delay                                   | "Delay"                    | `/delay`                         | The API server will delay the response by the provided number of seconds (default: 3).                                                                                                                                                                                                                       |
@@ -169,7 +118,7 @@ Please first enter the Client ID:
 > Note: You don't need to manually copy the Redirect URL to your OAuth2 provider. The URL is sent together with the
 > request to the provider.
 
-Then, click the `Grant Access` button to authorize the extension to access your OAuth2 provider. You will be redirected 
+Then, click the `Grant Access` button to authorize the extension to access your OAuth2 provider. You will be redirected
 to the provider's authorization page, which will ask you to authorize the
 extension. After you authorize the extension, you will be redirected back to the Assistant, with the authorization code
 passed to the Watson Assistant.
@@ -210,7 +159,7 @@ steps below:
 1. Navigate to the `Environment` tab of your Watson Assistant instance.
 2. Select an environment, and click the gear icon beside the environment's name to open the environment configuration
    page.
-![Environment Configuration](./assets/webhook_env_config_1.png)
+   ![Environment Configuration](./assets/webhook_env_config_1.png)
 3. Select `Webhooks` > `Pre-Message Webhook` or `Post-Message Webhook` from the menu on the left.
 4. Enable the webhook by clicking the toggle switch.
 5. Enter the URL of the webhook.
@@ -219,4 +168,4 @@ steps below:
     - Post-message webhook: `https://myserver.com:4000/webhook/postwebhook`. For IBM hosted mock server, please use
       `https://custom-ext-testitall-ce.vkgqdtxxpfe.us-south.codeengine.appdomain.cloud/webhook/postwebhook`.
 6. Enter anything in the `Secret` field.
-![Webhook Configuration](./assets/webhook_env_config_2.png)
+   ![Webhook Configuration](./assets/webhook_env_config_2.png)
