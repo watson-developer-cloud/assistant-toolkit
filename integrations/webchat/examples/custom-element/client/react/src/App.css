@@ -1,0 +1,11 @@
+.WebChatContainer {
+  position: absolute;
+  left: 30%;
+  right: 30%;
+  top: 10%;
+  bottom: 10%;
+}
+
+#WACContainer.WACContainer .HideWebChat {
+  display: none;
+}

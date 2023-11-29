@@ -16,9 +16,17 @@ It demonstrates:
 
 ## Running the Code
 
-### Running the JavaScript Example
+### Running the JavaScript Examples
 
 1. Open the [client/javascript/index.html](client/javascript/index.html) or [client/javascript-animation/index.html](client/javascript-animiation/index.html) file in a web browser. The animation one is a slightly more complex example that demonstrates how to animate that opening or closing of web chat.
+
+### Running the React Examples
+
+1. `cd client/react` or `cd client/react-animation` 
+2. `npm install`
+3. `npm run start`
+4. Open a web browser to `localhost:3000`
+5. Try opening and closing web chat.
 
 ## Setting up your own assistant
 
