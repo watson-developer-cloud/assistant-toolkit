@@ -1,0 +1,40 @@
+body, html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow: hidden;
+}
+
+.WebChatContainer {
+  position: absolute;
+  width: 500px;
+  right: 0;
+  top: 16px;
+  bottom: 16px;
+}
+
+#WACContainer.WACContainer .WebChatStyles {
+  position: relative;
+  transition: right 500ms ease-in-out;
+}
+
+#WACContainer.WACContainer .HideWebChat {
+  display: none;
+}
+
+#WACContainer.WACContainer .StartOpenAnimation {
+  transition: none;
+  right: -500px;
+}
+
+#WACContainer.WACContainer .OpenAnimation {
+  right: 16px;
+}
+
+#WACContainer.WACContainer .CloseAnimation {
+  right: -500px;
+}
