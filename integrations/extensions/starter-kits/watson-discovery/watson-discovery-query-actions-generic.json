@@ -3,10 +3,10 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-03-08T18:32:52.647Z",
-  "updated": "2023-03-08T20:18:02.685Z",
+  "created": "2023-12-06T18:37:38.146Z",
+  "updated": "2023-12-06T19:07:07.667Z",
   "language": "en",
-  "skill_id": "b9bded36-8ca5-4e17-8a87-4f26e004e229",
+  "skill_id": "1a97c220-b557-46dc-a178-bc9acf916e41",
   "workspace": {
     "actions": [
       {
@@ -18,6 +18,7 @@
               "type": "invoke_another_action_and_end",
               "invoke_action": {
                 "action": "action_1555",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_543_result_1"
               }
@@ -33,10 +34,10 @@
                 }
               ]
             },
-            "next_step": "step_167"
+            "next_step": "step_222"
           },
           {
-            "step": "step_167",
+            "step": "step_222",
             "output": {
               "generic": [
                 {
@@ -51,7 +52,7 @@
                             "skill_variable": "answer"
                           },
                           {
-                            "scalar": "</em>\n\n<br />\n\n\n\n<strong>For more context on this answer see:</strong>\n\n<a href=\""
+                            "scalar": "</em>\n\n<strong>For more context on this answer see:</strong>\n\n<a href=\""
                           },
                           {
                             "skill_variable": "link"
@@ -85,6 +86,81 @@
                   },
                   "skill_variable": "link"
                 },
+                {
+                  "value": {
+                    "expression": "${search_result}.title"
+                  },
+                  "skill_variable": "title"
+                },
+                {
+                  "value": {
+                    "expression": "${search_result}.document_passages.get(0).passage_text"
+                  },
+                  "skill_variable": "snippet"
+                },
+                {
+                  "value": {
+                    "expression": "${search_result}.document_passages.get(0).answers.get(0).answer_text"
+                  },
+                  "skill_variable": "answer"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_222",
+            "condition": {
+              "and": [
+                {
+                  "expression": "${search_result}.document_passages.size > 0"
+                },
+                {
+                  "expression": "${search_result}.metadata"
+                }
+              ]
+            },
+            "next_step": "step_167"
+          },
+          {
+            "step": "step_167",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "<hr/>\n\n<em>"
+                          },
+                          {
+                            "skill_variable": "answer"
+                          },
+                          {
+                            "scalar": "</em>\n\n<br />\n\n\n\n<strong>For more context on this answer see:</strong>\n\n\n\n"
+                          },
+                          {
+                            "skill_variable": "title"
+                          },
+                          {
+                            "scalar": "\n\n<br />\n\n\n\n\n\n"
+                          },
+                          {
+                            "skill_variable": "snippet"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
                 {
                   "value": {
                     "expression": "${search_result}.title"
@@ -193,6 +269,9 @@
           },
           {
             "title": "<hr/> <em>{variable}</em> <br /> <strong>For more context on thi",
+            "privacy": {
+              "enabled": false
+            },
             "variable": "step_167",
             "data_type": "any"
           },
@@ -206,6 +285,14 @@
           },
           {
             "variable": "step_217_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "<hr/> <em>{variable}</em> <strong>For more context on this answe",
+            "privacy": {
+              "enabled": true
+            },
+            "variable": "step_222",
             "data_type": "any"
           },
           {
@@ -513,6 +600,7 @@
               "type": "invoke_another_action",
               "invoke_action": {
                 "action": "action_14586",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_167_result_1"
               }
@@ -543,6 +631,7 @@
               "type": "invoke_another_action",
               "invoke_action": {
                 "action": "action_14586",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_896_result_1"
               }
@@ -573,6 +662,7 @@
               "type": "invoke_another_action_and_end",
               "invoke_action": {
                 "action": "action_14586",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_249_result_1"
               }
@@ -768,7 +858,7 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "8566081a305e8f8ade4e9bd3887da0600e87948417fc10ba38ee121426f8c50b",
-                  "catalog_item_id": "ca62ae92-447b-44a4-af23-3a239ae8eb2f"
+                  "catalog_item_id": "5419c1ad-c4ae-4b2c-9d3d-f91607724e24"
                 },
                 "request_mapping": {
                   "body": [
@@ -906,6 +996,7 @@
               "type": "invoke_another_action",
               "invoke_action": {
                 "action": "action_20548",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_237_result_2"
               }
@@ -1107,6 +1198,7 @@
               "type": "invoke_another_action",
               "invoke_action": {
                 "action": "action_44059",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_001_result_1"
               }
@@ -1597,12 +1689,12 @@
       },
       {
         "title": "discovery_project_id",
+        "privacy": {
+          "enabled": false
+        },
         "variable": "discovery_project_id",
         "data_type": "string",
-        "description": "",
-        "initial_value": {
-          "scalar": "6ea2ddb1-aa4a-4878-a5c8-247459d22f27"
-        }
+        "description": ""
       },
       {
         "title": "link",
@@ -1657,6 +1749,7 @@
       }
     ],
     "data_types": [],
+    "collections": [],
     "counterexamples": [],
     "system_settings": {
       "nlp": {
@@ -1676,11 +1769,11 @@
       },
       "spelling_auto_correct": true
     },
-    "learning_opt_out": false
+    "learning_opt_out": true
   },
   "description": "created for assistant 20ef065f-6198-4892-860a-a184e52a2d19",
-  "assistant_id": "7ca897ba-ac3d-45ac-9fe3-5c86a59df89d",
-  "workspace_id": "b9bded36-8ca5-4e17-8a87-4f26e004e229",
+  "assistant_id": "e0abebac-37b3-4421-8746-29105926e12b",
+  "workspace_id": "1a97c220-b557-46dc-a178-bc9acf916e41",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }
