@@ -3,10 +3,10 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-03-08T18:32:52.647Z",
-  "updated": "2023-03-08T20:18:02.685Z",
+  "created": "2023-12-06T18:37:38.146Z",
+  "updated": "2023-12-06T19:37:48.439Z",
   "language": "en",
-  "skill_id": "b9bded36-8ca5-4e17-8a87-4f26e004e229",
+  "skill_id": "1a97c220-b557-46dc-a178-bc9acf916e41",
   "workspace": {
     "actions": [
       {
@@ -18,6 +18,7 @@
               "type": "invoke_another_action_and_end",
               "invoke_action": {
                 "action": "action_1555",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_543_result_1"
               }
@@ -513,6 +514,7 @@
               "type": "invoke_another_action",
               "invoke_action": {
                 "action": "action_14586",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_167_result_1"
               }
@@ -543,6 +545,7 @@
               "type": "invoke_another_action",
               "invoke_action": {
                 "action": "action_14586",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_896_result_1"
               }
@@ -573,6 +576,7 @@
               "type": "invoke_another_action_and_end",
               "invoke_action": {
                 "action": "action_14586",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_249_result_1"
               }
@@ -768,7 +772,7 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "8566081a305e8f8ade4e9bd3887da0600e87948417fc10ba38ee121426f8c50b",
-                  "catalog_item_id": "ca62ae92-447b-44a4-af23-3a239ae8eb2f"
+                  "catalog_item_id": "5419c1ad-c4ae-4b2c-9d3d-f91607724e24"
                 },
                 "request_mapping": {
                   "body": [
@@ -819,6 +823,12 @@
                         "skill_variable": "query_text"
                       },
                       "parameter": "natural_language_query"
+                    },
+                    {
+                      "value": {
+                        "scalar": true
+                      },
+                      "parameter": "passages.per_document"
                     }
                   ],
                   "path": [
@@ -906,6 +916,7 @@
               "type": "invoke_another_action",
               "invoke_action": {
                 "action": "action_20548",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_237_result_2"
               }
@@ -1020,6 +1031,9 @@
           },
           {
             "title": "Searching for: {variable}",
+            "privacy": {
+              "enabled": false
+            },
             "variable": "step_474",
             "data_type": "any"
           },
@@ -1028,6 +1042,9 @@
             "data_type": "any"
           },
           {
+            "privacy": {
+              "enabled": false
+            },
             "variable": "step_474_result_2",
             "data_type": "any"
           },
@@ -1107,6 +1124,7 @@
               "type": "invoke_another_action",
               "invoke_action": {
                 "action": "action_44059",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_001_result_1"
               }
@@ -1597,11 +1615,14 @@
       },
       {
         "title": "discovery_project_id",
+        "privacy": {
+          "enabled": false
+        },
         "variable": "discovery_project_id",
         "data_type": "string",
         "description": "",
         "initial_value": {
-          "scalar": "6ea2ddb1-aa4a-4878-a5c8-247459d22f27"
+          "scalar": "1dd799c5-6db8-4c65-a287-9f1988edeab8"
         }
       },
       {
@@ -1657,6 +1678,7 @@
       }
     ],
     "data_types": [],
+    "collections": [],
     "counterexamples": [],
     "system_settings": {
       "nlp": {
@@ -1676,11 +1698,11 @@
       },
       "spelling_auto_correct": true
     },
-    "learning_opt_out": false
+    "learning_opt_out": true
   },
   "description": "created for assistant 20ef065f-6198-4892-860a-a184e52a2d19",
-  "assistant_id": "7ca897ba-ac3d-45ac-9fe3-5c86a59df89d",
-  "workspace_id": "b9bded36-8ca5-4e17-8a87-4f26e004e229",
+  "assistant_id": "e0abebac-37b3-4421-8746-29105926e12b",
+  "workspace_id": "1a97c220-b557-46dc-a178-bc9acf916e41",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }
