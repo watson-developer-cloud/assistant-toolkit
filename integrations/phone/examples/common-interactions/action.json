@@ -3,10 +3,10 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-05-25T17:12:04.130Z",
-  "updated": "2023-05-30T14:25:36.927Z",
+  "created": "2023-12-11T21:39:24.387Z",
+  "updated": "2023-12-11T21:40:45.528Z",
   "language": "en",
-  "skill_id": "059934e4-3c65-418d-88f0-2b733656ad7c",
+  "skill_id": "971781ef-988c-477b-a0cb-13967daafa67",
   "workspace": {
     "actions": [
       {
@@ -689,6 +689,7 @@
               "type": "invoke_another_action_and_end",
               "invoke_action": {
                 "action": "action_49421",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_351_result_1"
               }
@@ -929,6 +930,7 @@
               "type": "invoke_another_action_and_end",
               "invoke_action": {
                 "action": "action_30651",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_474_result_1"
               }
@@ -1186,6 +1188,7 @@
               "type": "invoke_another_action_and_end",
               "invoke_action": {
                 "action": "fallback",
+                "policy": "default",
                 "parameters": null,
                 "result_variable": "step_002_result_1"
               }
@@ -1622,6 +1625,20 @@
             "output": {
               "generic": [
                 {
+                  "channels": [
+                    {
+                      "channel": "voice_telephony"
+                    }
+                  ],
+                  "command_info": {
+                    "type": "disable_barge_in",
+                    "parameters": {
+                      "update_strategy": "merge"
+                    }
+                  },
+                  "response_type": "text_to_speech"
+                },
+                {
                   "values": [
                     {
                       "text_expression": {
@@ -1656,20 +1673,6 @@
                   "response_type": "speech_to_text"
                 },
                 {
-                  "channels": [
-                    {
-                      "channel": "voice_telephony"
-                    }
-                  ],
-                  "command_info": {
-                    "type": "enable_barge_in",
-                    "parameters": {
-                      "update_strategy": "merge"
-                    }
-                  },
-                  "response_type": "text_to_speech"
-                },
-                {
                   "user_defined": {
                     "vgwAction": {
                       "command": "vgwActSetDisambiguationConfig",
@@ -1702,6 +1705,9 @@
         "variables": [
           {
             "title": "<break time=\"1000ms\"/> Welcome to the **company name** assistant",
+            "privacy": {
+              "enabled": false
+            },
             "variable": "step_001",
             "data_type": "any"
           }
@@ -2000,19 +2006,19 @@
             "action": "action_49421"
           },
           {
-            "action": "action_34880"
-          },
-          {
             "action": "action_15145"
           },
           {
-            "action": "action_26012"
+            "action": "action_34880"
           },
           {
             "action": "action_30651"
           },
           {
             "action": "action_7004"
+          },
+          {
+            "action": "action_26012"
           }
         ]
       }
@@ -2121,8 +2127,9 @@
     "learning_opt_out": true
   },
   "description": "created for assistant bd7b8dba-9d61-4643-aa50-a7ad753783c1",
-  "assistant_id": "17208ada-2350-4a08-8227-c85695387577",
-  "workspace_id": "059934e4-3c65-418d-88f0-2b733656ad7c",
+  "assistant_id": "61787a48-a8f1-483e-82fb-2173b9115b01",
+  "workspace_id": "971781ef-988c-477b-a0cb-13967daafa67",
   "dialog_settings": {},
-  "next_snapshot_version": "1"
+  "next_snapshot_version": "1",
+  "environment_id": "0a971154-50ef-49e1-90da-d09585d66bf4"
 }
