@@ -2,13 +2,13 @@
 
 This starter kit has multiple examples of how to configure language models with IBM watsonx Assistant for conversational search.
 
-1. The first example shows how to use [Elasticsearch search as input to a watsonx model](#example-1-connect-your-assistant-to-watson-discovery-and-watsonx-via-custom-extensions)
-1. The first example shows how to use [Watson Discovery search as input to a watsonx model](#example-1-connect-your-assistant-to-watson-discovery-and-watsonx-via-custom-extensions)
-1. The second example shows how to use [semantic search output as input to a watsonx model](#example-2-connect-your-assistant-to-hugging-face-milvus-and-watsonx-via-custom-extensions)
-1. The third example shows how to use [Watson Discovery search as input to the IBM watsonx tech preview language model](#example-3-connect-your-assistant-to-watson-discovery-and-watsonx-tech-preview-language-model-via-custom-extensions).
-1. The fourth example shows how to use [semantic search output as input to an OpenAI model](#example-4-connect-your-assistant-to-hugging-face-milvus-and-openai-via-custom-extensions)
-1. The fifth example shows how to use [Watson Discovery search as input to an OpenAI model](#example-5-connect-your-assistant-to-watson-discovery-and-openai-via-custom-extensions)
-1. The sixth example shows how to use [Watson Discovery search as input to Google PaLM](#example-6-connect-your-assistant-to-watson-discovery-and-palm-via-custom-extensions)
+1. The first example shows how to use [Elasticsearch search as input to a watsonx model](#example-1-connect-your-assistant-to-elasticsearch-and-watsonx-via-custom-extensions)
+1. The second example shows how to use [Watson Discovery search as input to a watsonx model](#example-2-connect-your-assistant-to-watson-discovery-and-watsonx-via-custom-extensions)
+1. The third example shows how to use [semantic search output as input to a watsonx model](#example-3-connect-your-assistant-to-hugging-face-milvus-and-watsonx-via-custom-extensions)
+1. The fourth example shows how to use [Watson Discovery search as input to the IBM watsonx tech preview language model](#example-4-connect-your-assistant-to-watson-discovery-and-watsonx-tech-preview-language-model-via-custom-extensions).
+1. The fifth example shows how to use [semantic search output as input to an OpenAI model](#example-5-connect-your-assistant-to-hugging-face-milvus-and-openai-via-custom-extensions)
+1. The sixth example shows how to use [Watson Discovery search as input to an OpenAI model](#example-6-connect-your-assistant-to-watson-discovery-and-openai-via-custom-extensions)
+1. The seventh example shows how to use [Watson Discovery search as input to Google PaLM](#example-7-connect-your-assistant-to-watson-discovery-and-palm-via-custom-extensions)
 
 The [prerequisite for a new IBM watsonx Assistant](#prerequisites) applies for all examples.
 

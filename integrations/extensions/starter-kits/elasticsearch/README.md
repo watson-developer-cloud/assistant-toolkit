@@ -10,7 +10,7 @@ need to upgrade to the new IBM watsonx Assistant experience before they can use 
 
 ## Install and set up Elasticsearch
 
-Before starting, you will need to provision a Elasticsearch instance and set up a search index. Please follow the steps 1 - 3 in 
+Before starting, you will need to provision a Elasticsearch instance and set up a search index. Please follow the steps in 
 [elasticsearch-install-and-setup-guide](../../docs/elasticsearch-install-and-setup/ICD_Elasticsearch_install_and_setup.md) for more details.
 
 ## Build a custom extension in watsonx Assistant with Elasticsearch API
