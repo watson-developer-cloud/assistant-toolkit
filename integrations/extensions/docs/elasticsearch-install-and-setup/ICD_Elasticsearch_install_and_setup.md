@@ -129,7 +129,7 @@ ELSER model is not enabled by default, but you can enable it in Kibana. Please f
 
 ### Load data into Elasticsearch
 In Kibana, you can upload a data file to Elasticsearch cluster using the Data Visualizer in the Machine Learning UI http://localhost:5601/app/ml/filedatavisualizer.
-As an example, You can download [wa-docs-100](./resources/datasets/wa_docs_100.tsv) TSV data and upload it to Elasticsearch. In Kibana,
+As an example, You can download [wa-docs-100](./assets/wa_docs_100.tsv) TSV data and upload it to Elasticsearch. In Kibana,
 * Select your downloaded file to upload  
   <img src="assets/upload_file_though_data_visualizer.png" width="463" height="248" />
 * Click `Override settings` and then check `Has header row` checkbox because the example dataset has header row  
