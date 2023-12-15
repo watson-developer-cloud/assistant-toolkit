@@ -30,6 +30,7 @@ Then we have our **additional starter kits**. These focus on showcasing the brea
    - [HubSpot](./starter-kits/hubspot/)
    - [IBM App Connect](./starter-kits/appconnect/)
    - [IBM Watson Discovery](./starter-kits/watson-discovery/)
+   - [Elasticsearch](./starter-kits/elasticsearch)
    - [LLM: IBM watsonx](./starter-kits/language-model-watsonx/)
    - [LLM: IBM watsonx tech preview](./starter-kits/language-model-watsonx-tech-preview/)
    - [LLM: OpenAI](./starter-kits/language-model-openai/)
