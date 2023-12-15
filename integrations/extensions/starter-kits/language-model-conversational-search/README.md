@@ -2,6 +2,7 @@
 
 This starter kit has multiple examples of how to configure language models with IBM watsonx Assistant for conversational search.
 
+1. The first example shows how to use [Elasticsearch search as input to a watsonx model](#example-1-connect-your-assistant-to-watson-discovery-and-watsonx-via-custom-extensions)
 1. The first example shows how to use [Watson Discovery search as input to a watsonx model](#example-1-connect-your-assistant-to-watson-discovery-and-watsonx-via-custom-extensions)
 1. The second example shows how to use [semantic search output as input to a watsonx model](#example-2-connect-your-assistant-to-hugging-face-milvus-and-watsonx-via-custom-extensions)
 1. The third example shows how to use [Watson Discovery search as input to the IBM watsonx tech preview language model](#example-3-connect-your-assistant-to-watson-discovery-and-watsonx-tech-preview-language-model-via-custom-extensions).
@@ -17,7 +18,79 @@ All examples in this starter kit require that you use the [new IBM watsonx Assis
 
 Create a new, empty assistant that you can use to test this starter kit. For more information, see [Adding more assistants](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-assistant-add).
 
-## Example 1: Connect your assistant to Watson Discovery and watsonx via custom extensions
+## Example 1: Connect your assistant to Elasticsearch and watsonx via custom extensions 
+
+This starter kit example shows how to configure your assistant to use Elasticsearch for document search, and then use 
+those search results as input context for a watsonx large language model (LLM). The watsonx LLM generates a natural 
+language answer for the query based on the documents provided by the search.  
+
+Before you start, you need to install and set up your Elasticsearch index. 
+Please refer to [elasticsearch-install-and-setup-guide](../../docs/elasticsearch-install-and-setup/ICD_Elasticsearch_install_and_setup.md) for more details. 
+
+Then follow the steps in the following two sections to configure your custom extensions. 
+
+### Configure Elasticsearch extension 
+Follow the steps [here](../elasticsearch/README.md) to configure the Elasticsearch custom extension
+
+### Configure the watsonx answer generation extension 
+Follow the steps [here](../language-model-watsonx/README.md) to configure watsonx as a custom extension.
+
+### Upload sample actions
+The starter kit includes [a JSON file with these sample actions](./elasticsearch-watsonx-actions.json):  
+
+
+| Action                        | Description                                                                                                                                                                                                                                                                                                  |
+| ----------------------------- |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Search                        | Connects to Elasticsearch to search for documents related to the user query. The "No Action Matches" action has been configured to send all input to this action, so whatever the user enters will be used as the search input. It invokes the "Generate Answer" action to generate a response to the query. |
+| Generate Answer               | Configures the query prompt and document passages resulting from search, and calls the action "Invoke watsonx generation API". It is not meant to be invoked directly, but rather by the "Search" action.                                                                                                    |
+| Invoke watsonx generation API | Connects to watsonx and, using as context the documents resulting from the search, asks the language model to generate an answer to the user query. It is not meant to be invoked directly, but rather by the "Generate Answer" action.                                                                      |
+
+To use the sample actions:
+
+1. **After having configured both extensions**, download the sample actions from this starter kit: [`elasticsearch-watsonx-actions.json`](./elasticsearch-watsonx-actions.json).
+
+1. Use **Actions Global Settings** to upload the JSON file to your assistant. For more information, see [Uploading](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import).
+
+> ⛔️
+> **Caution**
+
+- Please note that you **should not upload** the example actions directly into an _existing_ assistant because doing so will overwrite your existing actions.
+  > Instead:
+  >
+  > - Create a new assistant in the same instance.
+  > - Upload starter kit .json actions files to the new assistant.
+  > - [Copy the actions from the new assistant to your main assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-copy-action)  
+
+- Under "Variables"/"Created by you" (within the Actions page), you must also set `watsonx_project_id` to the [watsonx project id](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html) that you want to use for answer generation.
+
+**NOTE**: If you import the actions _before_ configuring the extensions, you will see some errors on the actions because it could not find the extensions. Simply configure the extensions as described above and re-import the action JSON file.
+
+#### Session variables
+
+Below is a list of the session variables used in this example. Most of them are automatically set with defaults in the sample [elasticsearch-watsonx-actions.json](elasticsearch-watsonx-actions.json), so you do not need to set them yourself unless you want to make changes. You must, however, set `watsonx_project_id` to the [watsonx project id](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html) that you want to use for answer generation.
+
+- `es_model`: the ELSER model that will be used in Elasticsearch inference pipeline when processing a user query
+- `model_id`: The id of the watsonx model that you select for this action. Defaults to `meta-llama/llama-2-70b-chat`. If you keep this default, be sure to comply with the [Acceptable Use Policy for this model](https://ai.meta.com/llama/use-policy/).
+- `model_input`: The input to the watsonx model. This is set in an expression in Step 5 of the "Generate Answer" action. You MAY change that expression to do prompt engineering. If you wish to do so and are using the default model, be sure to research [guidelines for prompting Llama 2](https://www.pinecone.io/learn/llama-2/). In our experience, this combination of prompt and model is quite effective at producing high-quality answers when it has useful content and it does _often_ say that it doesn't know when it does not have useful content (as instructed in our prompt). However, it does _sometimes_ provide answers that are not supported by its evidence so consider other models, prompt expressions, or additional logic to reduce the generation of invalid answers.
+- `model_parameters_max_new_tokens` : The maximum number of new tokens to be generated. Defaults to 300.
+- `model_parameters_min_new_tokens`: The minimum number of the new tokens to be generated. Defaults to 1.
+- `model_parameters_repetition_penalty`: Represents the penalty for penalizing tokens that have already been generated or belong to the context. The range is 1.0 to 2.0 and defaults to 1.1.
+- `model_parameters_stop_sequences`: Stop sequences are one or more strings which will cause the text generation to stop if/when they are produced as part of the output. Stop sequences encountered prior to the minimum number of tokens being generated will be ignored. The list may contain up to 6 strings. Defaults to [].
+  _Note_: For some models, you may want to set this to ["\n\n"] (i.e., stop whenever the model produces a double newline) because that can be a reliable indication that the model is shifting to a new topic. However, that is generally unhelpful for chat models like the one that we're using in this kit, because those models are unlikely to suddenly shift to a new topic. The model we're using in this kit does often include double newlines within a coherent answer, so we don't recommend that setting with this model.
+- `model_parameters_temperature` : The value used to control the next token probabilities. The range is from 0 to 1.00; 0 makes it deterministic.
+- `model_response`: The text generated by the model in response to the model input.
+- `passages` : Concatenation of top search results.
+- `query_body`: The query body that will be sent to Elasticsearch search index. The query body is set and used by the Search action.
+- `query_source`: The query source that will be sent to Elasticsearch search index. The query source is set and used by the Search action.
+- `query_text`: You MAY change this to pass queries to Watson Discovery. By default the Search action passes the user’s input.text directly.
+- `search_results`: Response object from Elasticsearch search query. It is set and used by the Search action.
+- `snippet` : Top results from the Watson Discovery document search.
+- `verbose`: A boolean that will print debugging output if true. Default is false. Note that if you turn this on, you will see the prompt we send to the model rendered as if it were HTML, which looks messy (all the text is crossed out because the start of the prompt is a tag that Llama uses to represent the start of a message but represents strike-through in HTML).
+- `watsonx_api_version` - watsonx api date version. It currently defaults to `2023-05-29`.
+- `watsonx_project_id`: You **MUST** set this value to be [a project ID value from watsonx](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html). By default, this is a [sandbox project id](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/sandbox.html) that is automatically created for you when you sign up for watsonx.ai.
+
+
+## Example 2: Connect your assistant to Watson Discovery and watsonx via custom extensions
 
 This starter kit example shows how to configure your assistant to use Watson Discovery for document search, and then use those search results as input context for a watsonx large language model. The watsonx LLM generates a natural language answer for the query based on the documents provided by the search.
 
@@ -89,13 +162,13 @@ Below is a list of the session variables used in this example. Most of them are 
 - `watsonx_api_version` - watsonx api date version. It currently defaults to `2023-05-29`.
 - `watsonx_project_id`: You **MUST** set this value to be [a project ID value from watsonx](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html). By default, this is a [sandbox project id](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/sandbox.html) that is automatically created for you when you sign up for watsonx.ai.
 
-### Example 1 usage
+### Example 2 usage
 
 Here is an example of how to use the `Search` action for this starter kit conversational search example:
 
 <img src="./assets/discovery-watsonx-sample.png" width="300"/>
 
-## Example 2: Connect your assistant to Hugging Face, Milvus, and watsonx via custom extensions
+## Example 3: Connect your assistant to Hugging Face, Milvus, and watsonx via custom extensions
 
 This example shows how to use Hugging Face to generate query embeddings for semantic search and use those results to generate an answer with watsonx.
 
@@ -179,13 +252,13 @@ These are the session variables used in this example. Most of the values are set
 - `watsonx_api_version` - watsonx api date version. It currently defaults to `2023-05-29`.
 - `watsonx_project_id`: You **MUST** set this value to be [a project ID value from watsonx](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html). By default, this is a [sandbox project id](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/sandbox.html) that is automatically created for you when you sign up for watsonx.ai.
 
-### Example 2 usage
+### Example 3 usage
 
 Here is an example of how to use the `Search` action for this starter kit semantic search example:
 
 <img src="./assets/apr_for_preferred.png" width="300"/>
 
-## Example 3: Connect your assistant to Watson Discovery and watsonx tech preview language model via custom extensions
+## Example 4: Connect your assistant to Watson Discovery and watsonx tech preview language model via custom extensions
 
 Before you upload the sample action for this starter kit, you first need to configure two custom extensions: [watsonx tech preview](../language-model-watsonx-tech-preview/README.md) and [Watson Discovery](../watson-discovery/README.md).
 
@@ -248,7 +321,7 @@ If this does not suit your needs and you want to experiment with different promp
 
 Also, you can modify the `model_id` session variable to control which model is used. You can see which models are available on [the model compatibility page of the watsonx tech preview API](https://workbench.res.ibm.com/docs/models).
 
-### Example 3 usage
+### Example 4 usage
 
 Here is an example of how to use the `Search` action:
 
@@ -264,7 +337,7 @@ SQuAD v2 has a lot of unanswerable questions, so the FLAN prompt for SQuAD v2 mi
 
 SQuAD (including v2) has very concise answers, which could be one of the reasons why FLAN-UL2 is so terse when using SQuAD v2 prompts.
 
-## Example 4: Connect your assistant to Hugging Face, Milvus, and OpenAI via custom extensions
+## Example 5: Connect your assistant to Hugging Face, Milvus, and OpenAI via custom extensions
 
 This example shows how to use Hugging Face to generate query embeddings for semantic search and use those results to generate an answer with the OpenAI model.
 
@@ -328,13 +401,13 @@ If you want to experiment with different prompts, do the following:
 
 You can also modify the `model_for_chat` session variable to control which model is used. This starter kit uses `gpt-3.5-turbo` because it performs well and reasonably fast. You can see the available models on [OpenAI language models](https://platform.openai.com/docs/models).
 
-### Example 4 usage
+### Example 5 usage
 
 Here is an example of how to use the `Search` action for this starter kit semantic search example:
 
 <img src="./assets/apr_for_preferred.png" width="300"/>
 
-## Example 5: Connect your assistant to Watson Discovery and OpenAI via custom extensions
+## Example 6: Connect your assistant to Watson Discovery and OpenAI via custom extensions
 
 This starter kit example shows how to configure your assistant to use Watson Discovery for document search, and then use those search results as input context for an OpenAI large language model. The OpenAI LLM generates a natural language answer for the query based on the documents provided by the search.
 
@@ -390,13 +463,13 @@ Below is a list of the session variables used in this example. Most of them are 
 
 If you want to experiment with different prompts or language models for the OpenAI custom extension, see [these tips](#language-model-1)
 
-### Example 5 usage
+### Example 6 usage
 
 Here is an example of how to use the `Search` action for this starter kit advanced conversational search example:
 
 <img src="./assets/discovery-openai-example.png" width="300"/>
 
-## Example 6: Connect your assistant to Watson Discovery and PaLM via custom extensions
+## Example 7: Connect your assistant to Watson Discovery and PaLM via custom extensions
 
 This starter kit example shows how to configure your assistant to use Watson Discovery for document search, and then use those search results as input context for Google PaLM (Powerful Language Model). The PaLM generates a natural language answer for the query based on the documents provided by the search. The use of the PaLM API in this example was not made in partnership with, sponsorship with, or with endorsement from Google.
 
@@ -452,7 +525,7 @@ However, if you want to experiment and use PaLM's chat language model, which is 
 
 <img src="./assets/discovery-palm-language-model-change-example.png" width="300"/>
 
-### Example 6 usage
+### Example 7 usage
 
 Here is an example of how to use the `Search` action for this starter kit advanced conversational search example:
 
