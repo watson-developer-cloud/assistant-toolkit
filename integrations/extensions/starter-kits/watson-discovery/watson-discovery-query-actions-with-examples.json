@@ -878,6 +878,12 @@
                     },
                     {
                       "value": {
+                        "scalar": true
+                      },
+                      "parameter": "passages.per_document"
+                    },
+                    {
+                      "value": {
                         "expression": "\"mining\""
                       },
                       "parameter": "filter"
@@ -1240,6 +1246,12 @@
                         "skill_variable": "query_text"
                       },
                       "parameter": "natural_language_query"
+                    },
+                    {
+                      "value": {
+                        "scalar": true
+                      },
+                      "parameter": "passages.per_document"
                     }
                   ],
                   "path": [
@@ -1685,6 +1697,12 @@
                         "skill_variable": "query_text"
                       },
                       "parameter": "natural_language_query"
+                    },
+                    {
+                      "value": {
+                        "scalar": true
+                      },
+                      "parameter": "passages.per_document"
                     }
                   ],
                   "path": [
