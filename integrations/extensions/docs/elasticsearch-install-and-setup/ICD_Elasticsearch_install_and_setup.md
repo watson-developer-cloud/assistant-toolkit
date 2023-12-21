@@ -128,8 +128,14 @@ You can find the credentials from the service credentials of your Elasticsearch 
 ELSER model is not enabled by default, but you can enable it in Kibana. Please follow the [download-deploy-elser instructions](https://www.elastic.co/guide/en/machine-learning/8.10/ml-nlp-elser.html#download-deploy-elser) to do it.
 
 ### Load data into Elasticsearch
-In Kibana, you can upload a data file to Elasticsearch cluster using the Data Visualizer in the Machine Learning UI http://localhost:5601/app/ml/filedatavisualizer.
-As an example, You can download [wa-docs-100](./assets/wa_docs_100.tsv) TSV data and upload it to Elasticsearch. In Kibana,
+In Kibana, you can upload a data file to Elasticsearch cluster using the Data Visualizer in the Machine Learning UI http://localhost:5601/app/ml/filedatavisualizer.  
+
+As an example, you can download [wa-docs-100](./assets/wa_docs_100.tsv) TSV data and upload it to Elasticsearch. 
+This dataset contains documents processed from the watsonx Assistant product documents. There are three columns in this TSV file, 
+`title`, `section_title` and `text`. The columns are extracted from the original documents. Specifically, 
+each `text` value is a small chunk of text split from the original document. 
+
+In Kibana,
 * Select your downloaded file to upload  
   <img src="assets/upload_file_though_data_visualizer.png" width="463" height="248" />
 * Click `Override settings` and then check `Has header row` checkbox because the example dataset has header row  

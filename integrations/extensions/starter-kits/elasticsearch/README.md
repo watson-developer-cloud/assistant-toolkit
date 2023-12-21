@@ -15,8 +15,8 @@ Before starting, you will need to provision a Elasticsearch instance and set up 
 
 ## Build a custom extension in watsonx Assistant with Elasticsearch API
 
-* Download the OpenAPI specification [elasticsearch-generic-openapi.json](assets/elasticsearch-generic-openapi.json)
-* Use the OpenAPI specification to [build a custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension), name it `Elasticsearch`
+* Download the OpenAPI specification [elasticsearch-generic-openapi.json](elasticsearch-generic-openapi.json)
+* Use the OpenAPI specification to [build a custom extension](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension#building-the-custom-extension)
 * [Add the extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension)
   * Choose Draft or Live environment to add your extension (use Draft for testing and verification)
   * Configure the authentication with your Elasticsearch credentials 
@@ -25,16 +25,37 @@ Before starting, you will need to provision a Elasticsearch instance and set up 
   * In the first conversation step `No action matches count <= 3`, choose `use a extension`, 
   * Choose your Elasticsearch extension, and choose the operation, and then specify the index name and query body. For example,  
     <img src="assets/use_elasticsearch_custom_extension.png" width="669" height="627" />
-  * You can set `query_body` as a session variable. The following is a query body example for semantic search with ELSER enabled:  
-    ```json
-    {
-      "text_expansion":{
-        "ml.tokens":{
-          "model_id":".elser_model_1",
-          "model_text":"how to set up a custom extension?"
+  * You can set `query_body` as a session variable. The following are query body examples for different types of queries:
+    * Semantic search with ELSER enabled
+      ```json
+      {
+        "text_expansion":{
+          "ml.tokens":{
+            "model_id":".elser_model_1",
+            "model_text":"how to set up a custom extension?"
+          }
         }
       }
-    }
-    ```
+      ```
+    * Basic keyword search
+      ```json
+      {
+        "query":{
+          "query_string":{
+            "query":"how to set up a custom extension?"
+          }
+        }
+      }
+      ```
+    * Compound search  
+      You can combine different types of queries in a compound query. Learn more about it from this [Elasticsearch tutorial](https://www.elastic.co/guide/en/elasticsearch/reference/8.10/semantic-search-elser.html#text-expansion-compound-query).
   * Try typing in anything in your preview chat to trigger `No action matches` action. 
     If you see a successful extension call with valid response in the debug view, your Elasticsearch custom extension has been set up successfully.
+
+Note: This kit does not provide a sample actions json file that shows how to use the kit in a real assistant. 
+There is a simple example that shows how to setup your `No Action Matches` action to call the search on a single fixed query, 
+but no instructions for making it work with user queries. The reason we have left this out is that most of the interest 
+we've been seeing lately has not been from plain search but rather from search combined with generative AI to produce 
+concise answers, which is sometimes called [retrieval-augmented generation (RAG)](https://research.ibm.com/blog/retrieval-augmented-generation-RAG) or conversational search. 
+We have sample actions for doing this with Elasticsearch in our [conversational search starter kit](../language-model-conversational-search/README.md#example-1-connect-your-assistant-to-elasticsearch-and-watsonx-via-custom-extensions). That kit builds on 
+this one and adds a connection to watsonx.ai to generate answers from the search results.

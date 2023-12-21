@@ -1904,7 +1904,7 @@
         "data_type": "boolean",
         "description": "Prints debug output when true",
         "initial_value": {
-          "scalar": true
+          "scalar": false
         }
       },
       {
@@ -1923,10 +1923,7 @@
         },
         "variable": "watsonx_project_id",
         "data_type": "any",
-        "description": "You MUST set this to your watsonx project id",
-        "initial_value": {
-          "scalar": "4367b0a2-0533-4b92-a745-d892fd42e7af"
-        }
+        "description": "You MUST set this to your watsonx project id"
       }
     ],
     "data_types": [],

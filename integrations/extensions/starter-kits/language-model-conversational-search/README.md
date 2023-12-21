@@ -69,7 +69,7 @@ To use the sample actions:
 
 Below is a list of the session variables used in this example. Most of them are automatically set with defaults in the sample [elasticsearch-watsonx-actions.json](elasticsearch-watsonx-actions.json), so you do not need to set them yourself unless you want to make changes. You must, however, set `watsonx_project_id` to the [watsonx project id](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html) that you want to use for answer generation.
 
-- `es_model`: the ELSER model that will be used in Elasticsearch inference pipeline when processing a user query
+- `es_model`: the ELSER model that will be used in Elasticsearch inference pipeline when processing a user query. It will be `.elser_model_1` for ELSER v1 and `.elser_model_2` for ELSER v2. We use ELSER v1 by default for this setup and ELSER v2 model will require a different query body.
 - `model_id`: The id of the watsonx model that you select for this action. Defaults to `meta-llama/llama-2-70b-chat`. If you keep this default, be sure to comply with the [Acceptable Use Policy for this model](https://ai.meta.com/llama/use-policy/).
 - `model_input`: The input to the watsonx model. This is set in an expression in Step 5 of the "Generate Answer" action. You MAY change that expression to do prompt engineering. If you wish to do so and are using the default model, be sure to research [guidelines for prompting Llama 2](https://www.pinecone.io/learn/llama-2/). In our experience, this combination of prompt and model is quite effective at producing high-quality answers when it has useful content and it does _often_ say that it doesn't know when it does not have useful content (as instructed in our prompt). However, it does _sometimes_ provide answers that are not supported by its evidence so consider other models, prompt expressions, or additional logic to reduce the generation of invalid answers.
 - `model_parameters_max_new_tokens` : The maximum number of new tokens to be generated. Defaults to 300.
@@ -89,6 +89,13 @@ Below is a list of the session variables used in this example. Most of them are 
 - `watsonx_api_version` - watsonx api date version. It currently defaults to `2023-05-29`.
 - `watsonx_project_id`: You **MUST** set this value to be [a project ID value from watsonx](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html). By default, this is a [sandbox project id](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/sandbox.html) that is automatically created for you when you sign up for watsonx.ai.
 
+### Example 1 usage:
+
+Here is an example of how to use the `Search` action for this starter kit conversational search example:  
+
+<img src="./assets/elasticsearch-watsonx-example.png" width="300"/>  
+
+Note: In this example, we have preprocessed the documents before ingesting them into Elasticsearch.  
 
 ## Example 2: Connect your assistant to Watson Discovery and watsonx via custom extensions
 
