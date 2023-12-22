@@ -20,7 +20,8 @@ This is a documentation about how to set up Elasticsearch from IBM Cloud and cre
 
 
 ## Step 2: Set up Kibana to connect to Elasticsearch
-* Install [Docker](https://www.docker.com/) so that you can pull the Kibana container image later.
+* Install [Docker](https://www.docker.com/) so that you can pull the Kibana container image later. 
+You can install [Colima](https://github.com/abiosoft/colima) instead if you don't want to use Docker Desktop and are on Linux/macOS.
 * Create a kibana config folder, for example
   `mkdir -p ~/.kibana/config`
 * Download the certificate from the Elasticsearch instance overview page, and move the downloaded file to the kibana config folder
