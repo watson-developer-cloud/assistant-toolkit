@@ -61,7 +61,10 @@ To use the sample actions:
   > - Upload starter kit .json actions files to the new assistant.
   > - [Copy the actions from the new assistant to your main assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-copy-action)  
 
-- Under "Variables"/"Created by you" (within the Actions page), you must also set `watsonx_project_id` to the [watsonx project id](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html) that you want to use for answer generation.
+> ⛔️
+> **Caution**
+
+- Under "Variables"/"Created by you" (within the Actions page), you must set `watsonx_project_id` to the [watsonx project id](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html) that you want to use for answer generation.
 
 **NOTE**: If you import the actions _before_ configuring the extensions, you will see some errors on the actions because it could not find the extensions. Simply configure the extensions as described above and re-import the action JSON file.
 
@@ -95,7 +98,9 @@ Here is an example of how to use the `Search` action for this starter kit conver
 
 <img src="./assets/elasticsearch-watsonx-example.png" width="300"/>  
 
-Note: In this example, we have preprocessed the documents before ingesting them into Elasticsearch.  
+**NOTE**: In this example, we have preprocessed the sample documents before ingesting them into Elasticsearch. 
+Each document contains a small chunk of text split from the original documents. You may want to do the same for your documents, 
+so that each document in the search results is short, and the prompt text to the LLM will not be too long. 
 
 ## Example 2: Connect your assistant to Watson Discovery and watsonx via custom extensions
 

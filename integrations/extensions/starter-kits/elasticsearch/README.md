@@ -40,19 +40,17 @@ Before starting, you will need to provision a Elasticsearch instance and set up 
     * Basic keyword search
       ```json
       {
-        "query":{
-          "query_string":{
-            "query":"how to set up a custom extension?"
-          }
+        "query_string":{
+          "query":"how to set up a custom extension?"
         }
       }
       ```
     * Compound search  
       You can combine different types of queries in a compound query. Learn more about it from this [Elasticsearch tutorial](https://www.elastic.co/guide/en/elasticsearch/reference/8.10/semantic-search-elser.html#text-expansion-compound-query).
   * Try typing in anything in your preview chat to trigger `No action matches` action. 
-    If you see a successful extension call with valid response in the debug view, your Elasticsearch custom extension has been set up successfully.
+    If you see a successful extension call with valid response in the Extension Inspector, your Elasticsearch custom extension has been set up successfully.
 
-Note: This kit does not provide a sample actions json file that shows how to use the kit in a real assistant. 
+**NOTE**: This kit does not provide a sample actions json file that shows how to use the kit in a real assistant. 
 There is a simple example that shows how to setup your `No Action Matches` action to call the search on a single fixed query, 
 but no instructions for making it work with user queries. The reason we have left this out is that most of the interest 
 we've been seeing lately has not been from plain search but rather from search combined with generative AI to produce 
