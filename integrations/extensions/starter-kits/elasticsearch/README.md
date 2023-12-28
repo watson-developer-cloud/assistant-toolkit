@@ -26,7 +26,15 @@ Before starting, you will need to provision a Elasticsearch instance and set up 
   * Choose your Elasticsearch extension, and choose the operation, and then specify the index name and query body. For example,  
     <img src="assets/use_elasticsearch_custom_extension.png" width="669" height="627" />
   * You can set `query_body` as a session variable. The following are query body examples for different types of queries:
-    * Semantic search with ELSER enabled
+    * Basic keyword search
+      ```json
+      {
+        "query_string":{
+          "query":"how to set up a custom extension?"
+        }
+      }
+      ```
+    * Semantic search with ELSER v1
       ```json
       {
         "text_expansion":{
@@ -37,14 +45,20 @@ Before starting, you will need to provision a Elasticsearch instance and set up 
         }
       }
       ```
-    * Basic keyword search
-      ```json
+      NOTE: Learn more about ELSER v1 from [here](https://www.elastic.co/guide/en/elasticsearch/reference/8.10/semantic-search-elser.html) 
+    * Semantic search with ELSER v2
+    ```json
       {
-        "query_string":{
-          "query":"how to set up a custom extension?"
-        }
+        "text_expansion": {
+          "content_embedding": {
+            "model_id": ".elser_model_2",
+            "model_text": "how to set up a custom extension?"
+          }
+         }
       }
       ```
+    NOTE: Learn more about ELSER v2 from [here](https://www.elastic.co/guide/en/elasticsearch/reference/8.11/semantic-search-elser.html). 
+    ELSER v2 is only available for the 8.11 version of Elasticsearch
     * Compound search  
       You can combine different types of queries in a compound query. Learn more about it from this [Elasticsearch tutorial](https://www.elastic.co/guide/en/elasticsearch/reference/8.10/semantic-search-elser.html#text-expansion-compound-query).
   * Try typing in anything in your preview chat to trigger `No action matches` action. 
