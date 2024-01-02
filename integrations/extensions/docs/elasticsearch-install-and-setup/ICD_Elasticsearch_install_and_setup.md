@@ -48,7 +48,7 @@ You can install [Colima](https://github.com/abiosoft/colima) instead if you don'
 
 * Download and start the Kibana container
   ```bash
-  docker container run -it --name kibana \
+  docker run -it --name kibana --rm \
   -v <path_to_your_kibana_config_folder>:/usr/share/kibana/config \
   -p 5601:5601 docker.elastic.co/kibana/kibana:<kibana_version>
   ```
@@ -61,11 +61,6 @@ You can install [Colima](https://github.com/abiosoft/colima) instead if you don'
   log   [01:19:32.147] [info][status][plugin:metrics@<kibana_version>] Status changed from uninitialized to green - Ready
   log   [01:19:33.132] [info][status][plugin:elasticsearch@<kibana_version>] Status changed from yellow to green - Ready
   log   [01:19:33.378] [info][listening] Server running at http://0.0.0.0:5601
-  ```
-  Once the container is running, you can stop it by `Control + C` and restart it by the following docker command:
-  ```bash
-  # Start kibana
-  docker start -i kibana
   ```
 
 ## Step 3: Create an Elasticsearch index (keyword-search)
