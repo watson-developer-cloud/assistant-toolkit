@@ -93,22 +93,20 @@ Below is a list of the session variables used in this example. Most of them are 
 - `watsonx_project_id`: You **MUST** set this value to be [a project ID value from watsonx](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html). By default, this is a [sandbox project id](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/sandbox.html) that is automatically created for you when you sign up for watsonx.ai.
 
 NOTE: `query_body` will be used as the value of the query parameter in the request body for the Elasticsearch Search API. 
-Depending on the type of search query, you may need to use different forms of `query_body`. You also need to use the 
-correct fields in the `query_body` when using ELSER model for semantic search. In the [smaple actions JSON](./elasticsearch-watsonx-actions.json), 
-a default `query_body` like below is set to work with the sample data using ELSER v1 model. 
+Depending on the type of search query, you may need to use different forms of `query_body`. You can find some `query_body` examples [here](../elasticsearch/README.md#build-a-custom-extension-in-watsonx-assistant-with-elasticsearch-api). 
+You also need to use the correct fields in the `query_body` when using ELSER model for semantic search. In the [smaple actions JSON](./elasticsearch-watsonx-actions.json), 
+a default `query_body` like below is set to work with the sample data and index using ELSER v1 model. 
 ```json
-      {
-        "text_expansion":{
-          "ml.tokens":{
-            "model_id":"$es_model",
-            "model_text":"$query_text"
-          }
-        }
-      }
+{
+  "text_expansion":{
+    "ml.tokens":{
+      "model_id":"$es_model",
+      "model_text":"$query_text"
+    }
+  }
+}
 ```
-`ml.tokens` is the ELSER output filed. You will need to change it if your ELSER output field is different.  
-You can find some `query_body` examples [here](../elasticsearch/README.md#build-a-custom-extension-in-watsonx-assistant-with-elasticsearch-api)
-
+`ml.tokens` is the ELSER output field. You will need to change it if your ELSER output field is different.
 
 ### Example 1 usage:
 
