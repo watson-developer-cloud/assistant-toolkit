@@ -1,0 +1,414 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "The WA2WD Upload Service API",
+    "version": "1.0.0",
+    "description": "",
+    "contact": {}
+  },
+  "servers": [
+    {
+      "url": "https://{host}:{port}",
+      "description": "WA2WD API server",
+      "variables": {
+        "host": {
+          "default": "",
+          "description": "Hostname of the API server"
+        },
+        "port": {
+          "default": "443",
+          "description": "Port of the API server"
+        }
+      }
+    },
+    {
+      "url": "https://{ngrok_id}.ngrok.app",
+      "description": "WA2WD API server (via ngrok)",
+      "variables": {
+        "ngrok_id": {
+          "default": "",
+          "description": "ngrok url prefix"
+        }
+      }
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/upload": {
+      "post": {
+        "tags": [
+          "API"
+        ],
+        "summary": "Upload to WD",
+        "description": "Upload document to Watson Discovery",
+        "operationId": "upload",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "attachments": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "description": "URL of the uploaded file"
+                        },
+                        "media_type": {
+                          "type": "string",
+                          "description": "MIME type of the uploaded file"
+                        }
+                      }
+                    }
+                  },
+                  "session_id": {
+                    "type": "string",
+                    "description": "Session ID"
+                  }
+                },
+                "required": [
+                  "attachments"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "session_id": {
+                      "type": "string",
+                      "example": "abcd-1234-efgh-5678"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Files uploaded successfully."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Authentication required."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/docs_status": {
+      "post": {
+        "tags": [
+          "API"
+        ],
+        "summary": "List documents",
+        "description": "List documents uploaded",
+        "operationId": "docs_status",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "session_id": {
+                    "type": "string",
+                    "description": "Session ID"
+                  }
+                },
+                "required": [
+                  "session_id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "documents": {
+                      "type": "object",
+                      "properties": {
+                        "document_id": {
+                          "type": "object",
+                          "properties": {
+                            "file_index": {
+                              "type": "integer",
+                              "example": 1
+                            },
+                            "file_name": {
+                              "type": "string",
+                              "example": "sample.pdf"
+                            },
+                            "wd_status": {
+                              "type": "string",
+                              "example": "pending"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "session_id": {
+                      "type": "string",
+                      "example": "abcd-1234-efgh-5678"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Here are the files available in our conversation:..."
+                    },
+                    "options": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "example": "1. sample.pdf"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Authentication required."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/summarize": {
+      "post": {
+        "tags": [
+          "API"
+        ],
+        "summary": "Summarize file content",
+        "description": "Summarize file content",
+        "operationId": "summarize",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file_index": {
+                    "type": "string",
+                    "description": "URL of the uploaded file"
+                  },
+                  "session_id": {
+                    "type": "string",
+                    "description": "Session ID"
+                  }
+                },
+                "required": [
+                  "file_index",
+                  "session_id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "session_id": {
+                      "type": "string",
+                      "example": "abcd-1234-efgh-5678"
+                    },
+                    "summary": {
+                      "type": "string",
+                      "example": "This is a summary of the document."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Authentication required."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search_in_doc": {
+      "post": {
+        "tags": [
+          "API"
+        ],
+        "summary": "Search in document",
+        "description": "Search in document",
+        "operationId": "summarize",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file_index": {
+                    "type": "string",
+                    "description": "URL of the uploaded file"
+                  },
+                  "query": {
+                    "type": "string",
+                    "description": "Query to search"
+                  },
+                  "session_id": {
+                    "type": "string",
+                    "description": "Session ID"
+                  }
+                },
+                "required": [
+                  "file_index",
+                  "query",
+                  "session_id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "success response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "session_id": {
+                      "type": "string",
+                      "example": "abcd-1234-efgh-5678"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "example": "This is a result of the search."
+                      }
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "I found the following results for your query:..."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Authentication required."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "API"
+    }
+  ]
+}
