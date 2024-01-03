@@ -20,8 +20,17 @@ This is a documentation about how to set up Elasticsearch from IBM Cloud and cre
 
 
 ## Step 2: Set up Kibana to connect to Elasticsearch
-* Install [Docker](https://www.docker.com/) so that you can pull the Kibana container image later. 
-You can install [Colima](https://github.com/abiosoft/colima) instead if you don't want to use Docker Desktop and are on Linux/macOS.
+* Install Docker so that you can pull the Kibana container image later
+  * You can install [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+  * If you don't want to use Docker Desktop, 
+    * For MacOS users, you can install [Colima](https://github.com/abiosoft/colima#installation) as an alternative
+    ```shell
+    brew install docker
+    brew install colima
+    
+    colima start
+    ```
+    * Other options: [Podman Desktop](https://podman-desktop.io/), [Rancher Desktop](https://docs.rancherdesktop.io/getting-started/installation/)
 * Create a kibana config folder, for example
   `mkdir -p ~/.kibana/config`
 * Download the certificate from the Elasticsearch instance overview page, and move the downloaded file to the kibana config folder
@@ -54,13 +63,8 @@ You can install [Colima](https://github.com/abiosoft/colima) instead if you don'
   ```
   Once Kibana has connected to your Databases for Elasticsearch deployment and is running successfully, you will see the output in your terminal.
   ```
-  log   [01:19:31.839] [info][status][plugin:<kibana_version>] Status changed from uninitialized to green - Ready
-  log   [01:19:31.925] [info][status][plugin:elasticsearch@<kibana_version>] Status changed from uninitialized to yellow - Waiting for Elasticsearch
-  log   [01:19:32.120] [info][status][plugin:timelion@<kibana_version>] Status changed from uninitialized to green - Ready
-  log   [01:19:32.134] [info][status][plugin:console@<kibana_version>] Status changed from uninitialized to green - Ready
-  log   [01:19:32.147] [info][status][plugin:metrics@<kibana_version>] Status changed from uninitialized to green - Ready
-  log   [01:19:33.132] [info][status][plugin:elasticsearch@<kibana_version>] Status changed from yellow to green - Ready
-  log   [01:19:33.378] [info][listening] Server running at http://0.0.0.0:5601
+  [2024-01-02T16:43:29.378+00:00][INFO ][http.server.Kibana] http server running at http://0.0.0.0:5601
+  [2024-01-02T16:46:13.777+00:00][INFO ][status] Kibana is now available
   ```
 
 ## Step 3: Create an Elasticsearch index (keyword-search)
@@ -82,25 +86,12 @@ With default settings, an Elasticsearch index does keyword search.
 
 ## Step 4: Set up Watson Assistant search extension using Elasticsearch index
 * Provision a Watson Assistant instance from the [IBM cloud catalog](https://cloud.ibm.com/catalog/services/watsonx-assistant)
-* Create a new Assistant in the new experience
-* Add a Search extension to your Assistant
-    * Find the Search extension on the Integrations page. Please refer to https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension for more details
-    * Choose Draft environment and Elasticsearch (Es)
-    * Find the credentials from the ICD instance service credentials page
-        * `Elasticsearch index` is the name of your index from the previous step
-        * `Elasticsearch url` must start with the `https://` protocol
-        * For example:  
-          <img src="assets/connect_to_elasticsearch_index.png" width="565" height="409" />
-    * In the next step to `Configure result content`, use valid Elasticsearch document fields to config `name`, `body` and `url`, for example:  
-      <img src="assets/config_result_content.png" width="530" height="360" />  
-      Note: `author` and `name` are two fields from the documents in the index created from the previous step. They will be presented in the search result or used by Conversational Search.
-
-* Use the Search extension for `No action matches` scenario
-    * Find the `No action matches` action under `Set by assistant` from the Actions menu
-    * In the first conversation step `No action matches count <= 3`, choose `Search for the answer` at the `And then` settings, for example:  
-      <img src="assets/search_for_the_answer.png" width="629" height="286" />
+* Create a new Assistant in the new experience 
+* Add a Search extension to your Assistant  
+  Please follow the [Elasticsearch search integration set up](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-search-elasticsearch-add) documentation.  
 
 * Verify the Search extension
+  If you have used your index created at Step 3 to set up the Search integration, you can verify it by the following examples:
     * Verify the basic search  
       In your preview chat or draft webchat, type in `Who wrote 1984?`. If you see the Elasticsearch search results, your search extension has been set up successfully.  
       <img src="assets/wa_elasticsearch_result.png" width="280" height="343" />
