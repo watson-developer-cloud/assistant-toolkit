@@ -88,9 +88,9 @@ With default settings, an Elasticsearch index does keyword search.
 * Provision a Watson Assistant instance from the [IBM cloud catalog](https://cloud.ibm.com/catalog/services/watsonx-assistant)
 * Create a new Assistant in the new experience 
 * Add a Search extension to your Assistant  
-  Please follow the [Elasticsearch search integration set up](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-search-elasticsearch-add) documentation.  
+  Please follow the [Elasticsearch search integration set up](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-search-elasticsearch-add) documentation for more details.  
 
-* Verify the Search extension
+* Verify the Search extension  
   If you have used your index created at Step 3 to set up the Search integration, you can verify it by the following examples:
     * Verify the basic search  
       In your preview chat or draft webchat, type in `Who wrote 1984?`. If you see the Elasticsearch search results, your search extension has been set up successfully.  
