@@ -1,0 +1,161 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Custom Search Elastic",
+    "description": "Elastic Search API unofficial partial spec from IBM.  We made this by running the API and observing the behavior. This spec is a minimal starting point that can handle some basic use cases.",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://{elastic_url}",
+      "description": "The Elasticsearch URL as specified in the Overview page within Endpoints -> HTTPS tab on your IBM Cloud Database ICD Elastic Instance",
+      "variables": {
+        "elastic_url": {
+          "default": "abc.databases.appdomain.cloud:31682",
+          "description": "The portions of the Elasticsearch URL that follow https://"
+        }
+      }
+    }
+
+  ],
+  "paths": {
+    "/{index_name}/_search": {
+      "post": {
+        "parameters": [
+          {
+            "name": "index_name",
+            "in": "path",
+            "description": "Name of the index",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "description": "Search request to Elasticsearch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "_source": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "size": {
+                    "type": "integer"
+                  },
+                  "query": {
+                    "type": "object"
+                  }
+                }
+              },
+              "example": {
+                "query": {
+                  "text_expansion": {
+                    "ml.tokens": {
+                      "model_id": ".elser_model_1",
+                      "model_text": "tell me about a custom extension"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Search results returned by Elastic",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "took": {
+                      "type": "integer"
+                    },
+                    "timed_out": {
+                      "type": "boolean"
+                    },
+                    "_shards": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "integer"
+                        },
+                        "successful": {
+                          "type": "integer"
+                        },
+                        "skipped": {
+                          "type": "integer"
+                        },
+                        "failed": {
+                          "type": "integer"
+                        }
+                      }
+                    },
+                    "hits": {
+                      "type": "object",
+                      "properties": {
+                        "max_score": {
+                          "type": "integer"
+                        },
+                        "hits": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "_id": {
+                                "type": "string"
+                              },
+                              "_score": {
+                                "type": "number"
+                              },
+                              "_index": {
+                                "type": "string"
+                              },
+                              "_source": {
+                                "type": "object",
+                                "properties": {
+                                  "section_title": {
+                                    "type": "string"
+                                  },
+                                  "text": {
+                                    "type": "string"
+                                  },
+                                  "title": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "basicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    }
+  }
+}
