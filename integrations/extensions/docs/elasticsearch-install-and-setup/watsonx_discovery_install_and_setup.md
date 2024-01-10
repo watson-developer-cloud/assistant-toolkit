@@ -393,4 +393,4 @@ NOTE: Learn more about [text-expansion-query](https://www.elastic.co/guide/en/el
 
 * Provision a watsonx Assistant instance in your CloudPak cluster
 
-* Follow the instructions [here](../../starter-kits/elasticsearch/README.md#build-a-custom-extension-in-watsonx-assistant-with-elasticsearch-api) to build a custom extension with Elasticsearch in watsonx Assistant 
+* Follow the instructions to [build a custom extension in watsonx Assistant with Elasticsearch API](../../starter-kits/elasticsearch/README.md#build-a-custom-extension-in-watsonx-assistant-with-elasticsearch-api)
