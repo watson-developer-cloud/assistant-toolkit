@@ -277,7 +277,7 @@
             },
             "variable": "step_901",
             "condition": {
-              "expression": "${step_902_result_1}.status != 200"
+              "expression": "${step_902_result_1}.status != 201"
             }
           },
           {
@@ -382,7 +382,7 @@
             },
             "variable": "step_989",
             "condition": {
-              "expression": "${step_902_result_1}.status == 200"
+              "expression": "${step_902_result_1}.status == 201"
             },
             "next_step": "step_901"
           }
@@ -822,23 +822,12 @@
           {
             "type": "synonyms",
             "value": "No",
-            "synonyms": [
-              "nay",
-              "negative",
-              "nope",
-              "not"
-            ]
+            "synonyms": ["nay", "negative", "nope", "not"]
           },
           {
             "type": "synonyms",
             "value": "Yes",
-            "synonyms": [
-              "positive",
-              "sure",
-              "yea",
-              "yeah",
-              "yup"
-            ]
+            "synonyms": ["positive", "sure", "yea", "yeah", "yup"]
           }
         ]
       }
