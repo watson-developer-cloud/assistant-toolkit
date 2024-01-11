@@ -6,9 +6,8 @@ This starter kit has multiple examples of how to configure language models with 
 1. The second example shows how to use [Watson Discovery search as input to a watsonx model](#example-2-connect-your-assistant-to-watson-discovery-and-watsonx-via-custom-extensions)
 1. The third example shows how to use [semantic search output as input to a watsonx model](#example-3-connect-your-assistant-to-hugging-face-milvus-and-watsonx-via-custom-extensions)
 1. The fourth example shows how to use [Watson Discovery search as input to the IBM watsonx tech preview language model](#example-4-connect-your-assistant-to-watson-discovery-and-watsonx-tech-preview-language-model-via-custom-extensions).
-1. The fifth example shows how to use [semantic search output as input to an OpenAI model](#example-5-connect-your-assistant-to-hugging-face-milvus-and-openai-via-custom-extensions)
-1. The sixth example shows how to use [Watson Discovery search as input to an OpenAI model](#example-6-connect-your-assistant-to-watson-discovery-and-openai-via-custom-extensions)
-1. The seventh example shows how to use [Watson Discovery search as input to Google PaLM](#example-7-connect-your-assistant-to-watson-discovery-and-palm-via-custom-extensions)
+1. The fifth example shows how to use [Watson Discovery search as input to an OpenAI model](#example-5-connect-your-assistant-to-watson-discovery-and-openai-via-custom-extensions)
+1. The sixth example shows how to use [Watson Discovery search as input to Google PaLM](#example-6-connect-your-assistant-to-watson-discovery-and-palm-via-custom-extensions)
 
 The [prerequisite for a new IBM watsonx Assistant](#prerequisites) applies for all examples.
 
@@ -18,29 +17,31 @@ All examples in this starter kit require that you use the [new IBM watsonx Assis
 
 Create a new, empty assistant that you can use to test this starter kit. For more information, see [Adding more assistants](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-assistant-add).
 
-## Example 1: Connect your assistant to Elasticsearch and watsonx via custom extensions 
+## Example 1: Connect your assistant to Elasticsearch and watsonx via custom extensions
 
-This starter kit example shows how to configure your assistant to use Elasticsearch for document search, and then use 
-those search results as input context for a watsonx large language model (LLM). The watsonx LLM generates a natural 
-language answer for the query based on the documents provided by the search.  
+This starter kit example shows how to configure your assistant to use Elasticsearch for document search, and then use
+those search results as input context for a watsonx large language model (LLM). The watsonx LLM generates a natural
+language answer for the query based on the documents provided by the search.
 
-Before you start, you need to install and set up your Elasticsearch index. 
-Please refer to [elasticsearch-install-and-setup-guide](../../docs/elasticsearch-install-and-setup/ICD_Elasticsearch_install_and_setup.md) for more details. 
+Before you start, you need to install and set up your Elasticsearch index.
+Please refer to [elasticsearch-install-and-setup-guide](../../docs/elasticsearch-install-and-setup/ICD_Elasticsearch_install_and_setup.md) for more details.
 
-Then follow the steps in the following two sections to configure your custom extensions. 
+Then follow the steps in the following two sections to configure your custom extensions.
 
-### Configure Elasticsearch extension 
+### Configure Elasticsearch extension
+
 Follow the steps [here](../elasticsearch/README.md) to configure the Elasticsearch custom extension
 
-### Configure the watsonx answer generation extension 
+### Configure the watsonx answer generation extension
+
 Follow the steps [here](../language-model-watsonx/README.md) to configure watsonx as a custom extension.
 
 ### Upload sample actions
-The starter kit includes [a JSON file with these sample actions](./elasticsearch-watsonx-actions.json):  
 
+The starter kit includes [a JSON file with these sample actions](./elasticsearch-watsonx-actions.json):
 
 | Action                        | Description                                                                                                                                                                                                                                                                                                  |
-| ----------------------------- |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Search                        | Connects to Elasticsearch to search for documents related to the user query. The "No Action Matches" action has been configured to send all input to this action, so whatever the user enters will be used as the search input. It invokes the "Generate Answer" action to generate a response to the query. |
 | Generate Answer               | Configures the query prompt and document passages resulting from search, and calls the action "Invoke watsonx generation API". It is not meant to be invoked directly, but rather by the "Search" action.                                                                                                    |
 | Invoke watsonx generation API | Connects to watsonx and, using as context the documents resulting from the search, asks the language model to generate an answer to the user query. It is not meant to be invoked directly, but rather by the "Generate Answer" action.                                                                      |
@@ -59,7 +60,7 @@ To use the sample actions:
   >
   > - Create a new assistant in the same instance.
   > - Upload starter kit .json actions files to the new assistant.
-  > - [Copy the actions from the new assistant to your main assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-copy-action)  
+  > - [Copy the actions from the new assistant to your main assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-copy-action)
 
 > ⛔️
 > **Caution**
@@ -92,31 +93,33 @@ Below is a list of the session variables used in this example. Most of them are 
 - `watsonx_api_version` - watsonx api date version. It currently defaults to `2023-05-29`.
 - `watsonx_project_id`: You **MUST** set this value to be [a project ID value from watsonx](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html). By default, this is a [sandbox project id](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/sandbox.html) that is automatically created for you when you sign up for watsonx.ai.
 
-NOTE: `query_body` will be used as the value of the query parameter in the request body for the Elasticsearch Search API. 
-Depending on the type of search query, you may need to use different forms of `query_body`. You can find some `query_body` examples [here](../elasticsearch/README.md#build-a-custom-extension-in-watsonx-assistant-with-elasticsearch-api). 
-You also need to use the correct fields in the `query_body` when using ELSER model for semantic search. In the [smaple actions JSON](./elasticsearch-watsonx-actions.json), 
-a default `query_body` like below is set to work with the sample data and index using ELSER v1 model. 
+NOTE: `query_body` will be used as the value of the query parameter in the request body for the Elasticsearch Search API.
+Depending on the type of search query, you may need to use different forms of `query_body`. You can find some `query_body` examples [here](../elasticsearch/README.md#build-a-custom-extension-in-watsonx-assistant-with-elasticsearch-api).
+You also need to use the correct fields in the `query_body` when using ELSER model for semantic search. In the [smaple actions JSON](./elasticsearch-watsonx-actions.json),
+a default `query_body` like below is set to work with the sample data and index using ELSER v1 model.
+
 ```json
 {
-  "text_expansion":{
-    "ml.tokens":{
-      "model_id":"$es_model",
-      "model_text":"$query_text"
+  "text_expansion": {
+    "ml.tokens": {
+      "model_id": "$es_model",
+      "model_text": "$query_text"
     }
   }
 }
 ```
+
 `ml.tokens` is the ELSER output field. You will need to change it if your ELSER output field is different.
 
 ### Example 1 usage:
 
-Here is an example of how to use the `Search` action for this starter kit conversational search example:  
+Here is an example of how to use the `Search` action for this starter kit conversational search example:
 
-<img src="./assets/elasticsearch-watsonx-example.png" width="300"/>  
+<img src="./assets/elasticsearch-watsonx-example.png" width="300"/>
 
-**NOTE**: In this example, we have preprocessed the sample documents before ingesting them into Elasticsearch. 
-Each document contains a small chunk of text split from the original documents. You may want to do the same for your documents, 
-so that each document in the search results is short, and the prompt text to the LLM will not be too long. 
+**NOTE**: In this example, we have preprocessed the sample documents before ingesting them into Elasticsearch.
+Each document contains a small chunk of text split from the original documents. You may want to do the same for your documents,
+so that each document in the search results is short, and the prompt text to the LLM will not be too long.
 
 ## Example 2: Connect your assistant to Watson Discovery and watsonx via custom extensions
 
@@ -365,77 +368,7 @@ SQuAD v2 has a lot of unanswerable questions, so the FLAN prompt for SQuAD v2 mi
 
 SQuAD (including v2) has very concise answers, which could be one of the reasons why FLAN-UL2 is so terse when using SQuAD v2 prompts.
 
-## Example 5: Connect your assistant to Hugging Face, Milvus, and OpenAI via custom extensions
-
-This example shows how to use Hugging Face to generate query embeddings for semantic search and use those results to generate an answer with the OpenAI model.
-
-Before you upload the sample action for this starter kit, you first need to configure multiple custom extensions: [Hugging Face Hub Embeddings](https://huggingface.co/blog/getting-started-with-embeddings), [Milvus](https://milvus.io) for semantic search, and [OpenAI](../language-model-openai/README.md) for answer generation.
-
-Follow the steps in the following sections for the custom extensions setup before uploading the sample action.
-
-### Configure the Hugging Face Hub Embeddings extension
-
-Follow [these steps to configure the Hugging Face Hub Embeddings extension](#configure-the-hugging-face-hub-embeddings-extension).
-
-### Configure the Milvus semantic search extension
-
-Follow [these steps to configure the Milvus semantic search extension](#configure-the-milvus-semantic-search-extension).
-
-### Configure the OpenAI answer generation extension
-
-Follow the steps in the starter kit for [language model openAI](../language-model-openai/README.md) to get an OpenAI api key and use it to connect with your assistant via a custom extension.
-
-### Upload sample action
-
-The starter kit includes [a JSON file with these sample actions](./vector-openai-actions.json):
-
-| Action                         | Description                                                                                                                                                                                                                                                                                                                                         |
-| ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Search                         | Connects to Hugging Face to generate vectors for the user query, and to Milvus for semantic search of a collection. The "No Action Matches" action has been configured to send all input to this action, so whatever the user enters will be used as the search input. It invokes the "Generate Answer" action to generate a response to the query. |
-| Generate Answer                | Configures the query prompt and document passages resulting from search, and calls the action "Invoke GPT Chat Completion API". It is not meant to be invoked directly, but rather by the "Search" action.                                                                                                                                          |
-| Invoke GPT Chat Completion API | Connects to OpenAI and, using as context the documents resulting from the search, asks the language model to generate an answer to the user query. It is not meant to be invoked directly, but rather by the "Generate Answer" action.                                                                                                              |
-
-To use the sample actions:
-
-1. **After having configured all three extensions**, download the sample actions from this starter kit: [`vector-openai-actions.json`](./vector-openai-actions.json).
-
-1. Use **Actions Global Settings** to upload the sample actions JSON file to your assistant. For more information, see [Uploading](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import). Once you have uploaded the actions, refresh the preview to make sure the assistant registers all of the variable assignments.
-
-### Session variables
-
-These are the session variables used in this example. Most of the values are set in the process of setting up the starter kit. The user must set `collection_name` to identify the Milvus collection for the document search step.
-
-- `collection_name`: This **MUST** be set to the name of the document collection in Milvus to be searched.
-- `embedding_model_id` : ID of the model to use for generating embeddings for the query.
-- `messages` : Input to the OpenAI model; includes the `search_results` and the `model_prompt`.
-- `model_for_chat` : The OpenAI model used, defaults to `gpt-3.5-turbo`.
-- `model_max_tokens` : The maximum number of text fragments to input to the model. The starter kit uses 200.
-- `model_prompt`: You MAY change this to do prompt engineering, but a default will be used by the model if you don’t pass a prompt here.
-- `model_response`: The text generated by the model in response to the `messages`.
-- `passages` : Concatenation of top search results.
-- `query_text`: By default the Search action passes the user’s input.text directly.
-- `search_results` : Results from the semantic search for the query. These will be input to the OpenAI extension model.
-- `snippet` : Top results from the semantic search.
-
-### Language model
-
-If you want to experiment with different prompts, do the following:
-
-1. Go in the "Generate Answers" action and edit Step 5.
-
-1. Edit the value of the `model_prompt` session variable.
-
-1. Modify the text of the prompt passed to the language model.
-
-You can also modify the `model_for_chat` session variable to control which model is used. This starter kit uses `gpt-3.5-turbo` because it performs well and reasonably fast. You can see the available models on [OpenAI language models](https://platform.openai.com/docs/models).
-
-### Example 5 usage
-
-Here is an example of how to use the `Search` action for this starter kit semantic search example:
-
-<img src="./assets/apr_for_preferred.png" width="300"/>
-
-## Example 6: Connect your assistant to Watson Discovery and OpenAI via custom extensions
+## Example 5: Connect your assistant to Watson Discovery and OpenAI via custom extensions
 
 This starter kit example shows how to configure your assistant to use Watson Discovery for document search, and then use those search results as input context for an OpenAI large language model. The OpenAI LLM generates a natural language answer for the query based on the documents provided by the search.
 
@@ -491,13 +424,13 @@ Below is a list of the session variables used in this example. Most of them are 
 
 If you want to experiment with different prompts or language models for the OpenAI custom extension, see [these tips](#language-model-1)
 
-### Example 6 usage
+### Example 5 usage
 
 Here is an example of how to use the `Search` action for this starter kit advanced conversational search example:
 
 <img src="./assets/discovery-openai-example.png" width="300"/>
 
-## Example 7: Connect your assistant to Watson Discovery and PaLM via custom extensions
+## Example 6: Connect your assistant to Watson Discovery and PaLM via custom extensions
 
 This starter kit example shows how to configure your assistant to use Watson Discovery for document search, and then use those search results as input context for Google PaLM (Powerful Language Model). The PaLM generates a natural language answer for the query based on the documents provided by the search. The use of the PaLM API in this example was not made in partnership with, sponsorship with, or with endorsement from Google.
 
@@ -553,7 +486,7 @@ However, if you want to experiment and use PaLM's chat language model, which is 
 
 <img src="./assets/discovery-palm-language-model-change-example.png" width="300"/>
 
-### Example 7 usage
+### Example 6 usage
 
 Here is an example of how to use the `Search` action for this starter kit advanced conversational search example:
 
