@@ -107,6 +107,8 @@ This step is to enable semantic search using ELSER. Here are the tutorials from 
 ELSER v1: https://www.elastic.co/guide/en/elasticsearch/reference/8.10/semantic-search-elser.html  
 ELSER v2: https://www.elastic.co/guide/en/elasticsearch/reference/8.11/semantic-search-elser.html
 
+**IMPORTANT NOTE**: As of the date of this document, ELSER v2 (released in Elasticsearch 8.11 onward) is not available on IBM Cloud ( which provides Elasticsearch 8.10 currently)
+
 The following steps are based on ELSER v1 model:
 ### Create environment variables for ES credentials
   ```bash
