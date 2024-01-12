@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://api.huggingface.co"
+      "url": "https://api-inference.huggingface.co"
     }
   ],
   "paths": {
@@ -83,13 +83,9 @@
             "description": "Additional options for generating embeddings."
           }
         },
-        "required": [
-          "inputs"
-        ],
+        "required": ["inputs"],
         "example": {
-          "inputs": [
-            "How do I start a purchase order?"
-          ],
+          "inputs": ["How do I start a purchase order?"],
           "options": {
             "wait_for_model": true
           }

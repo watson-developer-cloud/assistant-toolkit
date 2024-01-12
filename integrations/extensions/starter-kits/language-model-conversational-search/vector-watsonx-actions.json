@@ -1,12 +1,12 @@
 {
-  "name": "milvus->llama-action",
+  "name": "huggingface+Milvus+watsonx-action",
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-09-13T17:39:16.824Z",
-  "updated": "2023-09-13T21:08:40.114Z",
+  "created": "2024-01-10T22:32:51.563Z",
+  "updated": "2024-01-11T00:21:12.241Z",
   "language": "en",
-  "skill_id": "86071b3f-283e-4149-8fbc-5c859cb4cb21",
+  "skill_id": "1c38c398-6ff6-47ac-9de2-e9a06b1ad56b",
   "workspace": {
     "actions": [
       {
@@ -468,7 +468,7 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "cc50493e455de183d661b95360196ddb468a02051add6dcaf4a6479b34900be5",
-                  "catalog_item_id": "c33b11d4-656d-4500-bcc3-b6cefab75469"
+                  "catalog_item_id": "c127e4d9-3a35-47af-8f95-1dc408f9b85e"
                 },
                 "request_mapping": {
                   "body": [
@@ -700,8 +700,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "c957ef2a69e23cd1f24311557dc72969a683b34a016faa4f4fde886fc9872b75",
-                  "catalog_item_id": "07d6bcf8-0793-4cef-9fd8-da46dc5a7d5e"
+                  "spec_hash_id": "b41e1c3fc6764f7dcef25b5cd6986abdaf3c1d237a33289bbc2df7228a4aea3c",
+                  "catalog_item_id": "a3f738b0-a73c-42dc-ad27-7b03faa3adc4"
                 },
                 "request_mapping": {
                   "body": [
@@ -710,12 +710,6 @@
                         "expression": "[ ${query_text} ]"
                       },
                       "parameter": "inputs"
-                    },
-                    {
-                      "value": {
-                        "scalar": true
-                      },
-                      "parameter": "options.wait_for_model"
                     }
                   ],
                   "path": [
@@ -799,7 +793,7 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "6c94004d2d26e57dd1c7662f7d2dfb15d6ca268f9da810859a137a331be96cb1",
-                  "catalog_item_id": "20b31055-85c3-491a-b167-dbb514da4ea6"
+                  "catalog_item_id": "a8612a20-f891-4c3b-861f-934fb8b3c166"
                 },
                 "request_mapping": {
                   "body": [
@@ -1037,6 +1031,9 @@
           },
           {
             "title": "No response",
+            "privacy": {
+              "enabled": false
+            },
             "variable": "step_474",
             "data_type": "any"
           },
@@ -1045,6 +1042,9 @@
             "data_type": "any"
           },
           {
+            "privacy": {
+              "enabled": false
+            },
             "variable": "step_474_result_2",
             "data_type": "any"
           },
@@ -1707,12 +1707,15 @@
     "metadata": {
       "api_version": {
         "major_version": "v2",
-        "minor_version": "2018-11-08"
+        "minor_version": "2021-11-27"
       }
     },
     "variables": [
       {
         "title": "collection_name",
+        "privacy": {
+          "enabled": false
+        },
         "variable": "collection_name",
         "data_type": "string",
         "description": "This MUST be set to the name of a collection in your Milvus instance.  You can list collections in Milvus via api/v1/collections."
@@ -1824,6 +1827,9 @@
       },
       {
         "title": "verbose",
+        "privacy": {
+          "enabled": false
+        },
         "variable": "verbose",
         "data_type": "boolean",
         "description": "",
@@ -1842,6 +1848,9 @@
       },
       {
         "title": "watsonx_project_id",
+        "privacy": {
+          "enabled": false
+        },
         "variable": "watsonx_project_id",
         "data_type": "any",
         "description": "This MUST be set to your watsonx project id"
@@ -1952,8 +1961,8 @@
     "learning_opt_out": true
   },
   "description": "created for assistant 1c76effb-2430-4334-8897-6cdad3c6282b",
-  "assistant_id": "e5fcc635-fca4-498b-b4c3-5a8bf69b4694",
-  "workspace_id": "86071b3f-283e-4149-8fbc-5c859cb4cb21",
+  "assistant_id": "70e00d9b-9c8d-438d-a10a-826b635f3907",
+  "workspace_id": "1c38c398-6ff6-47ac-9de2-e9a06b1ad56b",
   "dialog_settings": {},
   "next_snapshot_version": "1"
 }
