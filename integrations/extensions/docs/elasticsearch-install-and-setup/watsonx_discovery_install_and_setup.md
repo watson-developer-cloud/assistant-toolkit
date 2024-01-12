@@ -136,7 +136,7 @@ Before you begin, you will need:
     oc get service ${ES_CLUSTER}-kb-http -n ${ES_NAMESPACE} 
     ```
 
-* Add a enterprise ECK license  
+* Add an ECK enterprise license  
   When you install the default distribution of ECK, you receive a Basic license. If you have a valid Enterprise 
   subscription or a trial license extension, you will receive a link to download a license as a JSON file. You can then
   add the license to your ECK installation. 
@@ -172,16 +172,17 @@ The following steps are based on ELSER v2 model:
   ```
 
 ### Create environment variables for Elasticsearch credentials
-* Download TSL certificate
+* Download TLS certificate and create an environment variable for it
   ```shell
   oc -n ${ES_NAMESPACE} get secret "${ES_CLUSTER}-es-http-certs-public" -o go-template='{{index .data "tls.crt" | base64 --decode }}' > tls.crt
+  
+  export ES_CACERT="tls.crt"  # Path to your downloaded cert
   ```
-* Create environment variables
+* Create other environment variables for Elasticsearch credentials
   ```shell
   export ES_URL=https://<hostname:port>
   export ES_USER=<username>
   export ES_PASSWORD=<password>
-  export ES_CACERT=<path-to-your-cert>
   ```
 
 ### Enable ELSER model (v2)
