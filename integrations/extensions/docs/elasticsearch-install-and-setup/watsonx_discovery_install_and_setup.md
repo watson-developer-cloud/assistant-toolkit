@@ -314,7 +314,7 @@ NOTE: Learn more about [text-expansion-query](https://www.elastic.co/guide/en/el
     ```shell
     CERT=$( oc -n ${ES_NAMESPACE} get secret "${ES_CLUSTER}-es-http-certs-public" -o go-template='{{index .data "ca.crt" }}' )
     ```
-  * Create a Secret with the Elastic CA certificate and mounted to the WatsonAssistantIntegrations deployment
+  * Create a Secret with the Elastic CA certificate and mount it to the WatsonAssistantIntegrations deployment
     ```
     cat <<EOF | oc apply -n ${WA_NAMESPACE} -f -
     apiVersion: v1
