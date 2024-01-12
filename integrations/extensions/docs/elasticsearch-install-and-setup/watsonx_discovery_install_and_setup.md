@@ -11,7 +11,7 @@ This is a documentation about how to set up Elasticsearch (watsonx Discovery) an
 This step is about installing Elastic Cloud on Kubernetes (ECK) in CloudPak. 
 
 Before you begin, you will need:
-* Access to a CloudPack cluster
+* Access to a CloudPak cluster
 * An ECK enterprise Orchestration license
 
 ### Log in to your CloudPak cluster
@@ -303,11 +303,11 @@ NOTE: Learn more about [text-expansion-query](https://www.elastic.co/guide/en/el
 
 * Configure TLS connection with watsonx Assistant  
   By default, watsonx Assistant doesn't trust any certificate that's not in its trusted keystore, which means that
-  we won't be able to make TLS connections between watsonx Assistant and Elasticsearch. To enable the TLS connection,
-  we need to add the Elasticsearch's CA certificate to the truststore in watsonx Assistant. Please follow the following steps:
+  you won't be able to make TLS connections between watsonx Assistant and Elasticsearch. To enable the TLS connection,
+  you need to add the Elasticsearch's CA certificate to the truststore in watsonx Assistant. Please follow the following steps:
   * Define a few environment variables
     ```shell
-    WA_INSTANCE="wa" # your watsonx Assistant instance name
+    WA_INSTANCE="wa" # your watsonx Assistant resource name
     WA_NAMESPACE="cpd"  # Your watsonx Assistant namespace
     ```
   * Get the Elasticsearch CA certificate
