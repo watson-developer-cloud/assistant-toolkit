@@ -167,11 +167,13 @@ ELSER v2: https://www.elastic.co/guide/en/elasticsearch/reference/8.11/semantic-
 
 The following steps are based on ELSER v2 model:
 ### Use port-forward to access Elasticsearch cluster locally
+In a new terminal window, run the following command to make the Elasticsearch cluster accessible on your local machine.
   ```shell
   oc port-forward service/${ES_CLUSTER}-es-http 9200 -n ${ES_NAMESPACE}
   ```
 
 ### Create environment variables for Elasticsearch credentials
+In a new terminal window, follow the following steps to create environment variables for later use.  
 * Download TLS certificate and create an environment variable for it
   ```shell
   oc -n ${ES_NAMESPACE} get secret "${ES_CLUSTER}-es-http-certs-public" -o go-template='{{index .data "tls.crt" | base64 --decode }}' > tls.crt
@@ -180,10 +182,11 @@ The following steps are based on ELSER v2 model:
   ```
 * Create other environment variables for Elasticsearch credentials
   ```shell
-  export ES_URL=https://<hostname:port>
+  export ES_URL=https://localhost:9200
   export ES_USER=<username>
   export ES_PASSWORD=<password>
   ```
+  You have obtained `ES_USER` and `ES_PASSWORD` from [obtain-the-elasticsearch-credentials](#verify-the-installation) step.
 
 ### Enable ELSER model (v2)
 ELSER model is not enabled by default, but you can enable it in Kibana. Please follow the [download-deploy-elser instructions](https://www.elastic.co/guide/en/machine-learning/8.11/ml-nlp-elser.html#download-deploy-elser) to do it.
@@ -296,102 +299,119 @@ the generated ELSER output:
 NOTE: Learn more about [text-expansion-query](https://www.elastic.co/guide/en/elasticsearch/reference/8.11/semantic-search-elser.html#text-expansion-query) from the tutorial.
 
 ## Step 3: Build a custom extension in watsonx Assistant for Elasticsearch API
-* Retrieve Elasticsearch endpoints  
+### Retrieve Elasticsearch endpoints  
   The below command will print out the Elasticsearch Cluster IP that you can use to access Elasticsearch in you assistant on CloudPak.
   ```shell
   oc -n ${ES_NAMESPACE} get svc "$ES_CLUSTER-es-http" -o jsonpath='{.spec.clusterIP}'; echo 
   ``` 
 
-* Configure TLS connection with watsonx Assistant  
-  By default, watsonx Assistant doesn't trust any certificate that's not in its trusted keystore, which means that
-  you won't be able to make TLS connections between watsonx Assistant and Elasticsearch. To enable the TLS connection,
+### Configure TLS connection with watsonx Assistant  
+  By default, watsonx Assistant (wxA) doesn't trust any certificate that's not in its trusted keystore, which means that
+  you won't be able to make TLS connections between wxA and Elasticsearch. To make wxA trust Elastic's self-signed certificate, 
+  there are two options: 
+
+#### Option 1 (**Not Recommended for Production Use**): Enable the `TRUST_ALL_CERTIFICATES` flag in wxA to trust all certificates
+* Define wxA namespace and resource name as environment variables
+  ```shell
+  WA_INSTANCE="wa" # your watsonx Assistant resource name
+  WA_NAMESPACE="cpd"  # Your watsonx Assistant namespace
+  ```
+* Enable the `TRUST_ALL_CERTIFICATES` flag for wxA via a `patch` command
+  ```shell
+  oc -n $WA_NAMESPACE patch wa $WA_INSTANCE --type='merge' -p='{"configOverrides":{"webhooks_connector":{"extra_vars":{"TRUST_ALL_CERTIFICATES":true}}}}'
+  ```
+  Please wait a few minutes for the `wa-webhooks-connector` pod to restart. Once the pod has restarted successfully, 
+  TLS connections between your Elasticsearch service and wxA have been enabled. 
+
+#### Option 2: Add Elasticsearch's CA certificate to wxA's truststore
+* To enable the TLS connection, 
   you need to add the Elasticsearch's CA certificate to the truststore in watsonx Assistant. Please follow the following steps:
-  * Define a few environment variables
-    ```shell
-    WA_INSTANCE="wa" # your watsonx Assistant resource name
-    WA_NAMESPACE="cpd"  # Your watsonx Assistant namespace
-    ```
-  * Get the Elasticsearch CA certificate
-    ```shell
-    CERT=$( oc -n ${ES_NAMESPACE} get secret "${ES_CLUSTER}-es-http-certs-public" -o go-template='{{index .data "ca.crt" }}' )
-    ```
-  * Create a Secret with the Elastic CA certificate and mount it to the WatsonAssistantIntegrations deployment
-    ```
-    cat <<EOF | oc apply -n ${WA_NAMESPACE} -f -
-    apiVersion: v1
-    data:
-      ca_cert: ${CERT}
-    kind: Secret
-    metadata:
-      name: ${WA_INSTANCE}-custom-webhooks-cert
-    type: Opaque
-    ---
+* Define wxA namespace and resource name as environment variables
+  ```shell
+  WA_INSTANCE="wa" # your watsonx Assistant resource name
+  WA_NAMESPACE="cpd"  # Your watsonx Assistant namespace
+  ```
+* Get the Elasticsearch CA certificate and create an environment variable for it
+  ```shell
+  CERT=$( oc -n ${ES_NAMESPACE} get secret "${ES_CLUSTER}-es-http-certs-public" -o go-template='{{index .data "ca.crt" }}' )
+  ```
+* Create a Secret with the Elastic CA certificate and mount it to the WatsonAssistantIntegrations deployment
+  ```
+  cat <<EOF | oc apply -n ${WA_NAMESPACE} -f -
+  apiVersion: v1
+  data:
+    ca_cert: ${CERT}
+  kind: Secret
+  metadata:
+    name: ${WA_INSTANCE}-custom-webhooks-cert
+  type: Opaque
+  ---
+  apiVersion: assistant.watson.ibm.com/v1
+  kind: TemporaryPatch
+  metadata:
+    name: ${WA_INSTANCE}-add-custom-webhooks-cert
+  spec:
     apiVersion: assistant.watson.ibm.com/v1
-    kind: TemporaryPatch
-    metadata:
-      name: ${WA_INSTANCE}-add-custom-webhooks-cert
-    spec:
-      apiVersion: assistant.watson.ibm.com/v1
-      kind: WatsonAssistantIntegrations
-      name: ${WA_INSTANCE}
-      patchType: patchStrategicMerge
-      patch:
-        webhooks-connector:
-          deployment:
-            spec:
-              template:
-                spec:
-                  containers:
-                  - name: webhooks-connector
-                    env:
-                    - name: CERTIFICATES_IMPORT_LIST
-                      value: /etc/secrets/kafka/ca.pem:kafka_ca,/etc/secrets/custom/ca.pem:custom_ca
-                    volumeMounts:
-                    - mountPath: /etc/secrets/custom
-                      name: custom-cert
-                      readOnly: true
-                  volumes:
-                  - name: custom-cert
-                    secret:
-                      defaultMode: 420
-                      items:
-                      - key: ca_cert
-                        path: ca.pem
-                      secretName: ${WA_INSTANCE}-custom-webhooks-cert
-    EOF
-    ```
-    Please wait a few minutes for the `wa-webhooks-connector` pod to restart, which will happen automatically
-    due to the changes applied by the patch. This will take a few minutes or slightly longer. Please be patient.  
+    kind: WatsonAssistantIntegrations
+    name: ${WA_INSTANCE}
+    patchType: patchStrategicMerge
+    patch:
+      webhooks-connector:
+        deployment:
+          spec:
+            template:
+              spec:
+                containers:
+                - name: webhooks-connector
+                  env:
+                  - name: CERTIFICATES_IMPORT_LIST
+                    value: /etc/secrets/kafka/ca.pem:kafka_ca,/etc/secrets/custom/ca.pem:custom_ca
+                  volumeMounts:
+                  - mountPath: /etc/secrets/custom
+                    name: custom-cert
+                    readOnly: true
+                volumes:
+                - name: custom-cert
+                  secret:
+                    defaultMode: 420
+                    items:
+                    - key: ca_cert
+                      path: ca.pem
+                    secretName: ${WA_INSTANCE}-custom-webhooks-cert
+  EOF
+  ```
+  Please wait a few minutes for the `wa-webhooks-connector` pod to restart, which will happen automatically
+  due to the changes applied by the patch. This will take a few minutes or slightly longer. Please be patient.  
     
-    After the pod has restarted, check the logs by running `oc logs wa-webhooks-connector-xxxx`.
-    You should see two lines like this at the beginning of the log:
+  After the pod has restarted, check the logs by running `oc logs wa-webhooks-connector-xxxx`.
+  You should see two lines like this at the beginning of the log:
+  ```
+  [watson@dvt-001-inf ~]$ oc -n ${WA_NAMESPACE} logs wa-webhooks-connector-74756c6748-cmdr6
+  Certificate was added to keystore
+  Certificate was added to keystore
+  ```
+* Add required hostnames as Subject Alternative Names (SANs) to the Self-Signed Certificate in Elasticsearch
+  * Edit the Elasticsearch deployment:
+    ```shell
+    oc edit -n ${ES_NAMEPSACE} elasticsearch
     ```
-    [watson@dvt-001-inf ~]$ oc -n ${WA_NAMESPACE} logs wa-webhooks-connector-74756c6748-cmdr6
-    Certificate was added to keystore
-    Certificate was added to keystore
+  * Add required hostnames as SANs,  
+    For example, you can add `localhost` and the Elasticsearch endpoint/ClusterIP retrieved from the previous step as SANs to make them accessible by watsonx Assistant via TLS connection 
+    ```shell
+    spec:
+      auth: {}
+      http:
+        service:
+          metadata: {}
+          spec: {}
+        tls:
+          certificate: {}
+          selfSignedCertificate:
+            subjectAltNames:
+            - dns: localhost
+            - ip: 172.30.249.131
     ```
-  * Add required hostnames as Subject Alternative Names (SANs) to the Self-Signed Certificate in Elasticsearch
-    * Edit the Elasticsearch deployment:
-      ```shell
-      oc edit -n ${ES_NAMEPSACE} elasticsearch
-      ```
-    * Add required hostnames as SANs,  
-      For example, you can add `localhost` and the Elasticsearch endpoint/ClusterIP retrieved from the previous step as SANs to make them accessible by watsonx Assistant via TLS connection 
-      ```shell
-      spec:
-        auth: {}
-        http:
-          service:
-            metadata: {}
-            spec: {}
-          tls:
-            certificate: {}
-            selfSignedCertificate:
-              subjectAltNames:
-              - dns: localhost
-              - ip: 172.30.249.131
-      ```
 
-* Provision a watsonx Assistant instance in your CloudPak cluster
+### Provision a watsonx Assistant instance in your CloudPak cluster
 
-* Follow the instructions to [build a custom extension in watsonx Assistant with Elasticsearch API](../../starter-kits/elasticsearch/README.md#build-a-custom-extension-in-watsonx-assistant-with-elasticsearch-api)
+### Follow the instructions to [build a custom extension in watsonx Assistant with Elasticsearch API](../../starter-kits/elasticsearch/README.md#build-a-custom-extension-in-watsonx-assistant-with-elasticsearch-api)
