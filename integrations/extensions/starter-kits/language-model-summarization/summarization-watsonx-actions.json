@@ -1,12 +1,12 @@
 {
-  "name": "summarization_watsonx-action",
+  "name": "Summarization murdockj 2024-1-action",
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-08-10T13:40:04.966Z",
-  "updated": "2023-08-16T15:44:58.357Z",
+  "created": "2024-01-17T18:29:32.077Z",
+  "updated": "2024-01-17T18:52:38.897Z",
   "language": "en",
-  "skill_id": "b4043909-3a4c-4490-8cce-5b2171609955",
+  "skill_id": "8445a450-b04e-48d1-b0b7-f00932e65fca",
   "workspace": {
     "actions": [
       {
@@ -26,7 +26,7 @@
                 },
                 {
                   "value": {
-                    "expression": "\"Provide a summary in plain English of the following conversation between a chatbot and a user \" + ${session_history_ai_format}.toString().replace('\"', '')"
+                    "expression": "\"Here is a conversation between an AI assistant and a human user:\\n\\n<|conversation|>\\n\" + ${session_history_ai_format}.toString().replace('\"', '').replace('author:AI,content:', '\\nAgent: ').replace('author:USER,content:', '\\nUser: ').replace('[{', '').replace('},{', '').replace('}]', '')  + \"\\n\\n<|instruction|>\\nProvide a concise summary of the conversation.\\n\\n<|summary|>\\n\""
                   },
                   "skill_variable": "model_input"
                 }
@@ -262,7 +262,7 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "cc50493e455de183d661b95360196ddb468a02051add6dcaf4a6479b34900be5",
-                  "catalog_item_id": "c1ef8434-49e5-45c3-9ae7-b82956963fbc"
+                  "catalog_item_id": "b327968c-00dc-4132-b8fd-d571ef718be5"
                 },
                 "request_mapping": {
                   "body": [
@@ -968,17 +968,20 @@
     "metadata": {
       "api_version": {
         "major_version": "v2",
-        "minor_version": "2021-11-27"
+        "minor_version": "2018-11-08"
       }
     },
     "variables": [
       {
         "title": "model_id",
+        "privacy": {
+          "enabled": false
+        },
         "variable": "model_id",
         "data_type": "any",
         "description": "",
         "initial_value": {
-          "scalar": "google/flan-ul2"
+          "scalar": "ibm/granite-13b-instruct-v2"
         }
       },
       {
@@ -1046,6 +1049,9 @@
       },
       {
         "title": "verbose",
+        "privacy": {
+          "enabled": false
+        },
         "variable": "verbose",
         "data_type": "boolean",
         "description": "",
@@ -1064,6 +1070,9 @@
       },
       {
         "title": "watsonx_project_id",
+        "privacy": {
+          "enabled": false
+        },
         "variable": "watsonx_project_id",
         "data_type": "any",
         "description": ""
@@ -1177,8 +1186,9 @@
     "learning_opt_out": true
   },
   "description": "created for assistant a66a897a-ee82-4e70-bbf9-4d54b1b20b94",
-  "assistant_id": "39e4fcac-3ccf-4687-8994-d85649be5f1a",
-  "workspace_id": "b4043909-3a4c-4490-8cce-5b2171609955",
+  "assistant_id": "10824a52-b9fd-41a7-81a2-e6502a645fb9",
+  "workspace_id": "8445a450-b04e-48d1-b0b7-f00932e65fca",
   "dialog_settings": {},
-  "next_snapshot_version": "1"
+  "next_snapshot_version": "1",
+  "environment_id": "3e27e16f-1b2b-4073-9e2d-5c1db400725b"
 }
