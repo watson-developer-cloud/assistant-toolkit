@@ -61,7 +61,7 @@ To preview the sample actions, use the `Check order status` action to start a co
 1. The assistant will report that there is a problem checking the order status and ask if it's ok to escalate to a human agent.
 
 1. If the user response is yes, the system escalates to a human agent with a summary of the interaction. An example summary might look something like this:
-   `The user asks about the status of their order. The chatbot asks for the order number. The user provides the order number, but the chatbot tells them there is a problem checking the status. The chatbot offers to escalate the issue to a human agent and asks if the user wants to do this. The user agrees to escalate the issue.`
+   `The user wants to know the order status and the AI assistant tells there is a problem checking the status for the order and asks if it should escalate to an agent.`
 
 1. The assistant shows the summary to the user and then initiates a transfer to a human agent. Unless you have configured a contact center, this will not work, but it is included in the kit to show how it would be invoked if you did have one configured. See details in the next section.
 
