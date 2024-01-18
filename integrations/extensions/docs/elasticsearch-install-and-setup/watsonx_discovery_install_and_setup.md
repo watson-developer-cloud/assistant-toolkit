@@ -11,7 +11,7 @@ This is a documentation about how to set up Elasticsearch (watsonx Discovery) an
 This step is about installing Elastic Cloud on Kubernetes (ECK) in CloudPak. 
 
 Before you begin, you will need:
-* Access to a CloudPak cluster
+* Access to a CloudPak cluster where watsonx Assistant is deployed
 * An ECK enterprise Orchestration license
 
 ### Log in to your CloudPak cluster
