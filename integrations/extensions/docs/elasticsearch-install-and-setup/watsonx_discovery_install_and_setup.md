@@ -310,7 +310,7 @@ NOTE: Learn more about [text-expansion-query](https://www.elastic.co/guide/en/el
 From you CloudPak cluster, you need to provision a watsonx Assistant instance and then create an assistant in the new wxA experience.
 
 ### Retrieve Elasticsearch endpoints  
-  The below command will print out the Elasticsearch Cluster IP and port that you will use as the hostname to access Elasticsearch in your assistant on CloudPak.
+  The below command will print out the Elasticsearch Cluster IP and port that you will use as the host and port to access Elasticsearch in your assistant on CloudPak.
   ```shell
   oc -n ${ES_NAMESPACE} get svc "$ES_CLUSTER-es-http" -o jsonpath='{.spec.clusterIP}:{.spec.ports[0].port}'; echo
   ```
