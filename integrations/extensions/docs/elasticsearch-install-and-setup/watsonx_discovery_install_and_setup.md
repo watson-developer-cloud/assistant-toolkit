@@ -303,6 +303,10 @@ the generated ELSER output:
 NOTE: Learn more about [text-expansion-query](https://www.elastic.co/guide/en/elasticsearch/reference/8.11/semantic-search-elser.html#text-expansion-query) from the tutorial.
 
 ## Step 3: Build a custom extension in watsonx Assistant for Elasticsearch API
+
+### Provision a watsonx Assistant instance in your CloudPak cluster
+From you CloudPak cluster, you need to provision a watsonx Assistant instance and then create an assistant in the new wxA experience.
+
 ### Retrieve Elasticsearch endpoints  
   The below command will print out the Elasticsearch Cluster IP that you will use as the hostname to access Elasticsearch in your assistant on CloudPak.
   ```shell
@@ -417,9 +421,6 @@ NOTE: Learn more about [text-expansion-query](https://www.elastic.co/guide/en/el
             - dns: localhost  # for secure localhost access
             - ip: 172.30.249.131 # Add your Elasticsearch service ClusterIP, accessible only within the Cluster
     ```
-
-### Provision a watsonx Assistant instance in your CloudPak cluster 
-From you CloudPak cluster, you need to provision a watsonx Assistant instance.
 
 ### Follow the instructions to [build a custom extension in watsonx Assistant with Elasticsearch API](../../starter-kits/elasticsearch/README.md#build-a-custom-extension-in-watsonx-assistant-with-elasticsearch-api)
 You will need your Elasticsearch credentials to configure a custom extension. 
