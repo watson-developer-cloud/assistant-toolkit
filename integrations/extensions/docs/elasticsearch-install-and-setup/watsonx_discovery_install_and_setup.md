@@ -414,8 +414,8 @@ NOTE: Learn more about [text-expansion-query](https://www.elastic.co/guide/en/el
           certificate: {}
           selfSignedCertificate:
             subjectAltNames:
-            - dns: localhost
-            - ip: 172.30.249.131
+            - dns: localhost  # for secure localhost access
+            - ip: 172.30.249.131 # Add your Elasticsearch service ClusterIP, accessible only within the Cluster
     ```
 
 ### Provision a watsonx Assistant instance in your CloudPak cluster 
