@@ -3,7 +3,7 @@ This is a documentation about how to set up watsonx Discovery (Elasticsearch) an
 
 ## Table of contents:
 * [Step 1: Install Elastic Cloud on Kubernetes(ECK) on CloudPak](#step-1-install-elastic-cloud-on-kubernetes-eck-in-cloudpak)
-* [Step 2: Enable semantic search with ELSER](#step-2-enable-semantic-search-with-elser)
+* [Step 2: Enable semantic search with ELSER in Elasticsearch](#step-2-enable-semantic-search-with-elser-in-elasticsearch)
 * [Step 3: Create a custom extension for Elasticsearch in watsonx Assistant](#step-3-build-a-custom-extension-in-watsonx-assistant-for-elasticsearch-api)
 
 
@@ -160,7 +160,7 @@ Before you begin, you will need:
 * Open https://localhost:5601 in browser, and login using the Elasticsearch credentials. 
   If you can successfully log into Kibana and see the Kibana dashboard without any errors, your ECK installation is successful.
 
-## Step 2: Enable semantic search with ELSER
+## Step 2: Enable semantic search with ELSER in Elasticsearch
 This step is to enable semantic search using ELSER. Here are the tutorials from Elasticsearch doc:  
 ELSER v1: https://www.elastic.co/guide/en/elasticsearch/reference/8.10/semantic-search-elser.html  
 ELSER v2: https://www.elastic.co/guide/en/elasticsearch/reference/8.11/semantic-search-elser.html
