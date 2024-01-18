@@ -1,5 +1,5 @@
-# How to set up Elasticsearch (watsonx Discovery) and integrate it with Watson Assistant in CloudPak
-This is a documentation about how to set up Elasticsearch (watsonx Discovery) and integrate it with watsonx Assistant in CloudPak
+# How to set up watsonx Discovery (Elasticsearch) and integrate it with Watson Assistant in CloudPak
+This is a documentation about how to set up watsonx Discovery (Elasticsearch) and integrate it with watsonx Assistant in CloudPak
 
 ## Table of contents:
 * [Step 1: Install Elastic Cloud on Kubernetes(ECK) on CloudPak](#step-1-install-elastic-cloud-on-kubernetes-eck-in-cloudpak)
@@ -182,6 +182,8 @@ steps to create environment variables for later use.
   
   export ES_CACERT="tls.crt"
   ```
+  NOTE: you can skip the cert if you are okay with insecure connections. Instead of providing `--cacert` to your curl commands, 
+  you can use `-k` or `--insecure` for insecure connections.
 * Create other environment variables for Elasticsearch credentials
   ```shell
   export ES_URL=https://localhost:9200
