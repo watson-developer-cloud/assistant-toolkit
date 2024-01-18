@@ -307,7 +307,7 @@ NOTE: Learn more about [text-expansion-query](https://www.elastic.co/guide/en/el
 ## Step 3: Build a custom extension in watsonx Assistant for Elasticsearch API
 
 ### Provision a watsonx Assistant instance in your CloudPak cluster
-From you CloudPak cluster, you need to provision a watsonx Assistant instance and then create an assistant in the new wxA experience.
+From you CloudPak cluster, you need to provision a watsonx Assistant instance and then create an assistant in the new experience.
 
 ### Retrieve Elasticsearch endpoints  
   The below command will print out the Elasticsearch Cluster IP and port that you will use as the host and port to access Elasticsearch in your assistant on CloudPak.
@@ -333,7 +333,15 @@ From you CloudPak cluster, you need to provision a watsonx Assistant instance an
   oc -n $WA_NAMESPACE patch wa $WA_INSTANCE --type='merge' -p='{"configOverrides":{"webhooks_connector":{"extra_vars":{"TRUST_ALL_CERTIFICATES":true}}}}'
   ```
   Please wait a few minutes for the `wa-webhooks-connector` pod to restart. Once the pod has restarted successfully, 
-  TLS connections between your Elasticsearch service and wxA have been enabled. 
+  TLS connections between your Elasticsearch service and wxA have been enabled.  
+
+
+  This approach is not recommended for production use, especially for applications that involve sensitive data, 
+  because it introduces a security risk. It configures wxA always to trust that all services it connects to through
+  search integrations or custom integrations are the services they expect to be at the IP addresses configured in the integrations. 
+  Option 2 below eliminates this risk by using a certificate to security verify that the Elasticsearch service you are 
+  connecting to is the one configured your assistant to connect to.
+
 
 #### Option 2: Add Elasticsearch's CA certificate to wxA's truststore
 * Define wxA namespace and resource name as environment variables, for example,
