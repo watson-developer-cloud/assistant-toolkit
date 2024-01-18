@@ -23,8 +23,9 @@ This starter kit example shows how to configure your assistant to use Elasticsea
 those search results as input context for a watsonx large language model (LLM). The watsonx LLM generates a natural
 language answer for the query based on the documents provided by the search.
 
-Before you start, you need to install and set up your Elasticsearch index.
-Please refer to [elasticsearch-install-and-setup-guide](../../docs/elasticsearch-install-and-setup/ICD_Elasticsearch_install_and_setup.md) for more details.
+Before you start, you need to install and set up your Elasticsearch index. 
+* For Elasticsearch on IBM Cloud, please refer to [ICD-elasticsearch-install-and-setup](../../docs/elasticsearch-install-and-setup/ICD_Elasticsearch_install_and_setup.md) for more details. 
+* For Elasticsearch (watsonx Discovery) on CloudPak, please refer to [watsonx-discovery-install-and-setup](../../docs/elasticsearch-install-and-setup/watsonx_discovery_install_and_setup.md) for more details
 
 Then follow the steps in the following two sections to configure your custom extensions.
 
