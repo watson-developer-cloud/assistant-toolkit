@@ -153,7 +153,7 @@ Before you begin, you will need:
     ```shell
     oc get secret ${ES_CLUSTER}-es-elastic-user -o=jsonpath='{.data.elastic}' -n ${ES_NAMESPACE}| base64 --decode; echo
     ```
-* Use oc port-forward to access Kibana locally:
+* Use `port-forward` to access Kibana locally:
   ```shell
   oc port-forward service/${ES_CLUSTER}-kb-http 5601 -n ${ES_NAMESPACE}
   ```
@@ -167,18 +167,20 @@ ELSER v2: https://www.elastic.co/guide/en/elasticsearch/reference/8.11/semantic-
 
 The following steps are based on ELSER v2 model:
 ### Use port-forward to access Elasticsearch cluster locally
-In a new terminal window, run the following command to make the Elasticsearch cluster accessible on your local machine.
+In a new terminal window with `ES_CLUSTER` and `ES_NAMESPACE` available as environment variables, run the following 
+command to make the Elasticsearch cluster accessible on your local machine.
   ```shell
   oc port-forward service/${ES_CLUSTER}-es-http 9200 -n ${ES_NAMESPACE}
   ```
 
 ### Create environment variables for Elasticsearch credentials
-In a new terminal window, follow the following steps to create environment variables for later use.  
+In a new terminal window with `ES_CLUSTER` and `ES_NAMESPACE` available as environment variables, follow the following 
+steps to create environment variables for later use.  
 * Download TLS certificate and create an environment variable for it
   ```shell
   oc -n ${ES_NAMESPACE} get secret "${ES_CLUSTER}-es-http-certs-public" -o go-template='{{index .data "tls.crt" | base64 --decode }}' > tls.crt
   
-  export ES_CACERT="tls.crt"  # Path to your downloaded cert
+  export ES_CACERT="tls.crt"
   ```
 * Create other environment variables for Elasticsearch credentials
   ```shell
@@ -193,6 +195,8 @@ ELSER model is not enabled by default, but you can enable it in Kibana. Please f
 
 ### Load data into Elasticsearch
 In Kibana, you can upload a data file to Elasticsearch cluster using the Data Visualizer in the Machine Learning UI https://localhost:5601/app/ml/filedatavisualizer.
+(You need to use `port-forward` to allow local access to Kibana service and login using Elasticsearch credentials as described in
+[verify-the-installation](#verify-the-installation) step)
 
 As an example, you can download [wa-docs-100](./assets/wa_docs_100.tsv) TSV data and upload it to Elasticsearch.
 This dataset contains documents processed from the watsonx Assistant product documents. There are three columns in this TSV file,
@@ -300,7 +304,7 @@ NOTE: Learn more about [text-expansion-query](https://www.elastic.co/guide/en/el
 
 ## Step 3: Build a custom extension in watsonx Assistant for Elasticsearch API
 ### Retrieve Elasticsearch endpoints  
-  The below command will print out the Elasticsearch Cluster IP that you can use to access Elasticsearch in you assistant on CloudPak.
+  The below command will print out the Elasticsearch Cluster IP that you will use as the hostname to access Elasticsearch in your assistant on CloudPak.
   ```shell
   oc -n ${ES_NAMESPACE} get svc "$ES_CLUSTER-es-http" -o jsonpath='{.spec.clusterIP}'; echo 
   ``` 
@@ -308,14 +312,16 @@ NOTE: Learn more about [text-expansion-query](https://www.elastic.co/guide/en/el
 ### Configure TLS connection with watsonx Assistant  
   By default, watsonx Assistant (wxA) doesn't trust any certificate that's not in its trusted keystore, which means that
   you won't be able to make TLS connections between wxA and Elasticsearch. To make wxA trust Elastic's self-signed certificate, 
-  there are two options: 
+  here are two options: 
 
 #### Option 1 (**Not Recommended for Production Use**): Enable the `TRUST_ALL_CERTIFICATES` flag in wxA to trust all certificates
 * Define wxA namespace and resource name as environment variables
   ```shell
-  WA_INSTANCE="wa" # your watsonx Assistant resource name
-  WA_NAMESPACE="cpd"  # Your watsonx Assistant namespace
+  WA_INSTANCE="wa"
+  WA_NAMESPACE="cpd"
   ```
+  NOTE: `WA_INSTANCE` is your wxA resource name, and `WA_NAMESPACE` is the namespace where your wxA is deployed.
+
 * Enable the `TRUST_ALL_CERTIFICATES` flag for wxA via a `patch` command
   ```shell
   oc -n $WA_NAMESPACE patch wa $WA_INSTANCE --type='merge' -p='{"configOverrides":{"webhooks_connector":{"extra_vars":{"TRUST_ALL_CERTIFICATES":true}}}}'
@@ -324,13 +330,12 @@ NOTE: Learn more about [text-expansion-query](https://www.elastic.co/guide/en/el
   TLS connections between your Elasticsearch service and wxA have been enabled. 
 
 #### Option 2: Add Elasticsearch's CA certificate to wxA's truststore
-* To enable the TLS connection, 
-  you need to add the Elasticsearch's CA certificate to the truststore in watsonx Assistant. Please follow the following steps:
-* Define wxA namespace and resource name as environment variables
+* Define wxA namespace and resource name as environment variables, for example,
   ```shell
-  WA_INSTANCE="wa" # your watsonx Assistant resource name
-  WA_NAMESPACE="cpd"  # Your watsonx Assistant namespace
+  WA_INSTANCE="wa"
+  WA_NAMESPACE="cpd"
   ```
+  NOTE: `WA_INSTANCE` is your wxA resource name, and `WA_NAMESPACE` is the namespace where your wxA is deployed. 
 * Get the Elasticsearch CA certificate and create an environment variable for it
   ```shell
   CERT=$( oc -n ${ES_NAMESPACE} get secret "${ES_CLUSTER}-es-http-certs-public" -o go-template='{{index .data "ca.crt" }}' )
@@ -382,7 +387,7 @@ NOTE: Learn more about [text-expansion-query](https://www.elastic.co/guide/en/el
   ```
   Please wait a few minutes for the `wa-webhooks-connector` pod to restart, which will happen automatically
   due to the changes applied by the patch. This will take a few minutes or slightly longer. Please be patient.  
-    
+
   After the pod has restarted, check the logs by running `oc logs wa-webhooks-connector-xxxx`.
   You should see two lines like this at the beginning of the log:
   ```
@@ -396,7 +401,8 @@ NOTE: Learn more about [text-expansion-query](https://www.elastic.co/guide/en/el
     oc edit -n ${ES_NAMEPSACE} elasticsearch
     ```
   * Add required hostnames as SANs,  
-    For example, you can add `localhost` and the Elasticsearch endpoint/ClusterIP retrieved from the previous step as SANs to make them accessible by watsonx Assistant via TLS connection 
+    You can add `localhost` and the Elasticsearch endpoint/ClusterIP obtained from [retrieve-elasticsearch-endpoints](#retrieve-elasticsearch-endpoints) 
+    step as SANs to make them accessible by watsonx Assistant via TLS connection. For example,  
     ```shell
     spec:
       auth: {}
@@ -412,6 +418,7 @@ NOTE: Learn more about [text-expansion-query](https://www.elastic.co/guide/en/el
             - ip: 172.30.249.131
     ```
 
-### Provision a watsonx Assistant instance in your CloudPak cluster
+### Provision a watsonx Assistant instance in your CloudPak cluster 
+From you CloudPak cluster, you need to provision a watsonx Assistant instance.
 
 ### Follow the instructions to [build a custom extension in watsonx Assistant with Elasticsearch API](../../starter-kits/elasticsearch/README.md#build-a-custom-extension-in-watsonx-assistant-with-elasticsearch-api)
