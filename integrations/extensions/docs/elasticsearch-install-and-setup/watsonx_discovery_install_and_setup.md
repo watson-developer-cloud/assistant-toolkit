@@ -422,3 +422,6 @@ NOTE: Learn more about [text-expansion-query](https://www.elastic.co/guide/en/el
 From you CloudPak cluster, you need to provision a watsonx Assistant instance.
 
 ### Follow the instructions to [build a custom extension in watsonx Assistant with Elasticsearch API](../../starter-kits/elasticsearch/README.md#build-a-custom-extension-in-watsonx-assistant-with-elasticsearch-api)
+You will need your Elasticsearch credentials to configure a custom extension. 
+In addition to the Elasticsearch `username` and `password` obtained from [verify-the-installation](#verify-the-installation) step, the Elasticsearch ClusterIP from [retrieve-elasticsearch-endpoints](#retrieve-elasticsearch-endpoints) will be the `host`, 
+and the `port` is `9200`. 
