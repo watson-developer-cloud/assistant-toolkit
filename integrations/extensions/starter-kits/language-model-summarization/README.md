@@ -4,7 +4,7 @@ This starter kit uses a generative language model to summarize the interaction b
 
 This starter kit includes examples of how to configure different language models with IBM watsonx Assistant for summarization.
 
-1. The first example shows how to use [watsonx for summarization](#example-1-watsonx)
+1. The first example shows how to use [watsonx.ai for summarization](#example-1-watsonx)
 1. The second example shows how to use [OpenAI for summarization](#example-2-openai)
 
 ## Prerequisites
@@ -13,11 +13,11 @@ This starter kit requires that you use the [new IBM watsonx Assistant](https://c
 
 Create a new, empty assistant that you can use to test this starter kit. For more information, see [Adding more assistants](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-assistant-add).
 
-# Example 1: watsonx
+# Example 1: watsonx.ai
 
-### Connect your assistant to watsonx using a custom extension
+### Connect your assistant to watsonx.ai using a custom extension
 
-You connect your assistant by using an OpenAPI specification to add a custom extension. You can see an example of how to do this in the [watsonx starter kit](../language-model-watsonx/README.md), which shows how to connect to watsonx models such as `google/flan-ul2`.
+You connect your assistant by using an OpenAPI specification to add a custom extension. You can see an example of how to do this in the [watsonx starter kit](../language-model-watsonx/README.md), which shows how to connect to watsonx.ai models such as `ibm/granite-13b-instruct-v2`.
 
 ### Upload sample actions
 
@@ -28,14 +28,14 @@ The starter kit includes a JSON file with these sample actions:
 | Action                        | Description                                                                                                                                                                                                                                                                                                                                                               |
 | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Check order status            | Simple action to check the status of a customer order.                                                                                                                                                                                                                                                                                                                    |
-| Escalate to Agent             | Simple example of how watsonx can be used to provide a summary of a customer conversation. Connects to watsonx using the `Invoke watsonx Generation API` action to summarize the session history and then shows the summary to the user. It triggers an escalation to a customer service agent and includes the session history summary in the message sent to the agent. |
-| Invoke watsonx Generation API | Connects to watsonx with the `google/flan-ul2` model.                                                                                                                                                                                                                                                                                                                     |
+| Escalate to Agent             | Simple example of how watsonx can be used to provide a summary of a customer conversation. Connects to watsonx.ai using the `Invoke watsonx Generation API` action to summarize the session history and then shows the summary to the user. It triggers an escalation to a customer service agent and includes the session history summary in the message sent to the agent. |
+| Invoke watsonx Generation API | Connects to watsonx.ai with the `ibm/granite-13b-instruct-v2` model.                                                                                                                                                                                                                                                                                                                     |
 
 ### Session variables
 
-Below is a list of the session variables used in this example. Most of them are automatically set with defaults in the sample actions JSON file that you uploaded, so you do not need to set them yourself unless you want to make changes. You **must**, however, set the `watsonx_project_id` to the watsonx project id that you want to use for answer generation.
+Below is a list of the session variables used in this example. Most of them are automatically set with defaults in the sample actions JSON file that you uploaded, so you do not need to set them yourself unless you want to make changes. You **must**, however, set the `watsonx_project_id` to the watsonx.ai project id that you want to use for answer generation.
 
-- `model_id`: The ID of the watsonx model that you select for this action. Defaults to `google/flan-ul2`.
+- `model_id`: The ID of the watsonx.ai model that you select for this action. Defaults to `ibm/granite-13b-instruct-v2`.
 - `model_input`: The input to the model.
 - `model_parameters_min_new_tokens`: The minimum number of the new tokens to be generated. Defaults to 20.
 - `model_parameters_max_new_tokens` : The maximum number of new tokens to be generated. Defaults to 300.
@@ -45,8 +45,8 @@ Below is a list of the session variables used in this example. Most of them are 
 - `model_response`: The text generated by the model in response to the `model_input`.
 - `session_history_ai_format`: The session history variable formatted for the ai model.
 - `verbose`: Boolean variable that when `true` prints debug output from the assistant. Defaults to `false`.
-- `watsonx_api_version` - watsonx api date version. It currently defaults to `2023-05-29`.
-- `watsonx_project_id`: You **MUST** set this value to your own [project ID value from watsonx](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html). Typically, this is a [sandbox project id](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/sandbox.html) that is automatically created for you when you sign up for watsonx.ai.
+- `watsonx_api_version` - watsonx.ai api date version. It currently defaults to `2023-05-29`.
+- `watsonx_project_id`: You **MUST** set this value to your own [project ID value from watsonx.ai](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html). Typically, this is a [sandbox project id](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/sandbox.html) that is automatically created for you when you sign up for watsonx.ai.
 
 ### Preview the sample actions
 
@@ -61,11 +61,46 @@ To preview the sample actions, use the `Check order status` action to start a co
 1. The assistant will report that there is a problem checking the order status and ask if it's ok to escalate to a human agent.
 
 1. If the user response is yes, the system escalates to a human agent with a summary of the interaction. An example summary might look something like this:
-   `The user asks about the status of their order. The chatbot asks for the order number. The user provides the order number, but the chatbot tells them there is a problem checking the status. The chatbot offers to escalate the issue to a human agent and asks if the user wants to do this. The user agrees to escalate the issue.`
+   `The user wants to know the order status and the AI assistant tells there is a problem checking the status for the order and asks if it should escalate to an agent.`
 
 1. The assistant shows the summary to the user and then initiates a transfer to a human agent. Unless you have configured a contact center, this will not work, but it is included in the kit to show how it would be invoked if you did have one configured. See details in the next section.
 
 1. If the user declines to escalate to an agent, the transaction ends.
+
+### Technical Details
+
+The interaction between the assistant and the user is recorded in the [session_history_variable](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-publish-overview#publish-overview-environment-settings-session-history).  In step 2 of the `Escalate to Agent` action, the `model_input` session variable is set, using that session history.  The `model_input` variable contains the prompt that is set to the model.  Currently it is set using the following expression: `"Here is a conversation between an AI assistant and a human user:\n\n<|conversation|>\n" + ${session_history_ai_format}.toString().replace('"', '').replace('author:AI,content:', '\nAgent: ').replace('author:USER,content:', '\nUser: ').replace('[{', '').replace('},{', '').replace('}]', '')  + "\n\n<|instruction|>\nProvide a concise summary of the conversation.\n\n<|summary|>\n"`.   Here is an example of a `model_input` this session history produces:
+
+```
+<|conversation|>
+
+Agent: Welcome, how can I assist you?
+User: order status
+Agent: Certainly, I can help with that.\\n\\nTo get started, please enter your order number
+User: 1234
+Agent: Thanks! There is a problem checking the status for your order 1234\\n\\n\\n\\n\\n\\nWould you like me to escalate to an agent?\\noption: [\\Yes,\\No]
+User: Yes
+
+<|instruction|>
+Provide a concise summary of the conversation.
+
+<|summary|>
+```
+
+You may want to try out other variations of the expression for setting the `model_input`, especially if you try out other models (by changing the `model_id`).  The expression we are using here seems to work on examples we've tried using `ibm/granite-13b-instruct-v2`.  With more work you can probably find an expression for that model that works better than this does for your specific application (and also better expressions for other models too).
+
+This use case has configured the human agent escalation process to use a language model to summarize the session and present the summary to both the user and the human agent. You can see that the model response is sent to the agent by going to step 3 of the `Escalate to Agent` action and clicking on "Edit settings" in the "Connect to agent" block at the bottom of the step. You should see this:
+
+<img src="./assets/connect.png" width="500"/>
+
+As you can see, the "Message to agent" field is set to the `model_response`, i.e., the summary that the language model generated.
+
+In the starter kit, this is not configured to a real contact center, so no actual human agent is contacted. See [Adding contact center support](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-deploy-web-chat-haa) in the IBM watsonx Assistant documentation for details on how to connect to a real contact center.
+
+Here is what the output looks like in the Preview page of IBM watsonx Assistant (including the error message because no contact center has been configured):
+
+<img src="./assets/summarization-flow.png" width="300"/>
+
 
 #### Troubleshooting
 
@@ -106,20 +141,3 @@ Below is a list of the session variables used in this example. They are automati
 ### Preview the sample actions
 
 The steps to preview the sample actions with OpenAI are the same as the [watsonx use case](#preview-the-sample-actions).
-
-## Technical Details
-
-The interaction between the assistant and the user is recorded in the [session_history_variable](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-publish-overview#publish-overview-environment-settings-session-history). This is an example of the session history for the check order status use case: `[{"a":"Welcome, how can I assist you?"},{"u":"order status","n":true},{"a":"To get started, please enter your order number"},{"u":"1234"},{"a":"Thanks! There is a problem checking the status for your order 1234\n\n
-\n\n\n\nWould you like me to escalate to an agent?\noption: ["Yes","No"]"},{"u":"Yes"}]`.
-
-This use case has configured the human agent escalation process to use a language model to summarize the session and present the summary to both the user and the human agent. You can see that the model response is sent to the agent by going to step 3 of the `Escalate to Agent` action and clicking on "Edit settings" in the "Connect to agent" block at the bottom of the step. You should see this:
-
-<img src="./assets/connect.png" width="500"/>
-
-As you can see, the "Message to agent" field is set to the `model_response`, i.e., the summary that the language model generated.
-
-In the starter kit, this is not configured to a real contact center, so no actual human agent is contacted. See [Adding contact center support](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-deploy-web-chat-haa) in the IBM watsonx Assistant documentation for details on how to connect to a real contact center.
-
-Here is what the output looks like in the Preview page of IBM watsonx Assistant (including the error message because no contact center has been configured):
-
-<img src="./assets/summarization-flow.png" width="300"/>
