@@ -310,10 +310,10 @@ NOTE: Learn more about [text-expansion-query](https://www.elastic.co/guide/en/el
 From you CloudPak cluster, you need to provision a watsonx Assistant instance and then create an assistant in the new wxA experience.
 
 ### Retrieve Elasticsearch endpoints  
-  The below command will print out the Elasticsearch Cluster IP that you will use as the hostname to access Elasticsearch in your assistant on CloudPak.
+  The below command will print out the Elasticsearch Cluster IP and port that you will use as the hostname to access Elasticsearch in your assistant on CloudPak.
   ```shell
-  oc -n ${ES_NAMESPACE} get svc "$ES_CLUSTER-es-http" -o jsonpath='{.spec.clusterIP}'; echo 
-  ``` 
+  oc -n ${ES_NAMESPACE} get svc "$ES_CLUSTER-es-http" -o jsonpath='{.spec.clusterIP}:{.spec.ports[0].port}'; echo
+  ```
 
 ### Configure TLS connection with watsonx Assistant  
   By default, watsonx Assistant (wxA) doesn't trust any certificate that's not in its trusted keystore, which means that
