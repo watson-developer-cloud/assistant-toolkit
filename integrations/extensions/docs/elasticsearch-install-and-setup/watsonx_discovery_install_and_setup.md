@@ -419,7 +419,7 @@ From you CloudPak cluster, you need to provision a watsonx Assistant instance an
           selfSignedCertificate:
             subjectAltNames:
             - dns: localhost  # for secure localhost access
-            - ip: 172.30.249.131 # Update it with your Elasticsearch service ClusterIP
+            - ip: 172.30.249.131 # Change it to your Elasticsearch ClusterIP
     ```
 
 ### Follow the instructions to [build a custom extension in watsonx Assistant with Elasticsearch API](../../starter-kits/elasticsearch/README.md#build-a-custom-extension-in-watsonx-assistant-with-elasticsearch-api)
