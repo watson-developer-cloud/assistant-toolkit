@@ -14,7 +14,7 @@ Before you start, you will need to install and set up your Elasticsearch cluster
 
 ### Set up Enterprise Search for Elasticsearch on IBM Cloud 
 Assuming you have installed Kibana locally following [ICD-elasticsearch-install-and-setup](../../docs/elasticsearch-install-and-setup/ICD_Elasticsearch_install_and_setup.md), 
-follow the follow steps to set up Enterprise Search in Elasticsearch:
+follow these steps to set up Enterprise Search in Elasticsearch:
 * Create a docker network
     ```shell
     docker network create elastic
