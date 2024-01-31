@@ -229,8 +229,8 @@ where you can add processors to the pipeline.
   * Go to your web crawler index page, and click on `Crawl` in the upper right corner to start it. 
   * You will see new crawl requests on the overview page, and you can click on the request ids to see more details and to monitor the progress of your crawl requests.
     <img src="assets/web_crawler_overview_with_crawl_requests.png" width="966" height="563" />
-  * If you see your crawler is running and the number of documents is increasing, your web crawler with a ingest pipeline is working. 
-    You can now inspect the documents and read more web crawler docs to improve or customize your web crawler. 
+  * If you see your crawler is running and the number of documents is increasing, your web crawler is working with the ingest pipeline. 
+    You can now inspect the documents and learn more about web crawler from [Elastic documentation](https://www.elastic.co/guide/en/enterprise-search/8.10/crawler.html) to improve or customize your web crawler. 
 
 
 * Run a nested `text_expansion` query using cURL
