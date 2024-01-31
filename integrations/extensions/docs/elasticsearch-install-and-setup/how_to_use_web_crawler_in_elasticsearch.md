@@ -89,7 +89,7 @@ Click on `Start`, and follow the steps to create a Web Crawler index.
   NOTE: The two rules tell the web crawler to only crawl URLs that begin with https://www.nationalparks.org/explore/parks. 
   Learn more about crawl rules from [here](https://www.elastic.co/guide/en/app-search/8.10/web-crawler-reference.html#web-crawler-reference-crawl-rule)
 * You can now start the web crawler by clicking on `Crawl` in the upper right corner. You can also wait until you finish 
-  [Step 3](#step-3--create-a-elser-ingest-pipeline-with-a-chunking-processor) to build a ingest pipeline with a chunking processor for your web crawler.
+  [Step 3](#step-3-create-an-elser-ingest-pipeline-with-a-chunking-processor) to build a ingest pipeline with a chunking processor for your web crawler.
 
 ## Step 3: Build an ELSER ingest pipeline with a chunking processor
 To use ELSER for text expansion queries on chunked texts, you need to build an ingest pipeline with a chunking processor that uses the ELSER model.
