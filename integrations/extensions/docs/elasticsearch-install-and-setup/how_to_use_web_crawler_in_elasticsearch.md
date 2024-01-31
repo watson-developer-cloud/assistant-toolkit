@@ -267,5 +267,14 @@ where you can add processors to the pipeline.
   to build custom extensions with Elasticsearch and watsonx.ai to enable Conversational Search in watsonx Assistant.
 
 
-* After uploading the sample workspace JSON file to your Assistant, you need to switch the session variable `has_inner_hits` to `True` 
-  so that the right query_body will be used for your web crawler index. 
+> ⛔️
+> **Caution**  
+> * After uploading the sample workspace JSON file to your Assistant, you need to switch the session variable `has_inner_hits` to `True`
+so that the right `query_body` will be used for your web crawler index. 
+> * Remember to provide `_source` with `query_source` session variable when using your Elasticsearch extension. 
+    By limiting the fields available in the `_source`, we can limit the length of the query response. Otherwise, 
+    you may encounter 500 errors due to the response body exceeding the length limit. 
+
+
+* Example usage:  
+  <img src="assets/conversation-search-example-with-web-crawler.png" width="285" height="480">
