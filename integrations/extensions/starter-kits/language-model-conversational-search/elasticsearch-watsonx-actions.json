@@ -1,12 +1,12 @@
 {
-  "name": "zach-rag-demo-action",
+  "name": "elasticsearch-watsonx-actions",
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-12-14T05:31:36.398Z",
-  "updated": "2023-12-15T21:15:49.345Z",
+  "created": "2023-12-07T01:58:57.357Z",
+  "updated": "2024-01-31T04:52:27.806Z",
   "language": "en",
-  "skill_id": "d86bc0bb-e67b-4eb6-b8b0-3e6153c18bb8",
+  "skill_id": "1604ea6c-f4bd-4604-bf56-2c3bf8cddd34",
   "workspace": {
     "actions": [
       {
@@ -84,13 +84,25 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "{\n    \"text_expansion\": {\n      \"ml.tokens\": {\n        \"model_id\": $es_model,\n        \"model_text\": $query_text\n      }\n    }\n  }"
+                    "expression": "{\n    \"nested\": {\n      \"path\": \"passages\",\n      \"query\": { \n        \"text_expansion\": {\n          \"passages.sparse.tokens\": {\n            \"model_id\": \".elser_model_1\",\n            \"model_text\": ${query_text}\n          }\n        }\n      },\n      \"inner_hits\": {\"_source\": {\"excludes\": [\"passages.sparse\"]}}\n    }\n}"
+                  },
+                  "skill_variable": "query_body_nested"
+                },
+                {
+                  "value": {
+                    "expression": "{\n    \"text_expansion\": {\n      \"ml.tokens\": {\n        \"model_id\": $es_model,\n        \"model_text\": ${query_text}\n      }\n    }\n  }"
+                  },
+                  "skill_variable": "query_body_generic"
+                },
+                {
+                  "value": {
+                    "expression": "${has_inner_hits} ? ${query_body_nested} : ${query_body_generic}"
                   },
                   "skill_variable": "query_body"
                 },
                 {
                   "value": {
-                    "expression": "[\"title\", \"text\"]"
+                    "expression": "${has_inner_hits} ? [\"title\", \"url\", \"text\"] : [\"title\", \"text\"]"
                   },
                   "skill_variable": "query_source"
                 }
@@ -105,7 +117,7 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "244887d835781d766c8e5e14557fd949c62513974c1b2aa3f54d24d571a7e15f",
-                  "catalog_item_id": "ed59c677-23ba-435a-8493-b8e947d42b1a"
+                  "catalog_item_id": "dc5e1505-6d2e-4945-9989-18f0c130b27d"
                 },
                 "request_mapping": {
                   "body": [
@@ -114,12 +126,24 @@
                         "skill_variable": "query_body"
                       },
                       "parameter": "query"
+                    },
+                    {
+                      "value": {
+                        "scalar": 10
+                      },
+                      "parameter": "size"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "query_source"
+                      },
+                      "parameter": "_source"
                     }
                   ],
                   "path": [
                     {
                       "value": {
-                        "scalar": "search-wa-docs"
+                        "scalar": ""
                       },
                       "parameter": "index_name"
                     }
@@ -141,7 +165,10 @@
                       "text_expression": {
                         "concat": [
                           {
-                            "scalar": "Returned from calling the search extension"
+                            "scalar": "Returned from calling the search extension\n\n\n\n"
+                          },
+                          {
+                            "skill_variable": "search_results"
                           }
                         ]
                       }
@@ -208,7 +235,7 @@
                       "text_expression": {
                         "concat": [
                           {
-                            "scalar": "Calling the Generate Answer"
+                            "scalar": "Calling Generate Answer"
                           }
                         ]
                       }
@@ -223,7 +250,7 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "${step_781_result_1.body.hits.hits}"
+                    "expression": "${has_inner_hits} ? ${step_781_result_1}.body.hits.hits.get(0).inner_hits.passages.hits.hits : ${step_781_result_1}.body.hits.hits"
                   },
                   "skill_variable": "search_results"
                 }
@@ -259,7 +286,7 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "${step_781_result_1.body.hits.hits}=[]"
+                    "expression": "${has_inner_hits}? ${step_781_result_1}.body.hits.hits.get(0).inner_hits.passages.hits.hits=[]: ${step_781_result_1}.body.hits.hits=[]"
                   },
                   "skill_variable": "search_results"
                 }
@@ -281,7 +308,7 @@
         },
         "variables": [
           {
-            "title": "Calling the Generate Answer",
+            "title": "Calling Generate Answer",
             "privacy": {
               "enabled": false
             },
@@ -309,7 +336,7 @@
             "data_type": "any"
           },
           {
-            "title": "Returned from calling the search extension",
+            "title": "Returned from calling the search extension {variable}",
             "privacy": {
               "enabled": false
             },
@@ -381,7 +408,19 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "\"[title]: \"+ ${search_results}.get(0)._source.title + \"\\n\" +\n\"[document]: \"+ ${search_results}.get(0)._source.text + \"\\n\""
+                    "expression": "${search_results}.get(0)._source.title ? \"[title]: \"+ ${search_results}.get(0)._source.title + \"\\n\" : \"\""
+                  },
+                  "skill_variable": "title_prompt_text"
+                },
+                {
+                  "value": {
+                    "expression": "\"[document]: \"+ ${search_results}.get(0)._source.text + \"\\n\""
+                  },
+                  "skill_variable": "document_prompt_text"
+                },
+                {
+                  "value": {
+                    "expression": "${has_inner_hits} ?  ${document_prompt_text} :${title_prompt_text} + ${document_prompt_text}"
                   },
                   "skill_variable": "snippet"
                 },
@@ -401,10 +440,10 @@
             "condition": {
               "expression": "${search_results}.size > 0"
             },
-            "next_step": "step_239"
+            "next_step": "step_175"
           },
           {
-            "step": "step_239",
+            "step": "step_175",
             "output": {
               "generic": []
             },
@@ -412,7 +451,19 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "\"[title]: \"+ ${search_results}.get(1)._source.title + \"\\n\" +\n\"[document]: \"+ ${search_results}.get(1)._source.text + \"\\n\""
+                    "expression": "${search_results}.get(1)._source.title ? \"[title]: \"+ ${search_results}.get(1)._source.title + \"\\n\" : \"\""
+                  },
+                  "skill_variable": "title_prompt_text"
+                },
+                {
+                  "value": {
+                    "expression": "\"[document]: \"+ ${search_results}.get(1)._source.text + \"\\n\""
+                  },
+                  "skill_variable": "document_prompt_text"
+                },
+                {
+                  "value": {
+                    "expression": "${has_inner_hits} ? ${document_prompt_text} :${title_prompt_text} + ${document_prompt_text}"
                   },
                   "skill_variable": "snippet"
                 },
@@ -428,14 +479,14 @@
             "resolver": {
               "type": "continue"
             },
-            "variable": "step_239",
+            "variable": "step_175",
             "condition": {
               "expression": "${search_results}.size > 1"
             },
-            "next_step": "step_982"
+            "next_step": "step_523"
           },
           {
-            "step": "step_982",
+            "step": "step_523",
             "output": {
               "generic": []
             },
@@ -443,7 +494,19 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "\"[title]: \"+ ${search_results}.get(2)._source.title + \"\\n\" +\n\"[document]: \"+ ${search_results}.get(2)._source.text  + \"\\n\""
+                    "expression": "${search_results}.get(2)._source.title ? \"[title]: \"+ ${search_results}.get(2)._source.title + \"\\n\" : \"\""
+                  },
+                  "skill_variable": "title_prompt_text"
+                },
+                {
+                  "value": {
+                    "expression": "\"[document]: \"+ ${search_results}.get(2)._source.text + \"\\n\""
+                  },
+                  "skill_variable": "document_prompt_text"
+                },
+                {
+                  "value": {
+                    "expression": "${has_inner_hits} ? ${document_prompt_text} :${title_prompt_text} + ${document_prompt_text}"
                   },
                   "skill_variable": "snippet"
                 },
@@ -459,7 +522,7 @@
             "resolver": {
               "type": "continue"
             },
-            "variable": "step_982",
+            "variable": "step_523",
             "condition": {
               "expression": "${search_results}.size > 2"
             },
@@ -729,6 +792,14 @@
             "data_type": "any"
           },
           {
+            "title": "No response",
+            "privacy": {
+              "enabled": true
+            },
+            "variable": "step_175",
+            "data_type": "any"
+          },
+          {
             "variable": "step_217_result_1",
             "data_type": "any"
           },
@@ -742,11 +813,6 @@
           },
           {
             "variable": "step_237_result_2",
-            "data_type": "any"
-          },
-          {
-            "title": "",
-            "variable": "step_239",
             "data_type": "any"
           },
           {
@@ -781,6 +847,14 @@
           },
           {
             "variable": "step_492_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "privacy": {
+              "enabled": true
+            },
+            "variable": "step_523",
             "data_type": "any"
           },
           {
@@ -832,11 +906,6 @@
             "data_type": "any"
           },
           {
-            "title": "",
-            "variable": "step_982",
-            "data_type": "any"
-          },
-          {
             "variable": "step_982_result_1",
             "data_type": "any"
           }
@@ -864,7 +933,7 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "cc50493e455de183d661b95360196ddb468a02051add6dcaf4a6479b34900be5",
-                  "catalog_item_id": "95f6cba8-1c0f-435f-be85-e1604f12a08c"
+                  "catalog_item_id": "22d5d7e0-f50f-4ae0-b581-4f6915f29ca9"
                 },
                 "request_mapping": {
                   "body": [
@@ -1776,6 +1845,15 @@
     },
     "variables": [
       {
+        "title": "document_prompt_text",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "document_prompt_text",
+        "data_type": "string",
+        "description": ""
+      },
+      {
         "title": "es_model",
         "privacy": {
           "enabled": false
@@ -1785,6 +1863,18 @@
         "description": "ELSER model v1",
         "initial_value": {
           "scalar": ".elser_model_1"
+        }
+      },
+      {
+        "title": "has_inner_hits",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "has_inner_hits",
+        "data_type": "boolean",
+        "description": "",
+        "initial_value": {
+          "scalar": false
         }
       },
       {
@@ -1869,6 +1959,24 @@
         "description": ""
       },
       {
+        "title": "query_body_generic",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "query_body_generic",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "query_body_nested",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "query_body_nested",
+        "data_type": "any",
+        "description": ""
+      },
+      {
         "title": "query_source",
         "privacy": {
           "enabled": false
@@ -1893,6 +2001,15 @@
         "title": "snippet",
         "variable": "snippet",
         "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "title_prompt_text",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "title_prompt_text",
+        "data_type": "string",
         "description": ""
       },
       {
@@ -2039,9 +2156,9 @@
     "learning_opt_out": true
   },
   "description": "created for assistant fcee95d0-3673-43ea-9349-9e4458738da2",
-  "assistant_id": "7470c8e5-02f7-4c62-81b6-98d4cc7069cb",
-  "workspace_id": "d86bc0bb-e67b-4eb6-b8b0-3e6153c18bb8",
+  "assistant_id": "040eca96-f776-4ae6-8e39-5362784d61fa",
+  "workspace_id": "1604ea6c-f4bd-4604-bf56-2c3bf8cddd34",
   "dialog_settings": {},
   "next_snapshot_version": "1",
-  "environment_id": "abf00b26-fddb-4899-b211-33a481dccba6"
+  "environment_id": "31c2e66e-f1b6-4b36-98eb-f05bd62aa0c4"
 }
