@@ -119,7 +119,10 @@ curl -X PUT "${ES_HOST}/<your-web-crawler-index-name>/_mapping?pretty" -k \
 }'
 ```
 The above command will update the index mappings to specify `passages` to be `nested` type and `passages.sparse.tokens` to be `rank_features` type, 
-because the default dynamic index mappings of the web crawler couldn't recognize these types correctly during document ingestion.
+because the default dynamic index mappings of the web crawler couldn't recognize these types correctly during document ingestion.  
+
+
+NOTE: `rank_features` only works for ELSER v1 model, ELSER v2 requires a different type for the tokens and ELSER v2 has only been available since Elastic 8.11. Learn more about ELSER v2 from [here](https://www.elastic.co/guide/en/machine-learning/current/ml-nlp-elser.html)
 
 ### Build a custom ingest pipeline with two processors
 Now you can build a custom ingest pipeline for your web crawler index on Kibana, following these steps:
@@ -152,7 +155,7 @@ where you can add processors to the pipeline.
       Map passage = ['text': envSplit[0]];ctx['passages'].add(passage)
   } else {
       while (remaining) {
-          Map passage = ['text': ctx['title'] + ' ' + envSplit[i++], 'title': ctx['title']]
+          Map passage = ['text': envSplit[i++]]
           while (i < envSplit.length && passage.text.length() + envSplit[i].length() < params.model_limit) {passage.text = passage.text + ' ' + envSplit[i++]}
           if (i == envSplit.length) {remaining = false}
           ctx['passages'].add(passage)
@@ -160,8 +163,7 @@ where you can add processors to the pipeline.
   }
   ```
   The above script splits `body_content` into sentences using regex, and then combine sentences into passages with 
-  a `model_limit` parameter to control the character length of each passage. `model_limit` is configured in `Parameters` field.  
-  For example,  
+  a `model_limit` parameter to control the character length of each passage. `model_limit` is configured in `Parameters` field, for example,  
   ```json
   {
     "model_limit": 2048
@@ -170,7 +172,7 @@ where you can add processors to the pipeline.
   
   You can update the `Script` to build a customized chunking processor for your web content.  
 
-  For example, you can include `title` in each passage object with the following changes on `passage` definition:
+  For example, you can include `title` in each passage object with the following `passage` definition:
   ```Groovy
   Map passage = ['text': envSplit[i++], 'title': ctx['title']]
   ```
@@ -214,7 +216,8 @@ where you can add processors to the pipeline.
     }
   }
   ```
-  NOTEs: 
+  NOTES:
+  * `inference_config` in this example only works with ELSER v1 model, its structure will be different for ELSER v2 model. 
   * `inference_config.text_expansion` is required in the config to tell the Foreach processor to use `text_expansion` 
     and store the results in `tokens` field for each chunked text.
   * `_ingest._value.sparse` expects a `sparse` field for each chunk object as the target field.
@@ -224,13 +227,13 @@ where you can add processors to the pipeline.
 * Start your web crawler and monitor its progress  
   Once you have added the processors to your ingest pipeline, you can kick off your web crawler to crawl the website URLs you have configured at earlier steps.
   * Go to your web crawler index page, and click on `Crawl` in the upper right corner to start it. 
-  * You will see new crawl requests on the overview page, and you can click on the request ids to see more details and to monitor the progress of your crawl jobs.
+  * You will see new crawl requests on the overview page, and you can click on the request ids to see more details and to monitor the progress of your crawl requests.
     <img src="assets/web_crawler_overview_with_crawl_requests.png" width="966" height="563" />
   * If you see your crawler is running and the number of documents is increasing, your web crawler with a ingest pipeline is working. 
     You can now inspect the documents and read more web crawler docs to improve or customize your web crawler. 
 
 
-* Run a nested text_expansion query using cURL
+* Run a nested `text_expansion` query using cURL
   ```shell
   curl -k -X GET "${ES_URL}/<your-web-crawler-index-name>/_search?pretty" \
   -u "${ES_USER}:${ES_PASSWORD}" \
@@ -256,8 +259,7 @@ where you can add processors to the pipeline.
   generated for each chunked text by the ingest pipeline. So, the search happens on the chunked texts. Learn more about nested 
   query from the [Elastic documentation](https://www.elastic.co/guide/en/elasticsearch/reference/8.10/query-dsl-nested-query.html).
 
-  If you see successful results from the above query, your web crawler has extracted data from the websites you configured 
-  and also processed the data using the ingest pipeline you defined at previous steps.
+  If you see successful results from the above query, your web crawler is working with the ingest pipeline defined at previous steps.
 
 ## Step 4: Connect a web crawler index to watsonx Assistant for conversational search 
 
