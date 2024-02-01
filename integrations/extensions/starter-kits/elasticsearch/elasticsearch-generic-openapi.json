@@ -75,7 +75,7 @@
                   "query_vector_builder": {
                     "text_embedding": {
                       "model_id": "elastic__multilingual-e5-small-optimized",
-                      "model_text": "How is the weather in Jamaica?"
+                      "model_text": "how to set up custom extension?"
                     }
                   },
                   "k": 10,

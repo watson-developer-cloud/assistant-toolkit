@@ -66,6 +66,23 @@ but you will need to find set-up instructions appropriate to that environment.
     ELSER v2 is only available for the 8.11 version of Elasticsearch
     * Compound search  
       You can combine different types of queries in a compound query. Learn more about it from this [Elasticsearch tutorial](https://www.elastic.co/guide/en/elasticsearch/reference/8.10/semantic-search-elser.html#text-expansion-compound-query).
+  * To use dense vector search (k-nearest neighbours search), you need to set `knn_body` as a session variable and set the `knn` variable to `knn_body` as shown below:
+    * Here is an example knn body you can use when setting up the `knn_body` session variable
+    ```json
+      {
+        "field": "text_embedding.predicted_value",
+        "query_vector_builder": {
+          "text_embedding": {
+            "model_id": "elastic__multilingual-e5-small-optimized",
+            "model_text": "how to set up custom extension?"
+          }
+        },
+        "k": 10,
+        "num_candidates": 100
+      }
+      ```
+      <img src="assets/use_elasticsearch_custom_extension_knn.png" width="669" height="627" />
+  
   * Try typing in anything in your preview chat to trigger `No action matches` action. 
     If you see a successful extension call with valid response in the Extension Inspector, your Elasticsearch custom extension has been set up successfully.
 
