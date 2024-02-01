@@ -1,13 +1,13 @@
-# Working with web crawler in Elasticsearch
-This is a documentation about how to set up and use web crawler in Elasticsearch and connect it to watsonx Assistant for Conversational Search.
+# Working with the web crawler in Elasticsearch
+This is a documentation about how to set up and use the web crawler in Elasticsearch and connect it to watsonx Assistant for Conversational Search.
 
 ## Tabel of contents:
-* [Step 1: Set up Enterprise Search to enable web crawler in Elasticsearch](#step-1-set-up-enterprise-search-to-enable-web-crawler-in-elasticsearch)
+* [Step 1: Set up Enterprise Search to enable the web crawler in Elasticsearch](#step-1-set-up-enterprise-search-to-enable-the-web-crawler-in-elasticsearch)
 * [Step 2: Create and configure a web crawler in Elasticsearch](#step-2-create-and-configure-a-web-crawler-in-elasticsearch)
 * [Step 3: Build an ELSER ingest pipeline with a chunking processor](#step-3-build-an-elser-ingest-pipeline-with-a-chunking-processor)
 * [Step 4: Connect a web crawler index to watsonx Assistant for conversational search](#step-4-connect-a-web-crawler-index-to-watsonx-assistant-for-conversational-search)
 
-## Step 1: Set up Enterprise Search to enable web crawler in Elasticsearch
+## Step 1: Set up Enterprise Search to enable the web crawler in Elasticsearch
 Before you start, you will need to install and set up your Elasticsearch cluster,
 * For Elasticsearch on IBM Cloud, please refer to [ICD-elasticsearch-install-and-setup](../../docs/elasticsearch-install-and-setup/ICD_Elasticsearch_install_and_setup.md) for more details.
 * For Elasticsearch (watsonx Discovery) on CloudPak, please refer to [watsonx-discovery-install-and-setup](../../docs/elasticsearch-install-and-setup/watsonx_discovery_install_and_setup.md) for more details.
@@ -24,13 +24,20 @@ follow these steps to set up Enterprise Search in Elasticsearch:
 
 * Restart Kibana within a network and with enterprise search host
   ```shell
+  KIBANA_CONFIG_FOLDER=<path-to-your-kibana-config-folder>
+  KIBANA_VERSION=<kibana-version>
+  ```
+  NOTE: `KIBANA_VERSION` needs to be compatible with the Elasticsearch version. It can be the same as the Elasticsearch version.
+  Learn more about the compatibility with Elasticsearch from [here](https://www.elastic.co/support/matrix#matrix_compatibility)
+  ```shell
   docker run -it --name kibana --network elastic --rm \
-  -v <path_to_your_kibana_config_folder>:/usr/share/kibana/config \
+  -v ${KIBANA_CONFIG_FOLDER}:/usr/share/kibana/config \
   -p 5601:5601 \
   --env "ENTERPRISESEARCH_HOST=http://enterprise-search:3002" \
-  docker.elastic.co/kibana/kibana:<kibana_version>
+  docker.elastic.co/kibana/kibana:${KIBANA_VERSION}
   ```
-  NOTE: You can also add the enterprise search host to your kibana config YAML file, for example, 
+  NOTE: Instead of passing `ENTERPRISESEARCH_HOST` as an environment variable, another option is to add the enterprise search 
+  host to your kibana config YAML file, for example, 
   ```shell
   enterpriseSearch.host: "http://enterprise-search:3002"
   ```
@@ -43,14 +50,15 @@ In a new terminal window, run the following command to generate an encryption ke
 
 * Create environment variables for elasticsearch credentials:
     ```shell
-    ES_HOST=<your-elasticsearch-host>
-    ES_USERNAME=<your-elasticsearch-username>
+    ES_URL=<your-elasticsearch-host>
+    ES_USER=<your-elasticsearch-username>
     ES_PASSWORD=<your-elasticsearch-password>
     
     ES_VERSION=<your-elasticsearch-version>
-    CA_CERT_FOLDER=<your-config-folder-containing-elasticsearch-ca-cert>
+    ES_CACERT_FOLDER=<your-config-folder-containing-elasticsearch-cert>
+    ES_CACERT_NAME=<your-es-cert-file-name>
     ```
-  NOTE: `CA_CERT_FOLDER` can be your kibana config folder if you have stored the elasticsearch certificate in the folder following [ICD-elasticsearch-install-and-setup](../../docs/elasticsearch-install-and-setup/ICD_Elasticsearch_install_and_setup.md)
+  NOTE: `ES_CACERT_FOLDER` can be your kibana config folder if you have stored the elasticsearch certificate in the folder following [ICD-elasticsearch-install-and-setup](../../docs/elasticsearch-install-and-setup/ICD_Elasticsearch_install_and_setup.md)
 
 * Download and start Enterprise Search
     ```shell
@@ -58,17 +66,17 @@ In a new terminal window, run the following command to generate an encryption ke
     --name "enterprise-search" \
     --network "elastic" \
     --publish "3002:3002" \
-    -v "${CA_CERT_FOLDER}:/usr/share/enterprise-search/es-config:ro" \
+    -v "${ES_CACERT_FOLDER}:/usr/share/enterprise-search/es-config:ro" \
     --interactive \
     --tty \
     --rm \
     --env "secret_management.encryption_keys=[${ENCRYPT_KEY}]" \
     --env "allow_es_settings_modification=true" \
-    --env "elasticsearch.host=${ES_HOST}" \
-    --env "elasticsearch.username=${ES_USERNAME}" \
+    --env "elasticsearch.host=${ES_URL}" \
+    --env "elasticsearch.username=${ES_USER}" \
     --env "elasticsearch.password=${ES_PASSWORD}" \
     --env "elasticsearch.ssl.enabled=true" \
-    --env "elasticsearch.ssl.certificate_authority=/usr/share/enterprise-search/es-config/<your-ca-cert-file-name>" \
+    --env "elasticsearch.ssl.certificate_authority=/usr/share/enterprise-search/es-config/${ES_CACERT_NAME}" \
     --env "kibana.external_url=http://kibana:5601" \
     "docker.elastic.co/enterprise-search/enterprise-search:${ES_VERSION}"
     ```
@@ -89,14 +97,14 @@ Click on `Start`, and follow the steps to create a Web Crawler index.
   NOTE: The two rules tell the web crawler to only crawl URLs that begin with https://www.nationalparks.org/explore/parks. 
   Learn more about crawl rules from [here](https://www.elastic.co/guide/en/app-search/8.10/web-crawler-reference.html#web-crawler-reference-crawl-rule)
 * You can now start the web crawler by clicking on `Crawl` in the upper right corner. You can also wait until you finish 
-  [Step 3](#step-3-create-an-elser-ingest-pipeline-with-a-chunking-processor) to build a ingest pipeline with a chunking processor for your web crawler.
+  [Step 3](#step-3-create-an-elser-ingest-pipeline-with-a-chunking-processor) to build an ingest pipeline with a chunking processor for your web crawler.
 
 ## Step 3: Build an ELSER ingest pipeline with a chunking processor
 To use ELSER for text expansion queries on chunked texts, you need to build an ingest pipeline with a chunking processor that uses the ELSER model.
 
 ### Update the index mappings of your web crawler
 ```shell
-curl -X PUT "${ES_HOST}/<your-web-crawler-index-name>/_mapping?pretty" -k \
+curl -X PUT "${ES_URL}/<your-web-crawler-index-name>/_mapping?pretty" -k \
 -u "${ES_USER}:${ES_PASSWORD}" \
 -H 'Content-Type: application/json' \
 -d'
@@ -139,7 +147,7 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
 where you can add processors to the pipeline.
 
 
-* Add a `script` processor for chunking  
+* Add a `Script` processor for chunking  
   In the ingest pipeline page, click on `Add a processor`, choose `Script` processor, and then add a Groovy script to the `Source` field.  
   For example,  
   <img src="assets/web_crawler_script_processor.png" width="577" height="718" />
@@ -182,7 +190,7 @@ where you can add processors to the pipeline.
   ```
 
 
-* Add a `foreach` processor to process chunked texts using the ELSER model  
+* Add a `Foreach` processor to process chunked texts using the ELSER model  
   In the ingest pipeline `Edit` page, click on `Add a processor`, choose `Foreach` processor, and then add a JSON processor config to the `Processors` field.  
   For example,  
   <img src="assets/web_crawler_foreach_processor.png" width="575" height="716" />
@@ -230,7 +238,7 @@ where you can add processors to the pipeline.
   * You will see new crawl requests on the overview page, and you can click on the request ids to see more details and to monitor the progress of your crawl requests.
     <img src="assets/web_crawler_overview_with_crawl_requests.png" width="966" height="563" />
   * If you see your crawler is running and the number of documents is increasing, your web crawler is working with the ingest pipeline. 
-    You can now inspect the documents and learn more about web crawler from [Elastic documentation](https://www.elastic.co/guide/en/enterprise-search/8.10/crawler.html) to improve or customize your web crawler. 
+    You can now inspect the documents and learn more about the web crawler from [Elastic documentation](https://www.elastic.co/guide/en/enterprise-search/8.10/crawler.html) to improve or customize your web crawler. 
 
 
 * Run a nested `text_expansion` query using cURL
