@@ -109,11 +109,6 @@ curl -X PUT "${ES_URL}/<your-web-crawler-index-name>/_mapping?pretty" -k \
 -H 'Content-Type: application/json' \
 -d'
 {
-  "_source": {
-    "excludes": [
-      "passages.sparse.tokens"
-      ]
-    },
   "properties": {
     "passages": {
       "type": "nested",
