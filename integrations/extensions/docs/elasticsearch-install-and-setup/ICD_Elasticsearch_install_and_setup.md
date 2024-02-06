@@ -23,15 +23,16 @@ This is a documentation about how to set up Elasticsearch from IBM Cloud and cre
 * Install Docker so that you can pull the Kibana container image later
   * You can install [Docker Desktop](https://www.docker.com/products/docker-desktop/)
   * If you don't want to use Docker Desktop, 
-    * For MacOS users, you can install [Colima](https://github.com/abiosoft/colima#installation) as an alternative  
-      [HomeBrew](https://brew.sh/) is required for running the following commands:
+    * For MacOS users, you can install [Colima](https://github.com/abiosoft/colima#installation) as an alternative ([HomeBrew](https://brew.sh/) is required for running the following commands):
       ```shell
       brew install docker
       brew install colima
     
       colima start
       ```
-    * Other options: [Podman Desktop](https://podman-desktop.io/), [Rancher Desktop](https://docs.rancherdesktop.io/getting-started/installation/)
+      NOTE: The default VM created by Colima has 2 CPUs, 2GiB memory and 60GiB storage. Learn more about how to customize it from [here](https://github.com/abiosoft/colima?tab=readme-ov-file#customizing-the-vm)
+    * Other options: [Podman Desktop](https://podman-desktop.io/), [Rancher Desktop](https://docs.rancherdesktop.io/getting-started/installation/)  
+      The `docker run` commands used in this documentation may not work with these two options. Please refer to their respective documentations for how to configure and start a container. 
 * Create a kibana config folder, for example
   `mkdir -p ~/.kibana/config`
 * Download the certificate from the Elasticsearch instance overview page, and move the downloaded file to the kibana config folder
