@@ -3,10 +3,10 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-12-07T01:58:57.357Z",
-  "updated": "2024-01-31T04:52:27.806Z",
+  "created": "2024-02-09T01:32:27.532Z",
+  "updated": "2024-02-09T05:55:57.110Z",
   "language": "en",
-  "skill_id": "1604ea6c-f4bd-4604-bf56-2c3bf8cddd34",
+  "skill_id": "8ececc72-d8fe-41e7-bc75-4fd73b052406",
   "workspace": {
     "actions": [
       {
@@ -102,7 +102,7 @@
                 },
                 {
                   "value": {
-                    "expression": "${has_inner_hits} ? [\"title\", \"url\", \"text\"] : [\"title\", \"text\"]"
+                    "expression": "[\"title\", \"text\"]"
                   },
                   "skill_variable": "query_source"
                 }
@@ -117,7 +117,7 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "244887d835781d766c8e5e14557fd949c62513974c1b2aa3f54d24d571a7e15f",
-                  "catalog_item_id": "dc5e1505-6d2e-4945-9989-18f0c130b27d"
+                  "catalog_item_id": "4e668244-5aca-40a7-b34f-b7eb8b893d4e"
                 },
                 "request_mapping": {
                   "body": [
@@ -126,12 +126,6 @@
                         "skill_variable": "query_body"
                       },
                       "parameter": "query"
-                    },
-                    {
-                      "value": {
-                        "scalar": 10
-                      },
-                      "parameter": "size"
                     },
                     {
                       "value": {
@@ -165,10 +159,7 @@
                       "text_expression": {
                         "concat": [
                           {
-                            "scalar": "Returned from calling the search extension\n\n\n\n"
-                          },
-                          {
-                            "skill_variable": "search_results"
+                            "scalar": "Returned from calling the search extension"
                           }
                         ]
                       }
@@ -336,7 +327,7 @@
             "data_type": "any"
           },
           {
-            "title": "Returned from calling the search extension {variable}",
+            "title": "Returned from calling the search extension",
             "privacy": {
               "enabled": false
             },
@@ -933,7 +924,7 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "cc50493e455de183d661b95360196ddb468a02051add6dcaf4a6479b34900be5",
-                  "catalog_item_id": "22d5d7e0-f50f-4ae0-b581-4f6915f29ca9"
+                  "catalog_item_id": "77bc5ccc-0bca-4990-a52a-05f9b53b0aff"
                 },
                 "request_mapping": {
                   "body": [
@@ -1840,7 +1831,7 @@
     "metadata": {
       "api_version": {
         "major_version": "v2",
-        "minor_version": "2018-11-08"
+        "minor_version": "2021-11-27"
       }
     },
     "variables": [
@@ -2156,9 +2147,9 @@
     "learning_opt_out": true
   },
   "description": "created for assistant fcee95d0-3673-43ea-9349-9e4458738da2",
-  "assistant_id": "040eca96-f776-4ae6-8e39-5362784d61fa",
-  "workspace_id": "1604ea6c-f4bd-4604-bf56-2c3bf8cddd34",
+  "assistant_id": "f612f5fa-555a-4b6c-b6ef-49495df2229c",
+  "workspace_id": "8ececc72-d8fe-41e7-bc75-4fd73b052406",
   "dialog_settings": {},
   "next_snapshot_version": "1",
-  "environment_id": "31c2e66e-f1b6-4b36-98eb-f05bd62aa0c4"
+  "environment_id": "7c96a36c-53a0-4e14-ae47-b8ce5af48fd1"
 }

@@ -187,8 +187,9 @@ where you can add processors to the pipeline.
   }
   ```
   Since ELSER v1 model is limited to 512 tokens per field for inference, it is better not to have more than 512 tokens for each passage. 
-  `2048` is a good character length limit for each passage because a text with 2048 characters unlikely will have more than 512 tokens. 
-  Depending on how you want to chunk the `body_content`, you may need to use different `model_limit` values.  
+  `2048` is a reasonable character length limit because a text with 2048 characters will unlikely have more than 512 tokens. 
+  Depending on how you want to chunk the `body_content` and which sematic search model you want to use, you may need to use 
+  different `model_limit` values to optimize the chunking processor.  
 
   #### (Optional) Considerations for customizing the chunking processor
   * If you need to include `title` as a field in each passage object, use the following `passage` definition statement in the script:
@@ -245,9 +246,10 @@ where you can add processors to the pipeline.
 
 
 * Start your web crawler and monitor its progress  
-  Once you have added the processors to your ingest pipeline, you can kick off your web crawler to crawl the website URLs you have configured at earlier steps.
+  Once you have added the processors to your ingest pipeline, you can kick off your web crawler to crawl the website URLs you have configured at earlier steps.  
+
   If you already started your web crawler at the end of [Step 2](#step-2-create-and-configure-a-web-crawler-in-elasticsearch), 
-  and it finished extracting the documents, you may need to delete all the documents first with the following command:
+  and it finished extracting the documents, you may need to delete all the documents first with the following cURL command:
   ```shell
   curl -k -X POST "${ES_URL}/<your-web-crawler-search-index>/_delete_by_query" \
   -u "${ES_USER}:${ES_PASSWORD}" \
