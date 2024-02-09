@@ -92,16 +92,30 @@ Coming soon...
 ## Step 2: Create and configure a web crawler in Elasticsearch 
 * In Kibana, you can find the Web Crawler option on Search Overview http://localhost:5601/app/enterprise_search/overview. 
 Click on `Start`, and follow the steps to create a Web Crawler index. 
+
+
 * On the `Manage Domains` tab, add a domain, for example, `https://www.nationalparks.org`.
+
+
+* Add an entry point under the domain `Entry points` tab, for example, `https://www.nationalparks.org/explore/parks`
+
+
 * From the domain `Crawl Rules` tab, add two additional rules like below:  
   <img src="assets/add_crawl_rules_for_web_crawler.png" width="802" height="309" />  
   NOTE: The two rules tell the web crawler to only crawl URLs that begin with https://www.nationalparks.org/explore/parks. 
   Learn more about crawl rules from [here](https://www.elastic.co/guide/en/app-search/8.10/web-crawler-reference.html#web-crawler-reference-crawl-rule)
-* You can now start the web crawler by clicking on `Crawl` in the upper right corner. You can also wait until you finish 
-  [Step 3](#step-3-create-an-elser-ingest-pipeline-with-a-chunking-processor) to build an ingest pipeline with a chunking processor for your web crawler.
+
+
+* You can now try the web crawler by clicking on `Crawl` in the upper right corner.  
+  NOTE: The web crawler uses a default ingest pipeline to extract web content and store them as documents in the index. 
+  The default ingest pipeline doesn't use chunking or semantic search such as ELSER to process the documents. To enable chunking 
+  and ELSER for your web crawler, you will need to finish [Step 3](#step-3-create-an-elser-ingest-pipeline-with-a-chunking-processor) 
+  first to build a custom ingest pipeline with a chunking processor for your web crawler, and then start the web crawler. 
 
 ## Step 3: Build an ELSER ingest pipeline with a chunking processor
 To use ELSER for text expansion queries on chunked texts, you need to build an ingest pipeline with a chunking processor that uses the ELSER model.
+
+
 
 ### Update the index mappings of your web crawler
 ```shell
@@ -123,10 +137,9 @@ curl -X PUT "${ES_URL}/<your-web-crawler-index-name>/_mapping?pretty" -k \
 }'
 ```
 The above command will update the index mappings to specify `passages` to be `nested` type and `passages.sparse.tokens` to be `rank_features` type, 
-because the default dynamic index mappings of the web crawler couldn't recognize these types correctly during document ingestion.  
+because the default dynamic index mappings of the web crawler cannot recognize these types correctly during document ingestion.
 
-
-NOTE: `rank_features` only works for ELSER v1 model, ELSER v2 requires a different type for the tokens and ELSER v2 has only been available since Elastic 8.11. Learn more about ELSER v2 from [here](https://www.elastic.co/guide/en/machine-learning/current/ml-nlp-elser.html)
+NOTE: `rank_features` only works for ELSER v1 model. ELSER v2 requires a different type for the tokens. ELSER v2 has only been available since Elastic 8.11. Learn more about ELSER v2 from [here](https://www.elastic.co/guide/en/machine-learning/current/ml-nlp-elser.html)
 
 ### Build a custom ingest pipeline with two processors
 Now you can build a custom ingest pipeline for your web crawler index on Kibana, following these steps:
@@ -134,7 +147,7 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
 * Open http://localhost:5601, and log into Kibana with your Elasticsearch credentials, then go to your web crawler index page.
 
 
-* Under `Pipelines` tab, click on `Copy and customize` to create a custom ingest pipeline, and you will see a new ingest pipeline named `<your-index-name>@custom`.  
+* Under `Pipelines` tab, click on `Copy and customize` to create a custom ingest pipeline, and you will see a new ingest pipeline named `<your-web-crawler-index-name>@custom`.  
   For example,  
   <img src="assets/web_crawler_ingest_pipeline_custom.png" width="955" height="340" />
 
@@ -159,35 +172,37 @@ where you can add processors to the pipeline.
       Map passage = ['text': envSplit[0]];ctx['passages'].add(passage)
   } else {
       while (remaining) {
-          Map passage = ['text': envSplit[i++]]
+          Map passage = ['text': envSplit[i++]];
           while (i < envSplit.length && passage.text.length() + envSplit[i].length() < params.model_limit) {passage.text = passage.text + ' ' + envSplit[i++]}
           if (i == envSplit.length) {remaining = false}
           ctx['passages'].add(passage)
           }
   }
   ```
-  The above script splits `body_content` into sentences using regex, and then combine sentences into passages with 
+  The above script splits `body_content` into sentences using regex and then combines sentences into passages with 
   a `model_limit` parameter to control the character length of each passage. `model_limit` is configured in `Parameters` field, for example,  
   ```json
   {
     "model_limit": 2048
   }
   ```
-  
-  You can update the `Script` to build a customized chunking processor for your web content.  
+  Since ELSER v1 model is limited to 512 tokens per field for inference, it is better not to have more than 512 tokens for each passage. 
+  `2048` is a good character length limit for each passage because a text with 2048 characters unlikely will have more than 512 tokens. 
+  Depending on how you want to chunk the `body_content`, you may need to use different `model_limit` values.  
 
-  For example, you can include `title` in each passage object with the following `passage` definition:
-  ```Groovy
-  Map passage = ['text': envSplit[i++], 'title': ctx['title']]
-  ```
-  If you want to insert `title` to the beginning of each chunked text,
-  ```Groovy
-  Map passage = ['text': ctx['title'] + '.' + envSplit[i++], 'title': ctx['title']]
-  ```
+  #### (Optional) Considerations for customizing the chunking processor
+  * If you need to include `title` as a field in each passage object, use the following `passage` definition statement in the script:
+    ```Groovy
+    Map passage = ['text': envSplit[i++], 'title': ctx['title']];
+    ```
+  * If you need to insert `title` to the beginning of each chunked text, use the following `passage` definition statement in the script:
+    ```Groovy
+    Map passage = ['text': ctx['title'] + '.' + envSplit[i++], 'title': ctx['title']];
+    ```
 
 
 * Add a `Foreach` processor to process chunked texts using the ELSER model  
-  In the ingest pipeline `Edit` page, click on `Add a processor`, choose `Foreach` processor, and then add a JSON processor config to the `Processors` field.  
+  In the ingest pipeline `Edit` page, click on `Add a processor`, choose `Foreach` processor, specify `passages` as the `Field`, and then add a JSON processor config to the `Processors` field.  
   For example,  
   <img src="assets/web_crawler_foreach_processor.png" width="575" height="716" />
   ```json
@@ -226,10 +241,24 @@ where you can add processors to the pipeline.
     and store the results in `tokens` field for each chunked text.
   * `_ingest._value.sparse` expects a `sparse` field for each chunk object as the target field.
   * `_ingest._value.text` expects a `text` field for each chunk object as the input field.
+  * `search-crawler-with-chunking@custom` is the name of the ingest pipeline. You need to update it with your ingest pipeline name. 
 
 
 * Start your web crawler and monitor its progress  
   Once you have added the processors to your ingest pipeline, you can kick off your web crawler to crawl the website URLs you have configured at earlier steps.
+  If you already started your web crawler at the end of [Step 2](#step-2-create-and-configure-a-web-crawler-in-elasticsearch), 
+  and it finished extracting the documents, you may need to delete all the documents first with the following command:
+  ```shell
+  curl -k -X POST "${ES_URL}/<your-web-crawler-search-index>/_delete_by_query" \
+  -u "${ES_USER}:${ES_PASSWORD}" \
+  -H 'Content-Type: application/json' -d'
+  {
+     "query":{
+       "match_all":{}
+     }
+  }'
+  ```
+  Then, you can follow these steps to start your web crawler with the custom ingest pipeline:
   * Go to your web crawler index page, and click on `Crawl` in the upper right corner to start it. 
   * You will see new crawl requests on the overview page, and you can click on the request ids to see more details and to monitor the progress of your crawl requests.
     <img src="assets/web_crawler_overview_with_crawl_requests.png" width="966" height="563" />
@@ -259,11 +288,11 @@ where you can add processors to the pipeline.
     }
   }'
   ```
-  The above command sends a nested query to the Elasticsearch index and `text_expansion` is used on the ELSER tokens 
+  The above command sends a nested query to the Elasticsearch index. `text_expansion` is used in this query on the ELSER tokens 
   generated for each chunked text by the ingest pipeline. So, the search happens on the chunked texts. Learn more about nested 
   query from the [Elastic documentation](https://www.elastic.co/guide/en/elasticsearch/reference/8.10/query-dsl-nested-query.html).
 
-  If you see successful results from the above query, your web crawler is working with the ingest pipeline defined at previous steps.
+  If you see successful results from the above query, you have successfully created a web crawler index with an ELSER ingest pipeline with a chunking processor.
 
 ## Step 4: Connect a web crawler index to watsonx Assistant for conversational search 
 
@@ -277,7 +306,7 @@ where you can add processors to the pipeline.
 so that the right `query_body` will be used for your web crawler index. 
 > * Remember to provide `_source` with `query_source` session variable when using your Elasticsearch extension. 
     By limiting the fields available in the `_source`, we can limit the length of the query response. Otherwise, 
-    you may encounter 500 errors due to the response body exceeding the length limit. 
+    you may encounter 500 errors due to the response body exceeding the length limit `102400`. 
 
 
 * Example usage:  
