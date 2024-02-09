@@ -204,7 +204,9 @@ Follow the steps outlined in guide to [connect your assistant to elasticsearch a
 
 > ⛔️
 > **Caution**  
+> 
 > * After uploading the sample workspace JSON file to your Assistant, make sure to update the session variable `has_inner_hits` to `True`. This will ensure that the appropriate `query_body` will be used for your index. 
+> 
 > * Remember to set `_source` to `query_source` session variable when setting up your Elasticsearch extension. By limiting the fields available in the `_source`, we can limit the length of the query response, potentially avoiding the 500 error that may be encountered due to length limits.
 
 #### Example usage:
