@@ -110,7 +110,7 @@ Click on `Start`, and follow the steps to create a Web Crawler index.
   NOTE: The web crawler uses a default ingest pipeline to extract web content and store them as documents in the index. 
   The default ingest pipeline doesn't use chunking or semantic search such as ELSER to process the documents. To enable chunking 
   and ELSER for your web crawler, you will need to finish [Step 3](#step-3-create-an-elser-ingest-pipeline-with-a-chunking-processor) 
-  first to build a custom ingest pipeline with a chunking processor for your web crawler, and then start the web crawler. 
+  first to build a custom ingest pipeline with a chunking processor, and then start the web crawler. 
 
 ## Step 3: Build an ELSER ingest pipeline with a chunking processor
 To use ELSER for text expansion queries on chunked texts, you need to build an ingest pipeline with a chunking processor that uses the ELSER model.
