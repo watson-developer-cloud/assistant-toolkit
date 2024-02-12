@@ -122,7 +122,7 @@ Define your web crawler index name as an environment variable:
 ES_INDEX_NAME=<your-web-crawler-index-name>
 ```
 Update the index mappings:  
-```
+```shell
 curl -X PUT "${ES_URL}/${ES_INDEX_NAME}/_mapping?pretty" -k \
 -u "${ES_USER}:${ES_PASSWORD}" \
 -H 'Content-Type: application/json' \
@@ -208,7 +208,7 @@ where you can add processors to the pipeline.
     ```
   * If you need to insert `title` to the beginning of each chunked text, use the following `passage` definition statement:
     ```Groovy
-    Map passage = ['text': ctx['title'] + '.' + envSplit[i++], 'title': ctx['title']];
+    Map passage = ['text': ctx['title'] + '. ' + envSplit[i++], 'title': ctx['title']];
     ```
 
 
