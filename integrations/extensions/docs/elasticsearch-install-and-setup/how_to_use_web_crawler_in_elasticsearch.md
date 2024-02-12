@@ -316,9 +316,10 @@ where you can add processors to the pipeline.
 > **Caution**  
 > * After uploading the [sample actions JSON file](../../starter-kits/language-model-conversational-search/elasticsearch-watsonx-actions.json) to your Assistant following the instructions [here](../../starter-kits/language-model-conversational-search/README.md#upload-sample-actions), 
     you need to switch the session variable `has_inner_hits` to `True` so that the right `query_body` will be used for your web crawler index. 
-> * Remember to provide `_source` with `query_source` session variable when using your Elasticsearch extension. 
+> * Remember to provide `_source` with `query_source` session variable when using your Elasticsearch extension in the action steps. 
     By limiting the fields available in the `_source`, we can limit the length of the query response. Otherwise, 
-    you may encounter 500 errors due to the response body exceeding the length limit `102400`. 
+    you may encounter 500 errors due to the response body exceeding the length limit `102400`.  
+    <img src="assets/config_query_source_when_use_es_extension.png" width="667" height="620">
 
 
 * Example usage:  
