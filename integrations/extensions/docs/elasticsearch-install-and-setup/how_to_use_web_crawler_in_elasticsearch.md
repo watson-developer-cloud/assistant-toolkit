@@ -253,7 +253,7 @@ where you can add processors to the pipeline.
   * `_ingest._value.sparse` expects a `sparse` field for each chunk object as the target field.
   * `_ingest._value.text` expects a `text` field for each chunk object as the input field.
   * `search-crawler-with-chunking@custom` is the name of the ingest pipeline. You need to update it with your ingest pipeline name.  
-
+  
 
   > ⛔️
   > **Caution**  
