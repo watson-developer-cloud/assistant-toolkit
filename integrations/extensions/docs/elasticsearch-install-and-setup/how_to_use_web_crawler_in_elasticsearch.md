@@ -116,10 +116,14 @@ Click on `Start`, and follow the steps to create a Web Crawler index.
 To use ELSER for text expansion queries on chunked texts, you need to build an ingest pipeline with a chunking processor that uses the ELSER model.
 
 
-
 ### Update the index mappings of your web crawler
+Define your web crawler index name as an environment variable:  
 ```shell
-curl -X PUT "${ES_URL}/<your-web-crawler-index-name>/_mapping?pretty" -k \
+ES_INDEX_NAME=<your-web-crawler-index-name>
+```
+Update the index mappings:  
+```
+curl -X PUT "${ES_URL}/${ES_INDEX_NAME}/_mapping?pretty" -k \
 -u "${ES_USER}:${ES_PASSWORD}" \
 -H 'Content-Type: application/json' \
 -d'
@@ -257,7 +261,7 @@ where you can add processors to the pipeline.
   If you already started your web crawler at the end of [Step 2](#step-2-create-and-configure-a-web-crawler-in-elasticsearch), 
   and it finished extracting the documents, you may need to delete all the documents first with the following cURL command:
   ```shell
-  curl -k -X POST "${ES_URL}/<your-web-crawler-search-index>/_delete_by_query" \
+  curl -k -X POST "${ES_URL}/${ES_INDEX_NAME}/_delete_by_query" \
   -u "${ES_USER}:${ES_PASSWORD}" \
   -H 'Content-Type: application/json' -d'
   {
@@ -276,7 +280,7 @@ where you can add processors to the pipeline.
 
 * Run a nested `text_expansion` query using cURL
   ```shell
-  curl -k -X GET "${ES_URL}/<your-web-crawler-index-name>/_search?pretty" \
+  curl -k -X GET "${ES_URL}/${ES_INDEX_NAME}/_search?pretty" \
   -u "${ES_USER}:${ES_PASSWORD}" \
   -H 'Content-Type: application/json' -d'
   {
