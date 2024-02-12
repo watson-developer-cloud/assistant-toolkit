@@ -1,4 +1,4 @@
-# Working with the web crawler in Elasticsearch
+# How to set up and use the web crawler in Elasticsearch
 This is a documentation about how to set up and use the web crawler in Elasticsearch and connect it to watsonx Assistant for Conversational Search.
 
 ## Tabel of contents:
@@ -144,7 +144,8 @@ NOTE: `rank_features` only works for ELSER v1 model. ELSER v2 requires a differe
 ### Build a custom ingest pipeline with two processors
 Now you can build a custom ingest pipeline for your web crawler index on Kibana, following these steps:
 
-* Open http://localhost:5601, and log into Kibana with your Elasticsearch credentials, then go to your web crawler index page.
+* Open http://localhost:5601 and log into Kibana with your Elasticsearch credentials. Navigate to the [indices page](http://localhost:5601/app/enterprise_search/content/search_indices) 
+  from the left-side menu via `Content` under `Search`, find your web crawler index, and click on it to go to the index page.
 
 
 * Under `Pipelines` tab, click on `Copy and customize` to create a custom ingest pipeline, and you will see a new ingest pipeline named `<your-web-crawler-index-name>@custom`.  
@@ -187,16 +188,21 @@ where you can add processors to the pipeline.
   }
   ```
   Since ELSER v1 model is limited to 512 tokens per field for inference, it is better not to have more than 512 tokens for each passage. 
-  `2048` is a reasonable character length limit because a text with 2048 characters will unlikely have more than 512 tokens. 
+  `2048` is a reasonable character length limit because a text with 2048 characters will be unlikely to have more than 512 tokens. 
   Depending on how you want to chunk the `body_content` and which sematic search model you want to use, you may need to use 
   different `model_limit` values to optimize the chunking processor.  
 
   #### (Optional) Considerations for customizing the chunking processor
-  * If you need to include `title` as a field in each passage object, use the following `passage` definition statement in the script:
+  You can update the above script to customize the chunked passages. For example, the `passage` definition statement can be updated.
+  The original `passage` definition in the above script is 
+  ```Groovy
+  Map passage = ['text': envSplit[i++]];
+  ```
+  * If you need to include `title` as a field in each passage object, use the following `passage` definition statement:
     ```Groovy
     Map passage = ['text': envSplit[i++], 'title': ctx['title']];
     ```
-  * If you need to insert `title` to the beginning of each chunked text, use the following `passage` definition statement in the script:
+  * If you need to insert `title` to the beginning of each chunked text, use the following `passage` definition statement:
     ```Groovy
     Map passage = ['text': ctx['title'] + '.' + envSplit[i++], 'title': ctx['title']];
     ```
