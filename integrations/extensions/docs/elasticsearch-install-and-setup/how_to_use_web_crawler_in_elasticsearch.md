@@ -317,6 +317,10 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
   query from the [Elastic documentation](https://www.elastic.co/guide/en/elasticsearch/reference/8.10/query-dsl-nested-query.html).
 
   If you see successful results from the above query, you have successfully created a web crawler index with an ELSER ingest pipeline with a chunking processor.
+  
+
+  NOTE: If you run this query while the crawling is taking place, you might get a timeout error, because the ELSER model 
+  is busy indexing and thus might not respond quickly enough to your query. If that happens, you should just wait until the crawl finishes.
 
 ## Step 4: Connect a web crawler index to watsonx Assistant for conversational search 
 
