@@ -157,8 +157,8 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
   <img src="assets/web_crawler_ingest_pipeline_custom.png" width="955" height="340" />
 
 
-* Click on `edit pipline` and then `Manage` -> `Edit`, it will take you to the ingest pipeline `Edit` page 
-where you can add processors to the pipeline.
+* Click on `edit pipeline` and then `Manage` -> `Edit`, it will take you to the ingest pipeline `Edit` page 
+  where you can add processors to the pipeline.
 
 
 * Add a `Script` processor for chunking  
