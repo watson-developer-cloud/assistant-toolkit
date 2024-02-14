@@ -6,9 +6,14 @@ Please refer to [this guide](./ICD_Elasticsearch_install_and_setup.md) first to 
 ## Install the eland library
 Run the command below to install the [eland](https://github.com/elastic/eland) library.
 ```bash
-$ python -m pip install "eland[pytorch]"
+python -m pip install "eland[pytorch]"
 ```
 This library allows us to pull and deploy a 3rd-party text embedding model to our Elasticsearch instance.
+
+> CAUTION: Open source and 3rd party models are not in scope of IBM or Elastic indemnity clauses. Customers must accept relevant terms and conditions to choose or bring their own models. Additionally, IBM has not assessed Elastic's supported multi-lingual models so any use of Elastic-supported models should be understood thoroughly both with respect to the terms of use for those models and the terms of use of all of the data that was used to train those models.
+
+NOTE: Please refer to the eland library [compatibility section](https://github.com/elastic/eland?tab=readme-ov-file#compatibility) to make sure you're using compatible Python and Elasticsearch versions. 
+
 ## Create environment variables for ES credentials
   ```bash
   export ES_URL=https://<hostname:port>
@@ -28,7 +33,7 @@ eland_import_hub_model \
   --start
 ```
 
-In this example, we are using the `multilingual-e5-small` model which is a multi-lingual mode that supports text embeddings in 100 languages. You can read more about this model [here](https://huggingface.co/intfloat/multilingual-e5-small)
+In this example, we are using the `multilingual-e5-small` model which is a multi-lingual model that supports text embeddings in 100 languages. You can read more about this model [here](https://huggingface.co/intfloat/multilingual-e5-small)
 
 ## Synchronize your deployed model
 Go to the **Machine Learning > Trained Models** page http://localhost:5601/app/ml/trained_models and synchronize your trained models. A warning message is displayed at the top of the page that says "ML job and trained model synchronization required". Follow the link to "Synchronize your jobs and trained models." Then click Synchronize.
