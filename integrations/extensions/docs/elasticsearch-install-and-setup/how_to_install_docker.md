@@ -29,7 +29,7 @@ Keep in mind that you would need to activate a subscription in case you are not 
 
 ### For Mac and Windows: 
 
-Go to the Rancher Desktop [homepage](https://rancherdesktop.io/) and download the appropriate installer for your OS , then proceed to install using your respective installer file which should help install the software automatically on your machine
+Go to the Rancher Desktop [homepage](https://rancherdesktop.io/) and download the appropriate installer for your OS, then proceed to install using your respective installer file which should help install the software automatically on your machine
 
 ### For Linux (non RHEL and Fedora related distributions):
 
@@ -39,11 +39,29 @@ You can install using either the [.deb](https://docs.rancherdesktop.io/getting-s
 
 You can install using [AppImage](https://docs.rancherdesktop.io/getting-started/installation/#installation-via-deb-package)
 
+### Verifying the install
+
+Upon completion of the install, open and start the `Rancher Desktop` program and you will see a screen with options as shown in the image.
+
+<img src="./assets/rancher_init.png" width="200" height="300"/>
+
+Here, select `dockerd` as the container engine and select `automatic` PATH configuration and click `OK`
+
+You can now verify your install. To do so:
+
+1. Close any open shell(or terminal consoles) and restart a new shell.
+2. Run the below command to ensure your can work with `docker` successfully.
+
+```bash
+docker run hello-world
+```
+
+
 #### Useful Links:
 
 * [https://medium.com/@praveenmidde/seamlessly-switch-to-rancher-desktop-as-a-replacement-for-docker-desktop-on-mac-for-1abcf5844c4d](https://medium.com/@praveenmidde/seamlessly-switch-to-rancher-desktop-as-a-replacement-for-docker-desktop-on-mac-for-1abcf5844c4d)
 * [https://docs.rancherdesktop.io/getting-started/installation/](https://docs.rancherdesktop.io/getting-started/installation/)
-* [https://ubuntuhandbook.org/index.php/2023/05/podman-desktop-1-0-install-in-ubuntu/](https://ubuntuhandbook.org/index.php/2023/05/podman-desktop-1-0-install-in-ubuntu/)
+
 
 ## Option 3: Podman
 
@@ -54,7 +72,7 @@ Make sure to check the [prerequisites](https://podman-desktop.io/docs/podman/ins
 1. Go to the [downloads](https://podman-desktop.io/downloads) page and download the binary suitable for your machine 
 2. Follow the steps listed in the [procedure](https://podman-desktop.io/docs/podman/installing#procedure) section to perform the necessary checks and install podman along with other necessities. 
 
-Once installed , Podman initializes a machine with standard configuration and your Podman Desktop dashboard should show `Podman is running` like below
+Once installed, Podman initializes a machine with standard configuration and your Podman Desktop dashboard should show `Podman is running` like below
 
 <img src="./assets/podman_machine_running.png" width="300" height="100"/>
 
@@ -92,6 +110,7 @@ docker run hello-world
 
 * [https://thenewstack.io/install-and-use-podman-desktop-gui-to-manage-containers/](https://thenewstack.io/install-and-use-podman-desktop-gui-to-manage-containers/)
 * [https://developers.redhat.com/articles/2023/09/27/how-install-and-use-podman-desktop-windows#getting_started_with_podman_desktop](https://developers.redhat.com/articles/2023/09/27/how-install-and-use-podman-desktop-windows#getting_started_with_podman_desktop)
+* [https://ubuntuhandbook.org/index.php/2023/05/podman-desktop-1-0-install-in-ubuntu/](https://ubuntuhandbook.org/index.php/2023/05/podman-desktop-1-0-install-in-ubuntu/)
 
 ## Option 4: Colima
 
@@ -108,7 +127,7 @@ docker run hello-world
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 	```
 
-2. Next, install `colima` , `docker` and `compose` using homebrew 
+2. Next, install `colima`, `docker` and `compose` using homebrew 
 
 	```shell
 	brew install colima
@@ -119,7 +138,13 @@ docker run hello-world
 	```shell
 	colima start
 	```
-	NOTE: The default VM created by Colima has 2 CPUs, 2GiB memory and 60GiB storage. Learn more about how to customize it from [here](https://github.com/abiosoft/colima?tab=readme-ov-file#customizing-the-vm)
+	NOTE: The default VM created by Colima has 2 CPUs, 2GiB memory and 60GiB storage. You can customize the CPUs and Memory by instead starting `colima` and specifying the cpu and memory. For example, the below will start up colima with 4 cpu and 6GiB memory:
+	
+	```shell
+	colima start --cpu 4 --memory 6
+	```
+	
+	Learn more about how to customize colima from [here](https://github.com/abiosoft/colima?tab=readme-ov-file#customizing-the-vm)
 	
 4. You can now verify that `docker` and `compose` can be run successfully
 
