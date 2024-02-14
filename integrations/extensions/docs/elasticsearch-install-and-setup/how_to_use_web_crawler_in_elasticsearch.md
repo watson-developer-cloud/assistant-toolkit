@@ -174,7 +174,8 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
   if (envSplit.length == 0) {
       return
   } else if (envSplit.length == 1) {
-      Map passage = ['text': envSplit[0]];ctx['passages'].add(passage)
+      Map passage = ['text': envSplit[0]];
+      ctx['passages'].add(passage)
   } else {
       while (remaining) {
           Map passage = ['text': envSplit[i++]];
@@ -192,7 +193,7 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
   }
   ```
   Since ELSER v1 model is limited to 512 tokens per field for inference, it is better not to have more than 512 tokens for each passage. 
-  `2048` is a reasonable character length limit because a text with 2048 characters will be unlikely to have more than 512 tokens. 
+  `2048` is a reasonable character length limit because a text with 2048 characters is unlikely to have more than 512 tokens. 
   Depending on how you want to chunk the `body_content` and which sematic search model you want to use, you may need to use 
   different `model_limit` values to optimize the chunking processor.  
 
@@ -235,7 +236,7 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
             "field": "_source._ingest.inference_errors",
             "value": [
               {
-                "message": "Processor 'inference' in pipeline 'search-crawler-with-chunking@custom' failed with message '{{ _ingest.on_failure_message }}'",
+                "message": "Processor 'inference' in pipeline '{{ _ingest.on_failure_pipeline }}' failed with message '{{ _ingest.on_failure_message }}'",
                 "pipeline": "search-crawler-with-chunking@custom",
                 "timestamp": "{{{ _ingest.timestamp }}}"
               }
