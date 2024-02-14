@@ -106,11 +106,10 @@ Click on `Start`, and follow the steps to create a Web Crawler index.
   Learn more about crawl rules from [here](https://www.elastic.co/guide/en/app-search/8.10/web-crawler-reference.html#web-crawler-reference-crawl-rule)
 
 
-* You can now try the web crawler by clicking on `Crawl` in the upper right corner.  
-  NOTE: The web crawler uses a default ingest pipeline to extract web content and store them as documents in the index. 
-  The default ingest pipeline doesn't use chunking or semantic search such as ELSER to process the documents. To enable chunking 
-  and ELSER for your web crawler, you will need to finish [Step 3](#step-3-create-an-elser-ingest-pipeline-with-a-chunking-processor) 
-  first to build a custom ingest pipeline with a chunking processor, and then start the web crawler. 
+* Don't start the web crawler (by clicking on `Crawl` in the upper right corner) yet, because that would cause it to 
+  start ingesting with the default index mappings and pipeline. Instead, continue on to the next section to build a 
+  custom ingest pipeline before starting the crawl. 
+
 
 ## Step 3: Build an ELSER ingest pipeline with a chunking processor
 To use ELSER for text expansion queries on chunked texts, you need to build an ingest pipeline with a chunking processor that uses the ELSER model.
@@ -262,26 +261,33 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
 
 
 * Start your web crawler and monitor its progress  
-  Once you have added the processors to your ingest pipeline, you can kick off your web crawler to crawl the website URLs you have configured at earlier steps.  
+  Once you have added the processors to your ingest pipeline, you can kick off your web crawler to crawl the website URLs 
+  you have configured at earlier steps, following these steps:  
+  * Go to your web crawler index page, and click on `Crawl` in the upper right corner to start it.  
 
-  If you already started your web crawler at the end of [Step 2](#step-2-create-and-configure-a-web-crawler-in-elasticsearch), 
-  and it finished extracting the documents, you may need to delete all the documents first with the following cURL command:
-  ```shell
-  curl -k -X POST "${ES_URL}/${ES_INDEX_NAME}/_delete_by_query" \
-  -u "${ES_USER}:${ES_PASSWORD}" \
-  -H 'Content-Type: application/json' -d'
-  {
-     "query":{
-       "match_all":{}
-     }
-  }'
-  ```
-  Then, you can follow these steps to start your web crawler with the custom ingest pipeline:
-  * Go to your web crawler index page, and click on `Crawl` in the upper right corner to start it. 
   * You will see new crawl requests on the overview page, and you can click on the request ids to see more details and to monitor the progress of your crawl requests.
-    <img src="assets/web_crawler_overview_with_crawl_requests.png" width="966" height="563" />
-  * If you see your crawler is running and the number of documents is increasing, your web crawler is working with the ingest pipeline. 
-    You can now inspect the documents and learn more about the web crawler from [Elastic documentation](https://www.elastic.co/guide/en/enterprise-search/8.10/crawler.html) to improve or customize your web crawler. 
+    <img src="assets/web_crawler_overview_with_crawl_requests.png" width="966" height="563" />  
+  
+  * If you see your crawler is running and the number of documents is increasing, you can now inspect the documents to 
+    see if they have the expected fields with content. For example, you should see chunked `passages`, each passage with
+    `sparse.tokens` and a chunked `text`,  
+    <img src="assets/web_crawl_with_chunking_document_example.png" width="920" height="503">  
+    Learn more about the web crawler from [Elastic documentation](https://www.elastic.co/guide/en/enterprise-search/8.10/crawler.html) 
+    to improve or customize your web crawler.  
+
+  * If you don't see expected documents with chunked passages, or you want to update any processors in the ingest 
+    pipeline to customize your web crawler, you may need to delete the existing documents first before starting the crawl again. 
+    You can delete all the documents in an index using the following cURL command:
+    ```shell
+    curl -k -X POST "${ES_URL}/${ES_INDEX_NAME}/_delete_by_query" \
+    -u "${ES_USER}:${ES_PASSWORD}" \
+    -H 'Content-Type: application/json' -d'
+    {
+       "query":{
+         "match_all":{}
+       }
+    }'
+    ```
 
 
 * Run a nested `text_expansion` query using cURL
