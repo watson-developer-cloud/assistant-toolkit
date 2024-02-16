@@ -114,9 +114,9 @@ docker run hello-world
 
 ## Option 4: Colima
 
-**IMPORTANT NOTE**: This approach requires using a CLI(Command Line Interface) and does not have a button-click approach. This is recommended for users who prefer a CLI-focused approach to Docker Desktop's GUI focus.
+**IMPORTANT NOTE**: This approach requires using a CLI(Command Line Interface) and does not a GUI. This is recommended for users who prefer a CLI-focused approach to Docker Desktop's GUI focus.
 
-[Colima](https://github.com/abiosoft/colima) is a new open-source project that bundles the container management tool [lima](https://github.com/lima-vm/lima) with a docker (linux) back-end. This is similar to what Docker Desktop actually does, but Colima and Lima are entirely open-source and just focused on running containers. They work on both `amd64` and `arm64` (M1) macs. Colima does not require installation of Docker Desktop, or does it require paying a licensing fee to Docker, Inc.
+[Colima](https://github.com/abiosoft/colima) is a new open-source project that bundles the container management tool [lima](https://github.com/lima-vm/lima) with a docker (linux) back-end. This is similar to what Docker Desktop actually does, but Colima and Lima are entirely open-source and just focused on running containers. They work on both `amd64` and `arm64` (M1) macs. Colima does not require installation of Docker Desktop or paying a licensing fee to Docker, Inc.
 
 
 ### For MacOS and Linux
