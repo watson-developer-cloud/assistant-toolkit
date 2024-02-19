@@ -2,29 +2,28 @@
 
 ## Table of contents:
 * [Step 1: Create all the necessary environment variables](#step-1-create-all-the-necessary-environment-variables)
-* [Step 2: Create an Elasticsearch index with specific nested mapping](#step-1-create-an-index-with-a-nested-mapping-for-storing-chunked-text-and-tokens)
-* [Step 3: Create an ELSER ingest pipeline with regex based chunking](#step-2-create-an-elser-index-with-regex-based-chunking)
-* [Step 4: Run fscrawler app using docker](#step-3-running-the-fscrawler-as-a-docker-service)
-* [Step 5: Connecting Watson Assistant to Elasticsearch for Conversational Search](#step-4-coonecting-watson-assistant-to-elasticsearch-for-conversational-search)
+* [Step 2: Create an Elasticsearch index with specific nested mapping](#step-2-create-an-index-with-a-nested-mapping-for-storing-chunked-text-and-tokens)
+* [Step 3: Create an ELSER ingest pipeline with regex based chunking](#step-3-create-an-elser-ingest-pipeline-with-regex-based-chunking)
+* [Step 4: Run fscrawler app using docker](#step-4-running-the-fscrawler-as-a-docker-service)
+* [Step 5: Connecting Watson Assistant to Elasticsearch for Conversational Search](#step-4-connecting-watson-assistant-to-elasticsearch-for-conversational-search)
 
 ## Pre-requisites:
 
-The following tutorial assumes there exists a folder of documents having the supported file [types](https://fscrawler.readthedocs.io/en/latest/user/formats.html) that you would like to index into Elasticsearch. 
+1. The following tutorial assumes there exists a folder of documents having the supported file [types](https://fscrawler.readthedocs.io/en/latest/user/formats.html) that you would like to index into Elasticsearch. 
 
-Optional: If using IBM COS or other Cloud Object Storage for your files, you can follow instructions to use [s3fs](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-s3fs) or [rclone](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-rclone) to synchronize your data to a local mounted filesystem
+	Optional: If using IBM COS or other Cloud Object Storage for your files, you can follow instructions to use [s3fs](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-s3fs) or [rclone](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-rclone) to synchronize your data to a local mounted filesystem
 
-If you don't have docker [compose](https://github.com/docker/compose) installed already, make sure to install that first since it is needed to run the `fscrawler` app. 
+2. If you do not have `docker` and `docker-compose`, you can install them by following the [docker and compose install guide](./how_to_install_docker.md). These are needed to run the `fscrawler` app.
 
-**NOTE**: If you are an IBM'er, you would need to install and configure one of the approved [alternatives](https://w3.ibm.com/w3publisher/docker-desktop) to be able to run compose. `podman` is [recommended](https://w3.ibm.com/w3publisher/docker-desktop/podman)
 
 ## Introduction
 
 Before you start, ensure you have set up your Elasticsearch cluster:
 
-* For Elasticsearch on IBM Cloud, please refer to [ICD-elasticsearch-install-and-setup](../../docs/elasticsearch-install-and-setup/ICD_Elasticsearch_install_and_setup.md) for more details.
-* For Elasticsearch (watsonx Discovery) on CloudPak, please refer to [watsonx-discovery-install-and-setup](../../docs/elasticsearch-install-and-setup/watsonx_discovery_install_and_setup.md) for more details.
+* For Elasticsearch on IBM Cloud, please refer to [ICD-elasticsearch-install-and-setup](./ICD_Elasticsearch_install_and_setup.md) for more details.
+* For Elasticsearch (watsonx Discovery) on CloudPak, please refer to [watsonx-discovery-install-and-setup](./watsonx_discovery_install_and_setup.md) for more details.
 
-We will use the filesystem crawler [fscrawler](https://fscrawler.readthedocs.io/en/latest/index.html) to help sync the documents from a local filesystem on to an index on Elasticsearch. You can read more in detail about the configuration options available for `fscrawler` their linked documentation.
+We will use the filesystem crawler [fscrawler](https://fscrawler.readthedocs.io/en/latest/index.html) to help sync the documents from a local filesystem on to an index on Elasticsearch. You can read more in detail about the configuration options available for `fscrawler` in their linked documentation.
 
 ### Step 1: Create all the necessary environment variables
 
@@ -161,6 +160,8 @@ Open the file for editing and add the complete path to the documents directory y
 
 <img src="./assets/example_volume_mount.png" width="500" height="50"/>
 
+NOTE: An example PDF document is available [here](https://cloud.ibm.com/media/docs/pdf/watson-assistant/watson-assistant.pdf) for you to download, if you would like to test the setup.
+
 
 ### Step 4d. Run fscrawler
 
@@ -176,7 +177,7 @@ docker-compose up -d
 
 This will start the `fscrawler` app and begin to ingest the documents from the directory it was pointed at. 
 
-a. If you have installed Kibana locally following [ICD-elasticsearch-install-and-setup](../../docs/elasticsearch-install-and-setup/ICD_Elasticsearch_install_and_setup.md#step-2-set-up-kibana-to-connect-to-elasticsearch),  then you can verify this by bringing up Kibana. Once Kibana is up and running successfully:
+a. If you have installed Kibana locally following [ICD-elasticsearch-install-and-setup](./ICD_Elasticsearch_install_and_setup.md#step-2-set-up-kibana-to-connect-to-elasticsearch),  then you can verify this by bringing up Kibana. Once Kibana is up and running successfully:
 
 	1. Navigate to http://localhost:5601/app/enterprise_search/elasticsearch
 	2. Click on "Indices" and click on your chosen index. 
@@ -193,7 +194,7 @@ curl -X GET "${ES_URL}/${ES_INDEX_NAME}/_count?pretty" -u "${ES_USER}:${ES_PASSW
 OPTIONAL: Once all documentss are indexed, you can stop the `fscrawler` app or if you would like to, you can leave it running to keep the filesystem in sync if new documents are added or old ones removed. To stop the app , run the following:
 
 ```
-docker compose down
+docker-compose down
 ```
 
 Your documents are now available in the index, ready for searching and querying. Follow the steps outlined below to use this index in a RAG based setup with Watson Assistant. 
