@@ -136,7 +136,7 @@ curl -X PUT "${ES_URL}/_ingest/pipeline/${ES_PIPELINE_NAME}?pretty" -u "${ES_USE
 To get started, download the [fscrawler-docker-config.zip](./assets/fscrawler-docker-config.zip) file, extract the zip file to a directory and navigate to that directory:
 
 ```
-unzip fscrawler-docker-config.zip
+unzip fscrawler-docker-config.zip -d fscrawler-docker-config
 cd fscrawler-docker-config
 rm ../fscrawler-docker-config.zip
 ```
