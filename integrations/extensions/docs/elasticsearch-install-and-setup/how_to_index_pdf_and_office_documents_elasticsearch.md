@@ -5,7 +5,7 @@
 * [Step 2: Create an Elasticsearch index with specific nested mapping](#step-2-create-an-index-with-a-nested-mapping-for-storing-chunked-text-and-tokens)
 * [Step 3: Create an ELSER ingest pipeline with regex based chunking](#step-3-create-an-elser-ingest-pipeline-with-regex-based-chunking)
 * [Step 4: Run fscrawler app using docker](#step-4-running-the-fscrawler-as-a-docker-service)
-* [Step 5: Connecting Watson Assistant to Elasticsearch for Conversational Search](#step-4-connecting-watson-assistant-to-elasticsearch-for-conversational-search)
+* [Step 5: Connecting Watson Assistant to Elasticsearch for Conversational Search](#step-5-connecting-watson-assistant-to-elasticsearch-for-conversational-search)
 
 ## Pre-requisites:
 
