@@ -83,7 +83,7 @@ In a new terminal window, run the following command to generate an encryption ke
     ```
 * Verify it 
   * Open http://localhost:5601 in your browser and log into Kibana using your Elasticsearch username and password.
-  * Navigate to the Search Overview page https://localhost:5601/app/enterprise_search/overview.
+  * Navigate to the Search Overview page http://localhost:5601/app/enterprise_search/overview.
   * If you can see `Web Crawler` available as an option to ingest content, your Enterprise Search has been set up successfully.
 
 ### Set up Enterprise Search for watsonx Discovery on CloudPak
@@ -221,7 +221,7 @@ NOTE: `rank_features` only works for ELSER v1 model. ELSER v2 requires `sparse_v
 ### Build a custom ingest pipeline with two processors
 Now you can build a custom ingest pipeline for your web crawler index on Kibana, following these steps:
 
-* Open http://localhost:5601 or https://localhost:5601 (for Kibana port-forwarded from CloudPak) and log into Kibana with your Elasticsearch credentials. Navigate to the [indices page](http://localhost:5601/app/enterprise_search/content/search_indices) 
+* Open http://localhost:5601 or https://localhost:5601 (for Kibana port-forwarded from CloudPak) and log into Kibana with your Elasticsearch credentials. Navigate to the indices page
   from the left-side menu via `Content` under `Search`, find your web crawler index, and click on it to go to the index page.
 
 
