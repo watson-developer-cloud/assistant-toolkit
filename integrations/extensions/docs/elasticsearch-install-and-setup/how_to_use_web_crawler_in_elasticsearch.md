@@ -100,9 +100,11 @@ you can follow these steps to set up Enterprise Search:
   export ENTERPRISE_SEARCH_NAME="enterprise-search-wxd"
   export ES_VERSION="8.11.1"
   ```
-  NOTE: You need to specify `ES_NAMESPACE` and `ES_CLUSTER` as your Elasticsearch namespace and cluster name respectively in your CloudPak cluster. 
-  `ENTERPRISE_SEARCH_NAME` can be whatever you would like to name your Enterprise Search instance. `ES_VERSION` needs to be the same 
-  for both Elasticsearch and Enterprise Search. 
+  NOTES: 
+  * `ES_NAMESPACE` is your Elasticsearch namespace. 
+  * `ES_CLUSTER` is your Elasticsearch instance name in your CloudPak cluster.
+  * `ENTERPRISE_SEARCH_NAME` can be whatever you would like to name your Enterprise Search instance. 
+  * `ES_VERSION` is your Elasticsearch version, and it needs to be the same for Enterprise Search. 
 
 
 * Create an Enterprise Search instance and associate it with your Elasticsearch cluster
