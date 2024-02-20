@@ -175,6 +175,18 @@ You can check the completion status by monitoring the `"completed"` field in the
 
 Once the process is completed, you should see `wa-docs-with-embeddings` in the list of your indices http://localhost:5601/app/enterprise_search/content/search_indices
 
+You can confirm the successful completion of this step by checking the `wa-docs-with-embeddings` index at http://localhost:5601/app/enterprise_search/content/search_indices/wa-docs-with-embeddings/. If you find the `text_embedding` column filled with embedding vectors as shown below, it indicates that the process was successful:
+```bash
+{
+  "predicted_value": [
+    -0.016909973695874214,
+    -0.05246243625879288,
+    -0.02864678204059601,
+    ...
+  ],
+  "model_id": "intfloat__multilingual-e5-small"
+}
+```
 ## Run semantic search
 After the dataset has been enriched with vector embeddings, you can query the data using semantic search. 
 ```bash
