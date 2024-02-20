@@ -17,11 +17,15 @@ NOTE: As of the time this documentation was written, `eland` only supports Pytho
 NOTE: You can also use eland without installing the library in case you run into any issues with the library. This can be done by using the docker image provided [here](https://github.com/elastic/eland?tab=readme-ov-file#docker).
 
 ## Create environment variables for ES credentials
+Feel free to customize the names of the `ES_SOURCE_INDEX_NAME`, `ES_EMBEDDING_INDEX_NAME` and `ES_PIPELINE_NAME` variables below. These names will serve as references for your source index, embedding index, and ingestion pipeline throughout this guide.
   ```bash
   export ES_URL=https://<hostname:port>
   export ES_USER=<username>
   export ES_PASSWORD=<password>
   export ES_CACERT=<path-to-your-cert>
+  export ES_SOURCE_INDEX_NAME=<name-of-source-index>
+  export ES_EMBEDDING_INDEX_NAME=<name-of-embedding-index>
+  export ES_PIPELINE_NAME=<name-of-ingest-pipeline>
   ```  
 You can find the credentials from the service credentials of your Elasticsearch instance.
 ## Pull and deploy an embedding model
@@ -72,9 +76,9 @@ You should see a response containing the predicted embedding vector.
 Refer to the [Load data into Elasticsearch](./ICD_Elasticsearch_install_and_setup.md#load-data-into-elasticsearch) section in the Elasticsearch setup guide to upload a sample data to Elasticsearch using Kabana.
 
 ## Add your embedding model to an inference ingest pipeline
-Create an ingest pipeline called `text-embeddings` using the command below:
+Create an ingest pipeline using the command below:
 ```bash
-curl -X PUT "${ES_URL}/_ingest/pipeline/text-embeddings" \
+curl -X PUT "${ES_URL}/_ingest/pipeline/${ES_PIPELINE_NAME}" \
   -u "${ES_USER}:${ES_PASSWORD}" --cacert "${ES_CACERT}"\
   -H 'Content-Type: application/json' -d '{
   "description": "Text embedding pipeline",
@@ -108,12 +112,12 @@ curl -X PUT "${ES_URL}/_ingest/pipeline/text-embeddings" \
 }'
 ```
 
-You can verify that the `text-embeddings` ingest pipeline was created by locating it in the list of your ingest pipelines on Kibana http://localhost:5601/app/management/ingest/ingest_pipelines
+You can verify that the ingest pipeline was created by locating it in the list of your ingest pipelines on Kibana http://localhost:5601/app/management/ingest/ingest_pipelines
 
 ## Create a mapping for the destination index containing the embeddings
-Then run the command below to create the mappings of the destination index called `wa-docs-with-embeddings`:
+Then run the command below to create the mappings of the destination index called `ES_EMBEDDING_INDEX_NAME`:
 ```bash
-curl -X PUT "${ES_URL}/wa-docs-with-embeddings" \
+curl -X PUT "${ES_URL}/${ES_EMBEDDING_INDEX_NAME}" \
   -u "${ES_USER}:${ES_PASSWORD}" --cacert $ES_CACERT \
   -H 'Content-Type: application/json' -d '{
   "mappings": {
@@ -136,20 +140,20 @@ curl -X PUT "${ES_URL}/wa-docs-with-embeddings" \
 * `dims` is the embedding size of the deployed model which is 384 for the `intfloat/multilingual-e5-small` model we are using here
 
 ## Create the text embeddings
-Run the `text-embeddings` ingest pipeline to reindex the data to the `wa-docs-with-embeddings` index
+Run the ingest pipeline to reindex the data to the `ES_EMBEDDING_INDEX_NAME` index
 ```bash
 curl -X POST "${ES_URL}/_reindex?wait_for_completion=false" \
-  -u "${ES_USER}:${ES_PASSWORD}" --cacert $ES_CACERT \
-  -H 'Content-Type: application/json' -d '{
-  "source": {
-    "index": "wa-docs",
-    "size": 50
+  -u "${ES_USER}:${ES_PASSWORD}" --cacert "$ES_CACERT" \
+  -H 'Content-Type: application/json' -d "{
+  \"source\": {
+    \"index\": \"${ES_SOURCE_INDEX_NAME}\",
+    \"size\": 50
   },
-  "dest": {
-    "index": "wa-docs-with-embeddings",
-    "pipeline": "text-embeddings"
+  \"dest\": {
+    \"index\": \"${ES_EMBEDDING_INDEX_NAME}\",
+    \"pipeline\": \"${ES_PIPELINE_NAME}\"
   }
-}'
+}"
 ```
 
 This command will return a task id that looks like this:
@@ -173,9 +177,9 @@ You can check the completion status by monitoring the `"completed"` field in the
 }
 ```
 
-Once the process is completed, you should see `wa-docs-with-embeddings` in the list of your indices http://localhost:5601/app/enterprise_search/content/search_indices
+Once the process is completed, you should see `ES_EMBEDDING_INDEX_NAME` in the list of your indices http://localhost:5601/app/enterprise_search/content/search_indices
 
-You can confirm the successful completion of this step by checking the `wa-docs-with-embeddings` index at http://localhost:5601/app/enterprise_search/content/search_indices/wa-docs-with-embeddings/. If you find the `text_embedding` column filled with embedding vectors as shown below, it indicates that the process was successful:
+You can confirm the successful completion of this step by checking the `ES_EMBEDDING_INDEX_NAME` index. If you find the `text_embedding` column filled with embedding vectors as shown below, it indicates that the process was successful:
 ```bash
 {
   "predicted_value": [
@@ -190,7 +194,7 @@ You can confirm the successful completion of this step by checking the `wa-docs-
 ## Run semantic search
 After the dataset has been enriched with vector embeddings, you can query the data using semantic search. 
 ```bash
-curl -X GET "${ES_URL}/wa-docs-with-embeddings/_search" \
+curl -X GET "${ES_URL}/${ES_EMBEDDING_INDEX_NAME}/_search" \
   -u "${ES_USER}:${ES_PASSWORD}" --cacert $ES_CACERT \
   -H 'Content-Type: application/json' -d '{
   "knn": {
