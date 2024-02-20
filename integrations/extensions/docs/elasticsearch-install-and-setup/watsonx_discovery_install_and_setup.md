@@ -17,7 +17,7 @@ Before you begin, you will need:
 ### Log in to your CloudPak cluster
 * Log in to your Redhat OpenShift console using your admin credentials.
 * Find your login API token by clicking on `Copy login command` from the top right dropdown menu.
-* After displaying the token, copy the `Log in with this token` command, and run it from your terminal window.
+* After displaying the token, copy the `Log in with this token` command, and run it from your terminal window.  
   NOTE: If you don't have the OpenShift CLI (`oc`) installed, you can find the instructions to install it by clicking on 
   the `Command line tools` from the top right :grey_question: dropdown menu.
 * If you see logs like below, you have successfully logged into your CloudPak cluster
@@ -339,8 +339,8 @@ From you CloudPak cluster, you need to provision a watsonx Assistant instance an
   This approach is not recommended for production use, especially for applications that involve sensitive data, 
   because it introduces a security risk. It configures wxA always to trust that all services it connects to through
   search integrations or custom integrations are the services they expect to be at the IP addresses configured in the integrations. 
-  Option 2 below eliminates this risk by using a certificate to security verify that the Elasticsearch service you are 
-  connecting to is the one configured your assistant to connect to.
+  Option 2 below eliminates this risk by using a certificate to securely verify that the Elasticsearch service you are 
+  connecting to is the one configured for your assistant to connect to.
 
 
 #### Option 2: Add Elasticsearch's CA certificate to wxA's truststore
