@@ -115,7 +115,7 @@ you can follow these steps to set up Enterprise Search:
   metadata:
     name: ${ENTERPRISE_SEARCH_NAME}
   spec:
-    version: ${ENTERPRISE_SEARCH_VERSION}
+    version: ${ES_VERSION}
     count: 1
     elasticsearchRef:
       name: ${ES_CLUSTER}
