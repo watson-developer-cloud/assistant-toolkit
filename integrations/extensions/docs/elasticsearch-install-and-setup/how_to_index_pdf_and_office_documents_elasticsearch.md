@@ -160,7 +160,7 @@ Open the file for editing and add the complete path to the documents directory y
 
 <img src="./assets/example_volume_mount.png" width="500" height="50"/>
 
-NOTE: An example PDF document is available [here](https://cloud.ibm.com/media/docs/pdf/watson-assistant/watson-assistant.pdf) for you to download, if you would like to test the setup.
+NOTE: There are some example documents available [here](https://ibm.ent.box.com/s/l2rhvajs6jasz2rqla7eakz7uml8oljs/folder/230228063107), if you would like to test the setup.
 
 
 ### Step 4d. Run fscrawler
@@ -191,7 +191,7 @@ curl -X GET "${ES_URL}/${ES_INDEX_NAME}/_count?pretty" -u "${ES_USER}:${ES_PASSW
 -H "Content-Type: application/json" --cacert "${ES_CACERT}"
 ```
 
-OPTIONAL: Once all documentss are indexed, you can stop the `fscrawler` app or if you would like to, you can leave it running to keep the filesystem in sync if new documents are added or old ones removed. To stop the app , run the following:
+OPTIONAL: Once all documents are indexed, you can stop the `fscrawler` app or if you would like to, you can leave it running to keep the filesystem in sync if new documents are added or old ones removed. To stop the app , run the following:
 
 ```
 docker-compose down
