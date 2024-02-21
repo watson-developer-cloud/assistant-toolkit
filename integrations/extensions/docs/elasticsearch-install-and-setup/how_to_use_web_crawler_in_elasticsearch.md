@@ -81,7 +81,7 @@ In a new terminal window, run the following command to generate an encryption ke
     --env "kibana.external_url=http://kibana:5601" \
     "docker.elastic.co/enterprise-search/enterprise-search:${ES_VERSION}"
     ```
-* Verify it 
+* Verify the installation 
   * Open http://localhost:5601 in your browser and log into Kibana using your Elasticsearch username and password.
   * Navigate to the Search Overview page http://localhost:5601/app/enterprise_search/overview.
   * If you can see `Web Crawler` available as an option to ingest content, your Enterprise Search has been set up successfully.
@@ -152,7 +152,7 @@ you can follow these steps to set up Enterprise Search:
     ```
 
 
-* Verify it
+* Verify the installation
   * Use `port-forward` to access Kibana locally:
     ```shell
     oc port-forward service/${ES_CLUSTER}-kb-http 5601 -n ${ES_NAMESPACE}
