@@ -52,20 +52,44 @@ but you will need to find set-up instructions appropriate to that environment.
       ```
       NOTE: Learn more about ELSER v1 from [here](https://www.elastic.co/guide/en/elasticsearch/reference/8.10/semantic-search-elser.html) 
     * Semantic search with ELSER v2
-    ```json
-      {
-        "text_expansion": {
-          "content_embedding": {
-            "model_id": ".elser_model_2",
-            "model_text": "how to set up a custom extension?"
+      ```json
+        {
+          "text_expansion": {
+            "content_embedding": {
+              "model_id": ".elser_model_2",
+              "model_text": "how to set up a custom extension?"
+            }
           }
-         }
-      }
-      ```
-    NOTE: Learn more about ELSER v2 from [here](https://www.elastic.co/guide/en/elasticsearch/reference/8.11/semantic-search-elser.html). 
-    ELSER v2 is only available for the 8.11 version of Elasticsearch
+        }
+        ```
+      NOTE: Learn more about ELSER v2 from [here](https://www.elastic.co/guide/en/elasticsearch/reference/8.11/semantic-search-elser.html). 
+      ELSER v2 is only available for the 8.11 version of Elasticsearch
+
+    * To use dense vector search (k-nearest neighbours search), you can set `knn_body` as a session variable and set the `knn` variable to `knn_body` as shown below:
+      
+      Here is an example knn body you can use when setting up the `knn_body` session variable:
+      
+      ```json
+        {
+          "field": "text_embedding.predicted_value",
+          "query_vector_builder": {
+            "text_embedding": {
+              "model_id": "intfloat__multilingual-e5-small",
+              "model_text": "how to set up custom extension?"
+            }
+          },
+          "k": 10,
+          "num_candidates": 100
+        }
+        ```
+        
+        NOTE: `intfloat__multilingual-e5-small` is a multilingual embedding model supported by Elasticsearch. If you have Elasticsearch version 8.11 or earlier, you will need to deploy this model to your Elasticsearch cluster first before starting to use it by following the instructions [here](/integrations/extensions/docs/elasticsearch-install-and-setup/text_embedding_deploy_and_use.md).
+
+        <img src="assets/use_elasticsearch_custom_extension_knn.png" width="669" height="627" />
+      
     * Compound search  
       You can combine different types of queries in a compound query. Learn more about it from this [Elasticsearch tutorial](https://www.elastic.co/guide/en/elasticsearch/reference/8.10/semantic-search-elser.html#text-expansion-compound-query).
+  
   * Try typing in anything in your preview chat to trigger `No action matches` action. 
     If you see a successful extension call with valid response in the Extension Inspector, your Elasticsearch custom extension has been set up successfully.
 
