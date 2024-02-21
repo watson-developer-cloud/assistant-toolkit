@@ -163,8 +163,8 @@ you can follow these steps to set up Enterprise Search:
   * If you can see `Web Crawler` available as an option to ingest content, your Enterprise Search has been set up successfully.
 
 ## Step 2: Create and configure a web crawler in Elasticsearch 
-* In Kibana, navigate to the Search Overview page by clicking on `Search` from the home page, and you will see Web Crawler 
-as an option to ingest content. Choose Web Crawler option, click on `Start`, and follow the steps to create a Web Crawler index. 
+* In Kibana, navigate to the `Search Overview` page by clicking on `Search` from the home page, and you will see `Web Crawler` 
+as an option to ingest content. Choose `Web Crawler` option, click on `Start`, and follow the steps to create a Web Crawler index. 
 
 
 * On the `Manage Domains` tab, add a domain, for example, `https://www.nationalparks.org`.  
