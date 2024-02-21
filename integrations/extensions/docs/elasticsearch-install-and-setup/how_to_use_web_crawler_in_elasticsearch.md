@@ -166,7 +166,14 @@ you can follow these steps to set up Enterprise Search:
 as an option to ingest content. Choose Web Crawler option, click on `Start`, and follow the steps to create a Web Crawler index. 
 
 
-* On the `Manage Domains` tab, add a domain, for example, `https://www.nationalparks.org`.
+* On the `Manage Domains` tab, add a domain, for example, `https://www.nationalparks.org`.  
+  NOTE: If the domain you are crawling has pages that require authentication, you can manage the authentication settings 
+  in the Kibana UI. The web crawler supports two authentication methods:
+  1. Basic authentication (username and password)
+  2. Authentication header (e.g. bearer tokens)  
+  
+  Please refer to [the Elastic documentation](https://www.elastic.co/guide/en/enterprise-search/current/crawler-managing.html#crawler-managing-authentication) 
+  for more details about Authentication. 
 
 
 * Add an entry point under the domain `Entry points` tab, for example, `https://www.nationalparks.org/explore/parks`
@@ -323,7 +330,7 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
   }
   ```
   NOTES:
-  * `.elser_model_1` is the `model_id` for ELSER v1 model, and it can be `.elser_model_2` or `.elser_model_2_linux-x86_64` 
+  * `.elser_model_1` is the `model_id` for ELSER v1 model, and the `model_id` can be `.elser_model_2` or `.elser_model_2_linux-x86_64` 
   for ELSER v2 model depending on which one you want to use and have deployed in your Elasticsearch cluster.
   * `inference_config.text_expansion` is required in the config to tell the Foreach processor to use `text_expansion` 
     and store the results in `tokens` field for each chunked text.
@@ -399,7 +406,7 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
   NOTES:
   * If you run this query while the crawling is taking place, you might get a timeout error, because the ELSER model 
   is busy indexing and thus might not respond quickly enough to your query. If that happens, you should just wait until the crawl finishes.
-  * `.elser_model_1` is the model_id for ELSER v1, it can be `.elser_model_2` or `.elser_model_2_linux-x86_64` for ELSER v2 
+  * `.elser_model_1` is the `model_id` for ELSER v1, and the `model_id` can be `.elser_model_2` or `.elser_model_2_linux-x86_64` for ELSER v2 
   depending on which one you want to use and have deployed in your Elasticsearch cluster. 
 
 ## Step 4: Connect a web crawler index to watsonx Assistant for conversational search 
