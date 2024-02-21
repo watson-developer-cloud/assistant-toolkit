@@ -1,7 +1,13 @@
 # How to set up and use 3rd-party text embeddings for dense vector search in Elasticsearch
 This guide demonstrates how to deploy and use a text embedding model in Elasticsearch. The model will generate vector representations for text, enabling vector similarity (k-nearest neighbours) search.
 
-Please refer to [this guide](./ICD_Elasticsearch_install_and_setup.md) first to create an Elasticsearch instance and set up Kibana if you haven't already.
+## Set up Elasticsearch
+
+### Elasticsearch from IBM Cloud
+If you are using Elasticsearch from IBM Cloud, please refer to [this guide](./ICD_Elasticsearch_install_and_setup.md) first to create an Elasticsearch instance and set up Kibana if you haven't already.
+
+### Elasticsearch on CloudPak
+Alternatively, if you want to install Elasticsearch on Kubernetes (ECK) in CloudPak, you need to follow [this guide](./watsonx_discovery_install_and_setup.md) first to set up Elasticsearch and Kibana. You can skip [Enable ELSER model (v2)](./watsonx_discovery_install_and_setup.md#enable-elser-model-v2) and any section beyond that in the guide.
 
 ## Install the eland library
 Run the command below to install the [eland](https://github.com/elastic/eland) library.
