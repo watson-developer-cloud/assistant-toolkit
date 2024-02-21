@@ -157,7 +157,8 @@ you can follow these steps to set up Enterprise Search:
     ```shell
     oc port-forward service/${ES_CLUSTER}-kb-http 5601 -n ${ES_NAMESPACE}
     ```
-  * Open https://localhost:5601 in your browser and log into Kibana using your Elasticsearch credentials.
+  * Open https://localhost:5601 in your browser and log into Kibana using your Elasticsearch credentials. You can obtain 
+  the credentials following the instructions [here](../../docs/elasticsearch-install-and-setup/watsonx_discovery_install_and_setup.md#verify-the-installation).
   * Navigate to the `Search Overview` page https://localhost:5601/app/enterprise_search/overview.
   * If you can see `Web Crawler` available as an option to ingest content, your Enterprise Search has been set up successfully.
 
