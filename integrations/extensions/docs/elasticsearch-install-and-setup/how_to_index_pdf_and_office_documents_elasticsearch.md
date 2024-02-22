@@ -160,7 +160,7 @@ Open the file for editing and add the complete path to the documents directory y
 
 <img src="./assets/example_volume_mount.png" width="500" height="50"/>
 
-NOTE: There are some example documents available [here](https://ibm.box.com/s/l2rhvajs6jasz2rqla7eakz7uml8oljs), if you would like to test the setup.
+NOTE: There are some example documents available [here](./assets/sample_pdf_docs), if you would like to test the setup.
 
 
 ### Step 4d. Run fscrawler
