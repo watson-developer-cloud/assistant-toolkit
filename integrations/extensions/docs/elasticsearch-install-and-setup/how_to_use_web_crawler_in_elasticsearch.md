@@ -126,6 +126,11 @@ you can follow these steps to set up Enterprise Search:
   ```shell
   oc get EnterpriseSearch -n ${ES_NAMESPACE}
   ```
+  Make sure the health status of your Enterprise Search instance is green, for example, 
+  ```
+  NAME                    HEALTH   NODES   VERSION   AGE
+  enterprise-search-wxd   green    1       8.11.1    3m9s
+  ```
   Check that the Enterprise Search pods are running
   ```shell
   oc get pods -n ${ES_NAMESPACE} | grep ${ENTERPRISE_SEARCH_NAME}
@@ -143,7 +148,7 @@ you can follow these steps to set up Enterprise Search:
       enterpriseSearchRef:
         name: enterprise-search-wxd  # make sure to use your Enterprise Search instance name here
     ```
-  * Once the Kibana instance spec is edited, check that your Kibana instance is healthy and the pods have restarted successfully
+  * Once the Kibana instance spec is edited, check that your Kibana instance is healthy (with green health status) and the pods have restarted successfully
     ```shell
     oc get Kibana -n ${ES_NAMESPACE}
     ```
