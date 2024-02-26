@@ -81,20 +81,105 @@ In a new terminal window, run the following command to generate an encryption ke
     --env "kibana.external_url=http://kibana:5601" \
     "docker.elastic.co/enterprise-search/enterprise-search:${ES_VERSION}"
     ```
-* Verify it 
+* Verify the installation 
   * Open http://localhost:5601 in your browser and log into Kibana using your Elasticsearch username and password.
   * Navigate to the Search Overview page http://localhost:5601/app/enterprise_search/overview.
   * If you can see `Web Crawler` available as an option to ingest content, your Enterprise Search has been set up successfully.
 
 ### Set up Enterprise Search for watsonx Discovery on CloudPak
-Coming soon...
+Assuming you have successfully installed an Elasticsearch instance in a CloudPak cluster following [watsonx-discovery-install-and-setup](../../docs/elasticsearch-install-and-setup/watsonx_discovery_install_and_setup.md), 
+you can follow these steps to set up Enterprise Search: 
+
+* Log into your CloudPak cluster following the instructions [here](../../docs/elasticsearch-install-and-setup/watsonx_discovery_install_and_setup.md#log-in-to-your-cloudpak-cluster)
+
+
+* Create environment variables for installation
+  ```shell
+  export ES_NAMESPACE="elastic"
+  export ES_CLUSTER="wxd"
+  export ENTERPRISE_SEARCH_NAME="enterprise-search-wxd"
+  export ES_VERSION="8.11.1"
+  ```
+  NOTES: 
+  * `ES_NAMESPACE` is your Elasticsearch namespace. 
+  * `ES_CLUSTER` is your Elasticsearch instance name in your CloudPak cluster.
+  * `ENTERPRISE_SEARCH_NAME` can be whatever you would like to name your Enterprise Search instance. 
+  * `ES_VERSION` is your Elasticsearch version, and it needs to be the same for Enterprise Search. 
+
+
+* Create an Enterprise Search instance and associate it with your Elasticsearch cluster
+  ```shell
+  cat <<EOF | oc -n ${ES_NAMESPACE} apply -f -
+  apiVersion: enterprisesearch.k8s.elastic.co/v1
+  kind: EnterpriseSearch
+  metadata:
+    name: ${ENTERPRISE_SEARCH_NAME}
+  spec:
+    version: ${ES_VERSION}
+    count: 1
+    elasticsearchRef:
+      name: ${ES_CLUSTER}
+  EOF
+  ```
+  
+  Monitor the health and creation progress of your Enterprise Search instance
+  ```shell
+  oc get EnterpriseSearch -n ${ES_NAMESPACE}
+  ```
+  Make sure the health status of your Enterprise Search instance is green, for example, 
+  ```
+  NAME                    HEALTH   NODES   VERSION   AGE
+  enterprise-search-wxd   green    1       8.11.1    3m9s
+  ```
+  Check that the Enterprise Search pods are running
+  ```shell
+  oc get pods -n ${ES_NAMESPACE} | grep ${ENTERPRISE_SEARCH_NAME}
+  ```
+
+
+* Associate your Enterprise Search instance with your Kibana instance
+  * Edit your Kibana resource
+    ```shell
+    oc edit Kibana -n ${ES_NAMESPACE}
+    ```
+  * Add your Enterprise Search instance name as `enterpriseSearchRef` to the spec, for example,
+    ```shell
+    spec:
+      enterpriseSearchRef:
+        name: enterprise-search-wxd  # make sure to use your Enterprise Search instance name here
+    ```
+  * Once the Kibana instance spec is edited, check that your Kibana instance is healthy (with green health status) and the pods have restarted successfully
+    ```shell
+    oc get Kibana -n ${ES_NAMESPACE}
+    ```
+    ```shell
+    oc get pods -n ${ES_NAMESPACE} | grep kb
+    ```
+
+
+* Verify the installation
+  * Use `port-forward` to access Kibana locally:
+    ```shell
+    oc port-forward service/${ES_CLUSTER}-kb-http 5601 -n ${ES_NAMESPACE}
+    ```
+  * Open https://localhost:5601 in your browser and log into Kibana using your Elasticsearch credentials. You can obtain 
+  the credentials following the instructions [here](../../docs/elasticsearch-install-and-setup/watsonx_discovery_install_and_setup.md#verify-the-installation).
+  * Navigate to the `Search Overview` page https://localhost:5601/app/enterprise_search/overview.
+  * If you can see `Web Crawler` available as an option to ingest content, your Enterprise Search has been set up successfully.
 
 ## Step 2: Create and configure a web crawler in Elasticsearch 
-* In Kibana, you can find the Web Crawler option on Search Overview http://localhost:5601/app/enterprise_search/overview. 
-Click on `Start`, and follow the steps to create a Web Crawler index. 
+* In Kibana, navigate to the `Search Overview` page by clicking on `Search` from the home page, and you will see `Web Crawler` 
+as an option to ingest content. Choose `Web Crawler` option, click on `Start`, and follow the steps to create a Web Crawler index. 
 
 
-* On the `Manage Domains` tab, add a domain, for example, `https://www.nationalparks.org`.
+* On the `Manage Domains` tab, add a domain, for example, `https://www.nationalparks.org`.  
+  NOTE: If the domain you are crawling has pages that require authentication, you can manage the authentication settings 
+  in the Kibana UI. The web crawler supports two authentication methods:
+  1. Basic authentication (username and password)
+  2. Authentication header (e.g. bearer tokens)  
+  
+  Please refer to [the Elastic documentation](https://www.elastic.co/guide/en/enterprise-search/current/crawler-managing.html#crawler-managing-authentication) 
+  for more details about Authentication. 
 
 
 * Add an entry point under the domain `Entry points` tab, for example, `https://www.nationalparks.org/explore/parks`
@@ -112,8 +197,12 @@ Click on `Start`, and follow the steps to create a Web Crawler index.
 
 
 ## Step 3: Build an ELSER ingest pipeline with a chunking processor
-To use ELSER for text expansion queries on chunked texts, you need to build an ingest pipeline with a chunking processor that uses the ELSER model.
+To use ELSER for text expansion queries on chunked texts, you need to build an ingest pipeline with a chunking processor 
+that uses the ELSER model.
 
+NOTE: ELSER model is not enabled by default, and you can enable it in Kibana, following the [download-deploy-elser instructions](https://www.elastic.co/guide/en/machine-learning/8.11/ml-nlp-elser.html#download-deploy-elser). 
+Depending on your Elasticsearch version, you can choose to deploy either ELSER v1 or v2 model. The following steps and 
+commands are based on ELSER v1 model, but you can find what change is needed for ELSER v2 in the notes of each step.  
 
 ### Update the index mappings of your web crawler
 Define your web crawler index name as an environment variable:  
@@ -142,12 +231,12 @@ curl -X PUT "${ES_URL}/${ES_INDEX_NAME}/_mapping?pretty" -k \
 The above command will update the index mappings to specify `passages` to be `nested` type and `passages.sparse.tokens` to be `rank_features` type, 
 because the default dynamic index mappings of the web crawler cannot recognize these types correctly during document ingestion.
 
-NOTE: `rank_features` only works for ELSER v1 model. ELSER v2 requires a different type for the tokens. ELSER v2 has only been available since Elastic 8.11. Learn more about ELSER v2 from [here](https://www.elastic.co/guide/en/machine-learning/current/ml-nlp-elser.html)
+NOTE: `rank_features` only works for ELSER v1 model. ELSER v2 requires `sparse_vector` type. ELSER v2 has only been available since Elastic 8.11. Learn more about ELSER v2 from [here](https://www.elastic.co/guide/en/machine-learning/current/ml-nlp-elser.html)
 
 ### Build a custom ingest pipeline with two processors
 Now you can build a custom ingest pipeline for your web crawler index on Kibana, following these steps:
 
-* Open http://localhost:5601 and log into Kibana with your Elasticsearch credentials. Navigate to the [indices page](http://localhost:5601/app/enterprise_search/content/search_indices) 
+* Open http://localhost:5601 or https://localhost:5601 (for Kibana port-forwarded from CloudPak) and log into Kibana with your Elasticsearch credentials. Navigate to the indices page
   from the left-side menu via `Content` under `Search`, find your web crawler index, and click on it to go to the index page.
 
 
@@ -202,13 +291,13 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
   ```Groovy
   Map passage = ['text': envSplit[i++]];
   ```
-  * If you need to include `title` as a field in each passage object, use the following `passage` definition statement:
+  * If you need to include `title` and `url` as fields in each passage object, use the following `passage` definition statement:
     ```Groovy
-    Map passage = ['text': envSplit[i++], 'title': ctx['title']];
+    Map passage = ['text': envSplit[i++], 'title': ctx['title'], 'url': ctx['url']];
     ```
   * If you need to insert `title` to the beginning of each chunked text, use the following `passage` definition statement:
     ```Groovy
-    Map passage = ['text': ctx['title'] + '. ' + envSplit[i++], 'title': ctx['title']];
+    Map passage = ['text': ctx['title'] + '. ' + envSplit[i++], 'title': ctx['title'], 'url': ctx['url']];
     ```
 
 
@@ -247,7 +336,8 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
   }
   ```
   NOTES:
-  * `inference_config` in this example only works with ELSER v1 model, its structure will be different for ELSER v2 model. 
+  * `.elser_model_1` is the `model_id` for ELSER v1 model, and the `model_id` can be `.elser_model_2` or `.elser_model_2_linux-x86_64` 
+  for ELSER v2 model depending on which one you want to use and have deployed in your Elasticsearch cluster.
   * `inference_config.text_expansion` is required in the config to tell the Foreach processor to use `text_expansion` 
     and store the results in `tokens` field for each chunked text.
   * `_ingest._value.sparse` expects a `sparse` field for each chunk object as the target field.
@@ -303,7 +393,7 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
           "text_expansion": {
             "passages.sparse.tokens": {
               "model_id": ".elser_model_1",
-              "model_text": "what is the best time to visit Arcadia national park?"
+              "model_text": "Tell me about Acadia"
             }
           }
         },
@@ -319,8 +409,11 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
   If you see successful results from the above query, you have successfully created a web crawler index with an ELSER ingest pipeline with a chunking processor.
   
 
-  NOTE: If you run this query while the crawling is taking place, you might get a timeout error, because the ELSER model 
+  NOTES:
+  * If you run this query while the crawling is taking place, you might get a timeout error, because the ELSER model 
   is busy indexing and thus might not respond quickly enough to your query. If that happens, you should just wait until the crawl finishes.
+  * `.elser_model_1` is the `model_id` for ELSER v1, and the `model_id` can be `.elser_model_2` or `.elser_model_2_linux-x86_64` for ELSER v2 
+  depending on which one you want to use and have deployed in your Elasticsearch cluster. 
 
 ## Step 4: Connect a web crawler index to watsonx Assistant for conversational search 
 
