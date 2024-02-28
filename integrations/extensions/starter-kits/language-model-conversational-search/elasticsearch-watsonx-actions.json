@@ -105,6 +105,12 @@
                     "expression": "[\"title\", \"text\"]"
                   },
                   "skill_variable": "query_source"
+                },
+                {
+                  "value": {
+                    "expression": "${use_knn_search} ? {\n    \"field\": \"text_embedding.predicted_value\",\n    \"query_vector_builder\": {\n      \"text_embedding\": {\n        \"model_id\": $embedding_model,\n        \"model_text\": ${query_text}\n      }\n    },\n    \"k\": 10,\n    \"num_candidates\": 100\n  }: \"\""
+                  },
+                  "skill_variable": "knn_body"
                 }
               ]
             },
@@ -138,6 +144,12 @@
                         "skill_variable": "query_source"
                       },
                       "parameter": "_source"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "knn_body"
+                      },
+                      "parameter": "knn"
                     }
                   ],
                   "path": [
@@ -1860,6 +1872,18 @@
         "description": ""
       },
       {
+        "title": "embedding_model",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "embedding_model",
+        "data_type": "string",
+        "description": "",
+        "initial_value": {
+          "scalar": "intfloat__multilingual-e5-small"
+        }
+      },
+      {
         "title": "es_model",
         "privacy": {
           "enabled": false
@@ -1894,6 +1918,15 @@
         "initial_value": {
           "scalar": false
         }
+      },
+      {
+        "title": "knn_body",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "knn_body",
+        "data_type": "any",
+        "description": ""
       },
       {
         "title": "model_id",
@@ -2029,6 +2062,18 @@
         "variable": "title_prompt_text",
         "data_type": "string",
         "description": ""
+      },
+      {
+        "title": "use_knn_search",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "use_knn_search",
+        "data_type": "boolean",
+        "description": "",
+        "initial_value": {
+          "scalar": false
+        }
       },
       {
         "title": "verbose",
