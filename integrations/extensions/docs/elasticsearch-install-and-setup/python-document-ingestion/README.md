@@ -137,6 +137,39 @@ Your documents are now available in the index, ready for searching and querying.
 
 ### Step 5: Connecting Watson Assistant to Elasticsearch for Conversational Search
 
+There are two options to connect your elasticsearch instance to your assistant for conversational search:
+
+
+
+#### Step 5a. Using the built-in watsonX Assistant Conversational Search
+
+Follow instructions in the [elasticsearch integration documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-search-elasticsearch-add#setup-elasticsearch) to configure your elasticsearch index for conversational search
+
+**NOTES**
+
+1. In `Step 3` , use `title` for the **title** field and `text` for the **text** field
+2. In `Step 4` , configure the custom query body using the snippet below: 
+
+	```
+	{
+	  "query": {
+	    "text_expansion": {
+	      "ml.tokens": {
+	        "model_id": ".elser_model_1",
+	        "model_text": "$QUERY"
+	      }
+	    }
+	  }
+	}
+	```
+
+3. Remember to enable the **conversational search** toggle to `on` to activate it
+
+<img src="../assets/elasticsearch-integration.png" width="400"/>
+
+
+#### Step 5b. Using custom extensions
+
 Follow the steps outlined in guide to [connect your assistant to elasticsearch and watsonx using custom extensions](../../starter-kits/language-model-conversational-search#example-1-connect-your-assistant-to-elasticsearch-and-watsonx-via-custom-extensions) 
 
 > ⛔️
