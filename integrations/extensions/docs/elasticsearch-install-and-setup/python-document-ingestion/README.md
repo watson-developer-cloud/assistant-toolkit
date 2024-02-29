@@ -133,7 +133,7 @@ After the last cell has completed execution, you will see a message like "**Inde
 
 Your documents are now available in the index, ready for searching and querying. Follow the steps outlined below to use this index in a RAG based setup with Watson Assistant. 
 
-**NOTE**: There are some example documents available [here](https://ibm.ent.box.com/s/l2rhvajs6jasz2rqla7eakz7uml8oljs/folder/230228063107), if you would like to test the setup.
+**NOTE**: There are some example documents available [here](../assets/sample_pdf_docs), if you would like to test the setup.
 
 ### Step 5: Connecting Watson Assistant to Elasticsearch for Conversational Search
 
