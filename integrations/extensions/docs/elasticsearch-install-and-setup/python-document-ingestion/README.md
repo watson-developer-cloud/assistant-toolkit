@@ -89,7 +89,7 @@ curl -X PUT "${ES_URL}/${ES_INDEX_NAME}?pretty" -u "${ES_USER}:${ES_PASSWORD}" \
 {
   "settings":{
   "index":{
-  "default_pipeline":${ES_PIPELINE_NAME}
+  "default_pipeline":"'"${ES_PIPELINE_NAME}"'"
   }
 },
   "mappings": {
