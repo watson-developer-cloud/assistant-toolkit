@@ -10,7 +10,7 @@ function issueAccessToken() {
   const accessExpireTime = Date.now() + 1000 * parseInt(process.env.OAUTH_ACCESS_TOKEN_EXPIRES, 10)
   accessTokensCustomApikey.set(accessToken, accessExpireTime)
 
-  console.log('[custom apikey] Issuing token:', accessToken)
+  console.log(`[custom apikey] Issuing token: ${accessToken}, expires: ${new Date(accessExpireTime)}`)
   return accessToken
 }
 
