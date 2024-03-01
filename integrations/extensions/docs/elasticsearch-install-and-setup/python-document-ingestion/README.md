@@ -44,7 +44,7 @@ The `ES_INDEX_NAME` and `ES_PIPELINE_NAME` variables can be whatever you would l
   export ES_PASSWORD=<password>
   export ES_CACERT=<path-to-your-cert>
   export ES_INDEX_NAME=<name-of-index>
-  export ES_PIPELINE_NAME=<name-of-ingest-pipeline>
+  export DOCS_DIR=<full-path-to-your-directory-of-documents>
   ``` 
 
 ### Step 3: Create an ELSER ingest pipeline with an inference processor
