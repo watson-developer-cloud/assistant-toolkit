@@ -9,16 +9,41 @@ import { config } from './config';
  * See https://www.npmjs.com/package/@ibm-watson/assistant-web-chat-react.
  */
 
+const IS_CLOSE_ICON_DIRECTION_LEFT = config.closePanelButtonConfig.closeIconDirection === 'left';
+
 function App() {
   const stylesInitializedRef = useRef(false);
 
   return (
     <WebChatCustomElement
-      className="WebChatContainer"
+      className={`WebChatContainer${IS_CLOSE_ICON_DIRECTION_LEFT ? ' WebChatContainer--left' : ''}`}
       config={config}
+      onBeforeRender={onBeforeRenderHandler}
       onViewChange={(event, instance) => viewChangeHandler(event, instance, stylesInitializedRef)}
     />
   );
+}
+
+/**
+ * This function is called before web chat is rendered.
+ */
+function onBeforeRenderHandler(instance) {
+  // Listen for the "close panel" button being clicked. Add a class that will kick off the closing animation of the
+  // side panel.
+  // See https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#closePanelButton:toggled
+  instance.on({ type: 'closePanelButton:toggled', handler: () => {
+      // Trigger the animation to slide the main window to the hidden position.
+      instance.elements.getMainWindow().addClassName('CloseAnimation');
+      instance.elements.getMainWindow().removeClassName('OpenAnimation');
+      setTimeout(() => {
+        // After the animation is complete, hide the main window.
+        instance.elements.getMainWindow().addClassName('HideWebChat');
+        instance.elements.getMainWindow().removeClassName('CloseAnimation');
+
+        // Close web chat.
+        instance.changeView('launcher');
+      }, 500);
+    }});
 }
 
 /**
@@ -52,15 +77,6 @@ function viewChangeHandler(event, instance, stylesInitializedRef) {
         instance.elements.getMainWindow().addClassName('OpenAnimation');
         instance.elements.getMainWindow().removeClassName('StartOpenAnimation');
       });
-    } else {
-      // Trigger the animation to slide the main window to the hidden position.
-      instance.elements.getMainWindow().addClassName('CloseAnimation');
-      instance.elements.getMainWindow().removeClassName('OpenAnimation');
-      setTimeout(() => {
-        // After the animation is complete, hide the main window.
-        instance.elements.getMainWindow().addClassName('HideWebChat');
-        instance.elements.getMainWindow().removeClassName('CloseAnimation');
-      }, 500);
     }
   }
 }
