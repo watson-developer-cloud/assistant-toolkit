@@ -13,7 +13,7 @@
 
 	Optional: If using IBM COS or other Cloud Object Storage for your files, you can follow instructions to use [s3fs](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-s3fs) or [rclone](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-rclone) to synchronize your data to a local mounted filesystem
 
-2. You will need a working install of [python](https://www.python.org/downloads/) and Java 7+ on your machine.
+2. You will need a working install of [python](https://www.python.org/downloads/) and Java 8+ on your machine.
 
 ## Introduction
 
@@ -44,6 +44,7 @@ The `ES_INDEX_NAME` and `ES_PIPELINE_NAME` variables can be whatever you would l
   export ES_PASSWORD=<password>
   export ES_CACERT=<path-to-your-cert>
   export ES_INDEX_NAME=<name-of-index>
+  export ES_PIPELINE_NAME=<name-of-pipeline>
   export DOCS_DIR=<full-path-to-your-directory-of-documents>
   ``` 
 
