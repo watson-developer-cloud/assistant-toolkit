@@ -7,6 +7,8 @@ import Swiper, { A11y, Navigation, Pagination } from 'swiper';
 function carouselCustomResponseHandler(event, instance) {
   const { element, message } = event.data;
 
+  event.data.fullWidth = true;
+
   // This will define the main HTML content we want to display in this custom response. We will add the individual
   // carousel items below.
   element.innerHTML = `
@@ -15,11 +17,11 @@ function carouselCustomResponseHandler(event, instance) {
         <div class="swiper-wrapper"></div>
       </div>
       <div class="Carousel__Navigation" >
-        <button type="button" class="Carousel__NavigationButton Carousel__NavigationPrevious bx--btn bx--btn--ghost">
+        <button type="button" class="Carousel__NavigationButton Carousel__NavigationPrevious cds--btn cds--btn--ghost">
           <svg fill="currentColor" width="16" height="16" viewBox="0 0 32 32" aria-hidden="true"><path d="M20 24L10 16 20 8z"></path></svg>
         </button>
         <div class="Carousel__BulletContainer"></div>
-        <button type="button" class="Carousel__NavigationButton Carousel__NavigationNext bx--btn bx--btn--ghost">
+        <button type="button" class="Carousel__NavigationButton Carousel__NavigationNext cds--btn cds--btn--ghost">
           <svg fill="currentColor" width="16" height="16" viewBox="0 0 32 32" aria-hidden="true"><path d="M12 8L22 16 12 24z"></path></svg>
         </button>
       </div>
@@ -71,18 +73,18 @@ function createSlides(slidesContainer, message, webChatInstance) {
     cardElement.classList.add('swiper-slide');
 
     cardElement.innerHTML = `
-      <div class="bx--tile Carousel__Card">
+      <div class="cds--tile Carousel__Card">
         <img class="Carousel__CardImage" src="${url}" alt="${alt}" />
         <div class="Carousel__CardText">
           <div class="Carousel__CardTitle">${title}</div>
           <div class="Carousel__CardDescription">${description}</div>
         </div>
         <!-- Here you would use a link to your own page that shows more details about this card. -->
-        <a href="https://www.ibm.com" class="Carousel__CardButton bx--btn bx--btn--primary" target="_blank">
+        <a href="https://www.ibm.com" class="Carousel__CardButton cds--btn cds--btn--primary" target="_blank">
           View more details
         </a>
         <!-- This button will send a message to the assistant and web chat will respond with more info. -->
-        <button type="button" class="Carousel__CardButton Carousel__CardButtonMessage bx--btn bx--btn--primary">
+        <button type="button" class="Carousel__CardButton Carousel__CardButtonMessage cds--btn cds--btn--primary">
           Tell me more about this
         </button>
       </div>
@@ -103,7 +105,7 @@ function createSlides(slidesContainer, message, webChatInstance) {
  * Renders a custom bullet to be displayed in the pagination element.
  */
 function renderBullet(_, className) {
-  return `<button class="${className} bx--btn bx--btn--ghost" type="button"></button>`;
+  return `<button class="${className} cds--btn cds--btn--ghost" type="button"></button>`;
 }
 
 export { carouselCustomResponseHandler };

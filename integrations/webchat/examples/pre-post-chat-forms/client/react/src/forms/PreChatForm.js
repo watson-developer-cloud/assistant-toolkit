@@ -1,4 +1,4 @@
-import { Button, Form, SecondaryButton, TextInput } from 'carbon-components-react';
+import { Button, Form, SecondaryButton, TextInput } from '@carbon/react';
 import React, { useCallback, useState } from 'react';
 import { PropTypes } from 'prop-types';
 

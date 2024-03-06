@@ -1,5 +1,5 @@
 /* eslint-disable react/forbid-prop-types */
-import { Button } from 'carbon-components-react';
+import { Button } from '@carbon/react';
 import cx from 'classnames';
 
 import './CustomButtons.css';

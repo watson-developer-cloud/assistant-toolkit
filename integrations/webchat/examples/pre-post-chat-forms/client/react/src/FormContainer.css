@@ -57,6 +57,7 @@
   display: flex;
   color: #161616;
   justify-content: center;
+  align-items: center;
 }
 
 #WACContainer.WACContainer button.PostChatForm__RatingButton--selected:hover,
@@ -65,11 +66,11 @@
   background-color: #004144;
 }
 
-#WACContainer.WACContainer .PostChatForm .bx--form {
+#WACContainer.WACContainer .PostChatForm .cds--form {
   height: 100%;
 }
 
-#WACContainer.WACContainer .PostChatForm .bx--form-item label {
+#WACContainer.WACContainer .PostChatForm .cds--form-item label {
   margin-top: 16px;
   margin-bottom: 16px;
   font-size: 16px;

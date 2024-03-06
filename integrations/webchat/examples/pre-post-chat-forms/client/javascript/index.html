@@ -68,6 +68,7 @@
       display: flex;
       color: #161616;
       justify-content: center;
+      align-items: center;
     }
 
     #WACContainer.WACContainer button.PostChatForm__RatingButton--selected:hover,
@@ -165,7 +166,7 @@
     const { hostElement } = customPanel;
 
     hostElement.classList.add('HostElement');
-    // All IBM Carbon class names (those pre-pended with bx-- in the block below, see: https://v10.carbondesignsystem.com/)
+    // All IBM Carbon class names (those pre-pended with cds-- in the block below, see: https://v10.carbondesignsystem.com/)
     // are automatically available for use inside of web chat and will inherit theming values you have set on web chat.
     hostElement.innerHTML = `
         <div class="PreChatForm ChatForm">
@@ -174,18 +175,18 @@
               <div class="ChatForm__TitleBar"></div>
               <span class="ChatForm__TitleText">Let's get started.</span>
             </div>
-            <div class="bx--form-item bx--text-input-wrapper">
-              <label for="PreChatForm__NameField" class="bx--label">Please enter your name</label>
-              <div class="bx--text-input__field-outer-wrapper">
-                <div class="bx--text-input__field-wrapper">
-                  <input id="PreChatForm__NameField" type="text" class="bx--text-input" placeholder="Required">
+            <div class="cds--form-item cds--text-input-wrapper">
+              <label for="PreChatForm__NameField" class="cds--label">Please enter your name</label>
+              <div class="cds--text-input__field-outer-wrapper">
+                <div class="cds--text-input__field-wrapper">
+                  <input id="PreChatForm__NameField" type="text" class="cds--text-input" placeholder="Required">
                 </div>
               </div>
             </div>
           </div>
           <div class="PreChatForm__ButtonContainer">
-            <button type="button" id="PreChatForm__CancelButton" class="bx--btn bx--btn--secondary">Cancel</button>
-            <button type="button" id="PreChatForm__OkButton" class="bx--btn bx--btn--primary" disabled>Start chat</button>
+            <button type="button" id="PreChatForm__CancelButton" class="cds--btn cds--btn--secondary">Cancel</button>
+            <button type="button" id="PreChatForm__OkButton" class="cds--btn cds--btn--primary" disabled>Start chat</button>
           </div>
         </div>
       `;
@@ -246,21 +247,21 @@
               <span class="ChatForm__TitleText">See you next time.<br/>How did we do?</span>
             </div>
             <div class="PostChatForm__RatingButtonsContainer">
-              <button class="PostChatForm__RatingButton bx--btn bx--btn--ghost" data-rating="happy" type="button">
+              <button class="PostChatForm__RatingButton cds--btn cds--btn--ghost" data-rating="happy" type="button">
                 <svg width="32" height="32" viewBox="0 0 32 32">
                   <path d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Z"></path>
                   <path
                       d="M11.5 11A2.5 2.5 0 1014 13.5 2.48 2.48 0 0011.5 11zM20.5 11A2.5 2.5 0 1023 13.5 2.48 2.48 0 0020.5 11zM16 24a8 8 0 006.85-3.89l-1.71-1a6 6 0 01-10.28 0l-1.71 1A8 8 0 0016 24z"></path>
                 </svg>
               </button>
-              <button class="PostChatForm__RatingButton bx--btn bx--btn--ghost" data-rating="neutral" type="button">
+              <button class="PostChatForm__RatingButton cds--btn cds--btn--ghost" data-rating="neutral" type="button">
                 <svg width="32" height="32" viewBox="0 0 32 32">
                   <path d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Z"></path>
                   <path
                       d="M11.5 11A2.5 2.5 0 1014 13.5 2.5 2.5 0 0011.5 11zM20.5 11A2.5 2.5 0 1023 13.5 2.5 2.5 0 0020.5 11zM10 20H22V22H10z"></path>
                 </svg>
               </button>
-              <button class="PostChatForm__RatingButton bx--btn bx--btn--ghost" data-rating="sad" type="button">
+              <button class="PostChatForm__RatingButton cds--btn cds--btn--ghost" data-rating="sad" type="button">
                 <svg width="32" height="32" viewBox="0 0 32 32">
                   <path d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Z"></path>
                   <path
@@ -271,17 +272,17 @@
             <div class="PostChatForm__FeedbackOptional">
               If you have any more additional feedback, please write it here. (optional)
             </div>
-            <div class="bx--form-item bx--text-input-wrapper">
-              <div class="bx--text-input__field-outer-wrapper">
-                <div class="bx--text-input__field-wrapper">
-                  <textarea id="PostChatForm__FeedbackField" class="bx--text-input"></textarea>
+            <div class="cds--form-item cds--text-input-wrapper">
+              <div class="cds--text-input__field-outer-wrapper">
+                <div class="cds--text-input__field-wrapper">
+                  <textarea id="PostChatForm__FeedbackField" class="cds--text-input"></textarea>
                 </div>
               </div>
             </div>
           </div>
           <div class="PreChatForm__ButtonContainer">
-            <button type="button" id="PostChatForm__CancelButton" class="bx--btn bx--btn--secondary">Close</button>
-            <button type="button" id="PostChatForm__OkButton" class="bx--btn bx--btn--primary" disabled>Submit feedback</button>
+            <button type="button" id="PostChatForm__CancelButton" class="cds--btn cds--btn--secondary">Close</button>
+            <button type="button" id="PostChatForm__OkButton" class="cds--btn cds--btn--primary" disabled>Submit feedback</button>
           </div>
         </div>
       `;
@@ -404,7 +405,7 @@
     serviceInstanceID: "9a3613d2-3ce6-4928-8eb6-4d659d87ae68",
     onLoad: onLoad,
   };
-  setTimeout(function(){const t=document.createElement('script');t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";document.head.appendChild(t);});
+  setTimeout(function(){const t=document.createElement('script');t.src="https://web-chat.global.assistant.dev.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";document.head.appendChild(t);});
 </script>
 
 </body>
