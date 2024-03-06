@@ -193,7 +193,7 @@ Follow instructions in the [elasticsearch integration documentation](https://clo
 
 #### Step 5b. Using custom extensions
 
-Follow the steps outlined in guide to [connect your assistant to elasticsearch and watsonx using custom extensions](../../starter-kits/language-model-conversational-search#example-1-connect-your-assistant-to-elasticsearch-and-watsonx-via-custom-extensions) 
+Follow the steps outlined in guide to [connect your assistant to elasticsearch and watsonx using custom extensions](../../../starter-kits/language-model-conversational-search#example-1-connect-your-assistant-to-elasticsearch-and-watsonx-via-custom-extensions) 
 
 > ⛔️
 > **Caution**  
