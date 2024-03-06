@@ -52,11 +52,19 @@ The `ES_INDEX_NAME` and `ES_PIPELINE_NAME` variables can be whatever you would l
 
 If you already have an existing pipeline in your Elasticsearch instance that uses an inference processor with ELSER against the "text" field, you can choose to reuse that and skip creation of a new pipeline.
 
-If not, then below is a sample request to create a pipeline that transforms the "text" field using the ELSER model and produces the terms along with weights as a sparse vector in the "ml" field at index time.
+If not, please continue reading below regarding the creation of a new pipeline.
 
-You will be able to reference this pipeline in the next few steps as a part of indexing the documents of choice.
+To use ELSER for text expansion queries on chunked texts, you need to build a pipeline with an inference processor that uses the ELSER model.
 
-Learn more about [inference-ingest-pipeline](https://www.elastic.co/guide/en/elasticsearch/reference/8.10/semantic-search-elser.html#inference-ingest-pipeline) from the tutorial 
+NOTE: ELSER model is not enabled by default, and you can enable it in Kibana, following the [download-deploy-elser instructions](https://www.elastic.co/guide/en/machine-learning/8.11/ml-nlp-elser.html#download-deploy-elser).
+
+Depending on your Elasticsearch version, you can choose to deploy either ELSER v1 or v2 model. The following steps and commands are based on ELSER v1 model, but you can find what change is needed for ELSER v2 in the notes of each step. 
+
+You will be able to reference this pipeline in the next few steps as a part of indexing the documents of choice. It transforms the "text" field using the ELSER model and produces the terms along with weights as a sparse vector in the "ml" field at index time.
+
+Learn more about [inference-ingest-pipeline](https://www.elastic.co/guide/en/elasticsearch/reference/8.11/semantic-search-elser.html#inference-ingest-pipeline) from the tutorial 
+
+Create the pipeline using the command below: 
 
 ```bash
 curl -X PUT "${ES_URL}/_ingest/pipeline/${ES_PIPELINE_NAME}?pretty" -u "${ES_USER}:${ES_PASSWORD}" \
@@ -81,9 +89,17 @@ curl -X PUT "${ES_URL}/_ingest/pipeline/${ES_PIPELINE_NAME}?pretty" -u "${ES_USE
 }'
 ```	 
 
+NOTES:
+
+* `.elser_model_1` is the `model_id` for ELSER v1 model, and the `model_id` can be `.elser_model_2` or `.elser_model_2_linux-x86_64` 
+  for ELSER v2 model depending on which one you want to use and have deployed in your Elasticsearch cluster.
+* `inference_config.text_expansion` is required in the config to tell the processor to use `text_expansion` and store the results in `tokens` field for each text.
+* `target_field` will contain the field name where the ELSER tokens should be stored
+* `field_map` expects a key pointing to the input "text" field. In this example, the source `text` field is being read for processing by ELSER
 
 
-### Step 4: Create an index for storing tokens as rank features
+
+### Step 4: Create an index for storing tokens as rank features 
 
 ```bash
 curl -X PUT "${ES_URL}/${ES_INDEX_NAME}?pretty" -u "${ES_USER}:${ES_PASSWORD}" \
@@ -154,7 +170,7 @@ Follow instructions in the [elasticsearch integration documentation](https://clo
 
 **NOTES**
 
-1. In `Step 3` , use `title` for the **title** field and `text` for the **text** field
+1. In `Step 3` , use `title` for the **Title** field and `text` for the **Text** field
 2. In `Step 4` , configure the custom query body using the snippet below: 
 
 	```
