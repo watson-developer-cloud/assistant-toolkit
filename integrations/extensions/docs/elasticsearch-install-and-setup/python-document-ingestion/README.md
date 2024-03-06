@@ -82,6 +82,7 @@ curl -X PUT "${ES_URL}/_ingest/pipeline/${ES_PIPELINE_NAME}?pretty" -u "${ES_USE
 ```	 
 
 
+
 ### Step 4: Create an index for storing tokens as rank features
 
 ```bash
@@ -130,7 +131,12 @@ jupyter notebook
 
 Run each cell in order using the "Shift + Enter" shortcut or by clicking the ![play](../assets/jupyter_play_button.png) button.
 
-After the last cell has completed execution, you will see a message like "**Indexed n/n documents**" that indicates that your documents were successfully chunked and ingested into Elasticsearch. If you see an error and only a few of your documents got indexed, you may want to delete the index through the [Kibana dashboard](../ICD_Elasticsearch_install_and_setup.md#step-2-set-up-kibana-to-connect-to-elasticsearch) and restart again by attempting with smaller number of documents at a time.
+After the last cell has completed execution, you will see a message like "**Indexed n/n documents**" that indicates that your documents were successfully chunked and ingested into Elasticsearch. 
+If you see an error and only a few of your documents got indexed, you may want to delete the index through the [Kibana dashboard](../ICD_Elasticsearch_install_and_setup.md#step-2-set-up-kibana-to-connect-to-elasticsearch) or using the [delete index API](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-delete-index.html)
+and restart again by attempting with smaller number of documents at a time. 
+
+If you'd like to update the number of documents to send per request in the Elasticsearch API, you can update the 
+`chunk_size` parameter in the call to `helpers.streaming_bulk` method in the final cell of the notebook.
 
 Your documents are now available in the index, ready for searching and querying. Follow the steps outlined below to use this index in a RAG based setup with Watson Assistant. 
 
