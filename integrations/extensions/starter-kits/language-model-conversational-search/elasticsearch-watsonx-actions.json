@@ -123,12 +123,6 @@
                   "body": [
                     {
                       "value": {
-                        "scalar": ""
-                      },
-                      "parameter": "size"
-                    },
-                    {
-                      "value": {
                         "skill_variable": "query_body"
                       },
                       "parameter": "query"
