@@ -4,7 +4,7 @@
   "valid": true,
   "status": "Available",
   "created": "2024-02-28T18:56:12.276Z",
-  "updated": "2024-03-06T23:10:23.713Z",
+  "updated": "2024-03-13T19:14:21.098Z",
   "language": "en",
   "skill_id": "8ececc72-d8fe-41e7-bc75-4fd73b052406",
   "workspace": {
@@ -123,6 +123,12 @@
                   "body": [
                     {
                       "value": {
+                        "skill_variable": "es_query_result_size"
+                      },
+                      "parameter": "size"
+                    },
+                    {
+                      "value": {
                         "skill_variable": "query_body"
                       },
                       "parameter": "query"
@@ -137,7 +143,7 @@
                   "path": [
                     {
                       "value": {
-                        "scalar": ""
+                        "skill_variable": "es_index_name"
                       },
                       "parameter": "index_name"
                     }
@@ -1845,6 +1851,15 @@
         "description": ""
       },
       {
+        "title": "es_index_name",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "es_index_name",
+        "data_type": "string",
+        "description": ""
+      },
+      {
         "title": "es_model",
         "privacy": {
           "enabled": false
@@ -1854,6 +1869,18 @@
         "description": "ELSER model v1",
         "initial_value": {
           "scalar": ".elser_model_1"
+        }
+      },
+      {
+        "title": "es_query_result_size",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "es_query_result_size",
+        "data_type": "number",
+        "description": "",
+        "initial_value": {
+          "scalar": 3
         }
       },
       {
