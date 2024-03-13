@@ -264,8 +264,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "fc4e09b275e84d0e5254cbc3f1d7a64eb42592b1c18335402a4c19d30555c1c8",
-                  "catalog_item_id": "b9443027-332c-4297-a597-e2bba3509dc0"
+                  "spec_hash_id": "b24afbccfa54978839c4097b816b6cd07e8eaf1b7e24684a8f9372e9dd43ca20",
+                  "catalog_item_id": ""
                 },
                 "request_mapping": {
                   "body": [
@@ -410,8 +410,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "fc4e09b275e84d0e5254cbc3f1d7a64eb42592b1c18335402a4c19d30555c1c8",
-                  "catalog_item_id": "b9443027-332c-4297-a597-e2bba3509dc0"
+                  "spec_hash_id": "b24afbccfa54978839c4097b816b6cd07e8eaf1b7e24684a8f9372e9dd43ca20",
+                  "catalog_item_id": ""
                 },
                 "result_variable": "step_658_result_1"
               }
@@ -515,8 +515,8 @@
                 "type": "integration_interaction",
                 "method": "PUT",
                 "internal": {
-                  "spec_hash_id": "fc4e09b275e84d0e5254cbc3f1d7a64eb42592b1c18335402a4c19d30555c1c8",
-                  "catalog_item_id": "b9443027-332c-4297-a597-e2bba3509dc0"
+                  "spec_hash_id": "b24afbccfa54978839c4097b816b6cd07e8eaf1b7e24684a8f9372e9dd43ca20",
+                  "catalog_item_id": ""
                 },
                 "request_mapping": {
                   "body": [
@@ -651,8 +651,8 @@
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "spec_hash_id": "fc4e09b275e84d0e5254cbc3f1d7a64eb42592b1c18335402a4c19d30555c1c8",
-                  "catalog_item_id": "b9443027-332c-4297-a597-e2bba3509dc0"
+                  "spec_hash_id": "b24afbccfa54978839c4097b816b6cd07e8eaf1b7e24684a8f9372e9dd43ca20",
+                  "catalog_item_id": ""
                 },
                 "result_variable": "step_628_result_1"
               }
@@ -819,8 +819,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "fc4e09b275e84d0e5254cbc3f1d7a64eb42592b1c18335402a4c19d30555c1c8",
-                  "catalog_item_id": "b9443027-332c-4297-a597-e2bba3509dc0"
+                  "spec_hash_id": "b24afbccfa54978839c4097b816b6cd07e8eaf1b7e24684a8f9372e9dd43ca20",
+                  "catalog_item_id": ""
                 },
                 "request_mapping": {
                   "path": [
@@ -1054,8 +1054,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "fc4e09b275e84d0e5254cbc3f1d7a64eb42592b1c18335402a4c19d30555c1c8",
-                  "catalog_item_id": "b9443027-332c-4297-a597-e2bba3509dc0"
+                  "spec_hash_id": "b24afbccfa54978839c4097b816b6cd07e8eaf1b7e24684a8f9372e9dd43ca20",
+                  "catalog_item_id": ""
                 },
                 "request_mapping": {
                   "body": [
@@ -1461,8 +1461,8 @@
                 "type": "integration_interaction",
                 "method": "DELETE",
                 "internal": {
-                  "spec_hash_id": "fc4e09b275e84d0e5254cbc3f1d7a64eb42592b1c18335402a4c19d30555c1c8",
-                  "catalog_item_id": "b9443027-332c-4297-a597-e2bba3509dc0"
+                  "spec_hash_id": "b24afbccfa54978839c4097b816b6cd07e8eaf1b7e24684a8f9372e9dd43ca20",
+                  "catalog_item_id": ""
                 },
                 "result_variable": "step_863_result_1"
               }
@@ -1717,8 +1717,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "fc4e09b275e84d0e5254cbc3f1d7a64eb42592b1c18335402a4c19d30555c1c8",
-                  "catalog_item_id": "b9443027-332c-4297-a597-e2bba3509dc0"
+                  "spec_hash_id": "b24afbccfa54978839c4097b816b6cd07e8eaf1b7e24684a8f9372e9dd43ca20",
+                  "catalog_item_id": ""
                 },
                 "request_mapping": {
                   "path": [
@@ -1928,8 +1928,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "fc4e09b275e84d0e5254cbc3f1d7a64eb42592b1c18335402a4c19d30555c1c8",
-                  "catalog_item_id": "b9443027-332c-4297-a597-e2bba3509dc0"
+                  "spec_hash_id": "b24afbccfa54978839c4097b816b6cd07e8eaf1b7e24684a8f9372e9dd43ca20",
+                  "catalog_item_id": ""
                 },
                 "result_variable": "step_588_result_1"
               }
@@ -2118,8 +2118,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "fc4e09b275e84d0e5254cbc3f1d7a64eb42592b1c18335402a4c19d30555c1c8",
-                  "catalog_item_id": "b9443027-332c-4297-a597-e2bba3509dc0"
+                  "spec_hash_id": "b24afbccfa54978839c4097b816b6cd07e8eaf1b7e24684a8f9372e9dd43ca20",
+                  "catalog_item_id": ""
                 },
                 "request_mapping": {
                   "header": [
@@ -2286,8 +2286,8 @@
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "spec_hash_id": "fc4e09b275e84d0e5254cbc3f1d7a64eb42592b1c18335402a4c19d30555c1c8",
-                  "catalog_item_id": "b9443027-332c-4297-a597-e2bba3509dc0"
+                  "spec_hash_id": "b24afbccfa54978839c4097b816b6cd07e8eaf1b7e24684a8f9372e9dd43ca20",
+                  "catalog_item_id": ""
                 },
                 "result_variable": "step_646_result_1"
               }
@@ -2331,8 +2331,8 @@
                 "type": "integration_interaction",
                 "method": "GET",
                 "internal": {
-                  "spec_hash_id": "fc4e09b275e84d0e5254cbc3f1d7a64eb42592b1c18335402a4c19d30555c1c8",
-                  "catalog_item_id": "b9443027-332c-4297-a597-e2bba3509dc0"
+                  "spec_hash_id": "b24afbccfa54978839c4097b816b6cd07e8eaf1b7e24684a8f9372e9dd43ca20",
+                  "catalog_item_id": ""
                 },
                 "result_variable": "step_507_result_1"
               }
@@ -2376,8 +2376,8 @@
                 "type": "integration_interaction",
                 "method": "DELETE",
                 "internal": {
-                  "spec_hash_id": "fc4e09b275e84d0e5254cbc3f1d7a64eb42592b1c18335402a4c19d30555c1c8",
-                  "catalog_item_id": "b9443027-332c-4297-a597-e2bba3509dc0"
+                  "spec_hash_id": "b24afbccfa54978839c4097b816b6cd07e8eaf1b7e24684a8f9372e9dd43ca20",
+                  "catalog_item_id": ""
                 },
                 "result_variable": "step_154_result_1"
               }
@@ -2498,8 +2498,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "fc4e09b275e84d0e5254cbc3f1d7a64eb42592b1c18335402a4c19d30555c1c8",
-                  "catalog_item_id": "b9443027-332c-4297-a597-e2bba3509dc0"
+                  "spec_hash_id": "b24afbccfa54978839c4097b816b6cd07e8eaf1b7e24684a8f9372e9dd43ca20",
+                  "catalog_item_id": ""
                 },
                 "result_variable": "step_526_result_1"
               }
@@ -2874,8 +2874,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "fc4e09b275e84d0e5254cbc3f1d7a64eb42592b1c18335402a4c19d30555c1c8",
-                  "catalog_item_id": "b9443027-332c-4297-a597-e2bba3509dc0"
+                  "spec_hash_id": "b24afbccfa54978839c4097b816b6cd07e8eaf1b7e24684a8f9372e9dd43ca20",
+                  "catalog_item_id": ""
                 },
                 "request_mapping": {
                   "body": [
@@ -3006,8 +3006,8 @@
                 "type": "integration_interaction",
                 "method": "PATCH",
                 "internal": {
-                  "spec_hash_id": "fc4e09b275e84d0e5254cbc3f1d7a64eb42592b1c18335402a4c19d30555c1c8",
-                  "catalog_item_id": "b9443027-332c-4297-a597-e2bba3509dc0"
+                  "spec_hash_id": "b24afbccfa54978839c4097b816b6cd07e8eaf1b7e24684a8f9372e9dd43ca20",
+                  "catalog_item_id": ""
                 },
                 "result_variable": "step_863_result_1"
               }
