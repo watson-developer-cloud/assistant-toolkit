@@ -425,11 +425,19 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
 > **Caution**  
 > * After uploading the [sample actions JSON file](../../starter-kits/language-model-conversational-search/elasticsearch-watsonx-actions.json) to your Assistant following the instructions [here](../../starter-kits/language-model-conversational-search/README.md#upload-sample-actions), 
     you need to switch the session variable `has_inner_hits` to `True` so that the right `query_body` will be used for your web crawler index. 
-> * Remember to provide `_source` with `query_source` session variable when using your Elasticsearch extension in the action steps. 
-    By limiting the fields available in the `_source`, we can limit the length of the query response. Otherwise, 
-    you may encounter 500 errors due to the response body exceeding the length limit `102400`.  
-    <img src="assets/config_query_source_when_use_es_extension.png" width="667" height="620">
+> 
+> * Remember to update the `query_source` session variable as needed when setting up your Elasticsearch extension, to limit the results to only contain certain document source fields. This will limit the length of the query response, 
+	potentially avoiding the 500 error that may be encountered due to length limits. For example, you can set it to the below, if you'd like it to return only the title and text in the results `_source` field:
+>   ```
+>   ["title", "text"]
+>   ```
+>   Otherwise, you may encounter 500 errors due to the response body exceeding the length limit `102400`.
+> 
+> * Also make sure to set the `es_index_name` to the name of the index you would like to use.
+
+<img src="assets/config_query_source_when_use_es_extension.png" width="667" height="620">
 
 
 * Example usage:  
-  <img src="assets/conversation-search-example-with-web-crawler.png" width="285" height="480">
+
+<img src="assets/conversation-search-example-with-web-crawler.png" width="285" height="480">

@@ -66,7 +66,7 @@ To use the sample actions:
 > ⛔️
 > **Caution**
 
-- Under "Variables"/"Created by you" (within the Actions page), you must set `watsonx_project_id` to the [watsonx project id](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html) that you want to use for answer generation.
+- Under "Variables"/"Created by you" (within the Actions page), you must set `watsonx_project_id` to the [watsonx project id](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html) that you want to use for answer generation as well as the `es_index_name` to be the name of your Elasticsearch index to use for search.
 
 **NOTE**: If you import the actions _before_ configuring the extensions, you will see some errors on the actions because it could not find the extensions. Simply configure the extensions as described above and re-import the action JSON file.
 
@@ -76,6 +76,8 @@ Below is a list of the session variables used in this example. Most of them are 
 
 - `document_prompt_text`: set and used in the `Generate` action to build document text for the prompt sending to LLM.
 - `es_model`: the ELSER model that will be used in Elasticsearch inference pipeline when processing a user query. It will be `.elser_model_1` for ELSER v1 and `.elser_model_2` for ELSER v2. We use ELSER v1 by default for this setup and ELSER v2 model will require a different query body.
+- `es_index_name`: This **MUST** be set to the name of the index in Elasticsearch to be searched.
+- `eq_query_results_size`: The number of documents you want Elasticsearch to return for your search query. Defaults to 3.
 - `has_inner_hits`: a flag to decide which query_body to use by Elasticsearch extension based on whether there will be inner hits. If your query body is a nested query, it will have inner hits.
 - `model_id`: The id of the watsonx model that you select for this action. Defaults to `meta-llama/llama-2-70b-chat`. If you keep this default, be sure to comply with the [Acceptable Use Policy for this model](https://ai.meta.com/llama/use-policy/).
 - `model_input`: The input to the watsonx model. This is set in an expression in Step 5 of the "Generate Answer" action. You MAY change that expression to do prompt engineering. If you wish to do so and are using the default model, be sure to research [guidelines for prompting Llama 2](https://www.pinecone.io/learn/llama-2/). In our experience, this combination of prompt and model is quite effective at producing high-quality answers when it has useful content and it does _often_ say that it doesn't know when it does not have useful content (as instructed in our prompt). However, it does _sometimes_ provide answers that are not supported by its evidence so consider other models, prompt expressions, or additional logic to reduce the generation of invalid answers.
@@ -90,7 +92,7 @@ Below is a list of the session variables used in this example. Most of them are 
 - `query_body`: The query body that will be sent to Elasticsearch search index. The query body is set and used by the Search action.
 - `query_body_generic`: set and used in the `Search` action to define a generic query_body.
 - `query_body_nested`: set and used in the `Search` action to define a nested query_body.
-- `query_source`: The query source that will be sent to Elasticsearch search index. The query source is set and used by the Search action.
+- `query_source`: The query source that will be sent to Elasticsearch search index. The query source is set and used by the Search action. Defaults to `["title", "text"]`
 - `query_text`: You MAY change this to pass queries to Watson Discovery. By default the Search action passes the user’s input.text directly.
 - `search_results`: Response object from Elasticsearch search query. It is set and used by the Search action.
 - `snippet` : Top results from the Watson Discovery document search.

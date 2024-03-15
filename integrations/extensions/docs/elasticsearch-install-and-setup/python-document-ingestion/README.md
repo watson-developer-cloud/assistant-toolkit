@@ -198,7 +198,13 @@ Follow the steps outlined in guide to [connect your assistant to elasticsearch a
 > ⛔️
 > **Caution**  
 > 
-> * Remember to set `_source` to `query_source` session variable when setting up your Elasticsearch extension. By limiting the fields available in the `_source`, we can limit the length of the query response, potentially avoiding the 500 error that may be encountered due to length limits.
+> * Remember to update the `query_source` session variable as needed when setting up your Elasticsearch extension, to limit the results to only contain certain document source fields. This will limit the length of the query response, 
+	potentially avoiding the 500 error that may be encountered due to length limits. For example, you can set it to the below, if you'd like it to return only the title and text in the results `_source` field:
+>   ```
+>   ["title", "text"]
+>   ```
+> 
+> * Also make sure to set the `es_index_name` to the name of the index you would like to use.
 
 #### Example usage:
 
