@@ -66,7 +66,7 @@ To use the sample actions:
 > ⛔️
 > **Caution**
 
-- Under "Variables"/"Created by you" (within the Actions page), you must set `watsonx_project_id` to the [watsonx project id](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html) that you want to use for answer generation.
+- Under "Variables"/"Created by you" (within the Actions page), you must set `watsonx_project_id` to the [watsonx project id](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html) that you want to use for answer generation as well as the `es_index_name` to be the name of your Elasticsearch index to use for search.
 
 **NOTE**: If you import the actions _before_ configuring the extensions, you will see some errors on the actions because it could not find the extensions. Simply configure the extensions as described above and re-import the action JSON file.
 
