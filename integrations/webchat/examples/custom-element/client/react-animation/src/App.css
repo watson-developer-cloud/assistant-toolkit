@@ -11,10 +11,10 @@ body {
 
 .WebChatContainer {
   position: absolute;
-  width: 500px;
+  width: 380px;
   right: 0;
-  top: 16px;
-  bottom: 16px;
+  top: 0;
+  bottom: 0;
 }
 
 #WACContainer.WACContainer .WebChatStyles {
@@ -28,13 +28,41 @@ body {
 
 #WACContainer.WACContainer .StartOpenAnimation {
   transition: none;
-  right: -500px;
+  right: -380px;
 }
 
 #WACContainer.WACContainer .OpenAnimation {
-  right: 16px;
+  right: 0;
 }
 
 #WACContainer.WACContainer .CloseAnimation {
-  right: -500px;
+  right: -380px;
+}
+
+/* The selectors below are for handling the opening/closing animations in the left direction. */
+
+.WebChatContainer--left {
+  left: 0;
+  right: unset;
+}
+
+.WebChatContainer--left #WACContainer.WACContainer .WebChatStyles {
+  position: relative;
+  transition: left 500ms ease-in-out;
+}
+
+.WebChatContainer--left #WACContainer.WACContainer .StartOpenAnimation {
+  transition: none;
+  left: -380px;
+  right: unset;
+}
+
+.WebChatContainer--left #WACContainer.WACContainer .OpenAnimation {
+  left: 0;
+  right: unset;
+}
+
+.WebChatContainer--left #WACContainer.WACContainer .CloseAnimation {
+  left: -380px;
+  right: unset;
 }

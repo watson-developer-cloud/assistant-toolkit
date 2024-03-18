@@ -4,6 +4,7 @@
 
 This code is for extending the IBM watsonx Assistant web chat. If you are new to developing with web chat, please start with the [web chat development overview](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-develop). The code in this folder is commented with links and references to the web chat APIs used.
 
+
 ## Custom elements
 
 This example demonstrates how to use a custom element to change the size and position of the main web chat window.
@@ -12,6 +13,7 @@ It demonstrates:
 
 - How to use a [**view:change**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#viewchange) event handler to show or hide the main web chat window when it is opened or closed.
 - How to use the [**element**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-configuration#configurationobject) configuration property to specify which custom element to use.
+- How to use [**closePanelButtonConfig**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-configuration#closePanelButtonConfig) configuration property for implementing a custom element as a side panel.
 - How to apply custom animation to the entrance and exit of web chat.
 
 ## Running the Code
@@ -22,7 +24,7 @@ It demonstrates:
 
 ### Running the React Examples
 
-1. `cd client/react` or `cd client/react-animation` 
+1. `cd client/react` or `cd client/react-animation`
 2. `npm install`
 3. `npm run start`
 4. Open a web browser to `localhost:3000`
