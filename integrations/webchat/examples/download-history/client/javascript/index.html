@@ -144,9 +144,7 @@
       instance.on({ type: 'agent:receive', handler: saveAgentMessage });
       instance.on({ type: 'history:begin', handler: saveHistory });
 
-      // Add the custom menu option the user can use for both the bot and agent views.
-      instance.updateCustomMenuOptions('bot', [{ text: 'Download transcript', handler: doDownload }]);
-      instance.updateCustomMenuOptions('agent', [{ text: 'Download transcript', handler: doDownload }]);
+      instance.updateCustomMenuOptions([{ text: 'Download transcript', handler: doDownload }]);
 
       await instance.render();
     }

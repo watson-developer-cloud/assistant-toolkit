@@ -16,6 +16,13 @@ class DummyServiceDesk {
   }
 
   /**
+   * Returns the name of this service desk.
+   */
+  getName() {
+    return 'DummyServiceDesk';
+  }
+
+  /**
    * Instructs the service desk to start a new chat. This should be called immediately after the service desk
    * instance has been created. It will make the appropriate calls to the service desk and begin communicating back
    * to the calling code using the callback produce to the instance. This may only be called once per instance.

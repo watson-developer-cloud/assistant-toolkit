@@ -24,6 +24,7 @@ function renderCustomResponse(event, webChatInstance) {
   // condition you want here. This makes it easier to handle different response types if you have more than one
   // custom response type.
   if (message.user_defined && message.user_defined.user_defined_type === 'carousel') {
+    event.data.fullWidth = true;
     return <ContentCarousel message={message} webChatInstance={webChatInstance} />;
   }
   return null;

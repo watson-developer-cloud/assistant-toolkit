@@ -1,6 +1,9 @@
-#WACContainer.WACContainer bx-accordion-item {
+#WACContainer.WACContainer .accordion-container {
+  margin-top: 16px;
+}
+
+#WACContainer.WACContainer cds-accordion-item {
   // Let's show that you can customize the CSS of the accordion.
   color: #004144;
-  // The current version of Carbon Web Components use "cds" as the prefix for their CSS variables.
   --cds-focus: #004144;
 }

@@ -1,5 +1,5 @@
 import './styles.scss';
-import 'carbon-web-components/es/components/accordion/index.js';
+import '@carbon/web-components/es/components/accordion/index.js';
 
 /**
  * Injects a web chat instance into the page.
@@ -33,24 +33,26 @@ function accordionHandler(event) {
   // of the web components will cause Carbon to attach JavaScript behavior to the elements. This behavior is enabled
   // by the import from carbon-web-components at the top of this file.
   element.innerHTML = `
-    <bx-accordion id="accordion">
-      <bx-accordion-item title-text="The Everyday Card">
-        $300 bonus plus 5% gas station cash back offer. Earn 2% cash back on all other purchases.
-      </bx-accordion-item>
-      <bx-accordion-item title-text="The Preferred Card">
-        $300 bonus plus 5% gas station cash back offer. Earn 5% cash back on all other purchases.
-      </bx-accordion-item>
-      <bx-accordion-item title-text="The Topaz Card">
-        $90 Annual fee. Earn 120,000 bonus points. Earn additional points on every purchase.
-      </bx-accordion-item>
-    </bx-accordion>
+    <div class="accordion-container">
+      <cds-accordion class="accordion">
+        <cds-accordion-item title="The Everyday Card">
+          $300 bonus plus 5% gas station cash back offer. Earn 2% cash back on all other purchases.
+        </cds-accordion-item>
+        <cds-accordion-item title="The Preferred Card">
+          $300 bonus plus 5% gas station cash back offer. Earn 5% cash back on all other purchases.
+        </cds-accordion-item>
+        <cds-accordion-item title="The Topaz Card">
+          $90 Annual fee. Earn 120,000 bonus points. Earn additional points on every purchase.
+        </cds-accordion-item>
+      </cds-accordion>
+    </div>    
   `;
 
   // This code shows how to use custom event listeners on custom elements. Here we look up the accordion items we
-  // added above and then add a listener for the "bx-accordion-item-toggled" event to each.
-  const items = element.querySelectorAll('bx-accordion-item');
+  // added above and then add a listener for the "cds-accordion-item-toggled" event to each.
+  const items = element.querySelectorAll('cds-accordion-item');
   items.forEach((item, index) => {
-    item.addEventListener('bx-accordion-item-toggled', () => {
+    item.addEventListener('cds-accordion-item-toggled', () => {
       console.log(`You toggled item ${index}`);
     });
   });

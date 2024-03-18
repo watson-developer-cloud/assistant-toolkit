@@ -12,6 +12,7 @@
      * This is a fake service desk integration that does nothing other than say that no agents are online.
      */
     class FakeServiceDesk {
+      getName() { return 'FakeServiceDesk'; }
       async areAnyAgentsOnline() { return false; }
       async startChat() {}
       async endChat() {}

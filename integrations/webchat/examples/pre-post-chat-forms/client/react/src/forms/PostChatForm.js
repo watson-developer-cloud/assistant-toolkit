@@ -1,13 +1,13 @@
 import React, { useCallback, useState } from 'react';
-import { Button, Form, SecondaryButton, TextArea } from 'carbon-components-react';
+import { Button, Form, SecondaryButton, TextArea } from '@carbon/react';
 import {
-  FaceDissatisfied32,
-  FaceDissatisfiedFilled32,
-  FaceNeutral32,
-  FaceNeutralFilled32,
-  FaceSatisfied32,
-  FaceSatisfiedFilled32,
-} from '@carbon/icons-react';
+  FaceDissatisfied,
+  FaceDissatisfiedFilled,
+  FaceNeutral,
+  FaceNeutralFilled,
+  FaceSatisfied,
+  FaceSatisfiedFilled,
+} from '@carbon/react/icons';
 import { PropTypes } from 'prop-types';
 
 /**
@@ -21,9 +21,13 @@ function PostChatForm({ onSubmit, onCancel }) {
   const isNeutralSelected = satisfactionRating === 2;
   const isSatisfiedSelected = satisfactionRating === 3;
 
-  const FaceSatisfied = isSatisfiedSelected ? FaceSatisfiedFilled32 : FaceSatisfied32;
-  const FaceNeutral = isNeutralSelected ? FaceNeutralFilled32 : FaceNeutral32;
-  const FaceDissatisfied = isDissatisfiedSelected ? FaceDissatisfiedFilled32 : FaceDissatisfied32;
+  const faceSatisfied = isSatisfiedSelected ? <FaceSatisfiedFilled size={32} /> : <FaceSatisfied size={32} />;
+  const faceNeutral = isNeutralSelected ? <FaceNeutralFilled size={32} /> : <FaceNeutral size={32} />;
+  const faceDissatisfied = isDissatisfiedSelected ? (
+    <FaceDissatisfiedFilled size={32} />
+  ) : (
+    <FaceDissatisfied size={32} />
+  );
 
   const onChange = useCallback((event) => {
     setInputValue(event.target.value);
@@ -42,13 +46,13 @@ function PostChatForm({ onSubmit, onCancel }) {
           </div>
           <div className="PostChatForm__RatingButtonsContainer">
             <Button className="PostChatForm__RatingButton" kind="ghost" onClick={() => setSatisfactionRating(3)}>
-              <FaceSatisfied />
+              {faceSatisfied}
             </Button>
             <Button className="PostChatForm__RatingButton" kind="ghost" onClick={() => setSatisfactionRating(2)}>
-              <FaceNeutral />
+              {faceNeutral}
             </Button>
             <Button className="PostChatForm__RatingButton" kind="ghost" onClick={() => setSatisfactionRating(1)}>
-              <FaceDissatisfied />
+              {faceDissatisfied}
             </Button>
           </div>
           <TextArea

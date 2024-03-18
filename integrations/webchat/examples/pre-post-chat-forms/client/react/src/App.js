@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from 'carbon-components-react';
+import { Button } from '@carbon/react';
 import { WebChatContainer } from '@ibm-watson/assistant-web-chat-react';
 import { config } from './config';
 import './App.scss';

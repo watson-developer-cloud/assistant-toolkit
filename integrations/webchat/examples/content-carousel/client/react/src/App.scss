@@ -21,9 +21,9 @@
   max-width: 240px;
 }
 
-// All Carbon styles like .bx--tile or .bx--button are already available for use in web chat and will inherit any
+// All Carbon styles like .cds--tile or .cds--button are already available for use in web chat and will inherit any
 // theming properties you have set.
-#WACContainer.WACContainer .bx--tile.Carousel__Card {
+#WACContainer.WACContainer .cds--tile.Carousel__Card {
   border-radius: 12px;
   overflow: hidden;
   padding: 0;
@@ -55,14 +55,15 @@
   line-height: 18px;
 }
 
-#WACContainer.WACContainer .Carousel__Card .bx--btn.Carousel__CardButton {
+#WACContainer.WACContainer .Carousel__Card .cds--btn.Carousel__CardButton {
   width: 100%;
   height: 32px;
   justify-content: center;
+  align-items: center;
   color: #ffffff;
 }
 
-#WACContainer.WACContainer .Carousel__Card .bx--btn.Carousel__CardButton:last-child {
+#WACContainer.WACContainer .Carousel__Card .cds--btn.Carousel__CardButton:last-child {
   border-radius: 0 0 12px 12px;
 }
 
@@ -78,8 +79,8 @@
   align-items: center;
 }
 
-#WACContainer.WACContainer .Carousel__Navigation .bx--btn,
-#WACContainer.WACContainer .swiper .bx--btn {
+#WACContainer.WACContainer .Carousel__Navigation .cds--btn,
+#WACContainer.WACContainer .swiper .cds--btn {
   min-height: unset;
   min-width: unset;
   padding: unset;
