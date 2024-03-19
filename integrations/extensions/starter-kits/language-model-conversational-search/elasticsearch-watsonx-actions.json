@@ -96,7 +96,7 @@
                 },
                 {
                   "value": {
-                    "expression": "${has_inner_hits} ? ${query_body_nested} : ${query_body_generic}"
+                    "expression": "${use_knn_search}? \"\":(${has_inner_hits} ? ${query_body_nested} : ${query_body_generic})"
                   },
                   "skill_variable": "query_body"
                 },
