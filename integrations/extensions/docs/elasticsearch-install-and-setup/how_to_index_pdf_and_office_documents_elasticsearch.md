@@ -126,7 +126,21 @@ curl -X PUT "${ES_URL}/_ingest/pipeline/${ES_PIPELINE_NAME}?pretty" -u "${ES_USE
     }
   }
 ]}'
-```	
+```
+#### (Optional) Enable chunking with overlapping
+The above `script` processor splits `content` into sentences and then combines them into `passages`. If you want to add overlapping between the adjacent chunks, you can replace the above `script` processor with the following one:
+```JSON
+{
+  "script": {
+    "source": "String[] envSplit = /((?<!M(r|s|rs)\\.)(?<=\\.) |(?<=\\!) |(?<=\\?) )/.split(ctx['attachment']['content']);\nctx['passages'] = [];\n\nStringBuilder overlappingText = new StringBuilder();\n\nint i = 0;\nwhile (i < envSplit.length) {\n  StringBuilder passageText = new StringBuilder();\n  ArrayList accumLengths = [];\n  int accumLength = 0;\n\n  int j = i;\n  while (j < envSplit.length) {\n    if (passageText.length() == 0 || passageText.length() + envSplit[j].length() < params.model_limit) {\n      passageText.append(' ').append(envSplit[j]);\n      accumLength += envSplit[j].length();\n      accumLengths.add(accumLength);\n      j += 1;\n    }\n    else {\n      ctx['passages'].add(['title': ctx['attachment']['title'], 'text': overlappingText.toString() + passageText.toString()]);\n      def startLength = (int) passageText.length() * (1 - params.overlap_percentage);\n\n      int k = Collections.binarySearch(accumLengths, (int)startLength);\n      if (k < 0) {\n        k = - k - 1;\n      }\n      overlappingText = new StringBuilder();\n      while (i + k < j) {\n        overlappingText.append(envSplit[i + k]).append(' ');\n        k += 1;\n      }\n\n      i = j;\n      break;\n    }\n  }\n\n  if (j == envSplit.length) {\n    ctx['passages'].add(['title': ctx['attachment']['title'], 'text': overlappingText.toString() + passageText.toString()]);\n    break;\n  }}",
+    "params": {
+      "model_limit": 1024,
+      "overlap_percentage": 0.25
+    }
+  }
+}
+```
+The `overlap_percentage` parameter controls how much overlapping there will be between adjacent chunks.
 
 
 ### Step 4: Running the fscrawler as a docker service
