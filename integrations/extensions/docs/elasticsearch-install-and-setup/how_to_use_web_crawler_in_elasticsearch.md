@@ -302,7 +302,8 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
       ```
   
 
-  * Support chunking with overlapping
+  * Support chunking with overlapping  
+    You can use the following script in the `Source` field for the `Script` processor to support chunking with overlapping
     ```Groovy
     String[] envSplit = /((?<!M(r|s|rs)\.)(?<=\.) |(?<=\!) |(?<=\?) )/.split(ctx['body_content']);
     ctx['passages'] = [];
