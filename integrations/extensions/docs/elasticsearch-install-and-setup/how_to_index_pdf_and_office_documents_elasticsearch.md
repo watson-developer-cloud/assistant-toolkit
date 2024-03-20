@@ -140,7 +140,7 @@ In the above ingest pipeline defintion, the `script` processor splits `content` 
   }
 }
 ```
-The `overlap_percentage` parameter controls how much overlapping there will be between adjacent chunks.
+Note: the `overlap_percentage` parameter controls how much overlapping there will be between adjacent chunks.
 
 
 ### Step 4: Running the fscrawler as a docker service
