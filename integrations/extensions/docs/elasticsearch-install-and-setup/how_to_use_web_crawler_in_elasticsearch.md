@@ -311,41 +311,32 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
 
     int i = 0;
     while (i < envSplit.length) {
-      StringBuilder passageText = new StringBuilder();
-      ArrayList accumLengths = [];
-      int accumLength = 0;
+        StringBuilder passageText = new StringBuilder(envSplit[i]);
+        int accumLength = envSplit[i].length();
+        ArrayList accumLengths = [];
+        accumLengths.add(accumLength);
 
-      int j = i;
-      while (j < envSplit.length) {
-        if (passageText.length() == 0 || passageText.length() + envSplit[j].length() < params.model_limit) {
-          passageText.append(' ').append(envSplit[j]);
-          accumLength += envSplit[j].length();
-          accumLengths.add(accumLength);
-          j += 1;
+        int j = i + 1;
+        while (j < envSplit.length && passageText.length() + envSplit[j].length() < params.model_limit) {
+            passageText.append(' ').append(envSplit[j]);
+            accumLength += envSplit[j].length();
+            accumLengths.add(accumLength);
+            j++;
         }
-        else {
-          ctx['passages'].add(['text': overlappingText.toString() + passageText.toString()]);
-          def startLength = passageText.length() * (1 - params.overlap_percentage);
 
-          int k = Collections.binarySearch(accumLengths, (int)startLength);
-          if (k < 0) {
-            k = - k - 1;
-          }
-          overlappingText = new StringBuilder();
-          while (i + k < j) {
-            overlappingText.append(envSplit[i + k]).append(' ');
-            k += 1;
-          }
-
-          i = j;
-          break;
-        }
-      }
-
-      if (j == envSplit.length) {
         ctx['passages'].add(['text': overlappingText.toString() + passageText.toString()]);
-        break;
-      }
+        def startLength = passageText.length() * (1 - params.overlap_percentage) + 1;
+        
+        int k = Collections.binarySearch(accumLengths, (int)startLength);
+        if (k < 0) {
+            k = -k - 1;
+        }
+        overlappingText = new StringBuilder();
+        for (int l = i + k; l < j; l++) {
+            overlappingText.append(envSplit[l]).append(' ');
+        }
+
+        i = j;
     }
     ```
     This script splits the `body_content` into sentences using regex and combines them into `passages`. The maximum number of characters in each paggase is controlled by the `model_limit` parameter. There is a overlapping between two adjacent passages, and it is controled by the `overlap_percentage` parameter. So, `model_limit` and `overlap_percentage` need to be configured in the `Parameters` field, for example, 
