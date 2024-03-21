@@ -29,7 +29,7 @@ For semantic search using ELSER v1, please include the following query body in t
 }
 ```
 
-![](./assets/query_body_for_elasticsearch.png)
+<img src="assets/query_body_for_elasticsearch.png" width="547" height="638" />
 
 For ELSER v2 use the following query body instead
 ```json
