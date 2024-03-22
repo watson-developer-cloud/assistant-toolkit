@@ -70,7 +70,7 @@ These are the session variables used in this example.
 
 - `model_id`: The ID of the watsonx model that you select for this action. Defaults to `ibm/granite-13b-chat-v2`.
 - `model_input`: The input to the model.
-- `model_parameters_max_new_tokens` : The maximum number of new tokens to be generated. Defaults to 300.
+- `model_parameters_max_new_tokens` : The maximum number of new tokens to be generated. Defaults to 256.
 - `model_parameters_min_new_tokens`: The minimum number of the new tokens to be generated. Defaults to 1.
 - `model_parameters_temperature` : The value used to control the next token probabilities. The range is from 0.05 to 1.00; 0 makes it _mostly_ deterministic.
 - `model_parameters_repetition_penalty`: Represents the penalty for penalizing tokens that have already been generated or belong to the context. The range is 1.0 to 2.0 and defaults to 1.1.
