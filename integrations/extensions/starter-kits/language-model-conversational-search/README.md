@@ -78,6 +78,7 @@ Below is a list of the session variables used in this example. Most of them are 
 - `es_model`: the ELSER model that will be used in Elasticsearch inference pipeline when processing a user query. It will be `.elser_model_1` for ELSER v1 and `.elser_model_2` for ELSER v2. We use ELSER v1 by default for this setup and ELSER v2 model will require a different query body.
 - `es_index_name`: This **MUST** be set to the name of the index in Elasticsearch to be searched.
 - `eq_query_results_size`: The number of documents you want Elasticsearch to return for your search query. Defaults to 3.
+- `embedding_model`: the embedding model that will be used in Elasticsearch to map text into vectors. The default value is `intfloat__multilingual-e5-small`.
 - `has_inner_hits`: a flag to decide which query_body to use by Elasticsearch extension based on whether there will be inner hits. If your query body is a nested query, it will have inner hits.
 - `model_id`: The id of the watsonx model that you select for this action. Defaults to `meta-llama/llama-2-70b-chat`. If you keep this default, be sure to comply with the [Acceptable Use Policy for this model](https://ai.meta.com/llama/use-policy/).
 - `model_input`: The input to the watsonx model. This is set in an expression in Step 5 of the "Generate Answer" action. You MAY change that expression to do prompt engineering. If you wish to do so and are using the default model, be sure to research [guidelines for prompting Llama 2](https://www.pinecone.io/learn/llama-2/). In our experience, this combination of prompt and model is quite effective at producing high-quality answers when it has useful content and it does _often_ say that it doesn't know when it does not have useful content (as instructed in our prompt). However, it does _sometimes_ provide answers that are not supported by its evidence so consider other models, prompt expressions, or additional logic to reduce the generation of invalid answers.
@@ -93,6 +94,7 @@ Below is a list of the session variables used in this example. Most of them are 
 - `query_body_generic`: set and used in the `Search` action to define a generic query_body.
 - `query_body_nested`: set and used in the `Search` action to define a nested query_body.
 - `query_source`: The query source that will be sent to Elasticsearch search index. The query source is set and used by the Search action. Defaults to `["title", "text"]`
+- `knn_body`: The knn body that will be sent to Elasticsearch search index. The knn body is set and used by the Search action.
 - `query_text`: You MAY change this to pass queries to Watson Discovery. By default the Search action passes the user’s input.text directly.
 - `search_results`: Response object from Elasticsearch search query. It is set and used by the Search action.
 - `snippet` : Top results from the Watson Discovery document search.
@@ -100,6 +102,7 @@ Below is a list of the session variables used in this example. Most of them are 
 - `verbose`: A boolean that will print debugging output if true. Default is false. Note that if you turn this on, you will see the prompt we send to the model rendered as if it were HTML, which looks messy (all the text is crossed out because the start of the prompt is a tag that Llama uses to represent the start of a message but represents strike-through in HTML).
 - `watsonx_api_version` - watsonx api date version. It currently defaults to `2023-05-29`.
 - `watsonx_project_id`: You **MUST** set this value to be [a project ID value from watsonx](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html). By default, this is a [sandbox project id](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/sandbox.html) that is automatically created for you when you sign up for watsonx.ai.
+- `use_knn_search`: This is set to `false` by default. You **MUST** set this to `true` if want to use knn search on an embedding index.
 
 NOTE: `query_body` will be used as the value of the query parameter in the request body for the Elasticsearch Search API.
 Depending on the type of search query, you may need to use different forms of `query_body`. You can find some `query_body` examples [here](../elasticsearch/README.md#build-a-custom-extension-in-watsonx-assistant-with-elasticsearch-api).
@@ -118,6 +121,27 @@ a default `query_body` like below is set to work with the sample data and index 
 ```
 
 `ml.tokens` is the ELSER output field. You will need to change it if your ELSER output field is different.
+
+NOTE: `knn_body` will be used when using dense vector search in Elasticsearch. You can find an example `knn_body` [here](../elasticsearch/README.md#build-a-custom-extension-in-watsonx-assistant-with-elasticsearch-api). In the [smaple actions JSON](./elasticsearch-watsonx-actions.json),
+a default `knn_body` like below is set to work with the sample data and index using knn search. 
+
+```json
+{
+  "field": "text_embedding.predicted_value",
+  "query_vector_builder": {
+    "text_embedding": {
+      "model_id": "$embedding_model",
+      "model_text": "$query_text"
+    }
+  },
+  "k": 10,
+  "num_candidates": 100
+}
+
+```
+
+
+Make sure you use a text embedding index if using knn search. Please see [here](../../docs/elasticsearch-install-and-setup/text_embedding_deploy_and_use.md) for more information on how to set up and use text embeddings for dense vector search in Elasticsearch. You must also set the `use_knn_search` session variable to `true` when using dense vector search.
 
 ### Example 1 usage:
 
