@@ -117,7 +117,7 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "0988f31a617dc5ff6b276fdc3be98135801830c3ceeac02a58846426fe81c974",
-                  "catalog_item_id": "ed1fa522-72a9-48ee-905c-0f7a25c4f28c"
+                  "catalog_item_id": "dc113e1e-dadd-4dc1-8c90-ded2f8741ef1"
                 },
                 "request_mapping": {
                   "body": [
@@ -977,8 +977,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "762676925b8038bbe5bf1078d4715538337d72f33678f8a54314c7278f1777d4",
-                  "catalog_item_id": "a7676786-1d9a-4179-8084-c7b1130b67e1"
+                  "spec_hash_id": "540081b16fe217626f2ff197e583c2f1c7ef19f0752c8b875ec454036cfdda7f",
+                  "catalog_item_id": "ca634c4a-453b-4a76-a4f2-991a11d663c5"
                 },
                 "request_mapping": {
                   "body": [
@@ -999,6 +999,30 @@
                         "skill_variable": "watsonx_project_id"
                       },
                       "parameter": "project_id"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_parameters_top_k"
+                      },
+                      "parameter": "parameters.top_k"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_parameters_top_p"
+                      },
+                      "parameter": "parameters.top_p"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_parameters_time_limit"
+                      },
+                      "parameter": "parameters.time_limit"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_parameters_random_seed"
+                      },
+                      "parameter": "parameters.random_seed"
                     },
                     {
                       "value": {
@@ -1026,45 +1050,21 @@
                     },
                     {
                       "value": {
-                        "skill_variable": "model_parameters_repetition_penalty"
-                      },
-                      "parameter": "parameters.repetition_penalty"
-                    },
-                    {
-                      "value": {
-                        "skill_variable": "model_parameters_top_k"
-                      },
-                      "parameter": "parameters.top_k"
-                    },
-                    {
-                      "value": {
-                        "skill_variable": "model_parameters_top_p"
-                      },
-                      "parameter": "parameters.top_p"
-                    },
-                    {
-                      "value": {
                         "skill_variable": "model_parameters_decoding_method"
                       },
                       "parameter": "parameters.decoding_method"
                     },
                     {
                       "value": {
+                        "skill_variable": "model_parameters_repetition_penalty"
+                      },
+                      "parameter": "parameters.repetition_penalty"
+                    },
+                    {
+                      "value": {
                         "skill_variable": "model_parameters_include_stop_sequence"
                       },
                       "parameter": "parameters.include_stop_sequence"
-                    },
-                    {
-                      "value": {
-                        "skill_variable": "model_parameters_time_limit"
-                      },
-                      "parameter": "parameters.time_limit"
-                    },
-                    {
-                      "value": {
-                        "skill_variable": "model_parameters_random_seed"
-                      },
-                      "parameter": "parameters.random_seed"
                     }
                   ],
                   "query": [
