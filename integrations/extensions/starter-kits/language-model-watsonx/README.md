@@ -13,13 +13,15 @@ The watsonx specification in the starter kit describes one endpoint and a few of
 | Endpoint   | Description                                                                                                                                                                  |
 | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Generation | Used with watsonx text completion models such as `google/flan-ul2` and `google/flan-t5-xxl`. You provide text as a prompt, and it returns the text that follows that prompt. |
+| Generation from a deployed prompt | Used with a deployed watsonx prompt. You provide optional the prompt deployment ID, and the query text, and optional passages for RAG.
 
 ## Prerequisites
 
-### Create an API key and a project ID
+### Create an API key, project ID, and prompt deployment
 
 1. Log in to [watsonx](https://dataplatform.cloud.ibm.com/wx/home?context=wx&apps=cos&nocache=true&onboarding=true&quick_start_target=watsonx) and [generate an API key](https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/ml-authentication.html?context=cpdaas). Save this API key somewhere safe and accessible. You need this API key to set up the watsonx custom extension later.
 1. To find your watsonx project id, go to [watsonx.ai](https://dataplatform.test.cloud.ibm.com/wx) and find Projects/<project-name> (this could be your `sandbox`, which is created for you by default). Click on the <project-name> link, then follow the Project's Manage tab (Project -> Manage -> General -> Details) to find the project id.
+1. [Create your prompt](https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/fm-prompt-lab.html?context=wx&audience=wdp#creating-and-running-a-prompt) in Prompt Lab. Ensure you add the `query_text` and `passages` [variables](https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/fm-prompt-variables.html?context=wx&audience=wdp#creating-prompt-variables). Once your prompt is saved, [deploy your prompt](https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/prompt-template-deploy.html?context=wx) and note your deployment ID.
 
 ### Create an assistant
 
@@ -52,6 +54,7 @@ If you need capabilities that are not in the watsonx specification provided, fee
 Use **Actions Global Settings** to upload the [`watsonx-actions.json`](./watsonx-actions.json) file in this kit to your assistant. For more information, see [Uploading](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-admin-backup-restore#backup-restore-import). You may also need to refresh the action Preview chat, after uploading, to get all the session variables initialized before these actions will work correctly.
 
 1. Under Variables/Created by you within the Actions page, set the `watsonx_project_id` session variable using [a project ID value from watsonx](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html?context=wx&audience=wdp). See [this section](#create-an-api-key-and-a-project-id) for additional details on how to find your project ID.
+1. Set the `deployment_id` variable to your deployment space ID.
 
 **NOTE**: If you import the actions _before_ configuring the extensions, you will see errors on the actions because it could not find the extensions. Configure the extensions (as described [above](#prerequisites)), and re-import the action JSON file.
 
@@ -59,8 +62,10 @@ The starter kit includes [a JSON file with sample actions](./watsonx-actions.jso
 
 | Action                        | Description                                                                                                                                                                                   |
 | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Invoke watsonx Generation API | Connects to watson with the selected model and the model input                                                                                                                                |
+| Invoke watsonx Generation API | Connects to watson with the selected model and the model input.                                                                                                                                |
 | Test model                    | Simple test action that asks what model, length, temperature and prompt you want and then calls "Invoke watsonx Generation API" so the model can generate a response to the specified prompt. |
+| Invoke watsonx deployed prompt API                    | Connects to the deployed prompt using the specified deployment ID and input. |
+| Test deployment                    | Simple test action that calls "Invoke watsonx deployed prompt API" so the model can generate a response to the specified query using a saved prompt template. |
 
 Note that the "Test model" action includes a step that invokes an extension and includes a parameter named `model_id`. You can set the `model_id` session variable to control which model is used by `Test model`. You can see which models work with the Generate API by viewing the supported foundation models in [the watsonx Prompt Lab](https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/fm-prompt-lab.html?context=wx).
 
@@ -78,10 +83,19 @@ These are the session variables used in this example.
 - `model_response`: The text generated by the model in response to the user input.
 - `watsonx_api_version` - watsonx api date version. It currently defaults to `2023-05-29`.
 - `watsonx_project_id`: You **MUST** set this value to be [a project ID value from watsonx](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html). By default, this is a [sandbox project id](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/sandbox.html) that is automatically created for you when you sign up for watsonx.ai.
+- `deployment_id`: The ID of the deployment space where your prompt is promoted to.
+- `parameters.prompt_variables.query_text`: The input for the deployed prompt.
+- `parameters.prompt_variables.passages`: Optional variable to include passages for RAG-related queries.
+
+Note: `passages` and `query_text` must be [added as parameters](https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/fm-prompt-variables.html?context=wx&audience=wdp#creating-prompt-variables) in Prompt Lab.
 
 Here is an example of how to use the `Test model` action:
 
 <img src="./assets/sample.png" width="300"/>
+
+Here is an example of how to use the `Test deployment` action:
+
+<img src="./assets/sample2.png" width="300"/>
 
 ### Limitations
 
