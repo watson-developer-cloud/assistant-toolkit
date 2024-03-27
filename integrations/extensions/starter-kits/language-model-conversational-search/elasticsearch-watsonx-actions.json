@@ -1941,7 +1941,7 @@
         },
         "variable": "es_index_name",
         "data_type": "string",
-        "description": ""
+        "description": "You MUST set this to your Elasticsearch index name."
       },
       {
         "title": "es_model",
@@ -1974,7 +1974,7 @@
         },
         "variable": "has_inner_hits",
         "data_type": "boolean",
-        "description": "",
+        "description": "Set this to True if you are using an index that has passages nested in a single field.",
         "initial_value": {
           "scalar": false
         }
