@@ -347,7 +347,7 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
       "overlap_percentage": 0.25
     }
     ```
-    NOTE: Chunking with 512 tokens and 25% overlapping has been shown to perform better than other strategies, so the above `Parameters` configuration is recommeded for your chunking processor. 
+    NOTE: Chunking with 512 tokens and 25% overlapping was shown to perform better than other strategies in the experiment results published in [this blog](https://techcommunity.microsoft.com/t5/ai-azure-ai-services-blog/azure-ai-search-outperforming-vector-search-with-hybrid/ba-p/3929167), so the above `Parameters` configuration is recommeded for your chunking processor. 
 
 
 
