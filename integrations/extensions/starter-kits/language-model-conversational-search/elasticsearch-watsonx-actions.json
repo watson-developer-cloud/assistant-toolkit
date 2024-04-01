@@ -3,13 +3,14 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2024-02-28T18:56:12.276Z",
-  "updated": "2024-03-22T15:58:02.356Z",
+  "created": "2024-03-26T21:18:44.256Z",
+  "updated": "2024-04-01T21:26:50.446Z",
   "language": "en",
-  "skill_id": "8ececc72-d8fe-41e7-bc75-4fd73b052406",
+  "skill_id": "701b479c-8e8f-4e9b-beb0-a8275b05b935",
   "workspace": {
     "actions": [
       {
+        "type": "standard",
         "steps": [
           {
             "step": "step_849",
@@ -84,19 +85,19 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "{\n    \"nested\": {\n      \"path\": \"passages\",\n      \"query\": { \n        \"text_expansion\": {\n          \"passages.sparse.tokens\": {\n            \"model_id\": \".elser_model_1\",\n            \"model_text\": ${query_text}\n          }\n        }\n      },\n      \"inner_hits\": {\"_source\": {\"excludes\": [\"passages.sparse\"]}}\n    }\n}"
+                    "expression": "{\n    \"nested\": {\n      \"path\": \"passages\",\n      \"query\": { \n        \"text_expansion\": {\n          \"passages.sparse.tokens\": {\n            \"model_id\": ${es_model},\n            \"model_text\": ${query_text}\n          }\n        }\n      },\n      \"inner_hits\": {\"_source\": {\"excludes\": [\"passages.sparse\"]}}\n    }\n}"
                   },
                   "skill_variable": "query_body_nested"
                 },
                 {
                   "value": {
-                    "expression": "{\n    \"text_expansion\": {\n      \"ml.tokens\": {\n        \"model_id\": $es_model,\n        \"model_text\": ${query_text}\n      }\n    }\n  }"
+                    "expression": "{\n    \"text_expansion\": {\n      \"ml.tokens\": {\n        \"model_id\": ${es_model},\n        \"model_text\": ${query_text}\n      }\n    }\n  }"
                   },
                   "skill_variable": "query_body_generic"
                 },
                 {
                   "value": {
-                    "expression": "${use_knn_search}? \"\":(${has_inner_hits} ? ${query_body_nested} : ${query_body_generic})"
+                    "expression": "${has_inner_hits} ? ${query_body_nested} : ${query_body_generic}"
                   },
                   "skill_variable": "query_body"
                 },
@@ -108,7 +109,7 @@
                 },
                 {
                   "value": {
-                    "expression": "${use_knn_search} ? {\n    \"field\": \"text_embedding.predicted_value\",\n    \"query_vector_builder\": {\n      \"text_embedding\": {\n        \"model_id\": $embedding_model,\n        \"model_text\": ${query_text}\n      }\n    },\n    \"k\": 10,\n    \"num_candidates\": 100\n  }: \"\""
+                    "expression": "{\n    \"field\": \"text_embedding.predicted_value\",\n    \"query_vector_builder\": {\n      \"text_embedding\": {\n        \"model_id\": ${embedding_model},\n        \"model_text\": ${query_text}\n      }\n    },\n    \"k\": 10,\n    \"num_candidates\": 100\n  }"
                   },
                   "skill_variable": "knn_body"
                 }
@@ -123,7 +124,7 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "0988f31a617dc5ff6b276fdc3be98135801830c3ceeac02a58846426fe81c974",
-                  "catalog_item_id": "dc113e1e-dadd-4dc1-8c90-ded2f8741ef1"
+                  "catalog_item_id": "ef58aa6f-c936-4270-afaf-0af6f20ed2aa"
                 },
                 "request_mapping": {
                   "body": [
@@ -144,12 +145,6 @@
                         "skill_variable": "query_source"
                       },
                       "parameter": "_source"
-                    },
-                    {
-                      "value": {
-                        "skill_variable": "knn_body"
-                      },
-                      "parameter": "knn"
                     }
                   ],
                   "path": [
@@ -388,6 +383,7 @@
         "disambiguation_opt_out": false
       },
       {
+        "type": "standard",
         "steps": [
           {
             "step": "step_291",
@@ -975,6 +971,7 @@
         "disambiguation_opt_out": false
       },
       {
+        "type": "standard",
         "steps": [
           {
             "step": "step_888",
@@ -990,7 +987,7 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "540081b16fe217626f2ff197e583c2f1c7ef19f0752c8b875ec454036cfdda7f",
-                  "catalog_item_id": "ca634c4a-453b-4a76-a4f2-991a11d663c5"
+                  "catalog_item_id": "bdddba91-cd6f-449b-959f-31e29f187e1e"
                 },
                 "request_mapping": {
                   "body": [
@@ -1305,6 +1302,7 @@
         "disambiguation_opt_out": false
       },
       {
+        "type": "standard",
         "steps": [
           {
             "step": "step_195",
@@ -1453,6 +1451,7 @@
         "disambiguation_opt_out": true
       },
       {
+        "type": "standard",
         "steps": [
           {
             "step": "digression_failure",
@@ -1761,6 +1760,7 @@
         "disambiguation_opt_out": true
       },
       {
+        "type": "standard",
         "steps": [
           {
             "step": "danger_word_detected",
@@ -1835,6 +1835,7 @@
         "next_action": "anything_else"
       },
       {
+        "type": "standard",
         "steps": [
           {
             "step": "step_001",
@@ -1947,15 +1948,6 @@
         "description": ""
       },
       {
-        "title": "es_index_name",
-        "privacy": {
-          "enabled": false
-        },
-        "variable": "es_index_name",
-        "data_type": "string",
-        "description": "You MUST set this to your Elasticsearch index name."
-      },
-      {
         "title": "embedding_model",
         "privacy": {
           "enabled": false
@@ -1965,6 +1957,18 @@
         "description": "",
         "initial_value": {
           "scalar": "intfloat__multilingual-e5-small"
+        }
+      },
+      {
+        "title": "es_index_name",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "es_index_name",
+        "data_type": "string",
+        "description": "You MUST set this to your Elasticsearch index name.",
+        "initial_value": {
+          "scalar": "search-wa-docs"
         }
       },
       {
@@ -2223,18 +2227,6 @@
         "description": ""
       },
       {
-        "title": "use_knn_search",
-        "privacy": {
-          "enabled": false
-        },
-        "variable": "use_knn_search",
-        "data_type": "boolean",
-        "description": "",
-        "initial_value": {
-          "scalar": false
-        }
-      },
-      {
         "title": "verbose",
         "privacy": {
           "enabled": false
@@ -2378,9 +2370,9 @@
     "learning_opt_out": true
   },
   "description": "created for assistant fcee95d0-3673-43ea-9349-9e4458738da2",
-  "assistant_id": "f612f5fa-555a-4b6c-b6ef-49495df2229c",
-  "workspace_id": "8ececc72-d8fe-41e7-bc75-4fd73b052406",
+  "assistant_id": "ed0a1bd7-c3a7-43c5-a740-0ab12efec5dc",
+  "workspace_id": "701b479c-8e8f-4e9b-beb0-a8275b05b935",
   "dialog_settings": {},
   "next_snapshot_version": "1",
-  "environment_id": "7c96a36c-53a0-4e14-ae47-b8ce5af48fd1"
+  "environment_id": "398602c7-6959-4863-a973-42e4dcef58c9"
 }
