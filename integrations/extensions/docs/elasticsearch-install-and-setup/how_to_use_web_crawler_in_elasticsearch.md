@@ -250,7 +250,7 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
 
 
 * Add a `Script` processor for chunking  
-  In the ingest pipeline page, click on `Add a processor`, choose `Script` processor, and then add a Groovy script to the `Source` field.  
+  In the ingest pipeline page, click on `Add a processor`, choose `Script` processor, and then add [a painless script](https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-scripting-painless.html) to the `Source` field.  
   For example,  
   <img src="assets/web_crawler_script_processor.png" width="577" height="718" />
 
@@ -286,19 +286,69 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
   different `model_limit` values to optimize the chunking processor.  
 
   #### (Optional) Considerations for customizing the chunking processor
-  You can update the above script to customize the chunked passages. For example, the `passage` definition statement can be updated.
-  The original `passage` definition in the above script is 
-  ```Groovy
-  Map passage = ['text': envSplit[i++]];
-  ```
-  * If you need to include `title` and `url` as fields in each passage object, use the following `passage` definition statement:
+  You can update the above script to customize the chunking process. 
+  * Include more metadata to the chunked passages  
+    For example, the `passage` definition statement can be updated. The original `passage` definition in the above script is 
     ```Groovy
-    Map passage = ['text': envSplit[i++], 'title': ctx['title'], 'url': ctx['url']];
+    Map passage = ['text': envSplit[i++]];
     ```
-  * If you need to insert `title` to the beginning of each chunked text, use the following `passage` definition statement:
+    * If you need to include `title` and `url` as fields in each passage object, use the following `passage` definition statement:
+      ```Groovy
+      Map passage = ['text': envSplit[i++], 'title': ctx['title'], 'url': ctx['url']];
+      ```
+    * If you need to insert `title` to the beginning of each chunked text, use the following `passage` definition statement:
+      ```Groovy
+      Map passage = ['text': ctx['title'] + '. ' + envSplit[i++], 'title': ctx['title'], 'url': ctx['url']];
+      ```
+  
+
+  * Support chunking with overlapping  
+    You can use the following script in the `Source` field for the `Script` processor to support chunking with overlapping
     ```Groovy
-    Map passage = ['text': ctx['title'] + '. ' + envSplit[i++], 'title': ctx['title'], 'url': ctx['url']];
+    String[] envSplit = /((?<!M(r|s|rs)\.)(?<=\.) |(?<=\!) |(?<=\?) )/.split(ctx['body_content']);
+    ctx['passages'] = [];
+
+    StringBuilder overlappingText = new StringBuilder();
+
+    int i = 0;
+    while (i < envSplit.length) {
+        StringBuilder passageText = new StringBuilder(envSplit[i]);
+        int accumLength = envSplit[i].length();
+        ArrayList accumLengths = [];
+        accumLengths.add(accumLength);
+
+        int j = i + 1;
+        while (j < envSplit.length && passageText.length() + envSplit[j].length() < params.model_limit) {
+            passageText.append(' ').append(envSplit[j]);
+            accumLength += envSplit[j].length();
+            accumLengths.add(accumLength);
+            j++;
+        }
+
+        ctx['passages'].add(['text': overlappingText.toString() + passageText.toString()]);
+        def startLength = passageText.length() * (1 - params.overlap_percentage) + 1;
+        
+        int k = Collections.binarySearch(accumLengths, (int)startLength);
+        if (k < 0) {
+            k = -k - 1;
+        }
+        overlappingText = new StringBuilder();
+        for (int l = i + k; l < j; l++) {
+            overlappingText.append(envSplit[l]).append(' ');
+        }
+
+        i = j;
+    }
     ```
+    This script splits the `body_content` into sentences using regex and combines them into `passages`. The maximum number of characters in each paggase is controlled by the `model_limit` parameter. There is a overlapping between two adjacent passages, and it is controled by the `overlap_percentage` parameter. So, `model_limit` and `overlap_percentage` need to be configured in the `Parameters` field, for example, 
+    ```json
+    {
+      "model_limit": 2048,
+      "overlap_percentage": 0.25
+    }
+    ```
+    NOTE: Chunking with 512 tokens and 25% overlapping was shown to perform better than other strategies in the experiment results published in [this blog](https://techcommunity.microsoft.com/t5/ai-azure-ai-services-blog/azure-ai-search-outperforming-vector-search-with-hybrid/ba-p/3929167), so the above `Parameters` configuration is recommeded for your chunking processor. 
+
 
 
 * Add a `Foreach` processor to process chunked texts using the ELSER model  
