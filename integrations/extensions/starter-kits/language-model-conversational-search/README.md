@@ -108,7 +108,6 @@ Below is a list of the session variables used in this example. Most of them are 
 - `verbose`: A boolean that will print debugging output if true. Default is false. Note that if you turn this on, you will see the prompt we send to the model.
 - `watsonx_api_version` - watsonx api date version. It currently defaults to `2023-05-29`.
 - `watsonx_project_id`: You **MUST** set this value to be [a project ID value from watsonx](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html). By default, this is a [sandbox project id](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/sandbox.html) that is automatically created for you when you sign up for watsonx.ai.
-- `use_knn_search`: This is set to `false` by default. You **MUST** set this to `true` if want to use knn search on an embedding index.
 
 NOTE: `query_body` will be used as the value of the query parameter in the request body for the Elasticsearch Search API.
 Depending on the type of search query, you may need to use different forms of `query_body`. You can find some `query_body` examples [here](../elasticsearch/README.md#build-a-custom-extension-in-watsonx-assistant-with-elasticsearch-api).
@@ -147,7 +146,7 @@ a default `knn_body` like below is set to work with the sample data and index us
 ```
 
 
-Make sure you use a text embedding index if using knn search. Please see [here](../../docs/elasticsearch-install-and-setup/text_embedding_deploy_and_use.md) for more information on how to set up and use text embeddings for dense vector search in Elasticsearch. You must also set the `use_knn_search` session variable to `true` when using dense vector search.
+Make sure you use a text embedding index if using knn search. Please see [here](../../docs/elasticsearch-install-and-setup/text_embedding_deploy_and_use.md) for more information on how to set up and use text embeddings for dense vector search in Elasticsearch. You must remove the `query` parameter assignment in the list of optional parameters and only set the `knn` parameter when using dense vector search.
 
 ### Example 1 usage:
 
