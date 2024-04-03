@@ -468,6 +468,8 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
 
 ## Step 4: Connect a web crawler index to watsonx Assistant for conversational search 
 
+### Using custom extensions
+
 * Follow the instructions in [Language Model Conversational Search Starter Kit](../../starter-kits/language-model-conversational-search/README.md#example-1--connect-your-assistant-to-elasticsearch-and-watsonx-via-custom-extensions) 
   to build custom extensions with Elasticsearch and watsonx.ai to enable Conversational Search in watsonx Assistant.
 
@@ -487,6 +489,28 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
 > * Also make sure to set the `es_index_name` to the name of the index you would like to use.
 
 <img src="assets/config_query_source_when_use_es_extension.png" width="667" height="620">
+
+### Using built-in Search integration
+To configure your web crawler index in the built-in search integration, you need to follow the [product documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-search-elasticsearch-add) to set up the search integration first and then use the following query body in the `Advanced Elasticsearch Settings` to support nested queires:
+```json
+{
+  "query": {
+    "nested": {
+      "path": "passages",
+      "query": {
+        "text_expansion": {
+          "passages.sparse.tokens": {
+            "model_id": ".elser_model_1",
+            "model_text": "Tell me about Acadia"
+          }
+        }
+      },
+      "inner_hits": {"_source": {"excludes": ["passages.sparse"]}}
+    }
+  },
+  "_source": ["title", "text"]
+}
+```
 
 
 * Example usage:  
