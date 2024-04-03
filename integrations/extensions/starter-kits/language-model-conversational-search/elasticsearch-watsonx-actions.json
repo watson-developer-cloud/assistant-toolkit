@@ -4,7 +4,7 @@
   "valid": true,
   "status": "Available",
   "created": "2024-03-26T21:18:44.256Z",
-  "updated": "2024-04-01T21:26:50.446Z",
+  "updated": "2024-04-03T20:31:34.685Z",
   "language": "en",
   "skill_id": "701b479c-8e8f-4e9b-beb0-a8275b05b935",
   "workspace": {
@@ -1966,10 +1966,7 @@
         },
         "variable": "es_index_name",
         "data_type": "string",
-        "description": "You MUST set this to your Elasticsearch index name.",
-        "initial_value": {
-          "scalar": "search-wa-docs"
-        }
+        "description": "You MUST set this to your Elasticsearch index name."
       },
       {
         "title": "es_model",
