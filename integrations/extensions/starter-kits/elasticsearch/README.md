@@ -65,7 +65,7 @@ but you will need to find set-up instructions appropriate to that environment.
       NOTE: Learn more about ELSER v2 from [here](https://www.elastic.co/guide/en/elasticsearch/reference/8.11/semantic-search-elser.html). 
       ELSER v2 is only available for the 8.11 version of Elasticsearch
 
-    * To use dense vector search (k-nearest neighbours search), you can set `knn_body` as a session variable and set the `knn` variable to `knn_body` as shown below:
+    * To use dense vector search (k-nearest neighbours search), you can set `knn_body` as a session variable and set the `knn` parameter to `knn_body` as shown below:
       
       Here is an example knn body you can use when setting up the `knn_body` session variable:
       
