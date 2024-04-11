@@ -1,15 +1,16 @@
 {
-  "name": "watsonx extension sample actions",
+  "name": "toolkit deployment-action",
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2024-02-13T19:58:31.627Z",
-  "updated": "2024-02-19T18:14:25.678Z",
+  "created": "2024-04-11T19:48:48.994Z",
+  "updated": "2024-04-11T19:52:51.039Z",
   "language": "en",
-  "skill_id": "62868f8b-e3ea-463b-8494-1a8038d3ac43",
+  "skill_id": "0ed4a357-5fc6-4385-8beb-7cf34135432b",
   "workspace": {
     "actions": [
       {
+        "type": "standard",
         "steps": [
           {
             "step": "step_285",
@@ -612,6 +613,7 @@
         "disambiguation_opt_out": false
       },
       {
+        "type": "standard",
         "steps": [
           {
             "step": "step_817",
@@ -629,8 +631,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "045d65f7e2f6a58f76649209e3d6c1fe900b7b8986c328c3f5144a23fd542f55",
-                  "catalog_item_id": "4cbb5358-1079-463a-8b09-45a12954bfef"
+                  "spec_hash_id": "366bf7affb4190cdefb16d75a1596c4f2540660040682420f5947d9373870755",
+                  "catalog_item_id": "99ff6df2-adb9-411c-8a3b-e8e792bf7456"
                 },
                 "request_mapping": {
                   "body": [
@@ -773,6 +775,7 @@
         "disambiguation_opt_out": false
       },
       {
+        "type": "standard",
         "steps": [
           {
             "step": "step_817",
@@ -790,18 +793,10 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "045d65f7e2f6a58f76649209e3d6c1fe900b7b8986c328c3f5144a23fd542f55",
-                  "catalog_item_id": "4cbb5358-1079-463a-8b09-45a12954bfef"
+                  "spec_hash_id": "366bf7affb4190cdefb16d75a1596c4f2540660040682420f5947d9373870755",
+                  "catalog_item_id": "99ff6df2-adb9-411c-8a3b-e8e792bf7456"
                 },
                 "request_mapping": {
-                  "body": [
-                    {
-                      "value": {
-                        "skill_variable": "model_input"
-                      },
-                      "parameter": "parameters.prompt_variables.query_text"
-                    }
-                  ],
                   "path": [
                     {
                       "value": {
@@ -930,6 +925,7 @@
         "disambiguation_opt_out": false
       },
       {
+        "type": "standard",
         "steps": [
           {
             "step": "step_129",
@@ -1074,6 +1070,7 @@
         "disambiguation_opt_out": false
       },
       {
+        "type": "standard",
         "steps": [
           {
             "step": "step_001",
@@ -1170,6 +1167,7 @@
         "disambiguation_opt_out": true
       },
       {
+        "type": "standard",
         "steps": [
           {
             "step": "digression_failure",
@@ -1478,6 +1476,7 @@
         "disambiguation_opt_out": true
       },
       {
+        "type": "standard",
         "steps": [
           {
             "step": "danger_word_detected",
@@ -1552,6 +1551,7 @@
         "next_action": "anything_else"
       },
       {
+        "type": "standard",
         "steps": [
           {
             "step": "step_001",
@@ -1885,9 +1885,9 @@
     "learning_opt_out": true
   },
   "description": "created for assistant 05c10d7d-336f-4d33-8cb3-5c53520d61ce",
-  "assistant_id": "d0dbfa96-66ee-4f69-be16-836342bfa386",
-  "workspace_id": "62868f8b-e3ea-463b-8494-1a8038d3ac43",
+  "assistant_id": "9bbf3c63-9e2e-4927-b771-0ec57afc9f7f",
+  "workspace_id": "0ed4a357-5fc6-4385-8beb-7cf34135432b",
   "dialog_settings": {},
   "next_snapshot_version": "1",
-  "environment_id": "1fbc2854-6d9a-4fce-b99f-3b8c7c53a9d7"
+  "environment_id": "c571aff7-3869-4633-a0ab-890f06e0f209"
 }
