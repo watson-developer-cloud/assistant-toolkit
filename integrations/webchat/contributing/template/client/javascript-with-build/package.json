@@ -2,13 +2,13 @@
   "name": "watson-assistant-web-chat-toolkit-example",
   "version": "1.0.0",
   "engines": {
-    "node": "^16.15.1"
+    "node": ">=18"
   },
   "scripts": {
     "start": "parcel serve ./index.html --port 3000 --no-cache --dist-dir dist",
     "build": "parcel build ./index.html --no-cache --dist-dir dist"
   },
   "devDependencies": {
-    "parcel": "^2.4.1"
+    "parcel": "^2.12.0"
   }
 }
