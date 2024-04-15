@@ -215,6 +215,8 @@ Your documents are now available in the index, ready for searching and querying.
 
 ### Step 5: Connecting Watson Assistant to Elasticsearch for Conversational Search
 
+#### Using custom extensions
+
 Follow the steps outlined in guide to [connect your assistant to elasticsearch and watsonx using custom extensions](../../starter-kits/language-model-conversational-search#example-1-connect-your-assistant-to-elasticsearch-and-watsonx-via-custom-extensions) 
 
 > ⛔️
@@ -230,8 +232,37 @@ Follow the steps outlined in guide to [connect your assistant to elasticsearch a
 > 
 > * Also make sure to set the `es_index_name` to the name of the index you would like to use.
 
-#### Example usage:
+##### Example usage:
 
 Here is an example of how to use the `Search` action for this starter kit conversational search example:
 
 <img src="./assets/elasticsearch-pdfofficedocs-watsonx-example.png" width="300"/>
+
+
+#### Using built-in search integration
+To configure your index in the built-in search integration, you need to follow the [product documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-search-elasticsearch-add) to set up the search integration first and then use the following query body in the `Advanced Elasticsearch Settings` to support nested queires:
+```json
+{
+  "query": {
+    "nested": {
+      "path": "passages",
+      "query": {
+        "text_expansion": {
+          "passages.sparse.tokens": {
+            "model_id": ".elser_model_1",
+            "model_text": "How many points do I earn on hotel vacations in the topaz card"
+          }
+        }
+      },
+      "inner_hits": {"_source": {"excludes": ["passages.sparse"]}}
+    }
+  },
+  "_source": ["title", "text"]
+}
+```
+Notes:
+* `passages` is the nested field that stores nested documents. You may need to update it if you use a different nested field in your index.
+* `passages.sparse.tokens` refers to the field that stores the ELSER tokens for the nested documents.
+* `"inner_hits": {"_source": {"excludes": ["passages.sparse"]}}` is to exclude the ELSER tokens from the nested documents in the search results.
+* `"_source": ["title", "text"]` specifies what top-level fields to include in the search results.
+* Learn more about nested queries and fields from [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-nested-query.html)

@@ -490,6 +490,10 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
 
 <img src="assets/config_query_source_when_use_es_extension.png" width="667" height="620">
 
+#### Example usage:  
+
+<img src="assets/conversation-search-example-with-web-crawler.png" width="285" height="480">
+
 ### Using built-in Search integration
 To configure your web crawler index in the built-in search integration, you need to follow the [product documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-search-elasticsearch-add) to set up the search integration first and then use the following query body in the `Advanced Elasticsearch Settings` to support nested queires:
 ```json
@@ -511,8 +515,10 @@ To configure your web crawler index in the built-in search integration, you need
   "_source": ["title", "text"]
 }
 ```
+Notes:
+* `passages` is the nested field that stores nested documents. You may need to update it if you use a different nested field in your index.
+* `passages.sparse.tokens` refers to the field that stores the ELSER tokens for the nested documents.
+* `"inner_hits": {"_source": {"excludes": ["passages.sparse"]}}` is to exclude the ELSER tokens from the nested documents in the search results.
+* `"_source": ["title", "text"]` specifies what top-level fields to include in the search results.
+* Learn more about nested queries and fields from [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-nested-query.html)
 
-
-* Example usage:  
-
-<img src="assets/conversation-search-example-with-web-crawler.png" width="285" height="480">
