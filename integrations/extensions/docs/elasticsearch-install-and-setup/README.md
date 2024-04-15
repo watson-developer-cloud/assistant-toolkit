@@ -85,7 +85,7 @@ For using nested queries to search over nested documents, use the following json
         "text_expansion": {
           "passages.sparse.tokens": {
             "model_id": ".elser_model_1",
-            "model_text": "Tell me about Acadia"
+            "model_text": "$QUERY"
           }
         }
       },

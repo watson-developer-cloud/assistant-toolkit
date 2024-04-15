@@ -250,7 +250,7 @@ To configure your index in the built-in search integration, you need to follow t
         "text_expansion": {
           "passages.sparse.tokens": {
             "model_id": ".elser_model_1",
-            "model_text": "How many points do I earn on hotel vacations in the topaz card"
+            "model_text": "$QUERY"
           }
         }
       },

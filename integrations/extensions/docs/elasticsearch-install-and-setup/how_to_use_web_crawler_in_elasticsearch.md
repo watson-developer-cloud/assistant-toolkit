@@ -505,7 +505,7 @@ To configure your web crawler index in the built-in search integration, you need
         "text_expansion": {
           "passages.sparse.tokens": {
             "model_id": ".elser_model_1",
-            "model_text": "Tell me about Acadia"
+            "model_text": "$QUERY"
           }
         }
       },
