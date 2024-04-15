@@ -240,7 +240,7 @@ Here is an example of how to use the `Search` action for this starter kit conver
 
 
 #### Using built-in search integration
-To configure your index in the built-in search integration, you need to follow the [product documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-search-elasticsearch-add) to set up the search integration first and then use the following query body in the `Advanced Elasticsearch Settings` to support nested queires:
+To configure your index in the built-in search integration, you need to follow the [product documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-search-elasticsearch-add) to set up the search integration first and then use the following query body in the `Advanced Elasticsearch Settings` to search over the chunked passages:
 ```json
 {
   "query": {
