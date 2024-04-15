@@ -9,12 +9,14 @@ import { config } from './config';
  * See https://www.npmjs.com/package/@ibm-watson/assistant-web-chat-react.
  */
 
+const IS_CLOSE_ICON_DIRECTION_LEFT = config.headerConfig.closeButtonIconType === 'side-panel-left';
+
 function App() {
   const stylesInitializedRef = useRef(false);
 
   return (
     <WebChatCustomElement
-      className="WebChatContainer"
+      className={`WebChatContainer${IS_CLOSE_ICON_DIRECTION_LEFT ? ' WebChatContainer--left' : ''}`}
       config={config}
       onViewChange={(event, instance) => viewChangeHandler(event, instance, stylesInitializedRef)}
     />

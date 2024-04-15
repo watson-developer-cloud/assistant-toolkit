@@ -18,10 +18,10 @@
 
     .WebChatContainer {
       position: absolute;
-      width: 500px;
+      width: 380px;
       right: 0;
-      top: 16px;
-      bottom: 16px;
+      top: 0;
+      bottom: 0;
     }
 
     #WACContainer.WACContainer .WebChatStyles {
@@ -35,95 +35,128 @@
 
     #WACContainer.WACContainer .StartOpenAnimation {
       transition: none;
-      right: -500px;
+      right: -380px;
     }
 
     #WACContainer.WACContainer .OpenAnimation {
-      right: 16px;
+      right: 0;
     }
 
     #WACContainer.WACContainer .CloseAnimation {
-      right: -500px;
+      right: -380px;
+    }
+
+    /* The selectors below are for handling the opening/closing animations in the left direction. */
+
+    .WebChatContainer--left {
+      left: 0;
+      right: unset;
+    }
+
+    .WebChatContainer--left #WACContainer.WACContainer .WebChatStyles {
+      position: relative;
+      transition: left 500ms ease-in-out;
+    }
+
+    .WebChatContainer--left #WACContainer.WACContainer .StartOpenAnimation {
+      transition: none;
+      left: -380px;
+      right: unset;
+    }
+
+    .WebChatContainer--left #WACContainer.WACContainer .OpenAnimation {
+      left: 0;
+      right: unset;
+    }
+
+    .WebChatContainer--left #WACContainer.WACContainer .CloseAnimation {
+      left: -380px;
+      right: unset;
     }
   </style>
 </head>
 <body>
+<!-- Add the class WebChatContainer--left so the panel opens/closes from the left side of the page. -->
+<div class="WebChatContainer"></div>
 
-  <div class="WebChatContainer"></div>
+<script>
+  const customElement = document.querySelector('.WebChatContainer');
+  const closeIconDirection = customElement.classList.contains('WebChatContainer--left') ? 'side-panel-left' : 'side-panel-right';
+  let stylesInitialized = false;
 
-  <script>
-    const customElement = document.querySelector('.WebChatContainer');
-    let stylesInitialized = false;
+  /**
+   * This function is called after a view change has occurred. It will trigger the animation for the main window and
+   * then make the main window hidden or visible after the animation as needed.
+   */
+  function viewChangeHandler(event, instance) {
+    if (!stylesInitialized) {
+      // The first time we get this, set the styles to their initial, default state.
+      instance.elements.getMainWindow().addClassName('HideWebChat');
+      instance.elements.getMainWindow().addClassName('WebChatStyles');
+      stylesInitialized = true;
+    }
 
-    /**
-     * This function is called after a view change has occurred. It will trigger the animation for the main window and
-     * then make the main window hidden or visible after the animation as needed.
-     */
-    function viewChangeHandler(event, instance) {
-      if (!stylesInitialized) {
-        // The first time we get this, set the styles to their initial, default state.
-        instance.elements.getMainWindow().addClassName('HideWebChat');
-        instance.elements.getMainWindow().addClassName('WebChatStyles');
-        stylesInitialized = true;
-      }
-
-      const mainWindowChanged = event.oldViewState.mainWindow !== event.newViewState.mainWindow;
-      if (mainWindowChanged) {
-        if (event.reason === 'sessionHistory') {
-          // If we're re-opening web chat from session history, skip the animation by leaving out "StartOpenAnimation".
-          if (event.newViewState.mainWindow) {
-            instance.elements.getMainWindow().addClassName('OpenAnimation');
-            instance.elements.getMainWindow().removeClassName('HideWebChat');
-          } else {
-            instance.elements.getMainWindow().addClassName('HideWebChat');
-          }
-        } else if (event.newViewState.mainWindow) {
-          // Move the main window to the off-screen position and then un-hide it.
-          instance.elements.getMainWindow().addClassName('StartOpenAnimation');
+    const mainWindowChanged = event.oldViewState.mainWindow !== event.newViewState.mainWindow;
+    if (mainWindowChanged) {
+      if (event.reason === 'sessionHistory') {
+        // If we're re-opening web chat from session history, skip the animation by leaving out "StartOpenAnimation".
+        if (event.newViewState.mainWindow) {
+          instance.elements.getMainWindow().addClassName('OpenAnimation');
           instance.elements.getMainWindow().removeClassName('HideWebChat');
-          setTimeout(() => {
-            // Give the browser a chance to render the off-screen state and then trigger the open animation.
-            instance.elements.getMainWindow().addClassName('OpenAnimation');
-            instance.elements.getMainWindow().removeClassName('StartOpenAnimation');
-          });
         } else {
-          // Trigger the animation to slide the main window to the hidden position.
-          instance.elements.getMainWindow().addClassName('CloseAnimation');
-          instance.elements.getMainWindow().removeClassName('OpenAnimation');
-          setTimeout(() => {
-            // After the animation is complete, hide the main window.
-            instance.elements.getMainWindow().addClassName('HideWebChat');
-            instance.elements.getMainWindow().removeClassName('CloseAnimation');
-          }, 500);
+          instance.elements.getMainWindow().addClassName('HideWebChat');
         }
+      } else if (event.newViewState.mainWindow) {
+        // Move the main window to the off-screen position and then un-hide it.
+        instance.elements.getMainWindow().addClassName('StartOpenAnimation');
+        instance.elements.getMainWindow().removeClassName('HideWebChat');
+        setTimeout(() => {
+          // Give the browser a chance to render the off-screen state and then trigger the open animation.
+          instance.elements.getMainWindow().addClassName('OpenAnimation');
+          instance.elements.getMainWindow().removeClassName('StartOpenAnimation');
+        });
+      } else {
+        // Trigger the animation to slide the main window to the hidden position.
+        instance.elements.getMainWindow().addClassName('CloseAnimation');
+        instance.elements.getMainWindow().removeClassName('OpenAnimation');
+        setTimeout(() => {
+          // After the animation is complete, hide the main window.
+          instance.elements.getMainWindow().addClassName('HideWebChat');
+          instance.elements.getMainWindow().removeClassName('CloseAnimation');
+        }, 500);
       }
     }
+  }
 
-    /**
-     * This is the function that is called when the web chat code has been loaded and it is ready to be rendered.
-     */
-    async function onLoad(instance) {
-      // Add listeners so we know when web chat has been opened or closed.
-      // See https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#summary for more about our
-      // events.
-      instance.on({ type: 'view:change', handler: viewChangeHandler });
+  /**
+   * This is the function that is called when the web chat code has been loaded and it is ready to be rendered.
+   */
+  async function onLoad(instance) {
+    // Add listeners so we know when web chat has been opened or closed.
+    // See https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#summary for more about our
+    // events.
+    instance.on({ type: 'view:change', handler: viewChangeHandler });
 
-      await instance.render();
-    }
+    await instance.render();
+  }
 
-    // This is the standard web chat configuration object. You can modify these values with the embed code for your
-    // own assistant if you wish to try this example with your assistant. You can find the documentation for this at
-    // https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-configuration#configurationobject.
-    window.watsonAssistantChatOptions = {
-      integrationID: "07b05ae0-7e2e-47d1-a309-d0f5b9915ac5",
-      region: "us-south",
-      serviceInstanceID: "9a3613d2-3ce6-4928-8eb6-4d659d87ae68",
-      // This is where we provide the custom element to web chat so it knows where it is supposed to be placed.
-      element: customElement,
-      onLoad: onLoad,
-    };
-    setTimeout(function(){const t=document.createElement('script');t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";document.head.appendChild(t);});
-  </script>
+  // This is the standard web chat configuration object. You can modify these values with the embed code for your
+  // own assistant if you wish to try this example with your assistant. You can find the documentation for this at
+  // https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-configuration#configurationobject.
+  window.watsonAssistantChatOptions = {
+    integrationID: "07b05ae0-7e2e-47d1-a309-d0f5b9915ac5",
+    region: "us-south",
+    serviceInstanceID: "9a3613d2-3ce6-4928-8eb6-4d659d87ae68",
+    // This is where we provide the custom element to web chat so it knows where it is supposed to be placed.
+    element: customElement,
+    headerConfig: {
+      closeButtonIconType: closeIconDirection,
+    },
+    onLoad: onLoad,
+  };
+
+  setTimeout(function(){const t=document.createElement('script');t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";document.head.appendChild(t);});
+</script>
 
 </body>
 </html>
