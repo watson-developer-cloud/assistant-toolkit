@@ -512,13 +512,13 @@ To configure your web crawler index in the built-in search integration, you need
       "inner_hits": {"_source": {"excludes": ["passages.sparse"]}}
     }
   },
-  "_source": ["title", "text"]
+  "_source": false
 }
 ```
 Notes:
 * `passages` is the nested field that stores nested documents. You may need to update it if you use a different nested field in your index.
 * `passages.sparse.tokens` refers to the field that stores the ELSER tokens for the nested documents.
 * `"inner_hits": {"_source": {"excludes": ["passages.sparse"]}}` is to exclude the ELSER tokens from the nested documents in the search results.
-* `"_source": ["title", "text"]` specifies what top-level fields to include in the search results.
+* `"_source": false` is to exclude top-level fields in the search results.
 * Learn more about nested queries and fields from [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-nested-query.html)
 
