@@ -8,9 +8,9 @@ This directory contains documentation for installing and setting up Elasticsearc
 - [Set up watsonx Discovery (Elasticsearch) and integrate it with Watson Assistant in CloudPak](watsonx_discovery_install_and_setup.md): Documentation for setting up Watsonx Discovery (Elasticsearch) and integrating it with Watson Assistant in CloudPak.
 
 ## Elasticsearch integration with Watson Assistant
-### Option 1. Set up a custom Elasticsearch extension
+### Option 1: Set up a custom Elasticsearch extension
 You can follow the guide [here](../../starter-kits/elasticsearch/README.md) to build a custom Elasticsearch extension allowing your assistant to search for information in an Elasticsearch index and show what it finds in the chat.
-### Option 2. Use the built-in Search integration
+### Option 2: Use the built-in Search integration
 You can set up search over an Elasticsearch index using the built-in search integration. Please follow the instructions [here](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-search-elasticsearch-add) to set up the Search integration for your assistant.  
 
 By default, keyword search is used for your Search integration, but you can configure the query body in the `Advanced Elasticsearch Settings` to enable advanced search such as semantic search with ELSER, KNN dense vector search, and using nested queries to search over nested documents. Here are some examples:

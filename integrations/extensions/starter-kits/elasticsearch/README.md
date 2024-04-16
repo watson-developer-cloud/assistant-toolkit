@@ -108,6 +108,7 @@ but you will need to find set-up instructions appropriate to that environment.
       * `passages` is the nested field that stores the nested documents. You may need to update it if you have a different nested field.
       * `passages.sparse.tokens` is where the ELSER tokens are stored for each nested document. 
       * `"inner_hits": {"_source": {"excludes": ["passages.sparse"]}}` is optional, and it is to exclude the ELSER tokens from the nested documents in the search results. 
+      * Learn more about nested queries and fields from [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-nested-query.html)
       
     * Compound search  
       You can combine different types of queries in a compound query. Learn more about it from this [Elasticsearch tutorial](https://www.elastic.co/guide/en/elasticsearch/reference/8.10/semantic-search-elser.html#text-expansion-compound-query).
