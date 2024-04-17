@@ -325,7 +325,7 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
             j++;
         }
 
-        ctx['passages'].add(['text': overlappingText.toString() + passageText.toString()]);
+        ctx['passages'].add(['text': overlappingText.toString() + passageText.toString(), 'title': ctx['title'], 'url': ctx['url']]);
         def startLength = passageText.length() * (1 - params.overlap_percentage) + 1;
         
         int k = Collections.binarySearch(accumLengths, (int)startLength);
@@ -391,7 +391,7 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
   * `inference_config.text_expansion` is required in the config to tell the Foreach processor to use `text_expansion` 
     and store the results in `tokens` field for each chunked text.
   * `_ingest._value.sparse` expects a `sparse` field for each chunk object as the target field.
-  * `_ingest._value.text` expects a `text` field for each chunk object as the input field.
+  * `"_ingest._value.text": "text_field"` means ELSER uses `text_field` as the input field. You may need to update it if your ELSER input field is different.
   * `search-crawler-with-chunking@custom` is the name of the ingest pipeline. You need to update it with your ingest pipeline name.  
   
 
