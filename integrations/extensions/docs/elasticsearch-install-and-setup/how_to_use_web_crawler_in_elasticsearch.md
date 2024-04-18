@@ -495,7 +495,13 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
 <img src="assets/conversation-search-example-with-web-crawler.png" width="285" height="480">
 
 ### Using built-in Search integration
-To configure your web crawler index in the built-in search integration, you need to follow the [product documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-search-elasticsearch-add) to set up the search integration first and then use the following query body in the `Advanced Elasticsearch Settings` to search over the chunked passages:
+To configure your web crawler index in the built-in search integration, you need to follow the [product documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-search-elasticsearch-add) to set up the search integration first.  
+
+Importantly, you need to use the right fields to configure your result content (In this guide, use `title` for Title and `text` for Body). You also need to use the right query body to make the search integration work with your web crawler index. Here is an screenshot of the configuration:  
+
+<img src="assets/use_nested_query_in_search_integration_settings.png" width="512" height="641">
+
+Here is the query body you need in the `Advanced Elasticsearch Settings` to search over the chunked passages:
 ```json
 {
   "query": {
