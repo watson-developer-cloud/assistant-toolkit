@@ -63,6 +63,9 @@ For dense vector search, use the following json object:
 }
 ```
 
+### Federated Search
+You can follow the guide [here](federated_search.md) to run queries across multiple indexes within your Elasticsearch cluster.
+
 ## Document Ingestion and Search
 - [Set up the web crawler in Elasticsearch](how_to_use_web_crawler_in_elasticsearch.md): Guide for setting up and using the web crawler in Elasticsearch and connecting it to Watsonx Assistant for Conversational Search.
 - [Working with PDF and office documents in Elasticsearch](how_to_index_pdf_and_office_documents_elasticsearch.md): Guide for working with PDF and Office Documents in Elasticsearch, including indexing and connecting to Watson Assistant for Conversational Search.
