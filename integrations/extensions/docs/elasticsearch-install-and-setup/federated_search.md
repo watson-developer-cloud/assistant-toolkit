@@ -136,4 +136,5 @@ For similar functionality with WatsonX Assistant's built-in search extension, fo
 When building a custom extension in WatsonX Assistant with the Elasticsearch API, you can leverage these same index name patterns when setting the `index_name` parameter. Follow the guide on [building a custom extension in watsonx Assistant with Elasticsearch API](../../starter-kits/elasticsearch/README.md#build-a-custom-extension-in-watsonx-assistant-with-elasticsearch-api).
 
 Then follow one of the methods listed above when setting the `index_name` parameter to search across multiple indices within your Elasticsearch cluster. For example:
+
 <img src="./assets/federated_search_elasticsearch_custom_extension.png" width="669" height="627" />
