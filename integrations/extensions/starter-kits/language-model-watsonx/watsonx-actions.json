@@ -625,11 +625,11 @@
             "resolver": {
               "type": "callout",
               "callout": {
-                "path": "/ml/v1-beta/generation/text",
+                "path": "/ml/v1/text/generation",
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "cc50493e455de183d661b95360196ddb468a02051add6dcaf4a6479b34900be5",
+                  "spec_hash_id": "540081b16fe217626f2ff197e583c2f1c7ef19f0752c8b875ec454036cfdda7f",
                   "catalog_item_id": "4f170e0d-95b5-4f59-9d1d-e52f67ee9352"
                 },
                 "request_mapping": {

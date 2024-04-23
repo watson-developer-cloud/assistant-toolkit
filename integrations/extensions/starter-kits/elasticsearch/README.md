@@ -86,6 +86,29 @@ but you will need to find set-up instructions appropriate to that environment.
         NOTE: `intfloat__multilingual-e5-small` is a multilingual embedding model supported by Elasticsearch. If you have Elasticsearch version 8.11 or earlier, you will need to deploy this model to your Elasticsearch cluster first before starting to use it by following the instructions [here](/integrations/extensions/docs/elasticsearch-install-and-setup/text_embedding_deploy_and_use.md).
 
         <img src="assets/use_elasticsearch_custom_extension_knn.png" width="669" height="627" />
+    
+    * To use nested queries to search over nested documents, you can use the following query body as an example:
+      ```json
+      {
+        "nested": {
+          "path": "passages",
+          "query": {
+            "text_expansion": {
+              "passages.sparse.tokens": {
+                "model_id": ".elser_model_1",
+                "model_text": "how to set up custom extension?"
+              }
+            }
+          },
+          "inner_hits": {"_source": {"excludes": ["passages.sparse"]}}
+        }
+      }
+      ```
+      Notes:
+      * `passages` is the nested field that stores the nested documents. You may need to update it if you have a different nested field.
+      * `passages.sparse.tokens` is where the ELSER tokens are stored for each nested document. 
+      * `"inner_hits": {"_source": {"excludes": ["passages.sparse"]}}` is optional, and it is to exclude the ELSER tokens from the nested documents in the search results. 
+      * Learn more about nested queries and fields from [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-nested-query.html)
       
     * Compound search  
       You can combine different types of queries in a compound query. Learn more about it from this [Elasticsearch tutorial](https://www.elastic.co/guide/en/elasticsearch/reference/8.10/semantic-search-elser.html#text-expansion-compound-query).

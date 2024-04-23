@@ -468,6 +468,8 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
 
 ## Step 4: Connect a web crawler index to watsonx Assistant for conversational search 
 
+### Using custom extensions
+
 * Follow the instructions in [Language Model Conversational Search Starter Kit](../../starter-kits/language-model-conversational-search/README.md#example-1--connect-your-assistant-to-elasticsearch-and-watsonx-via-custom-extensions) 
   to build custom extensions with Elasticsearch and watsonx.ai to enable Conversational Search in watsonx Assistant.
 
@@ -488,7 +490,41 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
 
 <img src="assets/config_query_source_when_use_es_extension.png" width="667" height="620">
 
-
-* Example usage:  
+#### Example usage:  
 
 <img src="assets/conversation-search-example-with-web-crawler.png" width="285" height="480">
+
+### Using built-in Search integration
+To configure your web crawler index in the built-in search integration, you need to follow the [product documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-search-elasticsearch-add) to set up the search integration first.  
+
+Importantly, you need to use the right fields to configure your result content (In this guide, use `title` for Title and `text` for Body). You also need to use the right query body to make the search integration work with your web crawler index. Here is an screenshot of the configuration:  
+
+<img src="assets/use_nested_query_in_search_integration_settings.png" width="512" height="641">
+
+Here is the query body you need in the `Advanced Elasticsearch Settings` to search over the chunked passages:
+```json
+{
+  "query": {
+    "nested": {
+      "path": "passages",
+      "query": {
+        "text_expansion": {
+          "passages.sparse.tokens": {
+            "model_id": ".elser_model_1",
+            "model_text": "$QUERY"
+          }
+        }
+      },
+      "inner_hits": {"_source": {"excludes": ["passages.sparse"]}}
+    }
+  },
+  "_source": false
+}
+```
+Notes:
+* `passages` is the nested field that stores nested documents. You may need to update it if you use a different nested field in your index.
+* `passages.sparse.tokens` refers to the field that stores the ELSER tokens for the nested documents.
+* `"inner_hits": {"_source": {"excludes": ["passages.sparse"]}}` is to exclude the ELSER tokens from the nested documents in the search results.
+* `"_source": false` is to exclude top-level fields in the search results.
+* Learn more about nested queries and fields from [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-nested-query.html)
+
