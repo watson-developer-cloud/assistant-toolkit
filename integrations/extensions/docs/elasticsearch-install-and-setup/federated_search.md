@@ -129,7 +129,7 @@ curl -X GET "${ES_URL}/*/_search?pretty" -u "${ES_USER}:${ES_PASSWORD}" \
 
 For similar functionality with WatsonX Assistant's built-in search extension, follow the [official Elasticsearch search integration set up documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-search-elasticsearch-add). The key difference is specifying your `Elasticsearch index` field using one of the methods described above. For example:
 
-<img src="./assets/federated_search_official_search_extension.png" width="838" height="547" />
+<img src="./assets/federated_search_official_search_extension.png" width="781" height="442" />
 
 ### Custom Extension
 
@@ -137,4 +137,4 @@ When building a custom extension in WatsonX Assistant with the Elasticsearch API
 
 Then follow one of the methods listed above when setting the `index_name` parameter to search across multiple indices within your Elasticsearch cluster. For example:
 
-<img src="./assets/federated_search_elasticsearch_custom_extension.png" width="669" height="627" />
+<img src="./assets/federated_search_elasticsearch_custom_extension.png" width="553" height="547" />
