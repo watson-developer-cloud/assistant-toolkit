@@ -6,7 +6,7 @@ This code is for extending the IBM watsonx Assistant web chat. If you are new to
 
 This example demonstrates how to enable security with web chat. It will show how to create a JWT that can be used to securely authorize a webpage to access your web chat. It also demonstrates how to use a new JWT for the use case when a user logs into a site in the middle of a IBM watsonx Assistant chat session as well as how to send the user's ID to IBM watsonx Assistant so it can be used in an action or an extension.
 
-This example is a full example that demonstrates how to use an encrypted payload in a JWT as well as how to handle the case where the user logs into a site in the middle of a session. For a simpler example that only demonstrates how to authenticate an already logged-in user to IBM watsonx Assistant and without including an encrypted payload, look at our [Enabling security for IBM watsonx Assistant web chat (simple)](../web-chat-security-simple) example.
+This example is a full example that demonstrates how to use an encrypted payload in a JWT as well as how to handle the case where the user logs into a site in the middle of a session. For a simpler example that demonstrates the minimum steps required to enable web chat security, look at our [Enabling security for IBM watsonx Assistant web chat (simple)](../web-chat-security-simple) example.
 
 It demonstrates:
 

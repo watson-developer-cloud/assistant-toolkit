@@ -189,7 +189,7 @@ It demonstrates:
 - How to use the [**updateIdentityToken**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#updateidentity) instance method to send update web chat with a new JWT when the user has changed.
 - How to set the user ID used by web chat.
 
-## [Web chat security](web-chat-security/README.md)
+## [Web chat security (complex)](web-chat-security-complex/README.md)
 
 This example demonstrates how to enable security with web chat. It will show how to create a JWT that can be used to securely authorize a webpage to access your web chat. It also demonstrates how to use a new JWT for the use case when a user logs into a site in the middle of a IBM watsonx Assistant chat session as well as how to send the user's ID to IBM watsonx Assistant so it can be used in an action or an extension.
 
