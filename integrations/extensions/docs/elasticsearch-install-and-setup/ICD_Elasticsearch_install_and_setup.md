@@ -20,18 +20,7 @@ This is a documentation about how to set up Elasticsearch from IBM Cloud and cre
 
 
 ## Step 2: Set up Kibana to connect to Elasticsearch
-* Install Docker so that you can pull the Kibana container image later
-  * You can install [Docker Desktop](https://www.docker.com/products/docker-desktop/)
-  * If you don't want to use Docker Desktop, 
-    * For MacOS users, you can install [Colima](https://github.com/abiosoft/colima#installation) as an alternative  
-      [HomeBrew](https://brew.sh/) is required for running the following commands:
-      ```shell
-      brew install docker
-      brew install colima
-    
-      colima start
-      ```
-    * Other options: [Podman Desktop](https://podman-desktop.io/), [Rancher Desktop](https://docs.rancherdesktop.io/getting-started/installation/)
+* Install Docker so that you can pull the Kibana container image later. You can follow the detailed [docker install guide](./how_to_install_docker.md)
 * Create a kibana config folder, for example
   `mkdir -p ~/.kibana/config`
 * Download the certificate from the Elasticsearch instance overview page, and move the downloaded file to the kibana config folder
@@ -106,6 +95,8 @@ With default settings, an Elasticsearch index does keyword search.
 This step is to enable semantic search using ELSER. Here are the tutorials from Elasticsearch doc:  
 ELSER v1: https://www.elastic.co/guide/en/elasticsearch/reference/8.10/semantic-search-elser.html  
 ELSER v2: https://www.elastic.co/guide/en/elasticsearch/reference/8.11/semantic-search-elser.html
+
+**IMPORTANT NOTE**: As of the date of this document, ELSER v2 (released in Elasticsearch 8.11 onward) is not available on IBM Cloud ( which provides Elasticsearch 8.10 currently)
 
 The following steps are based on ELSER v1 model:
 ### Create environment variables for ES credentials

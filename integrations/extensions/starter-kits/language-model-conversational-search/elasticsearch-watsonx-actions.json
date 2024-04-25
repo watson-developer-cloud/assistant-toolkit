@@ -1,15 +1,16 @@
 {
-  "name": "zach-rag-demo-action",
+  "name": "elasticsearch-watsonx-actions",
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-12-14T05:31:36.398Z",
-  "updated": "2023-12-15T21:15:49.345Z",
+  "created": "2024-03-26T21:18:44.256Z",
+  "updated": "2024-04-03T20:31:34.685Z",
   "language": "en",
-  "skill_id": "d86bc0bb-e67b-4eb6-b8b0-3e6153c18bb8",
+  "skill_id": "701b479c-8e8f-4e9b-beb0-a8275b05b935",
   "workspace": {
     "actions": [
       {
+        "type": "standard",
         "steps": [
           {
             "step": "step_849",
@@ -84,7 +85,19 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "{\n    \"text_expansion\": {\n      \"ml.tokens\": {\n        \"model_id\": $es_model,\n        \"model_text\": $query_text\n      }\n    }\n  }"
+                    "expression": "{\n    \"nested\": {\n      \"path\": \"passages\",\n      \"query\": { \n        \"text_expansion\": {\n          \"passages.sparse.tokens\": {\n            \"model_id\": ${es_model},\n            \"model_text\": ${query_text}\n          }\n        }\n      },\n      \"inner_hits\": {\"_source\": {\"excludes\": [\"passages.sparse\"]}}\n    }\n}"
+                  },
+                  "skill_variable": "query_body_nested"
+                },
+                {
+                  "value": {
+                    "expression": "{\n    \"text_expansion\": {\n      \"ml.tokens\": {\n        \"model_id\": ${es_model},\n        \"model_text\": ${query_text}\n      }\n    }\n  }"
+                  },
+                  "skill_variable": "query_body_generic"
+                },
+                {
+                  "value": {
+                    "expression": "${has_inner_hits} ? ${query_body_nested} : ${query_body_generic}"
                   },
                   "skill_variable": "query_body"
                 },
@@ -93,6 +106,12 @@
                     "expression": "[\"title\", \"text\"]"
                   },
                   "skill_variable": "query_source"
+                },
+                {
+                  "value": {
+                    "expression": "{\n    \"field\": \"text_embedding.predicted_value\",\n    \"query_vector_builder\": {\n      \"text_embedding\": {\n        \"model_id\": ${embedding_model},\n        \"model_text\": ${query_text}\n      }\n    },\n    \"k\": 10,\n    \"num_candidates\": 100\n  }"
+                  },
+                  "skill_variable": "knn_body"
                 }
               ]
             },
@@ -104,22 +123,34 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "244887d835781d766c8e5e14557fd949c62513974c1b2aa3f54d24d571a7e15f",
-                  "catalog_item_id": "ed59c677-23ba-435a-8493-b8e947d42b1a"
+                  "spec_hash_id": "0988f31a617dc5ff6b276fdc3be98135801830c3ceeac02a58846426fe81c974",
+                  "catalog_item_id": "ef58aa6f-c936-4270-afaf-0af6f20ed2aa"
                 },
                 "request_mapping": {
                   "body": [
                     {
                       "value": {
+                        "skill_variable": "es_query_result_size"
+                      },
+                      "parameter": "size"
+                    },
+                    {
+                      "value": {
                         "skill_variable": "query_body"
                       },
                       "parameter": "query"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "query_source"
+                      },
+                      "parameter": "_source"
                     }
                   ],
                   "path": [
                     {
                       "value": {
-                        "scalar": "search-wa-docs"
+                        "skill_variable": "es_index_name"
                       },
                       "parameter": "index_name"
                     }
@@ -208,7 +239,7 @@
                       "text_expression": {
                         "concat": [
                           {
-                            "scalar": "Calling the Generate Answer"
+                            "scalar": "Calling Generate Answer"
                           }
                         ]
                       }
@@ -223,7 +254,7 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "${step_781_result_1.body.hits.hits}"
+                    "expression": "${has_inner_hits} ? ${step_781_result_1}.body.hits.hits.get(0).inner_hits.passages.hits.hits : ${step_781_result_1}.body.hits.hits"
                   },
                   "skill_variable": "search_results"
                 }
@@ -259,7 +290,7 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "${step_781_result_1.body.hits.hits}=[]"
+                    "expression": "${has_inner_hits}? ${step_781_result_1}.body.hits.hits.get(0).inner_hits.passages.hits.hits=[]: ${step_781_result_1}.body.hits.hits=[]"
                   },
                   "skill_variable": "search_results"
                 }
@@ -281,7 +312,7 @@
         },
         "variables": [
           {
-            "title": "Calling the Generate Answer",
+            "title": "Calling Generate Answer",
             "privacy": {
               "enabled": false
             },
@@ -352,6 +383,7 @@
         "disambiguation_opt_out": false
       },
       {
+        "type": "standard",
         "steps": [
           {
             "step": "step_291",
@@ -381,13 +413,25 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "\"[title]: \"+ ${search_results}.get(0)._source.title + \"\\n\" +\n\"[document]: \"+ ${search_results}.get(0)._source.text + \"\\n\""
+                    "expression": "${search_results}.get(0)._source.title ? ${search_results}.get(0)._source.title + \"\\n\" : \"\""
+                  },
+                  "skill_variable": "title_prompt_text"
+                },
+                {
+                  "value": {
+                    "expression": "${search_results}.get(0)._source.text + \"\\n\""
+                  },
+                  "skill_variable": "document_prompt_text"
+                },
+                {
+                  "value": {
+                    "expression": "${has_inner_hits} ?  ${document_prompt_text} :${title_prompt_text} + ${document_prompt_text}"
                   },
                   "skill_variable": "snippet"
                 },
                 {
                   "value": {
-                    "expression": "${snippet}"
+                    "expression": "\"[Document]\" + \"\\n\" + ${snippet} + \"[End]\" + \"\\n\""
                   },
                   "skill_variable": "passages"
                 }
@@ -401,10 +445,10 @@
             "condition": {
               "expression": "${search_results}.size > 0"
             },
-            "next_step": "step_239"
+            "next_step": "step_175"
           },
           {
-            "step": "step_239",
+            "step": "step_175",
             "output": {
               "generic": []
             },
@@ -412,13 +456,31 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "\"[title]: \"+ ${search_results}.get(1)._source.title + \"\\n\" +\n\"[document]: \"+ ${search_results}.get(1)._source.text + \"\\n\""
+                    "expression": "${search_results}.get(1)._source.title ? ${search_results}.get(1)._source.title + \"\\n\" : \"\""
+                  },
+                  "skill_variable": "title_prompt_text"
+                },
+                {
+                  "value": {
+                    "expression": "${search_results}.get(1)._source.text + \"\\n\""
+                  },
+                  "skill_variable": "document_prompt_text"
+                },
+                {
+                  "value": {
+                    "expression": "${has_inner_hits} ? ${document_prompt_text} :${title_prompt_text} + ${document_prompt_text}"
                   },
                   "skill_variable": "snippet"
                 },
                 {
                   "value": {
-                    "expression": "${passages}.concat(\"    \").concat(${snippet})"
+                    "expression": "\"[Document]\" + \"\\n\" + ${snippet} + \"[End]\" + \"\\n\""
+                  },
+                  "skill_variable": "snippet"
+                },
+                {
+                  "value": {
+                    "expression": "${passages}.concat(${snippet})"
                   },
                   "skill_variable": "passages"
                 }
@@ -428,14 +490,14 @@
             "resolver": {
               "type": "continue"
             },
-            "variable": "step_239",
+            "variable": "step_175",
             "condition": {
               "expression": "${search_results}.size > 1"
             },
-            "next_step": "step_982"
+            "next_step": "step_523"
           },
           {
-            "step": "step_982",
+            "step": "step_523",
             "output": {
               "generic": []
             },
@@ -443,13 +505,31 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "\"[title]: \"+ ${search_results}.get(2)._source.title + \"\\n\" +\n\"[document]: \"+ ${search_results}.get(2)._source.text  + \"\\n\""
+                    "expression": "${search_results}.get(2)._source.title ? ${search_results}.get(2)._source.title + \"\\n\" : \"\""
+                  },
+                  "skill_variable": "title_prompt_text"
+                },
+                {
+                  "value": {
+                    "expression": "${search_results}.get(2)._source.text + \"\\n\""
+                  },
+                  "skill_variable": "document_prompt_text"
+                },
+                {
+                  "value": {
+                    "expression": "${has_inner_hits} ? ${document_prompt_text} :${title_prompt_text} + ${document_prompt_text}"
                   },
                   "skill_variable": "snippet"
                 },
                 {
                   "value": {
-                    "expression": "${passages}.concat(\"    \").concat(${snippet})"
+                    "expression": "\"[Document]\" + \"\\n\" + ${snippet} + \"[End]\" + \"\\n\""
+                  },
+                  "skill_variable": "snippet"
+                },
+                {
+                  "value": {
+                    "expression": "${passages}.concat(${snippet})"
                   },
                   "skill_variable": "passages"
                 }
@@ -459,7 +539,7 @@
             "resolver": {
               "type": "continue"
             },
-            "variable": "step_982",
+            "variable": "step_523",
             "condition": {
               "expression": "${search_results}.size > 2"
             },
@@ -480,7 +560,7 @@
                 },
                 {
                   "value": {
-                    "expression": "(\"[INST] <<SYS>>\\nYou are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe. Be brief in your answers. Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature.\\n\\nIf a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don’t know the answer to a question, please don’t share false information.\\n<</SYS>>\\n\\nGenerate the next agent response by answering the question. You are provided several documents with titles. If the answer comes from different documents please mention all possibilities and use the titles of documents to separate between topics or domains. If you cannot base your answer on the given documents, please state that you do not have an answer.\\n\\n\").concat(${passages}).concat(\"\\n\\n[question]: \").concat(${query_text}).concat(\"[/INST]\")"
+                    "expression": "(\"<|system|>\\nYou are Granite Chat, an AI language model developed by IBM. You are a cautious assistant. You carefully follow instructions. You are helpful and harmless and you follow ethical guidelines and promote positive behavior.\\n<|user|>\\nYou are a AI language model designed to function as a specialized Retrieval Augmented Generation (RAG) assistant. When generating responses, prioritize correctness, i.e., ensure that your response is correct given the context and user query, and that it is grounded in the context. Furthermore, make sure that the response is supported by the given document or context. When the question cannot be answered using the context or document, output the following response: \\'I apologize, but I could not locate any relevant information.\\' Always make sure that your response is relevant to the question. If an explanation is needed, first provide the explanation or reasoning, and then give the final answer.\\nAnswer Length: comprehensive.\\n\").concat(${passages}).concat(${query_text}).concat(\"\\n<|assistant|>\\n\")"
                   },
                   "skill_variable": "model_input"
                 }
@@ -555,6 +635,42 @@
                           },
                           {
                             "skill_variable": "watsonx_api_version"
+                          },
+                          {
+                            "scalar": ", "
+                          },
+                          {
+                            "skill_variable": "model_parameters_top_p"
+                          },
+                          {
+                            "scalar": ", "
+                          },
+                          {
+                            "skill_variable": "model_parameters_top_k"
+                          },
+                          {
+                            "scalar": ", "
+                          },
+                          {
+                            "skill_variable": "model_parameters_time_limit"
+                          },
+                          {
+                            "scalar": ", "
+                          },
+                          {
+                            "skill_variable": "model_parameters_random_seed"
+                          },
+                          {
+                            "scalar": ", "
+                          },
+                          {
+                            "skill_variable": "model_parameters_include_stop_sequence"
+                          },
+                          {
+                            "scalar": ", "
+                          },
+                          {
+                            "skill_variable": "model_parameters_decoding_method"
                           }
                         ]
                       }
@@ -729,6 +845,14 @@
             "data_type": "any"
           },
           {
+            "title": "No response",
+            "privacy": {
+              "enabled": true
+            },
+            "variable": "step_175",
+            "data_type": "any"
+          },
+          {
             "variable": "step_217_result_1",
             "data_type": "any"
           },
@@ -742,11 +866,6 @@
           },
           {
             "variable": "step_237_result_2",
-            "data_type": "any"
-          },
-          {
-            "title": "",
-            "variable": "step_239",
             "data_type": "any"
           },
           {
@@ -781,6 +900,14 @@
           },
           {
             "variable": "step_492_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "privacy": {
+              "enabled": true
+            },
+            "variable": "step_523",
             "data_type": "any"
           },
           {
@@ -832,11 +959,6 @@
             "data_type": "any"
           },
           {
-            "title": "",
-            "variable": "step_982",
-            "data_type": "any"
-          },
-          {
             "variable": "step_982_result_1",
             "data_type": "any"
           }
@@ -849,6 +971,7 @@
         "disambiguation_opt_out": false
       },
       {
+        "type": "standard",
         "steps": [
           {
             "step": "step_888",
@@ -859,12 +982,12 @@
             "resolver": {
               "type": "callout",
               "callout": {
-                "path": "/ml/v1-beta/generation/text",
+                "path": "/ml/v1/text/generation",
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "cc50493e455de183d661b95360196ddb468a02051add6dcaf4a6479b34900be5",
-                  "catalog_item_id": "95f6cba8-1c0f-435f-be85-e1604f12a08c"
+                  "spec_hash_id": "540081b16fe217626f2ff197e583c2f1c7ef19f0752c8b875ec454036cfdda7f",
+                  "catalog_item_id": "bdddba91-cd6f-449b-959f-31e29f187e1e"
                 },
                 "request_mapping": {
                   "body": [
@@ -885,6 +1008,30 @@
                         "skill_variable": "watsonx_project_id"
                       },
                       "parameter": "project_id"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_parameters_top_k"
+                      },
+                      "parameter": "parameters.top_k"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_parameters_top_p"
+                      },
+                      "parameter": "parameters.top_p"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_parameters_time_limit"
+                      },
+                      "parameter": "parameters.time_limit"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_parameters_random_seed"
+                      },
+                      "parameter": "parameters.random_seed"
                     },
                     {
                       "value": {
@@ -912,9 +1059,21 @@
                     },
                     {
                       "value": {
+                        "skill_variable": "model_parameters_decoding_method"
+                      },
+                      "parameter": "parameters.decoding_method"
+                    },
+                    {
+                      "value": {
                         "skill_variable": "model_parameters_repetition_penalty"
                       },
                       "parameter": "parameters.repetition_penalty"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_parameters_include_stop_sequence"
+                      },
+                      "parameter": "parameters.include_stop_sequence"
                     }
                   ],
                   "query": [
@@ -1143,6 +1302,7 @@
         "disambiguation_opt_out": false
       },
       {
+        "type": "standard",
         "steps": [
           {
             "step": "step_195",
@@ -1291,6 +1451,7 @@
         "disambiguation_opt_out": true
       },
       {
+        "type": "standard",
         "steps": [
           {
             "step": "digression_failure",
@@ -1599,6 +1760,7 @@
         "disambiguation_opt_out": true
       },
       {
+        "type": "standard",
         "steps": [
           {
             "step": "danger_word_detected",
@@ -1673,6 +1835,7 @@
         "next_action": "anything_else"
       },
       {
+        "type": "standard",
         "steps": [
           {
             "step": "step_001",
@@ -1771,10 +1934,40 @@
     "metadata": {
       "api_version": {
         "major_version": "v2",
-        "minor_version": "2018-11-08"
+        "minor_version": "2021-11-27"
       }
     },
     "variables": [
+      {
+        "title": "document_prompt_text",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "document_prompt_text",
+        "data_type": "string",
+        "description": ""
+      },
+      {
+        "title": "embedding_model",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "embedding_model",
+        "data_type": "string",
+        "description": "",
+        "initial_value": {
+          "scalar": "intfloat__multilingual-e5-small"
+        }
+      },
+      {
+        "title": "es_index_name",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "es_index_name",
+        "data_type": "string",
+        "description": "You MUST set this to your Elasticsearch index name."
+      },
       {
         "title": "es_model",
         "privacy": {
@@ -1788,12 +1981,48 @@
         }
       },
       {
+        "title": "es_query_result_size",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "es_query_result_size",
+        "data_type": "number",
+        "description": "",
+        "initial_value": {
+          "scalar": 3
+        }
+      },
+      {
+        "title": "has_inner_hits",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "has_inner_hits",
+        "data_type": "boolean",
+        "description": "Set this to True if you are using an index that has passages nested in a single field.",
+        "initial_value": {
+          "scalar": false
+        }
+      },
+      {
+        "title": "knn_body",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "knn_body",
+        "data_type": "any",
+        "description": ""
+      },
+      {
         "title": "model_id",
+        "privacy": {
+          "enabled": false
+        },
         "variable": "model_id",
         "data_type": "string",
         "description": "The ID of the model to be used for this user prompt.",
         "initial_value": {
-          "scalar": "meta-llama/llama-2-70b-chat"
+          "scalar": "ibm/granite-13b-chat-v2"
         }
       },
       {
@@ -1806,16 +2035,43 @@
         "description": "input to the watsonx model"
       },
       {
+        "title": "model_parameters_decoding_method",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "model_parameters_decoding_method",
+        "data_type": "string",
+        "description": "The strategy used for picking the tokens during generation of the output text.",
+        "initial_value": {
+          "scalar": "greedy"
+        }
+      },
+      {
+        "title": "model_parameters_include_stop_sequence",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "model_parameters_include_stop_sequence",
+        "data_type": "boolean",
+        "description": "The value to control presence of matched stop sequences from the end of the output text."
+      },
+      {
         "title": "model_parameters_max_new_tokens",
+        "privacy": {
+          "enabled": false
+        },
         "variable": "model_parameters_max_new_tokens",
         "data_type": "number",
         "description": "The maximum number of new tokens to be generated.",
         "initial_value": {
-          "scalar": 300
+          "scalar": 256
         }
       },
       {
         "title": "model_parameters_min_new_tokens",
+        "privacy": {
+          "enabled": false
+        },
         "variable": "model_parameters_min_new_tokens",
         "data_type": "number",
         "description": "The minimum number of new tokens to be generated.",
@@ -1824,31 +2080,76 @@
         }
       },
       {
+        "title": "model_parameters_random_seed",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "model_parameters_random_seed",
+        "data_type": "number",
+        "description": "A random number generator seed to use in sampling mode for experimental repeatability."
+      },
+      {
         "title": "model_parameters_repetition_penalty",
+        "privacy": {
+          "enabled": false
+        },
         "variable": "model_parameters_repetition_penalty",
         "data_type": "number",
-        "description": "",
+        "description": "The penalty for penalizing tokens that have already been generated or belong to the context.",
         "initial_value": {
-          "scalar": 1.1
+          "scalar": 1.05
         }
       },
       {
         "title": "model_parameters_stop_sequences",
+        "privacy": {
+          "enabled": false
+        },
         "variable": "model_parameters_stop_sequences",
         "data_type": "any",
-        "description": "",
+        "description": "The strings which will cause the text generation to stop if/when they are produced as part of the output. Stop sequences encountered prior to the minimum number of tokens being generated will be ignored.",
         "initial_value": {
           "expression": "[]"
         }
       },
       {
         "title": "model_parameters_temperature",
+        "privacy": {
+          "enabled": false
+        },
         "variable": "model_parameters_temperature",
         "data_type": "number",
-        "description": "he value used to control the next token probabilities. The range is from 0.05 to 1.00; 0.05 makes it mostly deterministic.",
+        "description": "The value used to control the next token probabilities. The range is from 0.05 to 1.00; 0.05 makes it mostly deterministic.",
         "initial_value": {
           "scalar": 0
         }
+      },
+      {
+        "title": "model_parameters_time_limit",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "model_parameters_time_limit",
+        "data_type": "number",
+        "description": "The amount of time in milliseconds to wait before stopping generation. The text generated so far will be returned along with the TIME_LIMIT stop reason."
+      },
+      {
+        "title": "model_parameters_top_k",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "model_parameters_top_k",
+        "data_type": "number",
+        "description": "The number of highest probability vocabulary tokens to keep for top-k-filtering."
+      },
+      {
+        "title": "model_parameters_top_p",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "model_parameters_top_p",
+        "data_type": "number",
+        "description": "Similar to top_k except the candidates to generate the next token are the most likely tokens with probabilities that add up to at least top_p."
       },
       {
         "title": "model_response",
@@ -1865,6 +2166,24 @@
       {
         "title": "query_body",
         "variable": "query_body",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "query_body_generic",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "query_body_generic",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "query_body_nested",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "query_body_nested",
         "data_type": "any",
         "description": ""
       },
@@ -1893,6 +2212,15 @@
         "title": "snippet",
         "variable": "snippet",
         "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "title_prompt_text",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "title_prompt_text",
+        "data_type": "string",
         "description": ""
       },
       {
@@ -2039,9 +2367,9 @@
     "learning_opt_out": true
   },
   "description": "created for assistant fcee95d0-3673-43ea-9349-9e4458738da2",
-  "assistant_id": "7470c8e5-02f7-4c62-81b6-98d4cc7069cb",
-  "workspace_id": "d86bc0bb-e67b-4eb6-b8b0-3e6153c18bb8",
+  "assistant_id": "ed0a1bd7-c3a7-43c5-a740-0ab12efec5dc",
+  "workspace_id": "701b479c-8e8f-4e9b-beb0-a8275b05b935",
   "dialog_settings": {},
   "next_snapshot_version": "1",
-  "environment_id": "abf00b26-fddb-4899-b211-33a481dccba6"
+  "environment_id": "398602c7-6959-4863-a973-42e4dcef58c9"
 }

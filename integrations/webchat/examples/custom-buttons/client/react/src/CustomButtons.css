@@ -1,3 +1,7 @@
+#WACContainer.WACContainer .CustomButtons {
+  margin-top: 8px;
+}
+
 #WACContainer.WACContainer .CustomButtons .CustomButton {
   margin-bottom: 8px;
 }

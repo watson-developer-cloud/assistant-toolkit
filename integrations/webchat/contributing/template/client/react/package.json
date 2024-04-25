@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "proxy": "http://localhost:3001",
   "engines": {
-    "node": "^16.15.1"
+    "node": ">=18"
   },
   "scripts": {
     "start": "cross-env DISABLE_ESLINT_PLUGIN=true react-scripts start",

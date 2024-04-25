@@ -9,10 +9,8 @@ export async function delay(req, res) {
   });
 }
 
-async function sleep(milliseconds) {
-  const promise = new Promise();
-  setTimeout(() => {
-    promise.resolve();
-  }, milliseconds);
-  return promise;
+function sleep(milliseconds) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, milliseconds);
+  });
 }

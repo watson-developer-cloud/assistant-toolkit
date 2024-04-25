@@ -23,7 +23,7 @@ const app = express();
 app.use(morgan('dev'));
 
 // enable parsing of http request body
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 // access to static files

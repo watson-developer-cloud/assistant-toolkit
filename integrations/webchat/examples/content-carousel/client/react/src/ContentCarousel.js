@@ -1,8 +1,8 @@
-import { CaretLeft16, CaretRight16 } from '@carbon/icons-react';
+import { Tile, Button } from '@carbon/react';
+import { CaretLeft, CaretRight } from '@carbon/react/icons';
 import PropTypes from 'prop-types';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, A11y } from 'swiper';
-import { Tile, Button } from 'carbon-components-react';
 import { useCallback, useState } from 'react';
 import cx from 'classnames';
 
@@ -74,7 +74,7 @@ function ContentCarousel({ message, webChatInstance }) {
                   {/* Here you would use a link to your own page that shows more details about this card. */}
                   <a
                     href="https://www.ibm.com"
-                    className="Carousel__CardButton bx--btn bx--btn--primary"
+                    className="Carousel__CardButton cds--btn cds--btn--primary"
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -98,11 +98,11 @@ function ContentCarousel({ message, webChatInstance }) {
         className={cx('Carousel__Navigation', { 'Carousel__Navigation--hidden': !navigationElement })}
       >
         <Button className="Carousel__NavigationButton" kind="ghost">
-          <CaretLeft16 />
+          <CaretLeft />
         </Button>
         <div className="Carousel__BulletContainer" />
-        <Button className="Carousel__NavigatFionButton" kind="ghost">
-          <CaretRight16 />
+        <Button className="Carousel__NavigationButton" kind="ghost">
+          <CaretRight />
         </Button>
       </div>
     </>

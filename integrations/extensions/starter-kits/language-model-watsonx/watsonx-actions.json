@@ -627,7 +627,7 @@
             "resolver": {
               "type": "callout",
               "callout": {
-                "path": "/ml/v1-beta/generation/text",
+                "path": "/ml/v1/text/generation",
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {

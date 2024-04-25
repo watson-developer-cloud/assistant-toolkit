@@ -2,6 +2,7 @@ import React from 'react';
 import { WebChatContainer } from '@ibm-watson/assistant-web-chat-react';
 import { config } from './config';
 import { CustomAccordion } from './CustomAccordion';
+import './App.scss';
 
 /**
  * This example uses the `@ibm-watson/assistant-web-chat-react` library to import web chat into a React application.
