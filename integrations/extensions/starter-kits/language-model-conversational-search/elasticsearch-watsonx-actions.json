@@ -3,10 +3,10 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2024-03-26T21:18:44.256Z",
-  "updated": "2024-04-03T20:31:34.685Z",
+  "created": "2024-04-24T17:13:35.121Z",
+  "updated": "2024-04-25T18:44:15.609Z",
   "language": "en",
-  "skill_id": "701b479c-8e8f-4e9b-beb0-a8275b05b935",
+  "skill_id": "7f2b5c5f-f0b1-4566-a27b-c1ef40c85eec",
   "workspace": {
     "actions": [
       {
@@ -103,15 +103,15 @@
                 },
                 {
                   "value": {
-                    "expression": "[\"title\", \"text\"]"
-                  },
-                  "skill_variable": "query_source"
-                },
-                {
-                  "value": {
                     "expression": "{\n    \"field\": \"text_embedding.predicted_value\",\n    \"query_vector_builder\": {\n      \"text_embedding\": {\n        \"model_id\": ${embedding_model},\n        \"model_text\": ${query_text}\n      }\n    },\n    \"k\": 10,\n    \"num_candidates\": 100\n  }"
                   },
                   "skill_variable": "knn_body"
+                },
+                {
+                  "value": {
+                    "expression": "[ ${result_title_field}, ${result_body_field}]"
+                  },
+                  "skill_variable": "query_source"
                 }
               ]
             },
@@ -124,7 +124,7 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "0988f31a617dc5ff6b276fdc3be98135801830c3ceeac02a58846426fe81c974",
-                  "catalog_item_id": "ef58aa6f-c936-4270-afaf-0af6f20ed2aa"
+                  "catalog_item_id": "520efed4-c7f9-41ec-9235-917537b9f7cd"
                 },
                 "request_mapping": {
                   "body": [
@@ -413,13 +413,13 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "${search_results}.get(0)._source.title ? ${search_results}.get(0)._source.title + \"\\n\" : \"\""
+                    "expression": "${search_results}.get(0)._source[${result_title_field}]? ${search_results}.get(0)._source[${result_title_field}] + \"\\n\" : \"\""
                   },
                   "skill_variable": "title_prompt_text"
                 },
                 {
                   "value": {
-                    "expression": "${search_results}.get(0)._source.text + \"\\n\""
+                    "expression": "${search_results}.get(0)._source[${result_body_field}] ? ${search_results}.get(0)._source[${result_body_field}] + \"\\n\" : \"\""
                   },
                   "skill_variable": "document_prompt_text"
                 },
@@ -456,13 +456,13 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "${search_results}.get(1)._source.title ? ${search_results}.get(1)._source.title + \"\\n\" : \"\""
+                    "expression": "${search_results}.get(1)._source[${result_title_field}] ? ${search_results}.get(1)._source[${result_title_field}] + \"\\n\" : \"\""
                   },
                   "skill_variable": "title_prompt_text"
                 },
                 {
                   "value": {
-                    "expression": "${search_results}.get(1)._source.text + \"\\n\""
+                    "expression": "${search_results}.get(1)._source[${result_body_field}] ? ${search_results}.get(1)._source[${result_body_field}] + \"\\n\" : \"\""
                   },
                   "skill_variable": "document_prompt_text"
                 },
@@ -505,13 +505,13 @@
               "variables": [
                 {
                   "value": {
-                    "expression": "${search_results}.get(2)._source.title ? ${search_results}.get(2)._source.title + \"\\n\" : \"\""
+                    "expression": "${search_results}.get(2)._source[${result_title_field}] ? ${search_results}.get(2)._source[${result_title_field}] + \"\\n\" : \"\""
                   },
                   "skill_variable": "title_prompt_text"
                 },
                 {
                   "value": {
-                    "expression": "${search_results}.get(2)._source.text + \"\\n\""
+                    "expression": "${search_results}.get(2)._source[${result_body_field}] ? ${search_results}.get(2)._source[${result_body_field}] + \"\\n\" : \"\""
                   },
                   "skill_variable": "document_prompt_text"
                 },
@@ -987,7 +987,7 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "540081b16fe217626f2ff197e583c2f1c7ef19f0752c8b875ec454036cfdda7f",
-                  "catalog_item_id": "bdddba91-cd6f-449b-959f-31e29f187e1e"
+                  "catalog_item_id": "17540f61-7e46-464e-9f8d-7ceffb42b7e0"
                 },
                 "request_mapping": {
                   "body": [
@@ -1934,7 +1934,7 @@
     "metadata": {
       "api_version": {
         "major_version": "v2",
-        "minor_version": "2021-11-27"
+        "minor_version": "2018-11-08"
       }
     },
     "variables": [
@@ -2203,6 +2203,30 @@
         "description": ""
       },
       {
+        "title": "result_body_field",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "result_body_field",
+        "data_type": "string",
+        "description": "",
+        "initial_value": {
+          "scalar": "text"
+        }
+      },
+      {
+        "title": "result_title_field",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "result_title_field",
+        "data_type": "string",
+        "description": "",
+        "initial_value": {
+          "scalar": "filename"
+        }
+      },
+      {
         "title": "search_results",
         "variable": "search_results",
         "data_type": "any",
@@ -2367,9 +2391,9 @@
     "learning_opt_out": true
   },
   "description": "created for assistant fcee95d0-3673-43ea-9349-9e4458738da2",
-  "assistant_id": "ed0a1bd7-c3a7-43c5-a740-0ab12efec5dc",
-  "workspace_id": "701b479c-8e8f-4e9b-beb0-a8275b05b935",
+  "assistant_id": "e4344152-0ffc-4950-bad2-726f6b06ae5a",
+  "workspace_id": "7f2b5c5f-f0b1-4566-a27b-c1ef40c85eec",
   "dialog_settings": {},
   "next_snapshot_version": "1",
-  "environment_id": "398602c7-6959-4863-a973-42e4dcef58c9"
+  "environment_id": "00a9dd4c-82c2-46c0-b69b-280e08dd52ce"
 }
