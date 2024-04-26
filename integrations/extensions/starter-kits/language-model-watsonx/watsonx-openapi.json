@@ -188,7 +188,7 @@
         }
       }
     },
-    "/ml/v1-beta/deployments/{deployment-id}/generation/text": {
+    "/ml/v1/deployments/{deployment-id}/generation/text": {
       "post": {
         "description": "Generation from a deployed prompt",
         "parameters": [

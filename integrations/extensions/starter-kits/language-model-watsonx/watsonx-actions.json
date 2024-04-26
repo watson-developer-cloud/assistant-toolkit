@@ -789,7 +789,7 @@
             "resolver": {
               "type": "callout",
               "callout": {
-                "path": "/ml/v1-beta/deployments/{deployment-id}/generation/text",
+                "path": "/ml/v1/deployments/{deployment-id}/generation/text",
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
