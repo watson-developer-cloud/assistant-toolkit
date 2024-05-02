@@ -102,6 +102,8 @@ Below is a list of the session variables used in this example. Most of them are 
 - `query_source`: The query source that will be sent to Elasticsearch search index. The query source is set and used by the Search action. Defaults to `["title", "text"]`
 - `knn_body`: The knn body that will be sent to Elasticsearch search index. The knn body is set and used by the Search action.
 - `query_text`: You MAY change this to pass queries to Watson Discovery. By default the Search action passes the user’s input.text directly.
+- `result_body_field`: The body field to be extracted from the search results. The default is `text`. You may need to update it if you need to use a different field from your Elasticsearch index.
+- `result_title_field`: The title field to be extracted from the search results. The default is `title`. You may need to update it if you need to use a different field from your Elasticsearch index.
 - `search_results`: Response object from Elasticsearch search query. It is set and used by the Search action.
 - `snippet` : Top results from the Watson Discovery document search.
 - `title_prompt_text`: set and used in the `Generate` action to build title text for the prompt sending to LLM.
