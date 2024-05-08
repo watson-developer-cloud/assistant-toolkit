@@ -27,7 +27,7 @@
   padding-left: 16px;
 }
 
-#WACContainer.WACContainer .ibm-web-chat--default-styles button.AgentAssist__NextButton:disabled:not([class*=bx--]) {
+#WACContainer.WACContainer .ibm-web-chat--default-styles button.AgentAssist__NextButton:disabled:not([class*=cds--]) {
   background-color: #e0e0e0;
   opacity: 0.75;
   color: #393939;

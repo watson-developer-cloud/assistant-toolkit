@@ -1,4 +1,4 @@
-Carbon is IBM's open source design system for products and digital experiences. With the IBM Design Language as its foundation, the system consists of working code, design tools and resources, human interface guidelines, and a vibrant community of contributors. You can find more information on the [Carbon website](https://v10.carbondesignsystem.com/). Note that web chat is currently using version 10 of Carbon. You may experience problems if you try to use Carbon 11 with web chat.
+Carbon is IBM's open source design system for products and digital experiences. With the IBM Design Language as its foundation, the system consists of working code, design tools and resources, human interface guidelines, and a vibrant community of contributors. You can find more information on the [Carbon website](https://carbondesignsystem.com/). Note that web chat is currently using version 11 of Carbon. You may experience problems if you try to use Carbon 10 or older with web chat.
 
 # JavaScript
 
@@ -30,24 +30,24 @@ function accordionHandler(event) {
   // of the web components will cause Carbon to attach JavaScript behavior to the elements. This behavior is enabled
   // by the import from carbon-web-components at the top of this file.
   element.innerHTML = `
-    <bx-accordion id="accordion">
-      <bx-accordion-item title-text="The Everyday Card">
+    <cds-accordion id="accordion">
+      <cds-accordion-item title-text="The Everyday Card">
         $300 bonus plus 5% gas station cash back offer. Earn 2% cash back on all other purchases.
-      </bx-accordion-item>
-      <bx-accordion-item title-text="The Preferred Card">
+      </cds-accordion-item>
+      <cds-accordion-item title-text="The Preferred Card">
         $300 bonus plus 5% gas station cash back offer. Earn 5% cash back on all other purchases.
-      </bx-accordion-item>
-      <bx-accordion-item title-text="The Topaz Card">
+      </cds-accordion-item>
+      <cds-accordion-item title-text="The Topaz Card">
         $90 Annual fee. Earn 120,000 bonus points. Earn additional points on every purchase.
-      </bx-accordion-item>
-    </bx-accordion>
+      </cds-accordion-item>
+    </cds-accordion>
   `;
 
   // This code shows how to use custom event listeners on custom elements. Here we look up the accordion items we
-  // added above and then add a listener for the "bx-accordion-item-toggled" event to each.
-  const items = element.querySelectorAll('bx-accordion-item');
+  // added above and then add a listener for the "cds-accordion-item-toggled" event to each.
+  const items = element.querySelectorAll('cds-accordion-item');
   items.forEach((item, index) => {
-    item.addEventListener('bx-accordion-item-toggled', () => {
+    item.addEventListener('cds-accordion-item-toggled', () => {
       console.log(`You toggled item ${index}`);
     });
   });

@@ -43,21 +43,21 @@ function currencyInputHandler(event, instance) {
     <div class="CurrencyCard">
       <p>What currency would you like to exchange from?</p>
       <div class="CurrencyCard__CurrencyButtons">
-        <button type="button" class="CurrencyCard__CurrencyButton bx--tag" data-currency="eur">${currencyLabel('eur')}</button>
-        <button type="button" class="CurrencyCard__CurrencyButton bx--tag" data-currency="gbp">${currencyLabel('gbp')}</button>
-        <button type="button" class="CurrencyCard__CurrencyButton bx--tag" data-currency="usd">${currencyLabel('usd')}</button>
-        <button type="button" class="CurrencyCard__CurrencyButton bx--tag" data-currency="jpy">${currencyLabel('jpy')}</button>
+        <button type="button" class="CurrencyCard__CurrencyButton cds--tag" data-currency="eur">${currencyLabel('eur')}</button>
+        <button type="button" class="CurrencyCard__CurrencyButton cds--tag" data-currency="gbp">${currencyLabel('gbp')}</button>
+        <button type="button" class="CurrencyCard__CurrencyButton cds--tag" data-currency="usd">${currencyLabel('usd')}</button>
+        <button type="button" class="CurrencyCard__CurrencyButton cds--tag" data-currency="jpy">${currencyLabel('jpy')}</button>
       </div>
-      <div class="bx--form-item bx--text-input-wrapper">
+      <div class="cds--form-item cds--text-input-wrapper">
       <p>Choose an amount</p>
-        <div class="bx--text-input__field-outer-wrapper">
-          <div class="bx--text-input__field-wrapper">
-            <input type="text" class="CurrencyCard__AmountInput bx--text-input">
+        <div class="cds--text-input__field-outer-wrapper">
+          <div class="cds--text-input__field-wrapper">
+            <input type="text" class="CurrencyCard__AmountInput cds--text-input">
           </div>
         </div>
       </div>
       <div class="CurrencyCard__ExchangeButtonContainer">
-        <button type="button" class="CurrencyCard__ExchangeButton bx--btn bx--btn--primary" disabled>Exchange</button>
+        <button type="button" class="CurrencyCard__ExchangeButton cds--btn cds--btn--primary" disabled>Exchange</button>
       </div>
     </div>
   `;
