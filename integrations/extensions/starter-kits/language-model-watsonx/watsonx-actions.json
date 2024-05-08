@@ -1,12 +1,12 @@
 {
-  "name": "toolkit deployment-action",
+  "name": "watsonx extension sample actions",
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2024-04-11T19:48:48.994Z",
-  "updated": "2024-04-11T19:52:51.039Z",
+  "created": "2024-05-08T16:31:44.640Z",
+  "updated": "2024-05-08T16:35:10.141Z",
   "language": "en",
-  "skill_id": "0ed4a357-5fc6-4385-8beb-7cf34135432b",
+  "skill_id": "a901b7b6-c8aa-4bf1-a61e-e885ecffe9ea",
   "workspace": {
     "actions": [
       {
@@ -631,8 +631,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "366bf7affb4190cdefb16d75a1596c4f2540660040682420f5947d9373870755",
-                  "catalog_item_id": "99ff6df2-adb9-411c-8a3b-e8e792bf7456"
+                  "spec_hash_id": "16f2e2f8ca5a1910b7a1d34a1a499202bd2d5c85515447b9ac020c0ae516e299",
+                  "catalog_item_id": "5d2e03cf-aff3-4618-b0bc-c9444b255363"
                 },
                 "request_mapping": {
                   "body": [
@@ -793,8 +793,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "366bf7affb4190cdefb16d75a1596c4f2540660040682420f5947d9373870755",
-                  "catalog_item_id": "99ff6df2-adb9-411c-8a3b-e8e792bf7456"
+                  "spec_hash_id": "16f2e2f8ca5a1910b7a1d34a1a499202bd2d5c85515447b9ac020c0ae516e299",
+                  "catalog_item_id": "5d2e03cf-aff3-4618-b0bc-c9444b255363"
                 },
                 "request_mapping": {
                   "path": [
@@ -1885,9 +1885,9 @@
     "learning_opt_out": true
   },
   "description": "created for assistant 05c10d7d-336f-4d33-8cb3-5c53520d61ce",
-  "assistant_id": "9bbf3c63-9e2e-4927-b771-0ec57afc9f7f",
-  "workspace_id": "0ed4a357-5fc6-4385-8beb-7cf34135432b",
+  "assistant_id": "bd63fead-e90b-43b4-9e57-e0fb90553861",
+  "workspace_id": "a901b7b6-c8aa-4bf1-a61e-e885ecffe9ea",
   "dialog_settings": {},
   "next_snapshot_version": "1",
-  "environment_id": "c571aff7-3869-4633-a0ab-890f06e0f209"
+  "environment_id": "77419769-c935-4105-8da5-87a20d970abb"
 }
