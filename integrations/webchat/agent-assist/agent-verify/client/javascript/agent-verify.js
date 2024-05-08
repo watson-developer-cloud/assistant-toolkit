@@ -209,13 +209,13 @@ function addUserSaid(text) {
     const localUserElement = document.createElement('div');
     localUserElement.innerHTML = `
     <div class="AgentAssist__UserSaidMessage">
-      <bx-btn class="AgentAssist__UserSaidCopyButton" kind="primary" icon-layout="" size="sm">
+      <cds-btn class="AgentAssist__UserSaidCopyButton" kind="primary" icon-layout="" size="sm">
         <svg id="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32" slot="icon">
           <polygon points="6 18 7.41 19.41 15 11.83 15 30 17 30 17 11.83 24.59 19.41 26 18 16 8 6 18"/>
           <path d="M6,8V4H26V8h2V4a2,2,0,0,0-2-2H6A2,2,0,0,0,4,4V8Z"/>
           <rect fill="none" width="32" height="32"/>
         </svg>
-      </bx-btn>
+      </cds-btn>
       <div class="AgentAssist__UserSaidText"></div>
     </div>
     `;

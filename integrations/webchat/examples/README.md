@@ -34,7 +34,7 @@ It demonstrates:
 - How to use the [**send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#send) instance method to send a message to the assistant when a button is clicked.
 - How to use the [**updateHistoryUserDefined**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#updateHistoryUserDefined) instance method to record which button was clicked in session history so it will be remembered when web chat is reloaded.
 - How to use data stored in session history to change how a custom response is displayed when web chat is reloaded.
-- How to use the [Carbon Design System](https://v10.carbondesignsystem.com/) inside of web chat. The examples here cover both the vanilla JavaScript version (using web components) and the React version.
+- How to use the [Carbon Design System](https://carbondesignsystem.com/) inside of web chat. The examples here cover both the vanilla JavaScript version (using web components) and the React version.
 
 ## [Custom elements](custom-element/README.md)
 

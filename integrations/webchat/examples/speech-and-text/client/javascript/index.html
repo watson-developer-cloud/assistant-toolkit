@@ -10,9 +10,9 @@
   <script src="https://unpkg.com/watson-speech@0.40.0/dist/watson-speech.min.js"></script>
 
   <style>
-    /* All IBM Carbon (https://v10.carbondesignsystem.com/) class names are automatically available for use inside of
+    /* All IBM Carbon (https://carbondesignsystem.com/) class names are automatically available for use inside of
     web chat and will inherit theming values you have set on web chat. */
-    #WACContainer.WACContainer .RecordButton.bx--btn {
+    #WACContainer.WACContainer .RecordButton.cds--btn {
       width: 100%;
       max-width: unset;
       padding: 0;
@@ -20,13 +20,13 @@
       margin-bottom: 1px;
     }
 
-    #WACContainer.WACContainer .RecordButton.bx--btn svg {
+    #WACContainer.WACContainer .RecordButton.cds--btn svg {
       width: 24px;
       height: 24px;
       margin-right: 8px;
     }
 
-    #WACContainer.WACContainer .RecordButton.bx--btn path {
+    #WACContainer.WACContainer .RecordButton.cds--btn path {
       fill: #ffffff;
     }
   </style>
@@ -168,8 +168,8 @@
     function addRecordButton(instance) {
       const button = document.createElement('button');
       button.classList.add('RecordButton');
-      button.classList.add('bx--btn');
-      button.classList.add('bx--btn--primary');
+      button.classList.add('cds--btn');
+      button.classList.add('cds--btn--primary');
       button.innerHTML = getButtonHTML(false);
       button.addEventListener('click', onButtonClick);
 
