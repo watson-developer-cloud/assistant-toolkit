@@ -3,13 +3,14 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2023-07-26T00:29:57.573Z",
-  "updated": "2023-07-26T00:34:33.767Z",
+  "created": "2024-05-08T16:31:44.640Z",
+  "updated": "2024-05-08T16:35:10.141Z",
   "language": "en",
-  "skill_id": "d7b6684e-45f0-4fed-967e-c1091494f945",
+  "skill_id": "a901b7b6-c8aa-4bf1-a61e-e885ecffe9ea",
   "workspace": {
     "actions": [
       {
+        "type": "standard",
         "steps": [
           {
             "step": "step_285",
@@ -612,6 +613,7 @@
         "disambiguation_opt_out": false
       },
       {
+        "type": "standard",
         "steps": [
           {
             "step": "step_817",
@@ -629,8 +631,8 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "540081b16fe217626f2ff197e583c2f1c7ef19f0752c8b875ec454036cfdda7f",
-                  "catalog_item_id": "4f170e0d-95b5-4f59-9d1d-e52f67ee9352"
+                  "spec_hash_id": "16f2e2f8ca5a1910b7a1d34a1a499202bd2d5c85515447b9ac020c0ae516e299",
+                  "catalog_item_id": "5d2e03cf-aff3-4618-b0bc-c9444b255363"
                 },
                 "request_mapping": {
                   "body": [
@@ -651,36 +653,6 @@
                         "skill_variable": "watsonx_project_id"
                       },
                       "parameter": "project_id"
-                    },
-                    {
-                      "value": {
-                        "skill_variable": "model_parameters_temperature"
-                      },
-                      "parameter": "parameters.temperature"
-                    },
-                    {
-                      "value": {
-                        "skill_variable": "model_parameters_max_new_tokens"
-                      },
-                      "parameter": "parameters.max_new_tokens"
-                    },
-                    {
-                      "value": {
-                        "skill_variable": "model_parameters_min_new_tokens"
-                      },
-                      "parameter": "parameters.min_new_tokens"
-                    },
-                    {
-                      "value": {
-                        "skill_variable": "model_parameters_stop_sequences"
-                      },
-                      "parameter": "parameters.stop_sequences"
-                    },
-                    {
-                      "value": {
-                        "skill_variable": "model_parameters_repetition_penalty"
-                      },
-                      "parameter": "parameters.repetition_penalty"
                     }
                   ],
                   "query": [
@@ -780,11 +752,312 @@
           },
           {
             "title": "No response",
+            "privacy": {
+              "enabled": false
+            },
             "variable": "step_817",
             "data_type": "any"
           },
           {
+            "privacy": {
+              "enabled": false
+            },
             "variable": "step_817_result_2",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_3200-3",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true,
+          "never_return": false
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "type": "standard",
+        "steps": [
+          {
+            "step": "step_817",
+            "output": {
+              "generic": []
+            },
+            "context": {
+              "variables": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/ml/v1/deployments/{deployment-id}/generation/text",
+                "type": "integration_interaction",
+                "method": "POST",
+                "internal": {
+                  "spec_hash_id": "16f2e2f8ca5a1910b7a1d34a1a499202bd2d5c85515447b9ac020c0ae516e299",
+                  "catalog_item_id": "5d2e03cf-aff3-4618-b0bc-c9444b255363"
+                },
+                "request_mapping": {
+                  "path": [
+                    {
+                      "value": {
+                        "skill_variable": "deployment_id"
+                      },
+                      "parameter": "deployment-id"
+                    }
+                  ],
+                  "query": [
+                    {
+                      "value": {
+                        "skill_variable": "watsonx_api_version"
+                      },
+                      "parameter": "version"
+                    }
+                  ]
+                },
+                "result_variable": "step_817_result_2"
+              }
+            },
+            "variable": "step_817",
+            "next_step": "step_606"
+          },
+          {
+            "step": "step_606",
+            "output": {
+              "generic": []
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${step_817_result_2.body.results}[0].generated_text"
+                  },
+                  "skill_variable": "model_response"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_606",
+            "condition": {
+              "and": [
+                {
+                  "eq": [
+                    {
+                      "variable": "step_817_result_2",
+                      "variable_path": "success"
+                    },
+                    {
+                      "scalar": true
+                    }
+                  ]
+                },
+                {
+                  "expression": "${step_817_result_2.body.results}.size() > 0"
+                }
+              ]
+            },
+            "next_step": "step_212"
+          },
+          {
+            "step": "step_212",
+            "output": {
+              "generic": []
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "null"
+                  },
+                  "skill_variable": "model_response"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_212"
+          }
+        ],
+        "title": "Invoke watsonx deployed prompt API",
+        "action": "action_3200-3",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_3200_intent_45093-3"
+        },
+        "variables": [
+          {
+            "title": "",
+            "variable": "step_212",
+            "data_type": "any"
+          },
+          {
+            "title": "",
+            "variable": "step_606",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_817",
+            "data_type": "any"
+          },
+          {
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_817_result_2",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_3200-4",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true,
+          "never_return": false
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "type": "standard",
+        "steps": [
+          {
+            "step": "step_129",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "What would you like to ask?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": []
+            },
+            "handlers": [],
+            "question": {
+              "free_text": true,
+              "response_collection_behavior": "always_ask"
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_129",
+            "next_step": "step_817"
+          },
+          {
+            "step": "step_817",
+            "output": {
+              "generic": []
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${step_129}"
+                  },
+                  "skill_variable": "model_input"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action",
+              "invoke_action": {
+                "action": "action_3200-3",
+                "policy": "default",
+                "parameters": null,
+                "result_variable": "step_817_result_1"
+              }
+            },
+            "variable": "step_817",
+            "next_step": "step_606"
+          },
+          {
+            "step": "step_606",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Response is: "
+                          },
+                          {
+                            "skill_variable": "model_response"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_606"
+          }
+        ],
+        "title": "Test deployment",
+        "action": "action_3200-4",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_3200_intent_45093-4"
+        },
+        "variables": [
+          {
+            "title": "What would you like to ask?",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_129",
+            "data_type": "any"
+          },
+          {
+            "title": "Response is: {variable}",
+            "variable": "step_606",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_817",
+            "data_type": "any"
+          },
+          {
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_817_result_1",
             "data_type": "any"
           }
         ],
@@ -797,6 +1070,7 @@
         "disambiguation_opt_out": false
       },
       {
+        "type": "standard",
         "steps": [
           {
             "step": "step_001",
@@ -893,6 +1167,7 @@
         "disambiguation_opt_out": true
       },
       {
+        "type": "standard",
         "steps": [
           {
             "step": "digression_failure",
@@ -1201,6 +1476,7 @@
         "disambiguation_opt_out": true
       },
       {
+        "type": "standard",
         "steps": [
           {
             "step": "danger_word_detected",
@@ -1275,6 +1551,7 @@
         "next_action": "anything_else"
       },
       {
+        "type": "standard",
         "steps": [
           {
             "step": "step_001",
@@ -1329,6 +1606,18 @@
         "examples": []
       },
       {
+        "intent": "action_3200_intent_45093-3",
+        "examples": []
+      },
+      {
+        "intent": "action_3200_intent_45093-4",
+        "examples": [
+          {
+            "text": "Test deployment"
+          }
+        ]
+      },
+      {
         "intent": "fallback_connect_to_agent",
         "examples": [
           {
@@ -1362,12 +1651,19 @@
           {
             "type": "synonyms",
             "value": "google/flan-t5-xxl",
-            "synonyms": ["flan-t5-xxl", "t5", "xxl"]
+            "synonyms": [
+              "flan-t5-xxl",
+              "t5",
+              "xxl"
+            ]
           },
           {
             "type": "synonyms",
             "value": "google/flan-ul2",
-            "synonyms": ["flan-ul2", "ul2"]
+            "synonyms": [
+              "flan-ul2",
+              "ul2"
+            ]
           }
         ],
         "fuzzy_match": true
@@ -1389,10 +1685,19 @@
     "metadata": {
       "api_version": {
         "major_version": "v2",
-        "minor_version": "2021-11-27"
+        "minor_version": "2018-11-08"
       }
     },
     "variables": [
+      {
+        "title": "deployment_id",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "deployment_id",
+        "data_type": "any",
+        "description": ""
+      },
       {
         "title": "model_id",
         "variable": "model_id",
@@ -1580,8 +1885,9 @@
     "learning_opt_out": true
   },
   "description": "created for assistant 05c10d7d-336f-4d33-8cb3-5c53520d61ce",
-  "assistant_id": "67614f79-ba73-4c10-a90f-9b647f797521",
-  "workspace_id": "d7b6684e-45f0-4fed-967e-c1091494f945",
+  "assistant_id": "bd63fead-e90b-43b4-9e57-e0fb90553861",
+  "workspace_id": "a901b7b6-c8aa-4bf1-a61e-e885ecffe9ea",
   "dialog_settings": {},
-  "next_snapshot_version": "1"
+  "next_snapshot_version": "1",
+  "environment_id": "77419769-c935-4105-8da5-87a20d970abb"
 }
