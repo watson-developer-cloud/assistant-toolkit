@@ -467,7 +467,7 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "540081b16fe217626f2ff197e583c2f1c7ef19f0752c8b875ec454036cfdda7f",
+                  "spec_hash_id": "fee06cd24334b3cb80a4d75c28882b1bdaf910e93ce214f1a4e0d48840e518de",
                   "catalog_item_id": "16bf38b2-037f-4f95-87d3-77ad737b3c0f"
                 },
                 "request_mapping": {
