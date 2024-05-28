@@ -1,5 +1,3 @@
-Note: This document is in a temporary location until this content is moved into the [main IBM watsonx Assistant documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-overview) tutorials section.
-
 This will cover how to extend IBM watsonx Assistant web chat to be able to use the Watson Speech service to convert speech to text and text to speech.
 
 These steps assume that you have already created a Watson Speech service instance.
@@ -103,5 +101,3 @@ function addRecordButton(instance) {
   instance.writeableElements.beforeInputElement.appendChild(button);
 }
 ```
-
-For complete working code see [the example in our GitHub repository](https://github.com/watson-developer-cloud/assistant-toolkit/tree/master/integrations/webchat/examples/speech-and-text).

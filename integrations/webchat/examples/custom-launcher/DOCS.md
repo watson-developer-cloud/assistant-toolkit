@@ -1,5 +1,3 @@
-Note: This document is in a temporary location until this content is moved into the [main IBM watsonx Assistant documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-overview) tutorials section.
-
 To display a custom launcher for web chat follow the steps below.
 
 1. First you will need to create the element that will be your custom launcher. This can be anything you want on your webpage and does not necessarily have to be a button. But for this example we are just going to use a simple button.
@@ -33,5 +31,3 @@ function viewChangeHandler(event) {
   }
 }
 ```
-
-For complete working code see [the example in our GitHub repository](https://github.com/watson-developer-cloud/assistant-toolkit/tree/master/integrations/webchat/examples/custom-launcher).

@@ -51,7 +51,6 @@ This example is configured to use an existing assistant set up for common use by
 
 - Import the [actions.json](actions.json) file located in the repository for this example into your assistant.
 - Modify the `integrationID`, `region`, `serviceInstanceID` and `subscriptionID` (only for enterprise accounts) in the `watsonAssistantChatOptions` used in this example to match those in the web chat embed code for your assistant.
-- Copy your public key into the file `server/nodejs-express/keys/example-jwtRS256.key.pub` and copy your private key into the file `server/nodejs-express/keys/example-jwtRS256.key`.
+- Copy your public key into the file `server/nodejs-express/keys/example-jwtRS256.key.pub` and copy your private key into the file `server/nodejs-express/keys/example-jwtRS256.key`. Note that you'll need to restart the server if you change these files.
 - Open the Security tab for the web chat settings page.
 - Copy your public key into the "Your public key" field.
-- Copy the "IBM provided public key" into the file `server/nodejs-express/keys/ibmPublic.key.pub`.
