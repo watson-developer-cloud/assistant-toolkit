@@ -3,10 +3,10 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2024-04-24T17:13:35.121Z",
-  "updated": "2024-04-25T18:44:15.609Z",
+  "created": "2024-02-28T19:44:41.345Z",
+  "updated": "2024-05-22T18:49:03.721Z",
   "language": "en",
-  "skill_id": "7f2b5c5f-f0b1-4566-a27b-c1ef40c85eec",
+  "skill_id": "e48ccc68-7d45-44c4-babb-c9efaf717c2b",
   "workspace": {
     "actions": [
       {
@@ -124,7 +124,8 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "0988f31a617dc5ff6b276fdc3be98135801830c3ceeac02a58846426fe81c974",
-                  "catalog_item_id": "520efed4-c7f9-41ec-9235-917537b9f7cd"
+                  "match_scenario": 5,
+                  "catalog_item_id": "d3615e2d-2ed1-4a12-b38a-6befaebf6cbb"
                 },
                 "request_mapping": {
                   "body": [
@@ -986,8 +987,9 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "540081b16fe217626f2ff197e583c2f1c7ef19f0752c8b875ec454036cfdda7f",
-                  "catalog_item_id": "17540f61-7e46-464e-9f8d-7ceffb42b7e0"
+                  "spec_hash_id": "fee06cd24334b3cb80a4d75c28882b1bdaf910e93ce214f1a4e0d48840e518de",
+                  "match_scenario": 1,
+                  "catalog_item_id": "c3899a4f-2ba6-4427-8ff3-823a0a5cc7d8"
                 },
                 "request_mapping": {
                   "body": [
@@ -1934,7 +1936,7 @@
     "metadata": {
       "api_version": {
         "major_version": "v2",
-        "minor_version": "2018-11-08"
+        "minor_version": "2021-11-27"
       }
     },
     "variables": [
@@ -2391,9 +2393,9 @@
     "learning_opt_out": true
   },
   "description": "created for assistant fcee95d0-3673-43ea-9349-9e4458738da2",
-  "assistant_id": "e4344152-0ffc-4950-bad2-726f6b06ae5a",
-  "workspace_id": "7f2b5c5f-f0b1-4566-a27b-c1ef40c85eec",
+  "assistant_id": "52d5828a-8dfd-4c59-9c14-00d4b940cac5",
+  "workspace_id": "e48ccc68-7d45-44c4-babb-c9efaf717c2b",
   "dialog_settings": {},
   "next_snapshot_version": "1",
-  "environment_id": "00a9dd4c-82c2-46c0-b69b-280e08dd52ce"
+  "environment_id": "d9d8d7c5-6528-4bee-ab99-c3f9e1a3fee2"
 }

@@ -45,6 +45,8 @@ Use this specification file to create and add the extension to your assistant.
 
 1.  In **Authentication**, choose **OAuth 2.0**. Select **Custom apikey** as the grant type in the next dropdown, and then copy and paste your [API key](#create-an-api-key-and-a-project-id) you saved earlier into the **Apikey** field.
 
+1.  In **Servers**, choose the region from which you would like to access the watsonx.ai service. `us-south` is selected as the default region. 
+
 If you need capabilities that are not in the watsonx specification provided, feel free to add them to the watsonx openapi specification. The specification in the kit is intended to be an example of how to get started, not a comprehensive encoding of everything that the API can do.
 
 ## Upload sample action
