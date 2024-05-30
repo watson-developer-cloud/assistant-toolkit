@@ -27,6 +27,11 @@ export function preWebhook(req, res) {
   }
   payload.context.skills['actions skill'].skill_variables.pre_webhook_message = `${response_message}\n${auth_result}`;
 
+  // Set header X-Watson-Assistant-Webhook-Return if input is skip
+  if (payload.input.text === 'skip') {
+    res.set('X-Watson-Assistant-Webhook-Return', 'yes');
+  }
+
   return res.json(req.body);
 }
 
