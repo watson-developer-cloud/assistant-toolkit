@@ -39,6 +39,7 @@ Then we have our **additional starter kits**. These focus on showcasing the brea
    - [LLM use case: Personalization](./starter-kits/language-model-personalization/)
    - [LLM use case: Summarization](./starter-kits/language-model-summarization/)
    - [Magnolia](./starter-kits/magnolia/)
+   - [Mail Sending](./starter-kits/mail-sending/)
    - [Mailchimp Campaign Management](./starter-kits/mailchimp/)
    - [Service Now](./starter-kits/servicenow/)
    - [Spotify](./starter-kits/spotify/)
