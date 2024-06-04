@@ -1,0 +1,14 @@
+{
+    "name": "procode-skill-sdk-js",
+    "version": "1.0.0",
+    "description": "Javascript SDK for implementing procode conversational skills.",
+    "author": "Pankaj Dhoolia<pdhoolia@in.ibm.com>",
+    "type": "module",
+
+    "scripts": {
+        "test": "node --experimental-vm-modules --experimental-json-modules node_modules/.bin/jest"
+    },
+    "devDependencies": {
+        "jest": "^29.7.0"
+    }
+}

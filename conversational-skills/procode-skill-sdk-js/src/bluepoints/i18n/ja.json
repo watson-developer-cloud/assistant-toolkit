@@ -1,0 +1,26 @@
+{
+    "recipient": {
+        "description": "ブルーポイントを移行する従業員の名前",
+        "prompt": "誰にブルーポイントを移行しますか？",
+        "validationErrorTemplate": "指定された従業員を見つけることができませんでした。もう一度試してください。"
+    },
+    "recipientSelector": {
+        "description": "ブルーポイントを移行する具体的な従業員",
+        "prompt": "ブルーポイントを移行する従業員を選択してください：",
+        "validationErrorTemplate": "リストから受取人を選択する必要があります。もう一度試してください。"
+    },
+    "numberOfBluepoints": {
+        "description": "移行するブルーポイントの数",
+        "prompt": "いくつのブルーポイントを移行しますか？",
+        "validationErrorTemplate": "有効な数を入力してください。${bluepointsBalance} との間である必要があります。"
+    },
+    "confirmation": {
+        "description": "ブルーポイントの移行を確認",
+        "prompt": "${numberOfBluepoints} ブルーポイントを ${recipient} に移行します。確認してください。",
+        "validationErrorTemplate": "有効な値を選択してください。"
+    },
+    "transferSuccessful": "ブルーポイントの移行に成功しました。",
+    "noBluepointsAvailable": "移行可能なブルーポイントがありません。",
+    "transferCancelled": "急がなくても大丈夫です。ブルーポイントの移行はいつでもできます。",
+    "invalidConfirmationEvent": "確認イベントに無効な値があります: ${confirmation_event}。"
+}
