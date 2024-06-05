@@ -9,3 +9,6 @@ We believe that if we can help you leverage all of the capabilities available wi
 
 ## Integrations
 There are many different ways to integrate with IBM watsonx Assistant. This includes many built in channel integrations such as Webchat and Phone but also extends out to many different types of webhooks that can enable all kinds of use cases. The [integrations section](https://github.com/watson-developer-cloud/assistant-toolkit/tree/master/integrations) in this repo contains many useful assets that can be downloaded and used to enhance the capabilities of your IBM watsonx Assistant instance. 
+
+## Conversational Skills
+Conversational skills are a method to interact with automations in watsonx Orchestrate using assistants created with the Conversation builder. The [conversational skills](https://github.com/watson-developer-cloud/assistant-toolkit/tree/master/conversational-skills) section in this repo contains examples and an SDK to help create code-based conversational skills for use in watsonx Orchestrate. For more information view [the watsonx Orchestrate documentation](https://www.ibm.com/docs/en/watson-orchestrate).

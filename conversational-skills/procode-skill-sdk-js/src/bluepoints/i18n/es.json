@@ -1,0 +1,26 @@
+{
+    "recipient": {
+        "description": "Nombre del empleado al que transferir los bluepoints",
+        "prompt": "¿A quién quieres transferir los bluepoints?",
+        "validationErrorTemplate": "No pudimos encontrar al empleado mencionado. Por favor, inténtalo de nuevo."
+    },
+    "recipientSelector": {
+        "description": "El empleado exacto al que transferir los bluepoints",
+        "prompt": "Selecciona al empleado al que transferir los bluepoints:",
+        "validationErrorTemplate": "Necesitas seleccionar un destinatario de la lista. Por favor, inténtalo de nuevo."
+    },
+    "numberOfBluepoints": {
+        "description": "Cantidad de bluepoints a transferir",
+        "prompt": "¿Cuántos bluepoints deseas transferir?",
+        "validationErrorTemplate": "Por favor, introduce un número válido. Debe ser entre 1 y ${bluepointsBalance}."
+    },
+    "confirmation": {
+        "description": "Confirmación de la transferencia de bluepoints",
+        "prompt": "Por favor, confirma la transferencia de ${numberOfBluepoints} bluepoints a ${recipient}.",
+        "validationErrorTemplate": "Por favor, selecciona un valor válido."
+    },
+    "transferSuccessful": "Transferencia de Bluepoints exitosa.",
+    "noBluepointsAvailable": "No tienes ningún Bluepoint disponible para transferir.",
+    "transferCancelled": "Sin prisa, puedes transferir Bluepoints cuando quieras.",
+    "invalidConfirmationEvent": "El evento de confirmación tiene un valor no válido: ${confirmation_event}."
+}
