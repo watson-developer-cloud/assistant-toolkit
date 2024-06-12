@@ -1,5 +1,3 @@
-Note: This document is in a temporary location until this content is moved into the [main IBM watsonx Assistant documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-overview) tutorials section.
-
 To display information from an extension in a custom response, follow these steps. The extension used in this tutorial is an API provided by the National Bank of Poland that allows you to obtain the currency exchange rate between a currency of your choosing and the Polish złoty.
 
 This tutorial will make use of two different custom responses. The first custom response will display a custom card that will ask the user to select a currency and an amount that is to be exchanged. When the user clicks the "Exchange" button, it will send a message to the assistant with the values entered. The assistant will call the extension which will obtain the exchange rate and then it will calculate the resulting exchange amount and return that to web chat which will display the result in a second custom response.
@@ -122,5 +120,3 @@ function currencyOutputHandler(event) {
   `;
 }
 ```
-
-For complete working code see [the example in our GitHub repository](https://github.com/watson-developer-cloud/assistant-toolkit/tree/master/integrations/webchat/examples/custom-response).

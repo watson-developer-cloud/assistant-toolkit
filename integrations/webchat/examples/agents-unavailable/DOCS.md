@@ -1,7 +1,3 @@
-Note: This document is in a temporary location until this content is moved into the [main IBM watsonx Assistant documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-overview) tutorials section.
-
-For complete working code see [the example in our GitHub repository](https://github.com/watson-developer-cloud/assistant-toolkit/tree/master/integrations/webchat/examples/agents-unavailable).
-
 To take custom action, such as filing a ticket in an external system, when no live agents are available, follow the steps below.
 
 1. Register a listener for the `agent:areAnyAgentsOnline` event. This event is fired after every time it asks a service desk integration whether any agents are online/available. The event contains the result of that question.
