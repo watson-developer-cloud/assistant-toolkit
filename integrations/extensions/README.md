@@ -40,6 +40,7 @@ Then we have our **additional starter kits**. These focus on showcasing the brea
    - [LLM use case: Summarization](./starter-kits/language-model-summarization/)
    - [Magnolia](./starter-kits/magnolia/)
    - [Mailchimp Campaign Management](./starter-kits/mailchimp/)
+   - [MS Teams File Upload](./starter-kits/ms-teams-file-upload/)
    - [Service Now](./starter-kits/servicenow/)
    - [Spotify](./starter-kits/spotify/)
    - [Test It ALL](./starter-kits/testitall/)
