@@ -16,7 +16,7 @@ Skill-backed actions, or _conversational skill actions_, enable builders of wats
 
 Pro-code creators of conversational skills must do the following: 
 (1) Register a conversational skill provider
-(2) Implement the [client-side endpoints](procode-endpoints.md) to the written specification on their personal host
+(2) Implement the [client-side endpoints](procode-endpoints.md) to the written specification on their personally hosted environment
 (3) Create a skill-backed action either through the API or through the watsonx Assistant UI*. 
 
 
@@ -29,6 +29,8 @@ The conversational skill provider must be registered on a watsonx Assistant inst
 Please reference [this document](procode-endpoints.md) to find documentation for client-side endpoints. Please note it is the client's responsibility to ensure that these APIs are implemented to spec for proper functionality. 
 
 As of this revision, we **do not** support deletion of the conversational_skill provider once it has been registered onto a watsonx Assistant instance.
+
+For in-depth examples on different authentication schemas, please reference the [cloud API documentation](https://cloud.ibm.com/apidocs/assistant-v2#createprovider).
 
 **Example cURL**
 
@@ -203,6 +205,8 @@ N/A
 ### Update a Conversational Skill Provider 
 
 The conversational skill provider may be updated to use a different host name, or different authentication type. The `provider_id`, as it is set by the user OR returned in the LIST /providers request, is required as a path parameter.
+
+For in-depth examples on different authentication schemas, please reference the [cloud API documentation](https://cloud.ibm.com/apidocs/assistant-v2#updateprovider).
 
 **Example cURL**
 

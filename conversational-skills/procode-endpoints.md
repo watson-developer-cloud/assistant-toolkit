@@ -16,111 +16,80 @@ You may find an example of a NodeJS SDK [here](procode-skill-sdk-js)
 
 **Example Request Body**
 ```json
-{
-    "input": {
-        /* Note: user text message */
-        "text": "<user-input-text>",
-        ...
-        "message_type": "<one of: text, search, ..., or event>",
-        "event": {
-            /* Note: proposed enhancements for conveying a selection */
-            "name": "selection",
-            "type": "<one of: single, multiple>",
-            /* mandatory when type is single */
-            "selected_item": {
-                /* one of (key, value), or index is mandatory */
-                "key": "<item-key-attribute>",
-                "value": "<item-key-value>",
-                "index": 0
-            },
-            /* mandatory when type is multiple */
-            "selected_items": [
-                { /* selected_item schema */ }
-            ],
-            "items": []
-        }
-    },
+request = {
+    "input": { /* WxA input schema */ },
     "context": {
         "global": {
-            ...
-            /* Note: session, assistant, and environment details */
+            /* Useful information for conversational_skill */
             "session_id": "<session-id>",
             "assistant_id": "<assistant-id>",
             "environment_id": "<environment-id>",
-            /* Note: `session_history` */
-            "session_history": []
+            "language": "<Assistant Language>",
+            "session_history": [],
         },
         "integrations": {
-            ...
             "chat": {
-                ...
                 "private": {
-                    /* auth: existing support */
-                    "jwt": "<token-issued-by-chat-host-enterprise>"
+                    "jwt": "<Any>" /* auth: existing support */,
                 }
             }
-        },
-        "skills": {
-            "main skill": {..},
-            "actions": {..},
-            "conversational skills": {
-                "stack": [
-                    {
-                        "type": "<one of: action, or conversational_skill>",
-                        /* One of the following is mandatory */
-                        "conversational_skill": "<conversational-skill-catalog-item-id>",
-                        "action": "<action-id>"
-                    }
-                ],
-                "<conversational-skill-catalog-item-id>": {
-                    "slots": {..},
-                    "local_variables": {
-                        "<variable>": Any
-                    }
-                },
-                "session_variables": {
-                    "<variable>": Any
-                }
-            },
-            "active_skill": "<one of: 'main skill', 'actions skill', 'conversational skills'>"
         }
     },
-    /* Slot change events */
-    "slots_changed": {
-        "added": [], /* newly filled slot names */
-        "repaired": [], /* repaired slot names */
-        "refined": [] /* refined slot names */
+    "slots": [
+        {
+            /*  Note: other slot details are not required to be communicated 
+            to the conversational_skill. it already has them.  */
+            "name": "<slot-name>",
+            "value": {
+                "normalized": "<normalized-value>",
+                "literal": "<literal-value>"
+            },
+            /* Flag to indicate if this turn filled, or repaired the value */
+            "event": "one of: fill, repair"
+        }
+    ],
+    "state": {
+        "current_slot": "<slot-name>",
+        "local_variables": {},
+        "session_variables": {}
     },
-    "output": {},
+    "confirmation_event": "<one of: user_confirmed | user_cancelled>"
 }
 ```
 
 **Response**
 
 ```json
-{
-    "context": {
-        ...
-        "skills": {
-            ...
-            "conversational skills": {
-                ...
-                /* Note: only this part of the context is writable for conversational_skills */
-                "<conversational-skill-catalog-item-id>": {
-                    "slots": {..},
-                    "local_variables": {
-                        "<variable>": Any
-                    }
-                },
-                "session_variables": {
-                    "<variable>": Any
-                }
-            },
-            ...
-        }
+response = {
+    "state": {
+        "local_variables": {},
+        "session_variables": {}
     },
-    "output": {},
-    "resolver": "<one of: continue, user-interaction, end-conversation, fallback, validation_failure, callout, invoke-another-skill, invoke-another-skill-and-end, invoke-another-action, invoke-another-action-and-end>"
+    "output": {
+        "generic": [ 
+            /*  Any sequence of WxA supported response_types schema 
+                + the following new response_type */
+            {
+                "response_type": "slots",
+                "slots": [{
+                    "name": "<a unique name for the slot>",
+                    "type": "one of: string | number | date | time | regex | entity | confirmation",
+                    "description": "<a description for the slot>",
+                    "validation_error": "<an error message to display to the user in case the slot value is not valid per business rules>",
+                    "prompt": Any,
+                    "value": {
+                        "normalized": "<normalized-value>",
+                        "literal": "<literal-value>"
+                    }
+                }],
+                "confirmation": Any
+            }
+        ]
+    },
+    "resolver": {
+        "type": "<one of: user_interaction, skill_complete, skill_cancel>",
+        "<type>": Any
+    }
 }
 ```
 
@@ -185,7 +154,7 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.11
 servers:
-  - url: www.derp.com
+  - url: www.my-hosted-provider.com
 tags:
   - name: Conversational Skills MVP
     description: Everything needed for the conversational skills
@@ -193,7 +162,7 @@ paths:
   /providers/{provider_id}/conversational_skills:
     get:
       tags:
-      - Conversational Skills MVP
+      - Conversational skill
       summary: Fetch a list of conversational skills
       description: "Retrieves a list of conversational skills associated to a particular provider."
       operationId: fetchSkills
@@ -244,19 +213,11 @@ paths:
   /providers/{provider_id}/conversational_skills/{conversational_skill_id}/orchestrate:
     post:
       tags:
-      - Conversational Skills MVP
+      - Conversational skill
       summary: Orchestrate a conversation
       description: "Sends user input along with conversation state (including slots and other context data) stored by watsonx Assistant, and the current turn output, to the conversational skill, to let it run its business logic and tell watsonx Assistant what to do next."
       operationId: orchestrate
       parameters:
-      - name: provider_id 
-        in: path
-        description: Unique identifier of the provider that possesses the conversational skill. It represents the instance that is linked with the WxA instance.
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: string
       - name: conversational_skill_id
         in: path
         description: Unique identifier of the conversational skill. It represents business logic to orchestrate a specific conversation.
@@ -266,7 +227,7 @@ paths:
         schema:
           type: string
       requestBody:
-        description: "The message to be sent. This includes the user's input, along with optional content such as intents and entities."
+        description: "The request to be sent to conversational skill. This includes the user's input (relayed from WxA /message API), WxA context, slots value state, and conversational skill state."
         content:
           application/json:
             schema:
@@ -280,12 +241,6 @@ paths:
                 $ref: '#/components/schemas/OrchestrationResponse'
         "400":
           description: Invalid request.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        "500":
-          description: Internal error.
           content:
             application/json:
               schema:
@@ -330,9 +285,23 @@ components:
           $ref: '#/components/schemas/MessageInput'
         context:
           $ref: '#/components/schemas/MessageContext'
-        output:
-          $ref: '#/components/schemas/MessageOutput'
+        slots:
+          type: array
+          description: "Slots runtime state (sans definition, since conversational skill is itself their source)."
+          items:
+            $ref: '#/components/schemas/SlotState'
+        state:
+          $ref: '#/components/schemas/ConversationalSkillStateInput'
       description: An orchestration request.
+    OrchestrationResponse:
+      properties:
+        output:
+          $ref: '#/components/schemas/ConversationalSkillOutput'
+        state:
+          $ref: '#/components/schemas/ConversationalSkillStateOutput'
+        resolver:
+          $ref: '#/components/schemas/OrchestrationResponse_resolver'
+      description: Response expected from Conversational skill.
     MessageInput:
       type: object
       properties:
@@ -340,13 +309,19 @@ components:
           type: string
           description: |-
             The type of the message:
+
             - `text`: The user input is processed normally by the assistant.
             - `search`: Only search results are returned. (Any dialog or action skill is bypassed.)
+            - `event`: user interaction event communicated
+            - `form`: user interaction results on a form display communicated
+
             **Note:** A `search` message results in an error if no search skill is configured for the assistant.
           default: text
           enum:
           - text
           - search
+          - form
+          - event
         text:
           maxLength: 2048
           minLength: 1
@@ -358,6 +333,8 @@ components:
           description: "An array of multimedia attachments to be sent with the message. Attachments are not processed by the assistant itself, but can be sent to external services by webhooks. \n\n **Note:** Attachments are not supported on IBM Cloud Pak for Data."
           items:
             $ref: '#/components/schemas/MessageInputAttachment'
+      additionalProperties:
+        description: "For use with event, and form type of messages."
       description: An input object that includes the input text.
     MessageInputAttachment:
       required:
@@ -379,15 +356,23 @@ components:
           $ref: '#/components/schemas/MessageContextSkills'
         integrations:
           type: object
-          description: "An object containing context data that is specific to particular integrations. For more information, see the [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-dialog-integrations)."
+          description: "An object containing context data that is specific to particular integrations. For more information, see the [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-dialog-integrations). This will include `chat.private.jwt` containing Cade's SSO security token."
     MessageContextGlobal:
       allOf:
       - $ref: '#/components/schemas/BaseMessageContextGlobal'
       - properties:
           session_id:
             type: string
-            description: The session ID.
-            readOnly: true
+            description: WxA session ID.
+          assistant_id:
+            type: string
+            description: WxA assistant ID.
+          environment_id:
+            type: string
+            description: WxA environment ID.
+          session_history:
+            $ref: '#/components/schemas/SessionHistory'
+        description: Built-in system properties that apply to all skills used by the assistant.
     BaseMessageContextGlobal:
       type: object
       properties:
@@ -406,6 +391,7 @@ components:
           type: string
           description: |-
             A string value that identifies the user who is interacting with the assistant. The client must provide a unique identifier for each individual end user who accesses the application. For user-based plans, this user ID is used to identify unique users for billing purposes. This string cannot contain carriage return, newline, or tab characters. If no value is specified in the input, **user_id** is automatically set to the value of **context.global.session_id**.
+
             **Note:** This property is the same as the **user_id** property at the root of the message body. If **user_id** is specified in both locations in a message request, the value specified at the root is used.
         turn_count:
           type: integer
@@ -414,6 +400,7 @@ components:
           type: string
           description: |-
             The language code for localization in the user input. The specified locale overrides the default for the assistant, and is used for interpreting entity values in user input such as date values. For example, `04/03/2018` might be interpreted either as April 3 or March 4, depending on the locale.
+
              This property is included only if the new system entities are enabled for the skill.
           enum:
           - en-us
@@ -435,12 +422,15 @@ components:
           type: string
           description: |-
             The base time for interpreting any relative time mentions in the user input. The specified time overrides the current server time, and is used to calculate times mentioned in relative terms such as `now` or `tomorrow`. This can be useful for simulating past or future times for testing purposes, or when analyzing documents such as news articles.
+
             This value must be a UTC time value formatted according to ISO 8601 (for example, `2021-06-26T12:00:00Z` for noon UTC on 26 June 2021).
+
             This property is included only if the new system entities are enabled for the skill.
         session_start_time:
           type: string
           description: |-
             The time at which the session started. With the stateful `message` method, the start time is always present, and is set by the service based on the time the session was created. With the stateless `message` method, the start time is set by the service in the response to the first message, and should be returned as part of the context with each subsequent message in the session.
+
             This value is a UTC time value formatted according to ISO 8601 (for example, `2021-06-26T12:00:00Z` for noon UTC on 26 June 2021).
         state:
           type: string
@@ -465,7 +455,7 @@ components:
           enum:
           - main skill
           - actions skill
-          - conversational skills
+          - conversational_skills
       description: Context data specific to particular skills used by the assistant.
     MessageContextDialogSkill:
       allOf:
@@ -508,36 +498,60 @@ components:
     MessageContextConversationalSkills:
       allOf:
       - $ref: '#/components/schemas/BaseMessageContextSkill'
-      - type: object
-        properties:
-          session_variables:
-            type: object
-            additionalProperties:
-              description: A session variable
-            description: An object containing variables that the conversational skills want to share with other skills in the assistant beyond their execution. Session variables can be accessed by any conversational skill / action and persist for the duration of the session.
-        additionalProperties:
-          $ref: '#/components/schemas/MessageContextConversationalSkill'
-    MessageContextConversationalSkill:
-      properties:
-        slots:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/Slot'
-          description: "An object containing the slots, which, the conversational skill intends to gather or repair based on user input."
-        local_variables:
-          type: object
-          additionalProperties:
-            description: An conversation skill variable.
-          description: "An object containing local variables. Local variables can be accessed by the conversational skill, and do not persist after the conversational skill ends."
-      description: "Slots and variables that are used by the conversational skill for its processing. This area is specific to a conversational skill. It is not shared with other skills, and is not persisted beyond the completion of the conversational skill."
-    MessageOutput:
+    ConversationalSkillOutput:
       properties:
         generic:
           type: array
-          description: Output intended for any channel. It is the responsibility of the client application to implement the supported response types.
+          description: Ordered list of responses.
           items:
-            $ref: '#/components/schemas/RuntimeResponseGeneric'
-      description: Assistant output to be rendered or processed by the client.
+            $ref: '#/components/schemas/ConversationalResponseGeneric'
+      description: "Conversational skill output uses the same schema as that of WxA message output, with some enhancements. In addition, it includes an internally processed response_type for conveying slots in flight."
+    ConversationalResponseGeneric:
+      discriminator:
+        propertyName: response_type
+        mapping:
+          slots: '#/components/schemas/ResponseTypeSlots'
+          audio: '#/components/schemas/RuntimeResponseTypeAudio'
+          channel_transfer: '#/components/schemas/RuntimeResponseTypeChannelTransfer'
+          connect_to_agent: '#/components/schemas/RuntimeResponseTypeConnectToAgent'
+          date: '#/components/schemas/RuntimeResponseTypeDate'
+          iframe: '#/components/schemas/RuntimeResponseTypeIframe'
+          image: '#/components/schemas/RuntimeResponseTypeImage'
+          option: '#/components/schemas/RuntimeResponseTypeOption'
+          suggestion: '#/components/schemas/RuntimeResponseTypeSuggestion'
+          pause: '#/components/schemas/RuntimeResponseTypePause'
+          search: '#/components/schemas/RuntimeResponseTypeSearch'
+          text: '#/components/schemas/RuntimeResponseTypeText'
+          user_defined: '#/components/schemas/RuntimeResponseTypeUserDefined'
+          video: '#/components/schemas/RuntimeResponseTypeVideo'
+      oneOf:
+      - $ref: '#/components/schemas/ResponseTypeSlots'
+      - $ref: '#/components/schemas/RuntimeResponseTypeText'
+      - $ref: '#/components/schemas/RuntimeResponseTypePause'
+      - $ref: '#/components/schemas/RuntimeResponseTypeImage'
+      - $ref: '#/components/schemas/RuntimeResponseTypeOption'
+      - $ref: '#/components/schemas/RuntimeResponseTypeConnectToAgent'
+      - $ref: '#/components/schemas/RuntimeResponseTypeSuggestion'
+      - $ref: '#/components/schemas/RuntimeResponseTypeChannelTransfer'
+      - $ref: '#/components/schemas/RuntimeResponseTypeSearch'
+      - $ref: '#/components/schemas/RuntimeResponseTypeUserDefined'
+      - $ref: '#/components/schemas/RuntimeResponseTypeVideo'
+      - $ref: '#/components/schemas/RuntimeResponseTypeAudio'
+      - $ref: '#/components/schemas/RuntimeResponseTypeIframe'
+      - $ref: '#/components/schemas/RuntimeResponseTypeDate'
+    ResponseTypeSlots:
+      required:
+      - response_type
+      - slots
+      properties:
+        response_type:
+          type: string
+          description: The type of response returned by the dialog node. The specified response type must be supported by the client application or channel.
+        slots:
+          type: array
+          description: The ordered list of slots in flight that WxA should strive to prompt/fill/repair.
+          items:
+            $ref: '#/components/schemas/SlotInFlight'
     RuntimeResponseGeneric:
       discriminator:
         propertyName: response_type
@@ -957,6 +971,7 @@ components:
           type: string
           description: |-
             The unique identifier of the document in the Discovery service collection.
+
             This property is included in responses from search skills, which are available only to Plus or Enterprise plan users.
         result_metadata:
           $ref: '#/components/schemas/SearchResultMetadata'
@@ -1028,28 +1043,6 @@ components:
           description: "An unbounded measure of the relevance of a particular result, dependent on the query and matching document. A higher score indicates a greater match to the query parameters."
           format: double
       description: An object containing search result metadata from the Discovery service.
-    OrchestrationResponse:
-      required:
-      - context
-      - output
-      - resolver
-      properties:
-        context:
-          allOf:
-          - $ref: '#/components/schemas/MessageContext'
-          - description: "Only the `skills['conversational skills']` part of the context is writeable by conversational skills. The skill should updates its state comprising of `slots`, `local_variables` and `session_variables`."
-        output:
-          $ref: '#/components/schemas/MessageOutput'
-        resolver:
-          type: string
-          description: A resolver is a way for the conversational skill to indicate how it wants the Assistant to proceed.
-          enum:
-          - continue
-          - user-interaction
-          - end-conversation
-          - fallback
-          - validation_error
-      description: Response expected from Conversational skill.
     ErrorResponse:
       required:
       - code
@@ -1076,32 +1069,6 @@ components:
         path:
           type: string
           description: The location of the constraint violation.
-    Slot:
-      required:
-      - description
-      - type
-      type: object
-      properties:
-        description:
-          type: string
-          description: Natural language description resembling how the assistant prompts for the slot.
-        type:
-          type: string
-          description: "Type of slot, e.g., free-text, sys-number, sys-date, sys-time, entity."
-          enum:
-          - free-text
-          - sys-number
-          - sys-date
-          - sys-time
-          - entity
-        schema:
-          $ref: '#/components/schemas/EntitySchema'
-        value:
-          type: string
-          description: "Optional, normalized value for the slot, if already filled."
-        literal:
-          type: string
-          description: "Optional, literal value entered by the user, if slot is already filled and different from normalized value."
     EntitySchema:
       required:
       - entity
@@ -1109,7 +1076,7 @@ components:
       properties:
         entity:
           type: string
-          description: watsonx Assistant's entity schema name.
+          description: Watson Assistant's entity schema name.
         values:
           type: array
           items:
@@ -1126,6 +1093,144 @@ components:
           type: array
           items:
             type: string
+    UserMessage:
+      required:
+      - u
+      type: object
+      properties:
+        u:
+          type: string
+          description: User messages
+        "n":
+          type: boolean
+          description: true value indicates if it is a new conversation
+          nullable: true
+    AssistantMessage:
+      required:
+      - a
+      type: object
+      properties:
+        a:
+          type: string
+          description: Assistant message
+    SessionHistoryMessage:
+      discriminator:
+        propertyName: role
+        mapping:
+          u: '#/components/schemas/UserMessage'
+          a: '#/components/schemas/AssistantMessage'
+      oneOf:
+      - $ref: '#/components/schemas/UserMessage'
+      - $ref: '#/components/schemas/AssistantMessage'
+    SessionHistory:
+      type: array
+      description: An array of message objects representing the session history.
+      items:
+        $ref: '#/components/schemas/SessionHistoryMessage'
+    SlotInFlight:
+      allOf:
+      - $ref: '#/components/schemas/SlotState'
+      - type: object
+        properties:
+          type:
+            type: string
+            description: The type of the slot value.
+            enum:
+            - string
+            - number
+            - date
+            - time
+            - regex
+            - entity
+          schema:
+            $ref: '#/components/schemas/EntitySchema'
+          description:
+            type: string
+            description: A description for the slot.
+          validation_error:
+            type: string
+            description: An error message to display to the user in case the slot value is not valid per the business rules.
+          prompt:
+            type: object
+            description: "The prompt to present to the user. Can be a string or a more complex object for RuntimeResponseGeneric. If neither, it's considered RuntimeResponseTypeUserDefined."
+            discriminator:
+              propertyName: type
+              mapping:
+                string: '#/components/schemas/TextPrompt'
+                RuntimeResponseGeneric: '#/components/schemas/RuntimeResponseGeneric'
+            oneOf:
+            - type: string
+            - $ref: '#/components/schemas/RuntimeResponseGeneric'
+        description: "Slot definition needed to prompt, collect, and convey errors"
+    BaseSlot:
+      type: object
+      properties:
+        name:
+          type: string
+          description: A unique name for the slot.
+    SlotValue:
+      required:
+      - normalized
+      type: object
+      properties:
+        normalized:
+          type: string
+          description: The normalized value of the slot.
+        literal:
+          type: string
+          description: The literal value as provided by the user.
+    SlotState:
+      allOf:
+      - $ref: '#/components/schemas/BaseSlot'
+      - type: object
+        properties:
+          value:
+            $ref: '#/components/schemas/SlotValue'
+          event:
+            type: string
+            description: |-
+              Type of the event:
+              - `fill`: the value has been newly filled.
+              - `repair`: previous value has been modified.
+              - `refine`: previous ambiguous value has been resolved with a selection
+            enum:
+            - fill
+            - repair
+            - refine
+        description: Contains just the state of the slot
+    ConversationalSkillStateOutput:
+      type: object
+      properties:
+        local_variables:
+          type: object
+          additionalProperties: true
+          description: Local scope variables that the conversational skill needs across turns to orchestrate the conversation.
+        session_variables:
+          type: object
+          additionalProperties: true
+          description: Conversation session scoped variables that the skill wants to share with other skills. These variables may live beyond the conclusion of the conversation being orchestrated by the skill.
+    ConversationalSkillStateInput:
+      allOf:
+      - $ref: '#/components/schemas/ConversationalSkillStateOutput'
+      - type: object
+        properties:
+          current_slot:
+            type: string
+            description: Reference to the currently prompted slot (name).
+    OrchestrationResponse_resolver:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - continue
+          - user_interaction
+          - end_conversation
+          - fallback
+          - validation_error
+      additionalProperties:
+        description: Resolver type specific data
+      description: A resolver is a way for the conversational skill to indicate how it wants the Assistant to proceed.
   parameters:
     ConversationalSkillPathParam:
       name: conversational_skill_id
