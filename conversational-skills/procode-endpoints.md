@@ -218,6 +218,14 @@ paths:
       description: "Sends user input along with conversation state (including slots and other context data) stored by watsonx Assistant, and the current turn output, to the conversational skill, to let it run its business logic and tell watsonx Assistant what to do next."
       operationId: orchestrate
       parameters:
+      - name: provider_id 
+        in: path
+        description: Unique identifier of the provider that possesses the conversational skill. It represents the instance that is linked with the WxA instance.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
       - name: conversational_skill_id
         in: path
         description: Unique identifier of the conversational skill. It represents business logic to orchestrate a specific conversation.
