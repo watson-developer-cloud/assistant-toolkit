@@ -4,7 +4,7 @@ This starter kit demonstrates how to send emails with WatsonX Assistant by build
 
 ## Prerequisites
 
-In order to send emails with this starter kit, you need to have an SMTP server that you can use to send emails. If you don't have an SMTP server, you can use a third-party service like [Gmail](https://kinsta.com/blog/gmail-smtp-server/). Please note the smtp extension server provided with this starter kit only supports SMTP servers that uses either insecure connections or secure connections with TLS.
+In order to send emails with this starter kit, you need to have an SMTP server that you can use to send emails. If you don't have an SMTP server, you can use a third-party service like [Gmail](https://kinsta.com/blog/gmail-smtp-server/). Please note the smtp extension server provided with this starter kit only supports SMTP servers that use either insecure connections or secure connections with TLS.
 
 Please prepare the following information before you start:
 - SMTP server address
