@@ -1,0 +1,101 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Email Service API",
+      "version": "1.0.0"
+    },
+    "servers": [
+      {
+        "url": "https://{host}:{port}",
+        "description": "The address of SMTP extension server",
+        "variables": {
+          "host": {
+            "default": "",
+            "description": "Hostname of the API server"
+          },
+          "port": {
+            "default": "443",
+            "description": "Port of the API server"
+          }
+        }
+      }
+    ],
+    "paths": {
+      "/send": {
+        "post": {
+          "summary": "Send an email",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "receiver": {
+                      "type": "string"
+                    },
+                    "subject": {
+                      "type": "string"
+                    },
+                    "body": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "receiver",
+                    "subject",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Email sent successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      },
+                      "success": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized - Bearer token is missing or invalid"
+            },
+            "500": {
+              "description": "An error occurred while sending the email"
+            }
+          },
+          "security": [
+            {
+              "BearerAuth": []
+            }
+          ]
+        }
+      }
+    },
+    "security": [
+      {
+        "BearerAuth": []
+      }
+    ],
+    "components": {
+      "securitySchemes": {
+        "BearerAuth": {
+          "type": "http",
+          "scheme": "bearer"
+        }
+      }
+    }
+}
+  
