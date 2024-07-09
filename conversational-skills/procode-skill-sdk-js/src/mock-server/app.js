@@ -1,49 +1,30 @@
-// Copyright 2024 davidamid
-// 
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-// 
-//     https://www.apache.org/licenses/LICENSE-2.0
-// 
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-// load environment variables from .env file
-dotenv.config();
-
 // import dependencies and initialize express
 
 import express from 'express';
-import path from 'path';
 import bodyParser from 'body-parser';
 
 import {createBluepointsSkill} from '../bluepoints/BluepointsSkillFactory.js';
 
-import morgan from "morgan";
-
-import dotenv from 'dotenv';
-
-
 const app = express();
 
-// enable access log
-app.use(morgan('dev'));
+
 
 // enable parsing of http request body
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-// access to static files
-app.use(express.static(path.join('public')));
 
 // routes and api calls
 
 const bluepointsSkill = await createBluepointsSkill('en'); 
 
+/**
+ * This function lists the skills available by your provider. It will be called when you select which skills are part of your Assistant.
+ * It follows the OAS specification /orchestrate Operation. See https://github.com/watson-developer-cloud/assistant-toolkit/blob/master/conversational-skills/procode-endpoints.md#oas
+ * @param req - This is an express request. The request contains the following info `provider_id` ( path param), assistant_id ( query param), environment_id ( query param)
+ * @param res - This is an express response. The json returned should adhere to the schema defined in the OAS specification `ListSkillsResponse` component
+ * @param next 
+ */
 function listSkills(req,res,next) {
   const response = {
     "conversational_skills": [
@@ -66,6 +47,13 @@ function listSkills(req,res,next) {
 app.post('/providers/:provider_id/conversational_skills/:conversational_skill_id/orchestrate', orchestrate);
 app.get('/providers/:provider_id/conversational_skills', listSkills);
 
+/**
+ * This function implements the runtime contract between watsonx Assistant and the Provider
+ * It follows the OAS specification /orchestrate Operation. See https://github.com/watson-developer-cloud/assistant-toolkit/blob/master/conversational-skills/procode-endpoints.md#oas
+ * @param req - This is an express request. The `body` property adheres to the schema defined in the OAS specification `OrchestrationRequest` component
+ * @param res - This is an express response. The json returned should adhere to the schema defined in the OAS specification `OrchestrationResponse` component
+ * @param next 
+ */
 async function orchestrate(req,res,next) {
   const skillResponse = await bluepointsSkill.orchestrate({input:req.body.input,context:req.body.context, slots:req.body.slots, state: req.body.state, confirmation_event: req.body.confirmation_event});
   res.json(skillResponse);
