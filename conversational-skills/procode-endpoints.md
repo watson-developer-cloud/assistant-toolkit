@@ -560,6 +560,11 @@ components:
           description: The ordered list of slots in flight that WxA should strive to prompt/fill/repair.
           items:
             $ref: '#/components/schemas/SlotInFlight'
+        confirmation:
+          type: object
+            properties:
+              prompt:
+                type: string
     RuntimeResponseGeneric:
       discriminator:
         propertyName: response_type
@@ -1231,9 +1236,10 @@ components:
         type:
           type: string
           enum:
-          - continue
           - user_interaction
-          - end_conversation
+          - skill_complete
+          - skill_cancel
+          - catch_all
           - fallback
           - validation_error
       additionalProperties:
