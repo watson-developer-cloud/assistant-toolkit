@@ -19,9 +19,9 @@ app.use(bodyParser.json());
 const bluepointsSkill = await createBluepointsSkill('en'); 
 
 /**
- * This function lists the skills available by your provider. It will be called when you select which skills are part of your Assistant.
- * It follows the OAS specification /orchestrate Operation. See https://github.com/watson-developer-cloud/assistant-toolkit/blob/master/conversational-skills/procode-endpoints.md#oas
- * @param req - This is an express request. The request contains the following info `provider_id` ( path param), assistant_id ( query param), environment_id ( query param)
+ * This function lists the skills available by your provider. It will be called by the Assistant UI when selecting skills to create a code-based action.
+ * It follows the OAS specification /conversational_skills Operation. See https://github.com/watson-developer-cloud/assistant-toolkit/blob/master/conversational-skills/procode-endpoints.md#oas
+ * @param req - This is an express request. The request contains the following info `provider_id` ( path param ), assistant_id ( query param ), environment_id ( query param )
  * @param res - This is an express response. The json returned should adhere to the schema defined in the OAS specification `ListSkillsResponse` component
  * @param next 
  */
