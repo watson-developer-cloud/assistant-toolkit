@@ -6,8 +6,17 @@
     "type": "module",
 
     "scripts": {
-        "test": "node --experimental-vm-modules --experimental-json-modules node_modules/.bin/jest"
+        "test": "node --experimental-vm-modules --experimental-json-modules node_modules/.bin/jest",
+        "start": "node src/mock-server/app.js"
     },
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "express": "^4.17.1",
+        "express-validator": "^6.9.2",
+        "helmet": "^4.3.1",
+        "install": "^0.13.0",
+        "npm": "^8.19.2"
+      },
     "devDependencies": {
         "jest": "^29.7.0"
     }
