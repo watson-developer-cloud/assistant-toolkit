@@ -170,9 +170,12 @@ steps below:
     - Post-message webhook: `"WA_POST_MESSAGE_SECRET"`.
    ![Webhook Configuration](./assets/webhook_env_config_2.png)
 
-There's some additional webhook endpoints provided by the mock server, for testing the error handling of the webhook:
+Here are the list of the endpoints for the pre/post message webhook. Beside the normal pre/post message webhook, there's some additional webhook endpoints provided for testing the error handling of the webhook.
+Replace the pre/post webhook URL in steps 5 with the following URLs to test different behaviors:
 | Endpoint | Description |
 |----------|-------------|
+| `webhook/prewebhook` | The server will modify the session variable `pre_webhook_message` while receiving the pre-message webhook call. When entering "skip" for message input, the webhook will include the `X-Watson-Assistant-Webhook-Return` header in its response, tells WA to skip the message processing and return whatever the webhooks returns. In this case, it will return message "Response skipped by webhook" |
+| `webhook/postwebhook` | The server will modify the session variable `post_webhook_message` while receiving the post-message webhook call |
 | `/webhook/error/non-json` | The server will return a non-JSON response instead of WA conversation context |
 | `/webhook/error/timeout` | The server will not respond to the webhooks request |
 | `/webhook/error/code` | The server will respond with code 500 |

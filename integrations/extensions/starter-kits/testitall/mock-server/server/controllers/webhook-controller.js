@@ -1,8 +1,26 @@
 import jwt from 'jsonwebtoken';
 
 export function preWebhook(req, res) {
+  const payload = req.body.payload;
+  
   let response_message = 'Sample value from API Server (pre-message)'
   let auth_result = 'No auth header provided'
+
+  if (payload.input.text === 'skip') {
+    // Set header X-Watson-Assistant-Webhook-Return if input is skip
+    res.set('X-Watson-Assistant-Webhook-Return', 'yes');
+    // Return a generic response that is send directly to the user
+    return res.json({
+      output: {
+        generic: [
+          {
+            response_type: 'text',
+            text: 'Response skipped by webhook'
+          }
+        ]
+      }
+    })
+  }
 
   // Validate the JWT token (if provided)
   const token = req.headers.authorization;
@@ -21,21 +39,23 @@ export function preWebhook(req, res) {
   }
 
   // Set the session variable
-  const payload = req.body.payload;
+  if (!payload.context.skills) {
+    payload.context.skills = {};
+  }
+  if (!payload.context.skills['actions skill']) {
+    payload.context.skills['actions skill'] = {};
+  }
   if (!payload.context.skills['actions skill'].skill_variables) {
     payload.context.skills['actions skill'].skill_variables = {};
   }
   payload.context.skills['actions skill'].skill_variables.pre_webhook_message = `${response_message}\n${auth_result}`;
 
-  // Set header X-Watson-Assistant-Webhook-Return if input is skip
-  if (payload.input.text === 'skip') {
-    res.set('X-Watson-Assistant-Webhook-Return', 'yes');
-  }
-
   return res.json(req.body);
 }
 
 export function postWebhook(req, res) {
+  const payload = req.body.payload;
+
   let response_message = 'Sample value from API Server (post-message)'
   let auth_result = 'No auth header provided'
 
@@ -56,7 +76,12 @@ export function postWebhook(req, res) {
   }
 
   // Set the session variable
-  const payload = req.body.payload;
+  if (!payload.context.skills) {
+    payload.context.skills = {};
+  }
+  if (!payload.context.skills['actions skill']) {
+    payload.context.skills['actions skill'] = {};
+  }
   if (!payload.context.skills['actions skill'].skill_variables) {
     payload.context.skills['actions skill'].skill_variables = {};
   }
