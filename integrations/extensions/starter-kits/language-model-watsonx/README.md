@@ -61,10 +61,13 @@ The starter kit includes [a JSON file with sample actions](./watsonx-actions.jso
 
 | Action                        | Description                                                                                                                                                                                   |
 | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Invoke watsonx Generation API | Connects to watson with the selected model and the model input                                                                                                                                |
-| Test model                    | Simple test action that asks what model, length, temperature and prompt you want and then calls "Invoke watsonx Generation API" so the model can generate a response to the specified prompt. |
+| Invoke watsonx Generation API | Connects to watson.ai with the selected model and the model input |
+| Invoke watsonx Generation Stream API | Connects to watsonx.ai with the selected model and model input and streams the response back to the user. |
+| Test model                    | Simple test action that asks what model, length, temperature, prompt you want, asks if you want to stream the response and then calls "Invoke watsonx Generation API" or "Invoke watsonx Generation Stream API" based on if streaming was required so the model can generate a response to the specified prompt. |
+| No Action Matches | This is created by watsonx Assistant, but for this starter kit it is configured to trigger the "Invoke watsonx Generation Stream API" as a sub-action using the defaults and the user input. |
 
 Note that the "Test model" action includes a step that invokes an extension and includes a parameter named `model_id`. You can set the `model_id` session variable to control which model is used by `Test model`. You can see which models work with the Generate API by viewing the supported foundation models in [the watsonx Prompt Lab](https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/fm-prompt-lab.html?context=wx).
+
 
 ### Session variables
 
