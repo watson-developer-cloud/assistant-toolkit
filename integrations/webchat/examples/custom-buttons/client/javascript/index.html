@@ -49,7 +49,8 @@
     let hasSentMessage = false;
 
     /**
-     * This will convert responses that contain buttons into custom responses so we can render them using custom code.
+     * This will convert responses that contain buttons into user defined responses so we can render them using custom
+     * code.
      */
     function preReceiveHandler(event) {
       const message = event.data;
@@ -58,7 +59,8 @@
         message.output.generic.forEach(messageItem => {
           // Message items that contain buttons have a response type of "option".
           if (messageItem.response_type === 'option') {
-            // This will turn this response into a custom response that will be rendered by our custom response handler.
+            // This will turn this response into a user defined response that will be rendered by our user defined response
+            // handler.
             messageItem.response_type = 'user_defined';
           }
         })
@@ -84,10 +86,10 @@
     }
 
     /**
-     * This function is called when a custom response should be rendered in web chat. This will use the data inside the
-     * message to render custom content - in this case a simple weather card.
+     * This function is called when a user defined response should be rendered in web chat. This will use the data
+     * inside the message to render custom content - in this case a simple weather card.
      */
-    function customResponseHandler(event) {
+    function userDefinedResponseHandler(event) {
       const { message, element, fullMessage } = event.data;
 
       // Here's where we create our custom buttons.
@@ -128,13 +130,13 @@
       // Save this instance so we can use it in our handlers.
       webChatInstance = instance;
 
-      // Listen for the customResponse event that will allow us to create content for the custom response when one is
-      // received. See https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#summary for more
-      // about our events.
-      instance.on({ type: 'customResponse', handler: customResponseHandler });
+      // Listen for the userDefinedResponse event that will allow us to create content for the user defined response
+      // when one is received. See https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#summary
+      // for more about our events.
+      instance.on({ type: 'userDefinedResponse', handler: userDefinedResponseHandler });
 
       // We will need to listen for the "pre:receive" event so we can convert the buttons (options) responses into
-      // custom responses.
+      // user defined responses.
       instance.on({ type: 'pre:receive', handler: preReceiveHandler });
 
       // Make sure that we disable the buttons each time the user sends a message.

@@ -8,7 +8,7 @@
     "lint:fix:dryrun": "eslint \"./{examples,contributing}/**/*.{js,jsx}\" --fix-dry-run"
   },
   "engines": {
-    "node": "^16.15.1"
+    "node": ">=18"
   },
   "devDependencies": {
     "eslint": "^7.32.0",

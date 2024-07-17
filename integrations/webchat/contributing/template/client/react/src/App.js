@@ -21,21 +21,26 @@ function App() {
   return (
     <>
       <div className="App">Hello World!</div>
-      <WebChatContainer renderCustomResponse={renderCustomResponse} onBeforeRender={setInstance} config={config} />;
+      <WebChatContainer
+        renderUserDefinedResponse={renderUserDefinedResponse}
+        onBeforeRender={setInstance}
+        config={config}
+      />
+      ;
     </>
   );
 }
 
 // TODO: Remove this if not needed.
 /**
- * This is the callback function that will render custom responses. It will look at the "user_defined_type" message
- * property to determine what custom response to render and return the appropriate component.
+ * This is the callback function that will render user defined responses. It will look at the "user_defined_type" message
+ * property to determine what user defined response to render and return the appropriate component.
  */
-function renderCustomResponse(event) {
+function renderUserDefinedResponse(event) {
   const { message } = event.data;
   // The "user_defined_type" property is just an example. It is not required or you can use any other property or
   // condition you want here. This makes it easier to handle different response types if you have more than one
-  // custom response type.
+  // user defined response type.
   if (message.user_defined && message.user_defined.user_defined_type === 'my_custom_type') {
     return <div>Insert custom component here!</div>;
   }

@@ -80,7 +80,7 @@
           const systemName = message.agentNickname || 'Lendyr';
           message.output.generic.forEach(messageItem => {
             // This is only handling a text response but you can handle other types of responses here as well as
-            // custom responses.
+            // user defined responses.
             if (messageItem && messageItem.text) {
               downloadLines.push(createDownloadText(systemName, messageItem.text));
             }

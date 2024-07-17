@@ -28,7 +28,7 @@
 
   <script>
     /**
-     * This function is called when a custom response should be rendered in web chat. We will use this to render a
+     * This function is called when a user defined response should be rendered in web chat. We will use this to render a
      * custom button which, when clicked, will fill in the account number field.
      */
     function accountNumberResponseHandler(event) {
@@ -69,15 +69,15 @@
      * This is the function that is called when the web chat code has been loaded and it is ready to be rendered.
      */
     async function onLoad(instance) {
-      // Listen for the customResponse event that will allow us to create content for the custom response when one is
+      // Listen for the userDefinedResponse event that will allow us to create content for the user defined response when one is
       // received. See https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#summary for more
       // about our events.
       instance.on({
-        type: 'customResponse',
+        type: 'userDefinedResponse',
         handler: (event, instance) => {
           // The "user_defined_type" property is just an example. It is not required or you can use any other property
           // or condition you want here. This makes it easier to handle different response types if you have more than
-          // one custom response type.
+          // one user defined response type.
           const { message } = event.data;
           if (message.user_defined && message.user_defined.user_defined_type === 'fill_account_number') {
             accountNumberResponseHandler(event, instance);

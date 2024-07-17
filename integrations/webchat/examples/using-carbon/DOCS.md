@@ -4,15 +4,15 @@ Carbon is IBM's open source design system for products and digital experiences. 
 
 This example demonstrates how to use Carbon using their web components version. This version installs custom HTML elements into the document that load Carbon behavior when you use them. All you need to do is use the appropriate HTML tags which you can find in the documentation for the components you wish to use.
 
-We are going to use a custom response to display a static Carbon accordion panel. The first step is to register a custom response handler with web chat.
+We are going to use a user defined response to display a static Carbon accordion panel. The first step is to register a user defined response handler with web chat.
 
 ```javascript
 instance.on({
-  type: 'customResponse',
+  type: 'userDefinedResponse',
   handler: (event, instance) => {
     // The "user_defined_type" property is just an example; it is not required. You can use any other property or
     // condition you want here. This makes it easier to handle different response types if you have more than
-    // one custom response type.
+    // one user defined response type.
     if (event.data.message.user_defined && event.data.message.user_defined.user_defined_type === 'accordion') {
       accordionHandler(event, instance);
     }
@@ -60,14 +60,14 @@ This example demonstrates how to use Carbon using their React version. Using the
 
 ```javascript
 function App() {
-  return <WebChatContainer renderCustomResponse={renderCustomResponse} config={config} />;
+  return <WebChatContainer renderUserDefinedResponse={renderUserDefinedResponse} config={config} />;
 }
 
-function renderCustomResponse(event) {
+function renderUserDefinedResponse(event) {
   const { message } = event.data;
   // The "user_defined_type" property is just an example. It is not required or you can use any other property or
   // condition you want here. This makes it easier to handle different response types if you have more than one
-  // custom response type.
+  // user defined response type.
   if (message.user_defined && message.user_defined.user_defined_type === 'accordion') {
     return <CustomAccordion />;
   }
@@ -75,7 +75,7 @@ function renderCustomResponse(event) {
 }
 ```
 
-Then create the component for rendering your custom response that uses the Carbon Accordion components.
+Then create the component for rendering your user defined response that uses the Carbon Accordion components.
 
 ```javascript
 function CustomAccordion() {

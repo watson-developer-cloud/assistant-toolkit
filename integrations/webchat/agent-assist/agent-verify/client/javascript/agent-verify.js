@@ -39,7 +39,7 @@ function installWebChat() {
 
       // This method is used to handle the read-verbatim custom comment (which is currently the only custom command
       // supported).
-      instance.on({ type: 'customResponse', handler: customResponseHandler });
+      instance.on({ type: 'userDefinedResponse', handler: userDefinedResponseHandler });
 
       // We will need to listen for the "pre:receive" event so we can convert the custom_command to user_defined
       // responses.
@@ -89,7 +89,7 @@ function preSendHandler(event) {
 }
 
 /**
- * This will convert responses that contain buttons into custom responses so we can render them using custom code.
+ * This will convert responses that contain buttons into user defined responses so we can render them using custom code.
  */
 function preReceiveHandler(event) {
   const message = event.data;
@@ -98,10 +98,10 @@ function preReceiveHandler(event) {
     message.output.generic.forEach((messageItem) => {
       // Message items that contain buttons have a response type of "option".
       if (messageItem.response_type === 'text') {
-        // This will turn this response into a custom response that will be rendered by our custom response handler.
+        // This will turn this response into a user defined response that will be rendered by our user defined response handler.
         messageItem.response_type = 'user_defined';
       } else if (messageItem.response_type === 'option') {
-        // This will turn this response into a custom response that will be rendered by our custom response handler.
+        // This will turn this response into a user defined response that will be rendered by our user defined response handler.
         messageItem.response_type = 'user_defined';
       }
     });
@@ -109,10 +109,10 @@ function preReceiveHandler(event) {
 }
 
 /**
- * This function is called when a custom response should be rendered in web chat. This will use the data inside the
+ * This function is called when a user defined response should be rendered in web chat. This will use the data inside the
  * message to render custom content - in this case a simple weather card.
  */
-function customResponseHandler(event) {
+function userDefinedResponseHandler(event) {
   const { message, element } = event.data;
 
   if (message.text) {
@@ -122,7 +122,7 @@ function customResponseHandler(event) {
     element.innerHTML = `<div class="AgentAssist__TextToVerify AgentAssist__TextToVerify--notVerified">${text}</div><br/>`;
 
     currentTextToVerify = text;
-    
+
     currentTextElementToVerify = element.querySelector('.AgentAssist__TextToVerify');
   } else if (message.options) {
     // Here's where we create our custom buttons.
@@ -162,8 +162,7 @@ function markVerified() {
  * the existing user message until an utterance from the agent is encountered.
  */
 function onUserSaid(text) {
-  console.log('onUserSaid:' + text );
-
+  console.log(`onUserSaid:${text}`);
 
   // Switching from the agent to the user so clear the agent's text.
   currentAgentUtterance = '';
@@ -185,11 +184,11 @@ function onAgentSaid(text) {
     const verbatimText = currentTextToVerify.toLowerCase();
     const { stringSimilarity } = window;
 
-    console.log('onAgentSaid: currentAgentUtterance: ' + currentAgentUtterance);
-    console.log('onAgentSaid: verbatimText: ' + verbatimText);
+    console.log(`onAgentSaid: currentAgentUtterance: ${currentAgentUtterance}`);
+    console.log(`onAgentSaid: verbatimText: ${verbatimText}`);
 
     const similarity = stringSimilarity.compareTwoStrings(verbatimText, currentAgentUtterance);
-    console.log('onAgentSaid: similarity: ' + similarity);
+    console.log(`onAgentSaid: similarity: ${similarity}`);
 
     if (similarity > 0.7) {
       markVerified();
@@ -236,7 +235,7 @@ function addUserSaid(text) {
   const currentContent = textElement.textContent;
   textElement.textContent = `${currentContent} ${text.trim()}`;
 
-  console.log('addUserSaid: text: ' + textElement.textContent);
+  console.log(`addUserSaid: text: ${textElement.textContent}`);
 
   setTimeout(() => {
     container.scrollTop = container.scrollHeight;

@@ -1,11 +1,11 @@
-To display information from an extension in a custom response, follow these steps. The extension used in this tutorial is an API provided by the National Bank of Poland that allows you to obtain the currency exchange rate between a currency of your choosing and the Polish złoty.
+To display information from an extension in a user defined response, follow these steps. The extension used in this tutorial is an API provided by the National Bank of Poland that allows you to obtain the currency exchange rate between a currency of your choosing and the Polish złoty.
 
-This tutorial will make use of two different custom responses. The first custom response will display a custom card that will ask the user to select a currency and an amount that is to be exchanged. When the user clicks the "Exchange" button, it will send a message to the assistant with the values entered. The assistant will call the extension which will obtain the exchange rate and then it will calculate the resulting exchange amount and return that to web chat which will display the result in a second custom response.
+This tutorial will make use of two different user defined responses. The first user defined response will display a custom card that will ask the user to select a currency and an amount that is to be exchanged. When the user clicks the "Exchange" button, it will send a message to the assistant with the values entered. The assistant will call the extension which will obtain the exchange rate and then it will calculate the resulting exchange amount and return that to web chat which will display the result in a second user defined response.
 
-This tutorial does not take session history into account. If the user reloads the page containing web chat, the custom responses that asked the user for input will be empty. If you want to save this information in the session history, take a look at the [custom buttons tutorial](https://github.com/watson-developer-cloud/assistant-toolkit/tree/master/integrations/webchat/examples) that demonstrates how to store state. (TODO: Maybe link to the tutorial page in the WA docs instead of the GH page?)
+This tutorial does not take session history into account. If the user reloads the page containing web chat, the user defined responses that asked the user for input will be empty. If you want to save this information in the session history, take a look at the [custom buttons tutorial](https://github.com/watson-developer-cloud/assistant-toolkit/tree/master/integrations/webchat/examples) that demonstrates how to store state. (TODO: Maybe link to the tutorial page in the WA docs instead of the GH page?)
 
 1. Set up the extension using these instructions: [Building a custom extensions](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-build-custom-extension)
-2. The first action will simply return information to trigger the custom response asking the user for the currency and amount to be exchanged. Use the JSON editor to send a `user_defined` response to web chat.
+2. The first action will simply return information to trigger the user defined response asking the user for the currency and amount to be exchanged. Use the JSON editor to send a `user_defined` response to web chat.
 ```json
 {
   "generic": [
@@ -18,13 +18,14 @@ This tutorial does not take session history into account. If the user reloads th
   ]
 }
 ```
-4. Register a listener for the custom response event. When web chat receives a `user_defined` response from the assistant, it will fire this event.
+4. Register a listener for the user defined response event. When web chat receives a `user_defined` response from the assistant, it will fire this event.
+
 ```javascript
-instance.on({ type: 'customResponse', handler: customResponseHandler });
+instance.on({type: 'userDefinedResponse', handler: userDefinedResponseHandler});
 ```
-Create a custom response handler that will show the correct custom response.
+Create a user defined response handler that will show the correct user defined response.
 ```javascript
-function customResponseHandler(event) {
+function userDefinedResponseHandler(event) {
   if (event.data.message.user_defined && event.data.message.user_defined.user_defined_type === 'currency_exchange_input') {
     currencyInputHandler(event, instance);
   } else if (event.data.message.user_defined && event.data.message.user_defined.user_defined_type === 'currency_exchange_output') {
@@ -87,7 +88,7 @@ const message = {
 };
 instance.send(message);
 ```
-7. In the second action, call the extension and assign the data from the extension to a session variable. You can find documentation for this at [Accessing extension response data](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-call-extension#extension-access-response). This second action should also return a custom response with a slightly different type to trigger a different card to be display to the user.
+7. In the second action, call the extension and assign the data from the extension to a session variable. You can find documentation for this at [Accessing extension response data](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-call-extension#extension-access-response). This second action should also return a user defined response with a slightly different type to trigger a different card to be display to the user.
 ```json
 {
   "generic": [

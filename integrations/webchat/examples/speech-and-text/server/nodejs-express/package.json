@@ -2,7 +2,7 @@
   "name": "watson-assistant-web-chat-toolkit-example",
   "version": "1.0.0",
   "engines": {
-    "node": "^16.15.1"
+    "node": ">=18"
   },
   "scripts": {
     "start": "node ./server.js"
