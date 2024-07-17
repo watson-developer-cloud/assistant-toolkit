@@ -1,0 +1,1 @@
+This content has been moved to the [User defined response](../user-defined-response) example. In web chat 8.2.0, the `customResponse` event was renamed to [userDefinedResponse](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#userDefinedResponse) and the example was renamed to reflect the change.
