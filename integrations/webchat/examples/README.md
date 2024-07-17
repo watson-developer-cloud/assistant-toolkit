@@ -54,7 +54,7 @@ This example demonstrates how to create your own launcher that can be used to op
 - How to use a [**view:change**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#viewchange) event handler to show or hide the custom launcher when the main web chat window is opened or closed.
 - How to use the [**changeView**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#changeview) instance method to open the main window when the user clicks on the custom launcher.
 
-## [User defined responses](custom-response/README.md)
+## [User defined responses](user-defined-response/README.md)
 
 This example demonstrates how to use a user defined response to render a custom UI widget that will ask the user for information in order to preform a currency exchange and display the results. It will use an extension to obtain the exchange rate for the calculation.
 
