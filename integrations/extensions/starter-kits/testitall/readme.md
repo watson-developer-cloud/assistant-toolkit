@@ -149,7 +149,7 @@ passed to the Watson Assistant.
 - Client authentication: `Send as Body` (default)
 - Header prefix: `Bearer` (default)
 
-## Assistant Webhook Configuration
+## Assistant Pre/Post message Webhook Configuration
 
 > If you would like to test the webhook related feature, then the API server must be running with HTTPS.
 
@@ -163,9 +163,20 @@ steps below:
 3. Select `Webhooks` > `Pre-Message Webhook` or `Post-Message Webhook` from the menu on the left.
 4. Enable the webhook by clicking the toggle switch.
 5. Enter the URL of the webhook.
-    - Pre-message webhook: `https://myserver.com:4000/webhook/prewebhook`. For IBM hosted mock server, please use
-      `https://custom-ext-testitall-ce.vkgqdtxxpfe.us-south.codeengine.appdomain.cloud/webhook/prewebhook`.
-    - Post-message webhook: `https://myserver.com:4000/webhook/postwebhook`. For IBM hosted mock server, please use
-      `https://custom-ext-testitall-ce.vkgqdtxxpfe.us-south.codeengine.appdomain.cloud/webhook/postwebhook`.
-6. Enter anything in the `Secret` field.
+    - Pre-message webhook: `https://myserver.com:4000/webhook/prewebhook`.
+    - Post-message webhook: `https://myserver.com:4000/webhook/postwebhook`.
+6. Enter the secret value in the `Secret` field.
+    - Pre-message webhook: `"WA_PRE_MESSAGE_SECRET"`.
+    - Post-message webhook: `"WA_POST_MESSAGE_SECRET"`.
    ![Webhook Configuration](./assets/webhook_env_config_2.png)
+
+Here are the list of the endpoints for the pre/post message webhook. Beside the normal pre/post message webhook, there's some additional webhook endpoints provided for testing the error handling of the webhook.
+Replace the pre/post webhook URL in steps 5 with the following URLs to test different behaviors:
+| Endpoint | Description |
+|----------|-------------|
+| `webhook/prewebhook` | The server will modify the session variable `pre_webhook_message` while receiving the pre-message webhook call. When entering "skip" for message input, the webhook will include the `X-Watson-Assistant-Webhook-Return` header in its response, tells WA to skip the message processing and return whatever the webhooks returns. In this case, it will return message "Response skipped by webhook" |
+| `webhook/postwebhook` | The server will modify the session variable `post_webhook_message` while receiving the post-message webhook call |
+| `/webhook/error/non-json` | The server will return a non-JSON response instead of WA conversation context |
+| `/webhook/error/timeout` | The server will not respond to the webhooks request |
+| `/webhook/error/code` | The server will respond with code 500 |
+| `/webhook/error/code/{http_code}` | The server will respond with the provided HTTP status code |
