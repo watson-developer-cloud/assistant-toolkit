@@ -17,6 +17,7 @@ router.post('/arrays-root', testController.arraysRootTest);
 router.post('/arrays-object', testController.arraysInObjectTest);
 router.post('/context-too-large', testController.contextTooLargeTest);
 router.post('/context-almost-too-large', testController.contextAlmostTooLargeTest);
+router.post('/non-json-response', testController.successfulPostWithNonJSONResponse);
 
 router.post('/advanced/properties-counter', testController.propertiesByCounterTest);
 

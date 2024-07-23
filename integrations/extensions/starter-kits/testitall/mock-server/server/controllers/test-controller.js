@@ -84,6 +84,12 @@ export function contextAlmostTooLargeTest(req, res) {
   return res.status(200).send(response);
 }
 
+export function successfulPostWithNonJSONResponse(req, res) {
+  const htmlPage = '<!DOCTYPE html> <html> <body> <h1>My First Heading</h1> <p>My first paragraph.</p> </body> </html>'
+
+  return res.status(200).send(htmlPage);
+}
+
 // Other Tests
 let counter = 1;
 
