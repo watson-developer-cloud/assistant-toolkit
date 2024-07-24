@@ -11,19 +11,19 @@ This directory contains documentation for installing and setting up Elasticsearc
 ### Option 1: Set up a custom Elasticsearch extension
 You can follow the guide [here](../../starter-kits/elasticsearch/README.md) to build a custom Elasticsearch extension allowing your assistant to search for information in an Elasticsearch index and show what it finds in the chat.
 ### Option 2: Use the built-in Search integration
-You can set up search over an Elasticsearch index using the built-in search integration. Please follow the instructions [here](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-search-elasticsearch-add) to set up the Search integration for your assistant.  
+You can set up search over Elasticsearch indices using the built-in search integration. Please follow the instructions [here](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-search-elasticsearch-add) to set up the Search integration for your assistant.
 
 By default, keyword search is used for your Search integration, but you can configure the query body in the `Advanced Elasticsearch Settings` to enable advanced search such as semantic search with ELSER, KNN dense vector search, and using nested queries to search over nested documents. Here are some examples:
 
 #### a. Semantic search with ELSER
-For semantic search using ELSER v1, please include the following query body in the `Advanced Elasticsearch Settings`:
+For semantic search using ELSER, please include the following query body in the `Advanced Elasticsearch Settings`:
 
 ```json
 {
   "query":{
     "text_expansion":{
       "ml.tokens":{
-        "model_id":".elser_model_1",
+        "model_id":".elser_model_2",
         "model_text":"$QUERY"
       }
     }
@@ -33,24 +33,35 @@ For semantic search using ELSER v1, please include the following query body in t
 
 <img src="assets/query_body_for_elasticsearch.png" width="547" height="638" />
 
-For ELSER v2, use the following query body instead
+For including filters defined in the `Advanced Elasticsearch Settings` in the query body:
 ```json
 {
   "query": {
-    "text_expansion": {
-      "ml.tokens": {
-        "model_id": ".elser_model_2",
-        "model_text": "$QUERY"
-      }
+    "bool": {
+      "should": [
+        {
+          "text_expansion": {
+            "ml.tokens": {
+              "model_id": ".elser_model_2_linux-x86_64",
+              "model_text": "$QUERY"
+            }
+          }
+        }
+      ],
+      "filter": "$FILTER"
     }
   }
 }
+
 ```
 Notes:
 * `ml.tokens` refers to the field that stores the ELSER tokens. You may need to update it if you use a different field in your index.
 * `.elser_model_1` is the model ID for ELSER v1.
-* `.elser_model_2` is the model ID for ELSER v2. An optimized version `.elser_model_2_linux-x86-64` can also be used if it is available in your Elasticsearch deployment.
+* `.elser_model_2` is the model ID for ELSER v2.
+* `.elser_model_2_linux-x86-64` is an optimized version of ELSER v2. It is recommended to use if it is available in your Elasticsearch deployment.
+* `$FILTER` is the variable that contains a list of filters defined in the `Advanced Elasticsearch Settings` if it is available.
 * Learn more about ELSER from [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/semantic-search-elser.html)
+* Learn more about Elasticsearch boolean query and filters from [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-bool-query.html)
 
 
 #### b. Dense Vector (KNN) Search
@@ -66,14 +77,17 @@ For dense vector search, use the following knn query body as an example:
       }
     },
     "k": 10,
-    "num_candidates": 100
+    "num_candidates": 100,
+    "filter" : "$FILTER"
   }
 }
 ```
+
 Notes:
 * `text_embedding.predicted_value` refers to the field that stores the dense vectors. You may need to update it if you use a different field in your index.
 * `text_embedding` under `query_vector_builder` is the natural language processing task to perform. It has to be `text_embedding` for KNN search.
 * `intfloat__multilingual-e5-small` is the embedding model ID. You may need to update it if you want to use a different embedding model.
+* `$FILTER` is the variable that contains a list of filters defined in the `Advanced Elasticsearch Settings` if it is available.
 * Learn more about knn search from [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/knn-search.html).
 * Learn more about how to set up a text embedding model in Elasticsearch from [here](text_embedding_deploy_and_use.md).
 
@@ -99,12 +113,40 @@ For using nested queries to search over nested documents, use the following quer
   },
   "_source": false
 }
+
+For including filters defined in the `Advanced Elasticsearch Settings` in the query body:
+{
+  "query": {
+    "nested": {
+      "path": "passages",
+      "query": {
+        "bool": {
+          "should": [
+            {
+              "text_expansion": {
+                "passages.sparse.tokens": {
+                  "model_id": ".elser_model_2_linux-x86_64",
+                  "model_text": "What is an action?"
+                }
+              }
+            }
+          ],
+          "filter": "$FILTER"
+        }
+      },
+      "inner_hits": {"_source": {"excludes": ["passages.sparse"]}}
+    }
+  },
+  "_source": false
+}
+
 ```
 Notes:
 * `passages` is the nested field that stores nested documents. You may need to update it if you use a different nested field in your index.
 * `passages.sparse.tokens` refers to the field that stores the ELSER tokens for the nested documents.
 * `"inner_hits": {"_source": {"excludes": ["passages.sparse"]}}` is to exclude the ELSER tokens from the nested documents in the search results.
 * `"_source": false` is to exclude top-level fields in the search results.
+* `$FILTER` is the variable that contains a list of filters defined in the `Advanced Elasticsearch Settings` if it is available.
 * Learn more about nested queries and fields from [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-nested-query.html)
 
 ### Federated Search
