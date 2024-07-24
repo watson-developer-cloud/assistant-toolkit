@@ -604,6 +604,33 @@
         }
       }
     },
+    "/test/non-json-response": {
+      "post": {
+        "tags": [
+          "API"
+        ],
+        "summary": "Test fail extension on non JSON responses and propagate payload",
+        "description": "Return an HTML Page even though the content type says JSON",
+        "operationId": "nonJSONResponse",
+        "responses": {
+          "200": {
+            "description": "echoes back the params values",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/security/{method}": {
       "post": {
         "tags": [
