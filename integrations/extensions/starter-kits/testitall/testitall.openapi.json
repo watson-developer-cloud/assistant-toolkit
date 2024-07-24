@@ -651,7 +651,22 @@
         ],
         "responses": {
           "200": {
-            "description": "echoes back the params values",
+            "description": "authentication success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "authentication failure",
             "content": {
               "application/json": {
                 "schema": {
