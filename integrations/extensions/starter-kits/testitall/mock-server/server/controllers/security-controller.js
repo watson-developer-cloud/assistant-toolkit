@@ -15,7 +15,9 @@ export function basicAuthMiddleware(req, res, next) {
   }
   // Access denied...
   res.set('WWW-Authenticate', 'Basic realm="401"') // change this
-  return res.status(401).send('Authentication required.') // custom message
+  return res.status(401).send({
+    message: 'Authentication required.'
+  }) // custom message
 }
 
 export function basicTest(req, res) {
@@ -38,7 +40,9 @@ export function bearerAuthMiddleware(req, res, next) {
 
   // Access denied...
   res.set('WWW-Authenticate', 'Bearer realm="401"') // change this
-  return res.status(401).send('Authentication required.') // custom message
+  return res.status(401).send({
+    message: 'Authentication required.'
+  }) // custom message
 }
 
 export function bearerTest(req, res, next) {
@@ -59,7 +63,9 @@ export function apiKeyAuthMiddleware(req, res, next) {
   }
 
   // Access denied...
-  return res.status(401).send('Authentication required.') // custom message
+  return res.status(401).send({
+    message: 'Authentication required.'
+  }) // custom message
 }
 
 export function apiKeyTest(req, res, next) {
@@ -73,19 +79,25 @@ function makeOAuth2AuthMiddleware(accessTokens) {
   return (req, res, next) => {
     // Check if the request has an Authorization header
     if (!req.headers.authorization) {
-      return res.status(401).send('OAuth2 Authentication required.');
+      return res.status(401).send({
+        message: 'Authentication required.'
+      });
     }
 
     // Check if the Authorization header is valid
     const authHeader = req.headers.authorization.split(' ');
     if (authHeader[0] !== 'Bearer') {
-      return res.status(401).send('Invalid authentication scheme.');
+      return res.status(401).send({
+        message: 'Invalid authentication scheme.'
+      });
     }
 
     // Check if the token is valid
     const accessToken = authHeader[1];
     if (!accessTokens.has(accessToken) || Date.now() > accessTokens.get(accessToken)) {
-      return res.status(401).send('Invalid access token or token has expired.');
+      return res.status(401).send({
+        message: 'Invalid access token or token has expired.'
+      });
     }
 
     // Access granted...
