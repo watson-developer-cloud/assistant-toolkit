@@ -33,7 +33,7 @@ For semantic search using ELSER, please include the following query body in the 
 
 <img src="assets/query_body_for_elasticsearch.png" width="547" height="638" />
 
-For including filters defined in the `Advanced Elasticsearch Settings` in the query body:
+For using filters defined in the `Advanced Elasticsearch Settings` in the query body:
 ```json
 {
   "query": {
@@ -114,7 +114,7 @@ For using nested queries to search over nested documents, use the following quer
   "_source": false
 }
 
-For including filters defined in the `Advanced Elasticsearch Settings` in the query body:
+For using filters defined in the `Advanced Elasticsearch Settings` in the query body:
 {
   "query": {
     "nested": {
