@@ -23,7 +23,7 @@ For semantic search using ELSER, please include the following query body in the 
   "query":{
     "text_expansion":{
       "ml.tokens":{
-        "model_id":".elser_model_2",
+        "model_id":".elser_model_2_linux-x86_64",
         "model_text":"$QUERY"
       }
     }
@@ -56,9 +56,7 @@ For using filters defined in the `Advanced Elasticsearch Settings` in the query 
 ```
 Notes:
 * `ml.tokens` refers to the field that stores the ELSER tokens. You may need to update it if you use a different field in your index.
-* `.elser_model_1` is the model ID for ELSER v1.
-* `.elser_model_2` is the model ID for ELSER v2.
-* `.elser_model_2_linux-x86-64` is an optimized version of ELSER v2. It is recommended to use if it is available in your Elasticsearch deployment.
+* `.elser_model_2_linux-x86-64` is the model ID for the optimized version of ELSER v2. It is recommended to use if it is available in your Elasticsearch deployment. Otherwise, use `.elser_model_2` for the regular ELSER v2 model, or `.elser_model_1` for ELSER v1.
 * `$FILTER` is the variable that contains a list of filters defined in the `Advanced Elasticsearch Settings` if it is available.
 * Learn more about ELSER from [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/semantic-search-elser.html)
 * Learn more about Elasticsearch boolean query and filters from [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-bool-query.html)
@@ -103,7 +101,7 @@ For using nested queries to search over nested documents, use the following quer
       "query": {
         "text_expansion": {
           "passages.sparse.tokens": {
-            "model_id": ".elser_model_1",
+            "model_id": ".elser_model_2_linux-x86_64",
             "model_text": "$QUERY"
           }
         }
@@ -113,8 +111,10 @@ For using nested queries to search over nested documents, use the following quer
   },
   "_source": false
 }
+```
 
 For using filters defined in the `Advanced Elasticsearch Settings` in the query body:
+```json
 {
   "query": {
     "nested": {
