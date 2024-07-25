@@ -22,7 +22,9 @@ This library allows us to pull and deploy a 3rd-party text embedding model to ou
 
 > CAUTION: Open source and 3rd party models are not in scope of IBM or Elastic indemnity clauses. Customers must accept relevant terms and conditions to choose or bring their own models. Additionally, IBM has not assessed Elastic's supported multi-lingual models so any use of Elastic-supported models should be understood thoroughly both with respect to the terms of use for those models and the terms of use of all of the data that was used to train those models.
 
-NOTE: As of the time this documentation was written, `eland` only supports Python 3.8, 3.9, and 3.10. Please refer to the eland library [compatibility section](https://github.com/elastic/eland?tab=readme-ov-file#compatibility) to make sure you're using compatible Python and Elasticsearch versions.
+NOTE:
+* As of the time this documentation was written, `eland` only supports Python 3.8, 3.9, and 3.10. Please refer to the eland library [compatibility section](https://github.com/elastic/eland?tab=readme-ov-file#compatibility) to make sure you're using compatible Python and Elasticsearch versions.
+* If you run into compatibility issues during installation, try to specify a version of `eland[pytorch]` that is compatible with your Elasticsearch version.
 
 NOTE: You can also use eland without installing the library in case you run into any issues with the library. This can be done by using the docker image provided [here](https://github.com/elastic/eland?tab=readme-ov-file#docker).
 

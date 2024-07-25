@@ -80,7 +80,7 @@ curl -X PUT "${ES_URL}/${ES_INDEX_NAME}?pretty" -u "${ES_USER}:${ES_PASSWORD}" \
 }'
 ```
 
-NOTE: `rank_features` only works for ELSER v1 model. ELSER v2 requires a different type for the tokens. ELSER v2 has only been available since Elastic 8.11. Learn more about ELSER v2 from [here](https://www.elastic.co/guide/en/machine-learning/current/ml-nlp-elser.html)
+NOTE: `rank_features` type only works for ELSER v1 model. ELSER v2 requires `sparse_vector` type. ELSER v2 has only been available since Elastic 8.11. Learn more about ELSER v2 from [here](https://www.elastic.co/guide/en/machine-learning/current/ml-nlp-elser.html)
 
 
 ### Step 3: Create an ELSER ingest pipeline with regex based chunking
