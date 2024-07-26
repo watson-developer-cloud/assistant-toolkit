@@ -231,6 +231,8 @@ Unlike the `must` clause, this query with the `should` clause will return all re
 }
 ```
 Similary to the `must` type query, this query only return results with the `title` field containing "a specific title". The difference is that the `filter` clause doesn't contribute to the scores of the search results.
+
+**When you configure custom filters in the `Advanced Elasticsearch Settings` in the Search integration, they will be used as `filter` clauses.**
 #### must_not
 ```json
 {
