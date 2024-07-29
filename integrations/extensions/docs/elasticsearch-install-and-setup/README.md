@@ -149,7 +149,7 @@ Notes:
 * Learn more about nested queries and fields from [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-nested-query.html)
 
 ### Filter the search results
-[How to use filters in an Elasticsearch query](how_to_filter_search_results.md): A guide on how to use filters in an Elasticsearch query and config it with the Search integration in watsonx Assistant.
+[How to use filters in an Elasticsearch query](how_to_use_filters_in_an_elasticsearch_query.md): A guide on how to use filters in an Elasticsearch query and config it with the Search integration in watsonx Assistant.
 
 ### Federated search
 You can follow the guide [here](federated_search.md) to run queries across multiple indexes within your Elasticsearch cluster.
