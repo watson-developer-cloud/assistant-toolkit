@@ -52,7 +52,6 @@ For using filters defined in the `Advanced Elasticsearch Settings` in the query 
     }
   }
 }
-
 ```
 Notes:
 * `ml.tokens` refers to the field that stores the ELSER tokens. You may need to update it if you use a different field in your index.
@@ -150,121 +149,7 @@ Notes:
 * Learn more about nested queries and fields from [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-nested-query.html)
 
 ### Filter the search results
-You can filter the Elasticsearch search results using the boolean query. It supports four occurence types: `must`, `should`, `filter`, and `must_not`. For more information, see the [Elasticsearch boolearn query documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-bool-query.html). Here are some examples:
-
-#### must
-```json
-{
-  "query": {
-    "bool": {
-      "should": [
-        {
-          "text_expansion": {
-            "ml.tokens": {
-              "model_id": ".elser_model_2_linux-x86_64",
-              "model_text": "$QUERY"
-            }
-          }
-        }
-      ],
-      "must": [
-        {
-          "term": {
-            "title": "a specific title"
-          }
-        }
-      ]
-    }
-  }
-}
-```
-This query with the `must` clause will only return results with the `title` field containing "a specifc title".
-#### should
-```json
-{
-  "query": {
-    "bool": {
-      "should": [
-        {
-          "text_expansion": {
-            "ml.tokens": {
-              "model_id": ".elser_model_2_linux-x86_64",
-              "model_text": "$QUERY"
-            }
-          }
-        },
-        {
-          "term": {
-            "title": "a specific title"
-          }
-        }
-      ]
-    }
-  }
-}
-```
-Unlike the `must` clause, this query with the `should` clause will return all results matched by the `text_expansion` query, but the ones with the `title` field containing "a specific title" will have higher scores, so they will be ranked higher in the search results.
-#### filter
-```json
-{
-  "query": {
-    "bool": {
-      "should": [
-        {
-          "text_expansion": {
-            "ml.tokens": {
-              "model_id": ".elser_model_2_linux-x86_64",
-              "model_text": "$QUERY"
-            }
-          }
-        }
-      ],
-      "filter": [
-        {
-          "term": {
-            "title": "a specific title"
-          }
-        }
-      ]
-    }
-  }
-}
-```
-Similary to the `must` type query, this query will only return results with the `title` field containing "a specific title". The difference is that the `filter` clause doesn't contribute to the scores of the search results.
-
-**When you configure custom filters in the `Advanced Elasticsearch Settings` in the Search integration, they will be used as `filter` clauses.**
-#### must_not
-```json
-{
-  "query": {
-    "bool": {
-      "should": [
-        {
-          "text_expansion": {
-            "ml.tokens": {
-              "model_id": ".elser_model_2_linux-x86_64",
-              "model_text": "$QUERY"
-            }
-          }
-        }
-      ],
-      "must_not": [
-        {
-          "term": {
-            "title": "a specific title"
-          }
-        }
-      ]
-    }
-  }
-}
-```
-Opposite to `filter`, this query will not return any results with the `title` field containing "a specific title". The `must_not` clause doesn't contribute to the the scores of the search results.
-
-Notes:
-* If the `title` field is not a `text` type, the above queries will perform exact match instead. For more information, see the [Elasticsearch field types documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html).
-* Instead of using the`term` clause, you can use the `match` clause to perform keyword search on the given phrase.
-* The four coourence types can be used in combination, for example, in a nested structure, to achieve more complex filtering in a query.
+You can find the guide [here](how_to_filter_search_results.md) to learn how to use filtering in an Elasticsearch query and config it with the Search integration in watsonx Assistant.
 
 ### Federated search
 You can follow the guide [here](federated_search.md) to run queries across multiple indexes within your Elasticsearch cluster.
