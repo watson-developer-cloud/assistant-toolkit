@@ -20,20 +20,20 @@ The example will display an interactive content carousel for data returned from 
 
 It demonstrates:
 
-- How to use a [**customResponse**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#customresponse) event handler to create the content carousel.
+- How to use a [**userDefinedResponse**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#userDefinedResponse) event handler to create the content carousel.
 - How to use the [**send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#send) instance method to send a message to the assistant when a button is clicked.
 
 ## [Custom buttons](custom-buttons/README.md)
 
-This example demonstrates how to use a custom response to change the appearance of the buttons that are displayed when the assistant returns and options response.
+This example demonstrates how to use a user defined response to change the appearance of the buttons that are displayed when the assistant returns and options response.
 
 It demonstrates:
 
-- How to use a [**pre:receive**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#prereceive) event handler to convert a built-in response to a custom response so it can be customized.
-- How to use a [**customResponse**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#customresponse) event handler to create custom buttons.
+- How to use a [**pre:receive**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#prereceive) event handler to convert a built-in response to a user defined response so it can be customized.
+- How to use a [**userDefinedResponse**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#userDefinedResponse) event handler to create custom buttons.
 - How to use the [**send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#send) instance method to send a message to the assistant when a button is clicked.
 - How to use the [**updateHistoryUserDefined**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#updateHistoryUserDefined) instance method to record which button was clicked in session history so it will be remembered when web chat is reloaded.
-- How to use data stored in session history to change how a custom response is displayed when web chat is reloaded.
+- How to use data stored in session history to change how a user defined response is displayed when web chat is reloaded.
 - How to use the [Carbon Design System](https://carbondesignsystem.com/) inside of web chat. The examples here cover both the vanilla JavaScript version (using web components) and the React version.
 
 ## [Custom elements](custom-element/README.md)
@@ -54,18 +54,18 @@ This example demonstrates how to create your own launcher that can be used to op
 - How to use a [**view:change**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#viewchange) event handler to show or hide the custom launcher when the main web chat window is opened or closed.
 - How to use the [**changeView**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#changeview) instance method to open the main window when the user clicks on the custom launcher.
 
-## [Custom responses](custom-response/README.md)
+## [User defined responses](user-defined-response/README.md)
 
-This example demonstrates how to use a custom response to render a custom UI widget that will ask the user for information in order to preform a currency exchange and display the results. It will use an extension to obtain the exchange rate for the calculation.
+This example demonstrates how to use a user defined response to render a custom UI widget that will ask the user for information in order to preform a currency exchange and display the results. It will use an extension to obtain the exchange rate for the calculation.
 
 It demonstrates:
 
 - How to use a custom extension to fetch currency data from a 3rd party service.
 - How to assign data from the extension response to action variables.
-- How to return a custom response (`user_defined`) from an action.
-- How to use a [**customResponse**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#customresponse) event handler to display a custom card.
+- How to return a user defined response (`user_defined`) from an action.
+- How to use a [**userDefinedResponse**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#userDefinedResponse) event handler to display a custom card.
 - How to use the [**send**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-instance-methods#send) instance method to send a message to the assistant and include context variables with user input.
-- How to access action variables in a custom response.
+- How to access action variables in a user defined response.
 
 ## [Deep linking](deep-linking/README.md)
 
@@ -108,12 +108,12 @@ It demonstrates:
  
 ## [Page interaction](page-interaction/README.md)
 
-This example demonstrates how to use a custom response to display a button within web chat that can locate fields in the host page and fill in values to them.
+This example demonstrates how to use a user defined response to display a button within web chat that can locate fields in the host page and fill in values to them.
 
 It demonstrates:
 
 - How to use the [**receive**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#receive) event handler trigger an immediate interaction with the page.
-- How to use a [**customResponse**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#customresponse) event handler to display a custom button which, when clicked, will interact with elements on the host page.
+- How to use a [**userDefinedResponse**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#userDefinedResponse) event handler to display a custom button which, when clicked, will interact with elements on the host page.
 - How to use the [**ibm-web-chat--default-styles**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-render#helper_classes) CSS helper class to make a custom button look like a default web chat button.
 
 ## [Pre-chat and post-chat forms](pre-post-chat-forms/README.md)
@@ -175,7 +175,7 @@ This example demonstrates how to use the Carbon Design System with web chat. The
 
 It demonstrates:
 
-- How to use a [**customResponse**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#customresponse) event handler to render an accordion using Carbon.
+- How to use a [**userDefinedResponse**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#userDefinedResponse) event handler to render an accordion using Carbon.
 
 ## [Web chat security (simple)](web-chat-security-simple/README.md)
 

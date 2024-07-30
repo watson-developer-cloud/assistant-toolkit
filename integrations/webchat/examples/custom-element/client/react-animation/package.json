@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "proxy": "http://localhost:3001",
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "scripts": {
     "start": "cross-env DISABLE_ESLINT_PLUGIN=true react-scripts start",
     "start-comments": "// The DISABLE_ESLINT_PLUGIN above is needed because there is a conflict in this repo between the eslint used by CRA and the root eslint we have for all the examples. You would not normally need this in your project."
   },
   "dependencies": {
-    "@ibm-watson/assistant-web-chat-react": "^1.1.1",
+    "@ibm-watson/assistant-web-chat-react": "^2.0.0",
     "carbon-components": "^10.56.0",
     "carbon-components-react": "^7.45.0",
     "classnames": "^2.3.1",

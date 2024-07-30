@@ -1,7 +1,7 @@
 // Swiper comes with its own styles, but those styles by themselves will be blocked by the reset styling of web chat.
 // To use Swiper from within web chat, all of its styles need to be prefixed with "#WACContainer.WACContainer". This
 // imports all of the Swiper styles and puts them under the web chat styles. You can also alternatively use web
-// components to isolate the styling of your custom response but you will lose any styling inherited from web chat if
+// components to isolate the styling of your user defined response but you will lose any styling inherited from web chat if
 // you do that.
 #WACContainer.WACContainer {
   @import 'node_modules/swiper/swiper';

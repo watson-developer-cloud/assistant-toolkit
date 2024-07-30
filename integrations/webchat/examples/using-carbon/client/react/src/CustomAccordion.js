@@ -1,7 +1,7 @@
 import { Accordion, AccordionItem } from '@carbon/react';
 
 /**
- * This is the component for our custom response. It just renders an Accordion from Carbon. You can pass the message
+ * This is the component for our user defined response. It just renders an Accordion from Carbon. You can pass the message
  * to this component and use the data from the message to render this if you want the content to be provided by the
  * assistant.
  */

@@ -4,12 +4,12 @@
 
 This code is for extending the IBM watsonx Assistant web chat. If you are new to developing with web chat, please start with the [web chat development overview](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-web-chat-develop). The code in this folder is commented with links and references to the web chat APIs used.
 
-This example demonstrates how to use a custom response to display a button within web chat that can locate fields in the host page and fill in values to them.
+This example demonstrates how to use a user defined response to display a button within web chat that can locate fields in the host page and fill in values to them.
 
 It demonstrates:
 
 - How to use the [**receive**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#receive) event handler trigger an immediate interaction with the page.
-- How to use a [**customResponse**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#customresponse) event handler to display a custom button which, when clicked, will interact with elements on the host page.
+- How to use a [**userDefinedResponse**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#userDefinedResponse) event handler to display a custom button which, when clicked, will interact with elements on the host page.
 - How to use the [**ibm-web-chat--default-styles**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-render#helper_classes) CSS helper class to make a custom button look like a default web chat button.
 
 ## Running the Code

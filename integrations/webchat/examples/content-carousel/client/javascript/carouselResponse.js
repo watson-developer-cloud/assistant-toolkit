@@ -1,15 +1,13 @@
 import Swiper, { A11y, Navigation, Pagination } from 'swiper';
 
 /**
- * This function is called whenever web chat receives a custom response and we need construct the content for web chat
+ * This function is called whenever web chat receives a user defined response and we need construct the content for web chat
  * to display.
  */
-function carouselCustomResponseHandler(event, instance) {
+function carouselUserDefinedResponseHandler(event, instance) {
   const { element, message } = event.data;
 
-  event.data.fullWidth = true;
-
-  // This will define the main HTML content we want to display in this custom response. We will add the individual
+  // This will define the main HTML content we want to display in this user defined response. We will add the individual
   // carousel items below.
   element.innerHTML = `
     <div class="Carousel">
@@ -108,4 +106,4 @@ function renderBullet(_, className) {
   return `<button class="${className} cds--btn cds--btn--ghost" type="button"></button>`;
 }
 
-export { carouselCustomResponseHandler };
+export { carouselUserDefinedResponseHandler };

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Extension with custom response - IBM watsonx Assistant web chat toolkit</title>
+  <title>Extension with user defined response - IBM watsonx Assistant web chat toolkit</title>
 
   <style>
     #WACContainer.WACContainer .CurrencyCard {
@@ -72,7 +72,7 @@
 <body>
   <script>
     /**
-     * This function is called to render the custom response that asks for input from the user about the currency and
+     * This function is called to render the user defined response that asks for input from the user about the currency and
      * amount they wish to exchange.
      */
     function currencyInputHandler(event, instance) {
@@ -164,7 +164,7 @@
     }
 
     /**
-     * This function is called to render the custom response that displays the results from the previous custom
+     * This function is called to render the user defined response that displays the results from the previous custom
      * response.
      */
     function currencyOutputHandler(event) {
@@ -203,15 +203,15 @@
      * This is the function that is called when the web chat code has been loaded and it is ready to be rendered.
      */
     async function onLoad(instance) {
-      // Listen for the customResponse event that will allow us to create content for the custom response when one is
+      // Listen for the userDefinedResponse event that will allow us to create content for the user defined response when one is
       // received. See https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#summary for more
       // about our events.
       instance.on({
-        type: 'customResponse',
+        type: 'userDefinedResponse',
         handler: (event, instance) => {
           // The "user_defined_type" property is just an example; it is not required. You can use any other property or
           // condition you want here. This makes it easier to handle different response types if you have more than
-          // one custom response type.
+          // one user defined response type.
           if (event.data.message.user_defined && event.data.message.user_defined.user_defined_type === 'currency_exchange_input') {
             currencyInputHandler(event, instance);
           } else if (event.data.message.user_defined && event.data.message.user_defined.user_defined_type === 'currency_exchange_output') {

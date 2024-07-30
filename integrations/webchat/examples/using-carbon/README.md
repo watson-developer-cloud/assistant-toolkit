@@ -8,7 +8,7 @@ This example demonstrates how to use the Carbon Design System with web chat. The
 
 It demonstrates:
 
-- How to use a [**customResponse**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#customresponse) event handler to render an accordion using Carbon.
+- How to use a [**userDefinedResponse**](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events#userDefinedResponse) event handler to render an accordion using Carbon.
 
 ## Running the Code
 

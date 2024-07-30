@@ -2,7 +2,7 @@
   "name": "watson-assistant-web-chat-toolkit-example",
   "version": "1.0.0",
   "engines": {
-    "node": "^16.15.1"
+    "node": ">=18"
   },
   "scripts": {
     "start": "parcel serve ./index.html --port 3000 --no-cache --dist-dir dist",
@@ -13,6 +13,7 @@
     "parcel": "^2.12.0"
   },
   "dependencies": {
+    "@ibm-watson/assistant-web-chat-react": "^2.0.0",
     "serve-static": "^1.15.0",
     "swiper": "^8.2.4"
   }

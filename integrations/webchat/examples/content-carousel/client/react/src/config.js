@@ -6,6 +6,7 @@ const config = {
   region: 'us-south',
   serviceInstanceID: '9a3613d2-3ce6-4928-8eb6-4d659d87ae68',
   subscriptionID: null,
+  debug: true,
 };
 
 export { config };
