@@ -35,9 +35,9 @@ For in-depth examples on different authentication schemas, please reference the 
 **Example cURL**
 
 ```json
-curl -x POST '{{API}}/v2/providers?version={{version}}' \
+curl -X POST '{{API}}/v2/providers?version={{version}}' \
+-u "apikey:{{apikey}}' \
 --header 'Content-Type: application/json' \
---header 'Authorization: {{AUTHORIZATION}}' \
 --data '{
     "provider_id": "myProCodeProvider-noSpaces_no_special_chars",
     "specification": {
@@ -152,9 +152,9 @@ Returns a list of conversational skill providers.
 
 **Example cURL**
 ```json
-curl -x GET '{{API}}/v2/providers?version={{version}}' \
---header 'Content-Type: application/json' \
---header 'Authorization: {{AUTHORIZATION}}'
+curl -X GET '{{API}}/v2/providers?version={{version}}' \
+-u "apikey:{{apikey}}' \
+--header 'Content-Type: application/json'
 ```
 
 **Example Request Body**
@@ -211,9 +211,9 @@ For in-depth examples on different authentication schemas, please reference the 
 **Example cURL**
 
 ```json
-curl -x POST '{{API}}/v2/providers/{{provider_id}}?version={{version}}' \
+curl -X POST '{{API}}/v2/providers/{{provider_id}}?version={{version}}' \
+-u "apikey:{{apikey}}' \
 --header 'Content-Type: application/json' \
---header 'Authorization: {{AUTHORIZATION}}' \
 --data '{
     "provider_id": "myProCodeProvider-noSpaces_no_special_chars",
     "specification": {
