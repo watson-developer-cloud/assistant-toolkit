@@ -1,3 +1,5 @@
+const LONG_MESSAGE = `This is a long message intended to demonstrate streaming large messages in smaller chunks. Breaking down messages into smaller parts helps simulate real-time data transmission over a network. This technique is particularly useful for streaming large files or continuous data streams like logs, chat messages, or live updates. By sending small chunks, we ensure the data is processed and displayed incrementally, providing a smoother and more responsive user experience. Each chunk represents a portion of the entire message, and they are sent sequentially with a slight delay to mimic real-world streaming scenarios. This example uses a delay of 100 milliseconds between each chunk to achieve this effect.`;
+
 // HTTP Methods
 export function deleteTest(req, res) {
   return res.json({
@@ -30,6 +32,94 @@ export function postTest(req, res) {
       status: 'POST IT',
     });
   }
+}
+
+export async function streamTest(req, res) {
+  // TODO Don't check the Accept header field since the toolkit only sends application/json
+  // Set the headers for the event stream
+  res.writeHead(200, {
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
+    'Content-Encoding' : 'none',
+    'X-Accel-Buffering' : 'no'
+  });
+  res.flushHeaders();
+
+  const messagePieces = LONG_MESSAGE.match(/.{1,20}/g); // Split the message into chunks of 20 characters
+
+  // send the message chunks with a delay of 100 milliseconds
+  let pieceIndex = 0;
+  const intervalId = setInterval(() => {
+    if (pieceIndex < messagePieces.length) {
+      let chunk = {
+        results: [{
+          generated_text: `${messagePieces[pieceIndex]}`
+        }]
+      }
+      res.write(`data: ${JSON.stringify(chunk)}\n\n`);
+      pieceIndex++;
+    } else {
+      clearInterval(intervalId);
+      res.end();
+    }
+  }, 100);
+
+  // Handle client disconnect
+  req.on('close', () => {
+    clearInterval(intervalId);
+    res.end();
+  });
+}
+
+
+export function streamErrorTest(req, res) {
+  return res.status(404).send({
+    message: 'This is an error!'
+  });
+}
+
+export function streamTimeoutTest(req, res) {
+  // TODO Don't check the Accept header field since the toolkit only sends application/json
+  // Set the headers for the event stream
+  res.writeHead(200, {
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
+    'Content-Encoding' : 'none',
+    'X-Accel-Buffering' : 'no'
+  });
+  res.flushHeaders();
+
+  const messagePieces = LONG_MESSAGE.match(/.{1,20}/g); // Split the message into chunks of 20 characters
+
+  // Send the message chunks with a delay of 100 milliseconds
+  let pieceIndex = 0;    
+  const intervalId = setInterval(() => {
+    if (pieceIndex < messagePieces.length) {
+      let chunk = {
+        results: [{
+          generated_text: `${messagePieces[pieceIndex]}`
+        }]
+      }
+      res.write(`data: ${JSON.stringify(chunk)}\n\n`);
+      pieceIndex++;
+    } else {
+      pieceIndex = 0;    
+    }
+  }, 100);
+
+  // Stop streaming after 51 seconds
+  const timeoutId = setTimeout(() => {
+    clearInterval(intervalId);
+    res.end();
+  }, 51000); // 51 seconds
+
+  req.on('close', () => {
+    clearInterval(intervalId);
+    clearTimeout(timeoutId);
+    res.end();
+  });
 }
 
 export function patchTest(req, res) {

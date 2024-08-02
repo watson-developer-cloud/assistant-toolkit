@@ -9,6 +9,7 @@ import bodyParser from 'body-parser';
 
 import {delayRouter} from './routes/delay-route.js';
 import testRoutes from './routes/test-route.js';
+import testStreamRoutes from './routes/test-stream-route.js';
 import securityRoutes from './routes/security-route.js';
 import providerRoutes from './routes/security-oauth-provider-route.js';
 import webhookRoutes from './routes/webhook-route.js';
@@ -24,15 +25,20 @@ app.use(morgan('dev'));
 
 // enable parsing of http request body
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
 
 // access to static files
 app.use(express.static(path.join('public')));
 
 // routes and api calls
 
+// Skip body-parser for /test/stream, but apply all other global middleware
+app.use('/test/stream', testStreamRoutes);
+
+app.use(bodyParser.json());
+
 app.use('/delay', delayRouter);
 
+// General routes for /test 
 app.use('/test', testRoutes);
 
 app.use('/security', securityRoutes);
@@ -50,5 +56,6 @@ const port = process.env.API_SERVER_PORT || 4000;
 app.listen(port, () => {
   console.log(`App available at http://localhost:${port}`);
 });
+
 
 
