@@ -96,7 +96,7 @@ This step is to enable semantic search using ELSER. Here are the tutorials from 
 ELSER v1: https://www.elastic.co/guide/en/elasticsearch/reference/8.10/semantic-search-elser.html  
 ELSER v2: https://www.elastic.co/guide/en/elasticsearch/reference/8.11/semantic-search-elser.html
 
-**IMPORTANT NOTE**: As of the date of this document, ELSER v2 (released in Elasticsearch 8.11 onward) is not available on IBM Cloud ( which provides Elasticsearch 8.10 currently)
+**IMPORTANT NOTE**: As of the date of this document, ELSER v2 (released in Elasticsearch 8.11 onward) is not available on IBM Cloud ( which provides Elasticsearch 8.10 currently). ELSER v2 is preferred if it is available.
 
 The following steps are based on ELSER v1 model:
 ### Create environment variables for ES credentials
@@ -153,6 +153,7 @@ Notes:
 * `search-wa-docs` will be your index name
 * `ml.tokens` is the field that will keep ELSER output when data is ingested, and `rank_feature` type is required for ELSER output field
 * `text` is the input filed for the inference processor. In the example dataset, the name of the input field is `text` which will be used by ELSER model to process.
+* `rank_features` type is for ELSER v1. ELSER v2 requires `sparse_vector` type.
 * Learn more about [elser-mappings](https://www.elastic.co/guide/en/elasticsearch/reference/8.10/semantic-search-elser.html#elser-mappings) from the tutorial
 
 ### Create an ingest pipeline with an inference processor

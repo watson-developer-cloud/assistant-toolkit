@@ -52,7 +52,6 @@ For using filters defined in the `Advanced Elasticsearch Settings` in the query 
     }
   }
 }
-
 ```
 Notes:
 * `ml.tokens` refers to the field that stores the ELSER tokens. You may need to update it if you use a different field in your index.
@@ -149,7 +148,10 @@ Notes:
 * `$FILTER` is the variable that contains a list of filters defined in the `Advanced Elasticsearch Settings` if it is available.
 * Learn more about nested queries and fields from [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-nested-query.html)
 
-### Federated Search
+### Filter the search results
+[How to use filters in an Elasticsearch query](how_to_use_filters_in_an_elasticsearch_query.md): A guide on how to use filters in an Elasticsearch query and config it with the Search integration in watsonx Assistant.
+
+### Federated search
 You can follow the guide [here](federated_search.md) to run queries across multiple indexes within your Elasticsearch cluster.
 
 ## Document Ingestion with Elasticsearch
