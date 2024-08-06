@@ -231,7 +231,7 @@ curl -X PUT "${ES_URL}/${ES_INDEX_NAME}/_mapping?pretty" -k \
 The above command will update the index mappings to specify `passages` to be `nested` type and `passages.sparse.tokens` to be `rank_features` type, 
 because the default dynamic index mappings of the web crawler cannot recognize these types correctly during document ingestion.
 
-NOTE: `rank_features` only works for ELSER v1 model. ELSER v2 requires `sparse_vector` type. ELSER v2 has only been available since Elastic 8.11. Learn more about ELSER v2 from [here](https://www.elastic.co/guide/en/machine-learning/current/ml-nlp-elser.html)
+NOTE: `rank_features` type is for the ELSER v1 model. ELSER v2 requires `sparse_vector` type. ELSER v2 has only been available since Elasticsearch 8.11. ELSER v2 is preferred if it is avaiable. Learn more about ELSER v2 from [here](https://www.elastic.co/guide/en/machine-learning/current/ml-nlp-elser.html)
 
 ### Build a custom ingest pipeline with two processors
 Now you can build a custom ingest pipeline for your web crawler index on Kibana, following these steps:
