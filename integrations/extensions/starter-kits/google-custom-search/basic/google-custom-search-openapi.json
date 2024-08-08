@@ -8,7 +8,7 @@
   },
   "servers": [
     {
-      "url": "https://customsearch.googleapis.com"
+      "url": "https://www.googleapis.com"
     }
   ],
   "components": {
