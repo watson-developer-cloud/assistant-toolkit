@@ -165,6 +165,8 @@ This step is to enable semantic search using ELSER. Here are the tutorials from 
 ELSER v1: https://www.elastic.co/guide/en/elasticsearch/reference/8.10/semantic-search-elser.html  
 ELSER v2: https://www.elastic.co/guide/en/elasticsearch/reference/8.11/semantic-search-elser.html
 
+Note: ELSER v2 has become available since Elasticsearch 8.11. It is preferred to use ELSER v2 if it is available.
+
 The following steps are based on ELSER v2 model:
 ### Use port-forward to access Elasticsearch cluster locally
 In a new terminal window with `ES_CLUSTER` and `ES_NAMESPACE` available as environment variables, run the following 
@@ -194,6 +196,8 @@ steps to create environment variables for later use.
 
 ### Enable ELSER model (v2)
 ELSER model is not enabled by default, but you can enable it in Kibana. Please follow the [download-deploy-elser instructions](https://www.elastic.co/guide/en/machine-learning/8.11/ml-nlp-elser.html#download-deploy-elser) to do it.
+
+Note: `.elser_model_2_linux-x86_64` is an optimized version of the ELSER v2 model and is preferred to use if it is available. Learn more about [inference-ingest-pipeline](https://www.elastic.co/guide/en/elasticsearch/reference/8.11/semantic-search-elser.html#inference-ingest-pipeline) from the tutorial.
 
 ### Load data into Elasticsearch
 In Kibana, you can upload a data file to Elasticsearch cluster using the Data Visualizer in the Machine Learning UI https://localhost:5601/app/ml/filedatavisualizer.
@@ -251,7 +255,7 @@ Create an ingest pipeline with an inference processor to use ELSER to infer agai
     "processors": [
       {
         "inference": {
-          "model_id": ".elser_model_2",
+          "model_id": ".elser_model_2_linux-x86_64",
           "input_output": [
             {
               "input_field": "text",
@@ -263,7 +267,7 @@ Create an ingest pipeline with an inference processor to use ELSER to infer agai
     ]
   }'
   ```
-Learn more about [inference-ingest-pipeline](https://www.elastic.co/guide/en/elasticsearch/reference/8.11/semantic-search-elser.html#inference-ingest-pipeline) from the tutorial
+Note: `.elser_model_2_linux-x86_64` is an optimized version of the ELSER v2 model and is preferred to use if it is available. Learn more about [inference-ingest-pipeline](https://www.elastic.co/guide/en/elasticsearch/reference/8.11/semantic-search-elser.html#inference-ingest-pipeline) from the tutorial.
 
 ### Ingest the data through the inference ingest pipeline
 Create the tokens from the text by reindexing the data through the inference pipeline that uses ELSER as the inference model.
@@ -295,14 +299,14 @@ the generated ELSER output:
      "query":{
         "text_expansion":{
            "text_embedding":{
-              "model_id":".elser_model_2",
+              "model_id":".elser_model_2_linux-x86_64",
               "model_text":"how to set up custom extension?"
            }
         }
      }
   }'
   ```
-NOTE: Learn more about [text-expansion-query](https://www.elastic.co/guide/en/elasticsearch/reference/8.11/semantic-search-elser.html#text-expansion-query) from the tutorial.
+Note: Learn more about [text-expansion-query](https://www.elastic.co/guide/en/elasticsearch/reference/8.11/semantic-search-elser.html#text-expansion-query) from the tutorial.
 
 ## Step 3: Build a custom extension in watsonx Assistant for Elasticsearch API
 

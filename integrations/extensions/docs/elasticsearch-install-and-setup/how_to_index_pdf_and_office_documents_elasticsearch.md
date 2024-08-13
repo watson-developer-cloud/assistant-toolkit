@@ -69,7 +69,7 @@ curl -X PUT "${ES_URL}/${ES_INDEX_NAME}?pretty" -u "${ES_USER}:${ES_PASSWORD}" \
           "sparse": {
             "properties": {
               "tokens": {
-                "type": "rank_features"
+                "type": "sparse_vector"
               }
             }
           }
@@ -80,7 +80,7 @@ curl -X PUT "${ES_URL}/${ES_INDEX_NAME}?pretty" -u "${ES_USER}:${ES_PASSWORD}" \
 }'
 ```
 
-NOTE: `rank_features` type only works for ELSER v1 model. ELSER v2 requires `sparse_vector` type. ELSER v2 has only been available since Elasticsearch 8.11. ELSER v2 is preferred if it is available. Learn more about ELSER v2 from [here](https://www.elastic.co/guide/en/machine-learning/current/ml-nlp-elser.html)
+Note: `sparse_vector` type is for ELSER v2. For ELSER v1, please use `rank_features`. ELSER v2 has been available since Elasticsearch 8.11 and is preferred to use if it is available. Learn more about ELSER v2 from [here](https://www.elastic.co/guide/en/machine-learning/current/ml-nlp-elser.html)
 
 
 ### Step 3: Create an ELSER ingest pipeline with regex based chunking
@@ -111,7 +111,7 @@ curl -X PUT "${ES_URL}/_ingest/pipeline/${ES_PIPELINE_NAME}?pretty" -u "${ES_USE
       "field": "passages",
       "processor": {
         "inference": {
-          "model_id": ".elser_model_1",
+          "model_id": ".elser_model_2_linux-x86_64",
           "target_field": "_ingest._value.sparse",
           "field_map": {
             "_ingest._value.text": "text_field"
@@ -134,7 +134,7 @@ In the above ingest pipeline defintion, the `script` processor splits `content` 
   "script": {
     "source": "String[] envSplit = /((?<!M(r|s|rs)\\.)(?<=\\.) |(?<=\\!) |(?<=\\?) )/.split(ctx['\''content'\'']);\nctx['\''passages'\''] = [];\n\nStringBuilder overlappingText = new StringBuilder();\n\nint i = 0;\nwhile (i < envSplit.length) {\n    StringBuilder passageText = new StringBuilder(envSplit[i]);\n    int accumLength = envSplit[i].length();\n    ArrayList accumLengths = [];\n    accumLengths.add(accumLength);\n\n    int j = i + 1;\n    while (j < envSplit.length && passageText.length() + envSplit[j].length() < params.model_limit) {\n        passageText.append('\'' '\'').append(envSplit[j]);\n        accumLength += envSplit[j].length();\n        accumLengths.add(accumLength);\n        j++;\n    }\n\n    ctx['\''passages'\''].add(['\''text'\'': overlappingText.toString() + passageText.toString()]);\n    def startLength = passageText.length() * (1 - params.overlap_percentage) + 1;\n    \n    int k = Collections.binarySearch(accumLengths, (int)startLength);\n    if (k < 0) {\n        k = -k - 1;\n    }\n    overlappingText = new StringBuilder();\n    for (int l = i + k; l < j; l++) {\n        overlappingText.append(envSplit[l]).append('\'' '\'');\n    }\n\n    i = j;\n}",
     "params": {
-      "model_limit": 1024,
+      "model_limit": 2048,
       "overlap_percentage": 0.25
     }
   }
@@ -255,7 +255,7 @@ Here is the query body you need in the `Advanced Elasticsearch Settings` to sear
       "query": {
         "text_expansion": {
           "passages.sparse.tokens": {
-            "model_id": ".elser_model_1",
+            "model_id": ".elser_model_2_linux-x86_64",
             "model_text": "$QUERY"
           }
         }
@@ -267,6 +267,7 @@ Here is the query body you need in the `Advanced Elasticsearch Settings` to sear
 }
 ```
 Notes:
+* `.elser_model_2_linux-x86_64` is an optimized version of the ELSER v2 model and is preferred to use if it is available. Otherwise, use `.elser_model_2` for the regular ELSER v2 model or `.elser_model_1` for ELSER v1.
 * `passages` is the nested field that stores nested documents. You may need to update it if you use a different nested field in your index.
 * `passages.sparse.tokens` refers to the field that stores the ELSER tokens for the nested documents.
 * `"inner_hits": {"_source": {"excludes": ["passages.sparse"]}}` is to exclude the ELSER tokens from the nested documents in the search results.

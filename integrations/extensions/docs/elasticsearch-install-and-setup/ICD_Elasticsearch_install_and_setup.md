@@ -13,7 +13,7 @@ This is a documentation about how to set up Elasticsearch from IBM Cloud and cre
 * Create an [IBM Cloud account](https://cloud.ibm.com/registration) if you don't have one.
 * Provision a Databases for Elasticsearch instance from the [IBM Cloud catalog](https://cloud.ibm.com/catalog/databases-for-elasticsearch).  
   **A platinum plan with at least 4GB RAM is required in order to use the advanced ML features,
-  such as [Elastic Learned Sparse EncodeR (ELSER)](https://www.elastic.co/guide/en/machine-learning/8.10/ml-nlp-elser.html)**
+  such as [Elastic Learned Sparse EncodeR (ELSER)](https://www.elastic.co/guide/en/machine-learning/current/ml-nlp-elser.html)**
 * Create a service credentials from the left-side menu and find the `hostname`, `port`, `username` and `password`.
   The credentials will be used to connect to Kibana and Watson Assistant at next steps. You can use admin userid and password as well.
   Please refer to [this doc](https://cloud.ibm.com/docs/databases-for-elasticsearch?topic=databases-for-elasticsearch-user-management&interface=ui#user-management-elasticsearch-ibm-superuser) to learn more about different user roles.
@@ -94,11 +94,11 @@ With default settings, an Elasticsearch index does keyword search.
 ## Step 5: Enable semantic search with ELSER
 This step is to enable semantic search using ELSER. Here are the tutorials from Elasticsearch doc:  
 ELSER v1: https://www.elastic.co/guide/en/elasticsearch/reference/8.10/semantic-search-elser.html  
-ELSER v2: https://www.elastic.co/guide/en/elasticsearch/reference/8.11/semantic-search-elser.html
+ELSER v2: https://www.elastic.co/guide/en/elasticsearch/reference/current/semantic-search-elser.html
 
-**IMPORTANT NOTE**: As of the date of this document, ELSER v2 (released in Elasticsearch 8.11 onward) is not available on IBM Cloud ( which provides Elasticsearch 8.10 currently). ELSER v2 is preferred if it is available.
+**IMPORTANT NOTE**: ELSER v2 has become available since Elasticsearch 8.11. It is preferred to use ELSER v2 if it is available.
 
-The following steps are based on ELSER v1 model:
+The following steps are based on ELSER v2 model:
 ### Create environment variables for ES credentials
   ```bash
   export ES_URL=https://<hostname:port>
@@ -108,8 +108,11 @@ The following steps are based on ELSER v1 model:
   ```  
 You can find the credentials from the service credentials of your Elasticsearch instance.
 &nbsp;
-### Enable ELSER model (v1)
-ELSER model is not enabled by default, but you can enable it in Kibana. Please follow the [download-deploy-elser instructions](https://www.elastic.co/guide/en/machine-learning/8.10/ml-nlp-elser.html#download-deploy-elser) to do it.
+### Enable ELSER model (v2)
+ELSER model is not enabled by default, but you can enable it in Kibana. Please follow the [download-deploy-elser instructions](https://www.elastic.co/guide/en/machine-learning/current/ml-nlp-elser.html#download-deploy-elser) to do it.
+
+Note: `.elser_model_2_linux-x86_64` is an optimized version of the ELSER v2 model and is preferred to use if it is available. Otherwise, use `.elser_model_2` for the regular ELSER v2 model or `.elser_model_1` for ELSER v1.
+
 
 ### Load data into Elasticsearch
 In Kibana, you can upload a data file to Elasticsearch cluster using the Data Visualizer in the Machine Learning UI http://localhost:5601/app/ml/filedatavisualizer.  
@@ -140,7 +143,7 @@ Once finished, you have created an index for the data you just uploaded.
       },
       "properties": {
         "ml.tokens": {
-          "type": "rank_features"
+          "type": "sparse_vector"
         },
         "text": {
           "type": "text"
@@ -150,22 +153,22 @@ Once finished, you have created an index for the data you just uploaded.
   }'
   ```
 Notes:
-* `search-wa-docs` will be your index name
-* `ml.tokens` is the field that will keep ELSER output when data is ingested, and `rank_feature` type is required for ELSER output field
+* `search-wa-docs` will be your index name.
+* `ml.tokens` is the field that will keep ELSER output when data is ingested.
 * `text` is the input filed for the inference processor. In the example dataset, the name of the input field is `text` which will be used by ELSER model to process.
-* `rank_features` type is for ELSER v1. ELSER v2 requires `sparse_vector` type.
-* Learn more about [elser-mappings](https://www.elastic.co/guide/en/elasticsearch/reference/8.10/semantic-search-elser.html#elser-mappings) from the tutorial
+* `sparse_vector` type is for ELSER v2. For ELSER v1, please use `rank_features` type.
+* Learn more about [elser-mappings](https://www.elastic.co/guide/en/elasticsearch/reference/current/semantic-search-elser.html#elser-mappings) from the tutorial.
 
 ### Create an ingest pipeline with an inference processor
 Create an ingest pipeline with an inference processor to use ELSER to infer against the data that will be ingested in the pipeline.
   ```bash
-  curl -X PUT "${ES_URL}/_ingest/pipeline/elser-v1-test?pretty" -u "${ES_USER}:${ES_PASSWORD}" \
+  curl -X PUT "${ES_URL}/_ingest/pipeline/elser-v2-test?pretty" -u "${ES_USER}:${ES_PASSWORD}" \
   -H "Content-Type: application/json" --cacert "${ES_CACERT}" -d'
   {
     "processors": [
       {
         "inference": {
-          "model_id": ".elser_model_1",
+          "model_id": ".elser_model_2_linux-x86_64",
           "target_field": "ml",
           "field_map": {
             "text": "text_field"
@@ -180,7 +183,12 @@ Create an ingest pipeline with an inference processor to use ELSER to infer agai
     ]
   }'
   ```
-Learn more about [inference-ingest-pipeline](https://www.elastic.co/guide/en/elasticsearch/reference/8.10/semantic-search-elser.html#inference-ingest-pipeline) from the tutorial
+Notes:
+* `elser-v2-test` is the name of the ingest pipeline with an inference processor using ELSER v2 model.
+* `.elser_model_2_linux-x86_64` is an optimized version of the ELSER v2 model and is preferred to use if it is available. Otherwise, use `.elser_model_2` for the regular ELSER v2 model or `.elser_model_1` for ELSER v1.
+* `"text": "text_field"` maps the `text` field from an index to the input field of the ELSER model. `text_field` is the default input field of the ELSER model when it is deployed. You may need to update it if you configure a different input field when deploying your ELSER model.
+* Learn more about [inference-ingest-pipeline](https://www.elastic.co/guide/en/elasticsearch/reference/current/semantic-search-elser.html#inference-ingest-pipeline) from the tutorial
+
 ### Ingest the data through the inference ingest pipeline
 Create the tokens from the text by reindexing the data through the inference pipeline that uses ELSER as the inference model.
   ```bash
@@ -191,14 +199,14 @@ Create the tokens from the text by reindexing the data through the inference pip
       "index": "wa-docs"
     },
     "dest": {
-      "index": "search-wa-docs",
-      "pipeline": "elser-v1-test"
+      "index": "search_wa-docs",
+      "pipeline": "elser-v2-test"
     }
   }'
   ```
-* `wa-docs` is the index you created when uploading the example file to Elasticsearch cluster. It contains the text data
-* `search_wa-docs` is the search index that has ELSER output field
-* `elser-v1-test` is the ingest pipeline with an inference processor using ELSER model
+* `wa-docs` is the index you created when uploading the example file to Elasticsearch cluster. It contains the text data.
+* `search_wa-docs` is the search index that has ELSER output field.
+* `elser-v2-test` is the ingest pipeline with an inference processor using ELSER v2 model.
 ### Semantic search by using the text_expansion query
 To perform semantic search, use the `text_expansion` query, and provide the query text and the ELSER model ID.
 The example below uses the query text "How to set up custom extension?", the `ml.tokens` field contains
@@ -210,7 +218,7 @@ the generated ELSER output:
      "query":{
         "text_expansion":{
            "ml.tokens":{
-              "model_id":".elser_model_1",
+              "model_id":".elser_model_2_linux-x86_64",
               "model_text":"how to set up custom extension?"
            }
         }
@@ -219,7 +227,8 @@ the generated ELSER output:
   ```
 Notes:
 * You can also use `API_KEY` for authorization. You can generate an `API_KEY` for your search index on the index overview page in Kibana.
-* Learn more about [text-expansion-query](https://www.elastic.co/guide/en/elasticsearch/reference/8.10/semantic-search-elser.html#text-expansion-query) from the tutorial.
+* Learn more about [text-expansion-query](https://www.elastic.co/guide/en/elasticsearch/reference/current/semantic-search-elser.html#text-expansion-query) from the tutorial.
+
 ### Enable semantic search for your Search extension on Watson Assistant
 To enable semantic search for your Search extension on Watson Assistant, you just need to specify the following query body in the Search extension settings:
   ```json
@@ -227,7 +236,7 @@ To enable semantic search for your Search extension on Watson Assistant, you jus
     "query":{
       "text_expansion":{
         "ml.tokens":{
-          "model_id":".elser_model_1",
+          "model_id":".elser_model_2_linux-x86_64",
           "model_text":"$QUERY"
         }
       }
@@ -238,4 +247,4 @@ To enable semantic search for your Search extension on Watson Assistant, you jus
 
 Notes:
 * `$QUERY` is the query variable that contains the user search query by default.
-* The query body is likely to change for ELSER v2.
+* `.elser_model_2_linux-x86_64` is an optimized version of the ELSER v2 model and is preferred to use if it is available. Otherwise, use `.elser_model_2` for the regular ELSER v2 model or `.elser_model_1` for ELSER v1.
