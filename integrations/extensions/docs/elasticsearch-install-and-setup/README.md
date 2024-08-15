@@ -13,12 +13,10 @@ You can follow the guide [here](../../starter-kits/elasticsearch/README.md) to b
 ### Option 2: Use the built-in Search integration
 You can set up search over Elasticsearch indices using the built-in search integration. Please follow the instructions [here](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-search-elasticsearch-add) to set up the Search integration for your assistant.
 
+#### Configure the Advanced Elasticsearch Settings
 There are two settings under `Advanced Elasticsearch Settings` for using custom query body and custom filters to achieve advanced search use cases. See the guide [How to configure Advanced Elasticsearch Settings](./how_to_configure_advanced_elasticsearch_settings.md) for more details. 
 
-### Filter the search results
-[How to use filters in an Elasticsearch query](how_to_use_filters_in_an_elasticsearch_query.md): A guide on how to use filters in an Elasticsearch query and config it with the Search integration in watsonx Assistant.
-
-### Federated search
+#### Federated search
 You can follow the guide [here](federated_search.md) to run queries across multiple indexes within your Elasticsearch cluster.
 
 ## Document Ingestion with Elasticsearch
