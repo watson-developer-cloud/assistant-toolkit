@@ -62,7 +62,7 @@ Using the custom filters, you can achieve advanced filtering use cases for searc
         }
     },
     {
-        "term": {
+        "match": {
             "id": "A_specific_ID"
         }
     }
