@@ -192,7 +192,7 @@ By default, keyword search is used for your Search integration, but you can conf
   }
 }
 ```
-* `ml.tokens` refers to the field that stores the ELSER tokens. You may need to update it if you use a different field in your index.
+* `ml.tokens` refers to the field that stores the ELSER tokens. You may need to update it if you use a different field in your index. If the ELSER tokens are not available, you can also use the field that contains the raw text, but the search quality may degrade.
 * `.elser_model_2_linux-x86-64` is the model ID for the optimized version of ELSER v2. It is recommended to use if it is available in your Elasticsearch deployment. Otherwise, use `.elser_model_2` for the regular ELSER v2 model, or `.elser_model_1` for ELSER v1.
 * `$QUERY` is the variable for accesing the user query. It will make sure that the user query will be passed to the query body.
 * `$FILTER` is the variable for accessing the customer filters configured either in the `Advanced Elasticsearch Settings` or when calling the search in an action step. It will make sure that the custom filters will be used in the query body.
@@ -254,7 +254,7 @@ Notes:
 ```
 Notes:
 * `passages` is the nested field that stores inner documents within a parent document. You may need to update it if you use a different nested field in your index.
-* `passages.sparse.tokens` refers to the field that stores the ELSER tokens for the inner documents.
+* `passages.sparse.tokens` refers to the field that stores the ELSER tokens or raw text for the inner documents. You may need to update it if you use a different nested field in your index. If the ELSER tokens are not available, you can also use the field that contains the raw text, but the search quality may degrade.
 * `"inner_hits": {"_source": {"excludes": ["passages.sparse"]}}` is to exclude the ELSER tokens from the inner documents in the search results.
 * `"_source": false` is to exclude all the top-level fields in the search results because only the inner documents in the search results will be used.
 * `$QUERY` is the variable for accesing the user query. It will make sure that the user query will be passed to the query body.
