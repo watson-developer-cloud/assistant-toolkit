@@ -11,7 +11,7 @@ This guide shows how to configure the advanced Elasticsearch settings in watsonx
     * [AND](#and)
     * [OR](#or)
     * [NOT](#not)
-    * [Nested filters: (A and B) or C](#nested-filters-a-and-b-or-c)
+    * [(a AND b) OR c](#a-and-b-or-c)
 * [How to configure the query body](#how-to-configure-the-query-body)
   * [Semantic search with ELSER](#semantic-search-with-elser)
   * [KNN dense vector search](#knn-dense-vector-search)
@@ -132,7 +132,7 @@ This filter object will filter the search results using the following conditions
 * `text` does not contain "A_keyword_in_text", AND
 * `id` is not equal to "A_specific_ID".
 
-#### Nested filters: (A and B) or C
+#### (a AND b) OR c
 ```json
 [
     "bool": {
