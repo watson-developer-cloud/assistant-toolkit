@@ -226,6 +226,37 @@ Notes:
 * Learn more about how to set up a text embedding model in Elasticsearch from [here](text_embedding_deploy_and_use.md).
 
 ### Using a nested query to search over nested documents with ELSER
+If there are inner documents in your Elasticsearch index, you can use a nested query to search over the inner documents. If there is a match, the qeury returns the root parent document with matched inner documents. And then, when applying filters to the search results, you can choose to filter the outer or inner documents.
+
+#### Filtering the outer documents
+```json
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "nested": {
+            "path": "passages",
+            "query": {
+              "text_expansion": {
+                "passages.sparse.tokens": {
+                  "model_id": ".elser_model_2_linux-x86_64",
+                  "model_text": "$QUERY"
+                  }
+              }
+            },
+            "inner_hits": {"_source": {"excludes": ["passages.sparse"]}}
+          }
+        }
+      ],
+      "filter": "$FILTER"
+    }
+  },
+  "_source": false
+}
+```
+
+#### Filtering the inner documents
 ```json
 {
   "query": {
@@ -258,7 +289,7 @@ Notes:
 * `"inner_hits": {"_source": {"excludes": ["passages.sparse"]}}` is to exclude the ELSER tokens from the inner documents in the search results.
 * `"_source": false` is to exclude all the top-level fields in the search results because only the inner documents in the search results will be used.
 * `$QUERY` is the variable for accesing the user query. It will make sure that the user query will be passed to the query body.
-* `$FILTER` is the variable for accessing the customer filters configured either in the `Advanced Elasticsearch Settings` or when calling the search in an action step. It will make sure that the custom filters will be used in the query body.
+* `$FILTER` is the variable for accessing the customer filters configured either in the `Advanced Elasticsearch Settings` or when calling the search in an action step. It will make sure that the custom filters will be used in the query body. If applied on the outer documents, only outer fields are available to use in the filters. If applied on the inner documents, only inner fields are available to use in the filters.
 * Learn more about nested queries and fields from [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-nested-query.html)
 
 ### Hybird search with combined keyword search and dense vector search
