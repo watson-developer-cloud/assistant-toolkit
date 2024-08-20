@@ -199,13 +199,13 @@ Create the tokens from the text by reindexing the data through the inference pip
       "index": "wa-docs"
     },
     "dest": {
-      "index": "search_wa-docs",
+      "index": "search-wa-docs",
       "pipeline": "elser-v2-test"
     }
   }'
   ```
 * `wa-docs` is the index you created when uploading the example file to Elasticsearch cluster. It contains the text data.
-* `search_wa-docs` is the search index that has ELSER output field.
+* `search-wa-docs` is the search index that has ELSER output field.
 * `elser-v2-test` is the ingest pipeline with an inference processor using ELSER v2 model.
 ### Semantic search by using the text_expansion query
 To perform semantic search, use the `text_expansion` query, and provide the query text and the ELSER model ID.
