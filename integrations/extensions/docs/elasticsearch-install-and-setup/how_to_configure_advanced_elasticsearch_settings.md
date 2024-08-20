@@ -226,7 +226,7 @@ Notes:
 * Learn more about how to set up a text embedding model in Elasticsearch from [here](text_embedding_deploy_and_use.md).
 
 ### Using a nested query to search over nested documents with ELSER
-If there are inner documents in your Elasticsearch index, you can use a nested query to search over the inner documents. If there is a match, the qeury returns the root parent document with matched inner documents. And then, when applying filters to the search results, you can choose to filter the outer or inner documents.
+If there are inner documents in your Elasticsearch index, you can use a nested query to search over the inner documents. If there is a match, the query returns the root parent document with matched inner documents. So, if applying filters to the search results, you can choose to filter the outer or inner documents.
 
 #### Filtering the outer documents
 ```json
