@@ -76,7 +76,8 @@ This filter object will filter the search results using the following conditions
 
 #### OR
 ```json
-{
+[
+  {
     "bool": {
         "should": [
             {
@@ -96,7 +97,8 @@ This filter object will filter the search results using the following conditions
             }
         ]
     }
-}
+  }
+]
 ```
 This filter object will filter the search results using the following conditions:
 * `title` contains "A_keyword_in_title", OR
