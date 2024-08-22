@@ -108,6 +108,7 @@ This filter object will filter the search results using the following conditions
 #### NOT
 ```json
 [
+  {
     "bool": {
         "must_not": [
             {
@@ -127,6 +128,7 @@ This filter object will filter the search results using the following conditions
             }
         ]
     }
+  }
 ]
 ```
 This filter object will filter the search results using the following conditions:
@@ -137,6 +139,7 @@ This filter object will filter the search results using the following conditions
 #### (a AND b) OR c
 ```json
 [
+  {
     "bool": {
         "should": [
             {
@@ -162,6 +165,7 @@ This filter object will filter the search results using the following conditions
             }
         ]
     }
+  }
 ]
 ```
 This filter object will filter the search results using the following conditions:
