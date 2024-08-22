@@ -188,7 +188,7 @@ as an option to ingest content. Choose `Web Crawler` option, click on `Start`, a
 * From the domain `Crawl Rules` tab, add two additional rules like below:  
   <img src="assets/add_crawl_rules_for_web_crawler.png" width="802" height="309" />  
   NOTE: The two rules tell the web crawler to only crawl URLs that begin with https://www.nationalparks.org/explore/parks. 
-  Learn more about crawl rules from [here](https://www.elastic.co/guide/en/app-search/8.10/web-crawler-reference.html#web-crawler-reference-crawl-rule)
+  Learn more about crawl rules from [here](https://www.elastic.co/guide/en/app-search/current/web-crawler-reference.html#web-crawler-reference-crawl-rule)
 
 
 * Don't start the web crawler (by clicking on `Crawl` in the upper right corner) yet, because that would cause it to 
@@ -200,9 +200,8 @@ as an option to ingest content. Choose `Web Crawler` option, click on `Start`, a
 To use ELSER for text expansion queries on chunked texts, you need to build an ingest pipeline with a chunking processor 
 that uses the ELSER model.
 
-NOTE: ELSER model is not enabled by default, and you can enable it in Kibana, following the [download-deploy-elser instructions](https://www.elastic.co/guide/en/machine-learning/8.11/ml-nlp-elser.html#download-deploy-elser). 
-Depending on your Elasticsearch version, you can choose to deploy either ELSER v1 or v2 model. The following steps and 
-commands are based on ELSER v1 model, but you can find what change is needed for ELSER v2 in the notes of each step.  
+NOTE: ELSER model is not enabled by default, and you can enable it in Kibana, following the [download-deploy-elser instructions](https://www.elastic.co/guide/en/machine-learning/current/ml-nlp-elser.html#download-deploy-elser).
+Depending on your Elasticsearch version, you can choose to deploy either ELSER v1 or v2 model. `.elser_model_2_linux-x86_64` is an optimized version of the ELSER v2 model and is preferred to use if it is available. Otherwise, use `.elser_model_2` for the regular ELSER v2 model or `.elser_model_1` for ELSER v1.
 
 ### Update the index mappings of your web crawler
 Define your web crawler index name as an environment variable:  
@@ -221,17 +220,16 @@ curl -X PUT "${ES_URL}/${ES_INDEX_NAME}/_mapping?pretty" -k \
       "type": "nested",
       "properties": {
         "sparse.tokens": {
-          "type": "rank_features"
+          "type": "sparse_vector"
         }
       }
     }
   }
 }'
 ```
-The above command will update the index mappings to specify `passages` to be `nested` type and `passages.sparse.tokens` to be `rank_features` type, 
-because the default dynamic index mappings of the web crawler cannot recognize these types correctly during document ingestion.
+The above command will update the index mappings to specify `passages` to be `nested` type and `passages.sparse.tokens` to be `sparse_vector` type, because the default dynamic index mappings of the web crawler cannot recognize these types correctly during document ingestion.
 
-NOTE: `rank_features` only works for ELSER v1 model. ELSER v2 requires `sparse_vector` type. ELSER v2 has only been available since Elastic 8.11. Learn more about ELSER v2 from [here](https://www.elastic.co/guide/en/machine-learning/current/ml-nlp-elser.html)
+NOTE: `sparse_vector` type is for the ELSER v2 model. For ELSER v1, please use `rank_features` type. ELSER v2 has become available since Elasticsearch 8.11. It is preferred to use ELSER v2 if it is avaiable. Learn more about ELSER v2 from [here](https://www.elastic.co/guide/en/machine-learning/current/ml-nlp-elser.html)
 
 ### Build a custom ingest pipeline with two processors
 Now you can build a custom ingest pipeline for your web crawler index on Kibana, following these steps:
@@ -361,7 +359,7 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
       "field_map": {
         "_ingest._value.text": "text_field"
       },
-      "model_id": ".elser_model_1",
+      "model_id": ".elser_model_2_linux-x86_64",
       "target_field": "_ingest._value.sparse",
       "inference_config": {
         "text_expansion": {
@@ -386,8 +384,7 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
   }
   ```
   NOTES:
-  * `.elser_model_1` is the `model_id` for ELSER v1 model, and the `model_id` can be `.elser_model_2` or `.elser_model_2_linux-x86_64` 
-  for ELSER v2 model depending on which one you want to use and have deployed in your Elasticsearch cluster.
+  * `.elser_model_2_linux-x86_64` is an optimized version of the ELSER v2 model and is preferred to use if it is available. Otherwise, use `.elser_model_2` for the regular ELSER v2 model or `.elser_model_1` for ELSER v1.
   * `inference_config.text_expansion` is required in the config to tell the Foreach processor to use `text_expansion` 
     and store the results in `tokens` field for each chunked text.
   * `_ingest._value.sparse` expects a `sparse` field for each chunk object as the target field.
@@ -413,8 +410,7 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
     see if they have the expected fields with content. For example, you should see chunked `passages`, each passage with
     `sparse.tokens` and a chunked `text`,  
     <img src="assets/web_crawl_with_chunking_document_example.png" width="920" height="503">  
-    Learn more about the web crawler from [Elastic documentation](https://www.elastic.co/guide/en/enterprise-search/8.10/crawler.html) 
-    to improve or customize your web crawler.  
+    Learn more about the web crawler from [Elastic documentation](https://www.elastic.co/guide/en/enterprise-search/current/crawler.html) to improve or customize your web crawler.
 
   * If you don't see expected documents with chunked passages, or you want to update any processors in the ingest 
     pipeline to customize your web crawler, you may need to delete the existing documents first before starting the crawl again. 
@@ -443,7 +439,7 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
         "query": {
           "text_expansion": {
             "passages.sparse.tokens": {
-              "model_id": ".elser_model_1",
+              "model_id": ".elser_model_2_linux-x86_64",
               "model_text": "Tell me about Acadia"
             }
           }
@@ -455,7 +451,7 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
   ```
   The above command sends a nested query to the Elasticsearch index. `text_expansion` is used in this query on the ELSER tokens 
   generated for each chunked text by the ingest pipeline. So, the search happens on the chunked texts. Learn more about nested 
-  query from the [Elastic documentation](https://www.elastic.co/guide/en/elasticsearch/reference/8.10/query-dsl-nested-query.html).
+  query from the [Elastic documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-nested-query.html).
 
   If you see successful results from the above query, you have successfully created a web crawler index with an ELSER ingest pipeline with a chunking processor.
   
@@ -463,8 +459,7 @@ Now you can build a custom ingest pipeline for your web crawler index on Kibana,
   NOTES:
   * If you run this query while the crawling is taking place, you might get a timeout error, because the ELSER model 
   is busy indexing and thus might not respond quickly enough to your query. If that happens, you should just wait until the crawl finishes.
-  * `.elser_model_1` is the `model_id` for ELSER v1, and the `model_id` can be `.elser_model_2` or `.elser_model_2_linux-x86_64` for ELSER v2 
-  depending on which one you want to use and have deployed in your Elasticsearch cluster. 
+  * `.elser_model_2_linux-x86_64` is an optimized version of the ELSER v2 model and is preferred to use if it is available. Otherwise, use `.elser_model_2` for the regular ELSER v2 model or `.elser_model_1` for ELSER v1.
 
 ## Step 4: Connect a web crawler index to watsonx Assistant for conversational search 
 
@@ -510,7 +505,7 @@ Here is the query body you need in the `Advanced Elasticsearch Settings` to sear
       "query": {
         "text_expansion": {
           "passages.sparse.tokens": {
-            "model_id": ".elser_model_1",
+            "model_id": ".elser_model_2_linux-x86_64",
             "model_text": "$QUERY"
           }
         }
@@ -525,6 +520,6 @@ Notes:
 * `passages` is the nested field that stores nested documents. You may need to update it if you use a different nested field in your index.
 * `passages.sparse.tokens` refers to the field that stores the ELSER tokens for the nested documents.
 * `"inner_hits": {"_source": {"excludes": ["passages.sparse"]}}` is to exclude the ELSER tokens from the nested documents in the search results.
-* `"_source": false` is to exclude top-level fields in the search results.
+* `"_source": false` is to exclude the unnecessary top-level fields in the search results.
 * Learn more about nested queries and fields from [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-nested-query.html)
 
