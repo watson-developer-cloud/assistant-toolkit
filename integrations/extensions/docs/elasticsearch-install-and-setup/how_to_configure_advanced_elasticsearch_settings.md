@@ -1,5 +1,5 @@
 # How to configure the advanced Elasticsearch settings
-This guide shows how to configure the advanced Elasticsearch settings in watsonx Assistant's Search integration. Specifically, there are two types of settings under `Advanced Elasticsearch Settings`: custom filters and query body.
+This guide shows how to configure the advanced Elasticsearch settings in watsonx Assistant's Search integration. Specifically, there are two types of settings under `Advanced Elasticsearch settings`: custom filters and query body.
 
 <img src="assets/advanced_elasticsearch_settings.png" width=518 height=459 />
 
@@ -16,21 +16,21 @@ This guide shows how to configure the advanced Elasticsearch settings in watsonx
   * [Semantic search with ELSER](#semantic-search-with-elser)
   * [KNN dense vector search](#knn-dense-vector-search)
   * [Using a nested query to search over nested documents with ELSER](#using-a-nested-query-to-search-over-nested-documents-with-elser)
-  * [Hybird search with combined keyword search and dense vector search](#hybird-search-with-combined-keyword-search-and-dense-vector-search)
+  * [Hybrid search with combined keyword search and dense vector search](#hybrid-search-with-combined-keyword-search-and-dense-vector-search)
 
 ## How to configure the custom filters
 There are two ways to configure the custom filters: 
 
 ### Global filters within the Search integration
-You can configure custom filters for your Elasticsearch integration under `Advanced Elasticsearch Settings`. These custom filters will be used as global filters and apply to all user queries. If a custom query body is provided, the `$FILTER` variable needs to be included in the query body to use the custom filters. For example,
+You can configure custom filters for your Elasticsearch integration under `Advanced Elasticsearch settings`. These custom filters will be used as global filters and apply to all user queries. If a custom query body is provided, the `$FILTER` variable needs to be included in the query body to use the custom filters. For example,
 
 <img src="assets/query_body_with_custom_filters.png" width="547" height="638" />
 
 
 ### Local filters within an action step
-You can also configure customer filters within an action step when calling the Search integration via `Search for the answer` option. These customer filters will overwrite the global filters defined in the Search integration.
+You can also configure custom filters within an action step when calling the Search integration via `Search for the answer` option. These custom filters will overwrite the global filters defined in the Search integration.
 
-**Session variables or step variables can be used in the customer filters to achieve more dynamic filtering use cases.**
+**Session variables or step variables can be used in the custom filters to achieve more dynamic filtering use cases.**
 
 For example,
 
@@ -176,7 +176,7 @@ This filter object will filter the search results using the following conditions
 Learn more about Elasticsearch filters from the [Elasticsearch boolean query documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-bool-query.html)
 
 ## How to configure the query body
-By default, keyword search is used for your Search integration, but you can configure the query body in the `Advanced Elasticsearch Settings` to enable advanced search such as semantic search with ELSER, KNN dense vector search, and using a nested query to search over nested documents. Here are some query body examples:
+By default, keyword search is used for your Search integration, but you can configure the query body in the `Advanced Elasticsearch settings` to enable advanced search such as semantic search with ELSER, KNN dense vector search, and using a nested query to search nested documents, and hybrid search. Here are some query body examples:
 
 ### Semantic search with ELSER
 ```json
@@ -201,7 +201,7 @@ By default, keyword search is used for your Search integration, but you can conf
 * `ml.tokens` refers to the field that stores the ELSER tokens. You may need to update it if you use a different field in your index. If the ELSER tokens are not available, you can also use the field that contains the raw text, but the search quality may degrade.
 * `.elser_model_2_linux-x86-64` is the model ID for the optimized version of ELSER v2. It is recommended to use if it is available in your Elasticsearch deployment. Otherwise, use `.elser_model_2` for the regular ELSER v2 model, or `.elser_model_1` for ELSER v1.
 * `$QUERY` is the variable for accesing the user query. It will make sure that the user query will be passed to the query body.
-* `$FILTER` is the variable for accessing the customer filters configured either in the `Advanced Elasticsearch Settings` or when calling the search in an action step. It will make sure that the custom filters will be used in the query body.
+* `$FILTER` is the variable for accessing the custom filters configured either in the `Advanced Elasticsearch settings` or when calling the search in an action step. It will make sure that the custom filters will be used in the query body.
 * Learn more about ELSER from [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/semantic-search-elser.html)
 * Learn more about Elasticsearch boolean query and filters from [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-bool-query.html)
 
@@ -227,7 +227,7 @@ Notes:
 * `text_embedding` under `query_vector_builder` is the natural language processing task to perform. It has to be `text_embedding` for KNN search.
 * `intfloat__multilingual-e5-small` is the embedding model ID. You may need to update it if you want to use a different embedding model.
 * `$QUERY` is the variable for accesing the user query. It will make sure that the user query will be passed to the query body.
-* `$FILTER` is the variable for accessing the customer filters configured either in the `Advanced Elasticsearch Settings` or when calling the search in an action step. It will make sure that the custom filters will be used in the query body.
+* `$FILTER` is the variable for accessing the custom filters configured either in the `Advanced Elasticsearch settings` or when calling the search in an action step. It will make sure that the custom filters will be used in the query body.
 * Learn more about knn search from [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/knn-search.html).
 * Learn more about how to set up a text embedding model in Elasticsearch from [here](text_embedding_deploy_and_use.md).
 
@@ -295,10 +295,10 @@ Notes:
 * `"inner_hits": {"_source": {"excludes": ["passages.sparse"]}}` is to exclude the ELSER tokens from the inner documents in the search results.
 * `"_source": false` is to exclude all the top-level fields in the search results because only the inner documents in the search results will be used.
 * `$QUERY` is the variable for accesing the user query. It will make sure that the user query will be passed to the query body.
-* `$FILTER` is the variable for accessing the customer filters configured either in the `Advanced Elasticsearch Settings` or when calling the search in an action step. It will make sure that the custom filters will be used in the query body. If applied on the outer documents, only outer fields are available to use in the filters. If applied on the inner documents, only inner fields are available to use in the filters.
+* `$FILTER` is the variable for accessing the custom filters configured either in the `Advanced Elasticsearch settings` or when calling the search in an action step. It will make sure that the custom filters will be used in the query body. If applied on the outer documents, only outer fields are available to use in the filters. If applied on the inner documents, only inner fields are available to use in the filters.
 * Learn more about nested queries and fields from [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-nested-query.html)
 
-### Hybird search with combined keyword search and dense vector search
+### Hybrid search with combined keyword search and dense vector search
 ```json
 {
     "query": {
@@ -339,6 +339,6 @@ Notes:
 * `intfloat__multilingual-e5-small` is the embedding model ID. You may need to update it if you want to use a different embedding model.
 * `$QUERY` is the variable for accesing the user query. It makes sure that the user query will be passed to the query body.
 * `$BODY_FIELD_NAME` and `$TITLE_FIELD_NAME` are the variables for accessing the Body field and Title field configured in the Search integration, respectively.
-* `$FILTER` is the variable for accessing the customer filters configured either in the `Advanced Elasticsearch Settings` or when calling the search in an action step. It makes sure that the custom filters will be used in the query body.
+* `$FILTER` is the variable for accessing the custom filters configured either in the `Advanced Elasticsearch settings` or when calling the search in an action step. It makes sure that the custom filters will be used in the query body.
 * `rank.rrf` is the Reciprocal rank fusion (rrf) method to combine the search results from keyword search and dense vector search.
 * `"_source": {"excludes": ["text_embedding.predicted_value"]}` is to exclude the unnecessary dense vector field in the search results.
