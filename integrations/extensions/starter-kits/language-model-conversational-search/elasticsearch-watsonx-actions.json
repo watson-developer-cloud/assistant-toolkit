@@ -987,7 +987,7 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "fee06cd24334b3cb80a4d75c28882b1bdaf910e93ce214f1a4e0d48840e518de",
+                  "spec_hash_id": "3408d5415323ca392bb94b1fdfd03f6259f0ff1e35a65e5750e2740ba2908435",
                   "match_scenario": 1,
                   "catalog_item_id": "c3899a4f-2ba6-4427-8ff3-823a0a5cc7d8"
                 },
