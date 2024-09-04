@@ -494,7 +494,7 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "fee06cd24334b3cb80a4d75c28882b1bdaf910e93ce214f1a4e0d48840e518de",
+                  "spec_hash_id": "3408d5415323ca392bb94b1fdfd03f6259f0ff1e35a65e5750e2740ba2908435",
                   "catalog_item_id": "16bf38b2-037f-4f95-87d3-77ad737b3c0f"
                 },
                 "request_mapping": {
