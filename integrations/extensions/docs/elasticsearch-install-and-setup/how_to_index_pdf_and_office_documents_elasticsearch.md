@@ -50,21 +50,8 @@ curl -X PUT "${ES_URL}/${ES_INDEX_NAME}?pretty" -u "${ES_USER}:${ES_PASSWORD}" \
       "passages": {
         "type": "nested",
         "properties": {
-          "is_truncated": {
-            "type": "boolean"
-          },
           "text": {
-            "type": "keyword",
-            "ignore_above": 2048
-          },
-          "model_id": {
-            "type": "text",
-            "fields": {
-              "keyword": {
-                "type": "keyword",
-                "ignore_above": 256
-              }
-            }
+            "type": "text"
           },
           "sparse": {
             "properties": {

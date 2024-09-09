@@ -79,8 +79,16 @@ In a new terminal window, run the following command to generate an encryption ke
     --env "elasticsearch.ssl.enabled=true" \
     --env "elasticsearch.ssl.certificate_authority=/usr/share/enterprise-search/es-config/${ES_CACERT_NAME}" \
     --env "kibana.external_url=http://kibana:5601" \
+    --env "connector.crawler.content_extraction.enabled=true" \
+    --env "connector.crawler.content_extraction.mime_types=["application/pdf", "application/msword"]" \
+    --env "connector.crawler.http.response_size.limit=10485760" \
     "docker.elastic.co/enterprise-search/enterprise-search:${ES_VERSION}"
     ```
+  NOTES:
+  * `connector.crawler.content_extraction.enabled=true` enables binary content extraction. It is required to extract content from downloadable binary files, such as PDF and DOCX files.
+  * `connector.crawler.content_extraction.mime_types=["application/pdf", "application/msword"]` specifies which MIME types should have their contents extracted.
+  * `connector.crawler.http.response_size.limit=10485760` set the maximum size of an HTTP response (in bytes) supported by the Elastic web crawler. The default limit is `10485760` bytes or 10MB. You can increase it if needed.
+  * To learn more, see [Elastic web crawler configuration](https://www.elastic.co/guide/en/enterprise-search/current/configuration.html#configuration-settings-elastic-crawler).
 * Verify the installation 
   * Open http://localhost:5601 in your browser and log into Kibana using your Elasticsearch username and password.
   * Navigate to the Search Overview page http://localhost:5601/app/enterprise_search/overview.
