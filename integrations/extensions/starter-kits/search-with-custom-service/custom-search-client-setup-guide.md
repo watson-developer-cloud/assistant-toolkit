@@ -1,5 +1,7 @@
 ### Setup your client for your Custom Service
 
+This starter kit is to provide additional details and example code for setting up your client for your Custom Service. For more details, please refer to the [official documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-search-customsearch-add#setup-custom-service-client).
+
 To set up your client for as your **Custom Service** for your Search Integration, you will need to be using a custom client for your Watson Assistant, as opposed to the default **web chat** client. 
 
 When your search skill is set up to use a Custom Service through your client, any `/message` request in which a search is executed will return back to the client to complete the search. Your custom client will have to intercept the responses to these message requests, and check if a search was requested in `output.actions`. If a `search` request is returned to your custom client, you will have to make the search on the client side, and then return the search results in the subsequent `/message` request.
@@ -57,4 +59,4 @@ Next, update the radio button at the top to select **Through your client**. Pres
 
 ##### Example
 
-To help get you started, there is an [example web chat client](./examples/example-web-chat-client.html) included in this folder. This example shows how to create a custom web chat client set up for client side search. In this web chat example, the instance's on `recieve` event is overriden to check for a search action in the message response, and send a subsequent message request with the search results. In this example, a sample search result is returned for all queries, but for your actual client, you would instead make the search detailed in the returned search action, and use those actual search results in the subsequent outgoing message.
+To help get you started, there is an [example web chat client](./examples/example-web-chat-client.html) included in this folder. This example shows how to create a custom web chat client set up for client side search. In this web chat example, the instance's on `receive` event is overriden to check for a search action in the message response, and send a subsequent message request with the search results. In this example, a sample search result is returned for all queries, but for your actual client, you would instead make the search detailed in the returned search action, and use those actual search results in the subsequent outgoing message.

@@ -1,6 +1,8 @@
 
 ### Setup your server for your Custom Service
 
+This starter kit is to provide additional details and example code for setting up your server for your Custom Service. For more details, please refer to the [official documentation](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-search-customsearch-add#setup-custom-service-server).
+
 The first step to setup a server as your **Custom Service** for your Search Integration, is to setup a server that receives search requests, makes a search, and then constructs a response with those `search_results`.
 
 For authentication, your server can be setup to either use **Basic** username/password auth, **API key** auth, or no auth at all.
@@ -65,7 +67,7 @@ For example, if the response from your server did not include `search_results`, 
 
 To help get you started, there are a few example servers included in the [examples](./examples) folder. 
 
-These examples use Python Flask servers to recieve search requests, and return results in the specified format.
+These examples use Python Flask servers to receive search requests, and return results in the specified format.
 
 ###### Simple Example
 
