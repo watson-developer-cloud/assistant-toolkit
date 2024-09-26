@@ -1,0 +1,9 @@
+{
+    "modelPackage": "com.ibm.watson.conversationalskills.model",
+    "artifactId":"conversationalskills-sdk",
+    "groupId":"com.ibm.watson",
+    "hideGenerationTimestamp":true,
+    "library":"resttemplate",
+    "openApiNullable":false,
+    "useJakartaEe":true
+}
