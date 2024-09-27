@@ -24,6 +24,7 @@ mvn spring-boot:run
 This will start the application server and make the below endpoints available on `localhost:8080`
 
 /providers/{provider_id}/conversational_skills (GET)
+
 /providers/{provider_id}/conversational_skills/{conversational_skill_id}/orchestrate (POST)
 
 Where {provider_id} can be any provided interger/uid and {conversational_skill_id} must be `bluepoints`
