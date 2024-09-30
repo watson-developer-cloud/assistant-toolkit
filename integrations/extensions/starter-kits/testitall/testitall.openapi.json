@@ -544,6 +544,90 @@
         }
       }
     },
+    "/test/stream": {
+      "post": {
+        "tags": [
+          "API"
+        ],
+        "summary": "Stream events using SSE",
+        "description": "Test stream events using Server-Sent Events (SSE).",
+        "operationId": "testEventStream",
+        "responses": {
+          "200": {
+            "description": "Stream of events",
+            "content": {
+              "text/event-stream": {
+                "schema": {
+                  "type": "string",
+                  "example": "data: {\"message\": \"Hello, world!\"\n\n}"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/test/stream/timeout": {
+      "post": {
+        "tags": [
+          "API"
+        ],
+        "summary": "Test a long response in SSE",
+        "description": "Test a long response in Server-Sent Events (SSE).",
+        "operationId": "testEventStreamTimeout",
+        "responses": {
+          "200": {
+            "description": "Stream of events",
+            "content": {
+              "text/event-stream": {
+                "schema": {
+                  "type": "string",
+                  "example": "data: {\"message\": \"Hello, world!\"\n\n}"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/test/stream/error": {
+      "post": {
+        "tags": [
+          "API"
+        ],
+        "summary": "Test handle error in SSE",
+        "description": "Test handle error in Server-Sent Events (SSE).",
+        "operationId": "testEventStreamError",
+        "responses": {
+          "200": {
+            "description": "should never be returned",
+            "content": {
+              "text/event-stream": {
+                "schema": {
+                  "type": "string",
+                  "example": "data: {\"message\": \"Hello, world!\"\n\n}"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "this is the only response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/test/context-too-large": {
       "post": {
         "tags": [
