@@ -132,6 +132,32 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "parameters": {
+                    "type": "object",
+                    "properties": {
+                      "prompt_variables": {
+                        "type": "object",
+                        "properties": {
+                          "input": {
+                            "type": "string",
+                            "description": "The input text from the user",
+                            "example": "Who is the president of the United States?"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Default Response",
