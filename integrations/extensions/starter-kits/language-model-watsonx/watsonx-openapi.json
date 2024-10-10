@@ -108,7 +108,81 @@
           }
         }
       }
-    }
+    },
+    "/ml/v1/deployments/{deployment-id}/generation/text": {
+      "post": {
+        "description": "Generation from a deployed prompt",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "description": "Release date of the version of the API you want to use. Specify dates in YYYY-MM-DD format.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "deployment-id",
+            "in": "path",
+            "description": "Deployment ID of the prompt deployment you want to use.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "model_id": {
+                      "description": "The ID of the model to be used for this request",
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "description": "The date and time of the response",
+                      "type": "string"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "generated_text": {
+                            "description": "The generated text",
+                            "type": "string"
+                          },
+                          "generated_token_count": {
+                            "description": "The number of tokens in the output",
+                            "type": "integer"
+                          },
+                          "input_token_count": {
+                            "description": "The number of tokens in the input",
+                            "type": "integer"
+                          },
+                          "stop_reason": {
+                            "description": "The reason for stopping the generation.  Can be NOT_FINISHED - Possibly more tokens to be streamed, MAX_TOKENS - Maximum requested tokens reached, EOS_TOKEN - End of sequence token encountered, CANCELLED - Request canceled by the client, TIME_LIMIT - Time limit reached, STOP_SEQUENCE - Stop sequence encountered, TOKEN_LIMIT - Token limit reached, ERROR - Error encountered",
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "description": "Outputs of the generation"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error"
+          }
+        }
+      }
   },
   "components": {
     "schemas": {
