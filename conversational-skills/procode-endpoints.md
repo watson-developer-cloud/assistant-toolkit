@@ -6,6 +6,7 @@ The following endpoints are the APIs that will be implemented **by** a pro-code 
 
 - [Runtime API](#runtime-api) | `POST /providers/{{provider_id}}/conversational_skills/{{conversational_skill_id}}/orchestrate`
 - [List Conversational Skills](#list-conversational-skills) | `GET /providers/{{provider_id}}/conversational_skills`
+- [Get Conversational Skill](#get-conversational-skill) | `GET /providers/{{provider_id}}/conversational_skills/{{conversational_skill_id}}`
 - [Complete OAS (Open API Schema)](#oas)
 
 ### Runtime API 
@@ -141,6 +142,37 @@ N/A
 ```
 
 
+### Get Conversational Skill
+
+Retrieves the information of a conversational_skill. The `assistant_id` and `environment_id` must be passed as query parameters.
+
+**NOTE** This endpoint **MUST BE** implemented in order to enable variable-passing on the watsonx Assistant UI.
+
+**Example Request Body**
+```json
+N/A
+```
+
+**Example Response**
+```json
+{
+  "id": "{{conversational_skill_id}}",
+  "name": "Order Takeout",
+  "description": "Enables a user to place a takeout food order from a restaurant",
+  "created": "2024-02-01T04:55:18.871Z",
+  "modified": "2024-02-01T04:55:18.871Z",
+  "input": {
+      "slots": [
+          {
+              "name": "<slot name>", 
+              "description": "<slot description>", 
+              "type": "one of: <string | number | date | time | regex | entity | confirmation | any>", 
+          }
+      ]
+  },
+}
+```
+
 ### OAS
 
 ```yaml
@@ -162,7 +194,7 @@ paths:
   /providers/{provider_id}/conversational_skills:
     get:
       tags:
-      - Conversational skill
+      - Conversational Skills MVP
       summary: Fetch a list of conversational skills
       description: "Retrieves a list of conversational skills associated to a particular provider."
       operationId: fetchSkills
@@ -210,10 +242,69 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+  /providers/{provider_id}/conversational_skills/{conversational_skill_id}:
+      get:
+        tags:
+        - Conversational Skills MVP
+        summary: Retrieves the information of a conversational_skill
+        description: "Retrieves the information of a conversational_skill from the provider"
+        operationId: getSkills
+        parameters:
+        - name: provider_id 
+          in: path
+          description: Unique identifier of the provider that possesses the conversational skill. It represents the instance that is linked with the WxA instance.
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+        - name: conversational_skill_id 
+          in: path
+          description: Unique identifier of the conversational skill.
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+        - name: assistant_id
+          in: query
+          description: Assistant ID values that need to be considered for filtering
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+        - name: environment_id
+          in: query
+          description: Environment ID values that need to be considered for filtering
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+        responses:
+          "200":
+            description: Successful request.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/GetSkillResponse'
+          "400":
+            description: Invalid request.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
+          "500":
+            description: Internal error.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
   /providers/{provider_id}/conversational_skills/{conversational_skill_id}/orchestrate:
     post:
       tags:
-      - Conversational skill
+      - Conversational Skills MVP
       summary: Orchestrate a conversation
       description: "Sends user input along with conversation state (including slots and other context data) stored by watsonx Assistant, and the current turn output, to the conversational skill, to let it run its business logic and tell watsonx Assistant what to do next."
       operationId: orchestrate
@@ -277,6 +368,37 @@ components:
           type: object
           description: Additional metadata of a conversational skill
       description: Information about a conversational skill
+    ConversationalSkillInputSlot:
+      type: object
+      properties: 
+        name:
+          type: string
+          description: The unique identifier of the conversational skill's slot
+        description:
+          type: string
+          description: The description of the conversational skill's slot
+        type: 
+          type: string
+          description: The type of the conversational skill's slot
+          enum:
+          - string
+          - number
+          - date
+          - time
+          - regex
+          - entity
+          - any
+    GetSkillResponse:
+      allOf: 
+        - $ref: '#/components/schemas/ConversationalSkill'
+        - properties:
+            input: 
+              type: object
+              properties: 
+                slots: 
+                  type: 'array'
+                  items:
+                    $ref: '#/components/schemas/ConversationalSkillInputSlot'
     ListSkillsResponse: 
       type: object
       properties: 
@@ -562,9 +684,9 @@ components:
             $ref: '#/components/schemas/SlotInFlight'
         confirmation:
           type: object
-            properties:
-              prompt:
-                type: string
+          properties:
+            prompt:
+              type: string
     RuntimeResponseGeneric:
       discriminator:
         propertyName: response_type
