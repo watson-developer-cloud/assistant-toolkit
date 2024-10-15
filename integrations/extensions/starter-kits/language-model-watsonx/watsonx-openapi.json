@@ -109,7 +109,7 @@
         }
       }
     },
-    "/ml/v1/deployments/{deployment-id}/generation/text": {
+    "/ml/v1/deployments/{deployment-id}/text/generation": {
       "post": {
         "description": "Generation from a deployed prompt",
         "parameters": [
@@ -143,12 +143,12 @@
                     "properties": {
                       "prompt_variables": {
                         "type": "object",
-                        "properties": {
-                          "input": {
-                            "type": "string",
-                            "description": "The input text from the user",
-                            "example": "Who is the president of the United States?"
-                          }
+                        "description": "The object containing dynamic key-value pairs that contain the prompt variables",
+                        "additionalProperties": true,
+                        "example": {
+                          "input": "Who is the president of the United States?",
+                          "name": "nabil",
+                          "company": "ibm"
                         }
                       }
                     }
@@ -209,6 +209,7 @@
           }
         }
       }
+    }
   },
   "components": {
     "schemas": {
