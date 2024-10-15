@@ -143,12 +143,12 @@
                     "properties": {
                       "prompt_variables": {
                         "type": "object",
-                        "description": "The object containing dynamic key-value pairs that contain the prompt variables",
+                        "description": "The object containing key-value pairs that contain the prompt variables",
                         "additionalProperties": true,
                         "example": {
                           "input": "Who is the president of the United States?",
-                          "name": "nabil",
-                          "company": "ibm"
+                          "name": "Nabil",
+                          "company": "IBM"
                         }
                       }
                     }
