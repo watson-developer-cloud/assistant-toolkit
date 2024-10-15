@@ -102,8 +102,8 @@ Here is an example of how to use the `Test model` action:
 
 Here is an example of how to use the `Invoke watsonx Deployed Prompt API` action:
 
-1. Set the "deployment-id".
-2. For "parameters.prompt_variables":
+1. Set the `deployment-id`.
+2. For `parameters.prompt_variables`:
    - Use the expression: `{ "input": "1. What is your Prompt ", "name": "<your_next_prompt_variable_value>" }`
    - Replace the key-value pairs with the appropriate variables from your deployed prompt.
 
