@@ -1309,7 +1309,12 @@ components:
       type: object
       properties:
         normalized:
-          type: string
+          oneOf:
+          - type: number
+          - type: string
+          - type: boolean
+          - type: object
+          - type: array
           description: The normalized value of the slot.
         literal:
           type: string
