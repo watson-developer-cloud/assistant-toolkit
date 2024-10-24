@@ -1249,11 +1249,6 @@ components:
           type: string
           description: Assistant message
     SessionHistoryMessage:
-      discriminator:
-        propertyName: role
-        mapping:
-          u: '#/components/schemas/UserMessage'
-          a: '#/components/schemas/AssistantMessage'
       oneOf:
       - $ref: '#/components/schemas/UserMessage'
       - $ref: '#/components/schemas/AssistantMessage'
