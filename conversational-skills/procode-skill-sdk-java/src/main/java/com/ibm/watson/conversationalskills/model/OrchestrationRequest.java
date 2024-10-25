@@ -14,19 +14,24 @@
  limitations under the License.
  */
 
-
 package com.ibm.watson.conversationalskills.model;
 
 import java.util.Objects;
-
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-
+import com.ibm.watson.conversationalskills.model.ConversationalSkillStateInput;
+import com.ibm.watson.conversationalskills.model.MessageContext;
+import com.ibm.watson.conversationalskills.model.MessageInput;
+import com.ibm.watson.conversationalskills.model.SlotState;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * An orchestration request.
@@ -38,7 +43,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   OrchestrationRequest.JSON_PROPERTY_STATE,
   OrchestrationRequest.JSON_PROPERTY_CONFIRMATION_EVENT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.9.0")
 public class OrchestrationRequest {
   public static final String JSON_PROPERTY_INPUT = "input";
   private MessageInput input;

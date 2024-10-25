@@ -18,51 +18,21 @@ package com.ibm.watson.conversationalskills.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.math.BigDecimal;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
- * RuntimeResponseTypeDate
+ * The normalized value of the slot.
  */
 @JsonPropertyOrder({
-  RuntimeResponseTypeDate.JSON_PROPERTY_RESPONSE_TYPE
 })
+@JsonTypeName("SlotValue_normalized")
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.9.0")
-public class RuntimeResponseTypeDate {
-  public static final String JSON_PROPERTY_RESPONSE_TYPE = "response_type";
-  private String responseType;
-
-  public RuntimeResponseTypeDate() {
-  }
-
-  public RuntimeResponseTypeDate responseType(String responseType) {
-    
-    this.responseType = responseType;
-    return this;
-  }
-
-  /**
-   * The type of response returned by the dialog node. The specified response type must be supported by the client application or channel.
-   * @return responseType
-   */
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_RESPONSE_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getResponseType() {
-    return responseType;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_RESPONSE_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setResponseType(String responseType) {
-    this.responseType = responseType;
+public class SlotValueNormalized {
+  public SlotValueNormalized() {
   }
 
   @Override
@@ -73,20 +43,18 @@ public class RuntimeResponseTypeDate {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    RuntimeResponseTypeDate runtimeResponseTypeDate = (RuntimeResponseTypeDate) o;
-    return Objects.equals(this.responseType, runtimeResponseTypeDate.responseType);
+    return true;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(responseType);
+    return Objects.hash();
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class RuntimeResponseTypeDate {\n");
-    sb.append("    responseType: ").append(toIndentedString(responseType)).append("\n");
+    sb.append("class SlotValueNormalized {\n");
     sb.append("}");
     return sb.toString();
   }

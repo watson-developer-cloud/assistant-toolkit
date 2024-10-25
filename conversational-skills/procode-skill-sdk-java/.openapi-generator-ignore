@@ -1,0 +1,3 @@
+# Exclude generation of empty model docs and tests
+docs/**
+src/test/**

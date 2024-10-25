@@ -14,19 +14,22 @@
  limitations under the License.
  */
 
-
 package com.ibm.watson.conversationalskills.model;
 
 import java.util.Objects;
-
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * An object containing segments of text from search results with query-matching text highlighted using HTML &#x60;&lt;em&gt;&#x60; tags.
@@ -36,7 +39,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   SearchResultHighlight.JSON_PROPERTY_TITLE,
   SearchResultHighlight.JSON_PROPERTY_URL
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.9.0")
 public class SearchResultHighlight extends HashMap<String, List> {
   public static final String JSON_PROPERTY_BODY = "body";
   private List<String> body = new ArrayList<>();

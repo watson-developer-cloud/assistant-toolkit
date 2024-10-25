@@ -8,7 +8,7 @@ To utilize, simply add this artifact as a dependency in your maven project.
 <dependency>
     <groupId>com.ibm.watson</groupId>
     <artifactId>conversationalskills-sdk</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
 </dependency>
 ```
 
@@ -31,9 +31,10 @@ public class SlotHandlerImplementation extends SlotHandler {
 }
 ```
 
-The following two REST endpoints MUST be exposed by the provider server:
+The following REST endpoints MUST be exposed by the provider server:
 
 /providers/{provider_id}/conversational_skills (GET)
+/providers/{provider_id}/conversational_skills/{conversational_skill_id} (GET)
 /providers/{provider_id}/conversational_skills/{conversational_skill_id}/orchestrate (POST)
 
 The documentation of these REST endpoints can be found [here](https://github.com/watson-developer-cloud/assistant-toolkit/blob/master/conversational-skills/procode-endpoints.md).

@@ -14,14 +14,18 @@
  limitations under the License.
  */
 
-
 package com.ibm.watson.conversationalskills.model;
 
 import java.util.Objects;
-
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.ibm.watson.conversationalskills.model.SlotValueNormalized;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * SlotValue
@@ -30,10 +34,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   SlotValue.JSON_PROPERTY_NORMALIZED,
   SlotValue.JSON_PROPERTY_LITERAL
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.9.0")
 public class SlotValue {
   public static final String JSON_PROPERTY_NORMALIZED = "normalized";
-  private String normalized;
+  private SlotValueNormalized normalized;
 
   public static final String JSON_PROPERTY_LITERAL = "literal";
   private String literal;
@@ -41,28 +45,28 @@ public class SlotValue {
   public SlotValue() {
   }
 
-  public SlotValue normalized(String normalized) {
+  public SlotValue normalized(SlotValueNormalized normalized) {
     
     this.normalized = normalized;
     return this;
   }
 
   /**
-   * The normalized value of the slot.
+   * Get normalized
    * @return normalized
    */
   @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_NORMALIZED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public String getNormalized() {
+  public SlotValueNormalized getNormalized() {
     return normalized;
   }
 
 
   @JsonProperty(JSON_PROPERTY_NORMALIZED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setNormalized(String normalized) {
+  public void setNormalized(SlotValueNormalized normalized) {
     this.normalized = normalized;
   }
 

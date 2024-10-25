@@ -1,4 +1,8 @@
 .DS_Store
+target/
+
+# vscode configs
+.vscode/
 
 # IntelliJ/WebStorm Files
 .idea

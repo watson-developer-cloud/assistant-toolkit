@@ -14,14 +14,18 @@
  limitations under the License.
  */
 
-
 package com.ibm.watson.conversationalskills.model;
 
 import java.util.Objects;
-
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.ibm.watson.conversationalskills.model.DialogNodeOutputOptionsElementValue;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * DialogNodeOutputOptionsElement
@@ -30,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   DialogNodeOutputOptionsElement.JSON_PROPERTY_LABEL,
   DialogNodeOutputOptionsElement.JSON_PROPERTY_VALUE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.9.0")
 public class DialogNodeOutputOptionsElement {
   public static final String JSON_PROPERTY_LABEL = "label";
   private String label;

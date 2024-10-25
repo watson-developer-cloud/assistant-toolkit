@@ -23,46 +23,59 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.ibm.watson.conversationalskills.model.ConversationalSkillInputSlot;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
- * RuntimeResponseTypeDate
+ * GetSkillResponseAllOfInput
  */
 @JsonPropertyOrder({
-  RuntimeResponseTypeDate.JSON_PROPERTY_RESPONSE_TYPE
+  GetSkillResponseAllOfInput.JSON_PROPERTY_SLOTS
 })
+@JsonTypeName("GetSkillResponse_allOf_input")
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.9.0")
-public class RuntimeResponseTypeDate {
-  public static final String JSON_PROPERTY_RESPONSE_TYPE = "response_type";
-  private String responseType;
+public class GetSkillResponseAllOfInput {
+  public static final String JSON_PROPERTY_SLOTS = "slots";
+  private List<ConversationalSkillInputSlot> slots = new ArrayList<>();
 
-  public RuntimeResponseTypeDate() {
+  public GetSkillResponseAllOfInput() {
   }
 
-  public RuntimeResponseTypeDate responseType(String responseType) {
+  public GetSkillResponseAllOfInput slots(List<ConversationalSkillInputSlot> slots) {
     
-    this.responseType = responseType;
+    this.slots = slots;
+    return this;
+  }
+
+  public GetSkillResponseAllOfInput addSlotsItem(ConversationalSkillInputSlot slotsItem) {
+    if (this.slots == null) {
+      this.slots = new ArrayList<>();
+    }
+    this.slots.add(slotsItem);
     return this;
   }
 
   /**
-   * The type of response returned by the dialog node. The specified response type must be supported by the client application or channel.
-   * @return responseType
+   * Get slots
+   * @return slots
    */
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_RESPONSE_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_SLOTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getResponseType() {
-    return responseType;
+  public List<ConversationalSkillInputSlot> getSlots() {
+    return slots;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_RESPONSE_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setResponseType(String responseType) {
-    this.responseType = responseType;
+  @JsonProperty(JSON_PROPERTY_SLOTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSlots(List<ConversationalSkillInputSlot> slots) {
+    this.slots = slots;
   }
 
   @Override
@@ -73,20 +86,20 @@ public class RuntimeResponseTypeDate {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    RuntimeResponseTypeDate runtimeResponseTypeDate = (RuntimeResponseTypeDate) o;
-    return Objects.equals(this.responseType, runtimeResponseTypeDate.responseType);
+    GetSkillResponseAllOfInput getSkillResponseAllOfInput = (GetSkillResponseAllOfInput) o;
+    return Objects.equals(this.slots, getSkillResponseAllOfInput.slots);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(responseType);
+    return Objects.hash(slots);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class RuntimeResponseTypeDate {\n");
-    sb.append("    responseType: ").append(toIndentedString(responseType)).append("\n");
+    sb.append("class GetSkillResponseAllOfInput {\n");
+    sb.append("    slots: ").append(toIndentedString(slots)).append("\n");
     sb.append("}");
     return sb.toString();
   }

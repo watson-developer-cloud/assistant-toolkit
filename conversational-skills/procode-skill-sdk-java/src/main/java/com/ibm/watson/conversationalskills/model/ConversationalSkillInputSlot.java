@@ -23,35 +23,42 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.HashMap;
-import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
- * A resolver is a way for the conversational skill to indicate how it wants the Assistant to proceed.
+ * ConversationalSkillInputSlot
  */
 @JsonPropertyOrder({
-  OrchestrationResponseResolver.JSON_PROPERTY_TYPE
+  ConversationalSkillInputSlot.JSON_PROPERTY_NAME,
+  ConversationalSkillInputSlot.JSON_PROPERTY_DESCRIPTION,
+  ConversationalSkillInputSlot.JSON_PROPERTY_TYPE
 })
-@JsonTypeName("OrchestrationResponse_resolver")
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.9.0")
-public class OrchestrationResponseResolver extends HashMap<String, Object> {
+public class ConversationalSkillInputSlot {
+  public static final String JSON_PROPERTY_NAME = "name";
+  private String name;
+
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  private String description;
+
   /**
-   * Gets or Sets type
+   * The type of the conversational skill&#39;s slot
    */
   public enum TypeEnum {
-    USER_INTERACTION("user_interaction"),
+    STRING("string"),
     
-    SKILL_COMPLETE("skill_complete"),
+    NUMBER("number"),
     
-    SKILL_CANCEL("skill_cancel"),
+    DATE("date"),
     
-    CATCH_ALL("catch_all"),
+    TIME("time"),
     
-    FALLBACK("fallback"),
+    REGEX("regex"),
     
-    VALIDATION_ERROR("validation_error");
+    ENTITY("entity"),
+    
+    ANY("any");
 
     private String value;
 
@@ -83,18 +90,67 @@ public class OrchestrationResponseResolver extends HashMap<String, Object> {
   public static final String JSON_PROPERTY_TYPE = "type";
   private TypeEnum type;
 
-  public OrchestrationResponseResolver() {
-
+  public ConversationalSkillInputSlot() {
   }
 
-  public OrchestrationResponseResolver type(TypeEnum type) {
+  public ConversationalSkillInputSlot name(String name) {
+    
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * The unique identifier of the conversational skill&#39;s slot
+   * @return name
+   */
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public ConversationalSkillInputSlot description(String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * The description of the conversational skill&#39;s slot
+   * @return description
+   */
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public ConversationalSkillInputSlot type(TypeEnum type) {
     
     this.type = type;
     return this;
   }
 
   /**
-   * Get type
+   * The type of the conversational skill&#39;s slot
    * @return type
    */
   @jakarta.annotation.Nullable
@@ -120,21 +176,23 @@ public class OrchestrationResponseResolver extends HashMap<String, Object> {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    OrchestrationResponseResolver orchestrationResponseResolver = (OrchestrationResponseResolver) o;
-    return Objects.equals(this.type, orchestrationResponseResolver.type) &&
-        super.equals(o);
+    ConversationalSkillInputSlot conversationalSkillInputSlot = (ConversationalSkillInputSlot) o;
+    return Objects.equals(this.name, conversationalSkillInputSlot.name) &&
+        Objects.equals(this.description, conversationalSkillInputSlot.description) &&
+        Objects.equals(this.type, conversationalSkillInputSlot.type);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, super.hashCode());
+    return Objects.hash(name, description, type);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class OrchestrationResponseResolver {\n");
-    sb.append("    ").append(toIndentedString(super.toString())).append("\n");
+    sb.append("class ConversationalSkillInputSlot {\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();

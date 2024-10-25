@@ -60,7 +60,7 @@ public class ApplicationExample {
     )
     
     ResponseEntity<ListSkillsResponse> fetchSkills(
-        @PathVariable("provider_id") String providerId,
+        @PathVariable(value = "provider_id", required = true) String providerId,
         @RequestParam(value = "assistant_id", required = true, defaultValue = "available") String assistantId,
         @RequestParam(value = "environment_id", required = true, defaultValue = "available") String environmentId
     ) {
@@ -77,6 +77,55 @@ public class ApplicationExample {
         // listSkillsResponse.addConversationalSkillsItem(formattedSkill3);
 
         return new ResponseEntity<>(listSkillsResponse, HttpStatus.OK);
+    }
+
+    /**
+     * GET /providers/{provider_id}/conversational_skills/{conversational_skill_id} : Get a conversational skill
+     * Get a conversational skill associated to a particular provider.
+     *
+     * @param providerId Unique identifier of the provider that possesses the conversational skill. It represents the instance that is linked with the WxA instance. (required)
+     * @param conversationalSkillId Unique identifier of the conversational skill. (required)
+     * @param assistantId Assistant ID values that need to be considered for filtering (required)
+     * @param environmentId Environment ID values that need to be considered for filtering (required)
+     * @return Successful request. (status code 200)
+     *         or Invalid request. (status code 400)
+     *         or Internal error. (status code 500)
+     */
+    @Operation(
+            operationId = "getSkill",
+            summary = "Get a conversational skill",
+            description = "Get a conversational skill associated to a particular provider.",
+            tags = { "Conversational skill" },
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Successful request.", content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = GetSkillResponse.class))
+                    }),
+                    @ApiResponse(responseCode = "400", description = "Invalid request.", content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
+                    }),
+                    @ApiResponse(responseCode = "500", description = "Internal error.", content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
+                    })
+            }
+    )
+    @RequestMapping(
+            method = RequestMethod.GET,
+            value = "/providers/{provider_id}/conversational_skills/{conversational_skill_id}",
+            produces = { "application/json" }
+    )
+
+    ResponseEntity<GetSkillResponse> getSkill(
+            @PathVariable(value = "provider_id", required = true) String providerId,
+            @PathVariable(value = "conversational_skill_id", required = true) String conversationalSkillId,
+            @RequestParam(value = "assistant_id", required = true, defaultValue = "available") String assistantId,
+            @RequestParam(value = "environment_id", required = true, defaultValue = "available") String environmentId
+    ) {
+        // Initialize skill
+        var skill = new BluePointsSkill();
+        // Format skill for response object
+        var formattedSkill = skill.formatForGetSkill();
+
+        return new ResponseEntity<>(formattedSkill, HttpStatus.OK);
     }
 
     /**

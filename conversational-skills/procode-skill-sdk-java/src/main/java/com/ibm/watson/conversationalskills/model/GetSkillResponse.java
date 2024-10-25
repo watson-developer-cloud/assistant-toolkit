@@ -23,22 +23,24 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.ibm.watson.conversationalskills.model.GetSkillResponseAllOfInput;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
- * Information about a conversational skill
+ * GetSkillResponse
  */
 @JsonPropertyOrder({
-  ConversationalSkill.JSON_PROPERTY_ID,
-  ConversationalSkill.JSON_PROPERTY_NAME,
-  ConversationalSkill.JSON_PROPERTY_DESCRIPTION,
-  ConversationalSkill.JSON_PROPERTY_CREATED,
-  ConversationalSkill.JSON_PROPERTY_MODIFIED,
-  ConversationalSkill.JSON_PROPERTY_METADATA
+  GetSkillResponse.JSON_PROPERTY_ID,
+  GetSkillResponse.JSON_PROPERTY_NAME,
+  GetSkillResponse.JSON_PROPERTY_DESCRIPTION,
+  GetSkillResponse.JSON_PROPERTY_CREATED,
+  GetSkillResponse.JSON_PROPERTY_MODIFIED,
+  GetSkillResponse.JSON_PROPERTY_METADATA,
+  GetSkillResponse.JSON_PROPERTY_INPUT
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.9.0")
-public class ConversationalSkill {
+public class GetSkillResponse {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
 
@@ -57,10 +59,13 @@ public class ConversationalSkill {
   public static final String JSON_PROPERTY_METADATA = "metadata";
   private Object metadata;
 
-  public ConversationalSkill() {
+  public static final String JSON_PROPERTY_INPUT = "input";
+  private GetSkillResponseAllOfInput input;
+
+  public GetSkillResponse() {
   }
 
-  public ConversationalSkill id(String id) {
+  public GetSkillResponse id(String id) {
     
     this.id = id;
     return this;
@@ -85,7 +90,7 @@ public class ConversationalSkill {
     this.id = id;
   }
 
-  public ConversationalSkill name(String name) {
+  public GetSkillResponse name(String name) {
     
     this.name = name;
     return this;
@@ -110,7 +115,7 @@ public class ConversationalSkill {
     this.name = name;
   }
 
-  public ConversationalSkill description(String description) {
+  public GetSkillResponse description(String description) {
     
     this.description = description;
     return this;
@@ -135,7 +140,7 @@ public class ConversationalSkill {
     this.description = description;
   }
 
-  public ConversationalSkill created(String created) {
+  public GetSkillResponse created(String created) {
     
     this.created = created;
     return this;
@@ -160,7 +165,7 @@ public class ConversationalSkill {
     this.created = created;
   }
 
-  public ConversationalSkill modified(String modified) {
+  public GetSkillResponse modified(String modified) {
     
     this.modified = modified;
     return this;
@@ -185,7 +190,7 @@ public class ConversationalSkill {
     this.modified = modified;
   }
 
-  public ConversationalSkill metadata(Object metadata) {
+  public GetSkillResponse metadata(Object metadata) {
     
     this.metadata = metadata;
     return this;
@@ -210,6 +215,31 @@ public class ConversationalSkill {
     this.metadata = metadata;
   }
 
+  public GetSkillResponse input(GetSkillResponseAllOfInput input) {
+    
+    this.input = input;
+    return this;
+  }
+
+  /**
+   * Get input
+   * @return input
+   */
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_INPUT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public GetSkillResponseAllOfInput getInput() {
+    return input;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INPUT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setInput(GetSkillResponseAllOfInput input) {
+    this.input = input;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -218,30 +248,32 @@ public class ConversationalSkill {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ConversationalSkill conversationalSkill = (ConversationalSkill) o;
-    return Objects.equals(this.id, conversationalSkill.id) &&
-        Objects.equals(this.name, conversationalSkill.name) &&
-        Objects.equals(this.description, conversationalSkill.description) &&
-        Objects.equals(this.created, conversationalSkill.created) &&
-        Objects.equals(this.modified, conversationalSkill.modified) &&
-        Objects.equals(this.metadata, conversationalSkill.metadata);
+    GetSkillResponse getSkillResponse = (GetSkillResponse) o;
+    return Objects.equals(this.id, getSkillResponse.id) &&
+        Objects.equals(this.name, getSkillResponse.name) &&
+        Objects.equals(this.description, getSkillResponse.description) &&
+        Objects.equals(this.created, getSkillResponse.created) &&
+        Objects.equals(this.modified, getSkillResponse.modified) &&
+        Objects.equals(this.metadata, getSkillResponse.metadata) &&
+        Objects.equals(this.input, getSkillResponse.input);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, description, created, modified, metadata);
+    return Objects.hash(id, name, description, created, modified, metadata, input);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ConversationalSkill {\n");
+    sb.append("class GetSkillResponse {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    created: ").append(toIndentedString(created)).append("\n");
     sb.append("    modified: ").append(toIndentedString(modified)).append("\n");
     sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
+    sb.append("    input: ").append(toIndentedString(input)).append("\n");
     sb.append("}");
     return sb.toString();
   }
