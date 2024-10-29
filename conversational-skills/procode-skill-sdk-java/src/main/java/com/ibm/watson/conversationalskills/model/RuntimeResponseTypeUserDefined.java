@@ -14,19 +14,23 @@
  limitations under the License.
  */
 
-
 package com.ibm.watson.conversationalskills.model;
 
 import java.util.Objects;
-
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.ibm.watson.conversationalskills.model.ResponseGenericChannel;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * RuntimeResponseTypeUserDefined
@@ -36,7 +40,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   RuntimeResponseTypeUserDefined.JSON_PROPERTY_USER_DEFINED,
   RuntimeResponseTypeUserDefined.JSON_PROPERTY_CHANNELS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.9.0")
 public class RuntimeResponseTypeUserDefined {
   public static final String JSON_PROPERTY_RESPONSE_TYPE = "response_type";
   private String responseType;

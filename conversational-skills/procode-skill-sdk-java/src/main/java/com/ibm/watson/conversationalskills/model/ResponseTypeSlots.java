@@ -14,17 +14,22 @@
  limitations under the License.
  */
 
-
 package com.ibm.watson.conversationalskills.model;
 
 import java.util.Objects;
-
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.ibm.watson.conversationalskills.model.ResponseTypeSlotsConfirmation;
+import com.ibm.watson.conversationalskills.model.SlotInFlight;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * ResponseTypeSlots
@@ -34,7 +39,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   ResponseTypeSlots.JSON_PROPERTY_SLOTS,
   ResponseTypeSlots.JSON_PROPERTY_CONFIRMATION
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.9.0")
 public class ResponseTypeSlots {
   public static final String JSON_PROPERTY_RESPONSE_TYPE = "response_type";
   private String responseType;

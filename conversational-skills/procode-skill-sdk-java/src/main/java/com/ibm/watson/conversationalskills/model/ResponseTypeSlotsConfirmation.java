@@ -14,15 +14,17 @@
  limitations under the License.
  */
 
-
 package com.ibm.watson.conversationalskills.model;
 
 import java.util.Objects;
-
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * ResponseTypeSlotsConfirmation
@@ -31,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   ResponseTypeSlotsConfirmation.JSON_PROPERTY_PROMPT
 })
 @JsonTypeName("ResponseTypeSlots_confirmation")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.9.0")
 public class ResponseTypeSlotsConfirmation {
   public static final String JSON_PROPERTY_PROMPT = "prompt";
   private String prompt;

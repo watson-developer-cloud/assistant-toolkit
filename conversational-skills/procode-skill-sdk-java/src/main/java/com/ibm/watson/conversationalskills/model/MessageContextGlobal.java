@@ -14,17 +14,22 @@
  limitations under the License.
  */
 
-
 package com.ibm.watson.conversationalskills.model;
 
 import java.util.Objects;
-
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.ibm.watson.conversationalskills.model.MessageContextGlobalSystem;
+import com.ibm.watson.conversationalskills.model.SessionHistoryMessage;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * MessageContextGlobal
@@ -36,7 +41,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   MessageContextGlobal.JSON_PROPERTY_ENVIRONMENT_ID,
   MessageContextGlobal.JSON_PROPERTY_SESSION_HISTORY
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.9.0")
 public class MessageContextGlobal {
   public static final String JSON_PROPERTY_SYSTEM = "system";
   private MessageContextGlobalSystem system;

@@ -14,17 +14,19 @@
  limitations under the License.
  */
 
-
 package com.ibm.watson.conversationalskills.model;
 
 import java.util.Objects;
-
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.HashMap;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * ConversationalSkillStateInput
@@ -34,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   ConversationalSkillStateInput.JSON_PROPERTY_SESSION_VARIABLES,
   ConversationalSkillStateInput.JSON_PROPERTY_CURRENT_SLOT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.9.0")
 public class ConversationalSkillStateInput {
   public static final String JSON_PROPERTY_LOCAL_VARIABLES = "local_variables";
   private Map<String, Object> localVariables = new HashMap<>();

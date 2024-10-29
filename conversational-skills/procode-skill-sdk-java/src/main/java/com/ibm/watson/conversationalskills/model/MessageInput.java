@@ -14,21 +14,23 @@
  limitations under the License.
  */
 
-
 package com.ibm.watson.conversationalskills.model;
 
 import java.util.Objects;
-
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-
+import com.ibm.watson.conversationalskills.model.MessageInputAttachment;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * An input object that includes the input text.
@@ -38,7 +40,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   MessageInput.JSON_PROPERTY_TEXT,
   MessageInput.JSON_PROPERTY_ATTACHMENTS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.9.0")
 public class MessageInput extends HashMap<String, Object> {
   /**
    * The type of the message:  - &#x60;text&#x60;: The user input is processed normally by the assistant. - &#x60;search&#x60;: Only search results are returned. (Any dialog or action skill is bypassed.) - &#x60;event&#x60;: user interaction event communicated - &#x60;form&#x60;: user interaction results on a form display communicated  **Note:** A &#x60;search&#x60; message results in an error if no search skill is configured for the assistant.

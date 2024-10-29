@@ -14,14 +14,20 @@
  limitations under the License.
  */
 
-
 package com.ibm.watson.conversationalskills.model;
 
 import java.util.Objects;
-
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.ibm.watson.conversationalskills.model.ConversationalSkillOutput;
+import com.ibm.watson.conversationalskills.model.ConversationalSkillStateOutput;
+import com.ibm.watson.conversationalskills.model.OrchestrationResponseResolver;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * Response expected from Conversational skill.
@@ -31,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   OrchestrationResponse.JSON_PROPERTY_STATE,
   OrchestrationResponse.JSON_PROPERTY_RESOLVER
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.9.0")
 public class OrchestrationResponse {
   public static final String JSON_PROPERTY_OUTPUT = "output";
   private ConversationalSkillOutput output;

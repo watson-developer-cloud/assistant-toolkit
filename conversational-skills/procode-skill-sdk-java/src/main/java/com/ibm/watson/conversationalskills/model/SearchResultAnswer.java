@@ -14,14 +14,17 @@
  limitations under the License.
  */
 
-
 package com.ibm.watson.conversationalskills.model;
 
 import java.util.Objects;
-
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * An object specifing a segment of text that was identified as a direct answer to the search query.
@@ -30,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   SearchResultAnswer.JSON_PROPERTY_TEXT,
   SearchResultAnswer.JSON_PROPERTY_CONFIDENCE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.9.0")
 public class SearchResultAnswer {
   public static final String JSON_PROPERTY_TEXT = "text";
   private String text;

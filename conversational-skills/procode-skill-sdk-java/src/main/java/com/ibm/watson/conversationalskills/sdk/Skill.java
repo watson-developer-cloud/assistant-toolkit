@@ -19,11 +19,9 @@ package com.ibm.watson.conversationalskills.sdk;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 
-import com.ibm.watson.conversationalskills.model.ConversationalSkill;
-import com.ibm.watson.conversationalskills.model.ConversationalResponseGeneric;
+import com.ibm.watson.conversationalskills.model.*;
 
 public abstract class Skill {
 
@@ -142,4 +140,35 @@ public abstract class Skill {
 
 		return conversationalSkill;
 	};
+
+	public GetSkillResponse formatForGetSkill() {
+		var getSkillResponse = new GetSkillResponse();
+		getSkillResponse.setCreated(this.getCreationTimestamp() != null ? ZonedDateTime
+				.ofInstant(this.getCreationTimestamp().toInstant(), ZoneId.of("UTC"))
+				.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.nnn'Z'")) : null);
+
+		getSkillResponse.setDescription(this.getDescription());
+		getSkillResponse.setId(this.getID());
+		getSkillResponse.setMetadata(this.getMetadata());
+		getSkillResponse.setModified(this.getModificationTimestamp() != null ? ZonedDateTime
+				.ofInstant(this.getModificationTimestamp().toInstant(), ZoneId.of("UTC"))
+				.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.nnn'Z'")) : null);
+
+		getSkillResponse.setName(this.getName());
+
+		var slotHandlers = this.getSlotHandlers();
+		var inputSlots = new ArrayList<ConversationalSkillInputSlot>();
+		Arrays.stream(slotHandlers).forEach(slotHandler -> {
+			var slot = slotHandler.getSlotInFlight();
+			var inputSlot = new ConversationalSkillInputSlot()
+					.name(slot.getName())
+					.description(slot.getDescription())
+					.type(ConversationalSkillInputSlot.TypeEnum.fromValue(slot.getType().getValue()));
+
+			inputSlots.add(inputSlot);
+		});
+		getSkillResponse.setInput(new GetSkillResponseAllOfInput().slots(inputSlots));
+
+		return getSkillResponse;
+	}
 }

@@ -52,15 +52,15 @@ public class RecipientSelectorSlotHandler extends SlotHandler {
 	public void onRepair(State state) {
 	}
 
-	public User searchUser(User[] users, String value) {
+	public User searchUser(User[] users, Object value) {
 		User selectedUser = null;
 
 		for (var user : users) {
-			if (value.equals(user.name + " (" + user.email + ")")) {
+			if (value.toString().equals(user.name + " (" + user.email + ")")) {
 				selectedUser = user;
 
 				break;
-			}
+			} 
 		}
 
 		return selectedUser;

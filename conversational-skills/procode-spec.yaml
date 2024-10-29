@@ -1,190 +1,15 @@
-# Conversational Skills: Masterdoc for API Endpoints to Implement by the Pro-Code Conversational Skill Client
-
-The following endpoints are the APIs that will be implemented **by** a pro-code client of watsonx Assistant, and consumed by the watsonx Assistant product.
-
-## Table of Contents
-
-- [Runtime API](#runtime-api) | `POST /providers/{{provider_id}}/conversational_skills/{{conversational_skill_id}}/orchestrate`
-- [List Conversational Skills](#list-conversational-skills) | `GET /providers/{{provider_id}}/conversational_skills`
-- [Get Conversational Skill](#get-conversational-skill) | `GET /providers/{{provider_id}}/conversational_skills/{{conversational_skill_id}}`
-- [Complete OAS (Open API Schema)](#oas)
-
-### Runtime API 
-
-Once a skill-backed action is created, it may be invoked on the [message API](https://cloud.ibm.com/apidocs/assistant-v2#message). In order for a callout from the assistant to a pro-code conversational skill to succeed, the runtime API (`POST /providers/{{provider_id}}/conversational_skills/{{conversational_skill_id}}/orchestrate`) must be implemented on the host from the registration of the pro code provider.
-
-You may find an example of a NodeJS SDK [here](procode-skill-sdk-js)
-
-**Example Request Body**
-```json
-request = {
-    "input": { /* WxA input schema */ },
-    "context": {
-        "global": {
-            /* Useful information for conversational_skill */
-            "session_id": "<session-id>",
-            "assistant_id": "<assistant-id>",
-            "environment_id": "<environment-id>",
-            "language": "<Assistant Language>",
-            "session_history": [],
-        },
-        "integrations": {
-            "chat": {
-                "private": {
-                    "jwt": "<Any>" /* auth: existing support */,
-                }
-            }
-        }
-    },
-    "slots": [
-        {
-            /*  Note: other slot details are not required to be communicated 
-            to the conversational_skill. it already has them.  */
-            "name": "<slot-name>",
-            "value": {
-                "normalized": "<normalized-value>",
-                "literal": "<literal-value>"
-            },
-            /* Flag to indicate if this turn filled, or repaired the value */
-            "event": "one of: fill, repair"
-        }
-    ],
-    "state": {
-        "current_slot": "<slot-name>",
-        "local_variables": {},
-        "session_variables": {}
-    },
-    "confirmation_event": "<one of: user_confirmed | user_cancelled>"
-}
-```
-
-**Response**
-
-```json
-response = {
-    "state": {
-        "local_variables": {},
-        "session_variables": {}
-    },
-    "output": {
-        "generic": [ 
-            /*  Any sequence of WxA supported response_types schema 
-                + the following new response_type */
-            {
-                "response_type": "slots",
-                "slots": [{
-                    "name": "<a unique name for the slot>",
-                    "type": "one of: string | number | date | time | regex | entity | confirmation",
-                    "description": "<a description for the slot>",
-                    "validation_error": "<an error message to display to the user in case the slot value is not valid per business rules>",
-                    "prompt": Any,
-                    "value": {
-                        "normalized": "<normalized-value>",
-                        "literal": "<literal-value>"
-                    }
-                }],
-                "confirmation": Any
-            }
-        ]
-    },
-    "resolver": {
-        "type": "<one of: user_interaction, skill_complete, skill_cancel>",
-        "<type>": Any
-    }
-}
-```
-
-### List Conversational Skills
-
-Fetches a list of conversational skills. The `assistant_id` and `environment_id` must be passed as query parameters.
-
-**NOTE** This endpoint **MUST BE** implemented in order to create a skill-backed action from the watsonx Assistant UI / AI assistant builder. This endpoint is **optional** for users who create conversational flows entirely from the API.
-
-
-**Example Request Body**
-```json
-N/A
-```
-
-**Example Response**
-```json
-{
-  "conversational_skills": [
-    {
-      "id": "{{conversational_skill_id}}",
-      "name": "Order Takeout",
-      /* Readable description of the Conversational Skill's purpose */
-      "description": "Enables a user to place a takeout food order from a restaurant", 
-      "created": "2024-02-01T04:55:18.871Z",
-      "modified": "2024-02-01T04:55:18.871Z",
-      /* Optional free-form metadata object for future usecases. */
-      "metadata": { 
-        "last_modified_by": "Rachel@ibm.com"
-      }
-    },
-    {
-      "id": "{{conversational_skill_id}}",
-      "name": "Make Reservation",
-      /* Readable description of the Conversational Skill's purpose */
-      "description": "Enables a user to place a reservation at a restaurant", 
-      "created": "2024-02-01T04:55:18.871Z",
-      "modified": "2024-01-01T04:55:18.871Z",
-      /* Optional free-form metadata object for future usecases. */
-      "metadata": { 
-        "last_modified_by": "Anbu@ibm.com"
-      }
-    }
-  ],
-  "pagination": {
-    "total": "2"
-  }
-}
-```
-
-
-### Get Conversational Skill
-
-Retrieves the information of a conversational_skill. The `assistant_id` and `environment_id` must be passed as query parameters.
-
-**NOTE** This endpoint **MUST BE** implemented in order to enable variable-passing on the watsonx Assistant UI.
-
-**Example Request Body**
-```json
-N/A
-```
-
-**Example Response**
-```json
-{
-  "id": "{{conversational_skill_id}}",
-  "name": "Order Takeout",
-  "description": "Enables a user to place a takeout food order from a restaurant",
-  "created": "2024-02-01T04:55:18.871Z",
-  "modified": "2024-02-01T04:55:18.871Z",
-  "input": {
-      "slots": [
-          {
-              "name": "<slot name>", 
-              "description": "<slot description>", 
-              "type": "one of: <string | number | date | time | regex | entity | confirmation | any>", 
-          }
-      ]
-  },
-}
-```
-
-### OAS
-
-```yaml
 openapi: 3.0.3
 info:
-  title: Procode Endpoints for Conversational Skills
+  title: Procode
   description: |-
-    This document describes the following APIs that will be implemented by a watsonx Assistant client, and consumed by the watsonx Assistant team in order to enable the objectives set forth by the Conversational Skills Mission. 
+    This document describes the following APIs that will be implemented by a watsonx Assistant client, and consumed by the watsonx Assistant team in order to enable the objectives set forth by the Conversational Skills Mission.
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.11
+  version: 1.0.0
+  x-codegen-config:
+    java:
+      apiPackage: 'com.ibm.conversational_skills'
 servers:
   - url: www.my-hosted-provider.com
 tags:
@@ -194,14 +19,73 @@ paths:
   /providers/{provider_id}/conversational_skills:
     get:
       tags:
-      - Conversational Skills MVP
+        - Conversational Skills MVP
       summary: Fetch a list of conversational skills
       description: "Retrieves a list of conversational skills associated to a particular provider."
       operationId: fetchSkills
       parameters:
+        - name: provider_id
+          in: path
+          description: Unique identifier of the provider that possesses the conversational skill. It represents the instance that is linked with the WxA instance.
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+        - name: assistant_id
+          in: query
+          description: Assistant ID values that need to be considered for filtering
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+        - name: environment_id
+          in: query
+          description: Environment ID values that need to be considered for filtering
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: available
+      responses:
+        "200":
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListSkillsResponse"
+        "400":
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /providers/{provider_id}/conversational_skills/{conversational_skill_id}:
+    get:
+      tags:
+      - Conversational Skills MVP
+      summary: Retrieves the information of a conversational_skill
+      description: "Retrieves the information of a conversational_skill from the provider"
+      operationId: getSkill
+      parameters:
       - name: provider_id 
         in: path
         description: Unique identifier of the provider that possesses the conversational skill. It represents the instance that is linked with the WxA instance.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: conversational_skill_id 
+        in: path
+        description: Unique identifier of the conversational skill.
         required: true
         style: simple
         explode: false
@@ -229,7 +113,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ListSkillsResponse'
+                $ref: '#/components/schemas/GetSkillResponse'
         "400":
           description: Invalid request.
           content:
@@ -242,15 +126,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-  /providers/{provider_id}/conversational_skills/{conversational_skill_id}:
-      get:
-        tags:
+  /providers/{provider_id}/conversational_skills/{conversational_skill_id}/orchestrate:
+    post:
+      tags:
         - Conversational Skills MVP
-        summary: Retrieves the information of a conversational_skill
-        description: "Retrieves the information of a conversational_skill from the provider"
-        operationId: getSkill
-        parameters:
-        - name: provider_id 
+      summary: Orchestrate a conversation
+      description: "Sends user input along with conversation state (including slots and other context data) stored by watsonx Assistant, and the current turn output, to the conversational skill, to let it run its business logic and tell watsonx Assistant what to do next."
+      operationId: orchestrate
+      parameters:
+        - name: provider_id
           in: path
           description: Unique identifier of the provider that possesses the conversational skill. It represents the instance that is linked with the WxA instance.
           required: true
@@ -258,92 +142,33 @@ paths:
           explode: false
           schema:
             type: string
-        - name: conversational_skill_id 
+        - name: conversational_skill_id
           in: path
-          description: Unique identifier of the conversational skill.
+          description: Unique identifier of the conversational skill. It represents business logic to orchestrate a specific conversation.
           required: true
           style: simple
           explode: false
           schema:
             type: string
-        - name: assistant_id
-          in: query
-          description: Assistant ID values that need to be considered for filtering
-          required: true
-          explode: true
-          schema:
-            type: string
-            default: available
-        - name: environment_id
-          in: query
-          description: Environment ID values that need to be considered for filtering
-          required: true
-          explode: true
-          schema:
-            type: string
-            default: available
-        responses:
-          "200":
-            description: Successful request.
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/GetSkillResponse'
-          "400":
-            description: Invalid request.
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorResponse'
-          "500":
-            description: Internal error.
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorResponse'
-  /providers/{provider_id}/conversational_skills/{conversational_skill_id}/orchestrate:
-    post:
-      tags:
-      - Conversational Skills MVP
-      summary: Orchestrate a conversation
-      description: "Sends user input along with conversation state (including slots and other context data) stored by watsonx Assistant, and the current turn output, to the conversational skill, to let it run its business logic and tell watsonx Assistant what to do next."
-      operationId: orchestrate
-      parameters:
-      - name: provider_id 
-        in: path
-        description: Unique identifier of the provider that possesses the conversational skill. It represents the instance that is linked with the WxA instance.
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: string
-      - name: conversational_skill_id
-        in: path
-        description: Unique identifier of the conversational skill. It represents business logic to orchestrate a specific conversation.
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: string
       requestBody:
         description: "The request to be sent to conversational skill. This includes the user's input (relayed from WxA /message API), WxA context, slots value state, and conversational skill state."
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/OrchestrationRequest'
+              $ref: "#/components/schemas/OrchestrationRequest"
       responses:
         "200":
           description: Successful request.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrchestrationResponse'
+                $ref: "#/components/schemas/OrchestrationResponse"
         "400":
           description: Invalid request.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: "#/components/schemas/ErrorResponse"
 components:
   schemas:
     ConversationalSkill:
@@ -399,38 +224,43 @@ components:
                   type: 'array'
                   items:
                     $ref: '#/components/schemas/ConversationalSkillInputSlot'
-    ListSkillsResponse: 
+    ListSkillsResponse:
       type: object
-      properties: 
-        conversational_skills: 
+      properties:
+        conversational_skills:
           type: array
           description: |-
             An array of conversational_skill objects. Each item in the array should be a unique conversational skill.
           items:
-            $ref: '#/components/schemas/ConversationalSkill'
+            $ref: "#/components/schemas/ConversationalSkill"
     OrchestrationRequest:
       type: object
       properties:
         input:
-          $ref: '#/components/schemas/MessageInput'
+          $ref: "#/components/schemas/MessageInput"
         context:
-          $ref: '#/components/schemas/MessageContext'
+          $ref: "#/components/schemas/MessageContext"
         slots:
           type: array
           description: "Slots runtime state (sans definition, since conversational skill is itself their source)."
           items:
-            $ref: '#/components/schemas/SlotState'
+            $ref: "#/components/schemas/SlotState"
         state:
-          $ref: '#/components/schemas/ConversationalSkillStateInput'
+          $ref: "#/components/schemas/ConversationalSkillStateInput"
+        confirmation_event:
+          type: string
+          enum:
+            - user_confirmed
+            - user_cancelled
       description: An orchestration request.
     OrchestrationResponse:
       properties:
         output:
-          $ref: '#/components/schemas/ConversationalSkillOutput'
+          $ref: "#/components/schemas/ConversationalSkillOutput"
         state:
-          $ref: '#/components/schemas/ConversationalSkillStateOutput'
+          $ref: "#/components/schemas/ConversationalSkillStateOutput"
         resolver:
-          $ref: '#/components/schemas/OrchestrationResponse_resolver'
+          $ref: "#/components/schemas/OrchestrationResponse_resolver"
       description: Response expected from Conversational skill.
     MessageInput:
       type: object
@@ -448,10 +278,10 @@ components:
             **Note:** A `search` message results in an error if no search skill is configured for the assistant.
           default: text
           enum:
-          - text
-          - search
-          - form
-          - event
+            - text
+            - search
+            - form
+            - event
         text:
           maxLength: 2048
           minLength: 1
@@ -462,13 +292,13 @@ components:
           type: array
           description: "An array of multimedia attachments to be sent with the message. Attachments are not processed by the assistant itself, but can be sent to external services by webhooks. \n\n **Note:** Attachments are not supported on IBM Cloud Pak for Data."
           items:
-            $ref: '#/components/schemas/MessageInputAttachment'
+            $ref: "#/components/schemas/MessageInputAttachment"
       additionalProperties:
         description: "For use with event, and form type of messages."
       description: An input object that includes the input text.
     MessageInputAttachment:
       required:
-      - url
+        - url
       properties:
         url:
           type: string
@@ -481,33 +311,33 @@ components:
       type: object
       properties:
         global:
-          $ref: '#/components/schemas/MessageContextGlobal'
+          $ref: "#/components/schemas/MessageContextGlobal"
         skills:
-          $ref: '#/components/schemas/MessageContextSkills'
+          $ref: "#/components/schemas/MessageContextSkills"
         integrations:
           type: object
           description: "An object containing context data that is specific to particular integrations. For more information, see the [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-dialog-integrations). This will include `chat.private.jwt` containing Cade's SSO security token."
     MessageContextGlobal:
       allOf:
-      - $ref: '#/components/schemas/BaseMessageContextGlobal'
-      - properties:
-          session_id:
-            type: string
-            description: WxA session ID.
-          assistant_id:
-            type: string
-            description: WxA assistant ID.
-          environment_id:
-            type: string
-            description: WxA environment ID.
-          session_history:
-            $ref: '#/components/schemas/SessionHistory'
-        description: Built-in system properties that apply to all skills used by the assistant.
+        - $ref: "#/components/schemas/BaseMessageContextGlobal"
+        - properties:
+            session_id:
+              type: string
+              description: WxA session ID.
+            assistant_id:
+              type: string
+              description: WxA assistant ID.
+            environment_id:
+              type: string
+              description: WxA environment ID.
+            session_history:
+              $ref: "#/components/schemas/SessionHistory"
+          description: Built-in system properties that apply to all skills used by the assistant.
     BaseMessageContextGlobal:
       type: object
       properties:
         system:
-          $ref: '#/components/schemas/MessageContextGlobalSystem'
+          $ref: "#/components/schemas/MessageContextGlobalSystem"
       description: Session context data that is shared by all skills used by the assistant.
     MessageContextGlobalSystem:
       type: object
@@ -533,21 +363,21 @@ components:
 
              This property is included only if the new system entities are enabled for the skill.
           enum:
-          - en-us
-          - en-ca
-          - en-gb
-          - ar-ar
-          - cs-cz
-          - de-de
-          - es-es
-          - fr-fr
-          - it-it
-          - ja-jp
-          - ko-kr
-          - nl-nl
-          - pt-br
-          - zh-cn
-          - zh-tw
+            - en-us
+            - en-ca
+            - en-gb
+            - ar-ar
+            - cs-cz
+            - de-de
+            - es-es
+            - fr-fr
+            - it-it
+            - ja-jp
+            - ko-kr
+            - nl-nl
+            - pt-br
+            - zh-cn
+            - zh-tw
         reference_time:
           type: string
           description: |-
@@ -573,24 +403,24 @@ components:
       type: object
       properties:
         main skill:
-          $ref: '#/components/schemas/MessageContextDialogSkill'
+          $ref: "#/components/schemas/MessageContextDialogSkill"
         actions skill:
-          $ref: '#/components/schemas/MessageContextActionSkill'
+          $ref: "#/components/schemas/MessageContextActionSkill"
         conversational skills:
-          $ref: '#/components/schemas/MessageContextConversationalSkills'
+          $ref: "#/components/schemas/MessageContextConversationalSkills"
         active_skill:
           type: string
           description: "When a conversation is underway, and it hasn't yet finished, the Assistant uses this attribute to track which skill should start processing the next user message in the conversation. At appropriate milestones in a conversation, e.g., initial routing, digression, return from digression, the Assistant updates this attribute to indicate which skill should process the next user message."
           nullable: true
           enum:
-          - main skill
-          - actions skill
-          - conversational_skills
+            - main skill
+            - actions skill
+            - conversational_skills
       description: Context data specific to particular skills used by the assistant.
     MessageContextDialogSkill:
       allOf:
-      - description: Context variables that are used by the dialog skill.
-      - $ref: '#/components/schemas/BaseMessageContextSkill'
+        - description: Context variables that are used by the dialog skill.
+        - $ref: "#/components/schemas/BaseMessageContextSkill"
     BaseMessageContextSkill:
       type: object
       properties:
@@ -600,7 +430,7 @@ components:
             description: A user-defined context variable.
           description: An object containing any arbitrary variables that can be read and written by a particular skill.
         system:
-          $ref: '#/components/schemas/MessageContextSkillSystem'
+          $ref: "#/components/schemas/MessageContextSkillSystem"
     MessageContextSkillSystem:
       type: object
       properties:
@@ -612,67 +442,67 @@ components:
       description: System context data used by the skill.
     MessageContextActionSkill:
       allOf:
-      - $ref: '#/components/schemas/BaseMessageContextSkill'
-      - properties:
-          action_variables:
-            type: object
-            additionalProperties:
-              description: An action variable.
-            description: "An object containing action variables. Action variables can be accessed only by steps in the same action, and do not persist after the action ends."
-          skill_variables:
-            type: object
-            additionalProperties:
-              description: A skill variable.
-            description: "An object containing skill variables. (In the watsonx Assistant user interface, skill variables are called _session variables_.) Skill variables can be accessed by any action and persist for the duration of the session."
-        description: "Context variables that are used by the action skill. Private variables are persisted, but not shown."
+        - $ref: "#/components/schemas/BaseMessageContextSkill"
+        - properties:
+            action_variables:
+              type: object
+              additionalProperties:
+                description: An action variable.
+              description: "An object containing action variables. Action variables can be accessed only by steps in the same action, and do not persist after the action ends."
+            skill_variables:
+              type: object
+              additionalProperties:
+                description: A skill variable.
+              description: "An object containing skill variables. (In the watsonx Assistant user interface, skill variables are called _session variables_.) Skill variables can be accessed by any action and persist for the duration of the session."
+          description: "Context variables that are used by the action skill. Private variables are persisted, but not shown."
     MessageContextConversationalSkills:
       allOf:
-      - $ref: '#/components/schemas/BaseMessageContextSkill'
+        - $ref: "#/components/schemas/BaseMessageContextSkill"
     ConversationalSkillOutput:
       properties:
         generic:
           type: array
           description: Ordered list of responses.
           items:
-            $ref: '#/components/schemas/ConversationalResponseGeneric'
+            $ref: "#/components/schemas/ConversationalResponseGeneric"
       description: "Conversational skill output uses the same schema as that of WxA message output, with some enhancements. In addition, it includes an internally processed response_type for conveying slots in flight."
     ConversationalResponseGeneric:
       discriminator:
         propertyName: response_type
         mapping:
-          slots: '#/components/schemas/ResponseTypeSlots'
-          audio: '#/components/schemas/RuntimeResponseTypeAudio'
-          channel_transfer: '#/components/schemas/RuntimeResponseTypeChannelTransfer'
-          connect_to_agent: '#/components/schemas/RuntimeResponseTypeConnectToAgent'
-          date: '#/components/schemas/RuntimeResponseTypeDate'
-          iframe: '#/components/schemas/RuntimeResponseTypeIframe'
-          image: '#/components/schemas/RuntimeResponseTypeImage'
-          option: '#/components/schemas/RuntimeResponseTypeOption'
-          suggestion: '#/components/schemas/RuntimeResponseTypeSuggestion'
-          pause: '#/components/schemas/RuntimeResponseTypePause'
-          search: '#/components/schemas/RuntimeResponseTypeSearch'
-          text: '#/components/schemas/RuntimeResponseTypeText'
-          user_defined: '#/components/schemas/RuntimeResponseTypeUserDefined'
-          video: '#/components/schemas/RuntimeResponseTypeVideo'
+          slots: "#/components/schemas/ResponseTypeSlots"
+          audio: "#/components/schemas/RuntimeResponseTypeAudio"
+          channel_transfer: "#/components/schemas/RuntimeResponseTypeChannelTransfer"
+          connect_to_agent: "#/components/schemas/RuntimeResponseTypeConnectToAgent"
+          date: "#/components/schemas/RuntimeResponseTypeDate"
+          iframe: "#/components/schemas/RuntimeResponseTypeIframe"
+          image: "#/components/schemas/RuntimeResponseTypeImage"
+          option: "#/components/schemas/RuntimeResponseTypeOption"
+          suggestion: "#/components/schemas/RuntimeResponseTypeSuggestion"
+          pause: "#/components/schemas/RuntimeResponseTypePause"
+          search: "#/components/schemas/RuntimeResponseTypeSearch"
+          text: "#/components/schemas/RuntimeResponseTypeText"
+          user_defined: "#/components/schemas/RuntimeResponseTypeUserDefined"
+          video: "#/components/schemas/RuntimeResponseTypeVideo"
       oneOf:
-      - $ref: '#/components/schemas/ResponseTypeSlots'
-      - $ref: '#/components/schemas/RuntimeResponseTypeText'
-      - $ref: '#/components/schemas/RuntimeResponseTypePause'
-      - $ref: '#/components/schemas/RuntimeResponseTypeImage'
-      - $ref: '#/components/schemas/RuntimeResponseTypeOption'
-      - $ref: '#/components/schemas/RuntimeResponseTypeConnectToAgent'
-      - $ref: '#/components/schemas/RuntimeResponseTypeSuggestion'
-      - $ref: '#/components/schemas/RuntimeResponseTypeChannelTransfer'
-      - $ref: '#/components/schemas/RuntimeResponseTypeSearch'
-      - $ref: '#/components/schemas/RuntimeResponseTypeUserDefined'
-      - $ref: '#/components/schemas/RuntimeResponseTypeVideo'
-      - $ref: '#/components/schemas/RuntimeResponseTypeAudio'
-      - $ref: '#/components/schemas/RuntimeResponseTypeIframe'
-      - $ref: '#/components/schemas/RuntimeResponseTypeDate'
+        - $ref: "#/components/schemas/ResponseTypeSlots"
+        - $ref: "#/components/schemas/RuntimeResponseTypeText"
+        - $ref: "#/components/schemas/RuntimeResponseTypePause"
+        - $ref: "#/components/schemas/RuntimeResponseTypeImage"
+        - $ref: "#/components/schemas/RuntimeResponseTypeOption"
+        - $ref: "#/components/schemas/RuntimeResponseTypeConnectToAgent"
+        - $ref: "#/components/schemas/RuntimeResponseTypeSuggestion"
+        - $ref: "#/components/schemas/RuntimeResponseTypeChannelTransfer"
+        - $ref: "#/components/schemas/RuntimeResponseTypeSearch"
+        - $ref: "#/components/schemas/RuntimeResponseTypeUserDefined"
+        - $ref: "#/components/schemas/RuntimeResponseTypeVideo"
+        - $ref: "#/components/schemas/RuntimeResponseTypeAudio"
+        - $ref: "#/components/schemas/RuntimeResponseTypeIframe"
+        - $ref: "#/components/schemas/RuntimeResponseTypeDate"
     ResponseTypeSlots:
       required:
-      - response_type
-      - slots
+        - response_type
+        - slots
       properties:
         response_type:
           type: string
@@ -681,47 +511,16 @@ components:
           type: array
           description: The ordered list of slots in flight that WxA should strive to prompt/fill/repair.
           items:
-            $ref: '#/components/schemas/SlotInFlight'
+            $ref: "#/components/schemas/SlotInFlight"
         confirmation:
           type: object
           properties:
             prompt:
               type: string
-    RuntimeResponseGeneric:
-      discriminator:
-        propertyName: response_type
-        mapping:
-          audio: '#/components/schemas/RuntimeResponseTypeAudio'
-          channel_transfer: '#/components/schemas/RuntimeResponseTypeChannelTransfer'
-          connect_to_agent: '#/components/schemas/RuntimeResponseTypeConnectToAgent'
-          date: '#/components/schemas/RuntimeResponseTypeDate'
-          iframe: '#/components/schemas/RuntimeResponseTypeIframe'
-          image: '#/components/schemas/RuntimeResponseTypeImage'
-          option: '#/components/schemas/RuntimeResponseTypeOption'
-          suggestion: '#/components/schemas/RuntimeResponseTypeSuggestion'
-          pause: '#/components/schemas/RuntimeResponseTypePause'
-          search: '#/components/schemas/RuntimeResponseTypeSearch'
-          text: '#/components/schemas/RuntimeResponseTypeText'
-          user_defined: '#/components/schemas/RuntimeResponseTypeUserDefined'
-          video: '#/components/schemas/RuntimeResponseTypeVideo'
-      oneOf:
-      - $ref: '#/components/schemas/RuntimeResponseTypeText'
-      - $ref: '#/components/schemas/RuntimeResponseTypePause'
-      - $ref: '#/components/schemas/RuntimeResponseTypeImage'
-      - $ref: '#/components/schemas/RuntimeResponseTypeOption'
-      - $ref: '#/components/schemas/RuntimeResponseTypeConnectToAgent'
-      - $ref: '#/components/schemas/RuntimeResponseTypeSuggestion'
-      - $ref: '#/components/schemas/RuntimeResponseTypeChannelTransfer'
-      - $ref: '#/components/schemas/RuntimeResponseTypeSearch'
-      - $ref: '#/components/schemas/RuntimeResponseTypeUserDefined'
-      - $ref: '#/components/schemas/RuntimeResponseTypeVideo'
-      - $ref: '#/components/schemas/RuntimeResponseTypeAudio'
-      - $ref: '#/components/schemas/RuntimeResponseTypeIframe'
-      - $ref: '#/components/schemas/RuntimeResponseTypeDate'
     RuntimeResponseTypeAudio:
       required:
-      - response_type
-      - source
+        - response_type
+        - source
       properties:
         response_type:
           type: string
@@ -739,7 +538,7 @@ components:
           type: array
           description: "An array of objects specifying channels for which the response is intended. If **channels** is present, the response is intended for a built-in integration and should not be handled by an API client."
           items:
-            $ref: '#/components/schemas/ResponseGenericChannel'
+            $ref: "#/components/schemas/ResponseGenericChannel"
         channel_options:
           type: object
           description: For internal use only.
@@ -750,9 +549,9 @@ components:
           description: Descriptive text that can be used for screen readers or other situations where the audio player cannot be seen.
     RuntimeResponseTypeChannelTransfer:
       required:
-      - message_to_user
-      - response_type
-      - transfer_info
+        - message_to_user
+        - response_type
+        - transfer_info
       properties:
         response_type:
           type: string
@@ -761,15 +560,15 @@ components:
           type: string
           description: The message to display to the user when initiating a channel transfer.
         transfer_info:
-          $ref: '#/components/schemas/ChannelTransferInfo'
+          $ref: "#/components/schemas/ChannelTransferInfo"
         channels:
           type: array
           description: "An array of objects specifying channels for which the response is intended. If **channels** is present, the response is intended for a built-in integration and should not be handled by an API client."
           items:
-            $ref: '#/components/schemas/ResponseGenericChannel'
+            $ref: "#/components/schemas/ResponseGenericChannel"
     RuntimeResponseTypeConnectToAgent:
       required:
-      - response_type
+        - response_type
       properties:
         response_type:
           type: string
@@ -779,14 +578,14 @@ components:
           description: A message to be sent to the human agent who will be taking over the conversation.
         agent_available:
           allOf:
-          - $ref: '#/components/schemas/AgentAvailabilityMessage'
-          - description: An optional message to be displayed to the user to indicate that the conversation will be transferred to the next available agent.
+            - $ref: "#/components/schemas/AgentAvailabilityMessage"
+            - description: An optional message to be displayed to the user to indicate that the conversation will be transferred to the next available agent.
         agent_unavailable:
           allOf:
-          - $ref: '#/components/schemas/AgentAvailabilityMessage'
-          - description: An optional message to be displayed to the user to indicate that no online agent is available to take over the conversation.
+            - $ref: "#/components/schemas/AgentAvailabilityMessage"
+            - description: An optional message to be displayed to the user to indicate that no online agent is available to take over the conversation.
         transfer_info:
-          $ref: '#/components/schemas/DialogNodeOutputConnectToAgentTransferInfo'
+          $ref: "#/components/schemas/DialogNodeOutputConnectToAgentTransferInfo"
         topic:
           type: string
           description: "A label identifying the topic of the conversation, derived from the **title** property of the relevant node or the **topic** property of the dialog node response."
@@ -794,18 +593,18 @@ components:
           type: array
           description: "An array of objects specifying channels for which the response is intended. If **channels** is present, the response is intended for a built-in integration and should not be handled by an API client."
           items:
-            $ref: '#/components/schemas/ResponseGenericChannel'
+            $ref: "#/components/schemas/ResponseGenericChannel"
     RuntimeResponseTypeDate:
       required:
-      - response_type
+        - response_type
       properties:
         response_type:
           type: string
           description: The type of response returned by the dialog node. The specified response type must be supported by the client application or channel.
     RuntimeResponseTypeIframe:
       required:
-      - response_type
-      - source
+        - response_type
+        - source
       properties:
         response_type:
           type: string
@@ -826,11 +625,11 @@ components:
           type: array
           description: "An array of objects specifying channels for which the response is intended. If **channels** is present, the response is intended for a built-in integration and should not be handled by an API client."
           items:
-            $ref: '#/components/schemas/ResponseGenericChannel'
+            $ref: "#/components/schemas/ResponseGenericChannel"
     RuntimeResponseTypeImage:
       required:
-      - response_type
-      - source
+        - response_type
+        - source
       properties:
         response_type:
           type: string
@@ -848,7 +647,7 @@ components:
           type: array
           description: "An array of objects specifying channels for which the response is intended. If **channels** is present, the response is intended for a built-in integration and should not be handled by an API client."
           items:
-            $ref: '#/components/schemas/ResponseGenericChannel'
+            $ref: "#/components/schemas/ResponseGenericChannel"
         alt_text:
           maxLength: 100
           minLength: 1
@@ -856,9 +655,9 @@ components:
           description: Descriptive text that can be used for screen readers or other situations where the image cannot be seen.
     RuntimeResponseTypeOption:
       required:
-      - options
-      - response_type
-      - title
+        - options
+        - response_type
+        - title
       properties:
         response_type:
           type: string
@@ -873,22 +672,22 @@ components:
           type: string
           description: The preferred type of control to display.
           enum:
-          - dropdown
-          - button
+            - dropdown
+            - button
         options:
           type: array
           description: An array of objects describing the options from which the user can choose.
           items:
-            $ref: '#/components/schemas/DialogNodeOutputOptionsElement'
+            $ref: "#/components/schemas/DialogNodeOutputOptionsElement"
         channels:
           type: array
           description: "An array of objects specifying channels for which the response is intended. If **channels** is present, the response is intended for a built-in integration and should not be handled by an API client."
           items:
-            $ref: '#/components/schemas/ResponseGenericChannel'
+            $ref: "#/components/schemas/ResponseGenericChannel"
     RuntimeResponseTypePause:
       required:
-      - response_type
-      - time
+        - response_type
+        - time
       properties:
         response_type:
           type: string
@@ -903,13 +702,13 @@ components:
           type: array
           description: "An array of objects specifying channels for which the response is intended. If **channels** is present, the response is intended for a built-in integration and should not be handled by an API client."
           items:
-            $ref: '#/components/schemas/ResponseGenericChannel'
+            $ref: "#/components/schemas/ResponseGenericChannel"
     RuntimeResponseTypeSearch:
       required:
-      - additional_results
-      - header
-      - primary_results
-      - response_type
+        - additional_results
+        - header
+        - primary_results
+        - response_type
       properties:
         response_type:
           type: string
@@ -921,22 +720,22 @@ components:
           type: array
           description: An array of objects that contains the search results to be displayed in the initial response to the user.
           items:
-            $ref: '#/components/schemas/SearchResult'
+            $ref: "#/components/schemas/SearchResult"
         additional_results:
           type: array
           description: An array of objects that contains additional search results that can be displayed to the user upon request.
           items:
-            $ref: '#/components/schemas/SearchResult'
+            $ref: "#/components/schemas/SearchResult"
         channels:
           type: array
           description: "An array of objects specifying channels for which the response is intended. If **channels** is present, the response is intended for a built-in integration and should not be handled by an API client."
           items:
-            $ref: '#/components/schemas/ResponseGenericChannel'
+            $ref: "#/components/schemas/ResponseGenericChannel"
     RuntimeResponseTypeSuggestion:
       required:
-      - response_type
-      - suggestions
-      - title
+        - response_type
+        - suggestions
+        - title
       properties:
         response_type:
           type: string
@@ -948,16 +747,16 @@ components:
           type: array
           description: An array of objects describing the possible matching dialog nodes from which the user can choose.
           items:
-            $ref: '#/components/schemas/DialogSuggestion'
+            $ref: "#/components/schemas/DialogSuggestion"
         channels:
           type: array
           description: "An array of objects specifying channels for which the response is intended. If **channels** is present, the response is intended for a built-in integration and should not be handled by an API client."
           items:
-            $ref: '#/components/schemas/ResponseGenericChannel'
+            $ref: "#/components/schemas/ResponseGenericChannel"
     RuntimeResponseTypeText:
       required:
-      - response_type
-      - text
+        - response_type
+        - text
       properties:
         response_type:
           type: string
@@ -969,11 +768,11 @@ components:
           type: array
           description: "An array of objects specifying channels for which the response is intended. If **channels** is present, the response is intended for a built-in integration and should not be handled by an API client."
           items:
-            $ref: '#/components/schemas/ResponseGenericChannel'
+            $ref: "#/components/schemas/ResponseGenericChannel"
     RuntimeResponseTypeUserDefined:
       required:
-      - response_type
-      - user_defined
+        - response_type
+        - user_defined
       properties:
         response_type:
           type: string
@@ -987,11 +786,11 @@ components:
           type: array
           description: "An array of objects specifying channels for which the response is intended. If **channels** is present, the response is intended for a built-in integration and should not be handled by an API client."
           items:
-            $ref: '#/components/schemas/ResponseGenericChannel'
+            $ref: "#/components/schemas/ResponseGenericChannel"
     RuntimeResponseTypeVideo:
       required:
-      - response_type
-      - source
+        - response_type
+        - source
       properties:
         response_type:
           type: string
@@ -1009,7 +808,7 @@ components:
           type: array
           description: "An array of objects specifying channels for which the response is intended. If **channels** is present, the response is intended for a built-in integration and should not be handled by an API client."
           items:
-            $ref: '#/components/schemas/ResponseGenericChannel'
+            $ref: "#/components/schemas/ResponseGenericChannel"
         channel_options:
           type: object
           description: For internal use only.
@@ -1025,18 +824,18 @@ components:
           description: A channel for which the response is intended.
     DialogNodeOutputOptionsElement:
       required:
-      - label
-      - value
+        - label
+        - value
       properties:
         label:
           type: string
           description: The user-facing label for the option.
         value:
-          $ref: '#/components/schemas/DialogNodeOutputOptionsElementValue'
+          $ref: "#/components/schemas/DialogNodeOutputOptionsElementValue"
     DialogNodeOutputOptionsElementValue:
       properties:
         input:
-          $ref: '#/components/schemas/MessageInput'
+          $ref: "#/components/schemas/MessageInput"
       description: An object defining the message input to be sent to the assistant if the user selects the corresponding option.
     AgentAvailabilityMessage:
       type: object
@@ -1059,14 +858,14 @@ components:
       description: Routing or other contextual information to be used by target service desk systems.
     DialogSuggestion:
       required:
-      - label
-      - value
+        - label
+        - value
       properties:
         label:
           type: string
           description: "The user-facing label for the suggestion. This label is taken from the **title** or **user_label** property of the corresponding dialog node, depending on the disambiguation options."
         value:
-          $ref: '#/components/schemas/DialogSuggestionValue'
+          $ref: "#/components/schemas/DialogSuggestionValue"
         output:
           type: object
           additionalProperties: true
@@ -1074,21 +873,21 @@ components:
     DialogSuggestionValue:
       properties:
         input:
-          $ref: '#/components/schemas/MessageInput'
+          $ref: "#/components/schemas/MessageInput"
       description: "An object defining the message input to be sent to the assistant if the user selects the corresponding disambiguation option. \n\n **Note:** This entire message input object must be included in the request body of the next message sent to the assistant. Do not modify or remove any of the included properties."
     ChannelTransferInfo:
       required:
-      - target
+        - target
       type: object
       properties:
         target:
-          $ref: '#/components/schemas/ChannelTransferTarget'
+          $ref: "#/components/schemas/ChannelTransferTarget"
       description: Information used by an integration to transfer the conversation to a different channel.
     ChannelTransferTarget:
       type: object
       properties:
         chat:
-          $ref: '#/components/schemas/ChannelTransferTargetChat'
+          $ref: "#/components/schemas/ChannelTransferTargetChat"
       description: "An object specifying target channels available for the transfer. Each property of this object represents an available transfer target. Currently, the only supported property is **chat**, representing the web chat integration."
     ChannelTransferTargetChat:
       type: object
@@ -1099,8 +898,8 @@ components:
       description: Information for transferring to the web chat integration.
     SearchResult:
       required:
-      - id
-      - result_metadata
+        - id
+        - result_metadata
       properties:
         id:
           type: string
@@ -1109,7 +908,7 @@ components:
 
             This property is included in responses from search skills, which are available only to Plus or Enterprise plan users.
         result_metadata:
-          $ref: '#/components/schemas/SearchResultMetadata'
+          $ref: "#/components/schemas/SearchResultMetadata"
         body:
           type: string
           description: "A description of the search result. This is taken from an abstract, summary, or highlight field in the Discovery service response, as specified in the search skill configuration."
@@ -1120,18 +919,18 @@ components:
           type: string
           description: The URL of the original data object in its native data source.
         highlight:
-          $ref: '#/components/schemas/SearchResultHighlight'
+          $ref: "#/components/schemas/SearchResultHighlight"
         answers:
           maxItems: 1
           minItems: 0
           type: array
           description: "An array specifying segments of text within the result that were identified as direct answers to the search query. Currently, only the single answer with the highest confidence (if any) is returned.\n\n**Notes:** \n - Answer finding is available only if the search skill is connected to a Discovery v2 service instance. \n - Answer finding is not supported on IBM Cloud Pak for Data."
           items:
-            $ref: '#/components/schemas/SearchResultAnswer'
+            $ref: "#/components/schemas/SearchResultAnswer"
     SearchResultAnswer:
       required:
-      - confidence
-      - text
+        - confidence
+        - text
       properties:
         text:
           type: string
@@ -1180,8 +979,8 @@ components:
       description: An object containing search result metadata from the Discovery service.
     ErrorResponse:
       required:
-      - code
-      - error
+        - code
+        - error
       properties:
         error:
           type: string
@@ -1190,13 +989,13 @@ components:
           type: array
           description: Collection of specific constraint violations associated with the error.
           items:
-            $ref: '#/components/schemas/ErrorDetail'
+            $ref: "#/components/schemas/ErrorDetail"
         code:
           type: integer
           description: HTTP status code for the error response.
     ErrorDetail:
       required:
-      - message
+        - message
       properties:
         message:
           type: string
@@ -1206,7 +1005,7 @@ components:
           description: The location of the constraint violation.
     EntitySchema:
       required:
-      - entity
+        - entity
       type: object
       properties:
         entity:
@@ -1215,11 +1014,11 @@ components:
         values:
           type: array
           items:
-            $ref: '#/components/schemas/EntityValue'
+            $ref: "#/components/schemas/EntityValue"
       description: "Schema definition for the slot, required if type is entity."
     EntityValue:
       required:
-      - value
+        - value
       type: object
       properties:
         value:
@@ -1230,7 +1029,7 @@ components:
             type: string
     UserMessage:
       required:
-      - u
+        - u
       type: object
       properties:
         u:
@@ -1242,7 +1041,7 @@ components:
           nullable: true
     AssistantMessage:
       required:
-      - a
+        - a
       type: object
       properties:
         a:
@@ -1250,48 +1049,41 @@ components:
           description: Assistant message
     SessionHistoryMessage:
       oneOf:
-      - $ref: '#/components/schemas/UserMessage'
-      - $ref: '#/components/schemas/AssistantMessage'
+        - $ref: "#/components/schemas/UserMessage"
+        - $ref: "#/components/schemas/AssistantMessage"
     SessionHistory:
       type: array
       description: An array of message objects representing the session history.
       items:
-        $ref: '#/components/schemas/SessionHistoryMessage'
+        $ref: "#/components/schemas/SessionHistoryMessage"
     SlotInFlight:
       allOf:
-      - $ref: '#/components/schemas/SlotState'
-      - type: object
-        properties:
-          type:
-            type: string
-            description: The type of the slot value.
-            enum:
-            - string
-            - number
-            - date
-            - time
-            - regex
-            - entity
-          schema:
-            $ref: '#/components/schemas/EntitySchema'
-          description:
-            type: string
-            description: A description for the slot.
-          validation_error:
-            type: string
-            description: An error message to display to the user in case the slot value is not valid per the business rules.
-          prompt:
-            type: object
-            description: "The prompt to present to the user. Can be a string or a more complex object for RuntimeResponseGeneric. If neither, it's considered RuntimeResponseTypeUserDefined."
-            discriminator:
-              propertyName: type
-              mapping:
-                string: '#/components/schemas/TextPrompt'
-                RuntimeResponseGeneric: '#/components/schemas/RuntimeResponseGeneric'
-            oneOf:
-            - type: string
-            - $ref: '#/components/schemas/RuntimeResponseGeneric'
-        description: "Slot definition needed to prompt, collect, and convey errors"
+        - $ref: "#/components/schemas/SlotState"
+        - type: object
+          properties:
+            type:
+              type: string
+              description: The type of the slot value.
+              enum:
+                - string
+                - number
+                - date
+                - time
+                - regex
+                - entity
+                - any
+            schema:
+              $ref: "#/components/schemas/EntitySchema"
+            description:
+              type: string
+              description: A description for the slot.
+            validation_error:
+              type: string
+              description: An error message to display to the user in case the slot value is not valid per the business rules.
+            prompt:
+              type: object
+              description: "The prompt to present to the user. Can be a string or a more complex object"
+          description: "Slot definition needed to prompt, collect, and convey errors"
     BaseSlot:
       type: object
       properties:
@@ -1300,39 +1092,41 @@ components:
           description: A unique name for the slot.
     SlotValue:
       required:
-      - normalized
+        - normalized
       type: object
       properties:
         normalized:
           oneOf:
-          - type: number
-          - type: string
-          - type: boolean
-          - type: object
-          - type: array
+            - type: number
+            - type: string
+            - type: boolean
+            - type: object
+            - type: array
+              items:
+                type: object
           description: The normalized value of the slot.
         literal:
           type: string
           description: The literal value as provided by the user.
     SlotState:
       allOf:
-      - $ref: '#/components/schemas/BaseSlot'
-      - type: object
-        properties:
-          value:
-            $ref: '#/components/schemas/SlotValue'
-          event:
-            type: string
-            description: |-
-              Type of the event:
-              - `fill`: the value has been newly filled.
-              - `repair`: previous value has been modified.
-              - `refine`: previous ambiguous value has been resolved with a selection
-            enum:
-            - fill
-            - repair
-            - refine
-        description: Contains just the state of the slot
+        - $ref: "#/components/schemas/BaseSlot"
+        - type: object
+          properties:
+            value:
+              $ref: "#/components/schemas/SlotValue"
+            event:
+              type: string
+              description: |-
+                Type of the event:
+                - `fill`: the value has been newly filled.
+                - `repair`: previous value has been modified.
+                - `refine`: previous ambiguous value has been resolved with a selection
+              enum:
+                - fill
+                - repair
+                - refine
+          description: Contains just the state of the slot
     ConversationalSkillStateOutput:
       type: object
       properties:
@@ -1346,24 +1140,24 @@ components:
           description: Conversation session scoped variables that the skill wants to share with other skills. These variables may live beyond the conclusion of the conversation being orchestrated by the skill.
     ConversationalSkillStateInput:
       allOf:
-      - $ref: '#/components/schemas/ConversationalSkillStateOutput'
-      - type: object
-        properties:
-          current_slot:
-            type: string
-            description: Reference to the currently prompted slot (name).
+        - $ref: "#/components/schemas/ConversationalSkillStateOutput"
+        - type: object
+          properties:
+            current_slot:
+              type: string
+              description: Reference to the currently prompted slot (name).
     OrchestrationResponse_resolver:
       type: object
       properties:
         type:
           type: string
           enum:
-          - user_interaction
-          - skill_complete
-          - skill_cancel
-          - catch_all
-          - fallback
-          - validation_error
+            - user_interaction
+            - skill_complete
+            - skill_cancel
+            - catch_all
+            - fallback
+            - validation_error
       additionalProperties:
         description: Resolver type specific data
       description: A resolver is a way for the conversational skill to indicate how it wants the Assistant to proceed.
@@ -1377,4 +1171,3 @@ components:
       explode: false
       schema:
         type: string
-```

@@ -14,16 +14,19 @@
  limitations under the License.
  */
 
-
 package com.ibm.watson.conversationalskills.model;
 
 import java.util.Objects;
-
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.ibm.watson.conversationalskills.model.EntitySchema;
+import com.ibm.watson.conversationalskills.model.SlotValue;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * SlotInFlight
@@ -38,7 +41,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   SlotInFlight.JSON_PROPERTY_VALIDATION_ERROR,
   SlotInFlight.JSON_PROPERTY_PROMPT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.9.0")
 public class SlotInFlight {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
@@ -100,7 +103,9 @@ public class SlotInFlight {
     
     REGEX("regex"),
     
-    ENTITY("entity");
+    ENTITY("entity"),
+    
+    ANY("any");
 
     private String value;
 
@@ -329,7 +334,7 @@ public class SlotInFlight {
   }
 
   /**
-   * The prompt to present to the user. Can be a string or a more complex object for RuntimeResponseGeneric. If neither, it&#39;s considered RuntimeResponseTypeUserDefined.
+   * The prompt to present to the user. Can be a string or a more complex object
    * @return prompt
    */
   @jakarta.annotation.Nullable

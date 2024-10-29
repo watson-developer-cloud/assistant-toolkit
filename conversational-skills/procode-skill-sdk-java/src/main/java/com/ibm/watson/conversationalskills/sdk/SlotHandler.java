@@ -104,7 +104,7 @@ public abstract class SlotHandler {
 		this.hidden = false;
 	}
 
-	protected String getNormalizedValue() {
+	protected Object getNormalizedValue() {
 		var value = getSlotInFlight().getValue();
 
 		return (value != null) ? value.getNormalized() : null;

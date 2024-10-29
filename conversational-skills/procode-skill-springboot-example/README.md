@@ -15,9 +15,10 @@ This project is an example of a conversational skill provider for watsonx Assist
 
 ## Running the application
 
-You can run this application locally by using the following command from within this folder:
+You can run this application locally by using the following commands from within this folder:
 
 ```shell script
+mvn clean install
 mvn spring-boot:run
 ```
 
