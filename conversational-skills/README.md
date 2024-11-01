@@ -215,7 +215,6 @@ curl -X POST '{{API}}/v2/providers/{{provider_id}}?version={{version}}' \
 -u "apikey:{{apikey}}' \
 --header 'Content-Type: application/json' \
 --data '{
-    "provider_id": "myProCodeProvider-noSpaces_no_special_chars",
     "specification": {
         "servers": [
             {
