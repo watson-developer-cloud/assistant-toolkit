@@ -1,12 +1,17 @@
 {
   "name": "TestItALL Extension Actions",
   "type": "action",
-  "valid": true,
+  "counts": {
+    "actions": 23,
+    "intents": 21,
+    "entities": 5,
+    "data_types": 0,
+    "collections": 4,
+    "global_variables": 5
+  },
   "status": "Available",
-  "created": "2023-10-16T15:02:20.853Z",
-  "updated": "2024-09-27T01:34:37.737Z",
   "language": "en",
-  "skill_id": "0633fca5-3455-4c4e-bd27-2b1a70e0c7d5",
+  "skill_id": "056f44b1-cc91-465c-918c-28236fb890a9",
   "workspace": {
     "actions": [
       {
@@ -42,8 +47,8 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "2e57744b42aa5ecd38277941f4c7bc25fd09fbaa09b22326f0d68de222ced43d",
-                  "match_scenario": 11,
-                  "catalog_item_id": "b4665ad6-fc48-4394-8ebf-7320465705d6"
+                  "match_scenario": 12,
+                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
                 },
                 "result_variable": "step_588_result_1"
               }
@@ -146,8 +151,8 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "837b4f9e9cbcd25948117367cbee4ddcbf870a48496df7e15ad127852843499f",
-                  "match_scenario": 11,
-                  "catalog_item_id": "b4665ad6-fc48-4394-8ebf-7320465705d6"
+                  "match_scenario": 10,
+                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
                 },
                 "result_variable": "step_526_result_1"
               }
@@ -184,6 +189,13 @@
                     "variable_path": "body.data"
                   },
                   "skill_variable": "content_value"
+                },
+                {
+                  "value": {
+                    "variable": "step_526_result_1",
+                    "variable_path": "body.data"
+                  },
+                  "skill_variable": "content_value_copy"
                 }
               ]
             },
@@ -379,8 +391,8 @@
                 "method": "DELETE",
                 "internal": {
                   "spec_hash_id": "c9bd72e2862ec86e75a643ace7cbbc1d93302f7f164629ea7dc07a6288a0d2a7",
-                  "match_scenario": 11,
-                  "catalog_item_id": "b4665ad6-fc48-4394-8ebf-7320465705d6"
+                  "match_scenario": 12,
+                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
                 },
                 "result_variable": "step_863_result_1"
               }
@@ -507,8 +519,8 @@
                 "method": "PATCH",
                 "internal": {
                   "spec_hash_id": "18bbb292a4302d016c054e0736b3ec12bcfdcab8ea91b134ad8a20ccb182b053",
-                  "match_scenario": 11,
-                  "catalog_item_id": "b4665ad6-fc48-4394-8ebf-7320465705d6"
+                  "match_scenario": 12,
+                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
                 },
                 "result_variable": "step_863_result_1"
               }
@@ -644,8 +656,8 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "248e8308de7b4f1a1d814f6be315ee5b74225b96958050f1279be129290dd5a8",
-                  "match_scenario": 11,
-                  "catalog_item_id": "b4665ad6-fc48-4394-8ebf-7320465705d6"
+                  "match_scenario": 12,
+                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
                 },
                 "request_mapping": {
                   "body": [
@@ -997,8 +1009,8 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "23f638583be5b3133e9e10d5b23849c84a02321b935dae33556e01c865dca465",
-                  "match_scenario": 11,
-                  "catalog_item_id": "b4665ad6-fc48-4394-8ebf-7320465705d6"
+                  "match_scenario": 12,
+                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
                 },
                 "request_mapping": {
                   "body": [
@@ -1145,8 +1157,8 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "937ab64d4b8380bbef096d265f29d9632ee0a5ee8d30995198423fe7e77dc894",
-                  "match_scenario": 10,
-                  "catalog_item_id": "b4665ad6-fc48-4394-8ebf-7320465705d6"
+                  "match_scenario": 12,
+                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
                 },
                 "result_variable": "step_331_result_1",
                 "stream_response_mapping": {
@@ -1265,8 +1277,8 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "4709b84bd687e9848832654c0fdb5a134ab7964c33934782c53a1fad0a348056",
-                  "match_scenario": 11,
-                  "catalog_item_id": "b4665ad6-fc48-4394-8ebf-7320465705d6"
+                  "match_scenario": 12,
+                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
                 },
                 "request_mapping": {
                   "header": [
@@ -1366,358 +1378,6 @@
         "type": "standard",
         "steps": [
           {
-            "step": "step_251",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "Please make sure you've configured the authentication method when adding the extension.\n\nWhich security method do u wanna check?"
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                },
-                {
-                  "options": [
-                    {
-                      "label": "basic",
-                      "value": {
-                        "input": {
-                          "text": "basic"
-                        }
-                      }
-                    },
-                    {
-                      "label": "bearer",
-                      "value": {
-                        "input": {
-                          "text": "bearer"
-                        }
-                      }
-                    },
-                    {
-                      "label": "apikey",
-                      "value": {
-                        "input": {
-                          "text": "apikey"
-                        }
-                      }
-                    },
-                    {
-                      "label": "oauth2-authCode",
-                      "value": {
-                        "input": {
-                          "text": "oauth2-authCode"
-                        }
-                      }
-                    },
-                    {
-                      "label": "oauth2-password",
-                      "value": {
-                        "input": {
-                          "text": "oauth2-password"
-                        }
-                      }
-                    },
-                    {
-                      "label": "oauth2-clientCred",
-                      "value": {
-                        "input": {
-                          "text": "oauth2-clientCred"
-                        }
-                      }
-                    },
-                    {
-                      "label": "oauth2-customApikey",
-                      "value": {
-                        "input": {
-                          "text": "oauth2-customApikey"
-                        }
-                      }
-                    }
-                  ],
-                  "response_type": "option",
-                  "repeat_on_reprompt": true
-                }
-              ]
-            },
-            "handlers": [
-              {
-                "type": "not_found",
-                "title": "validation_not_found_handler",
-                "output": {
-                  "generic": [
-                    {
-                      "values": [
-                        {
-                          "text": "I didn't catch that. Select a valid option:"
-                        }
-                      ],
-                      "response_type": "text"
-                    }
-                  ]
-                },
-                "handler": "validation_not_found_handler",
-                "resolver": {
-                  "type": "prompt_again"
-                },
-                "next_handler": "validation_not_found_max_tries_handler"
-              },
-              {
-                "type": "not_found_max_tries",
-                "title": "validation_not_found_max_tries_handler",
-                "handler": "validation_not_found_max_tries_handler",
-                "resolver": {
-                  "type": "fallback"
-                }
-              }
-            ],
-            "question": {
-              "entity": "entity_6835",
-              "max_tries": 3
-            },
-            "resolver": {
-              "type": "continue"
-            },
-            "variable": "step_251",
-            "next_step": "step_836"
-          },
-          {
-            "step": "step_836",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "you have selected "
-                          },
-                          {
-                            "variable": "step_251"
-                          },
-                          {
-                            "scalar": ", calling it"
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "callout",
-              "callout": {
-                "path": "/security/{method}",
-                "type": "integration_interaction",
-                "method": "POST",
-                "internal": {
-                  "spec_hash_id": null,
-                  "match_scenario": 9,
-                  "catalog_item_id": null
-                },
-                "request_mapping": {
-                  "path": [
-                    {
-                      "value": {
-                        "variable": "step_251"
-                      },
-                      "parameter": "method"
-                    }
-                  ]
-                },
-                "result_variable": "step_836_result_1"
-              }
-            },
-            "variable": "step_836",
-            "next_step": "step_341"
-          },
-          {
-            "step": "step_341",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "the result of your call is:    "
-                          },
-                          {
-                            "variable": "step_836_result_1",
-                            "variable_path": "body.message"
-                          },
-                          {
-                            "scalar": " status code: "
-                          },
-                          {
-                            "variable": "step_836_result_1",
-                            "variable_path": "status"
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "context": {
-              "variables": []
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "continue"
-            },
-            "variable": "step_341",
-            "condition": {
-              "expression": "${step_836_result_1.status}<400"
-            },
-            "next_step": "step_902"
-          },
-          {
-            "step": "step_902",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "The call had an error - status is: "
-                          },
-                          {
-                            "variable": "step_836_result_1",
-                            "variable_path": "status"
-                          },
-                          {
-                            "scalar": " The full error is: "
-                          },
-                          {
-                            "variable": "step_836_result_1",
-                            "variable_path": "body.message"
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "continue"
-            },
-            "variable": "step_902",
-            "condition": {
-              "expression": "${step_836_result_1.status}>399"
-            }
-          }
-        ],
-        "title": "Test calling extension with different authentication methods",
-        "action": "action_22832",
-        "boosts": [],
-        "handlers": [],
-        "condition": {
-          "intent": "action_22832_intent_9949"
-        },
-        "variables": [
-          {
-            "title": "aggregated variable",
-            "variable": "operation_result",
-            "data_type": "any"
-          },
-          {
-            "title": "aggregated variable",
-            "variable": "operation_result_status",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_149_result_1",
-            "data_type": "any"
-          },
-          {
-            "title": "Please make sure you've configured the authentication method whe",
-            "variable": "step_251",
-            "data_type": "any"
-          },
-          {
-            "title": "the result of your call is: {variable} status code: {variable}",
-            "variable": "step_341",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_491_result_1",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_538_result_1",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_628_result_1",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_658_result_1",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_739_result_1",
-            "data_type": "any"
-          },
-          {
-            "title": "you have selected {variable}, calling it",
-            "privacy": {
-              "enabled": false
-            },
-            "variable": "step_836",
-            "data_type": "any"
-          },
-          {
-            "privacy": {
-              "enabled": false
-            },
-            "variable": "step_836_result_1",
-            "data_type": "any"
-          },
-          {
-            "title": "The call had an error - status is: {variable} The full error is:",
-            "privacy": {
-              "enabled": false
-            },
-            "variable": "step_902",
-            "data_type": "any"
-          }
-        ],
-        "next_action": "action_26118",
-        "topic_switch": {
-          "allowed_from": true,
-          "allowed_into": true
-        },
-        "disambiguation_opt_out": false
-      },
-      {
-        "type": "standard",
-        "steps": [
-          {
             "step": "step_658",
             "output": {
               "generic": [
@@ -1747,8 +1407,8 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "39f6ab0451de35c1810c345b125e5c25f105ec719b81fb95297832eca5191f46",
-                  "match_scenario": 11,
-                  "catalog_item_id": "b4665ad6-fc48-4394-8ebf-7320465705d6"
+                  "match_scenario": 12,
+                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
                 },
                 "result_variable": "step_658_result_1"
               }
@@ -1860,8 +1520,8 @@
                 "method": "PUT",
                 "internal": {
                   "spec_hash_id": "bbf2bdd46be4526fd226330a20f0e665e835d4c20e2a78f04173633c930da918",
-                  "match_scenario": 11,
-                  "catalog_item_id": "b4665ad6-fc48-4394-8ebf-7320465705d6"
+                  "match_scenario": 12,
+                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
                 },
                 "request_mapping": {
                   "body": [
@@ -1998,8 +1658,8 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "e7b0b26798ecd3ce7abd86d34f113e3a253d7b8afcda67c31cf56340c8541ed0",
-                  "match_scenario": 11,
-                  "catalog_item_id": "b4665ad6-fc48-4394-8ebf-7320465705d6"
+                  "match_scenario": 12,
+                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
                 },
                 "result_variable": "step_367_result_1"
               }
@@ -2304,8 +1964,8 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "9e9048ccb56c63c9fe291105e6c7596a8693979aee76979d7e567b5700ef9774",
-                  "match_scenario": 10,
-                  "catalog_item_id": "b4665ad6-fc48-4394-8ebf-7320465705d6"
+                  "match_scenario": 12,
+                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
                 },
                 "result_variable": "step_617_result_1",
                 "stream_response_mapping": {
@@ -2392,8 +2052,8 @@
                 "method": "GET",
                 "internal": {
                   "spec_hash_id": "fd33f499ee9cb2c0ed79c1dce820f4f957bb51c765044420fa9b11bb16c80e83",
-                  "match_scenario": 11,
-                  "catalog_item_id": "b4665ad6-fc48-4394-8ebf-7320465705d6"
+                  "match_scenario": 12,
+                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
                 },
                 "result_variable": "step_628_result_1"
               }
@@ -2562,8 +2222,8 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "0f2b3166ab23a282ec4e6b080d140c65d8e38b6e3d69da9f07f9ec5055ff471f",
-                  "match_scenario": 11,
-                  "catalog_item_id": "b4665ad6-fc48-4394-8ebf-7320465705d6"
+                  "match_scenario": 12,
+                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
                 },
                 "request_mapping": {
                   "path": [
@@ -2729,8 +2389,8 @@
                 "method": "GET",
                 "internal": {
                   "spec_hash_id": "fd33f499ee9cb2c0ed79c1dce820f4f957bb51c765044420fa9b11bb16c80e83",
-                  "match_scenario": 11,
-                  "catalog_item_id": "b4665ad6-fc48-4394-8ebf-7320465705d6"
+                  "match_scenario": 12,
+                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
                 },
                 "result_variable": "step_646_result_1"
               }
@@ -2775,8 +2435,8 @@
                 "method": "GET",
                 "internal": {
                   "spec_hash_id": "fd33f499ee9cb2c0ed79c1dce820f4f957bb51c765044420fa9b11bb16c80e83",
-                  "match_scenario": 11,
-                  "catalog_item_id": "b4665ad6-fc48-4394-8ebf-7320465705d6"
+                  "match_scenario": 12,
+                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
                 },
                 "result_variable": "step_507_result_1"
               }
@@ -2821,8 +2481,8 @@
                 "method": "DELETE",
                 "internal": {
                   "spec_hash_id": "c9bd72e2862ec86e75a643ace7cbbc1d93302f7f164629ea7dc07a6288a0d2a7",
-                  "match_scenario": 11,
-                  "catalog_item_id": "b4665ad6-fc48-4394-8ebf-7320465705d6"
+                  "match_scenario": 12,
+                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
                 },
                 "result_variable": "step_154_result_1"
               }
@@ -3072,8 +2732,8 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "a031f18fc11262a101c825f227f0f0edcc5efe2b326e2bd100d5886678fca6e3",
-                  "match_scenario": 11,
-                  "catalog_item_id": "b4665ad6-fc48-4394-8ebf-7320465705d6"
+                  "match_scenario": 12,
+                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
                 },
                 "request_mapping": {
                   "body": [
@@ -3224,8 +2884,8 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "659adeb54c70bb9a693215097aed4f7ab36178b7ad420b414a2e061468491d86",
-                  "match_scenario": 10,
-                  "catalog_item_id": "b4665ad6-fc48-4394-8ebf-7320465705d6"
+                  "match_scenario": 12,
+                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
                 },
                 "result_variable": "step_947_result_1",
                 "stream_response_mapping": {
@@ -3618,54 +3278,448 @@
         ],
         "next_action": "action_5330",
         "disambiguation_opt_out": true
+      },
+      {
+        "type": "standard",
+        "steps": [
+          {
+            "step": "step_251",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Please make sure you've configured the authentication method when adding the extension.\n\nWhich security method do u wanna check?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                },
+                {
+                  "options": [
+                    {
+                      "label": "basic",
+                      "value": {
+                        "input": {
+                          "text": "basic"
+                        }
+                      }
+                    },
+                    {
+                      "label": "bearer",
+                      "value": {
+                        "input": {
+                          "text": "bearer"
+                        }
+                      }
+                    },
+                    {
+                      "label": "apikey",
+                      "value": {
+                        "input": {
+                          "text": "apikey"
+                        }
+                      }
+                    },
+                    {
+                      "label": "oauth2-authCode",
+                      "value": {
+                        "input": {
+                          "text": "oauth2-authCode"
+                        }
+                      }
+                    },
+                    {
+                      "label": "oauth2-password",
+                      "value": {
+                        "input": {
+                          "text": "oauth2-password"
+                        }
+                      }
+                    },
+                    {
+                      "label": "oauth2-clientCred",
+                      "value": {
+                        "input": {
+                          "text": "oauth2-clientCred"
+                        }
+                      }
+                    },
+                    {
+                      "label": "oauth2-customApikey",
+                      "value": {
+                        "input": {
+                          "text": "oauth2-customApikey"
+                        }
+                      }
+                    }
+                  ],
+                  "response_type": "option",
+                  "repeat_on_reprompt": true
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text": "I didn't catch that. Select a valid option:"
+                        }
+                      ],
+                      "response_type": "text"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "entity": "entity_6835",
+              "max_tries": 3
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_251",
+            "next_step": "step_836"
+          },
+          {
+            "step": "step_836",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "you have selected "
+                          },
+                          {
+                            "variable": "step_251"
+                          },
+                          {
+                            "scalar": ", calling it"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/security/{method}",
+                "type": "integration_interaction",
+                "method": "POST",
+                "internal": {
+                  "spec_hash_id": "f43754755baa579ca59fb605a63096a7b752a3ad2b05d8138609c83e6aa0ebee",
+                  "match_scenario": 10,
+                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
+                },
+                "request_mapping": {
+                  "path": [
+                    {
+                      "value": {
+                        "variable": "step_251"
+                      },
+                      "parameter": "method"
+                    }
+                  ]
+                },
+                "result_variable": "step_836_result_1"
+              }
+            },
+            "variable": "step_836",
+            "next_step": "step_341"
+          },
+          {
+            "step": "step_341",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "the result of your call is:    "
+                          },
+                          {
+                            "variable": "step_836_result_1",
+                            "variable_path": "body.message"
+                          },
+                          {
+                            "scalar": " status code: "
+                          },
+                          {
+                            "variable": "step_836_result_1",
+                            "variable_path": "status"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_341",
+            "condition": {
+              "expression": "${step_836_result_1.status}<400"
+            },
+            "next_step": "step_902"
+          },
+          {
+            "step": "step_902",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "The call had an error - status is: "
+                          },
+                          {
+                            "variable": "step_836_result_1",
+                            "variable_path": "status"
+                          },
+                          {
+                            "scalar": " The full error is: "
+                          },
+                          {
+                            "variable": "step_836_result_1",
+                            "variable_path": "body.message"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_902",
+            "condition": {
+              "expression": "${step_836_result_1.status}>399"
+            }
+          }
+        ],
+        "title": "Test calling extension with different authentication methods",
+        "action": "action_22832",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_22832_intent_9949"
+        },
+        "variables": [
+          {
+            "title": "aggregated variable",
+            "variable": "operation_result",
+            "data_type": "any"
+          },
+          {
+            "title": "aggregated variable",
+            "variable": "operation_result_status",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_149_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Please make sure you've configured the authentication method whe",
+            "variable": "step_251",
+            "data_type": "any"
+          },
+          {
+            "title": "the result of your call is: {variable} status code: {variable}",
+            "variable": "step_341",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_491_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_538_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_628_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_658_result_1",
+            "data_type": "any"
+          },
+          {
+            "variable": "step_739_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "you have selected {variable}, calling it",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_836",
+            "data_type": "any"
+          },
+          {
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_836_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "The call had an error - status is: {variable} The full error is:",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_902",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_26118",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
       }
     ],
     "intents": [
       {
+        "intent": "action_40637_intent_11889",
+        "examples": [
+          {
+            "text": "Test pre-message webhook"
+          },
+          {
+            "text": "pre-message webhook"
+          },
+          {
+            "text": "pre-webhook"
+          },
+          {
+            "text": "pre-message"
+          }
+        ]
+      },
+      {
         "intent": "action_11679_intent_29725",
         "examples": [
           {
-            "text": "Context Too Large"
+            "text": "Large Context"
           },
           {
             "text": "ContextTooLarge"
           },
           {
-            "text": "Large Context"
+            "text": "Context Too Large"
           }
         ]
       },
       {
-        "intent": "action_12249_intent_48727",
+        "intent": "action_34745_intent_10885",
         "examples": [
           {
-            "text": "Almost Too Large Context"
+            "text": "stream events"
           },
           {
-            "text": "Context Almost Too Large"
-          },
-          {
-            "text": "ContextAlmostTooLarge"
+            "text": "Test Server-Sent Events (SSE)"
           }
         ]
       },
       {
-        "intent": "action_1543_intent_5385",
+        "intent": "action_5330_intent_20647",
         "examples": [
           {
-            "text": "can u delete"
+            "text": "Test handling an error response in Server-Sent Events (SSE)"
+          }
+        ]
+      },
+      {
+        "intent": "action_22832_intent_9949",
+        "examples": [
+          {
+            "text": "authentication"
           },
           {
-            "text": "DELETE"
+            "text": "bearer auth"
           },
           {
-            "text": "how about deleting it"
+            "text": "oauth"
           },
           {
-            "text": "just delete it"
+            "text": "security"
           },
           {
-            "text": "pld delete"
+            "text": "api key auth"
+          },
+          {
+            "text": "basic auth"
+          }
+        ]
+      },
+      {
+        "intent": "action_3462_intent_18095",
+        "examples": [
+          {
+            "text": "Test post-message webhook"
+          },
+          {
+            "text": "post-message"
+          },
+          {
+            "text": "post-message webhook"
+          },
+          {
+            "text": "post-webhook"
           }
         ]
       },
@@ -3676,33 +3730,44 @@
             "text": "go patch it"
           },
           {
-            "text": "http patch"
-          },
-          {
             "text": "PATCH"
           },
           {
             "text": "patch it"
+          },
+          {
+            "text": "http patch"
           }
         ]
       },
       {
-        "intent": "action_20585_intent_24221",
+        "intent": "action_45207_intent_43212",
         "examples": [
           {
-            "text": "I want to post"
+            "text": "long time"
           },
           {
-            "text": "just post it"
+            "text": "delay the request for at least 30 seconds"
           },
           {
-            "text": "nail it"
+            "text": "delay request"
           },
           {
-            "text": "POST"
+            "text": "delay"
           },
           {
-            "text": "poster it"
+            "text": "more more time"
+          },
+          {
+            "text": "pls long request"
+          }
+        ]
+      },
+      {
+        "intent": "action_22451_intent_31436",
+        "examples": [
+          {
+            "text": "Test a long response in Server-Sent Events (SSE)"
           }
         ]
       },
@@ -3721,144 +3786,8 @@
         ]
       },
       {
-        "intent": "action_22451_intent_31436",
-        "examples": [
-          {
-            "text": "Test a long response in Server-Sent Events (SSE)"
-          }
-        ]
-      },
-      {
-        "intent": "action_22557_intent_12065",
-        "examples": [
-          {
-            "text": "auth header"
-          },
-          {
-            "text": "authorization context var"
-          },
-          {
-            "text": "authorization context variable"
-          },
-          {
-            "text": "authorization header"
-          },
-          {
-            "text": "Test set auth header with context variable"
-          }
-        ]
-      },
-      {
-        "intent": "action_22832_intent_9949",
-        "examples": [
-          {
-            "text": "api key auth"
-          },
-          {
-            "text": "authentication"
-          },
-          {
-            "text": "basic auth"
-          },
-          {
-            "text": "bearer auth"
-          },
-          {
-            "text": "oauth"
-          },
-          {
-            "text": "security"
-          }
-        ]
-      },
-      {
-        "intent": "action_26118_intent_41514",
-        "examples": [
-          {
-            "text": "Error"
-          },
-          {
-            "text": "Exception"
-          },
-          {
-            "text": "handle error"
-          },
-          {
-            "text": "integration sent back an error"
-          },
-          {
-            "text": "Just show me how u handle error"
-          },
-          {
-            "text": "Problem in calling integration"
-          },
-          {
-            "text": "Wrong"
-          }
-        ]
-      },
-      {
-        "intent": "action_30035_intent_49329",
-        "examples": [
-          {
-            "text": "Just put it"
-          },
-          {
-            "text": "PUT"
-          },
-          {
-            "text": "put is the name"
-          },
-          {
-            "text": "PUT IT"
-          },
-          {
-            "text": "put operation"
-          }
-        ]
-      },
-      {
-        "intent": "action_30398_intent_13880",
-        "examples": [
-          {
-            "text": "test non json response"
-          }
-        ]
-      },
-      {
-        "intent": "action_3462_intent_18095",
-        "examples": [
-          {
-            "text": "post-message"
-          },
-          {
-            "text": "post-message webhook"
-          },
-          {
-            "text": "post-webhook"
-          },
-          {
-            "text": "Test post-message webhook"
-          }
-        ]
-      },
-      {
-        "intent": "action_34745_intent_10885",
-        "examples": [
-          {
-            "text": "stream events"
-          },
-          {
-            "text": "Test Server-Sent Events (SSE)"
-          }
-        ]
-      },
-      {
         "intent": "action_34746_intent_20809",
         "examples": [
-          {
-            "text": "GET"
-          },
           {
             "text": "GET IT"
           },
@@ -3866,95 +3795,16 @@
             "text": "get operation"
           },
           {
-            "text": "GO Get it"
+            "text": "just get it"
           },
           {
             "text": "he got it"
           },
           {
-            "text": "just get it"
-          }
-        ]
-      },
-      {
-        "intent": "action_38662_intent_45880",
-        "examples": [
-          {
-            "text": "parameters"
+            "text": "GO Get it"
           },
           {
-            "text": "params"
-          },
-          {
-            "text": "post with parameters"
-          },
-          {
-            "text": "Test post with parameters"
-          }
-        ]
-      },
-      {
-        "intent": "action_39186_intent_23416",
-        "examples": [
-          {
-            "text": "consecutive"
-          },
-          {
-            "text": "consecutive calls"
-          },
-          {
-            "text": "multiple calls"
-          },
-          {
-            "text": "Test consecutive extension calls"
-          }
-        ]
-      },
-      {
-        "intent": "action_40637_intent_11889",
-        "examples": [
-          {
-            "text": "pre-message"
-          },
-          {
-            "text": "pre-message webhook"
-          },
-          {
-            "text": "pre-webhook"
-          },
-          {
-            "text": "Test pre-message webhook"
-          }
-        ]
-      },
-      {
-        "intent": "action_45207_intent_43212",
-        "examples": [
-          {
-            "text": "delay"
-          },
-          {
-            "text": "delay request"
-          },
-          {
-            "text": "delay the request for at least 30 seconds"
-          },
-          {
-            "text": "long time"
-          },
-          {
-            "text": "more more time"
-          },
-          {
-            "text": "pls long request"
-          }
-        ]
-      },
-      {
-        "intent": "action_5330_intent_20647",
-        "examples": [
-          {
-            "text": "Test handling an error response in Server-Sent Events (SSE)"
+            "text": "GET"
           }
         ]
       },
@@ -3968,40 +3818,184 @@
             "text": "Call agent"
           },
           {
+            "text": "I would like to speak to someone"
+          },
+          {
             "text": "Can I connect to an agent?"
           },
           {
             "text": "I would like to speak to a human"
-          },
-          {
-            "text": "I would like to speak to someone"
           }
         ],
         "description": "Please transfer me to an agent"
+      },
+      {
+        "intent": "action_38662_intent_45880",
+        "examples": [
+          {
+            "text": "params"
+          },
+          {
+            "text": "Test post with parameters"
+          },
+          {
+            "text": "post with parameters"
+          },
+          {
+            "text": "parameters"
+          }
+        ]
+      },
+      {
+        "intent": "action_30398_intent_13880",
+        "examples": [
+          {
+            "text": "test non json response"
+          }
+        ]
+      },
+      {
+        "intent": "action_1543_intent_5385",
+        "examples": [
+          {
+            "text": "can u delete"
+          },
+          {
+            "text": "pld delete"
+          },
+          {
+            "text": "just delete it"
+          },
+          {
+            "text": "how about deleting it"
+          },
+          {
+            "text": "DELETE"
+          }
+        ]
+      },
+      {
+        "intent": "action_20585_intent_24221",
+        "examples": [
+          {
+            "text": "POST"
+          },
+          {
+            "text": "poster it"
+          },
+          {
+            "text": "nail it"
+          },
+          {
+            "text": "just post it"
+          },
+          {
+            "text": "I want to post"
+          }
+        ]
+      },
+      {
+        "intent": "action_30035_intent_49329",
+        "examples": [
+          {
+            "text": "PUT"
+          },
+          {
+            "text": "Just put it"
+          },
+          {
+            "text": "put operation"
+          },
+          {
+            "text": "PUT IT"
+          },
+          {
+            "text": "put is the name"
+          }
+        ]
+      },
+      {
+        "intent": "action_39186_intent_23416",
+        "examples": [
+          {
+            "text": "multiple calls"
+          },
+          {
+            "text": "Test consecutive extension calls"
+          },
+          {
+            "text": "consecutive"
+          },
+          {
+            "text": "consecutive calls"
+          }
+        ]
+      },
+      {
+        "intent": "action_12249_intent_48727",
+        "examples": [
+          {
+            "text": "Almost Too Large Context"
+          },
+          {
+            "text": "Context Almost Too Large"
+          },
+          {
+            "text": "ContextAlmostTooLarge"
+          }
+        ]
+      },
+      {
+        "intent": "action_22557_intent_12065",
+        "examples": [
+          {
+            "text": "authorization context var"
+          },
+          {
+            "text": "authorization header"
+          },
+          {
+            "text": "Test set auth header with context variable"
+          },
+          {
+            "text": "auth header"
+          },
+          {
+            "text": "authorization context variable"
+          }
+        ]
+      },
+      {
+        "intent": "action_26118_intent_41514",
+        "examples": [
+          {
+            "text": "Exception"
+          },
+          {
+            "text": "handle error"
+          },
+          {
+            "text": "Just show me how u handle error"
+          },
+          {
+            "text": "integration sent back an error"
+          },
+          {
+            "text": "Wrong"
+          },
+          {
+            "text": "Problem in calling integration"
+          },
+          {
+            "text": "Error"
+          }
+        ]
       }
     ],
     "entities": [
       {
-        "entity": "entity_48298",
-        "values": [
-          {
-            "type": "synonyms",
-            "value": "Yes",
-            "synonyms": []
-          }
-        ],
-        "fuzzy_match": true
-      },
-      {
-        "entity": "entity_48614",
-        "values": [
-          {
-            "type": "synonyms",
-            "value": "Yes",
-            "synonyms": []
-          }
-        ],
-        "fuzzy_match": true
+        "entity": "sys-yes-no",
+        "values": []
       },
       {
         "entity": "entity_6835",
@@ -4049,19 +4043,37 @@
         "values": []
       },
       {
-        "entity": "sys-yes-no",
-        "values": []
+        "entity": "entity_48614",
+        "values": [
+          {
+            "type": "synonyms",
+            "value": "Yes",
+            "synonyms": []
+          }
+        ],
+        "fuzzy_match": true
+      },
+      {
+        "entity": "entity_48298",
+        "values": [
+          {
+            "type": "synonyms",
+            "value": "Yes",
+            "synonyms": []
+          }
+        ],
+        "fuzzy_match": true
       }
     ],
     "metadata": {
       "skill": {
         "counts": {
-          "actions": 20,
-          "intents": 18,
+          "actions": 23,
+          "intents": 21,
           "entities": 5,
           "data_types": 0,
           "collections": 4,
-          "global_variables": 4
+          "global_variables": 5
         }
       },
       "api_version": {
@@ -4073,7 +4085,16 @@
       {
         "title": "content_value",
         "variable": "content_value",
-        "data_type": "string",
+        "data_type": "any",
+        "description": ""
+      },
+      {
+        "title": "content_value_copy",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "content_value_copy",
+        "data_type": "any",
         "description": ""
       },
       {
@@ -4132,19 +4153,19 @@
         "collection": "collection_48238",
         "action_references": [
           {
-            "action": "action_20585"
+            "action": "action_1543-2"
           },
           {
             "action": "action_1543"
           },
           {
-            "action": "action_30035"
-          },
-          {
-            "action": "action_1543-2"
+            "action": "action_20585"
           },
           {
             "action": "action_34746"
+          },
+          {
+            "action": "action_30035"
           }
         ]
       },
@@ -4156,37 +4177,37 @@
             "action": "action_22557"
           },
           {
-            "action": "action_22451"
-          },
-          {
-            "action": "action_39186"
-          },
-          {
-            "action": "action_38662"
-          },
-          {
             "action": "action_11679"
           },
           {
             "action": "action_5330"
           },
           {
-            "action": "action_26118"
+            "action": "action_21392"
           },
           {
             "action": "action_45207"
           },
           {
-            "action": "action_30398"
+            "action": "action_39186"
           },
           {
-            "action": "action_21392"
+            "action": "action_34745"
+          },
+          {
+            "action": "action_22451"
           },
           {
             "action": "action_12249"
           },
           {
-            "action": "action_34745"
+            "action": "action_26118"
+          },
+          {
+            "action": "action_30398"
+          },
+          {
+            "action": "action_38662"
           }
         ]
       }
@@ -4287,12 +4308,22 @@
       },
       "spelling_auto_correct": true
     },
-    "learning_opt_out": true
+    "learning_opt_out": true,
+    "language": "en"
   },
   "description": "created for assistant 4d72bd70-1094-4cf5-87a6-0f429367d834",
-  "assistant_id": "4ea34644-8a94-4e36-9264-5654aa3f57ab",
-  "workspace_id": "0633fca5-3455-4c4e-bd27-2b1a70e0c7d5",
-  "dialog_settings": {},
-  "next_snapshot_version": "1",
-  "environment_id": "e895f3e6-3f01-4245-88a5-2bbb77063ba8"
+  "dialog_settings": {
+    "source_assistant": "ae3731b5-5391-4f72-ab41-9cb9a7fe21fa"
+  },
+  "created": "2024-11-05T02:11:47.237Z",
+  "updated": "2024-11-05T02:11:47.237Z",
+  "snapshot": "2",
+  "assistant_id": "276e25eb-a952-4095-b742-061c0c769b45",
+  "assistant_references": [
+    {
+      "name": "Testitall",
+      "assistant_id": "ae3731b5-5391-4f72-ab41-9cb9a7fe21fa",
+      "skill_reference": "actions skill"
+    }
+  ]
 }

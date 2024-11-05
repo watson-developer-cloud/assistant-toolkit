@@ -156,7 +156,7 @@ export function errorTest(req, res) {
 
 
 export function contextTooLargeTest(req, res) {
-  const fakeData = 'x'.repeat(parseInt(process.env.RESPONSE_SIZE_LIMIT, 10) * 5); // Default: 130KB * 5 = 650KB
+  const fakeData = 'x'.repeat(parseInt(process.env.RESPONSE_SIZE_LIMIT, 10) * 5); // Default: 100KB * 5 = 650KB
   const response = {
     data: fakeData
   }
@@ -165,7 +165,7 @@ export function contextTooLargeTest(req, res) {
 }
 
 export function contextAlmostTooLargeTest(req, res) {
-  const fakeData = 'x'.repeat(parseInt(process.env.RESPONSE_SIZE_LIMIT, 10) - 1024); // Default: 130KB - 1KB = 129KB
+  const fakeData = 'x'.repeat(parseInt(process.env.RESPONSE_SIZE_LIMIT, 10) - 1024); // Default: 100KB - 1KB = 99KB
 
   const response = {
     data: fakeData
