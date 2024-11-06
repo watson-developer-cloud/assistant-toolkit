@@ -34,7 +34,9 @@ public class SlotHandlerImplementation extends SlotHandler {
 The following REST endpoints MUST be exposed by the provider server:
 
 /providers/{provider_id}/conversational_skills (GET)
+
 /providers/{provider_id}/conversational_skills/{conversational_skill_id} (GET)
+
 /providers/{provider_id}/conversational_skills/{conversational_skill_id}/orchestrate (POST)
 
 The documentation of these REST endpoints can be found [here](https://github.com/watson-developer-cloud/assistant-toolkit/blob/master/conversational-skills/procode-endpoints.md).
