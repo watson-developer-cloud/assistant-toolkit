@@ -332,6 +332,9 @@ components:
               description: WxA environment ID.
             session_history:
               $ref: "#/components/schemas/SessionHistory"
+            language:
+              type: string
+              description: WxA assistant language.
           description: Built-in system properties that apply to all skills used by the assistant.
     BaseMessageContextGlobal:
       type: object
@@ -406,7 +409,7 @@ components:
           $ref: "#/components/schemas/MessageContextDialogSkill"
         actions skill:
           $ref: "#/components/schemas/MessageContextActionSkill"
-        conversational skills:
+        conversational_skills:
           $ref: "#/components/schemas/MessageContextConversationalSkills"
         active_skill:
           type: string
@@ -454,10 +457,90 @@ components:
               additionalProperties:
                 description: A skill variable.
               description: "An object containing skill variables. (In the watsonx Assistant user interface, skill variables are called _session variables_.) Skill variables can be accessed by any action and persist for the duration of the session."
+            private_action_variables:
+              type: object
+              additionalProperties:
+                description: A private action variable.
+              description: "An object containing private action variables. Private action variables can be accessed only by steps in the same action, and do not persist after the action ends."
+            private_skill_variables:
+              type: object
+              additionalProperties:
+                description: A private skill variable.
+              description: "An object containing private skill variables. (In the watsonx Assistant user interface, skill variables are called _session variables_.) Private skill variables can be accessed by any action and persist for the duration of the session."
           description: "Context variables that are used by the action skill. Private variables are persisted, but not shown."
     MessageContextConversationalSkills:
-      allOf:
-        - $ref: "#/components/schemas/BaseMessageContextSkill"
+      properties:
+        stack:
+          type: array
+          description: Stack of active conversational skills
+          items:
+            $ref: "#/components/schemas/ConversationalSkillActiveDetails"
+        session_variables:
+          type: object
+          additionalProperties: true
+          description: Conversation session scoped variables that the skill wants to share with other skills. These variables may live beyond the conclusion of the conversation being orchestrated by the skill.
+    ConversationalSkillActiveDetails:
+      type: object
+      properties:
+        action: 
+          $ref: "#/components/schemas/ConversationalSkillAction"
+        slots:
+          type: array
+          description: The ordered list of slots that WxA has filled, repaired, or prompted for.
+          items:
+            $ref: "#/components/schemas/SlotInFlight"
+        local_variables:
+          type: object
+          additionalProperties:
+            description: A local variable.
+          description: An object containing variables local to this conversational skill.
+        consecutive_error_turn_count:
+          type: number
+          description: The number of consecutive error attempting to fill the current slot.
+    ConversationalSkillAction:
+      type: object
+      properties:
+        action:
+          type: string
+          description: The ID of the action.
+        registration:
+          $ref: "#/components/schemas/ConversationalSkillActionRegistration"
+        async:
+          type: boolean
+          description: True if this is an async skill
+        slots:
+          type: array
+          description: Information for slots requested by this conversational skill
+          items:
+            $ref: "#/components/schemas/SlotInFlight"
+        source:
+          $ref: "#/components/schemas/ConversationalSkillActionSource"
+    ConversationalSkillActionRegistration:
+      type: object
+      properties:
+        provider_id:
+          type: string
+          description: The ID of the provider of this conversational skill.
+        conversational_skill_id:
+          type: string
+          description: The ID of this conversational skill.
+        conversational_skill_revision_id:
+          type: string
+          description: The revision ID of this conversational skill.
+    ConversationalSkillActionSource:
+      type: object
+      description: Source properties of the conversational skill action.
+      properties:
+        type: 
+          type: string
+        action: 
+          type: string
+        action_title:
+          type: string
+        is_skill_based:
+          type: boolean
+        step: 
+          type: string
     ConversationalSkillOutput:
       properties:
         generic:
