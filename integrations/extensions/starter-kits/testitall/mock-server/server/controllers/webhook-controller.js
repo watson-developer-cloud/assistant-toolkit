@@ -1,5 +1,48 @@
 import jwt from 'jsonwebtoken';
 
+const logs= [];
+const MAX_LOGS = 20;
+
+export function createLog(req, res) {
+  if (logs.length > MAX_LOGS) {
+    logs.shift(); // remove the first element
+  }
+  logs.push({body : req.body, headers: req.headers});
+  res.status(201).json({message: 'Log created'});
+}
+
+export function getLogs(req, res) {
+  res.json(logs);
+}
+
+export function preRun(req, res) {
+  let payload = req.body?.payload;
+
+  if (payload?.message?.content) {
+    payload.message.content += ' translated';
+  } else {
+    payload = {
+      message: {
+        content: 'faked and translated'
+      }
+    };
+  }
+
+  res.json({payload});
+}
+
+export function postRun(req, res) {
+  let payload = req.body?.payload;
+  console.log('postRun', payload);
+  console.log('type ', typeof payload);
+  if (payload?.data?.delta) {
+    console.log('delta ', payload.data.delta);
+    payload.data.delta += ' translated';
+    console.log('delta after ', payload.data.delta);
+  }
+  res.json({payload});
+}
+
 export function preWebhook(req, res) {
   const payload = req.body.payload;
   
@@ -113,3 +156,4 @@ export function webhookErrorCode(req, res) {
 
   return res.status(code).json({ error: 'Server Error', code });
 }
+
