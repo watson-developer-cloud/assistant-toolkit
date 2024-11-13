@@ -1228,30 +1228,21 @@ components:
           type: array
           items:
             type: string
-    UserMessage:
-      required:
-      - u
-      type: object
-      properties:
-        u:
-          type: string
-          description: User messages
-        "n":
-          type: boolean
-          description: true value indicates if it is a new conversation
-          nullable: true
-    AssistantMessage:
-      required:
-      - a
+    SessionHistoryMessage:
       type: object
       properties:
         a:
           type: string
           description: Assistant message
-    SessionHistoryMessage:
-      oneOf:
-      - $ref: '#/components/schemas/UserMessage'
-      - $ref: '#/components/schemas/AssistantMessage'
+          nullable: true
+        u:
+          type: string
+          description: User message
+          nullable: true
+        "n":
+          type: boolean
+          description: true value indicates if it is a new conversation
+          nullable: true
     SessionHistory:
       type: array
       description: An array of message objects representing the session history.
