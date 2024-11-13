@@ -12,5 +12,8 @@ openapi-generator-cli generate --global-property models -g java -i ../procode-sp
 ## SDK Classes
 Helper classes are manually written in the sdk folder and are what users use to interact with the sdk. New endpoints and functionality should be tested and consumed through the [procode-skill-springboot-example](../procode-skill-springboot-example/README.md). To pull in local changes from the sdk to the springboot example, simply update the version of the conversationalskills-sdk to one that does not exist and run `mvn clean install`. This will install a local version of the java artifact, which can then be pulled in from the springboot example.
 
+## Testing
+Tests and test resources can be found in the `test/java/com/ibm/watson/conversationalskills/sdk` folder. All tests should compile and pass before any changes are committed.  Tests can be run from the root project directory `conversational-skills/procode-skill-sdk-java` with the command `mvn test`
+
 ## Maven release process
 The release process is currently handled manually and will require several credentials to be done. Please contact [Angelo Paparazzi](https://github.com/apaparazzi0329) for more info.
