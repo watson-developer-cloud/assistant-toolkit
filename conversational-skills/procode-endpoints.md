@@ -1272,16 +1272,8 @@ components:
             type: string
             description: An error message to display to the user in case the slot value is not valid per the business rules.
           prompt:
-            type: object
-            description: "The prompt to present to the user. Can be a string or a more complex object for RuntimeResponseGeneric. If neither, it's considered RuntimeResponseTypeUserDefined."
-            discriminator:
-              propertyName: type
-              mapping:
-                string: '#/components/schemas/TextPrompt'
-                RuntimeResponseGeneric: '#/components/schemas/RuntimeResponseGeneric'
-            oneOf:
-            - type: string
-            - $ref: '#/components/schemas/RuntimeResponseGeneric'
+            type: string
+            description: "The prompt to present to the user."
         description: "Slot definition needed to prompt, collect, and convey errors"
     BaseSlot:
       type: object
