@@ -1228,30 +1228,21 @@ components:
           type: array
           items:
             type: string
-    UserMessage:
-      required:
-      - u
-      type: object
-      properties:
-        u:
-          type: string
-          description: User messages
-        "n":
-          type: boolean
-          description: true value indicates if it is a new conversation
-          nullable: true
-    AssistantMessage:
-      required:
-      - a
+    SessionHistoryMessage:
       type: object
       properties:
         a:
           type: string
           description: Assistant message
-    SessionHistoryMessage:
-      oneOf:
-      - $ref: '#/components/schemas/UserMessage'
-      - $ref: '#/components/schemas/AssistantMessage'
+          nullable: true
+        u:
+          type: string
+          description: User message
+          nullable: true
+        "n":
+          type: boolean
+          description: true value indicates if it is a new conversation
+          nullable: true
     SessionHistory:
       type: array
       description: An array of message objects representing the session history.
@@ -1281,16 +1272,8 @@ components:
             type: string
             description: An error message to display to the user in case the slot value is not valid per the business rules.
           prompt:
-            type: object
-            description: "The prompt to present to the user. Can be a string or a more complex object for RuntimeResponseGeneric. If neither, it's considered RuntimeResponseTypeUserDefined."
-            discriminator:
-              propertyName: type
-              mapping:
-                string: '#/components/schemas/TextPrompt'
-                RuntimeResponseGeneric: '#/components/schemas/RuntimeResponseGeneric'
-            oneOf:
-            - type: string
-            - $ref: '#/components/schemas/RuntimeResponseGeneric'
+            type: string
+            description: "The prompt to present to the user."
         description: "Slot definition needed to prompt, collect, and convey errors"
     BaseSlot:
       type: object
