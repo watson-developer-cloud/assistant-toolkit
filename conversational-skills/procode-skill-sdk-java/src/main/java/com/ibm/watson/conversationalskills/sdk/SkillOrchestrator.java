@@ -126,7 +126,7 @@ public class SkillOrchestrator {
 		var conversationalResponseGeneric = new ConversationalResponseGeneric();
 		conversationalResponseGeneric.setResponseType("text");
 		conversationalResponseGeneric.setSlots(null);
-		conversationalResponseGeneric.setText("The skill was canceled.");
+		conversationalResponseGeneric.setText("The skill was cancelled.");
 
 		orchestrationResponse.getOutput().addGenericItem(conversationalResponseGeneric);
 		orchestrationResponse.getResolver().put("type", "skill_cancel");

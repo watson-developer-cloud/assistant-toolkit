@@ -1179,15 +1179,7 @@ components:
       type: object
       properties:
         normalized:
-          oneOf:
-            - type: number
-            - type: string
-            - type: boolean
-            - type: object
-            - type: array
-              items:
-                type: object
-          description: The normalized value of the slot.
+          description: The normalized value of the slot. Can be of type number, string, boolean, object, or array of objects
         literal:
           type: string
           description: The literal value as provided by the user.

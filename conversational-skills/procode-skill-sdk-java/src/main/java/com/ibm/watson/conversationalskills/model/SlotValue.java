@@ -23,7 +23,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.ibm.watson.conversationalskills.model.SlotValueNormalized;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -37,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.9.0")
 public class SlotValue {
   public static final String JSON_PROPERTY_NORMALIZED = "normalized";
-  private SlotValueNormalized normalized;
+  private Object normalized = null;
 
   public static final String JSON_PROPERTY_LITERAL = "literal";
   private String literal;
@@ -45,28 +44,28 @@ public class SlotValue {
   public SlotValue() {
   }
 
-  public SlotValue normalized(SlotValueNormalized normalized) {
+  public SlotValue normalized(Object normalized) {
     
     this.normalized = normalized;
     return this;
   }
 
   /**
-   * Get normalized
+   * The normalized value of the slot. Can be of type number, string, boolean, object, or array of objects
    * @return normalized
    */
-  @jakarta.annotation.Nonnull
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_NORMALIZED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public SlotValueNormalized getNormalized() {
+  public Object getNormalized() {
     return normalized;
   }
 
 
   @JsonProperty(JSON_PROPERTY_NORMALIZED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setNormalized(SlotValueNormalized normalized) {
+  public void setNormalized(Object normalized) {
     this.normalized = normalized;
   }
 
