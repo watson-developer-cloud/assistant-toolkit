@@ -39,7 +39,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MessageContextGlobal.JSON_PROPERTY_SESSION_ID,
   MessageContextGlobal.JSON_PROPERTY_ASSISTANT_ID,
   MessageContextGlobal.JSON_PROPERTY_ENVIRONMENT_ID,
-  MessageContextGlobal.JSON_PROPERTY_SESSION_HISTORY
+  MessageContextGlobal.JSON_PROPERTY_SESSION_HISTORY,
+  MessageContextGlobal.JSON_PROPERTY_LANGUAGE
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.9.0")
 public class MessageContextGlobal {
@@ -57,6 +58,9 @@ public class MessageContextGlobal {
 
   public static final String JSON_PROPERTY_SESSION_HISTORY = "session_history";
   private List<SessionHistoryMessage> sessionHistory = new ArrayList<>();
+
+  public static final String JSON_PROPERTY_LANGUAGE = "language";
+  private String language;
 
   public MessageContextGlobal() {
   }
@@ -194,6 +198,31 @@ public class MessageContextGlobal {
     this.sessionHistory = sessionHistory;
   }
 
+  public MessageContextGlobal language(String language) {
+    
+    this.language = language;
+    return this;
+  }
+
+  /**
+   * WxA assistant language.
+   * @return language
+   */
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_LANGUAGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getLanguage() {
+    return language;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LANGUAGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLanguage(String language) {
+    this.language = language;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -207,12 +236,13 @@ public class MessageContextGlobal {
         Objects.equals(this.sessionId, messageContextGlobal.sessionId) &&
         Objects.equals(this.assistantId, messageContextGlobal.assistantId) &&
         Objects.equals(this.environmentId, messageContextGlobal.environmentId) &&
-        Objects.equals(this.sessionHistory, messageContextGlobal.sessionHistory);
+        Objects.equals(this.sessionHistory, messageContextGlobal.sessionHistory) &&
+        Objects.equals(this.language, messageContextGlobal.language);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(system, sessionId, assistantId, environmentId, sessionHistory);
+    return Objects.hash(system, sessionId, assistantId, environmentId, sessionHistory, language);
   }
 
   @Override
@@ -224,6 +254,7 @@ public class MessageContextGlobal {
     sb.append("    assistantId: ").append(toIndentedString(assistantId)).append("\n");
     sb.append("    environmentId: ").append(toIndentedString(environmentId)).append("\n");
     sb.append("    sessionHistory: ").append(toIndentedString(sessionHistory)).append("\n");
+    sb.append("    language: ").append(toIndentedString(language)).append("\n");
     sb.append("}");
     return sb.toString();
   }

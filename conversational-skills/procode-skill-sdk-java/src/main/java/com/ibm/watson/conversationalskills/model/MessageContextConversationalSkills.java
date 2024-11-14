@@ -23,8 +23,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.ibm.watson.conversationalskills.model.MessageContextSkillSystem;
+import com.ibm.watson.conversationalskills.model.ConversationalSkillActiveDetails;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -33,76 +36,84 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * MessageContextConversationalSkills
  */
 @JsonPropertyOrder({
-  MessageContextConversationalSkills.JSON_PROPERTY_USER_DEFINED,
-  MessageContextConversationalSkills.JSON_PROPERTY_SYSTEM
+  MessageContextConversationalSkills.JSON_PROPERTY_STACK,
+  MessageContextConversationalSkills.JSON_PROPERTY_SESSION_VARIABLES
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.9.0")
 public class MessageContextConversationalSkills {
-  public static final String JSON_PROPERTY_USER_DEFINED = "user_defined";
-  private Map<String, Object> userDefined = new HashMap<>();
+  public static final String JSON_PROPERTY_STACK = "stack";
+  private List<ConversationalSkillActiveDetails> stack = new ArrayList<>();
 
-  public static final String JSON_PROPERTY_SYSTEM = "system";
-  private MessageContextSkillSystem system;
+  public static final String JSON_PROPERTY_SESSION_VARIABLES = "session_variables";
+  private Map<String, Object> sessionVariables = new HashMap<>();
 
   public MessageContextConversationalSkills() {
   }
 
-  public MessageContextConversationalSkills userDefined(Map<String, Object> userDefined) {
+  public MessageContextConversationalSkills stack(List<ConversationalSkillActiveDetails> stack) {
     
-    this.userDefined = userDefined;
+    this.stack = stack;
     return this;
   }
 
-  public MessageContextConversationalSkills putUserDefinedItem(String key, Object userDefinedItem) {
-    if (this.userDefined == null) {
-      this.userDefined = new HashMap<>();
+  public MessageContextConversationalSkills addStackItem(ConversationalSkillActiveDetails stackItem) {
+    if (this.stack == null) {
+      this.stack = new ArrayList<>();
     }
-    this.userDefined.put(key, userDefinedItem);
+    this.stack.add(stackItem);
     return this;
   }
 
   /**
-   * An object containing any arbitrary variables that can be read and written by a particular skill.
-   * @return userDefined
+   * Stack of active conversational skills
+   * @return stack
    */
   @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_USER_DEFINED)
+  @JsonProperty(JSON_PROPERTY_STACK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Map<String, Object> getUserDefined() {
-    return userDefined;
+  public List<ConversationalSkillActiveDetails> getStack() {
+    return stack;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_USER_DEFINED)
+  @JsonProperty(JSON_PROPERTY_STACK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUserDefined(Map<String, Object> userDefined) {
-    this.userDefined = userDefined;
+  public void setStack(List<ConversationalSkillActiveDetails> stack) {
+    this.stack = stack;
   }
 
-  public MessageContextConversationalSkills system(MessageContextSkillSystem system) {
+  public MessageContextConversationalSkills sessionVariables(Map<String, Object> sessionVariables) {
     
-    this.system = system;
+    this.sessionVariables = sessionVariables;
+    return this;
+  }
+
+  public MessageContextConversationalSkills putSessionVariablesItem(String key, Object sessionVariablesItem) {
+    if (this.sessionVariables == null) {
+      this.sessionVariables = new HashMap<>();
+    }
+    this.sessionVariables.put(key, sessionVariablesItem);
     return this;
   }
 
   /**
-   * Get system
-   * @return system
+   * Conversation session scoped variables that the skill wants to share with other skills. These variables may live beyond the conclusion of the conversation being orchestrated by the skill.
+   * @return sessionVariables
    */
   @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SYSTEM)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JsonProperty(JSON_PROPERTY_SESSION_VARIABLES)
+  @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
 
-  public MessageContextSkillSystem getSystem() {
-    return system;
+  public Map<String, Object> getSessionVariables() {
+    return sessionVariables;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SYSTEM)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSystem(MessageContextSkillSystem system) {
-    this.system = system;
+  @JsonProperty(JSON_PROPERTY_SESSION_VARIABLES)
+  @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSessionVariables(Map<String, Object> sessionVariables) {
+    this.sessionVariables = sessionVariables;
   }
 
   @Override
@@ -114,21 +125,21 @@ public class MessageContextConversationalSkills {
       return false;
     }
     MessageContextConversationalSkills messageContextConversationalSkills = (MessageContextConversationalSkills) o;
-    return Objects.equals(this.userDefined, messageContextConversationalSkills.userDefined) &&
-        Objects.equals(this.system, messageContextConversationalSkills.system);
+    return Objects.equals(this.stack, messageContextConversationalSkills.stack) &&
+        Objects.equals(this.sessionVariables, messageContextConversationalSkills.sessionVariables);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(userDefined, system);
+    return Objects.hash(stack, sessionVariables);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class MessageContextConversationalSkills {\n");
-    sb.append("    userDefined: ").append(toIndentedString(userDefined)).append("\n");
-    sb.append("    system: ").append(toIndentedString(system)).append("\n");
+    sb.append("    stack: ").append(toIndentedString(stack)).append("\n");
+    sb.append("    sessionVariables: ").append(toIndentedString(sessionVariables)).append("\n");
     sb.append("}");
     return sb.toString();
   }

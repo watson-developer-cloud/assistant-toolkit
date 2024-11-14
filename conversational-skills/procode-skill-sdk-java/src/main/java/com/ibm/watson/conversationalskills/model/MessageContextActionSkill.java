@@ -36,7 +36,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   MessageContextActionSkill.JSON_PROPERTY_USER_DEFINED,
   MessageContextActionSkill.JSON_PROPERTY_SYSTEM,
   MessageContextActionSkill.JSON_PROPERTY_ACTION_VARIABLES,
-  MessageContextActionSkill.JSON_PROPERTY_SKILL_VARIABLES
+  MessageContextActionSkill.JSON_PROPERTY_SKILL_VARIABLES,
+  MessageContextActionSkill.JSON_PROPERTY_PRIVATE_ACTION_VARIABLES,
+  MessageContextActionSkill.JSON_PROPERTY_PRIVATE_SKILL_VARIABLES
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.9.0")
 public class MessageContextActionSkill {
@@ -51,6 +53,12 @@ public class MessageContextActionSkill {
 
   public static final String JSON_PROPERTY_SKILL_VARIABLES = "skill_variables";
   private Map<String, Object> skillVariables = new HashMap<>();
+
+  public static final String JSON_PROPERTY_PRIVATE_ACTION_VARIABLES = "private_action_variables";
+  private Map<String, Object> privateActionVariables = new HashMap<>();
+
+  public static final String JSON_PROPERTY_PRIVATE_SKILL_VARIABLES = "private_skill_variables";
+  private Map<String, Object> privateSkillVariables = new HashMap<>();
 
   public MessageContextActionSkill() {
   }
@@ -179,6 +187,72 @@ public class MessageContextActionSkill {
     this.skillVariables = skillVariables;
   }
 
+  public MessageContextActionSkill privateActionVariables(Map<String, Object> privateActionVariables) {
+    
+    this.privateActionVariables = privateActionVariables;
+    return this;
+  }
+
+  public MessageContextActionSkill putPrivateActionVariablesItem(String key, Object privateActionVariablesItem) {
+    if (this.privateActionVariables == null) {
+      this.privateActionVariables = new HashMap<>();
+    }
+    this.privateActionVariables.put(key, privateActionVariablesItem);
+    return this;
+  }
+
+  /**
+   * An object containing private action variables. Private action variables can be accessed only by steps in the same action, and do not persist after the action ends.
+   * @return privateActionVariables
+   */
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PRIVATE_ACTION_VARIABLES)
+  @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Map<String, Object> getPrivateActionVariables() {
+    return privateActionVariables;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PRIVATE_ACTION_VARIABLES)
+  @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPrivateActionVariables(Map<String, Object> privateActionVariables) {
+    this.privateActionVariables = privateActionVariables;
+  }
+
+  public MessageContextActionSkill privateSkillVariables(Map<String, Object> privateSkillVariables) {
+    
+    this.privateSkillVariables = privateSkillVariables;
+    return this;
+  }
+
+  public MessageContextActionSkill putPrivateSkillVariablesItem(String key, Object privateSkillVariablesItem) {
+    if (this.privateSkillVariables == null) {
+      this.privateSkillVariables = new HashMap<>();
+    }
+    this.privateSkillVariables.put(key, privateSkillVariablesItem);
+    return this;
+  }
+
+  /**
+   * An object containing private skill variables. (In the watsonx Assistant user interface, skill variables are called _session variables_.) Private skill variables can be accessed by any action and persist for the duration of the session.
+   * @return privateSkillVariables
+   */
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PRIVATE_SKILL_VARIABLES)
+  @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Map<String, Object> getPrivateSkillVariables() {
+    return privateSkillVariables;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PRIVATE_SKILL_VARIABLES)
+  @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPrivateSkillVariables(Map<String, Object> privateSkillVariables) {
+    this.privateSkillVariables = privateSkillVariables;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -191,12 +265,14 @@ public class MessageContextActionSkill {
     return Objects.equals(this.userDefined, messageContextActionSkill.userDefined) &&
         Objects.equals(this.system, messageContextActionSkill.system) &&
         Objects.equals(this.actionVariables, messageContextActionSkill.actionVariables) &&
-        Objects.equals(this.skillVariables, messageContextActionSkill.skillVariables);
+        Objects.equals(this.skillVariables, messageContextActionSkill.skillVariables) &&
+        Objects.equals(this.privateActionVariables, messageContextActionSkill.privateActionVariables) &&
+        Objects.equals(this.privateSkillVariables, messageContextActionSkill.privateSkillVariables);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(userDefined, system, actionVariables, skillVariables);
+    return Objects.hash(userDefined, system, actionVariables, skillVariables, privateActionVariables, privateSkillVariables);
   }
 
   @Override
@@ -207,6 +283,8 @@ public class MessageContextActionSkill {
     sb.append("    system: ").append(toIndentedString(system)).append("\n");
     sb.append("    actionVariables: ").append(toIndentedString(actionVariables)).append("\n");
     sb.append("    skillVariables: ").append(toIndentedString(skillVariables)).append("\n");
+    sb.append("    privateActionVariables: ").append(toIndentedString(privateActionVariables)).append("\n");
+    sb.append("    privateSkillVariables: ").append(toIndentedString(privateSkillVariables)).append("\n");
     sb.append("}");
     return sb.toString();
   }
