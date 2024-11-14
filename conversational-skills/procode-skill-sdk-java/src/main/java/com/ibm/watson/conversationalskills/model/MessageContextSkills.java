@@ -46,7 +46,7 @@ public class MessageContextSkills {
   public static final String JSON_PROPERTY_ACTIONS_SKILL = "actions skill";
   private MessageContextActionSkill actionsSkill;
 
-  public static final String JSON_PROPERTY_CONVERSATIONAL_SKILLS = "conversational skills";
+  public static final String JSON_PROPERTY_CONVERSATIONAL_SKILLS = "conversational_skills";
   private MessageContextConversationalSkills conversationalSkills;
 
   /**

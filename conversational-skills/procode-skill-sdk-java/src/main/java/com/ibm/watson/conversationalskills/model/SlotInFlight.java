@@ -147,7 +147,7 @@ public class SlotInFlight {
   private String validationError;
 
   public static final String JSON_PROPERTY_PROMPT = "prompt";
-  private Object prompt;
+  private String prompt;
 
   public SlotInFlight() {
   }
@@ -327,28 +327,28 @@ public class SlotInFlight {
     this.validationError = validationError;
   }
 
-  public SlotInFlight prompt(Object prompt) {
+  public SlotInFlight prompt(String prompt) {
     
     this.prompt = prompt;
     return this;
   }
 
   /**
-   * The prompt to present to the user. Can be a string or a more complex object
+   * The prompt to present to the user.
    * @return prompt
    */
   @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_PROMPT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Object getPrompt() {
+  public String getPrompt() {
     return prompt;
   }
 
 
   @JsonProperty(JSON_PROPERTY_PROMPT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPrompt(Object prompt) {
+  public void setPrompt(String prompt) {
     this.prompt = prompt;
   }
 
