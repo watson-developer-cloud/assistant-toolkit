@@ -8,7 +8,7 @@ To utilize, simply add this artifact as a dependency in your maven project.
 <dependency>
     <groupId>com.ibm.watson</groupId>
     <artifactId>conversationalskills-sdk</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
 </dependency>
 ```
 

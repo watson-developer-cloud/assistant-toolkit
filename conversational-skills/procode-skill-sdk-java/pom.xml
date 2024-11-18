@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.ibm.watson</groupId>
     <artifactId>conversationalskills-sdk</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
 
     <name>Conversational Skills SDK for watsonx Assistant</name>
     <description>SDK for creating Conversational Skills Pro-Code Provider</description>
