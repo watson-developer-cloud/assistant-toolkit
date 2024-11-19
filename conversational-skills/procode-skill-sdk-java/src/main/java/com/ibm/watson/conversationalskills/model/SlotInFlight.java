@@ -105,6 +105,8 @@ public class SlotInFlight {
     
     ENTITY("entity"),
     
+    CONFIRMATION("confirmation"),
+    
     ANY("any");
 
     private String value;

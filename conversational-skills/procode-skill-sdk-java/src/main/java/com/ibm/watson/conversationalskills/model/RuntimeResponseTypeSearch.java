@@ -56,7 +56,7 @@ public class RuntimeResponseTypeSearch {
   private List<SearchResult> additionalResults = new ArrayList<>();
 
   public static final String JSON_PROPERTY_CHANNELS = "channels";
-  private List<ResponseGenericChannel> channels = new ArrayList<>();
+  private List<ResponseGenericChannel> channels;
 
   public RuntimeResponseTypeSearch() {
   }

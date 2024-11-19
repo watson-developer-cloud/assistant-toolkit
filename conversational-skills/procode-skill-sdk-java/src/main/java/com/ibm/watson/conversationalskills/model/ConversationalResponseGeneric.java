@@ -135,7 +135,7 @@ public class ConversationalResponseGeneric {
   private String text;
 
   public static final String JSON_PROPERTY_CHANNELS = "channels";
-  private List<ResponseGenericChannel> channels = new ArrayList<>();
+  private List<ResponseGenericChannel> channels;
 
   public static final String JSON_PROPERTY_TIME = "time";
   private Integer time;

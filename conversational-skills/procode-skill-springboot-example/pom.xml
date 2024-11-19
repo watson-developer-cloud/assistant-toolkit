@@ -23,7 +23,7 @@
         <dependency>
             <groupId>com.ibm.watson</groupId>
             <artifactId>conversationalskills-sdk</artifactId>
-            <version>0.0.3</version>
+            <version>0.0.4</version>
         </dependency>
         <dependency>
             <groupId>io.swagger.core.v3</groupId>

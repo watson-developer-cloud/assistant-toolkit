@@ -619,10 +619,7 @@ components:
           type: string
           description: The description to show with the the response.
         channels:
-          type: array
-          description: "An array of objects specifying channels for which the response is intended. If **channels** is present, the response is intended for a built-in integration and should not be handled by an API client."
-          items:
-            $ref: "#/components/schemas/ResponseGenericChannel"
+          $ref: "#/components/schemas/Channels"
         channel_options:
           type: object
           description: For internal use only.
@@ -646,10 +643,7 @@ components:
         transfer_info:
           $ref: "#/components/schemas/ChannelTransferInfo"
         channels:
-          type: array
-          description: "An array of objects specifying channels for which the response is intended. If **channels** is present, the response is intended for a built-in integration and should not be handled by an API client."
-          items:
-            $ref: "#/components/schemas/ResponseGenericChannel"
+          $ref: "#/components/schemas/Channels"
     RuntimeResponseTypeConnectToAgent:
       required:
         - response_type
@@ -674,10 +668,7 @@ components:
           type: string
           description: "A label identifying the topic of the conversation, derived from the **title** property of the relevant node or the **topic** property of the dialog node response."
         channels:
-          type: array
-          description: "An array of objects specifying channels for which the response is intended. If **channels** is present, the response is intended for a built-in integration and should not be handled by an API client."
-          items:
-            $ref: "#/components/schemas/ResponseGenericChannel"
+          $ref: "#/components/schemas/Channels"
     RuntimeResponseTypeDate:
       required:
         - response_type
@@ -706,10 +697,7 @@ components:
           type: string
           description: The URL of an image that shows a preview of the embedded content.
         channels:
-          type: array
-          description: "An array of objects specifying channels for which the response is intended. If **channels** is present, the response is intended for a built-in integration and should not be handled by an API client."
-          items:
-            $ref: "#/components/schemas/ResponseGenericChannel"
+          $ref: "#/components/schemas/Channels"
     RuntimeResponseTypeImage:
       required:
         - response_type
@@ -728,10 +716,7 @@ components:
           type: string
           description: The description to show with the the response.
         channels:
-          type: array
-          description: "An array of objects specifying channels for which the response is intended. If **channels** is present, the response is intended for a built-in integration and should not be handled by an API client."
-          items:
-            $ref: "#/components/schemas/ResponseGenericChannel"
+          $ref: "#/components/schemas/Channels"
         alt_text:
           maxLength: 100
           minLength: 1
@@ -764,10 +749,7 @@ components:
           items:
             $ref: "#/components/schemas/DialogNodeOutputOptionsElement"
         channels:
-          type: array
-          description: "An array of objects specifying channels for which the response is intended. If **channels** is present, the response is intended for a built-in integration and should not be handled by an API client."
-          items:
-            $ref: "#/components/schemas/ResponseGenericChannel"
+          $ref: "#/components/schemas/Channels"
     RuntimeResponseTypePause:
       required:
         - response_type
@@ -783,10 +765,7 @@ components:
           type: boolean
           description: Whether to send a "user is typing" event during the pause.
         channels:
-          type: array
-          description: "An array of objects specifying channels for which the response is intended. If **channels** is present, the response is intended for a built-in integration and should not be handled by an API client."
-          items:
-            $ref: "#/components/schemas/ResponseGenericChannel"
+          $ref: "#/components/schemas/Channels"
     RuntimeResponseTypeSearch:
       required:
         - additional_results
@@ -811,10 +790,7 @@ components:
           items:
             $ref: "#/components/schemas/SearchResult"
         channels:
-          type: array
-          description: "An array of objects specifying channels for which the response is intended. If **channels** is present, the response is intended for a built-in integration and should not be handled by an API client."
-          items:
-            $ref: "#/components/schemas/ResponseGenericChannel"
+          $ref: "#/components/schemas/Channels"
     RuntimeResponseTypeSuggestion:
       required:
         - response_type
@@ -833,10 +809,7 @@ components:
           items:
             $ref: "#/components/schemas/DialogSuggestion"
         channels:
-          type: array
-          description: "An array of objects specifying channels for which the response is intended. If **channels** is present, the response is intended for a built-in integration and should not be handled by an API client."
-          items:
-            $ref: "#/components/schemas/ResponseGenericChannel"
+          $ref: "#/components/schemas/Channels"
     RuntimeResponseTypeText:
       required:
         - response_type
@@ -849,10 +822,7 @@ components:
           type: string
           description: The text of the response.
         channels:
-          type: array
-          description: "An array of objects specifying channels for which the response is intended. If **channels** is present, the response is intended for a built-in integration and should not be handled by an API client."
-          items:
-            $ref: "#/components/schemas/ResponseGenericChannel"
+          $ref: "#/components/schemas/Channels"
     RuntimeResponseTypeUserDefined:
       required:
         - response_type
@@ -867,10 +837,7 @@ components:
             description: Any property used by the user-defined response type.
           description: An object containing any properties for the user-defined response type.
         channels:
-          type: array
-          description: "An array of objects specifying channels for which the response is intended. If **channels** is present, the response is intended for a built-in integration and should not be handled by an API client."
-          items:
-            $ref: "#/components/schemas/ResponseGenericChannel"
+          $ref: "#/components/schemas/Channels"
     RuntimeResponseTypeVideo:
       required:
         - response_type
@@ -889,10 +856,7 @@ components:
           type: string
           description: The description to show with the the response.
         channels:
-          type: array
-          description: "An array of objects specifying channels for which the response is intended. If **channels** is present, the response is intended for a built-in integration and should not be handled by an API client."
-          items:
-            $ref: "#/components/schemas/ResponseGenericChannel"
+          $ref: "#/components/schemas/Channels"
         channel_options:
           type: object
           description: For internal use only.
@@ -901,6 +865,12 @@ components:
           minLength: 1
           type: string
           description: Descriptive text that can be used for screen readers or other situations where the video cannot be seen.
+    Channels:
+      type: array
+      description: "An array of objects specifying channels for which the response is intended. If **channels** is present, the response is intended for a built-in integration and should not be handled by an API client."
+      nullable: true
+      items:
+        $ref: "#/components/schemas/ResponseGenericChannel"
     ResponseGenericChannel:
       properties:
         channel:

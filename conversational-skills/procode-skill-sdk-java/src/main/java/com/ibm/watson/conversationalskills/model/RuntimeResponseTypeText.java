@@ -47,7 +47,7 @@ public class RuntimeResponseTypeText {
   private String text;
 
   public static final String JSON_PROPERTY_CHANNELS = "channels";
-  private List<ResponseGenericChannel> channels = new ArrayList<>();
+  private List<ResponseGenericChannel> channels;
 
   public RuntimeResponseTypeText() {
   }
