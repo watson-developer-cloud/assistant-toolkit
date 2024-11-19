@@ -52,7 +52,7 @@ public class RuntimeResponseTypeChannelTransfer {
   private ChannelTransferInfo transferInfo;
 
   public static final String JSON_PROPERTY_CHANNELS = "channels";
-  private List<ResponseGenericChannel> channels = new ArrayList<>();
+  private List<ResponseGenericChannel> channels;
 
   public RuntimeResponseTypeChannelTransfer() {
   }

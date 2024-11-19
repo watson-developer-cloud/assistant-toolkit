@@ -58,6 +58,8 @@ public class ConversationalSkillInputSlot {
     
     ENTITY("entity"),
     
+    CONFIRMATION("confirmation"),
+    
     ANY("any");
 
     private String value;

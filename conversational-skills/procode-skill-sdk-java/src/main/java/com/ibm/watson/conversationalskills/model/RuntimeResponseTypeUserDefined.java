@@ -49,7 +49,7 @@ public class RuntimeResponseTypeUserDefined {
   private Map<String, Object> userDefined = new HashMap<>();
 
   public static final String JSON_PROPERTY_CHANNELS = "channels";
-  private List<ResponseGenericChannel> channels = new ArrayList<>();
+  private List<ResponseGenericChannel> channels;
 
   public RuntimeResponseTypeUserDefined() {
   }

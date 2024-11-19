@@ -57,7 +57,7 @@ public class RuntimeResponseTypeAudio {
   private String description;
 
   public static final String JSON_PROPERTY_CHANNELS = "channels";
-  private List<ResponseGenericChannel> channels = new ArrayList<>();
+  private List<ResponseGenericChannel> channels;
 
   public static final String JSON_PROPERTY_CHANNEL_OPTIONS = "channel_options";
   private Object channelOptions;

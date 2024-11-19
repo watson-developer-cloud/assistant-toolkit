@@ -56,7 +56,7 @@ public class RuntimeResponseTypeImage {
   private String description;
 
   public static final String JSON_PROPERTY_CHANNELS = "channels";
-  private List<ResponseGenericChannel> channels = new ArrayList<>();
+  private List<ResponseGenericChannel> channels;
 
   public static final String JSON_PROPERTY_ALT_TEXT = "alt_text";
   private String altText;

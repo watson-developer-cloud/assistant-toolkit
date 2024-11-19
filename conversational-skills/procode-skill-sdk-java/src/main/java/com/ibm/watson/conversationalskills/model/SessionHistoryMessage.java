@@ -30,47 +30,22 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  * SessionHistoryMessage
  */
 @JsonPropertyOrder({
-  SessionHistoryMessage.JSON_PROPERTY_U,
   SessionHistoryMessage.JSON_PROPERTY_A,
+  SessionHistoryMessage.JSON_PROPERTY_U,
   SessionHistoryMessage.JSON_PROPERTY_N
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.9.0")
 public class SessionHistoryMessage {
-  public static final String JSON_PROPERTY_U = "u";
-  private String u;
-
   public static final String JSON_PROPERTY_A = "a";
   private String a;
+
+  public static final String JSON_PROPERTY_U = "u";
+  private String u;
 
   public static final String JSON_PROPERTY_N = "n";
   private Boolean n;
 
   public SessionHistoryMessage() {
-  }
-
-  public SessionHistoryMessage u(String u) {
-    
-    this.u = u;
-    return this;
-  }
-
-  /**
-   * User messages
-   * @return u
-   */
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_U)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getU() {
-    return u;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_U)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setU(String u) {
-    this.u = u;
   }
 
   public SessionHistoryMessage a(String a) {
@@ -96,6 +71,31 @@ public class SessionHistoryMessage {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setA(String a) {
     this.a = a;
+  }
+
+  public SessionHistoryMessage u(String u) {
+    
+    this.u = u;
+    return this;
+  }
+
+  /**
+   * User message
+   * @return u
+   */
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_U)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getU() {
+    return u;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_U)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setU(String u) {
+    this.u = u;
   }
 
   public SessionHistoryMessage n(Boolean n) {
@@ -132,22 +132,22 @@ public class SessionHistoryMessage {
       return false;
     }
     SessionHistoryMessage sessionHistoryMessage = (SessionHistoryMessage) o;
-    return Objects.equals(this.u, sessionHistoryMessage.u) &&
-        Objects.equals(this.a, sessionHistoryMessage.a) &&
+    return Objects.equals(this.a, sessionHistoryMessage.a) &&
+        Objects.equals(this.u, sessionHistoryMessage.u) &&
         Objects.equals(this.n, sessionHistoryMessage.n);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(u, a, n);
+    return Objects.hash(a, u, n);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class SessionHistoryMessage {\n");
-    sb.append("    u: ").append(toIndentedString(u)).append("\n");
     sb.append("    a: ").append(toIndentedString(a)).append("\n");
+    sb.append("    u: ").append(toIndentedString(u)).append("\n");
     sb.append("    n: ").append(toIndentedString(n)).append("\n");
     sb.append("}");
     return sb.toString();
