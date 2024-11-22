@@ -22,10 +22,10 @@ IBM API key is used as the password for the Milvus service on watsonx.data. Ther
 ### Get other connection details
 Here are the steps to collect other Milvus connection details from the watsonx.data console:
 
-1. Go to the `Infrastructure manager` page
-2. Click the Milvus service to open the `Details` page
-3. Click on `View connect details` to view more connect details
-4. Collect the service GRPC `host`, `port`, and the SSL certificate
+1. Go to the `Infrastructure manager` page.
+2. Click the Milvus service to open the `Details` page.
+3. Click on `View connect details` to view more connect details.
+4. Collect the service GRPC `host`, `port` and the SSL certificate.
 
 ## Step 2: Ingest data into Milvus
 You can ingest data into Milvus vector database either through watsonx.ai or by using custom code.
@@ -35,12 +35,18 @@ On the watsonx.ai Project Assets page, click on `New asset` --> choose `Connect 
 
 <img src="./assets/create-milvus-connection.png" width="1080" height="574" />
 
-**NOTE: SSL certificate is only required for watsonx.data on Cloud Pak for Data.**
+**NOTE: SSL certificate is optional. If you include a certificate, only a certificate signed by a known certificate authority is suported by watsonx.ai**
 
 #### Create a vector index using the Milvus connection and upload documents
-On the watsonx.ai Project Assets page, using the Milvus connection created in the previous step, you can create a vector index and upload documents into it. See the following screen recording for more details: [./assets/create-milvus-index-watsonx-ai.mov](./assets/create-milvus-index-watsonx-ai.mov).
+On the watsonx.ai Project Assets page, using the Milvus connection created in the previous step, you can create a vector index and upload documents into it. Here are the steps:
+1. On the watsonx.ai Project Assets page, click on `New asset` --> choose `Ground gen AI with vectorized documents`.
+2. On the left-side panel, select `watsonx.data Milvus` --> fill in name and description --> select the Milvus connection created earlier. 
+3. Select `Database` and `Embeddings model` from the dropdowns --> click `Next`.
+4. Click `New collection` to create a new collection.
+5. Provide a unique collection name and choose files to add to the Milvus collection --> click `Create`.
+6. Once the document uploading process is done, you can start testing it in the prompt lab.
 
-Once the document uploading process is done, you can start testing it in the prompt lab.
+See the following screen recording for more details: [./assets/create-milvus-index-watsonx-ai.mov](./assets/create-milvus-index-watsonx-ai.mov).
 
 **NOTE: `document_name` and `text` are the two main fields created in the Milvus collection schema by default. When searching this Milvus collection using custom code, you need to specify these two fields as output_fields.**
 
