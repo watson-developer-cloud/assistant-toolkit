@@ -38,11 +38,7 @@ On the watsonx.ai Project Assets page, click on `New asset` --> choose `Connect 
 **NOTE: SSL certificate is only required for watsonx.data on Cloud Pak for Data.**
 
 #### Create a vector index using the Milvus connection and upload documents
-On the watsonx.ai Project Assets page, using the Milvus connection created in the previous step, you can create a vector index and upload documents into it. See the following screen recording for more details:
-
-<video width="1080" height="574" controls>
-  <source src="./assets/create-milvus-index-watsonx-ai.mov" type="video/mp4">
-</video>
+On the watsonx.ai Project Assets page, using the Milvus connection created in the previous step, you can create a vector index and upload documents into it. See the following screen recording for more details: [./assets/create-milvus-index-watsonx-ai.mov](./assets/create-milvus-index-watsonx-ai.mov).
 
 Once the document uploading process is done, you can start testing it in the prompt lab.
 
