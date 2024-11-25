@@ -35,11 +35,25 @@ export function postRun(req, res) {
   let payload = req.body?.payload;
   console.log('postRun', payload);
   console.log('type ', typeof payload);
-  if (payload?.data?.delta) {
+
+  if (payload?.data?.delta && typeof payload.data.delta === 'string') {
     console.log('delta ', payload.data.delta);
-    payload.data.delta += ' translated';
+    payload.data.delta += ' translated by post run webhook.\n';
     console.log('delta after ', payload.data.delta);
   }
+
+  const wxaOutput = payload?.message?.run?.result?.data?.message?.content ?? [];
+  console.log('wxaOutput', wxaOutput)
+  if (wxaOutput.length > 0) {
+    console.log('modifying wxa response');
+    for (const item of wxaOutput) {
+      if (item.text != null) {
+        item.text += ' translated by post run webhook.\n'; 
+      }
+    }
+    console.log('modified resp', wxaOutput)
+  }
+
   res.json({payload});
 }
 
