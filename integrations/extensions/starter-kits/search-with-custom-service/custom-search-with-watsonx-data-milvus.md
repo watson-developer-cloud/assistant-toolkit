@@ -43,6 +43,7 @@ On the watsonx.ai Project Assets page, using the Milvus connection created in th
 2. On the left-side panel, select `watsonx.data Milvus` as the vector store --> fill in name and description. --> select the Milvus connection created earlier. 
 3. Select the Milvus connection created earlier -> Select `Database` and `Embeddings model` from the dropdowns --> click `Next`. For example,  
 <img src="./assets/create-milvus-index-watsonx-ai.png" width="1080" height="574" />
+
 4. Click `New collection` to create a new collection.
 5. Provide a unique collection name and choose files to add to the Milvus collection --> click `Create`.
 6. Once the document uploading process is done, you can start testing it in the prompt lab.
