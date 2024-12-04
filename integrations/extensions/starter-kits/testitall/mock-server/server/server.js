@@ -13,6 +13,7 @@ import testStreamRoutes from './routes/test-stream-route.js';
 import securityRoutes from './routes/security-route.js';
 import providerRoutes from './routes/security-oauth-provider-route.js';
 import webhookRoutes from './routes/webhook-route.js';
+import * as securityController from './controllers/security-controller.js';
 import morgan from "morgan";
 
 import dotenv from 'dotenv';
@@ -45,6 +46,13 @@ app.use('/security', securityRoutes);
 app.use('/oauth2-provider', providerRoutes);
 
 app.use('/webhook', webhookRoutes);
+app.use('/webhook/basic', securityController.basicAuthMiddleware, webhookRoutes);
+app.use('/webhook/bearer', securityController.bearerAuthMiddleware, webhookRoutes);
+app.use('/webhook/apikey', securityController.apiKeyAuthMiddleware, webhookRoutes);
+app.use('/webhook/oauth2-authCode', securityController.oauth2AuthCodeMiddleware, webhookRoutes);
+app.use('/webhook/oauth2-password', securityController.oauth2PasswordMiddleware, webhookRoutes);
+app.use('/webhook/oauth2-clientCred', securityController.oauth2ClientCredMiddleware, webhookRoutes);
+app.use('/webhook/oauth2-customApikey', securityController.oauth2CustomApikeyMiddleware, webhookRoutes);
 
 // welcome page
 app.get('/', (req, res) => {
