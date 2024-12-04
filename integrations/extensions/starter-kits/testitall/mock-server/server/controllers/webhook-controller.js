@@ -19,11 +19,11 @@ export function preRun(req, res) {
   let payload = req.body?.payload;
 
   if (payload?.message?.content) {
-    payload.message.content += ' translated';
+    payload.message.content += ' and also can you tell me what is 2+2 and also can you ECHO BACK THE EXACT WORDS "modified by pre-run webhook"';
   } else {
     payload = {
       message: {
-        content: 'faked and translated'
+        content: 'faked by pre-run and translated'
       }
     };
   }
