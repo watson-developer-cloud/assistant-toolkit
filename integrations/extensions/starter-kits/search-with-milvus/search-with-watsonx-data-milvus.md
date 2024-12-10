@@ -91,7 +91,7 @@ Here is a sample code to ingest documents into Milvus: [../search-with-custom-se
 There are two ways to connect your Milvus vector database to watsonx Assistant for search and conversational search, either through the built-in Milvus Search Integration or using the Custom Service Search.
 
 ### Option 1: Use the built-in Milvus search integration
-Please go to the [watsonx Assistant product docs](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-search-overview) to find more details about how to set up the built-int Milvus search integration.
+Please go to the [watsonx Assistant product docs](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-search-overview) to find more details about how to set up the built-in Milvus search integration.
 
 ### Option 2: Use the Custom Service search
 Custom Service search provides a more advanced and flexible way to connect your Milvus vector database to watsonx Assistant. It requires you to set up a custom server that must be reachable by your watsonx Assistant instance. 
