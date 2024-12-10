@@ -62,7 +62,7 @@ On the watsonx.ai Project Assets page, using the Milvus connection created in th
 
 See the following screen recording for more details: [./assets/create-milvus-index-watsonx-ai.mov](./assets/create-milvus-index-watsonx-ai.mov).
 
-**NOTE: `document_name` and `text` are the two main fields created in the Milvus collection schema by default. When searching this Milvus collection using custom code, you need to specify these two fields as output_fields. When configuring the Milvus Search Integration on watsonx Assistant, you need to configure the Title and Body fields with these two fields.**
+**NOTE: `document_name` and `text` are the two main fields created in the Milvus collection schema by default. When searching this Milvus collection using custom code, you need to specify these two fields as output_fields. When configuring the Milvus search integration on watsonx Assistant, you need to configure the Title and Body fields with these two fields.**
 
 ### Option 2: Ingest data using custom code
 Here is a sample code to ingest documents into Milvus: [../search-with-custom-service/examples/index-with-milvus.py](../search-with-custom-service/examples/index-with-milvus.py). To run it, 
@@ -88,7 +88,7 @@ Here is a sample code to ingest documents into Milvus: [../search-with-custom-se
    ```
 
 ## Step 3: Connect to watsonx Assistant
-There are two ways to connect your Milvus vector database to watsonx Assistant for search and conversational search, either through the built-in Milvus Search Integration or using the Custom Service Search.
+There are two ways to connect your Milvus vector database to watsonx Assistant for search and conversational search, either through the built-in Milvus search integration or using the Custom Service search.
 
 ### Option 1: Use the built-in Milvus search integration
 Please go to the [watsonx Assistant product docs](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-search-overview) to find more details about how to set up the built-in Milvus search integration.
