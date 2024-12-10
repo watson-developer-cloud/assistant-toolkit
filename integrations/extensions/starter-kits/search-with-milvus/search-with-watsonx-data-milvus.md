@@ -1,7 +1,7 @@
 # How to set up watsonx Assistant search integration with watsonx.data Milvus
 This is a documentation about how to set up a search integration with the Milvus service from watsonx.data for using search or conversational search feature in watsonx Assistant.
 
-## Before you being
+## Before you begin
 1. Provision an watsonx.data instance
     * watsonx.data on IBM Cloud: https://cloud.ibm.com/watsonxdata
     * watsonx.data on Cloud Pak for Data (on-prem): follow [this doc](https://www.ibm.com/docs/en/cloud-paks/cp-data/5.0.x?topic=services-watsonxdata) to install and set up watsonx.data on Cloud Pak for Data 
