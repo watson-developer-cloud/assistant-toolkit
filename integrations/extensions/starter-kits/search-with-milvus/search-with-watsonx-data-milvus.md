@@ -90,7 +90,7 @@ Here is a sample code to ingest documents into Milvus: [../search-with-custom-se
 ## Step 3: Connect to watsonx Orchestrate or Assistant
 There are two ways to connect your Milvus vector database to watsonx Orchestrate or Assistant for search and conversational search, either through the built-in Milvus search integration or using the Custom Service search.
 
-**NOTE: The embeddings model(s) you use for search using either option in [Step 3](#step-3-connect-to-watsonx-orchestrate-or-assistant) has to align with the embeddings model(s) used for data ingestion in [Step 2](#step-2-ingest-data-into-milvus).**
+**NOTE: The embeddings model you use for search using either option in [Step 3](#step-3-connect-to-watsonx-orchestrate-or-assistant) has to align with the embeddings model used for data ingestion in [Step 2](#step-2-ingest-data-into-milvus).**
 
 ### Option 1: Use the built-in Milvus search integration
 This option allows you to integrate with your watsonx.data Milvus service through a built-in feature of watsonx Orchestrate/Assistant.
@@ -101,7 +101,7 @@ Please go to the [watsonx Assistant product docs](https://cloud.ibm.com/docs/wat
 Custom Service search provides a more advanced and flexible way to connect your Milvus vector database to watsonx Orchestrate or Assistant. It requires you to set up a custom server that must be reachable by your watsonx Orchestrate or Assistant instance. Then you need to configure the custom server by providing your server credentials and metadata.
 
 With this option, you can implement more advanced search capabilities with Milvus, such as,
-* Use any embedding models: https://milvus.io/docs/embeddings.md
+* Flexibility to use any of the embedding models supported by Milvus, and not only those provided by watsonx.ai. For a list of embedding models supported by Milvus, see: https://milvus.io/docs/embeddings.md
 * Multi-vector hybrid search: https://milvus.io/docs/multi-vector-search.md
 * Reranking: https://milvus.io/docs/reranking.md
 
