@@ -11,7 +11,7 @@ FORCE_INDEXING=False
 
 WATSONX_AI_URL="https://us-south.ml.cloud.ibm.com"
 
-SOURCE_FILE_NAMES=["./sample-documents"]
+SOURCE_FILES=["./sample-documents/IBM_Annual_Report_2023.pdf"]
 SOURCE_URLS=["https://www.ibm.com/annualreport/assets/downloads/IBM_Annual_Report_2023.pdf"]
 SOURCE_TITLES=["IBM Annual Report 2023"]
 
@@ -24,8 +24,11 @@ EMBED = WatsonxEmbeddings(
         project_id=os.environ.get("WATSONX_AI_PROJECT_ID")
     )
 
-MILVUS_CONNECTION={"host": os.environ.get("MILVUS_HOST"), "port": os.environ.get("MILVUS_PORT"),
-                   "user": os.environ.get("MILVUS_USER"), "password": os.environ.get("MILVUS_PASSWORD")}
+MILVUS_CONNECTION = {
+    "uri": f"https://{os.environ.get('MILVUS_HOST')}:{os.environ.get('MILVUS_PORT')}",
+    "user": os.environ.get("MILVUS_USER"),
+    "password": os.environ.get("MILVUS_PASSWORD")
+    }
 
 CHUNK_SIZE=500
 CHUNK_OVERLAP=125
@@ -43,7 +46,7 @@ def connect(connection_info):
            embedding_function=EMBED,
            connection_args=connection_info,
            collection_name=COLLECTION_NAME,
-           index_params="text"
+           index_params={}
        )
     return collection
 
@@ -53,8 +56,15 @@ def index(connection_info, filenames, urls, titles):
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=CHUNK_SIZE, chunk_overlap=CHUNK_OVERLAP)
     split_texts = text_splitter.create_documents(texts, metadata)
     logging.info(f"Documents chunked.  Sending to Milvus.")
-    collection = Milvus.from_documents(documents=[], embedding=EMBED, connection_args=connection_info, collection_name=COLLECTION_NAME, drop_old=True)
-    collection.add_documents(split_texts, batch_size=100)
+    collection = Milvus.from_documents(
+        documents=split_texts[:1], # Initialize the collection with one document
+        embedding=EMBED,
+        connection_args=connection_info,
+        collection_name=COLLECTION_NAME,
+        drop_old=True,
+        auto_id=True,
+        )
+    collection.add_documents(split_texts[1:], batch_size=100) # Add the rest of the documents to the collection
     return collection
 
 
@@ -84,7 +94,7 @@ def load_docs_pdf(filenames, urls, titles):
 def run(force_indexing=False):
     print(MILVUS_CONNECTION)
 
-    connections.connect(host=MILVUS_CONNECTION["host"], port=MILVUS_CONNECTION["port"], secure=True, alias="default", user=MILVUS_CONNECTION["user"], password=MILVUS_CONNECTION["password"])
+    connections.connect(uri=MILVUS_CONNECTION["uri"], secure=True, alias="default", user=MILVUS_CONNECTION["user"], password=MILVUS_CONNECTION["password"])
     has = utility.has_collection(COLLECTION_NAME)
     print(f"Does collection {COLLECTION_NAME} exist in Milvus: {has}")
 
@@ -94,7 +104,7 @@ def run(force_indexing=False):
         collection = connect(MILVUS_CONNECTION)
     else:
         logging.info(f"Indexing at {MILVUS_CONNECTION}")
-        collection = index(MILVUS_CONNECTION, SOURCE_FILE_NAMES, SOURCE_URLS, SOURCE_TITLES)
+        collection = index(MILVUS_CONNECTION, SOURCE_FILES, SOURCE_URLS, SOURCE_TITLES)
     
     # Test out a query to Milvus & print results
     query = "What were earnings in 2023?"

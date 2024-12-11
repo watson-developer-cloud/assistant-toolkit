@@ -68,7 +68,7 @@ The following screen recording is a demonstration of the above steps: [./assets/
 Here is a sample code to ingest documents into Milvus: [../search-with-custom-service/examples/index-with-milvus.py](../search-with-custom-service/examples/index-with-milvus.py). To run it, 
 1. Install dependencies:
    ```bash
-   python3 -m pip install pymilvus langchain langchain-milvus langchain-ibm ibm-watsonx-ai
+   python3 -m pip install pymilvus langchain langchain-milvus langchain-ibm ibm-watsonx-ai PyPDF2
    ```
 2. Create environment variables for Milvus credentials
   ```bash
@@ -81,7 +81,7 @@ Here is a sample code to ingest documents into Milvus: [../search-with-custom-se
   export WATSONX_AI_APIKEY="Your watsonx.ai API key" // watsonx.ai embeddings model is used to create vectors
   export WATSONX_AI_PROJECT_ID="Your watsonx.ai project ID" // watsonx.ai project ID is required to access the embeddings models
   ```
-3. Update the `SOURCE_FILE_NAMES`, `SOURCE_URLS`, and `SOURCE_TITLES` variables at the begining of the script to your file names, urls, and titles respectively.
+3. Update the `SOURCE_FILES`, `SOURCE_URLS`, and `SOURCE_TITLES` variables at the begining of the script to your file names, urls, and titles respectively.
 4. Run the script
    ```bash
    python3 index-with-milvus.py
