@@ -303,13 +303,15 @@ Notes:
 {
     "query": {
         "bool": {
-            "query": {
-                "query_string": {
+          "should": [
+            {
+              "query_string": {
                     "query": "$QUERY",
                     "fields": ["$BODY_FIELD_NAME", "$TITLE_FIELD_NAME"],
                     }
-                },
-            "filter" : "$FILTER"
+            }
+          ],
+          "filter" : "$FILTER"
         }
     },
     "knn": {
@@ -325,9 +327,7 @@ Notes:
         "filter" : "$FILTER"
     },
     "rank": {
-        "rrf": {
-        "window_size": 200
-        }
+        "rrf": {}
     },
     "size": 10,
     "_source": {"excludes": ["text_embedding.predicted_value"]}

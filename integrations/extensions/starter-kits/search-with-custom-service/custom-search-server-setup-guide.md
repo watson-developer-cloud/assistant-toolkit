@@ -75,6 +75,6 @@ The [simple server](./examples/example-simple-server.py) example returns a sampl
 
 ###### Example with Milvus
 
-The provided [sample Milvus server](./examples/examle-milvus-server.py) makes a request to Milvus to get search results (using embeddings from watsonx.ai.)
+The provided [sample Milvus server](./examples/example-milvus-server.py) makes a request to Milvus to get search results (using embeddings from watsonx.ai.)
 
 In addition to this sample Milvus server, there is also a [python script](./examples/index-with-milvus.py) included. That script converts PDF files to text, chunks them, encodes the chunks using a watsonx.ai embedding model, and then stores the embeddings and text in Milvus. You would need to update that script to point to your content and you may want to change other configuration options such as which embedding model is used.
