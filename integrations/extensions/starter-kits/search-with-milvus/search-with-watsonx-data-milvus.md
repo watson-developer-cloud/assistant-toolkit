@@ -72,14 +72,14 @@ Here is a sample code to ingest documents into Milvus: [../search-with-custom-se
    ```
 2. Create environment variables for Milvus credentials
   ```bash
-  export MILVUS_HOST = 'Your Milvus GRPC host'
-  export MILVUS_PORT = 'Your Milvus GRPC port'
-  export MILVUS_USER = 'ibmlhapikey' // The default username for watsonx.data Milvus
-  export MILVUS_PASSWORD = 'Your watsonx.data API key'
+  export MILVUS_HOST="Your Milvus GRPC host"
+  export MILVUS_PORT="Your Milvus GRPC port"
+  export MILVUS_USER="ibmlhapikey" // The default username for watsonx.data Milvus
+  export MILVUS_PASSWORD="Your watsonx.data API key"
 
-  export MILVUS_COLLECTION_NAME = 'Your Milvus collection name' // It can be anything
-  export WATSONX_AI_APIKEY = 'Your watsonx.ai API key' // watsonx.ai embeddings model is used to create vectors
-  export WATSONX_AI_PROJECT_ID = 'Your watsonx.ai project ID' // watsonx.ai project ID is required to access the embeddings models
+  export MILVUS_COLLECTION_NAME="Your Milvus collection name" // It can be anything
+  export WATSONX_AI_APIKEY="Your watsonx.ai API key" // watsonx.ai embeddings model is used to create vectors
+  export WATSONX_AI_PROJECT_ID="Your watsonx.ai project ID" // watsonx.ai project ID is required to access the embeddings models
   ```
 3. Update the `SOURCE_FILE_NAMES`, `SOURCE_URLS`, and `SOURCE_TITLES` variables at the begining of the script to your file names, urls, and titles respectively.
 4. Run the script
