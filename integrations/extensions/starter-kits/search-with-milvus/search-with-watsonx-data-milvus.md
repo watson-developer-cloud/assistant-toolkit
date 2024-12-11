@@ -1,8 +1,8 @@
-# How to set up watsonx Assistant search integration with watsonx.data Milvus
-This is a documentation about how to set up a search integration with the Milvus service from watsonx.data for using search or conversational search feature in watsonx Assistant.
+# How to set up the search integration with watsonx.data Milvus in watsonx Orchestrate or Assistant
+This document explains how to set up a search integration with the Milvus service from watsonx.data for using search or conversational search feature in watsonx Orchestrate or Assistant product.
 
 ## Before you begin
-1. Provision an watsonx.data instance
+1. Provision a watsonx.data instance
     * watsonx.data on IBM Cloud: https://cloud.ibm.com/watsonxdata
     * watsonx.data on Cloud Pak for Data (on-prem): follow [this doc](https://www.ibm.com/docs/en/cloud-paks/cp-data/5.0.x?topic=services-watsonxdata) to install and set up watsonx.data on Cloud Pak for Data 
 2. Add an Milvus service in the watsonx.data console
@@ -16,7 +16,7 @@ This is a documentation about how to set up a search integration with the Milvus
 * [Step 2: Ingest data into Milvus](#step-2-ingest-data-into-milvus)
   * [Option 1: Ingest data through watsonx.ai](#option-1-ingest-data-through-watsonxai)
   * [Option 2: Ingest data using custom code](#option-2-ingest-data-using-custom-code)
-* [Step 3: Connect to watsonx Assistant](#step-3-connect-to-watsonx-assistant)
+* [Step 3: Connect to watsonx Orchestrate or Assistant](#step-3-connect-to-watsonx-orchestrate-or-assistant)
   * [Option 1: Use the built-in Milvus search integration](#option-1-use-the-built-in-milvus-search-integration)
   * [Option 2: Use the Custom Service search](#option-2-use-the-custom-service-search)
 
@@ -37,7 +37,7 @@ Here are the steps to collect other Milvus connection details from the watsonx.d
 1. Go to the `Infrastructure manager` page.
 2. Click the Milvus service to open the `Details` page.
 3. Click on `View connect details` to view more connection details.
-4. Collect the service GRPC `host`, `port` and the SSL certificate.
+4. Collect the GRPC `host`, `port`, and the SSL certificate from the service details.
 
 ## Step 2: Ingest data into Milvus
 You can ingest data into Milvus vector database either through watsonx.ai or by using custom code.
@@ -60,9 +60,9 @@ On the watsonx.ai Project Assets page, using the Milvus connection created in th
 5. Provide a unique collection name and choose files to add to the Milvus collection --> click `Create`.
 6. Once the document uploading process is done, you can start testing it in the prompt lab.
 
-See the following screen recording for more details: [./assets/create-milvus-index-watsonx-ai.mov](./assets/create-milvus-index-watsonx-ai.mov).
+The following screen recording is a demonstration of the above steps: [./assets/create-milvus-index-watsonx-ai.mov](./assets/create-milvus-index-watsonx-ai.mov).
 
-**NOTE: `document_name` and `text` are the two main fields created in the Milvus collection schema by default. When searching this Milvus collection using custom code, you need to specify these two fields as output_fields. When configuring the Milvus search integration on watsonx Assistant, you need to configure the Title and Body fields with these two fields.**
+**NOTE: `document_name` and `text` are the two main fields created in the Milvus collection schema by default. When searching this Milvus collection using custom code, you need to specify these two fields as output_fields. When setting up the built-in Milvus search integration, you need to configure the Title and Body fields with these two fields.**
 
 ### Option 2: Ingest data using custom code
 Here is a sample code to ingest documents into Milvus: [../search-with-custom-service/examples/index-with-milvus.py](../search-with-custom-service/examples/index-with-milvus.py). To run it, 
@@ -74,12 +74,12 @@ Here is a sample code to ingest documents into Milvus: [../search-with-custom-se
   ```bash
   export MILVUS_HOST = 'Your Milvus GRPC host'
   export MILVUS_PORT = 'Your Milvus GRPC port'
-  export MILVUS_USER = 'ibmlhapikey' // your Milvus username
+  export MILVUS_USER = 'ibmlhapikey' // The default username for watsonx.data Milvus
   export MILVUS_PASSWORD = 'Your watsonx.data API key'
 
   export MILVUS_COLLECTION_NAME = 'Your Milvus collection name' // It can be anything
   export WATSONX_AI_APIKEY = 'Your watsonx.ai API key' // watsonx.ai embeddings model is used to create vectors
-  export WATSONX_AI_PROJECT_ID = 'Your watsonx.ai project ID' // watsonx.ai project ID is required to access the models
+  export WATSONX_AI_PROJECT_ID = 'Your watsonx.ai project ID' // watsonx.ai project ID is required to access the embeddings models
   ```
 3. Update the `SOURCE_FILE_NAMES`, `SOURCE_URLS`, and `SOURCE_TITLES` variables at the begining of the script to your file names, urls, and titles respectively.
 4. Run the script
@@ -87,20 +87,28 @@ Here is a sample code to ingest documents into Milvus: [../search-with-custom-se
    python3 index-with-milvus.py
    ```
 
-## Step 3: Connect to watsonx Assistant
-There are two ways to connect your Milvus vector database to watsonx Assistant for search and conversational search, either through the built-in Milvus search integration or using the Custom Service search.
+## Step 3: Connect to watsonx Orchestrate or Assistant
+There are two ways to connect your Milvus vector database to watsonx Orchestrate or Assistant for search and conversational search, either through the built-in Milvus search integration or using the Custom Service search.
+
+**NOTE: The embeddings model(s) you use for search using either option in [Step 3](#step-3-connect-to-watsonx-orchestrate-or-assistant) has to align with the embeddings model(s) used for data ingestion in [Step 2](#step-2-ingest-data-into-milvus).**
 
 ### Option 1: Use the built-in Milvus search integration
+This option allows you to integrate with your watsonx.data Milvus service through a built-in feature of watsonx Orchestrate/Assistant.
+
 Please go to the [watsonx Assistant product docs](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-search-overview) to find more details about how to set up the built-in Milvus search integration.
 
 ### Option 2: Use the Custom Service search
-Custom Service search provides a more advanced and flexible way to connect your Milvus vector database to watsonx Assistant. It requires you to set up a custom server that must be reachable by your watsonx Assistant instance. 
-Then you need to configure the custom server by providing your server credentials and metadata. 
+Custom Service search provides a more advanced and flexible way to connect your Milvus vector database to watsonx Orchestrate or Assistant. It requires you to set up a custom server that must be reachable by your watsonx Orchestrate or Assistant instance. Then you need to configure the custom server by providing your server credentials and metadata.
+
+With this option, you can implement more advanced search capabilities with Milvus, such as,
+* Use any embedding models: https://milvus.io/docs/embeddings.md
+* Multi-vector hybrid search: https://milvus.io/docs/multi-vector-search.md
+* Reranking: https://milvus.io/docs/reranking.md
 
 #### Set up a custom server
-Here is an example server code based on Python Flask: [../search-with-custom-search/examples/example-milvus-server.py](../search-with-custom-service/examples/example-simple-server.py). This example code requires setting a list of environment variables, including `MILVUS_HOST`, `MILVUS_PORT`, `MILVUS_USER`, `MILVUS_PASSWORD`, `WATSONX_AI_APIKEY`, `WATSONX_AI_PROJECT_ID`. 
+Here is code for an example server based on Python Flask: [../search-with-custom-search/examples/example-milvus-server.py](../search-with-custom-service/examples/example-simple-server.py). This example code requires setting a list of environment variables, including `MILVUS_HOST`, `MILVUS_PORT`, `MILVUS_USER`, `MILVUS_PASSWORD`, `WATSONX_AI_APIKEY`, `WATSONX_AI_PROJECT_ID`.
 
-You need to deploy the code as a service on either Cloud or Cloud Pak for Data and make it reachable by your watsonx Assistant instance. IBM Code Engine is recommended to host the code. See [Code Engine docs](https://cloud.ibm.com/docs/codeengine?topic=codeengine-getting-started) for more details.
+You need to deploy the code as a service on either Cloud or Cloud Pak for Data and make it reachable by your watsonx Orchestrate or Assistant instance. If you are using Cloud, IBM Code Engine is recommended to host the code. See [Code Engine docs](https://cloud.ibm.com/docs/codeengine?topic=codeengine-getting-started) for more details.
 
 #### Configure the Custom Service search by providing server credentials
 Follow the doc [Setting up a Custom service with server credentials](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-search-customsearch-add#setup-custom-service-server) to configure the Custom Service search with your custom server credentials. 
