@@ -11,6 +11,7 @@ export function basicAuthMiddleware(req, res, next) {
   // Verify login and password are set and correct
   if (login && password && login === auth.login && password === auth.password) {
     // Access granted...
+    req.auth_result = 'Authenticated with Basic Auth'
     return next()
   }
   // Access denied...
@@ -35,6 +36,7 @@ export function bearerAuthMiddleware(req, res, next) {
   // Verify login and password are set and correct
   if (authHeader.toLowerCase().startsWith("bearer") && token === process.env.AUTH_TOKEN) {
     // Access granted...
+    req.auth_result = 'Authenticated with Bearer Auth'
     return next()
   }
 
@@ -59,6 +61,7 @@ export function apiKeyAuthMiddleware(req, res, next) {
   // Verify login and password are set and correct
   if (key === process.env.AUTH_APIKEY) {
     // Access granted...
+    req.auth_result = 'Authenticated with Apikey Auth'
     return next()
   }
 
@@ -75,7 +78,7 @@ export function apiKeyTest(req, res, next) {
 }
 
 // OAuth2 Auth Middleware
-function makeOAuth2AuthMiddleware(accessTokens) {
+function makeOAuth2AuthMiddleware(accessTokens, oauthFlowType) {
   return (req, res, next) => {
     // Check if the request has an Authorization header
     if (!req.headers.authorization) {
@@ -101,12 +104,13 @@ function makeOAuth2AuthMiddleware(accessTokens) {
     }
 
     // Access granted...
+    req.auth_result = `Authenticated with OAuth2:${oauthFlowType} Auth`
     return next()
   };
 }
 
 // OAuth2 - Authorization Code
-export const oauth2AuthCodeMiddleware = makeOAuth2AuthMiddleware(accessTokensAuthCode);
+export const oauth2AuthCodeMiddleware = makeOAuth2AuthMiddleware(accessTokensAuthCode, 'Authorization Code');
 
 export function oauth2AuthCodeTest(req, res, next) {
   res.status(200).send({
@@ -115,7 +119,7 @@ export function oauth2AuthCodeTest(req, res, next) {
 }
 
 // OAuth2 - Client Credentials
-export const oauth2ClientCredMiddleware = makeOAuth2AuthMiddleware(accessTokensClientCred);
+export const oauth2ClientCredMiddleware = makeOAuth2AuthMiddleware(accessTokensClientCred, 'Client Credentials');
 
 export function oauth2ClientCredTest(req, res, next) {
   res.status(200).send({
@@ -124,7 +128,7 @@ export function oauth2ClientCredTest(req, res, next) {
 }
 
 // OAuth2 - Password
-export const oauth2PasswordMiddleware = makeOAuth2AuthMiddleware(accessTokensPassword);
+export const oauth2PasswordMiddleware = makeOAuth2AuthMiddleware(accessTokensPassword, 'Password');
 
 export function oauth2PasswordTest(req, res, next) {
   res.status(200).send({
@@ -133,7 +137,7 @@ export function oauth2PasswordTest(req, res, next) {
 }
 
 // OAuth2 - Custom Example
-export const oauth2CustomApikeyMiddleware = makeOAuth2AuthMiddleware(accessTokensCustomApikey);
+export const oauth2CustomApikeyMiddleware = makeOAuth2AuthMiddleware(accessTokensCustomApikey, 'Custom Apikey');
 
 export function oauth2CustomApikeyTest(req, res, next) {
   res.status(200).send({

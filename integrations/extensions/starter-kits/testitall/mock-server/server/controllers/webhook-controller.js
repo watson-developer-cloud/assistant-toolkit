@@ -1,7 +1,11 @@
 import jwt from 'jsonwebtoken';
+import { generateHighEntropyString } from '../utils.js';
 
 const logs= [];
 const MAX_LOGS = 20;
+
+const PRE_MESSAGE_WEBHOOK_VARIABLE = 'pre_webhook_message';
+const POST_MESSAGE_WEBHOOK_VARIABLE = 'post_webhook_message';
 
 export function createLog(req, res) {
   if (logs.length > MAX_LOGS) {
@@ -76,6 +80,19 @@ export function postRun(req, res) {
   res.json({payload});
 }
 
+function setSessionVariable(payload, key, value) {
+  if (!payload.context.skills) {
+    payload.context.skills = {};
+  }
+  if (!payload.context.skills['actions skill']) {
+    payload.context.skills['actions skill'] = {};
+  }
+  if (!payload.context.skills['actions skill'].skill_variables) {
+    payload.context.skills['actions skill'].skill_variables = {};
+  }
+  payload.context.skills['actions skill'].skill_variables[key] = value;
+}
+
 export function preWebhook(req, res) {
   const payload = req.body.payload;
   
@@ -98,33 +115,27 @@ export function preWebhook(req, res) {
     })
   }
 
-  // Validate the JWT token (if provided)
-  const token = req.headers.authorization;
-  if (token && process.env.PRE_MESSAGE_SECRET) {
-    try {
-      jwt.verify(token, process.env.PRE_MESSAGE_SECRET);
-      auth_result = 'JWT token verified';
-    } catch (e) {
-      if (token === process.env.PRE_MESSAGE_SECRET) {
-        auth_result = 'Auth header matches secret value';
-      
-      } else {
-        auth_result = `Invalid Auth Header value: ${token}`;
+  if (req.auth_result) { // Auth done by middleware
+    auth_result = req.auth_result;
+  } else { // Perform legacy auth check
+    const token = req.headers.authorization;
+    if (token && process.env.PRE_MESSAGE_SECRET) {
+      try {
+        jwt.verify(token, process.env.PRE_MESSAGE_SECRET);
+        auth_result = 'JWT token verified';
+      } catch (e) {
+        if (token === process.env.PRE_MESSAGE_SECRET) {
+          auth_result = 'Auth header matches secret value';
+        
+        } else {
+          auth_result = `Invalid Auth Header value: ${token}`;
+        }
       }
     }
   }
 
   // Set the session variable
-  if (!payload.context.skills) {
-    payload.context.skills = {};
-  }
-  if (!payload.context.skills['actions skill']) {
-    payload.context.skills['actions skill'] = {};
-  }
-  if (!payload.context.skills['actions skill'].skill_variables) {
-    payload.context.skills['actions skill'].skill_variables = {};
-  }
-  payload.context.skills['actions skill'].skill_variables.pre_webhook_message = `${response_message}\n${auth_result}`;
+  setSessionVariable(payload, PRE_MESSAGE_WEBHOOK_VARIABLE, `${response_message}\n${auth_result}`);
 
   return res.json(req.body);
 }
@@ -135,33 +146,27 @@ export function postWebhook(req, res) {
   let response_message = 'Sample value from API Server (post-message)'
   let auth_result = 'No auth header provided'
 
-  // Validate the JWT token (if provided)
-  const token = req.headers.authorization;
-  if (token && process.env.POST_MESSAGE_SECRET) {
-    try {
-      jwt.verify(token, process.env.POST_MESSAGE_SECRET);
-      auth_result = 'JWT token verified';
-    } catch (e) {
-      if (token === process.env.POST_MESSAGE_SECRET) {
-        auth_result = 'Auth header matches secret value';
-      
-      } else {
-        auth_result = `Invalid Auth Header value: ${token}`;
+  if (req.auth_result) { // Auth done by middleware
+    auth_result = req.auth_result;
+  } else { // Perform legacy auth check
+    const token = req.headers.authorization;
+    if (token && process.env.POST_MESSAGE_SECRET) {
+      try {
+        jwt.verify(token, process.env.POST_MESSAGE_SECRET);
+        auth_result = 'JWT token verified';
+      } catch (e) {
+        if (token === process.env.POST_MESSAGE_SECRET) {
+          auth_result = 'Auth header matches secret value';
+        
+        } else {
+          auth_result = `Invalid Auth Header value: ${token}`;
+        }
       }
     }
   }
 
   // Set the session variable
-  if (!payload.context.skills) {
-    payload.context.skills = {};
-  }
-  if (!payload.context.skills['actions skill']) {
-    payload.context.skills['actions skill'] = {};
-  }
-  if (!payload.context.skills['actions skill'].skill_variables) {
-    payload.context.skills['actions skill'].skill_variables = {};
-  }
-  payload.context.skills['actions skill'].skill_variables.post_webhook_message = `${response_message}\n${auth_result}`;
+  setSessionVariable(payload, POST_MESSAGE_WEBHOOK_VARIABLE, `${response_message}\n${auth_result}`);
 
   return res.json(req.body);
 }
@@ -190,3 +195,30 @@ export function webhookErrorCode(req, res) {
   return res.status(code).json({ error: 'Server Error', code });
 }
 
+export function webhookAlmostTooLargeResponse(req, res) {
+  const payload = req.body.payload;
+
+  const data = generateHighEntropyString(parseInt(process.env.WEBHOOK_RESPONSE_SIZE_LIMIT, 10) - 100000); // Default: 4MB - 100KB = 3.9MB
+  // Set the session variable
+  setSessionVariable(payload, POST_MESSAGE_WEBHOOK_VARIABLE, data);
+
+  return res.json(req.body);
+}
+
+export function webhookTooLargeResponse(req, res) {
+  const payload = req.body.payload;
+
+  const data = generateHighEntropyString(parseInt(process.env.WEBHOOK_RESPONSE_SIZE_LIMIT, 10) + 100000); // Default: 4MB + 100KB = 4.1MB
+  // Set the session variable
+  setSessionVariable(payload, POST_MESSAGE_WEBHOOK_VARIABLE, data);
+
+  return res.json(req.body);
+}
+
+export function webhookEchoHeaders(req, res) {
+  const payload = req.body.payload;
+
+  setSessionVariable(payload, POST_MESSAGE_WEBHOOK_VARIABLE, JSON.stringify(req.headers));
+
+  return res.json(req.body);
+}

@@ -6,6 +6,7 @@ const streamRouter = express.Router();
 
 // define routes
 streamRouter.post('/', testController.streamTest);
+streamRouter.post('/json', testController.streamJsonTest);
 streamRouter.post('/error', testController.streamErrorTest);
 streamRouter.post('/timeout', testController.streamTimeoutTest);
 
