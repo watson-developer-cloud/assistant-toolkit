@@ -628,12 +628,12 @@
         }
       }
     },
-    "/test/context-too-large": {
+    "/test/response-too-large": {
       "post": {
         "tags": [
           "API"
         ],
-        "summary": "Test handle a too large response",
+        "summary": "Test handle a too large response from extension",
         "description": "Return a context that is too large to test WA's error handling",
         "operationId": "testContextTooLarge",
         "responses": {
@@ -663,7 +663,7 @@
         "tags": [
           "API"
         ],
-        "summary": "Test handle an almost too large response",
+        "summary": "Test handle an almost too large response for context storage",
         "description": "Return a context that is almost too large to test WA's error handling",
         "operationId": "testContextAlmostTooLarge",
         "responses": {
