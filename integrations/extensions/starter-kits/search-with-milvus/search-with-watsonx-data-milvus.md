@@ -106,12 +106,12 @@ With this option, you can implement more advanced search capabilities with Milvu
 * Reranking: https://milvus.io/docs/reranking.md
 
 #### Set up a custom server
-Here is code for an example server based on Python Flask: [../search-with-custom-search/examples/example-milvus-server.py](../search-with-custom-service/examples/example-simple-server.py). This example code requires setting a list of environment variables, including `MILVUS_HOST`, `MILVUS_PORT`, `MILVUS_USER`, `MILVUS_PASSWORD`, `WATSONX_AI_APIKEY`, `WATSONX_AI_PROJECT_ID`.
+Here is code for an example server based on Python Flask: [../search-with-custom-search/examples/example-milvus-server.py](../search-with-custom-service/examples/example-milvus-server.py). This example code requires setting a list of environment variables, including `MILVUS_HOST`, `MILVUS_PORT`, `MILVUS_USER`, `MILVUS_PASSWORD`, `WATSONX_AI_APIKEY`, `WATSONX_AI_PROJECT_ID`.
 
 You need to deploy the code as a service on either Cloud or Cloud Pak for Data and make it reachable by your watsonx Orchestrate or Assistant instance. If you are using Cloud, IBM Code Engine is recommended to host the code. See [Code Engine docs](https://cloud.ibm.com/docs/codeengine?topic=codeengine-getting-started) for more details.
 
 #### Configure the Custom Service search by providing server credentials
 Follow the doc [Setting up a Custom service with server credentials](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-search-customsearch-add#setup-custom-service-server) to configure the Custom Service search with your custom server credentials. 
 
-If you have used the above example code [../search-with-custom-search/examples/example-milvus-server.py](../search-with-custom-service/examples/example-simple-server.py) for your custom server, you need to provide Milvus collection_name as a metadata in the Custom Service settings page. For example,  
+If you have used the above example code [../search-with-custom-search/examples/example-milvus-server.py](../search-with-custom-service/examples/example-milvus-server.py) for your custom server, you need to provide Milvus collection_name as a metadata in the Custom Service settings page. For example,  
 <img src="./assets/custom-service-search-settings.png" width="961" height="402" />
