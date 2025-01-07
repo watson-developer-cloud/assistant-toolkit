@@ -2,8 +2,8 @@
   "name": "TestItALL Extension Actions",
   "type": "action",
   "counts": {
-    "actions": 23,
-    "intents": 21,
+    "actions": 24,
+    "intents": 22,
     "entities": 5,
     "data_types": 0,
     "collections": 4,
@@ -1620,7 +1620,7 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "9e9048ccb56c63c9fe291105e6c7596a8693979aee76979d7e567b5700ef9774",
-                  "match_scenario": 12,
+                  "match_scenario": 10,
                   "catalog_item_id": "98fca447-d6fa-4c91-bf8f-6a7d58bed5fb"
                 },
                 "result_variable": "step_617_result_1",
@@ -3284,8 +3284,136 @@
             "data_type": "any"
           }
         ],
-        "next_action": "action_5330",
+        "next_action": "action_5842",
         "disambiguation_opt_out": true
+      },
+      {
+        "type": "standard",
+        "steps": [
+          {
+            "step": "step_796",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "I’m about to call an extension that will stream a response using SSE (Server-Sent Events) that will give a JSON response.\n\nThe last event would contain a very large object, the webchat should be able to show it without error."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/test/stream/json",
+                "type": "integration_interaction",
+                "method": "POST",
+                "internal": {
+                  "spec_hash_id": "bb851f73fea0bef5bff854ca7b3c78cdfdf13e6e262246d5f434f2968d0b0f4f",
+                  "match_scenario": 10,
+                  "catalog_item_id": "98fca447-d6fa-4c91-bf8f-6a7d58bed5fb"
+                },
+                "result_variable": "step_796_result_1",
+                "stream_response_mapping": {
+                  "partial_item": [
+                    {
+                      "mapping": [
+                        {
+                          "name": "text",
+                          "value": "results[0].generated_text"
+                        }
+                      ],
+                      "response_type": "text"
+                    }
+                  ]
+                }
+              }
+            },
+            "variable": "step_796",
+            "next_step": "step_891"
+          },
+          {
+            "step": "step_891",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "**The last streaming event:**\n\n\n\n"
+                          },
+                          {
+                            "variable": "step_796_result_1",
+                            "variable_path": "last_event"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_891"
+          }
+        ],
+        "title": "Test Server-Sent Events (SSE) with JSON response",
+        "action": "action_5842",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_5842_intent_44072"
+        },
+        "variables": [
+          {
+            "title": "I’m about to call an extension that will stream a response using",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_796",
+            "data_type": "any"
+          },
+          {
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_796_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "**The last streaming event:** {variable}",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_891",
+            "data_type": "any"
+          }
+        ],
+        "launch_mode": "learning",
+        "next_action": "action_5330",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true,
+          "never_return": false
+        },
+        "disambiguation_opt_out": false
       },
       {
         "type": "standard",
@@ -3690,19 +3818,19 @@
         "intent": "action_22557_intent_12065",
         "examples": [
           {
+            "text": "authorization context variable"
+          },
+          {
             "text": "authorization context var"
           },
           {
             "text": "authorization header"
           },
           {
-            "text": "authorization context variable"
+            "text": "Test set auth header with context variable"
           },
           {
             "text": "auth header"
-          },
-          {
-            "text": "Test set auth header with context variable"
           }
         ]
       },
@@ -3710,7 +3838,7 @@
         "intent": "action_22832_intent_9949",
         "examples": [
           {
-            "text": "oauth"
+            "text": "basic auth"
           },
           {
             "text": "authentication"
@@ -3719,13 +3847,13 @@
             "text": "bearer auth"
           },
           {
-            "text": "basic auth"
-          },
-          {
-            "text": "api key auth"
+            "text": "oauth"
           },
           {
             "text": "security"
+          },
+          {
+            "text": "api key auth"
           }
         ]
       },
@@ -3741,16 +3869,30 @@
         "intent": "action_39186_intent_23416",
         "examples": [
           {
-            "text": "consecutive"
+            "text": "consecutive calls"
           },
           {
             "text": "multiple calls"
           },
           {
-            "text": "consecutive calls"
+            "text": "Test consecutive extension calls"
           },
           {
-            "text": "Test consecutive extension calls"
+            "text": "consecutive"
+          }
+        ]
+      },
+      {
+        "intent": "action_5842_intent_44072",
+        "examples": [
+          {
+            "text": "SSE JSON"
+          },
+          {
+            "text": "Streaming JSON"
+          },
+          {
+            "text": "Test Server-Sent Events (SSE) with JSON response"
           }
         ]
       },
@@ -3758,16 +3900,16 @@
         "intent": "fallback_connect_to_agent",
         "examples": [
           {
-            "text": "I would like to speak to a human"
+            "text": "Agent help"
           },
           {
-            "text": "I would like to speak to someone"
+            "text": "I would like to speak to a human"
           },
           {
             "text": "Call agent"
           },
           {
-            "text": "Agent help"
+            "text": "I would like to speak to someone"
           },
           {
             "text": "Can I connect to an agent?"
@@ -3779,6 +3921,9 @@
         "intent": "action_38662_intent_45880",
         "examples": [
           {
+            "text": "parameters"
+          },
+          {
             "text": "params"
           },
           {
@@ -3786,9 +3931,6 @@
           },
           {
             "text": "post with parameters"
-          },
-          {
-            "text": "parameters"
           }
         ]
       },
@@ -3796,13 +3938,13 @@
         "intent": "action_21392_intent_30689",
         "examples": [
           {
+            "text": "Arrays Object"
+          },
+          {
             "text": "Test parse array inside object"
           },
           {
             "text": "Array inside object"
-          },
-          {
-            "text": "Arrays Object"
           }
         ]
       },
@@ -3810,25 +3952,28 @@
         "intent": "action_1543_intent_5385",
         "examples": [
           {
-            "text": "just delete it"
-          },
-          {
-            "text": "can u delete"
-          },
-          {
             "text": "how about deleting it"
+          },
+          {
+            "text": "just delete it"
           },
           {
             "text": "DELETE"
           },
           {
             "text": "pld delete"
+          },
+          {
+            "text": "can u delete"
           }
         ]
       },
       {
         "intent": "action_40637_intent_11889",
         "examples": [
+          {
+            "text": "pre-message"
+          },
           {
             "text": "Test pre-message webhook"
           },
@@ -3837,9 +3982,6 @@
           },
           {
             "text": "pre-webhook"
-          },
-          {
-            "text": "pre-message"
           }
         ]
       },
@@ -3855,13 +3997,13 @@
         "intent": "action_3462_intent_18095",
         "examples": [
           {
-            "text": "post-webhook"
-          },
-          {
             "text": "Test post-message webhook"
           },
           {
             "text": "post-message"
+          },
+          {
+            "text": "post-webhook"
           },
           {
             "text": "post-message webhook"
@@ -3875,10 +4017,10 @@
             "text": "Almost Too Large Context"
           },
           {
-            "text": "ContextAlmostTooLarge"
+            "text": "Context Almost Too Large"
           },
           {
-            "text": "Context Almost Too Large"
+            "text": "ContextAlmostTooLarge"
           }
         ]
       },
@@ -3886,10 +4028,10 @@
         "intent": "action_34745_intent_10885",
         "examples": [
           {
-            "text": "Test Server-Sent Events (SSE)"
+            "text": "stream events"
           },
           {
-            "text": "stream events"
+            "text": "Test Server-Sent Events (SSE)"
           }
         ]
       },
@@ -3897,22 +4039,22 @@
         "intent": "action_34746_intent_20809",
         "examples": [
           {
-            "text": "GET IT"
-          },
-          {
             "text": "get operation"
-          },
-          {
-            "text": "GET"
           },
           {
             "text": "GO Get it"
           },
           {
-            "text": "he got it"
+            "text": "just get it"
           },
           {
-            "text": "just get it"
+            "text": "GET IT"
+          },
+          {
+            "text": "GET"
+          },
+          {
+            "text": "he got it"
           }
         ]
       },
@@ -3923,16 +4065,22 @@
             "text": "Response Too Large"
           },
           {
-            "text": "Large Response"
+            "text": "ResponsetTooLarge"
           },
           {
-            "text": "ResponsetTooLarge"
+            "text": "Large Response"
           }
         ]
       },
       {
         "intent": "action_45207_intent_43212",
         "examples": [
+          {
+            "text": "long time"
+          },
+          {
+            "text": "pls long request"
+          },
           {
             "text": "more more time"
           },
@@ -3944,12 +4092,6 @@
           },
           {
             "text": "delay the request for at least 30 seconds"
-          },
-          {
-            "text": "long time"
-          },
-          {
-            "text": "pls long request"
           }
         ]
       },
@@ -3957,19 +4099,19 @@
         "intent": "action_30035_intent_49329",
         "examples": [
           {
+            "text": "put is the name"
+          },
+          {
             "text": "PUT"
+          },
+          {
+            "text": "PUT IT"
           },
           {
             "text": "Just put it"
           },
           {
             "text": "put operation"
-          },
-          {
-            "text": "PUT IT"
-          },
-          {
-            "text": "put is the name"
           }
         ]
       },
@@ -3977,19 +4119,19 @@
         "intent": "action_20585_intent_24221",
         "examples": [
           {
-            "text": "just post it"
-          },
-          {
             "text": "I want to post"
-          },
-          {
-            "text": "POST"
           },
           {
             "text": "poster it"
           },
           {
+            "text": "POST"
+          },
+          {
             "text": "nail it"
+          },
+          {
+            "text": "just post it"
           }
         ]
       },
@@ -3998,12 +4140,6 @@
         "examples": [
           {
             "text": "Just show me how u handle error"
-          },
-          {
-            "text": "Exception"
-          },
-          {
-            "text": "handle error"
           },
           {
             "text": "integration sent back an error"
@@ -4016,6 +4152,12 @@
           },
           {
             "text": "Error"
+          },
+          {
+            "text": "Exception"
+          },
+          {
+            "text": "handle error"
           }
         ]
       },
@@ -4026,13 +4168,13 @@
             "text": "http patch"
           },
           {
-            "text": "patch it"
+            "text": "go patch it"
           },
           {
             "text": "PATCH"
           },
           {
-            "text": "go patch it"
+            "text": "patch it"
           }
         ]
       }
@@ -4113,8 +4255,8 @@
     "metadata": {
       "skill": {
         "counts": {
-          "actions": 23,
-          "intents": 21,
+          "actions": 24,
+          "intents": 22,
           "entities": 5,
           "data_types": 0,
           "collections": 4,
@@ -4234,6 +4376,9 @@
             "action": "action_12249"
           },
           {
+            "action": "action_5842"
+          },
+          {
             "action": "action_45207"
           },
           {
@@ -4338,6 +4483,9 @@
         },
         "max_tries": 3
       },
+      "generative_ai": {
+        "model_id": "ibm/granite-3-8b-instruct"
+      },
       "disambiguation": {
         "prompt": "Did you mean:",
         "enabled": true,
@@ -4360,9 +4508,9 @@
   "dialog_settings": {
     "source_assistant": "392d3cd7-1ee1-4e74-9bf4-37684f2b75e3"
   },
-  "created": "2024-12-24T23:26:31.297Z",
-  "updated": "2024-12-24T23:26:31.297Z",
-  "snapshot": "4",
+  "created": "2025-01-09T04:50:47.771Z",
+  "updated": "2025-01-09T04:50:47.771Z",
+  "snapshot": "5",
   "assistant_id": "35023fcf-24d1-4e9a-a0a2-52cb83c09cf9",
   "assistant_references": [
     {

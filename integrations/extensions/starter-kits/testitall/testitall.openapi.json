@@ -567,6 +567,60 @@
         }
       }
     },
+    "/test/stream/json": {
+      "post": {
+        "tags": [
+          "API"
+        ],
+        "summary": "Stream events using SSE with JSON response",
+        "description": "Test stream events using Server-Sent Events (SSE) with JSON response.",
+        "operationId": "testEventStream",
+        "responses": {
+          "200": {
+            "description": "Stream of events",
+            "content": {
+              "text/event-stream": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "results": {
+                      "type": "array",
+                      "description": "Array of streaming results.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "generated_text": {
+                            "type": "string",
+                            "description": "A chunk of the message being streamed."
+                          },
+                          "docs": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "description": "The full text of the document streamed."
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "data": {
+                    "results": [
+                      {
+                        "generated_text": "This is a test message.",
+                        "docs": []
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/test/stream/timeout": {
       "post": {
         "tags": [

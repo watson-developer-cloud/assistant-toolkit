@@ -74,6 +74,50 @@ export async function streamTest(req, res) {
   });
 }
 
+export function streamJsonTest(req, res) {
+  // Set the headers for the event stream
+  res.writeHead(200, {
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
+    'Content-Encoding' : 'none',
+    'X-Accel-Buffering' : 'no'
+  });
+  res.flushHeaders();
+
+  const messagePieces = LONG_MESSAGE.match(/.{1,20}/g); // Split the message into chunks of 20 characters
+
+  // send the message chunks with a delay of 100 milliseconds
+  let pieceIndex = 0;
+  const intervalId = setInterval(() => {
+    if (pieceIndex < messagePieces.length) {
+      let chunk = {
+        results: [{
+          generated_text: `${messagePieces[pieceIndex]}`
+        }]
+      }
+      res.write(`data: ${JSON.stringify(chunk)}\n\n`);
+      pieceIndex++;
+    } else {
+      clearInterval(intervalId);
+      // Send the last chunk with a long message
+      let chunk = {
+        results: [{
+          generated_text: "\n\n [End of stream]",
+          docs: [LONG_MESSAGE.repeat(1000)]
+        }]
+      }
+      res.write(`data: ${JSON.stringify(chunk)}\n\n`);
+      res.end();
+    }
+  }, 100);
+
+  // Handle client disconnect
+  req.on('close', () => {
+    res.end();
+  });
+}
+
 
 export function streamErrorTest(req, res) {
   return res.status(404).send({
