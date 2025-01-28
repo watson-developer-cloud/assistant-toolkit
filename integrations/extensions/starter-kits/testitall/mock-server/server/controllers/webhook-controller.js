@@ -33,26 +33,45 @@ export function preRun(req, res) {
 
 export function postRun(req, res) {
   let payload = req.body?.payload;
-  console.log('postRun', payload);
+  console.log('postRun:', JSON.stringify(payload));
   console.log('type ', typeof payload);
 
+  /** <streaming enabled> */
   if (payload?.data?.delta && typeof payload.data.delta === 'string') {
     console.log('delta ', payload.data.delta);
-    payload.data.delta += ' translated by post run webhook.\n';
+    payload.data.delta += ' translated by post_run webhook.\n';
     console.log('delta after ', payload.data.delta);
   }
 
-  const wxaOutput = payload?.message?.run?.result?.data?.message?.content ?? [];
-  console.log('wxaOutput', wxaOutput)
+  let wxaOutput = payload?.message?.run?.result?.data?.message?.content ?? [];
+  console.log('wxaOutput1', JSON.stringify(wxaOutput));
   if (wxaOutput.length > 0) {
     console.log('modifying wxa response');
     for (const item of wxaOutput) {
       if (item.text != null) {
-        item.text += ' translated by post run webhook.\n'; 
+        item.text += ' translated by post_run webhook.\n'; 
       }
     }
-    console.log('modified resp', wxaOutput)
+    console.log('modified resp', JSON.stringify(wxaOutput))
   }
+  /** <message created for final_event: true, stream_events: false> */
+  if (payload?.content && typeof payload.content === 'string') {
+    payload.content += ' translated by final event, stream_events:false post_run webhook';
+   }
+ 
+   wxaOutput = payload?.additional_properties?.wxa_message?.output?.generic ?? [];
+   console.log('wxaOutput2', JSON.stringify(wxaOutput));
+   if (wxaOutput.length > 0){
+     console.log('modifying a final event, stream_events:false wxa response');
+   
+   for (const item of wxaOutput) {
+     if ( item.text != null ) {
+       item.text += ' translated by final event, stream_events:false post_run webhook';
+     }
+   }
+ 
+   console.log('modified resp by final event, stream_events:false post_run webhook: ', JSON.stringify(wxaOutput));
+   }
 
   res.json({payload});
 }
