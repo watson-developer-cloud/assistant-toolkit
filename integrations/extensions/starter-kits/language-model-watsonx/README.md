@@ -19,7 +19,8 @@ The watsonx specification in the starter kit describes one endpoint and a few of
 ### Create an API key and a project ID
 
 1. Log in to [watsonx](https://dataplatform.cloud.ibm.com/wx/home?context=wx&apps=cos&nocache=true&onboarding=true&quick_start_target=watsonx) and [generate an API key](https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/ml-authentication.html?context=cpdaas). Save this API key somewhere safe and accessible. You need this API key to set up the watsonx custom extension later.
-1. To find your watsonx project id, go to [watsonx.ai](https://dataplatform.test.cloud.ibm.com/wx) and find Projects/<project-name> (this could be your `sandbox`, which is created for you by default). Click on the <project-name> link, then follow the Project's Manage tab (Project -> Manage -> General -> Details) to find the project id.
+1. To find your watsonx project id, go to [watsonx.ai](https://dataplatform.test.cloud.ibm.com/wx) and find Projects/<project-name> (this could be your `sandbox`, which is created for you by default). Click on the <project-name> link, then follow the Project's Manage tab (Project -> Manage -> General -> Details) to find the project id. 
+1. You may need to associate your  WML instance with your project (In your watsonx go to the project -> Manage tab -> Services & Integrations -> Associate service), without this you may get an error - "projectID is not associated with a WML instance"
 
 ### Create an assistant
 
@@ -44,6 +45,8 @@ Use this specification file to create and add the extension to your assistant.
 1.  After you build the watsonx extension, and it appears on your **Integrations** page, click **Add** to add it to your assistant. For general instructions on adding any custom extension, see [Adding an extension to your assistant](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-add-custom-extension).
 
 1.  In **Authentication**, choose **OAuth 2.0**. Select **Custom apikey** as the grant type in the next dropdown, and then copy and paste your [API key](#create-an-api-key-and-a-project-id) you saved earlier into the **Apikey** field.
+
+1. Change the default selected Client authentication dropdown to "send as body". PS Without this you will get an error in the extension call - Failed to authenticate the request due to no Bearer token in the request header
 
 1.  In **Servers**, choose the region from which you would like to access the watsonx.ai service. `us-south` is selected as the default region. 
 
