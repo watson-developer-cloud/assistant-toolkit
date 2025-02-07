@@ -1,0 +1,26 @@
+{
+  "name": "audio-webhook-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jfmartin@us.ibm.com",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "dotenv": "16.4.7",
+    "express": "4.21.2",
+    "jsonwebtoken": "9.0.2",
+    "multer": "1.4.5-lts.1",
+    "ts-node": "10.9.2"
+  },
+  "devDependencies": {
+    "@types/express": "5.0.0",
+    "@types/jsonwebtoken": "9.0.8",
+    "@types/multer": "1.4.12",
+    "@types/node": "22.10.1",
+    "typescript": "5.7.2"
+  }
+}
