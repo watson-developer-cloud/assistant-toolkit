@@ -11,353 +11,9 @@
   },
   "status": "Available",
   "language": "en",
-  "skill_id": "056f44b1-cc91-465c-918c-28236fb890a9",
+  "skill_id": "cb65dff5-2ab9-40d5-a447-b373d834ba99",
   "workspace": {
     "actions": [
-      {
-        "type": "standard",
-        "steps": [
-          {
-            "step": "step_588",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "I'm about to call an extension which will return a large context"
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "callout",
-              "callout": {
-                "path": "/test/context-too-large",
-                "type": "integration_interaction",
-                "method": "POST",
-                "internal": {
-                  "spec_hash_id": "2e57744b42aa5ecd38277941f4c7bc25fd09fbaa09b22326f0d68de222ced43d",
-                  "match_scenario": 12,
-                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
-                },
-                "result_variable": "step_588_result_1"
-              }
-            },
-            "variable": "step_588",
-            "next_step": "step_962"
-          },
-          {
-            "step": "step_962",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "The extension call fails because the extension responded with a result that larger than 100 KB.\n\nExtension call success: "
-                          },
-                          {
-                            "variable": "step_588_result_1",
-                            "variable_path": "success"
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "continue"
-            },
-            "variable": "step_962"
-          }
-        ],
-        "title": "Test handle a too large response",
-        "action": "action_11679",
-        "boosts": [],
-        "handlers": [],
-        "condition": {
-          "intent": "action_11679_intent_29725"
-        },
-        "variables": [
-          {
-            "title": "I'm about to call an extension which will return a large context",
-            "variable": "step_588",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_588_result_1",
-            "data_type": "any"
-          },
-          {
-            "title": "The extension call fails because the extension responded with a ",
-            "variable": "step_962",
-            "data_type": "any"
-          }
-        ],
-        "next_action": "action_38662",
-        "topic_switch": {
-          "allowed_from": true,
-          "allowed_into": true
-        },
-        "disambiguation_opt_out": false
-      },
-      {
-        "type": "standard",
-        "steps": [
-          {
-            "step": "step_526",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "I'm about to call an extension which will return context that is almost too large for WA session."
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "callout",
-              "callout": {
-                "path": "/test/context-almost-too-large",
-                "type": "integration_interaction",
-                "method": "POST",
-                "internal": {
-                  "spec_hash_id": "837b4f9e9cbcd25948117367cbee4ddcbf870a48496df7e15ad127852843499f",
-                  "match_scenario": 10,
-                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
-                },
-                "result_variable": "step_526_result_1"
-              }
-            },
-            "variable": "step_526",
-            "next_step": "step_371"
-          },
-          {
-            "step": "step_371",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "Extension call success.\n\n<br />\n\n\n\nTry store the returned data into context variable to make the context too large (>100 KB)."
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "context": {
-              "variables": [
-                {
-                  "value": {
-                    "variable": "step_526_result_1",
-                    "variable_path": "body.data"
-                  },
-                  "skill_variable": "content_value"
-                },
-                {
-                  "value": {
-                    "variable": "step_526_result_1",
-                    "variable_path": "body.data"
-                  },
-                  "skill_variable": "content_value_copy"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "continue"
-            },
-            "variable": "step_371",
-            "next_step": "step_949"
-          },
-          {
-            "step": "step_949",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "Please provide some response to trigger the 413 Payload Too Large error."
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential",
-                  "repeat_on_reprompt": false
-                },
-                {
-                  "options": [
-                    {
-                      "label": "Yes",
-                      "value": {
-                        "input": {
-                          "text": "Yes"
-                        }
-                      }
-                    }
-                  ],
-                  "response_type": "option",
-                  "repeat_on_reprompt": true
-                }
-              ]
-            },
-            "handlers": [
-              {
-                "type": "not_found",
-                "title": "validation_not_found_handler",
-                "output": {
-                  "generic": [
-                    {
-                      "values": [
-                        {
-                          "text_expression": {
-                            "concat": [
-                              {
-                                "scalar": "I didn't catch that. Select a valid option:"
-                              }
-                            ]
-                          }
-                        }
-                      ],
-                      "response_type": "text",
-                      "selection_policy": "incremental"
-                    }
-                  ]
-                },
-                "handler": "validation_not_found_handler",
-                "resolver": {
-                  "type": "prompt_again"
-                },
-                "next_handler": "validation_not_found_max_tries_handler"
-              },
-              {
-                "type": "not_found_max_tries",
-                "title": "validation_not_found_max_tries_handler",
-                "handler": "validation_not_found_max_tries_handler",
-                "resolver": {
-                  "type": "fallback"
-                }
-              }
-            ],
-            "question": {
-              "entity": "entity_48614",
-              "max_tries": 3
-            },
-            "resolver": {
-              "type": "continue"
-            },
-            "variable": "step_949",
-            "next_step": "step_105"
-          },
-          {
-            "step": "step_105",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text_expression": {
-                        "concat": [
-                          {
-                            "scalar": "You should not see this message. You should see a 413 error here instead."
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "continue"
-            },
-            "variable": "step_105"
-          }
-        ],
-        "title": "Test handle an almost too large response",
-        "action": "action_12249",
-        "boosts": [],
-        "handlers": [],
-        "condition": {
-          "intent": "action_12249_intent_48727"
-        },
-        "variables": [
-          {
-            "title": "You should not see this message. You should see a 413 error here",
-            "variable": "step_105",
-            "data_type": "any"
-          },
-          {
-            "title": "Extension call success. <br /> Try store the returned data into ",
-            "variable": "step_371",
-            "data_type": "any"
-          },
-          {
-            "title": "I'm about to call an extension which will return context that is",
-            "variable": "step_526",
-            "data_type": "any"
-          },
-          {
-            "variable": "step_526_result_1",
-            "data_type": "any"
-          },
-          {
-            "title": "Please provide some response to trigger the 413 Payload Too Larg",
-            "variable": "step_949",
-            "data_type": "any"
-          }
-        ],
-        "next_action": "action_11679",
-        "topic_switch": {
-          "allowed_from": true,
-          "allowed_into": true
-        },
-        "disambiguation_opt_out": false
-      },
       {
         "type": "standard",
         "steps": [
@@ -392,7 +48,7 @@
                 "internal": {
                   "spec_hash_id": "c9bd72e2862ec86e75a643ace7cbbc1d93302f7f164629ea7dc07a6288a0d2a7",
                   "match_scenario": 12,
-                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
+                  "catalog_item_id": "98fca447-d6fa-4c91-bf8f-6a7d58bed5fb"
                 },
                 "result_variable": "step_863_result_1"
               }
@@ -520,7 +176,7 @@
                 "internal": {
                   "spec_hash_id": "18bbb292a4302d016c054e0736b3ec12bcfdcab8ea91b134ad8a20ccb182b053",
                   "match_scenario": 12,
-                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
+                  "catalog_item_id": "98fca447-d6fa-4c91-bf8f-6a7d58bed5fb"
                 },
                 "result_variable": "step_863_result_1"
               }
@@ -657,7 +313,7 @@
                 "internal": {
                   "spec_hash_id": "248e8308de7b4f1a1d814f6be315ee5b74225b96958050f1279be129290dd5a8",
                   "match_scenario": 12,
-                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
+                  "catalog_item_id": "98fca447-d6fa-4c91-bf8f-6a7d58bed5fb"
                 },
                 "request_mapping": {
                   "body": [
@@ -1010,7 +666,7 @@
                 "internal": {
                   "spec_hash_id": "23f638583be5b3133e9e10d5b23849c84a02321b935dae33556e01c865dca465",
                   "match_scenario": 12,
-                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
+                  "catalog_item_id": "98fca447-d6fa-4c91-bf8f-6a7d58bed5fb"
                 },
                 "request_mapping": {
                   "body": [
@@ -1158,7 +814,7 @@
                 "internal": {
                   "spec_hash_id": "937ab64d4b8380bbef096d265f29d9632ee0a5ee8d30995198423fe7e77dc894",
                   "match_scenario": 12,
-                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
+                  "catalog_item_id": "98fca447-d6fa-4c91-bf8f-6a7d58bed5fb"
                 },
                 "result_variable": "step_331_result_1",
                 "stream_response_mapping": {
@@ -1278,7 +934,7 @@
                 "internal": {
                   "spec_hash_id": "4709b84bd687e9848832654c0fdb5a134ab7964c33934782c53a1fad0a348056",
                   "match_scenario": 12,
-                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
+                  "catalog_item_id": "98fca447-d6fa-4c91-bf8f-6a7d58bed5fb"
                 },
                 "request_mapping": {
                   "header": [
@@ -1408,7 +1064,7 @@
                 "internal": {
                   "spec_hash_id": "39f6ab0451de35c1810c345b125e5c25f105ec719b81fb95297832eca5191f46",
                   "match_scenario": 12,
-                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
+                  "catalog_item_id": "98fca447-d6fa-4c91-bf8f-6a7d58bed5fb"
                 },
                 "result_variable": "step_658_result_1"
               }
@@ -1521,7 +1177,7 @@
                 "internal": {
                   "spec_hash_id": "bbf2bdd46be4526fd226330a20f0e665e835d4c20e2a78f04173633c930da918",
                   "match_scenario": 12,
-                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
+                  "catalog_item_id": "98fca447-d6fa-4c91-bf8f-6a7d58bed5fb"
                 },
                 "request_mapping": {
                   "body": [
@@ -1659,7 +1315,7 @@
                 "internal": {
                   "spec_hash_id": "e7b0b26798ecd3ce7abd86d34f113e3a253d7b8afcda67c31cf56340c8541ed0",
                   "match_scenario": 12,
-                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
+                  "catalog_item_id": "98fca447-d6fa-4c91-bf8f-6a7d58bed5fb"
                 },
                 "result_variable": "step_367_result_1"
               }
@@ -1965,7 +1621,7 @@
                 "internal": {
                   "spec_hash_id": "9e9048ccb56c63c9fe291105e6c7596a8693979aee76979d7e567b5700ef9774",
                   "match_scenario": 12,
-                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
+                  "catalog_item_id": "98fca447-d6fa-4c91-bf8f-6a7d58bed5fb"
                 },
                 "result_variable": "step_617_result_1",
                 "stream_response_mapping": {
@@ -2053,7 +1709,7 @@
                 "internal": {
                   "spec_hash_id": "fd33f499ee9cb2c0ed79c1dce820f4f957bb51c765044420fa9b11bb16c80e83",
                   "match_scenario": 12,
-                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
+                  "catalog_item_id": "98fca447-d6fa-4c91-bf8f-6a7d58bed5fb"
                 },
                 "result_variable": "step_628_result_1"
               }
@@ -2223,7 +1879,7 @@
                 "internal": {
                   "spec_hash_id": "0f2b3166ab23a282ec4e6b080d140c65d8e38b6e3d69da9f07f9ec5055ff471f",
                   "match_scenario": 12,
-                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
+                  "catalog_item_id": "98fca447-d6fa-4c91-bf8f-6a7d58bed5fb"
                 },
                 "request_mapping": {
                   "path": [
@@ -2390,7 +2046,7 @@
                 "internal": {
                   "spec_hash_id": "fd33f499ee9cb2c0ed79c1dce820f4f957bb51c765044420fa9b11bb16c80e83",
                   "match_scenario": 12,
-                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
+                  "catalog_item_id": "98fca447-d6fa-4c91-bf8f-6a7d58bed5fb"
                 },
                 "result_variable": "step_646_result_1"
               }
@@ -2436,7 +2092,7 @@
                 "internal": {
                   "spec_hash_id": "fd33f499ee9cb2c0ed79c1dce820f4f957bb51c765044420fa9b11bb16c80e83",
                   "match_scenario": 12,
-                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
+                  "catalog_item_id": "98fca447-d6fa-4c91-bf8f-6a7d58bed5fb"
                 },
                 "result_variable": "step_507_result_1"
               }
@@ -2482,7 +2138,7 @@
                 "internal": {
                   "spec_hash_id": "c9bd72e2862ec86e75a643ace7cbbc1d93302f7f164629ea7dc07a6288a0d2a7",
                   "match_scenario": 12,
-                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
+                  "catalog_item_id": "98fca447-d6fa-4c91-bf8f-6a7d58bed5fb"
                 },
                 "result_variable": "step_154_result_1"
               }
@@ -2733,7 +2389,7 @@
                 "internal": {
                   "spec_hash_id": "a031f18fc11262a101c825f227f0f0edcc5efe2b326e2bd100d5886678fca6e3",
                   "match_scenario": 12,
-                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
+                  "catalog_item_id": "98fca447-d6fa-4c91-bf8f-6a7d58bed5fb"
                 },
                 "request_mapping": {
                   "body": [
@@ -2885,7 +2541,7 @@
                 "internal": {
                   "spec_hash_id": "659adeb54c70bb9a693215097aed4f7ab36178b7ad420b414a2e061468491d86",
                   "match_scenario": 12,
-                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
+                  "catalog_item_id": "98fca447-d6fa-4c91-bf8f-6a7d58bed5fb"
                 },
                 "result_variable": "step_947_result_1",
                 "stream_response_mapping": {
@@ -3242,47 +2898,6 @@
         "type": "standard",
         "steps": [
           {
-            "step": "step_001",
-            "output": {
-              "generic": [
-                {
-                  "values": [
-                    {
-                      "text": "Welcome, how can I assist you?"
-                    }
-                  ],
-                  "response_type": "text",
-                  "selection_policy": "sequential"
-                }
-              ]
-            },
-            "handlers": [],
-            "resolver": {
-              "type": "continue"
-            },
-            "variable": "step_001"
-          }
-        ],
-        "title": "Greet customer",
-        "action": "welcome",
-        "boosts": [],
-        "handlers": [],
-        "condition": {
-          "expression": "welcome"
-        },
-        "variables": [
-          {
-            "variable": "step_001",
-            "data_type": "any"
-          }
-        ],
-        "next_action": "action_5330",
-        "disambiguation_opt_out": true
-      },
-      {
-        "type": "standard",
-        "steps": [
-          {
             "step": "step_251",
             "output": {
               "generic": [
@@ -3442,8 +3057,8 @@
                 "method": "POST",
                 "internal": {
                   "spec_hash_id": "f43754755baa579ca59fb605a63096a7b752a3ad2b05d8138609c83e6aa0ebee",
-                  "match_scenario": 10,
-                  "catalog_item_id": "5cb2b3ee-4628-4bae-8211-45999a099572"
+                  "match_scenario": 12,
+                  "catalog_item_id": "98fca447-d6fa-4c91-bf8f-6a7d58bed5fb"
                 },
                 "request_mapping": {
                   "path": [
@@ -3630,56 +3245,464 @@
           "allowed_into": true
         },
         "disambiguation_opt_out": false
+      },
+      {
+        "type": "standard",
+        "steps": [
+          {
+            "step": "step_001",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text": "Welcome, how can I assist you?"
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_001"
+          }
+        ],
+        "title": "Greet customer",
+        "action": "welcome",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "expression": "welcome"
+        },
+        "variables": [
+          {
+            "variable": "step_001",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_5330",
+        "disambiguation_opt_out": true
+      },
+      {
+        "type": "standard",
+        "steps": [
+          {
+            "step": "step_588",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "I'm about to call an extension which will return a large response that exceeds the custom extension repsonse limit"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/test/response-too-large",
+                "type": "integration_interaction",
+                "method": "POST",
+                "internal": {
+                  "spec_hash_id": "96ce6dd90e55b70b75d4aa0f87ef7789ada12309b34b036fd5fac4df585862bd",
+                  "match_scenario": 10,
+                  "catalog_item_id": "98fca447-d6fa-4c91-bf8f-6a7d58bed5fb"
+                },
+                "result_variable": "step_588_result_1"
+              }
+            },
+            "variable": "step_588",
+            "next_step": "step_962"
+          },
+          {
+            "step": "step_962",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "The extension call fails because the extension responded with a result that larger than 100 KB.\n\nExtension call success: "
+                          },
+                          {
+                            "variable": "step_588_result_1",
+                            "variable_path": "success"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_962"
+          }
+        ],
+        "title": "Test handle a too large response from extension",
+        "action": "action_11679",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_11679_intent_29725"
+        },
+        "variables": [
+          {
+            "title": "I'm about to call an extension which will return a large respons",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_588",
+            "data_type": "any"
+          },
+          {
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_588_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "The extension call fails because the extension responded with a ",
+            "variable": "step_962",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_38662",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "type": "standard",
+        "steps": [
+          {
+            "step": "step_526",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "I'm about to call an extension which will return context that is almost too large for WA session."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/test/context-almost-too-large",
+                "type": "integration_interaction",
+                "method": "POST",
+                "internal": {
+                  "spec_hash_id": "2970100c50c1735d107fad0403ab72a0d8e92400591f2a34c587f28a40e1a0a4",
+                  "match_scenario": 10,
+                  "catalog_item_id": "98fca447-d6fa-4c91-bf8f-6a7d58bed5fb"
+                },
+                "result_variable": "step_526_result_1"
+              }
+            },
+            "variable": "step_526",
+            "next_step": "step_677"
+          },
+          {
+            "step": "step_677",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Extension call success: "
+                          },
+                          {
+                            "variable": "step_526_result_1",
+                            "variable_path": "success"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_677",
+            "next_step": "step_949"
+          },
+          {
+            "step": "step_949",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Please provide some response to trigger the 400 Session state exceeds the 130kb size limit error."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential",
+                  "repeat_on_reprompt": false
+                },
+                {
+                  "options": [
+                    {
+                      "label": "Yes",
+                      "value": {
+                        "input": {
+                          "text": "Yes"
+                        }
+                      }
+                    }
+                  ],
+                  "response_type": "option",
+                  "repeat_on_reprompt": true
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text_expression": {
+                            "concat": [
+                              {
+                                "scalar": "I didn't catch that. Select a valid option:"
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "response_type": "text",
+                      "selection_policy": "incremental"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "entity": "entity_48614",
+              "max_tries": 3
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_949",
+            "next_step": "step_371"
+          },
+          {
+            "step": "step_371",
+            "output": {
+              "generic": []
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "variable": "step_526_result_1",
+                    "variable_path": "body.data"
+                  },
+                  "skill_variable": "content_value"
+                },
+                {
+                  "value": {
+                    "variable": "step_526_result_1",
+                    "variable_path": "body.data"
+                  },
+                  "skill_variable": "content_value_copy"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_371",
+            "next_step": "step_105"
+          },
+          {
+            "step": "step_105",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "You should not see this message. You should see a 400 error here instead."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_105"
+          }
+        ],
+        "title": "Test handle an almost too large response for context storage",
+        "action": "action_12249",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_12249_intent_48727"
+        },
+        "variables": [
+          {
+            "title": "You should not see this message. You should see a 400 error here",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_105",
+            "data_type": "any"
+          },
+          {
+            "title": "",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_371",
+            "data_type": "any"
+          },
+          {
+            "title": "I'm about to call an extension which will return context that is",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_526",
+            "data_type": "any"
+          },
+          {
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_526_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "Extension call success: {variable}",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_677",
+            "data_type": "any"
+          },
+          {
+            "title": "Please provide some response to trigger the 400 Session state ex",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_949",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_11679",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
       }
     ],
     "intents": [
       {
-        "intent": "action_40637_intent_11889",
+        "intent": "action_30398_intent_13880",
         "examples": [
           {
-            "text": "Test pre-message webhook"
-          },
-          {
-            "text": "pre-message webhook"
-          },
-          {
-            "text": "pre-webhook"
-          },
-          {
-            "text": "pre-message"
+            "text": "test non json response"
           }
         ]
       },
       {
-        "intent": "action_11679_intent_29725",
+        "intent": "action_22557_intent_12065",
         "examples": [
           {
-            "text": "Large Context"
+            "text": "authorization context var"
           },
           {
-            "text": "ContextTooLarge"
+            "text": "authorization header"
           },
           {
-            "text": "Context Too Large"
-          }
-        ]
-      },
-      {
-        "intent": "action_34745_intent_10885",
-        "examples": [
-          {
-            "text": "stream events"
+            "text": "authorization context variable"
           },
           {
-            "text": "Test Server-Sent Events (SSE)"
-          }
-        ]
-      },
-      {
-        "intent": "action_5330_intent_20647",
-        "examples": [
+            "text": "auth header"
+          },
           {
-            "text": "Test handling an error response in Server-Sent Events (SSE)"
+            "text": "Test set auth header with context variable"
           }
         ]
       },
@@ -3687,79 +3710,22 @@
         "intent": "action_22832_intent_9949",
         "examples": [
           {
+            "text": "oauth"
+          },
+          {
             "text": "authentication"
           },
           {
             "text": "bearer auth"
           },
           {
-            "text": "oauth"
-          },
-          {
-            "text": "security"
+            "text": "basic auth"
           },
           {
             "text": "api key auth"
           },
           {
-            "text": "basic auth"
-          }
-        ]
-      },
-      {
-        "intent": "action_3462_intent_18095",
-        "examples": [
-          {
-            "text": "Test post-message webhook"
-          },
-          {
-            "text": "post-message"
-          },
-          {
-            "text": "post-message webhook"
-          },
-          {
-            "text": "post-webhook"
-          }
-        ]
-      },
-      {
-        "intent": "action_1543_intent_5385-2",
-        "examples": [
-          {
-            "text": "go patch it"
-          },
-          {
-            "text": "PATCH"
-          },
-          {
-            "text": "patch it"
-          },
-          {
-            "text": "http patch"
-          }
-        ]
-      },
-      {
-        "intent": "action_45207_intent_43212",
-        "examples": [
-          {
-            "text": "long time"
-          },
-          {
-            "text": "delay the request for at least 30 seconds"
-          },
-          {
-            "text": "delay request"
-          },
-          {
-            "text": "delay"
-          },
-          {
-            "text": "more more time"
-          },
-          {
-            "text": "pls long request"
+            "text": "security"
           }
         ]
       },
@@ -3772,39 +3738,19 @@
         ]
       },
       {
-        "intent": "action_21392_intent_30689",
+        "intent": "action_39186_intent_23416",
         "examples": [
           {
-            "text": "Array inside object"
+            "text": "consecutive"
           },
           {
-            "text": "Arrays Object"
+            "text": "multiple calls"
           },
           {
-            "text": "Test parse array inside object"
-          }
-        ]
-      },
-      {
-        "intent": "action_34746_intent_20809",
-        "examples": [
-          {
-            "text": "GET IT"
+            "text": "consecutive calls"
           },
           {
-            "text": "get operation"
-          },
-          {
-            "text": "just get it"
-          },
-          {
-            "text": "he got it"
-          },
-          {
-            "text": "GO Get it"
-          },
-          {
-            "text": "GET"
+            "text": "Test consecutive extension calls"
           }
         ]
       },
@@ -3812,19 +3758,19 @@
         "intent": "fallback_connect_to_agent",
         "examples": [
           {
-            "text": "Agent help"
-          },
-          {
-            "text": "Call agent"
+            "text": "I would like to speak to a human"
           },
           {
             "text": "I would like to speak to someone"
           },
           {
-            "text": "Can I connect to an agent?"
+            "text": "Call agent"
           },
           {
-            "text": "I would like to speak to a human"
+            "text": "Agent help"
+          },
+          {
+            "text": "Can I connect to an agent?"
           }
         ],
         "description": "Please transfer me to an agent"
@@ -3847,10 +3793,16 @@
         ]
       },
       {
-        "intent": "action_30398_intent_13880",
+        "intent": "action_21392_intent_30689",
         "examples": [
           {
-            "text": "test non json response"
+            "text": "Test parse array inside object"
+          },
+          {
+            "text": "Array inside object"
+          },
+          {
+            "text": "Arrays Object"
           }
         ]
       },
@@ -3858,39 +3810,146 @@
         "intent": "action_1543_intent_5385",
         "examples": [
           {
-            "text": "can u delete"
-          },
-          {
-            "text": "pld delete"
-          },
-          {
             "text": "just delete it"
+          },
+          {
+            "text": "can u delete"
           },
           {
             "text": "how about deleting it"
           },
           {
             "text": "DELETE"
+          },
+          {
+            "text": "pld delete"
           }
         ]
       },
       {
-        "intent": "action_20585_intent_24221",
+        "intent": "action_40637_intent_11889",
         "examples": [
           {
-            "text": "POST"
+            "text": "Test pre-message webhook"
           },
           {
-            "text": "poster it"
+            "text": "pre-message webhook"
           },
           {
-            "text": "nail it"
+            "text": "pre-webhook"
           },
           {
-            "text": "just post it"
+            "text": "pre-message"
+          }
+        ]
+      },
+      {
+        "intent": "action_5330_intent_20647",
+        "examples": [
+          {
+            "text": "Test handling an error response in Server-Sent Events (SSE)"
+          }
+        ]
+      },
+      {
+        "intent": "action_3462_intent_18095",
+        "examples": [
+          {
+            "text": "post-webhook"
           },
           {
-            "text": "I want to post"
+            "text": "Test post-message webhook"
+          },
+          {
+            "text": "post-message"
+          },
+          {
+            "text": "post-message webhook"
+          }
+        ]
+      },
+      {
+        "intent": "action_12249_intent_48727",
+        "examples": [
+          {
+            "text": "Almost Too Large Context"
+          },
+          {
+            "text": "ContextAlmostTooLarge"
+          },
+          {
+            "text": "Context Almost Too Large"
+          }
+        ]
+      },
+      {
+        "intent": "action_34745_intent_10885",
+        "examples": [
+          {
+            "text": "Test Server-Sent Events (SSE)"
+          },
+          {
+            "text": "stream events"
+          }
+        ]
+      },
+      {
+        "intent": "action_34746_intent_20809",
+        "examples": [
+          {
+            "text": "GET IT"
+          },
+          {
+            "text": "get operation"
+          },
+          {
+            "text": "GET"
+          },
+          {
+            "text": "GO Get it"
+          },
+          {
+            "text": "he got it"
+          },
+          {
+            "text": "just get it"
+          }
+        ]
+      },
+      {
+        "intent": "action_11679_intent_29725",
+        "examples": [
+          {
+            "text": "Response Too Large"
+          },
+          {
+            "text": "Large Response"
+          },
+          {
+            "text": "ResponsetTooLarge"
+          }
+        ]
+      },
+      {
+        "intent": "action_45207_intent_43212",
+        "examples": [
+          {
+            "text": "more more time"
+          },
+          {
+            "text": "delay"
+          },
+          {
+            "text": "delay request"
+          },
+          {
+            "text": "delay the request for at least 30 seconds"
+          },
+          {
+            "text": "long time"
+          },
+          {
+            "text": "pls long request"
           }
         ]
       },
@@ -3915,53 +3974,22 @@
         ]
       },
       {
-        "intent": "action_39186_intent_23416",
+        "intent": "action_20585_intent_24221",
         "examples": [
           {
-            "text": "multiple calls"
+            "text": "just post it"
           },
           {
-            "text": "Test consecutive extension calls"
+            "text": "I want to post"
           },
           {
-            "text": "consecutive"
+            "text": "POST"
           },
           {
-            "text": "consecutive calls"
-          }
-        ]
-      },
-      {
-        "intent": "action_12249_intent_48727",
-        "examples": [
-          {
-            "text": "Almost Too Large Context"
+            "text": "poster it"
           },
           {
-            "text": "Context Almost Too Large"
-          },
-          {
-            "text": "ContextAlmostTooLarge"
-          }
-        ]
-      },
-      {
-        "intent": "action_22557_intent_12065",
-        "examples": [
-          {
-            "text": "authorization context var"
-          },
-          {
-            "text": "authorization header"
-          },
-          {
-            "text": "Test set auth header with context variable"
-          },
-          {
-            "text": "auth header"
-          },
-          {
-            "text": "authorization context variable"
+            "text": "nail it"
           }
         ]
       },
@@ -3969,13 +3997,13 @@
         "intent": "action_26118_intent_41514",
         "examples": [
           {
+            "text": "Just show me how u handle error"
+          },
+          {
             "text": "Exception"
           },
           {
             "text": "handle error"
-          },
-          {
-            "text": "Just show me how u handle error"
           },
           {
             "text": "integration sent back an error"
@@ -3990,12 +4018,36 @@
             "text": "Error"
           }
         ]
+      },
+      {
+        "intent": "action_1543_intent_5385-2",
+        "examples": [
+          {
+            "text": "http patch"
+          },
+          {
+            "text": "patch it"
+          },
+          {
+            "text": "PATCH"
+          },
+          {
+            "text": "go patch it"
+          }
+        ]
       }
     ],
     "entities": [
       {
-        "entity": "sys-yes-no",
-        "values": []
+        "entity": "entity_48614",
+        "values": [
+          {
+            "type": "synonyms",
+            "value": "Yes",
+            "synonyms": []
+          }
+        ],
+        "fuzzy_match": true
       },
       {
         "entity": "entity_6835",
@@ -4039,21 +4091,6 @@
         "fuzzy_match": true
       },
       {
-        "entity": "sys-number",
-        "values": []
-      },
-      {
-        "entity": "entity_48614",
-        "values": [
-          {
-            "type": "synonyms",
-            "value": "Yes",
-            "synonyms": []
-          }
-        ],
-        "fuzzy_match": true
-      },
-      {
         "entity": "entity_48298",
         "values": [
           {
@@ -4063,6 +4100,14 @@
           }
         ],
         "fuzzy_match": true
+      },
+      {
+        "entity": "sys-number",
+        "values": []
+      },
+      {
+        "entity": "sys-yes-no",
+        "values": []
       }
     ],
     "metadata": {
@@ -4141,10 +4186,10 @@
         "collection": "collection_45987",
         "action_references": [
           {
-            "action": "action_40637"
+            "action": "action_3462"
           },
           {
-            "action": "action_3462"
+            "action": "action_40637"
           }
         ]
       },
@@ -4152,6 +4197,9 @@
         "title": "HTTP Methods",
         "collection": "collection_48238",
         "action_references": [
+          {
+            "action": "action_30035"
+          },
           {
             "action": "action_1543-2"
           },
@@ -4163,9 +4211,6 @@
           },
           {
             "action": "action_34746"
-          },
-          {
-            "action": "action_30035"
           }
         ]
       },
@@ -4174,40 +4219,40 @@
         "collection": "collection_41346",
         "action_references": [
           {
-            "action": "action_22557"
-          },
-          {
-            "action": "action_11679"
-          },
-          {
             "action": "action_5330"
-          },
-          {
-            "action": "action_21392"
-          },
-          {
-            "action": "action_45207"
           },
           {
             "action": "action_39186"
           },
           {
-            "action": "action_34745"
-          },
-          {
             "action": "action_22451"
-          },
-          {
-            "action": "action_12249"
-          },
-          {
-            "action": "action_26118"
           },
           {
             "action": "action_30398"
           },
           {
+            "action": "action_12249"
+          },
+          {
+            "action": "action_45207"
+          },
+          {
+            "action": "action_11679"
+          },
+          {
+            "action": "action_34745"
+          },
+          {
+            "action": "action_26118"
+          },
+          {
+            "action": "action_22557"
+          },
+          {
             "action": "action_38662"
+          },
+          {
+            "action": "action_21392"
           }
         ]
       }
@@ -4313,16 +4358,16 @@
   },
   "description": "created for assistant 4d72bd70-1094-4cf5-87a6-0f429367d834",
   "dialog_settings": {
-    "source_assistant": "ae3731b5-5391-4f72-ab41-9cb9a7fe21fa"
+    "source_assistant": "392d3cd7-1ee1-4e74-9bf4-37684f2b75e3"
   },
-  "created": "2024-11-05T02:11:47.237Z",
-  "updated": "2024-11-05T02:11:47.237Z",
-  "snapshot": "2",
-  "assistant_id": "276e25eb-a952-4095-b742-061c0c769b45",
+  "created": "2024-12-24T23:26:31.297Z",
+  "updated": "2024-12-24T23:26:31.297Z",
+  "snapshot": "4",
+  "assistant_id": "35023fcf-24d1-4e9a-a0a2-52cb83c09cf9",
   "assistant_references": [
     {
-      "name": "Testitall",
-      "assistant_id": "ae3731b5-5391-4f72-ab41-9cb9a7fe21fa",
+      "name": "Testitall 014",
+      "assistant_id": "392d3cd7-1ee1-4e74-9bf4-37684f2b75e3",
       "skill_reference": "actions skill"
     }
   ]

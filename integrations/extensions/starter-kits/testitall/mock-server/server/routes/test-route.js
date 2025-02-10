@@ -10,13 +10,19 @@ router.get('', testController.getTest);
 router.put('', testController.putTest);
 router.post('', testController.postTest);
 router.patch('', testController.patchTest);
+
 router.post('/error', testController.errorTest);
 router.post('/params/:path_param', testController.postTest);
 router.post('/auth_header', testController.authHeaderTest);
+
 router.post('/arrays-root', testController.arraysRootTest);
 router.post('/arrays-object', testController.arraysInObjectTest);
-router.post('/context-too-large', testController.contextTooLargeTest);
+
+router.post('/response-too-large', testController.responseTooLargeTest);
+router.post('/context-too-large', testController.responseTooLargeTest); // for backwards compatibility
+
 router.post('/context-almost-too-large', testController.contextAlmostTooLargeTest);
+
 router.post('/non-json-response', testController.successfulPostWithNonJSONResponse);
 
 router.post('/advanced/properties-counter', testController.propertiesByCounterTest);
