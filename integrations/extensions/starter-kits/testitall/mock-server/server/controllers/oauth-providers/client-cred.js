@@ -1,11 +1,12 @@
 // Authorization codes storage (code -> expireTime)
-const authCodes = new Map();
+import crypto from "node:crypto";
+
 export const accessTokensClientCred = new Map();
 const refreshToken = 'client-cred-refresh-token';
 
 function issueAccessToken() {
   // Issue a new access_token
-  const accessToken = Math.random().toString(36).slice(-8)
+  const accessToken = crypto.randomUUID().toString();
   const accessExpireTime = Date.now() + 1000 * parseInt(process.env.OAUTH_ACCESS_TOKEN_EXPIRES, 10)
   accessTokensClientCred.set(accessToken, accessExpireTime)
   console.log(`[client cred] Issuing token: ${accessToken}, expires: ${new Date(accessExpireTime)}`)
