@@ -170,18 +170,43 @@ steps below:
 5. Enter the URL of the webhook.
     - Pre-message webhook: `https://myserver.com:4000/webhook/prewebhook`.
     - Post-message webhook: `https://myserver.com:4000/webhook/postwebhook`.
-6. Enter the secret value in the `Secret` field.
-    - Pre-message webhook: `"WA_PRE_MESSAGE_SECRET"`.
-    - Post-message webhook: `"WA_POST_MESSAGE_SECRET"`.
+6. Enter any value in the `Secret` field.
    ![Webhook Configuration](./assets/webhook_env_config_2.png)
+   - for testing JWT token authentication, see the [JWT Token Authentication](#jwt-token-authentication) section below.
+
+### Additional Webhook Endpoints
 
 Here are the list of the endpoints for the pre/post message webhook. Beside the normal pre/post message webhook, there's some additional webhook endpoints provided for testing the error handling of the webhook.
 Replace the pre/post webhook URL in steps 5 with the following URLs to test different behaviors:
 | Endpoint | Description |
 |----------|-------------|
-| `webhook/prewebhook` | The server will modify the session variable `pre_webhook_message` while receiving the pre-message webhook call. When entering "skip" for message input, the webhook will include the `X-Watson-Assistant-Webhook-Return` header in its response, tells WA to skip the message processing and return whatever the webhooks returns. In this case, it will return message "Response skipped by webhook" |
-| `webhook/postwebhook` | The server will modify the session variable `post_webhook_message` while receiving the post-message webhook call |
+| `/webhook/prewebhook` | The server will modify the session variable `pre_webhook_message` while receiving the pre-message webhook call. When entering "skip" for message input, the webhook will include the `X-Watson-Assistant-Webhook-Return` header in its response, tells WA to skip the message processing and return whatever the webhooks returns. In this case, it will return message "Response skipped by webhook" |
+| `/webhook/postwebhook` | The server will modify the session variable `post_webhook_message` while receiving the post-message webhook call |
 | `/webhook/error/non-json` | The server will return a non-JSON response instead of WA conversation context |
 | `/webhook/error/timeout` | The server will not respond to the webhooks request |
 | `/webhook/error/code` | The server will respond with code 500 |
 | `/webhook/error/code/{http_code}` | The server will respond with the provided HTTP status code |
+
+### Test Authentication with Webhook Endpoints
+
+By default, the webhook endpoints above are not protected by any authentication. If you would like to test the webhook with authentication, you can add the according prefix to the webhook URL. For example, to test the pre-message webhook with basic authentication, you can use the URL `https://myserver.com:4000/webhook/basic/prewebhook`. The credentials accepted are the same as the extension authentication configuration described above.
+
+The supported authentication prefixes are:
+- `/webhook/basic/*`: Basic authentication
+- `/webhook/bearer/*`: Bearer token authentication
+- `/webhook/apikey/*`: API key authentication
+- `/webhook/oauth2-authCode/*`: OAuth2 authorization code authentication
+- `/webhook/oauth2-clientCred/*`: OAuth2 client credentials authentication
+- `/webhook/oauth2-password/*`: OAuth2 password authentication
+- `/webhook/oauth2-customApikey/*`: OAuth2 custom API key authentication
+
+#### JWT Token Authentication
+
+The server also supports JWT token authentication for webhooks. To test this feature, configure the webhook to use endpoint `/webhook/prewebhook` or `/webhook/postwebhook` (without any authentication prefix), and enter the following JWT token in the `Secret` field:
+
+- Pre-message webhook: `"WA_PRE_MESSAGE_SECRET"`.
+- Post-message webhook: `"WA_POST_MESSAGE_SECRET"`.
+
+Please note if you are hosting your own API server, you may change the JWT token by editing the `.env` file.
+
+![Webhook Configuration](./assets/webhook_env_config_3.png)
