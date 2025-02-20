@@ -1,9 +1,11 @@
+import crypto from "node:crypto";
+
 export const accessTokensPassword = new Map();
 const refreshToken = 'password-refresh-token';
 
 function issueAccessToken() {
   // Issue a new access_token
-  const accessToken = Math.random().toString(36).slice(-8)
+  const accessToken = crypto.randomUUID().toString();
   const accessExpireTime = Date.now() + 1000 * parseInt(process.env.OAUTH_ACCESS_TOKEN_EXPIRES, 10)
   accessTokensPassword.set(accessToken, accessExpireTime)
   console.log(`[password] Issuing token: ${accessToken}, expires: ${new Date(accessExpireTime)}`)

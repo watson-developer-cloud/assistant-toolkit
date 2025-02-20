@@ -1,3 +1,6 @@
+import * as crypto from "node:crypto";
+
+
 // Authorization codes storage (code -> expireTime)
 const authCodes = new Map();
 export const accessTokensAuthCode = new Map();
@@ -5,7 +8,7 @@ const refreshToken = 'auth-code-refresh-token';
 
 function issueAccessToken() {
   // Issue a new access_token
-  const accessToken = Math.random().toString(36).slice(-8)
+  const accessToken = crypto.randomUUID().toString();
   const accessExpireTime = Date.now() + 1000 * parseInt(process.env.OAUTH_ACCESS_TOKEN_EXPIRES, 10)
   accessTokensAuthCode.set(accessToken, accessExpireTime)
   console.log(`[auth code] Issuing token: ${accessToken}, expires: ${new Date(accessExpireTime)}`)
@@ -30,27 +33,53 @@ export function oauth2ProviderAuthCodeAuthorize(req, res, next) {
   }
 
   // Issue a new authCode
-  const authCode = Math.random().toString(36).slice(-6)
+  const authCode = crypto.randomUUID().toString();
   const expireTime = Date.now() + 1000 * 60 * 10 // 10 minutes
   authCodes.set(authCode, expireTime)
   console.log('[auth code] one-time auth code issued:', authCode)
 
-  // Generate the redirect_uri
-  const redirectUrl = req.query.redirect_uri + '?code=' + authCode + '&state=' + encodeURIComponent(req.query.state);
+  const authCodeExpiryTimeSeconds = (new Date((new Date(expireTime)) - Date.now())).getTime() / 1000;
 
-  // Generate a page for user to grant access
-  res.send(`
-        <html>
-            <head>
-                <title>Mock OAuth2 Resource Owner</title>
-            </head>
-            <body>
-                <h1>Mock OAuth2 Resource Owner</h1>
-                <p><h3>Watson Assistant is requesting to access your data on this mock server.</h3></p>
-                <button onclick="window.location.href='${redirectUrl}'"><h3>Grant Access</h3></button>
-            </body>
-        </html>
-    `)
+  // Generate the redirect_uri
+  const grantAccessUrl = req.query.redirect_uri + '?code=' + authCode + '&state=' + encodeURIComponent(req.query.state);
+
+  if (req.query.response_format === 'json') {
+    let parsedState;
+    try {
+      parsedState = JSON.parse(req.query.state);
+
+    } catch (ex) {
+      return res.status(400).send('Could not parse state');
+
+    }
+
+    return res.status(200).send({
+      code : authCode,
+      code_expiry_timestamp : expireTime,
+      code_expiry_iso_timestamp : (new Date(expireTime)).toISOString(),
+      code_expiry_time_seconds : authCodeExpiryTimeSeconds,
+      redirect_url : req.query.redirect_uri,
+      state : parsedState,
+      grant_access_url : grantAccessUrl
+    });
+
+  } else {
+    // Generate a page for user to grant access
+    res.send(`
+          <html>
+              <head>
+                  <title>Mock OAuth2 Resource Owner</title>
+              </head>
+              <body>
+                  <h1>Mock OAuth2 Resource Owner</h1>
+                  <p><h3>Watson Assistant is requesting to access your data on this mock server.</h3></p>
+                  <button onclick="window.location.href='${grantAccessUrl}'"><h3>Grant Access</h3></button>
+              </body>
+          </html>
+      `);
+
+  }
+
 }
 
 export function oauth2ProviderAuthCodeToken(req, res, next) {
@@ -74,8 +103,8 @@ export function oauth2ProviderAuthCodeToken(req, res, next) {
     const refreshToken = issueRefreshToken()
 
     // Delete the auth_code
-    authCodes.delete(req.body.code)
-    console.log('[auth code] one-time auth code used:', req.body.code)
+    authCodes.delete(req.body.code);
+    console.log('[auth code] one-time auth code used:', req.body.code);
 
     // Return the access_token and refresh_token
     return res.status(200).send({
