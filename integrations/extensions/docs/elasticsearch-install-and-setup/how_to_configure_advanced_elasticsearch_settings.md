@@ -176,7 +176,7 @@ This filter object will filter the search results using the following conditions
 Learn more about Elasticsearch filters from the [Elasticsearch boolean query documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-bool-query.html)
 
 ## How to configure the query body
-By default, keyword search is used for your Search integration, but you can configure the query body in the `Advanced Elasticsearch settings` to enable advanced search such as semantic search with ELSER, KNN dense vector search, and using a nested query to search nested documents, and hybrid search. Here are some query body examples:
+By default, keyword search is used for your Search integration, but you can configure the query body in the `Advanced Elasticsearch settings` to enable advanced search such as semantic search with ELSER, KNN dense vector search, and using a nested query to search nested documents, hybrid search, and search with a semantic text field. Here are some query body examples:
 
 ### Semantic search with ELSER
 ```json
@@ -342,3 +342,27 @@ Notes:
 * `$FILTER` is the variable for accessing the custom filters configured either in the `Advanced Elasticsearch settings` or when calling the search in an action step. It makes sure that the custom filters will be used in the query body.
 * `rank.rrf` is the Reciprocal rank fusion (rrf) method to combine the search results from keyword search and dense vector search.
 * `"_source": {"excludes": ["text_embedding.predicted_value"]}` is to exclude the unnecessary dense vector field in the search results.
+
+### Using a nested query to search with a semantic text field
+```json
+{
+  "query": {
+    "nested": {
+      "path": "semtext.inference.chunks",
+      "query": {
+        "sparse_vector": {
+          "field": "semtext.inference.chunks.embeddings",
+          "inference_id": ".elser_model_2_linux-x86_64",
+          "query": "$QUERY"
+        }
+      },
+      "inner_hits": {"_source": {"excludes": ["semtext.inference.chunks.embeddings"]}}
+    }
+  },
+  "_source": false
+}
+```
+Notes:
+* `semtext` is the name of the semantic field. You may need to update it if your semantic field has a different name.
+* `semtext.inference.chunks` refers to the field that stores the chunked texts.
+* `semtext.inference.chunks.embeddings` refers to the field that stores the ELSER tokens for the inner documents. You may need to update it if you use a different nested field in your index.
