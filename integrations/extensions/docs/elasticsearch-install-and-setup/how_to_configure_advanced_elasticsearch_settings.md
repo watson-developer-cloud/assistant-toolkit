@@ -17,6 +17,7 @@ This guide shows how to configure the advanced Elasticsearch settings in watsonx
   * [KNN dense vector search](#knn-dense-vector-search)
   * [Using a nested query to search over nested documents with ELSER](#using-a-nested-query-to-search-over-nested-documents-with-elser)
   * [Hybrid search with combined keyword search and dense vector search](#hybrid-search-with-combined-keyword-search-and-dense-vector-search)
+  * [Search on semantic text field](#using-a-nested-query-to-search-on-a-semantic-text-field)
 
 ## How to configure the custom filters
 There are two ways to configure the custom filters: 
@@ -344,6 +345,7 @@ Notes:
 * `"_source": {"excludes": ["text_embedding.predicted_value"]}` is to exclude the unnecessary dense vector field in the search results.
 
 ### Using a nested query to search on a semantic text field
+To make semantic text field work properly with the Elasticsearch integration on watsonx Assistant/Orchestrate, a nested query like below is needed:
 ```json
 {
   "query": {
