@@ -177,7 +177,14 @@ This filter object will filter the search results using the following conditions
 Learn more about Elasticsearch filters from the [Elasticsearch boolean query documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-bool-query.html)
 
 ## How to configure the query body
-By default, keyword search is used for your Search integration, but you can configure the query body in the `Advanced Elasticsearch settings` to enable advanced search such as semantic search with ELSER, KNN dense vector search, and using a nested query to search nested documents, hybrid search, and search on a semantic text field. Here are some query body examples:
+By default, keyword search is used for your Search integration, but you can configure the query body in the `Advanced Elasticsearch settings` to enable more advanced search techniques such as:
+* semantic search with ELSER
+* KNN dense vector search
+* using a nested query to search nested documents
+* hybrid search
+* search on a semantic text field
+
+Here are some examples:
 
 ### Semantic search with ELSER
 ```json
