@@ -17,6 +17,7 @@ This guide shows how to configure the advanced Elasticsearch settings in watsonx
   * [KNN dense vector search](#knn-dense-vector-search)
   * [Using a nested query to search over nested documents with ELSER](#using-a-nested-query-to-search-over-nested-documents-with-elser)
   * [Hybrid search with combined keyword search and dense vector search](#hybrid-search-with-combined-keyword-search-and-dense-vector-search)
+  * [Search on semantic text field](#using-a-nested-query-to-search-on-a-semantic-text-field)
 
 ## How to configure the custom filters
 There are two ways to configure the custom filters: 
@@ -176,7 +177,14 @@ This filter object will filter the search results using the following conditions
 Learn more about Elasticsearch filters from the [Elasticsearch boolean query documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-bool-query.html)
 
 ## How to configure the query body
-By default, keyword search is used for your Search integration, but you can configure the query body in the `Advanced Elasticsearch settings` to enable advanced search such as semantic search with ELSER, KNN dense vector search, and using a nested query to search nested documents, and hybrid search. Here are some query body examples:
+By default, keyword search is used for your Search integration, but you can configure the query body in the `Advanced Elasticsearch settings` to enable more advanced search techniques such as:
+* semantic search with ELSER
+* KNN dense vector search
+* using a nested query to search nested documents
+* hybrid search
+* search on a semantic text field
+
+Here are some examples:
 
 ### Semantic search with ELSER
 ```json
@@ -342,3 +350,29 @@ Notes:
 * `$FILTER` is the variable for accessing the custom filters configured either in the `Advanced Elasticsearch settings` or when calling the search in an action step. It makes sure that the custom filters will be used in the query body.
 * `rank.rrf` is the Reciprocal rank fusion (rrf) method to combine the search results from keyword search and dense vector search.
 * `"_source": {"excludes": ["text_embedding.predicted_value"]}` is to exclude the unnecessary dense vector field in the search results.
+
+### Using a nested query to search on a semantic text field
+To make semantic text field work properly with the Elasticsearch integration on watsonx Assistant/Orchestrate, a nested query like below is needed:
+```json
+{
+  "query": {
+    "nested": {
+      "path": "semtext.inference.chunks",
+      "query": {
+        "sparse_vector": {
+          "field": "semtext.inference.chunks.embeddings",
+          "inference_id": ".elser_model_2_linux-x86_64",
+          "query": "$QUERY"
+        }
+      },
+      "inner_hits": {"_source": {"excludes": ["semtext.inference.chunks.embeddings"]}}
+    }
+  },
+  "_source": false
+}
+```
+Notes:
+* `semtext` is the name of the semantic field. You may need to update it if your semantic field has a different name. See [Elasticsearch semantic-text](https://www.elastic.co/guide/en/elasticsearch/reference/current/semantic-text.html) for more details.
+* `semtext.inference.chunks` refers to the field that stores the chunked texts and embeddings.
+* `sparse_vector` specifies the type of the query, in this case, a sparse_vector query. It is a similar but newer type of query compared to the `text_expansion` query.
+* `semtext.inference.chunks.embeddings` refers to the field that stores the embeddings for the chunked texts.
