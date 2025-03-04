@@ -365,7 +365,7 @@ To make semantic text field work properly with the Elasticsearch integration on 
 }
 ```
 Notes:
-* `semtext` is the name of the semantic field. You may need to update it if your semantic field has a different name.
+* `semtext` is the name of the semantic field. You may need to update it if your semantic field has a different name. See [Elasticsearch semantic-text](https://www.elastic.co/guide/en/elasticsearch/reference/current/semantic-text.html) for more details.
 * `semtext.inference.chunks` refers to the field that stores the chunked texts and embeddings.
 * `sparse_vector` specifies the type of the query, in this case, a sparse_vector query. It is a similar but newer type of query compared to the `text_expansion` query.
 * `semtext.inference.chunks.embeddings` refers to the field that stores the embeddings for the chunked texts.
