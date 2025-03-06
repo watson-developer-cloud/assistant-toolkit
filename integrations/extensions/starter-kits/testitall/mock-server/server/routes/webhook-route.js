@@ -11,6 +11,7 @@ router.post('/error/non-json', webhookController.webhookErrorResponseNonJSON);
 router.post('/error/timeout', webhookController.webhookErrorTimeout);
 router.post('/error/code', webhookController.webhookErrorCode);
 router.post('/error/code/:http_code', webhookController.webhookErrorCode);
+router.post('/error/large', webhookController.webhookLargeResponse);
 router.post('/logs', webhookController.createLog);
 router.get('/logs', webhookController.getLogs);
 

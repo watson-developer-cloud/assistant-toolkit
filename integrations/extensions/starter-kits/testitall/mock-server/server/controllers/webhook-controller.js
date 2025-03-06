@@ -190,3 +190,29 @@ export function webhookErrorCode(req, res) {
   return res.status(code).json({ error: 'Server Error', code });
 }
 
+export function webhookLargeResponse(req, res) {
+  const payload = req.body.payload;
+
+  let size = 1024000 * 3.9; // 3.9MB
+  try {
+    const user_size = Math.min(Math.max(parseInt(req.query.size, 10), 1), 1024000 * 10); // 1Byte to 10MB
+  } catch (e) {
+    // do nothing
+    console.log(e);
+  }
+
+  const fakeData = 'x'.repeat(size);
+  // Set the session variable
+  if (!payload.context.skills) {
+    payload.context.skills = {};
+  }
+  if (!payload.context.skills['actions skill']) {
+    payload.context.skills['actions skill'] = {};
+  }
+  if (!payload.context.skills['actions skill'].skill_variables) {
+    payload.context.skills['actions skill'].skill_variables = {};
+  }
+  payload.context.skills['actions skill'].skill_variables.pre_webhook_message = fakeData;
+
+  return res.json(req.body);
+}
