@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import { generateHighEntropyString } from '../utils.js';
 
 const logs= [];
 const MAX_LOGS = 20;
@@ -196,18 +197,10 @@ export function webhookErrorCode(req, res) {
   return res.status(code).json({ error: 'Server Error', code });
 }
 
-export function webhookLargeResponse(req, res) {
+export function webhookAlmostTooLargeResponse(req, res) {
   const payload = req.body.payload;
 
-  let size = 1024000 * 3.9; // 3.9MB
-  try {
-    const user_size = Math.min(Math.max(parseInt(req.query.size, 10), 1), 1024000 * 10); // 1Byte to 10MB
-  } catch (e) {
-    // do nothing
-    console.log(e);
-  }
-
-  const fakeData = 'x'.repeat(size);
+  const data = generateHighEntropyString(parseInt(process.env.WEBHOOK_RESPONSE_SIZE_LIMIT, 10) - 100000); // Default: 4MB - 100KB = 3.9MB
   // Set the session variable
   if (!payload.context.skills) {
     payload.context.skills = {};
@@ -218,7 +211,26 @@ export function webhookLargeResponse(req, res) {
   if (!payload.context.skills['actions skill'].skill_variables) {
     payload.context.skills['actions skill'].skill_variables = {};
   }
-  payload.context.skills['actions skill'].skill_variables.pre_webhook_message = fakeData;
+  payload.context.skills['actions skill'].skill_variables.pre_webhook_message = data;
+
+  return res.json(req.body);
+}
+
+export function webhookTooLargeResponse(req, res) {
+  const payload = req.body.payload;
+
+  const data = generateHighEntropyString(parseInt(process.env.WEBHOOK_RESPONSE_SIZE_LIMIT, 10) + 100000); // Default: 4MB + 100KB = 4.1MB
+  // Set the session variable
+  if (!payload.context.skills) {
+    payload.context.skills = {};
+  }
+  if (!payload.context.skills['actions skill']) {
+    payload.context.skills['actions skill'] = {};
+  }
+  if (!payload.context.skills['actions skill'].skill_variables) {
+    payload.context.skills['actions skill'].skill_variables = {};
+  }
+  payload.context.skills['actions skill'].skill_variables.pre_webhook_message = data;
 
   return res.json(req.body);
 }
