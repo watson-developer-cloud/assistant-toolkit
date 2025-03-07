@@ -21,8 +21,11 @@ function issueRefreshToken() {
 
 export function oauth2ProviderClientCredToken(req, res, next) {
   // Check the client_id and client_secret is correct
-  if (req.body.client_id !== process.env.OAUTH_CLIENT_ID || req.body.client_secret !== process.env.OAUTH_CLIENT_SECRET) {
-    return res.status(401).send('invalid or missing client credentials')
+  if (req.body.client_id !== process.env.OAUTH_CLIENT_ID) {
+    return res.status(401).send('invalid or missing client_id')
+  }
+  if (req.body.client_secret !== process.env.OAUTH_CLIENT_SECRET) {
+    return res.status(401).send('invalid or missing client_secret')
   }
 
   // Identify the grant_type
