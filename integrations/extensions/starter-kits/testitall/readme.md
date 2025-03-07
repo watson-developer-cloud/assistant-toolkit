@@ -149,8 +149,8 @@ passed to the Watson Assistant.
 - Header prefix: `Bearer` (default)
 
 #### Custom API Key
-
-- Custom API key secret (for custom_apikey grant type): `"WA_CUSTOM_APIKEY_SECRET"`
+- Custom API key id: `"WA_CUSTOM_APIKEY_ID"`
+- Custom API key secret: `"WA_CUSTOM_APIKEY_SECRET"`
 - Client authentication: `Send as Body` (default)
 - Header prefix: `Bearer` (default)
 

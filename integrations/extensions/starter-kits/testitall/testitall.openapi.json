@@ -84,6 +84,7 @@
             "refreshUrl": "/oauth2-provider/custom-apikey/token",
             "grantType": "custom_apikey",
             "secretKeys": [
+              "apikey_id",
               "apikey_secret"
             ],
             "scopes": {
