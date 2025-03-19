@@ -131,6 +131,12 @@ passed to the Watson Assistant.
 - Client secret: `"WA_CLIENT_SECRET"`
 - Client authentication: `Send as Body` (default)
 - Header prefix: `Bearer` (default)
+- Scope: (any string)
+
+> For webhook auth only:
+
+- Authorizing server URL: `https://myserver.com:4000/oauth2-provider/auth-code/authorize`
+- Token / Refresh token URL: `https://myserver.com:4000/oauth2-provider/auth-code/token`
 
 #### Client Credentials
 
@@ -138,6 +144,11 @@ passed to the Watson Assistant.
 - Client secret: `"WA_CLIENT_SECRET"`
 - Client authentication: `Send as Body` (default)
 - Header prefix: `Bearer` (default)
+- Scope: (any string)
+
+> For webhook auth only:
+
+- Token / Refresh token URL: `https://myserver.com:4000/oauth2-provider/client-cred/token`
 
 #### Password
 
@@ -147,12 +158,23 @@ passed to the Watson Assistant.
 - Password: `"WA_PASSWORD"`
 - Client authentication: `Send as Body` (default)
 - Header prefix: `Bearer` (default)
+- Scope: (any string)
+
+> For webhook auth only:
+
+- Token / Refresh token URL: `https://myserver.com:4000/oauth2-provider/password/token`
 
 #### Custom API Key
-- Custom API key id: `"WA_CUSTOM_APIKEY_ID"`
-- Custom API key secret: `"WA_CUSTOM_APIKEY_SECRET"`
+- Custom API key id (secret name: `apikey_id`): `"WA_CUSTOM_APIKEY_ID"`
+- Custom API key secret (secret name: `apikey_secret`): `"WA_CUSTOM_APIKEY_SECRET"`
 - Client authentication: `Send as Body` (default)
 - Header prefix: `Bearer` (default)
+- Scope: (any string)
+
+> For webhook auth only:
+
+- Custom grant type name: `custom_apikey`
+- Token / Refresh token URL: `https://myserver.com:4000/oauth2-provider/custom-apikey/token`
 
 ## Assistant Pre/Post message Webhook Configuration
 
