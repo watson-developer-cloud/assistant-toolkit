@@ -24,7 +24,7 @@ function issueRefreshToken() {
 export function oauth2ProviderAuthCodeAuthorize(req, res, next) {
   // Check response_type is correct
   if (req.query.response_type !== 'code') {
-    return res.status(401).send('invalid or missing response_type')
+    return res.status(401).send('invalid or missing response_type, should be "code"')
   }
 
   // Check the client_id is correct

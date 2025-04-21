@@ -28,8 +28,11 @@ export function oauth2ProviderPasswordToken(req, res, next) {
   if (req.body.grant_type === 'password') {
     console.log('[password] AUTH FLOW BEGINS; body.grant_type:', req.body.grant_type);
     // Check the user_name and password is correct
-    if (req.body.username !== process.env.OAUTH_USERNAME || req.body.password !== process.env.OAUTH_PASSWORD) {
-      return res.status(401).send('invalid or missing username or password')
+    if (req.body.username !== process.env.OAUTH_USERNAME) {
+      return res.status(401).send('invalid or missing username')
+    }
+    if (req.body.password !== process.env.OAUTH_PASSWORD) {
+      return res.status(401).send('invalid or missing password')
     }
 
     // Issue new access_token and refresh_token
@@ -47,7 +50,7 @@ export function oauth2ProviderPasswordToken(req, res, next) {
     console.log('[password] REFRESH FLOW BEGINS; body.grant_type:', req.body.grant_type)
     // Check the refresh_token is correct
     if (req.body.refresh_token !== refreshToken) {
-      return res.status(401).send('invalid refresh token or refresh token expired')
+      return res.status(401).send('invalid refresh token')
     }
 
     // Issue a new access_token
@@ -61,6 +64,6 @@ export function oauth2ProviderPasswordToken(req, res, next) {
     });
 
   } else {
-    return res.status(401).send('invalid or missing grant_type')
+    return res.status(401).send('invalid or missing grant_type, must be one of "password" or "refresh_token"')
   }
 }

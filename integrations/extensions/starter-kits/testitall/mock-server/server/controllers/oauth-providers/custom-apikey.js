@@ -24,18 +24,12 @@ export function oauth2ProviderCustomApikeyToken(req, res, next) {
   // Identify the grant_type
   if (req.body.grant_type === 'custom_apikey') {
     console.log('[custom apikey] AUTH FLOW BEGINS; body.grant_type:', req.body.grant_type);
-
-    // TODO
-    // Custom validation logic
-    // if (req.body.apikey_id !== API_KEY_ID || req.body.apikey_secret !== API_KEY_SECRET) {
-    //   return res.status(401).send('invalid or missing apikey credentials')
-    // }
-
-    // Only check the apikey_secret due to issue: https://github.ibm.com/watson-engagement-advisor/wea-backlog/issues/60227
-    if (req.body.apikey_secret !== process.env.OAUTH_CUSTOM_APIKEY_SECRET) {
-      return res.status(401).send('invalid or missing apikey credentials')
+    if (req.body.apikey_id !== process.env.OAUTH_CUSTOM_APIKEY_ID) {
+      return res.status(401).send('invalid or missing apikey_id')
     }
-
+    if (req.body.apikey_secret !== process.env.OAUTH_CUSTOM_APIKEY_SECRET) {
+      return res.status(401).send('invalid or missing apikey_secret')
+    }
 
     // Issue new access_token and refresh_token
     const accessToken = issueAccessToken()

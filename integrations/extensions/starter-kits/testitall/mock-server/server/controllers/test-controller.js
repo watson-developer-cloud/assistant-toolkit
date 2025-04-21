@@ -1,3 +1,5 @@
+import { generateHighEntropyString } from '../utils.js';
+
 const LONG_MESSAGE = `This is a long message intended to demonstrate streaming large messages in smaller chunks. Breaking down messages into smaller parts helps simulate real-time data transmission over a network. This technique is particularly useful for streaming large files or continuous data streams like logs, chat messages, or live updates. By sending small chunks, we ensure the data is processed and displayed incrementally, providing a smoother and more responsive user experience. Each chunk represents a portion of the entire message, and they are sent sequentially with a slight delay to mimic real-world streaming scenarios. This example uses a delay of 100 milliseconds between each chunk to achieve this effect.`;
 
 // HTTP Methods
@@ -68,6 +70,50 @@ export async function streamTest(req, res) {
   // Handle client disconnect
   req.on('close', () => {
     clearInterval(intervalId);
+    res.end();
+  });
+}
+
+export function streamJsonTest(req, res) {
+  // Set the headers for the event stream
+  res.writeHead(200, {
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
+    'Content-Encoding' : 'none',
+    'X-Accel-Buffering' : 'no'
+  });
+  res.flushHeaders();
+
+  const messagePieces = LONG_MESSAGE.match(/.{1,20}/g); // Split the message into chunks of 20 characters
+
+  // send the message chunks with a delay of 100 milliseconds
+  let pieceIndex = 0;
+  const intervalId = setInterval(() => {
+    if (pieceIndex < messagePieces.length) {
+      let chunk = {
+        results: [{
+          generated_text: `${messagePieces[pieceIndex]}`
+        }]
+      }
+      res.write(`data: ${JSON.stringify(chunk)}\n\n`);
+      pieceIndex++;
+    } else {
+      clearInterval(intervalId);
+      // Send the last chunk with a long message
+      let chunk = {
+        results: [{
+          generated_text: "\n\n [End of stream]",
+          docs: [LONG_MESSAGE.repeat(1000)]
+        }]
+      }
+      res.write(`data: ${JSON.stringify(chunk)}\n\n`);
+      res.end();
+    }
+  }, 100);
+
+  // Handle client disconnect
+  req.on('close', () => {
     res.end();
   });
 }
@@ -154,21 +200,17 @@ export function errorTest(req, res) {
   });
 }
 
-
-export function contextTooLargeTest(req, res) {
-  const fakeData = 'x'.repeat(parseInt(process.env.RESPONSE_SIZE_LIMIT, 10) * 5); // Default: 100KB * 5 = 650KB
+export function responseTooLargeTest(req, res) {
   const response = {
-    data: fakeData
+    data: generateHighEntropyString(parseInt(process.env.RESPONSE_SIZE_LIMIT, 10) * 5) // Default: 100KB * 5 = 650KB
   }
 
   return res.status(200).send(response);
 }
 
 export function contextAlmostTooLargeTest(req, res) {
-  const fakeData = 'x'.repeat(parseInt(process.env.RESPONSE_SIZE_LIMIT, 10) - 1024); // Default: 100KB - 1KB = 99KB
-
   const response = {
-    data: fakeData
+    data: generateHighEntropyString(parseInt(process.env.SESSION_SIZE_LIMIT, 10) / 2) // Default: 130KB / 2 = 65KB
   }
 
   return res.status(200).send(response);
