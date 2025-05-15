@@ -4,7 +4,7 @@ import * as crypto from "node:crypto";
 // Authorization codes storage (code -> expireTime)
 const authCodes = new Map();
 export const accessTokensAuthCode = new Map();
-const refreshToken = 'auth-code-refresh-token';
+let refreshToken = 'auth-code-refresh-token';
 
 function issueAccessToken() {
   // Issue a new access_token
@@ -17,7 +17,7 @@ function issueAccessToken() {
 }
 
 function issueRefreshToken() {
-  // To make this demo simpler, we always return the same refresh_token
+  refreshToken = crypto.randomUUID().toString();
   return refreshToken
 }
 
@@ -110,7 +110,7 @@ export function oauth2ProviderAuthCodeToken(req, res, next) {
     return res.status(200).send({
       access_token: accessToken,
       refresh_token: refreshToken,
-      expires_in: parseInt(process.env.OAUTH_ACCESS_TOKEN_EXPIRES, 10)
+      // expires_in: parseInt(process.env.OAUTH_ACCESS_TOKEN_EXPIRES, 10)
     });
 
   } else if (req.body.grant_type === 'refresh_token') {
@@ -127,7 +127,7 @@ export function oauth2ProviderAuthCodeToken(req, res, next) {
     return res.status(200).send({
       access_token: accessToken,
       refresh_token: req.body.refresh_token,
-      expires_in: parseInt(process.env.OAUTH_ACCESS_TOKEN_EXPIRES, 10)
+      // expires_in: parseInt(process.env.OAUTH_ACCESS_TOKEN_EXPIRES, 10)
     });
   } else {
     return res.status(401).send('invalid or missing grant_type')
