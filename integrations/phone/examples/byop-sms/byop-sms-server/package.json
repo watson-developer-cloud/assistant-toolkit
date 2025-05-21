@@ -1,0 +1,25 @@
+{
+  "name": "byop-sms-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "aguri@us.ibm.com",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "axios": "^1.9.0",
+    "body-parser": "^2.2.0",
+    "dotenv": "16.4.7",
+    "express": "4.21.2",
+    "save-dev": "^0.0.1-security",
+    "ts-node": "10.9.2"
+  },
+  "devDependencies": {
+    "@types/express": "5.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "5.7.2"
+  }
+}
