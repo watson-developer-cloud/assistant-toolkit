@@ -3,8 +3,8 @@
   "type": "action",
   "valid": true,
   "status": "Available",
-  "created": "2024-06-21T14:17:07.728Z",
-  "updated": "2024-07-11T17:16:52.580Z",
+  "created": "2024-10-10T08:10:42.574Z",
+  "updated": "2024-10-15T11:44:57.580Z",
   "language": "en",
   "skill_id": "fb7c641b-64b5-42cf-b57f-95f4b2d8c1d4",
   "workspace": {
@@ -788,9 +788,9 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "a0c4bc7edb01c8ff165651f82ee8f51064aae76f6a5f399126ad8e14dfe2469a",
-                  "match_scenario": 5,
-                  "catalog_item_id": "0aaa8850-fc91-41e5-81a1-ccd139799bb3"
+                  "spec_hash_id": "3408d5415323ca392bb94b1fdfd03f6259f0ff1e35a65e5750e2740ba2908435",
+                  "match_scenario": 10,
+                  "catalog_item_id": "1ed41f7c-8373-4a95-af6b-21498918cdf0"
                 },
                 "request_mapping": {
                   "body": [
@@ -829,6 +829,18 @@
                         "skill_variable": "model_parameters_min_new_tokens"
                       },
                       "parameter": "parameters.min_new_tokens"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_parameters_stop_sequences"
+                      },
+                      "parameter": "parameters.stop_sequences"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_parameters_repetition_penalty"
+                      },
+                      "parameter": "parameters.repetition_penalty"
                     }
                   ],
                   "query": [
@@ -991,9 +1003,9 @@
                 "type": "integration_interaction",
                 "method": "POST",
                 "internal": {
-                  "spec_hash_id": "a0c4bc7edb01c8ff165651f82ee8f51064aae76f6a5f399126ad8e14dfe2469a",
-                  "match_scenario": 5,
-                  "catalog_item_id": "0aaa8850-fc91-41e5-81a1-ccd139799bb3"
+                  "spec_hash_id": "5c85784df236387770379b6901bb0de4c0bd69368a0950a675f8e507c38196de",
+                  "match_scenario": 10,
+                  "catalog_item_id": "1ed41f7c-8373-4a95-af6b-21498918cdf0"
                 },
                 "request_mapping": {
                   "body": [
@@ -1017,6 +1029,12 @@
                     },
                     {
                       "value": {
+                        "skill_variable": "model_parameters_temperature"
+                      },
+                      "parameter": "parameters.temperature"
+                    },
+                    {
+                      "value": {
                         "skill_variable": "model_parameters_max_new_tokens"
                       },
                       "parameter": "parameters.max_new_tokens"
@@ -1029,9 +1047,15 @@
                     },
                     {
                       "value": {
-                        "skill_variable": "model_parameters_temperature"
+                        "skill_variable": "model_parameters_stop_sequences"
                       },
-                      "parameter": "parameters.temperature"
+                      "parameter": "parameters.stop_sequences"
+                    },
+                    {
+                      "value": {
+                        "skill_variable": "model_parameters_repetition_penalty"
+                      },
+                      "parameter": "parameters.repetition_penalty"
                     }
                   ],
                   "query": [
@@ -1140,6 +1164,223 @@
               "enabled": false
             },
             "variable": "step_817_result_2",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_3200-4",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true,
+          "never_return": false
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "type": "standard",
+        "steps": [
+          {
+            "step": "step_931",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "What is your Prompt?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "question": {
+              "free_text": true
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_931",
+            "next_step": "step_817"
+          },
+          {
+            "step": "step_817",
+            "output": {
+              "generic": []
+            },
+            "context": {
+              "variables": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/ml/v1/deployments/{deployment-id}/text/generation",
+                "type": "integration_interaction",
+                "method": "POST",
+                "internal": {
+                  "spec_hash_id": "08f952f1e1a902a59aea69ad2b9df9a2e2d31b83fd62d1aefa68caab41fb4f5e",
+                  "match_scenario": 10,
+                  "catalog_item_id": "1ed41f7c-8373-4a95-af6b-21498918cdf0"
+                },
+                "request_mapping": {
+                  "body": [
+                    {
+                      "value": {
+                        "expression": "{\"input\":\"${step_931}\"}"
+                      },
+                      "parameter": "parameters.prompt_variables"
+                    }
+                  ],
+                  "path": [
+                    {
+                      "value": {
+                        "scalar": "testing_prompt_deployment"
+                      },
+                      "parameter": "deployment-id"
+                    }
+                  ],
+                  "query": [
+                    {
+                      "value": {
+                        "skill_variable": "watsonx_api_version"
+                      },
+                      "parameter": "version"
+                    }
+                  ]
+                },
+                "result_variable": "step_817_result_2"
+              }
+            },
+            "variable": "step_817",
+            "next_step": "step_606"
+          },
+          {
+            "step": "step_606",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": ""
+                          },
+                          {
+                            "skill_variable": "model_response"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "${step_817_result_2.body.results}[0].generated_text"
+                  },
+                  "skill_variable": "model_response"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_606",
+            "condition": {
+              "and": [
+                {
+                  "eq": [
+                    {
+                      "variable": "step_817_result_2",
+                      "variable_path": "success"
+                    },
+                    {
+                      "scalar": true
+                    }
+                  ]
+                },
+                {
+                  "expression": "${step_817_result_2.body.results}.size() > 0"
+                }
+              ]
+            },
+            "next_step": "step_212"
+          },
+          {
+            "step": "step_212",
+            "output": {
+              "generic": []
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "null"
+                  },
+                  "skill_variable": "model_response"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_212"
+          }
+        ],
+        "title": "Invoke watsonx Deployed Prompt API",
+        "action": "action_3200-4",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_3200_intent_45093-4"
+        },
+        "variables": [
+          {
+            "title": "",
+            "variable": "step_212",
+            "data_type": "any"
+          },
+          {
+            "title": "{variable}",
+            "variable": "step_606",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_817",
+            "data_type": "any"
+          },
+          {
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_817_result_2",
+            "data_type": "any"
+          },
+          {
+            "title": "What is your Prompt?",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_931",
             "data_type": "any"
           }
         ],
@@ -1708,6 +1949,14 @@
         "examples": []
       },
       {
+        "intent": "action_3200_intent_45093-4",
+        "examples": [
+          {
+            "text": "Invoke watsonx Deployed Prompt API"
+          }
+        ]
+      },
+      {
         "intent": "fallback_connect_to_agent",
         "examples": [
           {
@@ -1783,7 +2032,7 @@
     "metadata": {
       "api_version": {
         "major_version": "v2",
-        "minor_version": "2021-11-27"
+        "minor_version": "2018-11-08"
       }
     },
     "variables": [
@@ -1983,9 +2232,9 @@
     "learning_opt_out": true
   },
   "description": "created for assistant 05c10d7d-336f-4d33-8cb3-5c53520d61ce",
-  "assistant_id": "577b3f36-98da-454c-becb-88970e3bec89",
-  "workspace_id": "fb7c641b-64b5-42cf-b57f-95f4b2d8c1d4",
+  "assistant_id": "0401c2c3-3bde-4465-8ac1-d77e093c000c",
+  "workspace_id": "c9ed31a7-e240-433d-bc69-74c42c2b6fd2",
   "dialog_settings": {},
   "next_snapshot_version": "1",
-  "environment_id": "782f075c-8d40-4396-95ca-70fb6b11a544"
+  "environment_id": "7a0b7575-6b2c-42c7-83de-c7fd1cfa0be5"
 }

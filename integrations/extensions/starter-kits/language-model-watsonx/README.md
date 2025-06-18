@@ -13,14 +13,17 @@ The watsonx specification in the starter kit describes one endpoint and a few of
 | Endpoint   | Description                                                                                                                                                                  |
 | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Generation | Used with watsonx text completion models such as `google/flan-ul2` and `google/flan-t5-xxl`. You provide text as a prompt, and it returns the text that follows that prompt. |
+| Generation from a deployed prompt | Used with a deployed watsonx prompt. You provide the prompt deployment ID, and the prompt variables.
 
 ## Prerequisites
 
-### Create an API key and a project ID
+### Create an API key, project ID, and prompt deployment
 
 1. Log in to [watsonx](https://dataplatform.cloud.ibm.com/wx/home?context=wx&apps=cos&nocache=true&onboarding=true&quick_start_target=watsonx) and [generate an API key](https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/ml-authentication.html?context=cpdaas). Save this API key somewhere safe and accessible. You need this API key to set up the watsonx custom extension later.
 1. To find your watsonx project id, go to [watsonx.ai](https://dataplatform.test.cloud.ibm.com/wx) and find Projects/<project-name> (this could be your `sandbox`, which is created for you by default). Click on the <project-name> link, then follow the Project's Manage tab (Project -> Manage -> General -> Details) to find the project id. 
 1. You may need to associate your  WML instance with your project (In your watsonx go to the project -> Manage tab -> Services & Integrations -> Associate service), without this you may get an error - "projectID is not associated with a WML instance"
+
+1. [Create your prompt](https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/fm-prompt-lab.html?context=wx&audience=wdp#creating-and-running-a-prompt) in Prompt Lab. Create the [prompt variables](https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/fm-prompt-variables.html?context=wx&audience=wdp#creating-prompt-variables) you need. Once your prompt is saved, [deploy your prompt](https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/prompt-template-deploy.html?context=wx) and note your deployment ID.
 
 ### Create an assistant
 
@@ -66,6 +69,7 @@ The starter kit includes [a JSON file with sample actions](./watsonx-actions.jso
 | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Invoke watsonx Generation API | Connects to watson.ai with the selected model and the model input |
 | Invoke watsonx Generation Stream API | Connects to watsonx.ai with the selected model and model input and streams the response back to the user. |
+| Invoke watsonx Deployed Prompt API | Connects to the deployed prompt using the specified deployment ID and prompt variables. |
 | Test model                    | Simple test action that asks what model, length, temperature, prompt you want, asks if you want to stream the response and then calls "Invoke watsonx Generation API" or "Invoke watsonx Generation Stream API" based on if streaming was required so the model can generate a response to the specified prompt. |
 | No Action Matches | This is created by watsonx Assistant, but for this starter kit it is configured to trigger the "Invoke watsonx Generation Stream API" as a sub-action using the defaults and the user input. |
 
@@ -96,6 +100,19 @@ These are the session variables used in this example.
 Here is an example of how to use the `Test model` action:
 
 <img src="./assets/sample.png" width="300"/>
+
+<br>
+
+Here is an example of how to use the `Invoke watsonx Deployed Prompt API` action:
+
+1. Set the `deployment-id`.
+2. For `parameters.prompt_variables`:
+   - Use the expression: `{ "input": "1. What is your Prompt ", "name": "<your_next_prompt_variable_value>" }`
+   - Replace the key-value pairs with the appropriate variables from your deployed prompt.
+
+This setup allows you to use a deployed watsonx prompt with any number of prompt variables, passing the user's input as a variable to generate a response for example.
+
+<img src="./assets/deployed_prompt_example.png" width="800"/>
 
 ### Limitations
 
