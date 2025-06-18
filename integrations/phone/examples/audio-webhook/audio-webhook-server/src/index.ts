@@ -130,7 +130,7 @@ app.post('/audiowebhook', verifyToken, upload.single('audio_recording'), async f
         await cosClient
           .putObject({
             Bucket: process.env.COS_BUCKET!,
-            Key: req.file.originalname,
+            Key: decodeURIComponent(req.file.originalname),
             Body: req.file.buffer,
             Metadata: JSON.parse(metadata),
           })
