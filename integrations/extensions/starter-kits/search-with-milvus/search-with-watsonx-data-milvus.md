@@ -23,7 +23,19 @@ This document explains how to set up a search integration with the Milvus servic
 ## Step 1: Collect Milvus connection info
 ### Get the credentials
 #### Username
-The default username is `ibmlhapikey` for the Milvus service on watsonx.data
+Note: The default Milvus username `ibmlhapikey` has been deprecated since watsonx.data 2.2.0 and will be removed in 2.2.2.
+
+The new username for Milvus service has this format: `ibmlhapikey_<your watsonx.data username>`. For example,
+
+| watsonx.data username | Milvus username |
+| -- | -- |
+| `abc@ibm.com` | `ibmlhapikey_abc@ibm.com` |
+| `serviceid-abcdef-123456` | `ibmlhapikey_serviceid-abcdef-123456` |
+
+If you don't know your watsonx.data username, here are the steps to find it on your watsonx.data console:
+1. Go to the `Infrastructure manager` page.
+2. Click on your Milvus service to open the service `Details` page.
+3. Go to the `Access control` tab, and your will see the watsonx.data usernames in the first column of the table.
 
 #### Password
 IBM API key is used as the password for the Milvus service on watsonx.data. There are two options to get the API key to access watsonx.data:
