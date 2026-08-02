@@ -16,7 +16,10 @@ app.use(bodyParser.json());
 
 // routes and api calls
 
-const bluepointsSkill = await createBluepointsSkill('en'); 
+// NOTE: the skill is built per request, not once at module load. `Skill` holds
+// `slotsInFlight`, and its `Slot` objects are mutated during orchestration (e.g.
+// `slotInFlight.setError`). A single shared instance leaks that mutated state into
+// every later turn -- across sessions and across users.
 
 /**
  * This function lists the skills available by your provider. It will be called by the Assistant UI when selecting skills to create a code-based action.
@@ -97,15 +100,60 @@ function getSkill(req,res,next) {
 }
 
 /**
+ * Restores slot visibility and entity schemas that earlier turns produced.
+ *
+ * Because the skill is rebuilt per request, anything a previous turn did to a Slot
+ * object (`show()`, `schema = ...`) is gone. watsonx round-trips `state` back to us
+ * on every turn, so that is where such decisions have to live. This mirrors what the
+ * Java SDK already does in SkillOrchestrator.initializeSlotHandlers, via the same
+ * `visible_slots` and `<slot>_schema` keys.
+ */
+function rehydrateSlots(skill, state) {
+  const localVars = state?.local_variables || {};
+
+  for (const slotName of localVars.visible_slots || []) {
+    const slot = skill.slotsInFlight?.find(slotName);
+    if (!slot) continue;
+    slot.show();
+    const schema = localVars[`${slotName}_schema`];
+    if (schema) slot.schema = schema;
+  }
+}
+
+/**
+ * Persists the inverse of rehydrateSlots, so the next turn can restore it.
+ */
+function persistSlots(skillResponse) {
+  const slots = skillResponse.output?.generic?.find(item => item.response_type === 'slots')?.slots;
+  if (!slots || !skillResponse.state) return;
+
+  skillResponse.state.local_variables ??= {};
+  skillResponse.state.local_variables.visible_slots = slots.map(slot => slot.name);
+  for (const slot of slots) {
+    if (slot.schema) skillResponse.state.local_variables[`${slot.name}_schema`] = slot.schema;
+  }
+}
+
+/**
  * This function implements the runtime contract between watsonx Assistant and the Provider
  * It follows the OAS specification /orchestrate Operation. See https://github.com/watson-developer-cloud/assistant-toolkit/blob/master/conversational-skills/procode-endpoints.md#oas
  * @param req - This is an express request. The `body` property adheres to the schema defined in the OAS specification `OrchestrationRequest` component
  * @param res - This is an express response. The json returned should adhere to the schema defined in the OAS specification `OrchestrationResponse` component
- * @param next 
+ * @param next
  */
 async function orchestrate(req,res,next) {
-  const skillResponse = await bluepointsSkill.orchestrate({input:req.body.input,context:req.body.context, slots:req.body.slots, state: req.body.state, confirmation_event: req.body.confirmation_event});
-  res.json(skillResponse);
+  try {
+    const bluepointsSkill = await createBluepointsSkill(req.body.context?.global?.language || 'en');
+    rehydrateSlots(bluepointsSkill, req.body.state);
+    const skillResponse = await bluepointsSkill.orchestrate({input:req.body.input,context:req.body.context, slots:req.body.slots, state: req.body.state, confirmation_event: req.body.confirmation_event});
+    persistSlots(skillResponse);
+    res.json(skillResponse);
+  } catch (error) {
+    // Without this, a throw inside the skill becomes an unhandled rejection and
+    // takes the whole process down -- killing every other user's session too.
+    console.error('orchestrate failed:', error);
+    res.status(500).json({error: error.message});
+  }
 }
 
 
