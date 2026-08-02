@@ -36,7 +36,7 @@ export class LanguageManager {
 
         // Try to dynamically import the language bundle
         try {
-            const bundle = (await import(`${this.basePath}/${scenario}/${lang}.json`, { assert: { type: 'json' } })).default;
+            const bundle = (await import(`${this.basePath}/${scenario}/${lang}.json`, { with: { type: 'json' } })).default;
 
             // Cache the loaded bundle
             if (!this.cache[scenario]) {
@@ -50,7 +50,10 @@ export class LanguageManager {
             if (lang !== 'en') {
                 return this.loadLanguageBundle(scenario, 'en');
             }
-            throw new Error(`Language bundle not found for scenario: ${scenario}, language: ${lang}`);
+            // Keep the original error as the cause. Anything can land here -- a syntax
+            // error in the JSON, an unsupported import attribute -- and reporting all of
+            // them as "not found" sends you looking for a file that is right there.
+            throw new Error(`Language bundle not found for scenario: ${scenario}, language: ${lang}`, { cause: error });
         }
     }
 
